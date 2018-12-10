@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>hexo+git搭建个人博客 | Zero_Blog</title>
+  <title>hexo+Git搭建个人博客 | Zero_Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="使用hexo+git搭建免费的个人博客完整教程">
 <meta name="keywords" content="hexo,git,Blog">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo+git搭建个人博客">
+<meta property="og:title" content="hexo+Git搭建个人博客">
 <meta property="og:url" content="http://yoursite.com/2018/12/04/hexo-git搭建个人博客/index.html">
 <meta property="og:site_name" content="Zero_Blog">
 <meta property="og:description" content="使用hexo+git搭建免费的个人博客完整教程">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-05T09:01:59.124Z">
+<meta property="og:updated_time" content="2018-12-10T02:09:57.523Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo+git搭建个人博客">
+<meta name="twitter:title" content="hexo+Git搭建个人博客">
 <meta name="twitter:description" content="使用hexo+git搭建免费的个人博客完整教程">
   
     <link rel="alternative" href="/atom.xml" title="Zero_Blog" type="application/atom+xml">
@@ -162,7 +162,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      hexo+git搭建个人博客
+      hexo+Git搭建个人博客
     </h1>
   
 
@@ -183,13 +183,28 @@
 <li>安装了<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git for windows</a> (或其他git客户端工具)</li>
 </ul>
 <a id="more"></a>
-<h2 id="2-创建仓库"><a href="#2-创建仓库" class="headerlink" title="2.创建仓库"></a>2.创建仓库</h2><p>新建一个名为 用户名.github.io的仓库.比如说,如果你的github用户名是test<br>那么你就新建test.github.io的仓库(必须是你的用户名,其他的无效)<br>然后你的网站访问地址就是<a href="http://test.github.io" target="_blank" rel="noopener">http://test.github.io</a> 了<br>注意几个地方:</p>
-<ul>
+<h2 id="2-创建仓库"><a href="#2-创建仓库" class="headerlink" title="2.创建仓库"></a>2.创建仓库</h2><ul>
+<li>新建一个名为 用户名.github.io的仓库.比如说,如果你的github用户名是test</li>
+<li>那么你就新建test.github.io的仓库(必须是你的用户名,其他的无效)</li>
+<li>然后你的网站访问地址就是<a href="http://test.github.io" target="_blank" rel="noopener">http://test.github.io</a> 了<br>注意几个地方:<ul>
 <li>注册的邮箱一定要验证,否则不会成功</li>
 <li>仓库名字必须是:username.github.io,其中username就是你的用户名</li>
 <li>仓库创建成功不会立即生效,需要过一段时间(等待github分配网站域名等)</li>
 </ul>
-<h2 id="3-绑定域名"><a href="#3-绑定域名" class="headerlink" title="3.绑定域名"></a>3.绑定域名</h2><p>域名配置最常见有2种方式,CNAME和A记录,CNAME填写域名,A记录填写IP<br>由于不带WWW方式只能采用A记录,所以先ping一下username.github.io的IP<br>然后到你的域名DNS设置页,将A记录指向你ping出来的IP,将CNAME指向:yourname.github.io<br>这样可以保证无论是否添加WWW都可以访问<br>例:<br>记录类型:A      主机记录:@   解析线路默认  记录值:IP<br>记录类型:CNAME  主机记录:www 解析线路默认  记录值:username.github.io<br>然后到你的github项目跟目录新建一个名为CNAME的文件(无后缀),里面填写你自定义的域名</p>
+</li>
+</ul>
+<h2 id="3-绑定域名"><a href="#3-绑定域名" class="headerlink" title="3.绑定域名"></a>3.绑定域名</h2><ul>
+<li>域名配置最常见有2种方式,CNAME和A记录,CNAME填写域名,A记录填写IP</li>
+<li>由于不带WWW方式只能采用A记录,所以先ping一下username.github.io的IP</li>
+<li>然后到你的域名DNS设置页,将A记录指向你ping出来的IP,将CNAME指向:yourname.github.io</li>
+<li>这样可以保证无论是否添加WWW都可以访问</li>
+<li>例:<ul>
+<li>记录类型:A      主机记录:@   解析线路默认  记录值:IP</li>
+<li>记录类型:CNAME  主机记录:www 解析线路默认  记录值:username.github.io</li>
+</ul>
+</li>
+<li>然后到你的github项目跟目录新建一个名为CNAME的文件(无后缀),里面填写你自定义的域名</li>
+</ul>
 <h2 id="4-配置SSH-key"><a href="#4-配置SSH-key" class="headerlink" title="4.配置SSH key"></a>4.配置SSH key</h2><p>提交代码需要github权限才可以,这里使用ssh key来解决本地和服务器的连接问题<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~/.ssh <span class="comment"># 检查本机已存在的ssh秘钥</span></span><br></pre></td></tr></table></figure></p>
 <p>如果提示:”No such file or directory”说明你是第一次使用git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">'your email@example.com'</span></span><br></pre></td></tr></table></figure></p>
 <p>一般情况下直接默认值就行,所以不用设置密码,一路回车就行<br>最终会在.ssh目录下生成两个文件,id_rsa和id_rsa.pub,这两个就是SSH Key的密钥对id_rsa是私钥,不能泄露!<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa.pub</span><br></pre></td></tr></table></figure></p>
@@ -201,27 +216,31 @@
 </ol>
 <p>如果提示”Are you sure you want to continum connecting (yes/no)?” 输入yes,就会看到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi zero6996! You&apos;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></p>
 <p>说明SSH配置成功!<br>此时你还需要配置:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">'zero6996'</span> <span class="comment">#你的github用户名</span></span><br><span class="line">$ git config --global user.email <span class="string">'youremail@xx.com'</span> <span class="comment">#你的github注册email</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="5-hexo简介"><a href="#5-hexo简介" class="headerlink" title="5.hexo简介"></a>5.hexo简介</h2><p>Hexo是一个简单,快速,强大的基于GitHub Pages的博客发布工具,支持Markdown格式,有众多优秀的插件和主题</p>
-<p><a href="http://hexo.io" target="_blank" rel="noopener">官网</a><br><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">Github</a></p>
+<h2 id="5-hexo简介"><a href="#5-hexo简介" class="headerlink" title="5.hexo简介"></a>5.hexo简介</h2><p>Hexo是一个简单,快速,强大的基于GitHub Pages的博客发布工具,支持Markdown格式,有众多优秀的插件和主题<br><a href="http://hexo.io" target="_blank" rel="noopener">官网</a><br><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">Github</a></p>
 <h3 id="5-1-安装注意事项"><a href="#5-1-安装注意事项" class="headerlink" title="5.1.安装注意事项"></a>5.1.安装注意事项</h3><ol>
 <li>很多命令既可以用Windows的cmd来完成,也可以使用git bash来完成,但是部分命令会有一些问题,为避免不必要的问题,这里统一使用git bash来执行</li>
 <li>hexo不同版本差别较大,网上很文章的配置信息都是基于2.x的,所以注意不要被误导</li>
-<li>hexo有两种”_config.yml”文件,一个是跟目录下的全局的”_config.yml”,一个是各个”theme”下的</li>
+<li>hexo有两种”_config.yml” 文件,一个是跟目录下的全局的”_config.yml” , 一个是各个”theme” 下的</li>
+<li>安装完node和npm以后,将npm替换为<a href="https://npm.taobao.org/" target="_blank" rel="noopener">淘宝镜像</a>,执行以下命令即可将,后续命令全部以cnpm执行<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h3 id="5-2-安装"><a href="#5-2-安装" class="headerlink" title="5.2.安装"></a>5.2.安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-安装"><a href="#5-2-安装" class="headerlink" title="5.2.安装"></a>5.2.安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install -g hexo</span><br></pre></td></tr></table></figure>
 <h3 id="5-3-初始化"><a href="#5-3-初始化" class="headerlink" title="5.3.初始化"></a>5.3.初始化</h3><p>在本地新建一个名为hexo的文件夹(名字任意取),这里作为一个你存放代码的地方,比如我是D:\hexo<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /d/hexo <span class="comment"># 进入文件夹</span></span><br><span class="line">$ hexo init <span class="comment"># 初始化</span></span><br></pre></td></tr></table></figure></p>
 <p>hexo会自动下载一些文件到这个目录,包括node_modules,目录结构<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">_config.yml  node_modules/  package-lock.json  scaffolds/  themes/</span><br><span class="line">db.json      package.json   public/   <span class="built_in">source</span>/</span><br><span class="line">$ hexo g <span class="comment"># 生成</span></span><br><span class="line">$ hexo s <span class="comment"># 启动服务</span></span><br></pre></td></tr></table></figure></p>
-<p>执行上述命令之后,hexo就会在public文件夹生成相关html文件,这些文件后续会提交到github上去<br>“hexo s”是开启本地预览服务,打开浏览器访问<a href="http://localhost:4000" target="_blank" rel="noopener">localhost:4000</a>即可看到博客内容.如果无显示内容或拒绝访问,就是端口占用的问题,重新开启服务,使用”hexo s -p 8888”指定端口</p>
+<ul>
+<li>执行上述命令之后,hexo就会在public文件夹生成相关html文件,这些文件后续会提交到github上去</li>
+<li>“hexo s”是开启本地预览服务,打开浏览器访问<a href="http://localhost:4000" target="_blank" rel="noopener">localhost:4000</a>即可看到博客内容.</li>
+<li>如果无显示内容或拒绝访问,就是端口占用的问题,重新开启服务,使用”hexo s -p 8888”指定端口</li>
+</ul>
 <h3 id="5-4-修改主题"><a href="#5-4-修改主题" class="headerlink" title="5.4.修改主题"></a>5.4.修改主题</h3><p>hexo社区有丰富的主题可选,从<a href="https://hexo.io/themes/" target="_blank" rel="noopener">官网主题</a>自己挑选下载</p>
 <p>下载主题(以<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">hexo-theme-yilia</a>为例):<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /d/hexo/</span><br><span class="line">$ git <span class="built_in">clone</span> git@github.com:litten/hexo-theme-yilia.git themes/yilia <span class="comment"># 从github克隆主题,到本地的themes/yilia文件夹</span></span><br></pre></td></tr></table></figure></p>
 <p>下载的主题都在hexo/themes文件夹内<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes</span><br><span class="line">$ ls</span><br><span class="line">landscape/  yilia/</span><br></pre></td></tr></table></figure></p>
-<p>修改”_config.yml”中的”theme: landscape”改为”theme: yilia”,然后重新执行”hexo g”来生成页面</p>
-<p>如果出现一些莫名其妙的问题,可以先执行”hexo clean”来清理一下public的内容,然后再来重新生成和发布</p>
+<p>修改”_config.yml”中的”theme: landscape”改为”theme: yilia”,然后重新执行”hexo g”来生成页面<br>如果出现一些莫名其妙的问题,可以先执行”hexo clean”来清理一下public的内容,然后再来重新生成和发布</p>
 <h3 id="5-5-上传之前"><a href="#5-5-上传之前" class="headerlink" title="5.5.上传之前"></a>5.5.上传之前</h3><p>上传代码到github之前,记得备份以前的所有代码,因为hexo提交代码时会把你以前的所有代码都删除</p>
 <h3 id="5-6-上传到Github"><a href="#5-6-上传到Github" class="headerlink" title="5.6.上传到Github"></a>5.6.上传到Github</h3><p>如果你一切都配置好了,发布上传只需要”hexo d”就可以了,当然关键是所有东西都配置好<br>首先,”ssh key”肯定要配置好<br>其次,配置”_config.yml”中有关deploy的部分:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#正确写法</span><br><span class="line">deploy:</span><br><span class="line">   type: git</span><br><span class="line">   repository: git@github.com:zero6996/zero6996.github.io.git</span><br><span class="line">   branch: master</span><br></pre></td></tr></table></figure>
 <p>如果报如下错误:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Deployer not found: github 或者 Deployer not found: git</span><br></pre></td></tr></table></figure></p>
-<p>原因是还需安装一个插件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
+<p>原因是还需安装一个插件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
 <p>安装无误,输入github账户密码,输入”hexo d”就会将本次有改动的代码全部提交,没有改动的不会</p>
 <h3 id="5-7-常用hexo命令"><a href="#5-7-常用hexo命令" class="headerlink" title="5.7.常用hexo命令"></a>5.7.常用hexo命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo new &apos;postName&apos; # 新建文章</span><br><span class="line">hexo new page &apos;pageName&apos; # 新建页面</span><br><span class="line">hexo generate # 生成静态页面至public目录</span><br><span class="line">hexo server # 开启预览访问端口(默认4000,使用-p可更换端口)</span><br><span class="line">hexo deploy # 部署至Github</span><br><span class="line">hexo help # 查看帮助</span><br><span class="line">hexo version # 查看版本</span><br></pre></td></tr></table></figure>
 <p>以上命令均可缩写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure></p>
@@ -230,10 +249,12 @@
 <h2 id="6-写博客"><a href="#6-写博客" class="headerlink" title="6.写博客"></a>6.写博客</h2><p>进入hexo根目录,执行命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &apos;my-first-blog&apos;</span><br></pre></td></tr></table></figure></p>
 <p>hexo会帮我们在_posts下生成相关的md文件,我们只需要打开这个文件就可以开始写博客了</p>
 <p>一般完整格式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: postName # 文章页面上的显示名称,一般是中文</span><br><span class="line">date: 2018-12-5 15:46:10 # 文章生成时间,一般不用改,也可自定义</span><br><span class="line">categories: 默认分类 # 分类</span><br><span class="line">tags: [tag1,tag2,tag3] # 文章标签,可空,多标签请用格式</span><br><span class="line">description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">以下是正文内容</span><br></pre></td></tr></table></figure></p>
-<p>hexo new page ‘my-second-blog’生成的是:index.md,它不会作为文章出现在博客目录</p>
-<h3 id="6-1-写博客工具"><a href="#6-1-写博客工具" class="headerlink" title="6.1.写博客工具"></a>6.1.写博客工具</h3><p>   个人使用的是<code>Visual Studio Code</code>IDE</p>
-<h3 id="6-2-如何让博文列表不显示全部内容"><a href="#6-2-如何让博文列表不显示全部内容" class="headerlink" title="6.2.如何让博文列表不显示全部内容"></a>6.2.如何让博文列表不显示全部内容</h3><p>默认情况下,生成的博文目录会显示全部文章内容,如何设置文章摘要长度呢?</p>
-<p>可以在合适的位置加上<code>&lt;!--more--&gt;</code>即可,显示在页面上的效果就是新增了一个<code>more&gt;&gt;</code>功能选项,查看更多内容</p>
+<p>hexo new page ‘my-second-blog’ 生成的是:index.md,它不会作为文章出现在博客目录</p>
+<h3 id="6-1-写博客工具"><a href="#6-1-写博客工具" class="headerlink" title="6.1.写博客工具"></a>6.1.写博客工具</h3><p>   个人使用的是<figure class="highlight plain"><figcaption><span>Studio Code```IDE</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">### 6.2.如何让博文列表不显示全部内容</span><br><span class="line">默认情况下,生成的博文目录会显示全部文章内容,如何设置文章摘要长度呢?</span><br><span class="line"></span><br><span class="line">可以在合适的位置加上```&lt;!--more--&gt;```即可,显示在页面上的效果就是新增了一个```more&gt;&gt;```功能选项,查看更多内容</span><br><span class="line">### 7.关于缺失模块</span><br><span class="line">缺失模块</span><br><span class="line">1. 请确保node版本大于6.2</span><br><span class="line">2. 在博客根目录（注意不是yilia根目录）执行以下命令:</span><br><span class="line">```bash</span><br><span class="line"> cnpm i hexo-generator-json-content --save</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>在根目录_config.yml里添加配置：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">jsonContent:</span><br><span class="line">    meta: <span class="literal">false</span></span><br><span class="line">    pages: <span class="literal">false</span></span><br><span class="line">    posts:</span><br><span class="line">      title: <span class="literal">true</span></span><br><span class="line">      date: <span class="literal">true</span></span><br><span class="line">      path: <span class="literal">true</span></span><br><span class="line">      text: <span class="literal">false</span></span><br><span class="line">      raw: <span class="literal">false</span></span><br><span class="line">      content: <span class="literal">false</span></span><br><span class="line">      slug: <span class="literal">false</span></span><br><span class="line">      updated: <span class="literal">false</span></span><br><span class="line">      comments: <span class="literal">false</span></span><br><span class="line">      link: <span class="literal">false</span></span><br><span class="line">      permalink: <span class="literal">false</span></span><br><span class="line">      excerpt: <span class="literal">false</span></span><br><span class="line">      categories: <span class="literal">false</span></span><br><span class="line">      tags: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 <h2 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h2><p>   <a href="http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="noopener">以上内容整理参考自文章</a></p>
 
       
@@ -356,16 +377,6 @@
 </article>
 
   
-<nav id="article-nav">
-  
-  
-    <a href="/2018/12/03/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
