@@ -6,3 +6,4 @@ tags: [技能点]
 ---
 
 ## Python
+    测试hexo是否成功部署到github
