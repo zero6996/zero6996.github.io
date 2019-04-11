@@ -17,7 +17,7 @@ description: 该文章记录了Java简介,开发环境搭建,基础知识等
 - 配置环境变量
 
 [下载Eclipse](https://www.eclipse.org/downloads/)
-## 学习基本语法
+
 
 <!--more-->
 ### 基础语法
