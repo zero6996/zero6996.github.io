@@ -7,13 +7,18 @@ description: 该文章记录了Java简介,开发环境搭建,基础知识等
 ---
 
 ## Java简介
+
 [参考Runoob](https://www.runoob.com/java/java-intro.html)
+
 ## 搭建开发环境
+
 [下载JDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
 - 配置环境变量
 
 [下载Eclipse](https://www.eclipse.org/downloads/)
 ## 学习基本语法
+
 <!--more-->
 ### 基础语法
 编写Java程序时,需注意以下几点:
@@ -217,4 +222,3 @@ public class Puppy {
 ```
 import java.io.*;
 ```
-## 初步了解核心技术
