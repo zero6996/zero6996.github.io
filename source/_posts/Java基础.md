@@ -1,20 +1,9 @@
 ---
 title: Java基础
-<<<<<<< HEAD
 date: 2019-4-9 22:14
 categories: Java # 分类
 tags: [Java,Java环境搭建]
 description: 该文章记录了Java简介,开发环境搭建等内容
----
-
-#### Java简介
-[参考Runoob](https://www.runoob.com/java/java-intro.html)
-#### 搭建开发环境
-=======
-date: 2019-4-9 16:00
-categories: Java # 分类
-tags: [Java,Java环境搭建,基础语法]
-description: 该文章记录了Java简介,开发环境搭建,基础知识等
 ---
 
 ## Java简介
@@ -22,27 +11,15 @@ description: 该文章记录了Java简介,开发环境搭建,基础知识等
 [参考Runoob](https://www.runoob.com/java/java-intro.html)
 
 ## 搭建开发环境
-<<<<<<< HEAD
 
-=======
->>>>>>> ca71c3adc62e3ab3b926b85279eb655f489724d2
->>>>>>> acb97f29916bca3b3e058dec17b39b70f77f8fe5
 [下载JDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 - 配置环境变量
 
 [下载Eclipse](https://www.eclipse.org/downloads/)
-<<<<<<< HEAD
 
-
-=======
-<<<<<<< HEAD
-#### 学习基本语法
-#### 熟悉基础知识
-#### 初步了解核心技术
-=======
 ## 学习基本语法
->>>>>>> acb97f29916bca3b3e058dec17b39b70f77f8fe5
+
 <!--more-->
 ### 基础语法
 编写Java程序时,需注意以下几点:
