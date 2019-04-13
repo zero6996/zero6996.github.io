@@ -1,8 +1,8 @@
 ---
 title: Java修饰符
 date: 2019-4-12 16:00
-categories: Java # 分类
-tags: [Java,Java修饰符]
+categories: Java学习笔记 # 分类
+tags: [Java]
 description: 该文章记录了Java语言的修饰符,以及相关使用方式
 ---
 

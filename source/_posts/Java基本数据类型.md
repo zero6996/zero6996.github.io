@@ -1,8 +1,8 @@
 ---
 title: Java基本数据类型
 date: 2019-4-11 14:00
-categories: Java 
-tags: [Java,Java数据类型]
+categories: Java学习笔记
+tags: [Java]
 description: 该文章记录了Java基本数据类型,以及相关的应用
 ---
 
@@ -14,8 +14,9 @@ description: 该文章记录了Java基本数据类型,以及相关的应用
 - 引用数据类型
 
 <!--more-->
+
 ### 内置数据类型
-Java语言提供了八种基本类型. 六种数字类型(四个整数型,两个浮点型), 一种字符类型,还有一种布尔型.
+Java语言提供了四类八种基本类型. 整数类型、浮点类型、字符类型、布尔类型。
 ##### byte
 - byte数据类型是8位,有符号的,以二进制补码表示的整数;
 - 最小值是-128(-2^7), 最大值是127(2^7-1), 默认值为0;
@@ -61,6 +62,22 @@ Java语言提供了八种基本类型. 六种数字类型(四个整数型,两个
 - 最小值是\u0000(即为0),最大值是\uffff(即为65535);
 - char数据类型可以存储任何字符;
 - 例子:char letter = 'A'
+![title](https://i.loli.net/2019/04/13/5cb143c1690a8.png)
+
+#### 变量定义的格式包括三个要素：数据类型、变量名、数据值
+```
+//数据类型 变量名 = 数据值;
+//例子：
+byte b = 100；
+short s = 1000;
+int i = 5;
+long l = 10000000000L;
+float f = 5.5F;
+double d = 8.5;
+boolean bool = true;
+char c = 'A';
+```
+
 #### 实例
 ```
 public class PrimitiveType {
@@ -124,7 +141,14 @@ public class PrimitiveType {
 - 一个引用变量可以用来引用任何与之兼容的类型
 - 例子: Site site = new Site('Java')
 ### Java常量
-常量在程序运行时是不能被修改的.<br>在Java中使用final关键字来修饰常量,声明方式和变量类似:
+常量是指在Java程序中固定不变的数据。以下是常量的分类：
+1. 字符串常量：凡是用双引号引起来的部分，叫做字符串常量。例如："abc", "Hello","123"
+2. 字符常量：凡是用单引号引起来的单个字符，就是字符常量。例如：'A','b','9','中'
+3. 整数常量：直接写上的数字，没有小数点。例如：100,123,200,0，-1
+4. 浮点数常量：直接写上数字，有小数点的。例如：2.5，-3.14,0.0
+5. 布尔常量：只有量中取值。true，false。
+6. 空常量：null。代表没有任何数据。
+<br>在Java中使用final关键字来修饰常量,声明方式和变量类似:
 ```
 final double PI = 3.1415927;
 ```
@@ -151,20 +175,8 @@ char a = "\u0001";
 String a = "\u0001";
 ```
 Java支持的转义字符序列
-| 符号 | 字符含义 |
-| :---: | :---: |
-| \n | 换号(0x0a) |
-| \r | 回车(0x0d) |
-| \f | 换页符(0x0c) |
-| \b | 退格(0x08) |
-| \0 | 空字符(0x20) |
-| \s | 字符串 |
-| \t | 制表符 | 
-| \" | 双引号 |
-| \' | 单引号 |
-| \\ | 反斜杠 |
-| \ddd | 八进制字符(ddd) |
-| \uxxxx | 16进制Unicode字符(xxxx) |
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/13/%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6-1555166092669.png)
+
 ### 自动类型转换
 整型,实型(常量),字符型数据可以混合运算.运算中,不同类型的数据先转化为同一类型,然后进行运算.<br>转换从低级到高级
 ```
@@ -186,8 +198,10 @@ byte b = (byte)i;
 (int)23.7 == 23;
 (int)-45.89f == -45;
 ```
-#### 自动类型转换
-必须满足转换前的数据类型的位数要低于转换后的数据类型,例如 short数据类型的位数为16位,就可以自动转换位数为32的int类型,同样float数据类型的位数为32位,可以自动转换为64位的double类型.
+#### 自动类型转换（隐式）
+必须满足转换前的数据类型的位数要低于转换后的数据类型,例如 short数据类型的位数为16位,就可以自动转换位数为32的int类型,同样float数据类型的位数为32位,可以自动转换为64位的double类型。
+- 特点：代码不需要进行特殊处理，自动完成
+- 规则：数据范围从小到大。
 ```
 public class AutoSwitch{
     public static viod main(String[] args){
@@ -204,10 +218,15 @@ public class AutoSwitch{
 //char类型和int计算后的值为 = 66
 //解析:c1的值为字符a,查ASCII码表的对应的int类型值为97,A对应值为65,故i2=65+1=66
 ```
-#### 强制类型转换
-1. 条件:转换的数据类型必须是兼容的
-2. 格式:(type)value   type是要强制类型转换后的数据类型,实例:
+#### 强制类型转换（显式）
+将取值范围大的类型强制转换成取值范围小的类型
+- 转换格式：数据类型 变量名 = （数据类型）被强转的数据值；
+
 ```
+//实例
+//double类型强制转换为int类型，直接去掉小数点
+int i = (int)1.5;
+
 public class QiangZhiZhuanHuan{
     public static viod main(String[] args){
 	int i1 = 123;
@@ -218,6 +237,21 @@ public class QiangZhiZhuanHuan{
 //运行结果:
 int强制类型转换为byte后的值等于123
 ```
+Tips：
+1. 浮点转成整数，直接取消小数点，可能会造成数据损失精度。
+2. int强制转成short砍掉2个字节，可能会造成数据溢出，导致数据丢失。  
+3. byte/short/char这三种类型都可以发生数学运算，例如加法“+”。
+4. byte/short/char这三种类型在运算时，都会首先自动被提升成为int类型，然后再计算。
+5. boolean类型不能发生任何数据类型转换
 #### 隐含强制类型转换
 1. 整数的默认类型是int
 2. 浮点型不存在这种情况,因为在定义float类型时必须在数字后面跟上F或者f
+
+### ASCII编码表
+ASCII码表：American Standard Code for Information Interchange，美国信息交换标准码。
+Unicode码表：万国码。也是数学和符号的对照关系，开头0-127部分和ASCII完全一样，但从128开始包含更多的字符。
+![ASCII](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/13/ASCII-1555165974301.png)
+只需特殊记住三个字符，分别是
+- '0'=48
+- 'A'=65
+- 'a'=97

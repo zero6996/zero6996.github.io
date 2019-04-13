@@ -223,7 +223,3 @@ public class Puppy {
 ```
 import java.io.*;
 ```
-<<<<<<< HEAD
-## 初步了解核心技术
-=======
->>>>>>> 672f6f4ceafcccc918ad30c2ed6d7ad2ba7b7ec3
