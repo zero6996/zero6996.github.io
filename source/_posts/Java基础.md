@@ -1,17 +1,6 @@
 ---
 title: Java基础
-<<<<<<< HEAD
-date: 2019-4-9 22:14
-categories: Java # 分类
-tags: [Java,Java环境搭建]
-description: 该文章记录了Java简介,开发环境搭建等内容
----
-
-#### Java简介
-[参考Runoob](https://www.runoob.com/java/java-intro.html)
-#### 搭建开发环境
-=======
-date: 2019-4-9 16:00
+date: 2019-4-10 22:00
 categories: Java # 分类
 tags: [Java,Java环境搭建,基础语法]
 description: 该文章记录了Java简介,开发环境搭建,基础知识等
@@ -20,16 +9,9 @@ description: 该文章记录了Java简介,开发环境搭建,基础知识等
 ## Java简介
 [参考Runoob](https://www.runoob.com/java/java-intro.html)
 ## 搭建开发环境
->>>>>>> ca71c3adc62e3ab3b926b85279eb655f489724d2
 [下载JDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - 配置环境变量
-
-[下载Eclipse](https://www.eclipse.org/downloads/)
-<<<<<<< HEAD
-#### 学习基本语法
-#### 熟悉基础知识
-#### 初步了解核心技术
-=======
+<br>[下载Eclipse](https://www.eclipse.org/downloads/)
 ## 学习基本语法
 <!--more-->
 ### 基础语法
@@ -60,7 +42,7 @@ Java中主要有如下几种类型的变量
 ### Java数组
 数组是存储在堆上的对象,可以保存多个同类型变量
 ### Java枚举
-枚举限制变量只能是预先设定好的值. 使用枚举可以减少代码中的bug.
+枚举限制变量只能是预先设定好的值. 使用枚举可以减少代码中的bug.<br>
 例如:为果汁店设计一个程序,它将限制果汁为小杯,中杯,大杯. 这就意味着它不允许顾客点除了这三种尺寸外的果汁
 ```
 class FreshJuice {
@@ -97,10 +79,10 @@ public class HelloWorld {
 ### Java空行
 空白行或者有注释的行,Java编译器都会忽略掉
 ### 继承
-在Java中,一个类可以由其他类派生.如果你要创建一个类,而且已经存在一个类具有你所需的属性或者方法,那么你可以将新创建的类继承该类.
+在Java中,一个类可以由其他类派生.如果你要创建一个类,而且已经存在一个类具有你所需的属性或者方法,那么你可以将新创建的类继承该类.<br>
 利用继承的方法,可以重用已存在类的方法和属性,而不用重写这些代码. 被继承的类称为超类(super class),派生类称为子类(sub class)
 ### 接口
-在Java中,接口可以理解为对象间相互通信的协议.接口在继承中扮演者重要的角色
+在Java中,接口可以理解为对象间相互通信的协议.接口在继承中扮演者重要的角色<br>
 接口只定义派生要用到的方法,但是方法的具体实现完全取决于派生类
 ### Java源程序与编译型运行区别
 如图所示:
@@ -235,4 +217,3 @@ public class Puppy {
 import java.io.*;
 ```
 ## 初步了解核心技术
->>>>>>> ca71c3adc62e3ab3b926b85279eb655f489724d2
