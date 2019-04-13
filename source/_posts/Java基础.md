@@ -1,19 +1,26 @@
 ---
 title: Java基础
 date: 2019-4-10 22:00
-categories: Java # 分类
-tags: [Java,Java环境搭建,基础语法]
+categories: Java学习笔记 # 分类
+tags: [Java]
 description: 该文章记录了Java简介,开发环境搭建,基础知识等
 ---
 
 ## Java简介
+
 [参考Runoob](https://www.runoob.com/java/java-intro.html)
+
 ## 搭建开发环境
+- JVM(Java Virtual Machine):Java虚拟机，简称JVM，是运行所有Java程序的假想计算机，是Java程序的运行环境，是Java最具吸引力的特性之一。我们编写的Java代码，都是运行在Jvm之上。
+- 跨平台：任何软件的运行，都必须要运行在操作系统之上，而我们用Java编写的软件可以运行在任何的操作系统上，这个特性称为Java语言的跨平台性。该特性是由JVM实现的，我们编写的程序运行在JVM上，而JVM运行在操作系统上。
+- JRE（Java Runtime Environment）:是Java程序的运行时环境，包含JVM和运行时所需的核心类库。
+- JDK（Java Development Kit）:是Java程序开发工具包，包含JRE和开发人员使用工具。
+![title](https://i.loli.net/2019/04/13/5cb13efcda904.png)<br>
 [下载JDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
-- 配置环境变量
 <br>[下载Eclipse](https://www.eclipse.org/downloads/)
-## 学习基本语法
+
 <!--more-->
+
 ### 基础语法
 编写Java程序时,需注意以下几点:
 - 大小写敏感:Java是大小写敏感的,这就意味着标识符Hello与hello是不同的
@@ -216,4 +223,7 @@ public class Puppy {
 ```
 import java.io.*;
 ```
+<<<<<<< HEAD
 ## 初步了解核心技术
+=======
+>>>>>>> 672f6f4ceafcccc918ad30c2ed6d7ad2ba7b7ec3
