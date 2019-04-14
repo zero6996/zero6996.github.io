@@ -1,9 +1,9 @@
 ---
 title: Java基本数据类型
-date: 2019-4-11 14:00
-categories: Java学习笔记
+date: 2019-4-11 16:00
+categories: Java学习笔记 # 分类
 tags: [Java]
-description: 该文章记录了Java基本数据类型,以及相关的应用
+description: 该文章介绍了Java基本数据类型,引用数据类型,以及类型转换。
 ---
 
 ## 前言
@@ -16,12 +16,15 @@ description: 该文章记录了Java基本数据类型,以及相关的应用
 <!--more-->
 
 ### 内置数据类型
-Java语言提供了四类八种基本类型. 整数类型、浮点类型、字符类型、布尔类型。
+
+Java语言提供了四类八种基本类型。整数型,浮点型, 字符类型,布尔型。
+
 ##### byte
 - byte数据类型是8位,有符号的,以二进制补码表示的整数;
 - 最小值是-128(-2^7), 最大值是127(2^7-1), 默认值为0;
 - byte类型用在大型数组中节约空间,主要代替整数,因为byte变量占用的空间只有int类型的四分之一;
 - 例子:byte a = 100, byte b = -50;
+
 ##### short
 - short数据类型是16位,有符号的以二进制补码表示的整数;
 - 最小值是-32768(-2^15),最大值是32767(2^15-1), 默认值为0;
@@ -77,7 +80,6 @@ double d = 8.5;
 boolean bool = true;
 char c = 'A';
 ```
-
 #### 实例
 ```
 public class PrimitiveType {
@@ -148,7 +150,7 @@ public class PrimitiveType {
 4. 浮点数常量：直接写上数字，有小数点的。例如：2.5，-3.14,0.0
 5. 布尔常量：只有量中取值。true，false。
 6. 空常量：null。代表没有任何数据。
-<br>在Java中使用final关键字来修饰常量,声明方式和变量类似:
+在Java中使用final关键字来修饰常量,声明方式和变量类似:
 ```
 final double PI = 3.1415927;
 ```
@@ -175,9 +177,8 @@ char a = "\u0001";
 String a = "\u0001";
 ```
 Java支持的转义字符序列
-![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/13/%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6-1555166092669.png)
 
-### 自动类型转换
+### 自动类型转换（显式）
 整型,实型(常量),字符型数据可以混合运算.运算中,不同类型的数据先转化为同一类型,然后进行运算.<br>转换从低级到高级
 ```
 低------------------------------------->高
@@ -198,10 +199,11 @@ byte b = (byte)i;
 (int)23.7 == 23;
 (int)-45.89f == -45;
 ```
-#### 自动类型转换（隐式）
-必须满足转换前的数据类型的位数要低于转换后的数据类型,例如 short数据类型的位数为16位,就可以自动转换位数为32的int类型,同样float数据类型的位数为32位,可以自动转换为64位的double类型。
+#### 自动类型转换(隐式)
+必须满足转换前的数据类型的位数要低于转换后的数据类型,例如 short数据类型的位数为16位,就可以自动转换位数为32的int类型,同样float数据类型的位数为32位,可以自动转换为64位的double类型.<br>
 - 特点：代码不需要进行特殊处理，自动完成
 - 规则：数据范围从小到大。
+
 ```
 public class AutoSwitch{
     public static viod main(String[] args){
@@ -218,19 +220,17 @@ public class AutoSwitch{
 //char类型和int计算后的值为 = 66
 //解析:c1的值为字符a,查ASCII码表的对应的int类型值为97,A对应值为65,故i2=65+1=66
 ```
-#### 强制类型转换（显式）
+#### 强制类型转换(显式)
 将取值范围大的类型强制转换成取值范围小的类型
 - 转换格式：数据类型 变量名 = （数据类型）被强转的数据值；
 
 ```
-//实例
 //double类型强制转换为int类型，直接去掉小数点
 int i = (int)1.5;
-
 public class QiangZhiZhuanHuan{
     public static viod main(String[] args){
-	int i1 = 123;
-	byte b = (byte)i1; //强制类型转换为byte
+	int i1 = 123; //
+	byte b = (byte)i1; //int类型强制类型转换为byte
 	System.out.println("int强制类型转换为byte后的值为:" + b);
     }
 }
@@ -243,14 +243,38 @@ Tips：
 3. byte/short/char这三种类型都可以发生数学运算，例如加法“+”。
 4. byte/short/char这三种类型在运算时，都会首先自动被提升成为int类型，然后再计算。
 5. boolean类型不能发生任何数据类型转换
-#### 隐含强制类型转换
+#### 强制类型转换(隐式)
 1. 整数的默认类型是int
 2. 浮点型不存在这种情况,因为在定义float类型时必须在数字后面跟上F或者f
+对于byte/short/char三种类型来说，如果右侧赋值的数值没有超过范围，那么javac编译器将会自动隐式地为我们补上一个(byte)(short)(char)。
+- 如果没有超过左侧的范围，编译器补上强转。
+- 如果右侧超过了左侧的范围，编译报错。
+```
+public class Notice{
+    public static void main(String[] args){
+	//右侧确实是一个int数字，但没有超过左侧的范围，故自动隐式强转不会报错。
+	//int --> byte 高位到低位，不是自动类型转换
+	byte num1 = 30; // 右侧没有超过左侧范围
+	System.out.println(num1);
+	
+	//byte num2 = 128; // 右侧超过了左侧范围
 
+	// int --> char 只要右侧没超出范围，编译器会自动补上一个隐含的(char)，进行自动隐式强转。
+	char strings = /*(char)*/ 65；
+	System.out.println(strings)
+	
+    }
+}
+```
+
+#### 编译器的常量优化
+在给变量进行赋值时，如果右侧表达式当中全部是常量，没有任何变量，那么编译器javac将会直接将若干个常量表达式计算得到结果。<br>short result = 5+8；//等号右边全部是常量，没有任何变量参与运算，编译之后，得到的.class字节码文件当中相当于==直接就是==：short result = 13;<br>右侧的常量结果数值，没有超过左侧范围，所以正确。<br>这称为“编译器的常量优化”
+
+但是注意：一旦表达式当中有变量参与，那么就不能进行这种优化了。
 ### ASCII编码表
 ASCII码表：American Standard Code for Information Interchange，美国信息交换标准码。
 Unicode码表：万国码。也是数学和符号的对照关系，开头0-127部分和ASCII完全一样，但从128开始包含更多的字符。
-![ASCII](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/13/ASCII-1555165974301.png)
+![title](https://i.loli.net/2019/04/13/5cb190886bf51.jpg)
 只需特殊记住三个字符，分别是
 - '0'=48
 - 'A'=65

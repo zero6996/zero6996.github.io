@@ -1,8 +1,8 @@
 ---
 title: hexo+Git搭建个人博客 # 文章页面上的显示名称,一般是中文
 date: 2018-12-04 09:48:13 # 文章生成时间,可任意修改
-categories: 默认分类 # 分类
-tags: [hexo,git,Blog] # 文章标签,可空,多标签请用格式,注意:后面有空格
+categories: hexo # 分类
+tags: [hexo,Blog] # 文章标签,可空,多标签请用格式,注意:后面有空格
 description: 使用hexo+git搭建免费的个人博客完整教程 # 附加一段文章摘要,字数最好140字以内,会出现在meta的description里面
 ---
 ## 前言
@@ -224,5 +224,5 @@ jsonContent:
       categories: false
       tags: true
 ```
-## 参考自
+#### 参考自
    [以上内容整理参考自文章](http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html)
