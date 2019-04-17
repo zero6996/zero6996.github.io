@@ -3,7 +3,7 @@ title: Java修饰符
 date: 2019-4-15 17:00
 categories: Java学习笔记 # 分类
 tags: [Java]
-description: 该文章记录了Java IDEA开发工具的下载与使用
+description: 简单的介绍了Java IDEA开发工具的下载与使用
 ---
 
 
