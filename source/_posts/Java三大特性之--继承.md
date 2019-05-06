@@ -17,7 +17,7 @@ description: Java中的继承和抽象类相关内容
 
 ### 1.1 继承的格式
 通过extends关键字，可以声明一个子类继承另外一个父类，实例如下：
-```
+```java
 //定义父类
 public class Employee {
     String name;
@@ -44,7 +44,7 @@ public class Demo01Extends {
 ### 1.2 继承后的成员变量
 - 如果子类父类中成员变量未重名，访问没有影响。
 - 如果成员变量有重名的，访问会有影响，需要使用super关键字修饰父类成员变量。实例如下：
-```
+```java
 public class Demo02Super {
     public static void main(String[] args) {
         Zi z = new Zi();
@@ -75,7 +75,7 @@ class Zi extends Fu{
 
 #### 重写的应用
 子类可以根据需要，定义属于自己的行为。即沿袭了父类的功能名称，有根据子类需要重新实现父类方法，从而进行扩展。
-```
+```java
 // 父类
 public class Phone {
     public void call(){
@@ -132,7 +132,7 @@ this关键字三种用法：
 注意：
 A. this(...) 调用也必须是构造方法的第一个语句，且唯一一个。
 B. super和this两种构造调用，不能同时使用。
-```
+```java
 public class Zi extends Fu{
     int num = 20;
 
@@ -160,7 +160,7 @@ public class Zi extends Fu{
 ```
 super和this内存图
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/20/super%26this%E5%86%85%E5%AD%98%E5%9B%BE-1555741452451.png)
-#### 1.6 Java继承的三个特点
+### 1.6 Java继承的三个特点
 1. Java语言只支持单继承，一个类的直接父类只能有唯一个
 2. Java支持多层继承(继承体系)
 3. 子类和父类是一种相对的概念
@@ -177,7 +177,7 @@ super和this内存图
  - 代码示例：public abstract void run();
 ### 2.3 抽象类
 - 如果一个类包含抽象方法，那么该类必须是抽象类。
-```
+```java
 定义格式：
 abstract class 类名称{
 	...
@@ -192,7 +192,7 @@ public abstract class Animal{ // 抽象类
 2. 必须用一个子类来继承抽象父类。
 3. 子类必须覆盖重写抽象父类当中所有的抽象方法。覆盖重写(实现方法)：子类去掉抽象方法的abstract关键字，然后补上方法体大括号。
 4. 创建子类对象进行使用。
-```
+```java
 // 抽象类
 public abstract class Animal {
     public abstract void eat(); // 抽象方法
@@ -229,7 +229,7 @@ public class DemoMain {
 根据描述分析，得出如下继承体系：
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/20/%E5%8F%91%E7%BA%A2%E5%8C%85%E6%A1%88%E4%BE%8B%E7%BB%A7%E6%89%BF%E4%BD%93%E7%B3%BB-1555750639750.png)<br>
 代码实现：
-```
+```java
 // 定义父类Users
 public class Users {
     private String name;

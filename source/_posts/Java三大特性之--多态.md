@@ -21,7 +21,7 @@ description: Java中的多态的概念和接口
 #### 含有抽象方法
 - 抽象方法：使用abstract关键字修饰，可以省略，没有方法体。该方法供子类实现使用。
 代码如下：
-```
+```java
 public interface InterFaceName{
     public abstract void method();
 }
@@ -30,8 +30,9 @@ public interface InterFaceName{
 #### 含有默认方法和静态方法
 - 默认方法：使用default修饰，不可省略，供子类调用或者子类重写。
 - 静态方法：使用static修饰，供接口直接调用。
+
 代码如下：
-```
+```java
 public interface InterFaceName{
     public default void method(){
 	// 执行语句
@@ -44,8 +45,9 @@ public interface InterFaceName{
 
 #### 含有私有方法和私有静态方法
 - 私有方法：使用private修饰，供接口中的默认方法或者静态方法调用。
+
 代码如下：
-```
+```java
 public interface InterFaceName{
     private void method(){
     	// 执行语句
@@ -54,14 +56,16 @@ public interface InterFaceName{
 ```
 ### 1.3 基本的实现
 类与接口的关系为实现关系，即类实现接口，该类可以称为接口的实现类，也可以称为接口的子类。实现的动作类似继承，格式相似，只是关键字不同，实现使用implements关键字。
+
 非抽象子类实现接口：
 1. 必须重写接口中所有抽象方法。
 2. 继承了接口的默认方法，即可以直接调用，也可以重写。
 格式如下：<br>
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/21/%E6%8E%A5%E5%8F%A3%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F-1555826716777.png)
-<br>
+
+
 代码示例：
-```
+```java
 // 定义接口类
 public interface LiveAble {
     // 定义抽象方法
@@ -92,8 +96,10 @@ public class InterfaceDemo {
 
 #### 默认方法的使用
 可以继承，可以重写，但只能通过实现类的对象来调用。接口当中的默认方法，可以解决接口升级的问题。
-1. 实现类可以继承接口类的默认方法，也可以自己重写默认方法。代码示例如下：
-```
+1. 实现类可以继承接口类的默认方法，也可以自己重写默认方法。
+
+代码示例如下：
+```java
 // 定义接口类
 public interface LiveAble {
     // 定义抽象方法
@@ -122,8 +128,10 @@ public class InterfaceDemo {
 }
 ```
 #### 静态方法的使用
-静态与.class文件相关，只能使用接口名调用，不能通过实现类的类名或者实现类的对象调用，示例如下：
-```
+静态与.class文件相关，只能使用接口名调用，不能通过实现类的类名或者实现类的对象调用
+
+示例如下：
+```java
 // 接口类
 public interface LiveAble {
     public static void run(){
@@ -147,7 +155,7 @@ public class InterfaceDemo {
 - 私有方法：只有默认方法可以调用
 - 私有静态方法：默认方法和静态方法可以调用。
 如果一个接口中有多个默认方法且方法中有代码重复内容，那么可以抽取出来，封装到私有方法中，供默认方法去调用。私有方法是对默认方法和静态方法的辅助。
-```
+```java
 public interface LiveAble {
     default void func(){
 	func1();
@@ -207,7 +215,7 @@ public class MyIntfaceImpl implements MyInterfaceA,MyInterfaceB{
 
 ### 接口的多继承
 一个接口能继承另一个或者多个接口。接口的继承使用extends关键字，子接口继承父接口的方法。如果父接口中的默认方法有重名，那么子接口需要重写一次。
-```
+```java
 // 父接口A
 public interface MyInterfaceA {
     public abstract void methodA();
@@ -247,7 +255,7 @@ public interface MyInterface extends MyInterfaceA,MyInterfaceB{
 多态的体现格式：父类名称 对象名 = new 子类名称();
 代码中体现多态性，其实就是一句话：父类引用指向子类对象
 #### 成员变量在多态中的规则
-```
+```java
 // 父类
 public class Fu {
     int num = 10;
@@ -282,7 +290,7 @@ public class DemoMulti01 {
 
 #### 多态中成员方法的使用特点
 当使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有，则编译错误；如果有，执行的是子类重写后方法。
-```
+```java
 // 父类
 public class Fu {
     int num = 10;
@@ -355,7 +363,8 @@ public class Demo02MultiMethod {
 - 概述：父类类型向子类类型向下转换的过程，这个过程是强制的。一个已经向上转型的子类对象，将父类引用转为子类引用，可以使用强制类型转换的格式，便是向下转型。
 - 格式：子类名称 对象名 = (子类名称)父类对象；如 Cat cat = (Cat)a;
 - 含义：将父类对象，[还原]成为本来的子类对象。
-<br>
+
+
 注意事项：
 1. 必须保证对象本来创建的时候，就是猫，才能向下转型成为猫。
 2. 如果对象创建时本来就不是猫，现在非要向下转型为猫，会报错ClassCastException
@@ -364,7 +373,7 @@ public class Demo02MultiMethod {
 #### instanceof关键字
 为了避免ClassCastException的发生，Java提供了 instanceof 关键字，给引用变量做类型的校验。
 格式：变量名 instanceof 数据类型; 如果变量属于该数据类型，返回true，反之返回false。
-```
+```java
 // 父类
 public abstract class Animal {
     public abstract void eat();
@@ -412,16 +421,17 @@ public class MainMethod {
 }
 ```
 
-### 3. 接口多态的综合案例
+## 3. 接口多态的综合案例
 定义USB接口，具备最基本的开启功能和关闭功能。鼠标和键盘要想能在电脑上使用，那么鼠标和键盘也必须遵守USB规范，实现USB接口，否则鼠标和键盘的生产出来也无法使用。
-#### 3.1 案例分析
+### 3.1 案例分析
 进行描述笔记本类，实现笔记本使用USB鼠标、USB键盘
 - USB接口，包含开启功能、关闭功能
 - 笔记本类，包含运行功能、关机功能、使用USB设备功能
 - 鼠标类，要实现USB接口，并具备点击的方法
 - 键盘类，要实现USB接口，具备敲击的方法
+
 具体代码实现如下：
-```
+```java
 // 接口类
 public interface USB {
     public abstract void open(); // 打开设备

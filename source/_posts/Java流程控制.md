@@ -12,8 +12,8 @@ description: 记录了Java的所有流程控制语句及相关使用方法
 <!--more-->
 
 ### 1. if else 判断语句
-##### 1.1 if语句第一种格式：if
-```
+#### 1.1 if语句第一种格式：if
+```java
 if(关系表达式){
     语句体；
 }
@@ -23,8 +23,8 @@ if(关系表达式){
     - 如果是true就执行语句体
     - 如果是false就不执行语句体
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/if-1555208361145.png)
-##### 1.2 if语句第二种格式：if...else
-```
+#### 1.2 if语句第二种格式：if...else
+```java
 if(关系表达式){
     语句体1；
 }else{
@@ -36,7 +36,7 @@ if(关系表达式){
     - 如果是true就执行语句体1
     - 如果是false就执行语句体2
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/if_else-1555208575720.png)
-```
+```java
 public static void main(String[] args){
     // 判断给定的数据是奇数还是偶数
     // 定义变量
@@ -49,8 +49,9 @@ public static void main(String[] args){
     System.out.println("结束");
 }
 ```
-##### 1.3 if语句第三种格式：if...else if...else
-```
+#### 1.3 if语句第三种格式：if...else if...else
+
+```java
 if (判断条件1) {
     执行语句1;
 } else if (判断条件2) {
@@ -72,9 +73,9 @@ if (判断条件1) {
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/ifelseifelse-1555209112731.png)
 
 ### 2. switch选择语句
-##### 2.1 选择语句--switch
+#### 2.1 选择语句--switch
 - switch语句格式：
-```
+```java
 switch(表达式){
     case 常量值1：
         语句体1；
@@ -93,8 +94,9 @@ switch(表达式){
     - 其次，和case依次比较，一旦有对应的值，就会执行相应的语句，在执行的过程中，遇到break就会结束。
     - 最后，如果所有的case都和表达式的值不匹配，就会执行default语句体部分，然后程序结束。
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/switch-1555210158065.png)
+
 实例：
-```
+```java
 public class switch_exercise {
 	public static void main(String[] agrs) {
 		int weekday = 6;
@@ -134,14 +136,17 @@ switch语句使用的注意事项：
     - 基本数据类型：byte/short/char/int
     - 引用数据类型：String字符串、enum枚举
 3. switch语句格式可以很灵活：前后顺序可以颠倒，而且break语句还可以省略，但需要考虑case穿透性。<br>“匹配哪一个case就从哪一个位置向下执行，直到遇到break或者整体结束为止。”
-##### 2.2 case的穿透性
+
+
+#### 2.2 case的穿透性
 在switch语句中，如果case的后面不写break，将出现穿透现象，也就是不会在判断下一个case的值，直接向后运行，直到遇到break，或者整体switch结束。<br>故编写switch语句时，必须写上break。
+
 ### 3. for循环语句
-##### 3.1 循环概述
+#### 3.1 循环概述
 循环语句可以在满足循环条件的情况下，反复执行某一段代码，这段被重复执行的代码被称为循环体语句。当反复执行这个循环体时，需要在合适的时候把循环判断条件修改为false，从而结束循环，否则循环将一直执行下去，形成死循环。
-##### 3.2 循环语句--for
+#### 3.2 循环语句--for
 - for循环语句格式：
-```
+```java
 for（初始化表达式1；布尔表达式2；步进表达式4）{
 	循环体3；
 }
@@ -152,9 +157,11 @@ for（初始化表达式1；布尔表达式2；步进表达式4）{
     - 2负责判断是否满足循环条件，不满足则跳出循环
     - 3具体执行的语句
     - 4循环后，循环条件所涉及变量的变化情况
+
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/for-1555210990394.png)
+
 实例：
-```
+```java
 public class for_exercise {
 	public static void main(String[] args) {
 		int sum = 0;
@@ -169,7 +176,7 @@ public class for_exercise {
 ```
 ### 4. while循环语句
 - while循环语句格式：
-```
+```java
 初始化表达式1：
     while（布尔表达式2）{
 	循环体3；
@@ -182,9 +189,11 @@ public class for_exercise {
     - 2负责判断是否满足循环条件，不满足则跳出循环。
     - 3具体执行的语句。
     - 4循环后，循环变量的变化情况。
+
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/while-1555221264283.png)
+
 实例：
-```
+```java
 public class while_exercise {
 	public static void main(String[] agrs) {
 		int sum = 0;
@@ -199,7 +208,7 @@ public class while_exercise {
 ```
 ### 5. do while循环语句
 - do...while循环格式：
-```
+```java
 初始化表达式1
     do{
 	循环体3；
@@ -212,9 +221,11 @@ public class while_exercise {
     - 2负责判断是否满足循环条件，不满足则跳出循环。
     - 3具体执行的语句
     - 4循环后，循环变量的变化情况
+
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/do...while-1555221971998.png)
+
 实例：
-```
+```java
 public class do_while_exercise {
 	public static void main(String[] args) {
 		int i = 1;
@@ -236,20 +247,21 @@ Tips：do...while循环特点是会无条件执行一次循环体，即使我们
 
 ### 8. 跳出语句
 
-##### break
+#### break
 - 使用场景：终止switch或者循环
     - 在选择结构switch语句中
     - 在循环语句中
     - 离开使用场景的存在是没有意义的
 
-##### continue
+#### continue
 - 使用场景：结束本次循环，继续下一次循环
 
 ### 9.扩展知识点
-##### 9.1嵌套循环
+
+#### 9.1嵌套循环
 - 所谓嵌套循环，是指一个循环的循环体是另一个循环。比如for循环里面还有一个for循环，就是嵌套循环。总共的循环次数 = 外循环次数 * 内循环次数
 - 嵌套循环格式：
-```
+```java
 for(初始化表达式1；循环条件2；步进表达式7){
     for(初始化表达式3；循环条件4；步进表达式6){
 	执行语句5；

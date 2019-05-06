@@ -52,7 +52,7 @@ Java中用class描述事物也是如此：
 - 成员变量：和以前定义变量几乎是一样的。只不过位置发生了改变。在类中，方法外。
 - 成员方法：和以前定义方法几乎一样的。只不过把static去掉。<br>
 举例：
-```
+```java
 public class Student {
     //成员变量;
     String name; // 姓名
@@ -71,13 +71,14 @@ public class Student {
 ```
 
 ### 1.4 对象的使用
-##### 对象的使用格式
+#### 对象的使用格式
 - 使用步骤1，导包：也就是指出需要使用的类，在什么位置，同一包下可省略导包步骤。<br>import 包名称.类名称;<br>import com.zero.demo.demo03_Class.Student;
 - 步骤2，创建对象：类名 对象名 = new 类名();
 - 步骤3，使用对象访问类中成员:
-![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/17/%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E7%B1%BB%E4%B8%AD%E6%88%90%E5%91%98-1555470287058.png)<br>
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/17/%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E7%B1%BB%E4%B8%AD%E6%88%90%E5%91%98-1555470287058.png)
+
 举例：
-```
+```java
 public class Demo03Student {
     public static void main(String[] args){
         Student stu = new Student();
@@ -90,7 +91,7 @@ public class Demo03Student {
 }
 ```
 注意：如果成员变量没有进行赋值，那么将会有一个默认值，规则和数组一样。
-##### 成员变量的默认值
+#### 成员变量的默认值
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/17/%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E9%BB%98%E8%AE%A4%E5%80%BC-1555471157001.png)
 
 ### 1.5 对象内存图
@@ -105,13 +106,13 @@ public class Demo03Student {
 
 ### 1.6 成员变量和局部变量的区别
 变量根据定义位置的不同，变量有不同的名字
-- 在类中的位置不同【重点】
+- 在类中的位置不同*重点*
     - 成员变量：类中，方法外
     - 局部变量：方法中或者方法声明上(形参)
-- 作用范围不一样【重点】
+- 作用范围不一样*重点*
     - 成员变量：类中
     - 局部变量：方法中
-- 初始化值的不同【重点】
+- 初始化值的不同*重点*
     - 成员变量：有默认值
     - 局部变量：无默认值。必须先定义，赋值，才能使用。
 - 在内存中的位置不同(了解)
@@ -123,7 +124,7 @@ public class Demo03Student {
 ## 2. 三大特征之一：封装
 ### 2.1 封装概述
 面向对象编程语言是对象客观世界的模拟，客观世界里成员变量都是隐藏在对象内部的，外界无法直接操作和修改。<br>封装可以被认为是一个保护屏障，防止该类的代码和数据被其他类随意访问。要访问该类的数据，必须通过指定的方式。适当的封装可以让代码更容易理解与维护，也加强了代码的安全性。
-##### 原则
+#### 原则
 将属性隐藏起来，若需要访问某个属性，提供公共方法对其访问。
 ### 2.2 封装的步骤
 1. 使用private关键字来修饰成员变量。
@@ -134,10 +135,11 @@ public class Demo03Student {
 1. private是一个权限修饰符，代表最小权限。
 2. 可以修饰成员变量和成员方法。
 3. 被private修饰后的成员变量和成员方法，只能在本类中才能访问。
-##### private的使用格式
-![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/17/private%E4%BD%BF%E7%94%A8%E6%A0%BC%E5%BC%8F-1555489770741.png)<br>
+#### private的使用格式
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/17/private%E4%BD%BF%E7%94%A8%E6%A0%BC%E5%BC%8F-1555489770741.png)
+
 举例：
-```
+```java
 public class Student {
 private String name; // 使用private修饰成员变量
 private int age;
@@ -162,17 +164,19 @@ public class Student {
 ```
 ### 2.4 封装优化--this关键字
 如果方法形参和成员变量名一致，会导致成员变量赋值失败。 这是由于形参变量名与成员变量名重名，导致成员变量名被隐藏，方法中的变量名，无法访问到成员变量，从而赋值失败。我们需使用this关键字，来解决这个重名问题。
-##### this的含义
+#### this的含义
 this代表所在类的当前对象的引用(地址值)，即对象自己的引用。
-- 使用格式：this.成员变量名;<br>
+- 使用格式：this.成员变量名;
+
 举例:
+
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/17/this%E6%96%B9%E6%B3%95%E4%BC%98%E5%8C%96-1555491440061.png)
 ### 2.5 封装优化--构造方法
 当一个对象被创建时，构造方法用来初始化该对象，给对象的成员变量赋初始值。
-##### 构造方法的定义格式
+#### 构造方法的定义格式
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/17/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89%E6%A0%BC%E5%BC%8F-1555491533588.png)<br>
 构造方法的写法上，方法名与它所在的类名相同。它没有返回值，所以不需要返回值类型，也不需要void。举例如下：
-```
+```java
 public class Student {
     private String name;
     private int age;
@@ -198,7 +202,7 @@ JavaBean是Java语言编写类的一种标志规范。符合JavaBean的类，要
 2. 为每个成员变量编写一对getxxx/setxxx方法。
 3. 编写一个无参数的构造方法。
 4. 编写一个全参数的构造方法。
-```
+```java
 public class ClassName{
     //成员变量
     //构造方法
@@ -210,7 +214,7 @@ public class ClassName{
 }
 ```
 编写符合JavaBean规范的类，以学生类为例，标准代码如下：
-```
+```java
 public class JavaBeanStudent {
     private String name;
     private  int age;

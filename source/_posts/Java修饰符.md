@@ -24,7 +24,7 @@ Java中，可以使用==访问控制符==来保护对类、变量、方法和构
 #### 默认访问修饰符-不使用任何关键字
 使用默认访问修饰符声明的变量和方法，对同一包内的类是可见的。接口里的变量都隐式声明为public static final，而接口里的方法默认情况下访问权限为publi。
 如下例，变量和方法的声明可以不使用任何修饰符
-```
+```java
 String version = "3.0.3";
 boolean processOrder(){
     return true;
@@ -33,7 +33,7 @@ boolean processOrder(){
 
 #### 私有访问修饰符-private
 私有访问修饰符是最严格的访问级别，所以被声明为private的方法、变量和构造方法只能被所属类访问，并且类和接口不能声明为private。<br>声明为私有访问类型的变量只能通过类中公共的getter方法被外部类访问。<br>Private访问控制修饰符的使用主要用来隐藏类的实现细节和保护类的数据。<br>下面的类使用了私有访问控制符：
-```
+```java
 public class Logger{
     private String format;
     public String getFormat(){
@@ -49,7 +49,7 @@ public class Logger{
 #### 公有访问修饰符-public
 
 被声明为public的类、方法、构造方法和接口能够被任何其他类访问。<br>如果几个相互访问的public类分布在不同的包中，则需要导入相应public类所在包。由于类的继承性，类的所有公有方法和变量都能被其子类继承。<br>以下函数使用了公有访问控制：
-```
+```java
 public static void main(String[] args){
 	// ...
 }
@@ -62,7 +62,7 @@ protected需要从以下两个点来分析说明：
 - 子类与基类不在同一包中：那么在子类中，子类实例可以访问其从基类继承而来的protected方法，而不能访问基类实例的protected方法。
 protected可以修饰数据成员，构造方法，方法成员，不能修饰类(内部类除外)。<br>
 子类能访问protected修饰符声明的方法和变量，这样就能保护不相关的类使用这些方法和变量。<br>下面的父类使用了protected访问修饰符，子类重写了父类的openSpeaker()方法。
-```
+```java
 class AudioPlayer{
     protected boolean openSpeaker(Speaker sp){
 	//实现细节
@@ -98,7 +98,7 @@ class StreamingAudioPlayer extends AudioPlayer{
 - 静态方法：static关键字用来声明独立于对象的静态方法。静态方法不能使用类的非静态变量。静态方法从参数列表得到数据，然后计算这些数据。
 
 对类变量和方法的访问可以直接使用classname.variablename和classname.methodname方式访问。<br>如下示例，static修饰符用来创建类方法和类变量。
-```
+```java
 public class InstanceCounter {
    private static int numInstances = 0;
    protected static int getCount() {
@@ -129,7 +129,7 @@ Created 500 instances
 ```
 #### final修饰符
 final变量：final表示“最后的，最终的”意思，变量一旦赋值后，不能被重新赋值。被final修饰的实例变量必须显式指定初始值。final修饰符通常和static修饰符一起使用来创建类常量。
-```
+```java
 //实例
 public class Test{
   final int value = 10;
@@ -146,7 +146,7 @@ public class Test{
 - 类中的final方法可以被子类继承，但不能被子类修改。
 - 声明final方法的主要目的是防止该方法的内容被修改。
 如下所示，使用final修饰符声明方法。
-```
+```java
 public class Test{
     public final void changeName(){
 	//方法体
@@ -155,7 +155,7 @@ public class Test{
 ```
 ##### final类
 final类不能被继承，没有类能够继承final类的任何特性。
-```
+```java
 //实例
 public final class Test{
 	//类体
@@ -166,7 +166,7 @@ public final class Test{
 - 抽象类不能用来实例化对象，声明抽象类的唯一目的是为了对该类进行扩充。
 - 一个类不能同时被abstract和final修饰。如果一个类包含抽象方法，那么该类一定要声明为抽象类，否则将会编译错误。
 - 抽象类可以包含抽象方法和非抽象方法。
-```
+```java
 //实例
 abstract class Caravan{
    private double price;
@@ -184,7 +184,7 @@ abstract class Caravan{
 - 任何继承抽象类的子类必须实现父类的所有抽象方法，除非该子类也是抽象类。
 - 如果一个类包含若干个抽象方法，那么该类必须声明为抽象类，抽象类可以不包含抽象方法。
 抽象方法的声明以分号结尾，例如:public abstract sample();
-```
+```java
 //实例
 public abstract class SuperClass{
     abstract void m(); //抽象方法
@@ -200,22 +200,22 @@ class SubClass extends SuperClass{
 
 #### synchronized(同步)修饰符
 synchronized关键字声明的方法同一时间只能被一个线程访问。synchronized修饰符可以应用于四个访问修饰符。
-```
+```java
 //实例
 public synchronized void showDetails(){
-.......
+    .......
 }
 ```
 #### transient(瞬态)修饰符
 序列化的对象包含被transient修饰的实例变量时，java虚拟机（JVM）跳过该特定的变量。<br>该修饰符包含在定义变量的语句中，用来预处理类和变量的数据类型。
-```
+```java
 //实例
 public transient int limit = 55;   // 不会持久化
 public int b; // 持久化
 ```
 #### volatile（挥发性）修饰符
 volatile修饰的成员变量在每次被线程访问时，都强制从共享内存中重新读取该成员变量的值。而且当成员变量发生变化时，会强制线程将变量值回写到共享内存。这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。<br>一个volatile对象引用可能是null。
-```
+```java
 //实例
 public class MyRunnable implements Runnable
 {

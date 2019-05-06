@@ -51,7 +51,7 @@ Java中主要有如下几种类型的变量
 ### Java枚举
 枚举限制变量只能是预先设定好的值. 使用枚举可以减少代码中的bug.<br>
 例如:为果汁店设计一个程序,它将限制果汁为小杯,中杯,大杯. 这就意味着它不允许顾客点除了这三种尺寸外的果汁
-```
+```java
 class FreshJuice {
     enum FreshJuinceSize{ SMALL, MEDIUM, LARGE }
     FreshJuiceSize size;
@@ -70,7 +70,7 @@ public class FreshJuiceTest {
 [详见runoob Java关键字](https://www.runoob.com/java/java-basic-syntax.html)
 ### Java注释
 类似于C/C++, Java也支持单行以及多行注释.注释字符将被Java编译器忽略.
-```
+```java
 public class HelloWorld {
    /* 这是第一个Java程序
     *它将打印Hello World
@@ -119,7 +119,7 @@ Java作为一种面向对象语言,支持以下基本概念:
 ### Java中的类
 类可以看成是创建Java对象的模板,
 下面通过一个简单的类来理解下Java中类的定义:
-```
+```java
 public class Dog{
     String breed;
     int age;
@@ -139,7 +139,7 @@ public class Dog{
 一个类可以拥有多个方法,在上面的例子中:barking(),hungry(),sleeping()都是Dog类的方法
 ### 构造方法
 每个类都有构造方法. 如果没有显式地为类定义构造方法,Java编译器将会为该类提供一个默认构造方法<br>在创建一个对象时,至少要调用一个构造方法,构造方法的名称必须与类同名,一个类可以有多个构造方法.<br>下面是一个构造方法实例:
-```
+```java
 public class Puppy{
     public Puppy(){
 	}
@@ -154,7 +154,7 @@ public class Puppy{
 - 实例化:使用关键字new来创建一个对象
 - 初始化:使用new创建对象时,会调用构造方法初始化对象
 下面是一个创建对象的例子:
-```
+```java
 public class Puppy{
     public Puppy(String name){
 	//这个构造器仅有一个参数:name
@@ -168,7 +168,7 @@ public class Puppy{
 ```
 ### 访问实例变量和方法
 通过已创建的对象来访问成员变量和成员方法,如下所示:
-```
+```java
 /* 实例化对象 */
 Object referenceVariable = new Constructor();
 /* 访问类中的变量 */
@@ -178,7 +178,7 @@ referenceVariable.methodName();
 ```
 ### 实例
 下面的例子展示如何访问实例变量和调用成员方法:
-```
+```java
 public class Puppy {
 	int puppyAge;
 	public Puppy(String name) {
@@ -220,6 +220,6 @@ public class Puppy {
 包主要用来对类和接口进行分类,当开发Java程序时，可能编写成百上千的类，因此很有必要对类和接口进行分类。
 ### import语句
 在Java中,如果给出一个完整的限定名,包括包名,类名,那么Java编译器就可以很容易地定位到源代码或者类.import语句就是用来提供一个合理的路径,使得编译器可以找到某个类.<br>例如,下面的命令行将会命令编译器载入java_installation/java/io路径下的所有类.
-```
+```java
 import java.io.*;
 ```

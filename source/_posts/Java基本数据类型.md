@@ -68,7 +68,7 @@ Java语言提供了四类八种基本类型。整数型,浮点型, 字符类型,
 ![title](https://i.loli.net/2019/04/13/5cb143c1690a8.png)
 
 #### 变量定义的格式包括三个要素：数据类型、变量名、数据值
-```
+```java
 //数据类型 变量名 = 数据值;
 //例子：
 byte b = 100；
@@ -81,7 +81,7 @@ boolean bool = true;
 char c = 'A';
 ```
 #### 实例
-```
+```java
 public class PrimitiveType {
 	public static void main(String[] args) {
 		//byte
@@ -151,28 +151,28 @@ public class PrimitiveType {
 5. 布尔常量：只有量中取值。true，false。
 6. 空常量：null。代表没有任何数据。
 在Java中使用final关键字来修饰常量,声明方式和变量类似:
-```
+```java
 final double PI = 3.1415927;
 ```
 虽然常量名也可以用小写,但为了方便识别,通常使用大写字母表示常量.<br>字面量可以赋给任何内置类型的变量.例如:
-```
+```java
 byte a = 68;
 char a = 'A';
 ```
 byte,int,long和short都可以用十进制,16进制以及8进制的方式来表示.<br>当使用常量时,前缀0表示8进制,而前缀0x代办16进制,例如:
-```
+```java
 int decimal = 100;
 int octal = 0144;
 int hexa = 0x64;
 ```
 和其他语言一样,Java的字符串常量也是包含在两个引号之间的字符序列,例子:
-```
+```java
 "Hello World"
 "two\nlines"
 "\"This is in quotes\""
 ```
 字符串常量和字符常量都可以包含任何Unicode字符,例如:
-```
+```java
 char a = "\u0001";
 String a = "\u0001";
 ```
@@ -180,7 +180,7 @@ Java支持的转义字符序列
 
 ### 自动类型转换（显式）
 整型,实型(常量),字符型数据可以混合运算.运算中,不同类型的数据先转化为同一类型,然后进行运算.<br>转换从低级到高级
-```
+```java
 低------------------------------------->高
 byte,short,char--> int--> long--> float--> double
 ```
@@ -189,13 +189,13 @@ byte,short,char--> int--> long--> float--> double
 2. 不能把对象类型转换成不相关类的对象
 3. 在把容量大的类型转换为容量小的类型时必须使用强制类型转换
 4. 转换过程中可能导致溢出或损失精度,例如:
-```
+```java
 int i = 128;
 byte b = (byte)i;
 ```
 因为byte类型是8位,最大值为127,所以当int强制转换为byte类型时,值128会导致溢出
 <br>5. 浮点数到整数的转换是通过舍弃小数得到,而不是四舍五入,例如:
-```
+```java
 (int)23.7 == 23;
 (int)-45.89f == -45;
 ```
@@ -204,7 +204,7 @@ byte b = (byte)i;
 - 特点：代码不需要进行特殊处理，自动完成
 - 规则：数据范围从小到大。
 
-```
+```java
 public class AutoSwitch{
     public static viod main(String[] args){
 	char c1 = 'a'; // 定义一个char类型
@@ -224,7 +224,7 @@ public class AutoSwitch{
 将取值范围大的类型强制转换成取值范围小的类型
 - 转换格式：数据类型 变量名 = （数据类型）被强转的数据值；
 
-```
+```java
 //double类型强制转换为int类型，直接去掉小数点
 int i = (int)1.5;
 public class QiangZhiZhuanHuan{
@@ -249,7 +249,7 @@ Tips：
 对于byte/short/char三种类型来说，如果右侧赋值的数值没有超过范围，那么javac编译器将会自动隐式地为我们补上一个(byte)(short)(char)。
 - 如果没有超过左侧的范围，编译器补上强转。
 - 如果右侧超过了左侧的范围，编译报错。
-```
+```java
 public class Notice{
     public static void main(String[] args){
 	//右侧确实是一个int数字，但没有超过左侧的范围，故自动隐式强转不会报错。

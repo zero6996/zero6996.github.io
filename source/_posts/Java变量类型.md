@@ -9,14 +9,15 @@ description: 该文章记录了Java的基础变量类型及相关实例
 ## 前言
 
 在Java语言中,所以的变量在使用前必须声明. 声明变量的基本格式如下:
-```
+
+```java
 type indentifier = [ = value][, indentifier [= value] ...];
 ```
 
 <!--more-->
 
 以下列出了一些变量的声明实例.注意有些包含了初始化过程
-```
+```java
 int a,b,c; 	//声明三个int型整数:a,b,c
 int d = 3,e = 4, f = 5;  //声明三个整数并赋予初值
 byte z = 22; 	// 声明并初始化 z
@@ -28,7 +29,7 @@ Java语言支持的变量类型有:
 - 类变量:独立于方法之外的变量,用static修饰
 - 实例变量:独立于方法之外的变量,不用static修饰
 - 局部变量:类的方法中的变量
-```
+```java
 public class Variable{
     static int allClicks = 0; //类变量
     String str = "hello world"; //实例变量
@@ -55,7 +56,7 @@ public class Variable{
 - 实例变量具有默认值。数值型变量的默认值是0，布尔型变量默认值是false，引用类型变量的默认值是null。变量的值可以在声明时指定，也可以在构造方法中指定；
 - 实例变量可以直接通过变量名访问。但在静态方法以及其他类中，就应该使用完全限定名：ObjectReference.VariableName。
 #### 实例
-```
+```java
 package zerofirst.test;
 
 import java.io.*;
