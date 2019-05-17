@@ -1,5 +1,5 @@
 ---
-title: Java修饰符
+title: Java开发工具的安装
 date: 2019-4-15 17:00
 categories: Java学习笔记 # 分类
 tags: [Java]
@@ -9,7 +9,7 @@ description: 简单的介绍了Java IDEA开发工具的下载与使用
 
 
 ## 概述
-IDEA是一个专门针对Java的集成开发工具(IDE)，由Java语言编写。所以，需要有JRE运行环境并配置好环境变量。<br>它可以极大地提升我们的开发效率。可以自动编译，检查错误。在公司中，使用的就是IDEA进行开发。
+IDEA是一个专门针对Java的集成开发工具(IDE)，由Java语言编写。所以，需要有JRE运行环境并配置好环境变量。<br>它可以极大地提升我们的开发效率。可以自动编译，检查错误。
 
 <!--more-->
 
