@@ -56,7 +56,7 @@ public class Demo03StringEquals {
 
         String str4 = null;
         System.out.println("abc".equals(str4)); // false 推荐写法
-	System.out.println(str4.equals("abc")); // 报错，NullPointerException
+	    System.out.println(str4.equals("abc")); // 报错，NullPointerException
     }
 }
 注意事项：

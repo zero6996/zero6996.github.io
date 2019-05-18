@@ -64,7 +64,8 @@ public class Student {
     }
     public void sleep(){
         System.out.println("睡觉觉");
-    }public void study() {
+    }
+    public void study() {
         System.out.println("学习");
     }
 }
