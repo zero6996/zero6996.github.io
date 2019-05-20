@@ -1,14 +1,15 @@
 ---
 title: MySQL基础
 date: 2019-5-18 23:40
-categories: Java学习笔记 # 分类
-tags: [Java]
+categories: MySQL基础 # 分类
+tags: [MySQL]
 description: MySQL基本使用
 ---
 
 
 
 ## 1. 数据库基本概念
+
 
 数据库(DataBase)，简称DB，用于存储和管理数据的仓库。
 
@@ -87,7 +88,7 @@ Structured Query Language(结构化查询语句)，简称SQL。
 
 ##### 1. C(Create)：创建
 
-```mysql
+```sql
 create table 表名(
 	列名1 数据类型1,
     列名2 数据类型2,
@@ -162,7 +163,7 @@ create table 表名(
 
 SQL语句示例：
 
-```mysql
+```sql
 /*
 	给student表添加数学、英语成绩列，给每条记录添加对应的数学和英语成绩，查询时将数学和英语的成绩相加显示。
 */
@@ -186,7 +187,7 @@ SELECT *,(math+english) AS 总成绩 FROM student;
 
 - SQL语句示例
 
-```java
+```sql
 -- 创建一个学生表，包含如下列：
 CREATE TABLE student2(
 	id INT, -- 编号
@@ -208,7 +209,7 @@ INSERT INTO student2(id,NAME,age,sex,address,math,english) VALUES(1,'马云',55,
 
 | 比较运算符          | 说明                                                         |
 | ------------------- | ------------------------------------------------------------ |
-| >、<、<=、>=、=、<> | <>在SQL中表示不等于，在MySQL中也可以使用!=，没有==           |
+| >、<、<=、>=、=、<> | <>在SQL中表示不等于，在sql中也可以使用!=，没有==           |
 | BETWEEN...AND       | 在一个范围之内，如：between 100 and 200 相当于条件在100到200之间。 |
 | IN(集合)            | 集合表示多个值，使用逗号分隔                                 |
 | LIKE'张%'           | 模糊查询                                                     |
@@ -216,7 +217,7 @@ INSERT INTO student2(id,NAME,age,sex,address,math,english) VALUES(1,'马云',55,
 
 * 操作示例
 
-```mysql
+```sql
 # 查询math分数大于80分的学生
 SELECT * FROM student2 WHERE math>80;
 # 查询english分数小于或等于80分的学生
@@ -240,7 +241,7 @@ SELECT * FROM student2 WHERE age!=20;
 
 * 操作示例
 
-```mysql
+```sql
 # 查询age大于35且性别为男的学生
 SELECT * FROM student2 WHERE age>35 AND sex='男';
 # 查询age大于35或性别为男的学生
@@ -253,7 +254,7 @@ SELECT * FROM student2 WHERE id=1 OR id=3 OR id=5;
 
   in里面的每个数据都会作为一次条件，只要满足条件就会显示：`select 字段名 from 表名 where 字段 in(数据1，数据2,...);`
 
-```mysql
+```sql
 # 查询id是1或3或5的学生，使用in
 SELECT * FROM student2 WHERE id IN(1,3,5);
 # 查询id不是1或3或5的学生
@@ -264,7 +265,7 @@ SELECT * FROM student2 WHERE id NOT IN(1,3,5);
 
 表示从值1到值2范围，全部包含：`between 值1 and 值2`
 
-```mysql
+```sql
 # 查询english成绩大于等于75，且小于等于90的学生
 SELECT * FROM student2 WHERE english BETWEEN 75 AND 90;
 ```
@@ -275,7 +276,7 @@ SELECT * FROM student2 WHERE english BETWEEN 75 AND 90;
 
 通配符：`%,匹配任意多个字符串`; `_,匹配单个字符`
 
-```mysql
+```sql
 # 查询姓马的学生
 SELECT * FROM student2 WHERE NAME LIKE '马%';
 # 查询姓名中包含'德'字的学生
