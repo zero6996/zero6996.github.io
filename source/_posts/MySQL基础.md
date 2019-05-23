@@ -46,16 +46,16 @@ Structured Query Language(结构化查询语句)，简称SQL。
 3. MySQL数据库的SQL语句不区分大小写，关键字建议使用大写。
 4. 注释方式：
    * 单行注释：-- 注释内容 或 # 注释内容(MySQL特有)
-   * 多行注释：/*  注释内容  */
+   * 多行注释：/\*  注释内容  \*/
 
 
 
 ### 2.2 SQL分类
 
-1. 数据定义语言(Data Definition Language)，简称DDL。用来定义数据库对象：数据库、表、列等。关键字：create、drop、alter等。
-2. 数据操作语言(Data Manipulation Language)，简称DML。用来对数据库中表的数据进行增删改。关键字：insert、delete、update等。
-3. 数据查询语言(Data Query Language)，简称DQL。用以查询数据库中表的记录(数据)。关键字：select，where等。
-4. 数据控制语言(Data Control Language)，简称DCL。用来定义数据库的访问权限和安全级别，以及创建用户。关键字：GRANT,REVOKE等。
+1. 数据定义语言(Data Definition Language)，简称**DDL**。用来定义数据库对象：数据库、表、列等。关键字：create、drop、alter等。
+2. 数据操作语言(Data Manipulation Language)，简称**DML**。用来对数据库中表的数据进行增删改。关键字：insert、delete、update等。
+3. 数据查询语言(Data Query Language)，简称**DQL**。用以查询数据库中表的记录(数据)。关键字：select，where等。
+4. 数据控制语言(Data Control Language)，简称**DCL**。用来定义数据库的访问权限和安全级别，以及创建用户。关键字：GRANT,REVOKE等。
 
 
 
