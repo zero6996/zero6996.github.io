@@ -117,7 +117,7 @@ SELECT s.`id`,s.`name`,s.`gender`,s.`salary`,d.`name`部门名称 FROM staff s I
 ![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/22/in-connection02-1558535144642.jpg)
 
 
-### 1.4 左连接
+### 1.4 外连接
 
 #### 1.4.1 左外连接
 
@@ -189,7 +189,7 @@ SELECT * FROM staff WHERE dept_id = (SELECT id FROM dept WHERE NAME='开发部')
 
 ```sql
 -- 查询工资最高的员工
-SELECT staff.`name`,staff.`salary` FROM staff WHERE salary = (SELECT MAX(salary) FROM staff);
+SELECT staff.`name` FROM staff WHERE salary = (SELECT MAX(salary) FROM staff);
 -- 查询工资小于平均工资的员工有哪些？
 SELECT * FROM staff WHERE salary < (SELECT AVG(salary) FROM staff);
 ```
