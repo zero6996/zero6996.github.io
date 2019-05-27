@@ -2,7 +2,7 @@
 title: hexo+Git搭建个人博客 # 文章页面上的显示名称,一般是中文
 date: 2018-12-04 09:48:13 # 文章生成时间,可任意修改
 categories: hexo # 分类
-tags: [hexo,Blog] # 文章标签,可空,多标签请用格式,注意:后面有空格
+tags: [hexo] # 文章标签,可空,多标签请用格式,注意:后面有空格
 description: 使用hexo+git搭建免费的个人博客完整教程 # 附加一段文章摘要,字数最好140字以内,会出现在meta的description里面
 ---
 ## 前言

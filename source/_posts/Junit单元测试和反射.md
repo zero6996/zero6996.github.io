@@ -2,7 +2,7 @@
 title: Junit单元测试，反射和注解
 date: 2019-5-16 23:59
 categories: Java学习笔记 # 分类
-tags: [Java]
+tags: [Java,Junit,反射,注解]
 description: Junit单元测试的基本使用，反射概述和注解
 ---
 

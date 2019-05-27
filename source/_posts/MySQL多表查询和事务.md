@@ -2,7 +2,7 @@
 title: MySQL多表查询和事务
 date: 2019-5-23 18:00
 categorise: MySQL笔记
-tags: [MySQL]
+tags: [MySQL,DQL多表查询,事务]
 description: MySQL多表查询和事务概念
 ---
 

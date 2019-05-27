@@ -2,7 +2,7 @@
 title: Collction集合和泛型
 date: 2019-4-24 22:00
 categories: Java学习笔记 # 分类
-tags: [Java]
+tags: [Java,Collection集合,泛型]
 description: Java中Collction集合和泛型的概念
 ---
 

@@ -2,7 +2,7 @@
 title: Java中的常用工具类
 date: 2019-4-19 23:00
 categories: Java学习笔记 # 分类
-tags: [Java]
+tags: [Java,String类,Arrays类,Math类]
 description: 简单介绍了几个Java中常用的工具类
 ---
 

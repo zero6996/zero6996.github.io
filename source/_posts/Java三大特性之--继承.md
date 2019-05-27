@@ -2,7 +2,7 @@
 title: Java三大特性之继承
 date: 2019-4-20 16:00
 categories: Java学习笔记 # 分类
-tags: [Java]
+tags: [Java,继承]
 description: Java中的继承和抽象类相关内容
 ---
 

@@ -2,8 +2,8 @@
 title: Java变量类型
 date: 2019-04-12 09:18:23
 categories: Java学习笔记
-tags: [Java]
-description: 该文章记录了Java的基础变量类型及相关实例
+tags: [Java,基本变量类型]
+description: 该文章记录了Java的基本变量类型及相关实例
 ---
 
 ## 前言
