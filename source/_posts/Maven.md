@@ -1,6 +1,6 @@
 ---
 title: Maven
-date: 2019-7-16 23:00
+date: 2019-7-16 22:30
 categories: JavaWeb
 tags: [Maven]
 description: Maven基本概念和使用
@@ -38,14 +38,12 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 点击`apache-maven-3.6.1-bin.zip`下载
 
-![downloadMaven](D:\资料\Java\downloadMaven.png)
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/downloadMaven-1563321026172.png)
 
 
 #### 1.2.2 解压
 
-![jieya](D:\资料\Java\img\jieya.png)
-
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/jieya-1563321057082.png)
 
 #### 1.2.3 配置环境变量
 
@@ -55,9 +53,7 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 
 
-![add_variable](D:\资料\Java\img\add_variable.png)
-
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/add_variable-1563321074839.png)
 
 
 
@@ -65,17 +61,14 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 
 
-![addToPath](D:\资料\Java\img\addToPath.png)
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/addToPath-1563321084507.png)
 
 
 完成后打开`cmd`输入`mvn -v`，显示版本信息则配置正确。
 
 
 
-![mvn](D:\资料\Java\img\mvn.png)
-
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/mvn-1563321095966.png)
 
 ### 1.3 本地仓库配置
 
@@ -85,7 +78,7 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 在`maven`的`conf`文件夹下的`settings.xml`文件中配置本地仓库。
 
-![1563242920527](C:\Users\14908\AppData\Roaming\Typora\typora-user-images\1563242920527.png)
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/settings-1563321177548.png)
 
 - 远程仓库：又叫私服仓库，如果私服仓库存在，且在本地仓库所需的插件或jar包没有的情况下，会从当前仓库下载。
 - 中央仓库：在maven软件中内置一个远程仓库地址`http://repo1.maven.org/maven2`。它是中央仓库(`Central Repository`)，服务于整个互联网，由Maven官方团队维护，里面存储了非常全面的jar包，包含了世界上大部分主流的开源项目构件。
@@ -98,8 +91,7 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 - 工程目录结构：
 
-![mavenProject](D:\资料\Java\img\mavenProject.png)
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/mavenProject-1563321204302.png)
 作为一个`Maven`工程，它的`src`目录和`pom.xml`是必备的。
 
 - `target`：项目输出位置，编译后的`class`文件会输出到此目录。
@@ -107,7 +99,7 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 - `src`目录结构：
 
-![src](D:\资料\Java\img\src.png)
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/src-1563321214987.png)
 
 - 标准`src`目录结构：
 
@@ -172,8 +164,7 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 `Maven`包含了一个项目对象模型(`POM:Project Object Model`)，一组标准集合，一个项目生命周期(`Project Lifecycle`)，一个依赖管理系统(`Dependency Management System`)，和用来运行定义在生命周期阶段(`phase`)中插件(`plugin`)目标(`goal`)的逻辑。
 
-![maven_model](D:\资料\Java\img\maven_model.png)
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/maven_model-1563321257756.png)
 
 
 - 项目对象模型：一个`maven`工程都有一个`pom.xml`文件，通过该文件定义项目的坐标、项目依赖、项目信息、插件目标等。
@@ -200,7 +191,7 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 - 一个项目生命周期：使用maven完成项目的构建，项目构建包括：清理、编译、测试、部署等过程。maven将这些过程规范为一个生命周期，如下所示：
 
-![lifecycle](D:\资料\Java\img\lifecycle.png)
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/lifecycle-1563321277883.png)
 
 - 一组标准集合：maven将整个项目管理过程定义一组标准，比如：通过maven构建工程有标准的目录结构，标准的生命周期阶段、依赖管理和标准的坐标定义等。
 - 插件(`plugin`)目标(`goal`)：maven管理项目生命周期过程都是基于插件完成的。
@@ -217,8 +208,7 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 
 
-![IDEASettingMaven](D:\资料\Java\img\IDEASettingMaven.png)
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/IDEASettingMaven-1563321323464.png)
 
 
 ### 4.2 在IDEA中创建一个`maven`的`web`工程
@@ -227,30 +217,27 @@ Maven是一个项目管理工具，它包含了一个项目对象模型(`POM:Pro
 
 
 
-![create_project](D:\资料\Java\img\create_project.png)
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/create_project-1563321341204.png)
 
 点击`Next`填写项目信息
 
 
 
-![create_project02](D:\资料\Java\img\create_project02.png)
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/create_project02-1563321355572.png)
 
 
 点击`Next`，配置相关属性，此处不做改动。
 
 
 
-![create_project03](D:\资料\Java\img\create_project03.png)
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/create_project03-1563321363619.png)
 
 
 再点击`Next`选择项目所在目录，最后点击`Finish`，等待项目构建。显示如下信息则构建成功。
 
 
 
-![create_project04](D:\资料\Java\img\create_project04.png)
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/create_project04-1563321374779.png)
 
 
 最终目录结构并不完整，需手动补齐。手动添加`src/main/java`目录，将`java`目录设置为`Sources Root`。
@@ -339,19 +326,17 @@ public class TestServlet extends HttpServlet {
 
 点击`M`图标，输入`tomcat7:run`运行maven项目。
 
-![pom](D:\资料\Java\img\pom.png)
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/pom-1563321412176.png)
 
 
 #### 4.2.4 配置断点调试
 
 在项目配置中添加maven项目，设置操作命令。
 
-![debug](D:\资料\Java\img\debug.png)
-
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/debug-1563321428242.png)
 点击小虫子，即可启动`debug`模式。
 
-![debug2](D:\资料\Java\img\debug2.png)
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/debug2-1563321435566.png)
 
 
 
