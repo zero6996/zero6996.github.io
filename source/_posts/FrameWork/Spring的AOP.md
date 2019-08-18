@@ -21,7 +21,7 @@ description: Spring的AOP
 
 
 - AOP(Aspect Oriented Programing)，面向切面编程
-- AOP采取横向抽取的机制，取代了传统纵向继承体系重复性diamante(性能监视、事务管理、安全检查、缓存)
+- AOP采取横向抽取的机制，取代了传统纵向继承体系重复性代码(性能监视、事务管理、安全检查、缓存)
 - Spring AOP使用纯Java实现，不需要专门的编译过程和类加载器，在运行期通过**代理方式**向目标类织入增强代码。
 
 
@@ -341,7 +341,7 @@ public class demo3Test {
 
 
 
-## 4. Spring传统AOP的自动代理请
+## 4. Spring传统AOP的自动代理
 
 - 前面的案例中，每个代理都是通过`ProxyFactoryBean`织入切面代理，在实际开发中，非常多的Bean每个都配置`ProxyFactoryBean`的话，开发维护量巨大
 - 解决方案：自动创建代理
