@@ -352,9 +352,8 @@ public class transferTest {
 
 ### 3.1 编程式事务实现方式
 
-- 事务管理器(`PlatformTransactionManager`)方式
-  - 类似应用`JTA UserTransaction API`方式，但异常处理更简洁；
-  - 核心类为：Spring事务管理的三个接口类以及`JdbcTemplate`类。
+
+
 - 模板事务(`TransactionTemplate`)的方式
   - 此为Spring官方团队推荐的编程式事务管理方式
   - 主要工具为`JdbcTemplate`类。
@@ -615,6 +614,7 @@ public class ProTransExample {
   - 5种类型：独立代理；共享代理；拦截器；tx拦截器；全注释。
   
 - 声明式事务管理配置实现方式：
+  
   - 5种类型的配置实现参考
   
 - 转账案例**基于AOP的事务配置**：

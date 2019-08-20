@@ -1,6 +1,6 @@
 ---
 title: JDBC_Template
-date: 2019-8-11 23:46
+date: 2019-8-11 23:28
 categories: Spring
 tags: [Spring]
 description: 使用Spring组件JDBC Template简化持久化操作
@@ -345,11 +345,96 @@ public void testBatchUpdate2(){
 
 ### 1.3 优缺点分析
 
-
 - 优点：简单灵活
 - 缺点：
   - SQL与Java代码掺杂
   - 功能不丰富
+
+
+## 2. 连接池技术
+
+- JDBC(Java DataBase Connecttivity)，java数据库连接。是一种用于执行SQL语句的Java API
+- ODBC(Open DataBase Connectivity)，开发数据库连接。是微软公司提供的一组对数据库访问的标准API(应用程序编程接口)
+- DBCP(DataBase Connection Pool)数据库连接池，是Java数据库连接池的一种，由Apache开发。
+- C3P0是一个开源的JDBC连接池，它实现了数据源和JNDI绑定，支持JDBC3规范和JDBC2的标准扩展。目前使用它的开源项目有Hibernate、Spring等。
+- 提问：c3p0和dbcp的区别？
+  - dbcp没有自动回收空闲连接的功能；c3p0有自动回收空闲连接的功能。
+  - 对数据连接的处理方式不同：C3P0提供最大空闲时间，DBCP提供最大连接数。C3P0当连接超过最大空闲连接时间时，当前连接就会被断掉。DBCP当前连接超过最大连接数时，所有连接都会被断开。
+
+
+
+### 2.1 配置DBCP
+
+导入`commons-dbcp2.jar`、`commons-pool.jar`到工程。在spring配置文件中配置如下。
+
+```xml
+<!--配置DBCP数据源-->
+<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/selection_course?useUnicode=true&amp;characterEncoding=utf-8"/>
+    <property name="username" value="root"/>
+    <property name="password" value="123456"/>
+</bean>
+<!--配置Template-->
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource" ref="dataSource"/>
+</bean>
+
+<!--依赖注入，注意一定要提供set方法-->
+<bean id="studentDao" class="com.zero.jdbc_Template.dao.Impl.StudentDaoImpl">
+    <property name="jdbcTemplate" ref="jdbcTemplate"/>
+</bean>
+```
+
+### 2.2 配置C3P0
+
+导入`c3p0-0.9.2.1.jar`到工程。在spring配置文件中配置如下。
+
+~~~xml
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+    <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/selection_course?useUnicode=true&amp;characterEncoding=utf-8"/>
+    <property name="user" value="root"/>
+    <property name="password" value="123456"/>
+</bean>
+~~~
+
+
+
+### 2.3 关于`JdbcDaoSupport`
+
+JdbcDaoSupport是spring框架为我们提供的一个类，该类中定义了一个JdbcTemplate对象，我们可以直接获取使用，但是要想创建该对象，需要为其提供一个数据源。
+
+[参考文章](https://blog.csdn.net/weixin_42112635/article/details/88020509)
+
+
+
+### 2.4 关于引用外部属性文件
+
+- 将数据库连接的信息配置到属性文件中：
+
+```properties
+username=root
+password=123456
+driver=com.mysql.jdbc.Driver
+url=jdbc:mysql://127.0.0.1:3306/selection_course?useUnicode=true&amp;characterEncoding=utf-8
+```
+
+- 在spring配置文件中引入外部的属性文件
+
+```xml
+<!-- 引入外部属性文件： -->
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:jdbc.properties"/>
+</bean>
+
+<!--方法2-->
+<context:property-placeholder location="classpath:jdbc.properties"/>
+```
+
+
+
+
 
 
 
