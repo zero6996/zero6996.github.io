@@ -889,9 +889,11 @@ public String useCookieValue(@CookieValue(value = "JSESSIONID",required = false)
   <a href="/anno/testModelAttribute?name=test">测试ModelAttribute注解的使用</a>
   ```
 
-  - 测试结果：`执行了showModel方法test
-    		  执行了控制器的方法test`
-
+  - 测试结果：
+  ```
+  执行了showModel方法test
+  执行了控制器的方法test
+  ```
 
 - 基于Map的应用场景示例：修饰方法带返回值
 
