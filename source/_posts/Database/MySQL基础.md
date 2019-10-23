@@ -67,7 +67,7 @@ Structured Query Language(结构化查询语句)，简称SQL。
    * 创建数据库：`create databases 数据库名称;`
    * 创建数据库，判断不存在才创建：`create database if not exists 数据库名称;`
    * 创建数据库，指定字符集：`create database 数据库名称 character set 字符集名;`
-   * 例：创建db4数据库，判断是否存在，并指定字符集为gbk：`create database if not exists dbs character set gbk;`
+   * 例：创建db4数据库，判断是否存在，并指定字符集为gbk：`create database if not exists db4 character set gbk;`
 
 ##### 2. R(Retrieve):查询
    * 查询所有数据库名称：`show databases;`

@@ -287,8 +287,7 @@ public class HelloController {
 - 处理器映射器(HandlerMapping)
   - HandlerMapping 负责根据用户请求找到 Handler 即处理器，SpringMVC 提供了不同的映射器实现不同的映射方式，例如：配置文件方式，实现接口方式，注解方式等。
 - 处理器(Handler)
-  - 它就是我们开发中要编写的具体**业务控制器**。由 DispatcherServlet 把用户请求转发到 Handler。由
-    Handler 对具体的用户请求进行处理。
+  - 它就是我们开发中要编写的具体**业务控制器**。由 DispatcherServlet 把用户请求转发到 Handler。由Handler 对具体的用户请求进行处理。
 - 处理器适配器(HandlerAdapter)
   - 通过 HandlerAdapter 对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。
 - 视图解析器(ViewResolver)
@@ -676,7 +675,65 @@ public String useRequestBody(@RequestBody(required = false) String body){
   - POST请求：`name=xiaoming&age=1`
   - GET请求：`null`
 
-### 4.3 @PathVaribale
+
+
+### 4.3 @ResponseBody
+
+#### 1. 使用说明
+
+该注解的作用是将控制器方法返回的对象通过适当的转换器转换为指定格式之后，写入到response对象的body区，通常用来**返回JSON数据**或者是XML数据。
+
+- 注意：使用此注解后不会在走视图解析器，而是直接将数据写入到输出流中，效果等同于通过response对象输出指定格式数据(`response.getWriter.write(JSONObject.fromObject(user).toString());`)。
+
+#### 2. 示例
+
+- 控制器代码
+
+```java
+@RequestMapping("/testResponseBody")
+@ResponseBody
+public Student testResponseBody(){
+    return new Student("小明","男");
+}
+```
+
+- 访问页面结果：`{"name":"小明","sex":"男"}`
+- 因返回值满足key-value(对象或map)格式，所以会自动将响应头的Content-Type设置为了`application/html;charset=utf-8`，然后把转换后的内容以输出流的形式响应给客户端。
+
+> 注意：使用该注解返回json数据还需额外jar包：jackson，依赖坐标如下
+>
+> ```xml
+> <!--添加对json数据的支持 -->
+> <dependency>
+>  <groupId>com.fasterxml.jackson.core</groupId>
+>  <artifactId>jackson-databind</artifactId>
+>  <version>2.8.3</version>
+> </dependency>
+> <dependency>
+>  <groupId>com.fasterxml.jackson.core</groupId>
+>  <artifactId>jackson-core</artifactId>
+>  <version>2.9.1</version>
+> </dependency>
+> ```
+
+- 如果返回是字符串类型，控制器代码如下
+
+```java
+@RequestMapping(value = "/testResponseBody",produces = "text/html;charset=utf-8") 
+@ResponseBody
+public String testResponseBody(){
+    return "你好!";
+}
+```
+
+- 访问结果：`你好!`
+- 如果返回值不能解析为json格式，注解就会将其直接以输出流形式输出到页面上。
+
+> 注：使用produces设置响应头Content-Type为`text/html;charset=utf-8`解决中文乱码问题。
+
+
+
+### 4.4 @PathVaribale
 
 #### 1. 使用说明
 
@@ -770,7 +827,7 @@ public String usePathVariable(@PathVariable("id") Integer id){
 
 
 
-### 4.4 @RequestHeader
+### 4.5 @RequestHeader
 
 #### 1. 使用说明
 
@@ -805,7 +862,7 @@ public String useRequestHeader(@RequestHeader(value = "Accept-Language",required
 
 - 结果：`zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7`
 
-### 4.5 @CookieValue
+### 4.6 @CookieValue
 
 #### 1. 使用说明
 
@@ -840,7 +897,7 @@ public String useCookieValue(@CookieValue(value = "JSESSIONID",required = false)
 
 - 结果：`C8001453C280DF881950883018287F9C`
 
-### 4.6 @ModelAttribute
+### 4.7 @ModelAttribute
 
 #### 1. 使用说明
 
@@ -982,7 +1039,7 @@ public String useCookieValue(@CookieValue(value = "JSESSIONID",required = false)
 
   
 
-### 4.7 @SessionAttribute
+### 4.8 @SessionAttribute
 
 #### 1. 使用说明
 
