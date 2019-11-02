@@ -18,7 +18,7 @@ MyBatis本是apache的一个开源项目iBatis，2010年这个项目由 apache s
 
 
 
-- Mybatis是一个优秀的持久层框架，它对jdbc的操作数据库过程进行封装，使开发者只需要关注SQL本是，而不需要花费精力去处理例如注册驱动、创建connection、创建statement、手动设置参数、结果集检索等jdbc繁杂的过程代码。
+- Mybatis是一个优秀的持久层框架，它对jdbc的操作数据库过程进行封装，使开发者只需要关注SQL本身，而不需要花费精力去处理例如注册驱动、创建connection、创建statement、手动设置参数、结果集检索等jdbc繁杂的过程代码。
 - 对jdbc封装的框架有：Hibernate、DBUtils、jdbcTemplate、Mybatis
 - Mybatis原理：
   - 通过**XML或注解**的方式将要执行的各种statement(preparedStatement)配置起来，并通过java对象和statement中的sql进行映射生成最终执行的sql语句，最后由mybatis框架执行sql并将结果映射成java对象返回。
