@@ -2,7 +2,7 @@
 title: Java开发工具的安装
 date: 2019-4-15 17:00
 categories: Java学习笔记 # 分类
-tags: [Java,开发工具的安装]
+tags: [Java]
 description: 简单的介绍了Java IDEA开发工具的下载与使用
 ---
 

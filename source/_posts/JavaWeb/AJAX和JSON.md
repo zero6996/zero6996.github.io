@@ -2,7 +2,6 @@
 title: AJAX和Json
 date: 2019-7-10 23:59
 categories: JavaWeb
-tags: [AJAX,Json]
 description: AJAX和Json基础知识
 ---
 

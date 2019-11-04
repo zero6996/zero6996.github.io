@@ -2,7 +2,7 @@
 title: Java三大特性之多态
 date: 2019-4-21 23:00
 categories: Java学习笔记 # 分类
-tags: [Java,多态]
+tags: [Java]
 description: Java中的多态的概念和接口
 ---
 

@@ -2,7 +2,6 @@
 title: Bootstrap简单入门
 date: 2019-6-6 22:30
 categories: JavaWeb
-tags: [Bootstrap]
 description: Bootstrap的简单入门
 ---
 

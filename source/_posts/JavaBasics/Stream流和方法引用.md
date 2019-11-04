@@ -2,7 +2,7 @@
 title: Steeam流和方法引用
 date: 2019-5-15 22:40
 categories: Java学习笔记 # 分类
-tags: [Java,Stream流]
+tags: [Java]
 description: Java中的Stream流的使用以及各种方法引用方式
 ---
 

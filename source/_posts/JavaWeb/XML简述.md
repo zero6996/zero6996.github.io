@@ -2,7 +2,6 @@
 title: XML简单入门
 date: 2019-6-7 20:30
 categories: JavaWeb
-tags: [XML]
 description: XML的简单入门
 ---
 

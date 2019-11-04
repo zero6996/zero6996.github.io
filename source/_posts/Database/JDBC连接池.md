@@ -2,7 +2,6 @@
 title: JDBC连接池
 date: 2019-5-25 23:59
 categories: JavaWeb
-tags: [JDBC,连接池技术,Spring JDBC]
 description: 数据库连接和Spring JDBC
 ---
 

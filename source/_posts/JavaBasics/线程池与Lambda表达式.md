@@ -2,7 +2,7 @@
 title: Java中的线程池与Lambda表达式
 date: 2019-5-3 23:59
 categories: Java学习笔记 # 分类
-tags: [Java,线程池技术,Lambda表达式]
+tags: [Java,线程]
 description: Java的等待唤醒机制，线程池和Lambda表达式
 ---
 

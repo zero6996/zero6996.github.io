@@ -2,7 +2,6 @@
 title: JSP和MVC
 date: 2019-6-19 23:59
 categories: JavaWeb
-tags: [JSP]
 description: JSP学习，EL表达式和JSTL标签，MVC和三层架构
 ---
 

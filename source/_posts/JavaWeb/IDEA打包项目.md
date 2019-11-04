@@ -2,7 +2,6 @@
 title: IDEA打包项目
 date: 2019-7-1 22:30
 categories: JavaWeb
-tags: [项目部署]
 description: 将IDEA中的项目打包成war包，方便部署。
 ---
 
