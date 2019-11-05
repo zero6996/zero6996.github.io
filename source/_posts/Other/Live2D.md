@@ -16,7 +16,7 @@ live2d动态模型插件是一款非常有意思的插件。
 <!--more-->
 
 
-1. hexo博客，没有搭建的可以看我以前的文章《[hexo+git搭建hexo个人博客](https://zero6996.github.io/2018/12/04/hexo-git搭建个人博客/)》
+1. hexo博客，没有搭建的可以看我以前的文章《[hexo+git搭建hexo个人博客](https://zero6996.github.io/2018/12/04/Other/hexo-git搭建个人博客/)》
 2. Node.js环境和npm
 3. 插件Github地址：[hexo-helper-live2d](https://github.com/EYHN/hexo-helper-live2d)
 4. live2d模型仓库地址：[live2d-widget-models](https://github.com/xiazeyu/live2d-widget-models)以及部分模型[预览网址](https://huaji8.top/post/live2d-plugin-2.0/)
