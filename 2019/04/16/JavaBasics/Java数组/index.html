@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Java数组 | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="数组的基本概念，特点以及相关应用">
+<meta name="keywords" content="Java,数组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java数组">
+<meta property="og:url" content="https://zero6996.github.io/2019/04/16/JavaBasics/Java数组/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="数组的基本概念，特点以及相关应用">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E5%8A%A8%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96-1555383964746.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E9%9D%99%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96-1555384404508.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15553845603050-1555384614682.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/JVM%E5%86%85%E5%AD%98%E5%88%92%E5%88%86-1555393728931.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E9%BB%98%E8%AE%A4%E5%80%BC-1555394445700.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE%E8%AF%A6%E8%A7%A3-1555396483239.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE-1555397156716.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/reverse-1555405679573.png">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java数组">
+<meta name="twitter:description" content="数组的基本概念，特点以及相关应用">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E5%8A%A8%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96-1555383964746.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaBasics/Java数组" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Java数组
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/16/JavaBasics/Java数组/" class="article-date">
+  <time datetime="2019-04-16T08:00:00.000Z" itemprop="datePublished">2019-04-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java学习笔记/">Java学习笔记</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数组/">数组</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="数组概念"><a href="#数组概念" class="headerlink" title="数组概念"></a>数组概念</h2><ul>
+<li>数组的基本概念：数组就是存储数据长度固定的容器，包装多个数据的数据类型要一致。</li>
+<li>容器：是将多个数据存储在一起，每个数据称为该容器的元素。</li>
+<li>数组的特点：<ul>
+<li>数组是一种引用数据类型。</li>
+<li>数组当中的多个数据，类型必须统一。</li>
+<li>数组的长度在程序运行期间不可改变。</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="1-数组的定义和访问"><a href="#1-数组的定义和访问" class="headerlink" title="1. 数组的定义和访问"></a>1. 数组的定义和访问</h2><h3 id="1-1-数组的定义"><a href="#1-1-数组的定义" class="headerlink" title="1.1 数组的定义"></a>1.1 数组的定义</h3><ul>
+<li>数组的初始化：在内存当中创建一个数组，并且向其中赋予一些默认值。</li>
+<li>两种常见的初始化方式：<ul>
+<li>动态初始化（指定长度）</li>
+<li>静态初始化（指定内容）</li>
+</ul>
+</li>
+<li>动态初始化格式：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E5%8A%A8%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96-1555383964746.png" alt="title"></li>
+<li>数组定义格式详解：<ul>
+<li>数组存储的数据类型：创建的数组容器可以存储什么数据类型。</li>
+<li>[]:表示数组。</li>
+<li>数组的名字：为定义的数组起个变量名，满足标识符规范，可以使用名字操作数组。</li>
+<li>new：关键字，创建数组使用的关键字。</li>
+<li>数组存储的数据类型：创建的数组容器可以存储什么数据类型。</li>
+<li>[长度]：数组的长度，表示数组容器中可以存储多少个元素。</li>
+<li>注意：数组有定长特性，长度一旦指定，不可更改。类似你买一个水杯，买了一个1升的水杯，总容量就是1升，不多不少。</li>
+</ul>
+</li>
+<li><p>举例：定义可以存储3个整数的数组容器，代码如下：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>静态初始化标准格式：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E9%9D%99%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96-1555384404508.png" alt="title"></p>
+</li>
+<li><p>举例：定义存储1,2,3,4,5整数的数组容器。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>静态初始化省略格式：</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15553845603050-1555384614682.png" alt="title"></p>
+<ul>
+<li>举例：定义存储1,2，3整数的数组容器：<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>注意：</p>
+<ol>
+<li>静态初始化没有直接指定长度，但仍然会自动推算得到长度。</li>
+<li>静态初始化标准格式可以拆分为两个步骤。</li>
+<li>动态初始化也可以拆分成为两个步骤。</li>
+<li>静态初始化一旦使用省略格式，就不能拆分成为两个步骤了。</li>
+<li>不确定数组当中具体内容，使用动态初始化；确认了具体内容，用静态初始化。<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//静态初始化的标准格式拆分：</span></span><br><span class="line"><span class="keyword">int</span>[] arrayA;</span><br><span class="line">arrayA = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line"><span class="comment">//动态初始化的拆分步骤：</span></span><br><span class="line"><span class="keyword">int</span>[] arrayB;</span><br><span class="line">arrayB = <span class="keyword">new</span> intp[<span class="number">3</span>];</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<h3 id="1-2-数组的访问"><a href="#1-2-数组的访问" class="headerlink" title="1.2 数组的访问"></a>1.2 数组的访问</h3><ul>
+<li>索引：每一个存储到数组的元素，都会自动的拥有一个编号，从0开始，这个自动编号称为数组索引(index),可以通过数组的索引访问到数组中的元素。</li>
+<li>格式：数组名[索引]</li>
+<li><p>数组长度属性：每个数组都具有长度，而且是固定的，Java中赋予了数组的一个属性，可以获取到数组的长度，语句为：数据名.length。属性length的执行结果是数组的长度，int类型结果。由此可以推断出，数组的最大索引值为数组名.length-1。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02ArrayUse</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] agrs)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">        System.out.println(arr.length);</span><br><span class="line">        System.out.println(arr[arr.length-<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>索引访问数组中的元素：</p>
+<ul>
+<li>数组名[索引]=数组，为数组中的元素赋值</li>
+<li>变量=数组名[索引]，获取数组中的元素</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-数组原理内存图"><a href="#2-数组原理内存图" class="headerlink" title="2. 数组原理内存图"></a>2. 数组原理内存图</h2><h3 id="2-1-内存概述"><a href="#2-1-内存概述" class="headerlink" title="2.1 内存概述"></a>2.1 内存概述</h3><p>内存是计算机中的重要原件，临时存储区域，作用是运行程序。我们编写的程序是存放在硬盘中的，在硬盘中的程序是不会运行的，必须放进内存中才能运行，运行完毕后会清空内存。<br>Java虚拟机要运行程序，必须要对内存进行空间的分配和管理。</p>
+<h3 id="2-1-Java虚拟机的内存划分"><a href="#2-1-Java虚拟机的内存划分" class="headerlink" title="2.1 Java虚拟机的内存划分"></a>2.1 Java虚拟机的内存划分</h3><p>为了提高运算效率，就对空间进行了不同区域的划分，因为每一片区域都有特定的处理数据方式和内存管理方式。</p>
+<ul>
+<li>JVM的内存划分：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/JVM%E5%86%85%E5%AD%98%E5%88%92%E5%88%86-1555393728931.png" alt="title"></li>
+</ul>
+<p>Java内存需划分为5个部分：</p>
+<ol>
+<li>==栈(Stack)==：存放的都是方法中的局部变量。方法运行时使用的内存。<ul>
+<li>局部变量：方法的参数，或者是方法{}内部的变量</li>
+<li>作用域：一旦超出作用域，立刻从栈内存当中消失。</li>
+</ul>
+</li>
+<li>==堆(Heap)==：凡是new出来的东西，都在堆当中。存储对象或数组。    <ul>
+<li>堆内存里面的东西都有一个地址值：16进制</li>
+<li>堆内存里面的数据，都有默认值。规则：</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E9%BB%98%E8%AE%A4%E5%80%BC-1555394445700.png" alt="title"></p>
+<ol start="3">
+<li>==方法区(Method Area)==：存储.class相关信息，包含方法的信息。</li>
+<li>本地方法栈(Native Method Stack)：与操作系统相关。</li>
+<li>寄存器(pc Register)：与CPU相关。</li>
+</ol>
+<h3 id="2-2-数据在内存中的存储"><a href="#2-2-数据在内存中的存储" class="headerlink" title="2.2 数据在内存中的存储"></a>2.2 数据在内存中的存储</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02ArrayOne</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br><span class="line">        System.out.println(arr); <span class="comment">// [I@5f184fc6</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>以上方法执行，输出结果是[I@5f184fc6。这个是数组在内存中的地址。new出来的内容，都是在堆内存中存储的，而方法中的变量arr保存的是数组的内存地址。<br><br>一个数组内存图：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE%E8%AF%A6%E8%A7%A3-1555396483239.png" alt="title"><br>两个数组内存图：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE-1555397156716.png" alt="title"></p>
+<h2 id="3-数组的常见操作"><a href="#3-数组的常见操作" class="headerlink" title="3. 数组的常见操作"></a>3. 数组的常见操作</h2><h3 id="3-1-数组越界异常"><a href="#3-1-数组越界异常" class="headerlink" title="3.1 数组越界异常"></a>3.1 数组越界异常</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    System.out.print(arr[<span class="number">3</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>创建数组，赋值3个元素，数组索引就是0,1,2,没有索引3。如果我们访问了数组中不存在的索引，程序运行后就会抛出<code>ArrayIndexOutOfBoundsException</code>数组越界异常。</p>
+<h3 id="3-2-数组空指针异常"><a href="#3-2-数组空指针异常" class="headerlink" title="3.2 数组空指针异常"></a>3.2 数组空指针异常</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02ArrayNull</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] array = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// array = new int[3];</span></span><br><span class="line">        System.out.println(array[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>所有的引用类型变量，都可以赋值为一个null值。但代表其中什么都没有。</p>
+<ul>
+<li>数组必须进行new初始化才能使用其中的元素，如果赋值一个null，没有进行new创建数组，程序运行后将出现<code>NullPointerException</code>空指针异常。</li>
+</ul>
+<h3 id="3-3-数组遍历"><a href="#3-3-数组遍历" class="headerlink" title="3.3 数组遍历"></a>3.3 数组遍历</h3><ul>
+<li>数组遍历：将数组中的每个元素分别获取出来，就是遍历。遍历也是数组操作中的基石。<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02Array_bianli</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">            System.out.println(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h3 id="3-4-数组获取最大值元素"><a href="#3-4-数组获取最大值元素" class="headerlink" title="3.4 数组获取最大值元素"></a>3.4 数组获取最大值元素</h3><ul>
+<li>最大值获取：从数组的所有元素中找出最大值。</li>
+<li>实现思路：<ul>
+<li>定义变量，保存数组0索引上的元素</li>
+<li>遍历数组，获取出数组中的每个元素</li>
+<li>将遍历到的元素和保存数组0索引上值的变量进行比较</li>
+<li>如果数组元素值大于保存变量值，则重新赋值给变量，替换掉</li>
+<li>数组循环遍历结束，变量中保存的就是数组中的最大值<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02ArrayMAX</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">5</span>,<span class="number">15</span>,<span class="number">2000</span>,<span class="number">10000</span>,<span class="number">100</span>,<span class="number">4000</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i] &gt; max)&#123;</span><br><span class="line">                max = arr[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"arr数组最大值为："</span> + max);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-5-数组反转"><a href="#3-5-数组反转" class="headerlink" title="3.5 数组反转"></a>3.5 数组反转</h3><ul>
+<li>数组的反转：数组中的元素颠倒顺序，例如原始数组为1,2,3,4,5，反转后的数组为5,4,3,2,1</li>
+<li>实现思路：数组最远端的元素互换位置</li>
+<li>定义两个变量，保存数组的最小索引和最大索引</li>
+<li>两个索引上的元素交换位置</li>
+<li>最小索引++，最大索引–，再次交换位置</li>
+<li>最小索引超过了最大索引，数组反转操作结束</li>
+</ul>
+<h2 id="4-数组作为方法参数和返回值"><a href="#4-数组作为方法参数和返回值" class="headerlink" title="4. 数组作为方法参数和返回值"></a>4. 数组作为方法参数和返回值</h2><h3 id="4-1-数组作为方法参数"><a href="#4-1-数组作为方法参数" class="headerlink" title="4.1 数组作为方法参数"></a>4.1 数组作为方法参数</h3><p>以前的方法中我们学习了方法的参数和返回值，但是使用的都是基本数据类型。</p>
+<ul>
+<li>数组作为方法参数传递，传递的参数是数组内存的地址。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/16/reverse-1555405679573.png" alt="title"></li>
+</ul>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/17/JavaBasics/Java类和对象/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Java类和对象
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/15/JavaBasics/Java开发工具安装/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Java开发工具的安装</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

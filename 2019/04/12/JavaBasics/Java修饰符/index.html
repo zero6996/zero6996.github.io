@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Java修饰符 | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="该文章记录了Java语言的修饰符,以及相关使用方式">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java修饰符">
+<meta property="og:url" content="https://zero6996.github.io/2019/04/12/JavaBasics/Java修饰符/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="该文章记录了Java语言的修饰符,以及相关使用方式">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java修饰符">
+<meta name="twitter:description" content="该文章记录了Java语言的修饰符,以及相关使用方式">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaBasics/Java修饰符" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Java修饰符
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/12/JavaBasics/Java修饰符/" class="article-date">
+  <time datetime="2019-04-12T08:00:00.000Z" itemprop="datePublished">2019-04-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java学习笔记/">Java学习笔记</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Java语言提供了很多修饰符,主要分为以下两类:</p>
+<ul>
+<li>访问修饰符</li>
+<li>非访问修饰符<br>修饰符用来定义类、方法或者变量，通常放在语句的最前端。</li>
+</ul>
+<a id="more"></a>
+<h3 id="访问控制修饰符"><a href="#访问控制修饰符" class="headerlink" title="访问控制修饰符"></a>访问控制修饰符</h3><p>Java中，可以使用==访问控制符==来保护对类、变量、方法和构造方法的访问。Java支持4种不同的访问权限。</p>
+<ul>
+<li>default（即缺省，什么也不写）：在同一包内可见，不使用任何修饰符。使用对象：类、接口、变量、方法。</li>
+<li>private：在同一类内可见。使用对象：变量、方法。注意：不能修饰类（外部类）</li>
+<li>public：对所有类可见。使用对象：类、接口、变量、方法</li>
+<li>protected：对同一包内的类和所有子类可见。使用对象：变量，方法。注意：不能修饰类（外部类）。</li>
+</ul>
+<h4 id="默认访问修饰符-不使用任何关键字"><a href="#默认访问修饰符-不使用任何关键字" class="headerlink" title="默认访问修饰符-不使用任何关键字"></a>默认访问修饰符-不使用任何关键字</h4><p>使用默认访问修饰符声明的变量和方法，对同一包内的类是可见的。接口里的变量都隐式声明为public static final，而接口里的方法默认情况下访问权限为publi。<br>如下例，变量和方法的声明可以不使用任何修饰符<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String version = <span class="string">"3.0.3"</span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">processOrder</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="私有访问修饰符-private"><a href="#私有访问修饰符-private" class="headerlink" title="私有访问修饰符-private"></a>私有访问修饰符-private</h4><p>私有访问修饰符是最严格的访问级别，所以被声明为private的方法、变量和构造方法只能被所属类访问，并且类和接口不能声明为private。<br>声明为私有访问类型的变量只能通过类中公共的getter方法被外部类访问。<br>Private访问控制修饰符的使用主要用来隐藏类的实现细节和保护类的数据。<br>下面的类使用了私有访问控制符：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Logger</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String format;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFormat</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.format;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFormat</span><span class="params">(String format)</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.format = format;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>实例中，Logger类中的format变量为私有变量，所以其他类不能直接得到和设置该变量的值。为了使其他类能够操作该变量，定义了两个public方法：getFormat()（能够返回format的值）和setFormat(String)（设置format的值）</p>
+<h4 id="公有访问修饰符-public"><a href="#公有访问修饰符-public" class="headerlink" title="公有访问修饰符-public"></a>公有访问修饰符-public</h4><p>被声明为public的类、方法、构造方法和接口能够被任何其他类访问。<br>如果几个相互访问的public类分布在不同的包中，则需要导入相应public类所在包。由于类的继承性，类的所有公有方法和变量都能被其子类继承。<br>以下函数使用了公有访问控制：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>Java程序的main()方法必须设置公有的，否则，Java解释器将不能运行该类。</p>
+<h4 id="受保护的访问修饰符-protected"><a href="#受保护的访问修饰符-protected" class="headerlink" title="受保护的访问修饰符-protected"></a>受保护的访问修饰符-protected</h4><p>protected需要从以下两个点来分析说明：</p>
+<ul>
+<li>子类与基类在同一包中：被声明protected的变量、方法和构造器能够被同一个包中的任何其他类访问；</li>
+<li>子类与基类不在同一包中：那么在子类中，子类实例可以访问其从基类继承而来的protected方法，而不能访问基类实例的protected方法。<br>protected可以修饰数据成员，构造方法，方法成员，不能修饰类(内部类除外)。<br><br>子类能访问protected修饰符声明的方法和变量，这样就能保护不相关的类使用这些方法和变量。<br>下面的父类使用了protected访问修饰符，子类重写了父类的openSpeaker()方法。<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudioPlayer</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">openSpeaker</span><span class="params">(Speaker sp)</span></span>&#123;</span><br><span class="line">	<span class="comment">//实现细节</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StreamingAudioPlayer</span> <span class="keyword">extends</span> <span class="title">AudioPlayer</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">openSpeaker</span><span class="params">(Speaker sp)</span></span>&#123;</span><br><span class="line">    	<span class="comment">//实现细节</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>如果把 openSpeaker() 方法声明为 private，那么除了 AudioPlayer 之外的类将不能访问该方法。<br><br>如果把 openSpeaker() 声明为 public，那么所有的类都能够访问该方法。<br><br>如果我们只想让该方法对其所在类的子类可见，则将该方法声明为 protected。<br><br><a href="https://www.runoob.com/w3cnote/java-protected-keyword-detailed-explanation.html" target="_blank" rel="noopener">Java protected关键字详解</a></p>
+<h4 id="访问控制和继承"><a href="#访问控制和继承" class="headerlink" title="访问控制和继承"></a>访问控制和继承</h4><p>请注意以下方法继承的规则:</p>
+<ul>
+<li>父类中声明为public的方法在子类中也必须为public。</li>
+<li>父类中声明为protected的方法在子类中要么声明为protected，要么声明为public，不能声明为private。</li>
+<li>父类中声明为private的方法，不能被继承。</li>
+</ul>
+<h3 id="非访问修饰符"><a href="#非访问修饰符" class="headerlink" title="非访问修饰符"></a>非访问修饰符</h3><p>为了实现一些其他功能，Java也提供了许多非访问修饰符。</p>
+<ul>
+<li>static修饰符，用来修饰类方法和类变量。</li>
+<li>final修饰符，用来修饰类、方法和变量，final修饰的类不能被继承，修饰的方法不能被继承类重新定义，修饰的变量为常量，是不可修改的。</li>
+<li>abstract修饰符，用来创建抽象类和抽象方法。</li>
+<li>synchronized和volatile修饰符，主要用于线程的编程。</li>
+</ul>
+<h4 id="static修饰符"><a href="#static修饰符" class="headerlink" title="static修饰符"></a>static修饰符</h4><ul>
+<li>静态变量：static关键字用来声明独立于对象的静态变量，无论一个类实例化多少对象，它的静态变量只有一份拷贝。静态变量也被称为类变量。局部变量不能被声明为static变量。</li>
+<li>静态方法：static关键字用来声明独立于对象的静态方法。静态方法不能使用类的非静态变量。静态方法从参数列表得到数据，然后计算这些数据。</li>
+</ul>
+<p>对类变量和方法的访问可以直接使用classname.variablename和classname.methodname方式访问。<br>如下示例，static修饰符用来创建类方法和类变量。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InstanceCounter</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> numInstances = <span class="number">0</span>;</span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> numInstances;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      numInstances++;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   InstanceCounter() &#123;</span><br><span class="line">      InstanceCounter.addInstance();</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] arguments)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Starting with "</span> +</span><br><span class="line">      InstanceCounter.getCount() + <span class="string">" instances"</span>);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">500</span>; ++i)&#123;</span><br><span class="line">         <span class="keyword">new</span> InstanceCounter();</span><br><span class="line">          &#125;</span><br><span class="line">      System.out.println(<span class="string">"Created "</span> +</span><br><span class="line">      InstanceCounter.getCount() + <span class="string">" instances"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//以上示例运行结果如下：</span></span><br><span class="line">Starting with <span class="number">0</span> instances</span><br><span class="line">Created <span class="number">500</span> instances</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="final修饰符"><a href="#final修饰符" class="headerlink" title="final修饰符"></a>final修饰符</h4><p>final变量：final表示“最后的，最终的”意思，变量一旦赋值后，不能被重新赋值。被final修饰的实例变量必须显式指定初始值。final修饰符通常和static修饰符一起使用来创建类常量。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">  <span class="keyword">final</span> <span class="keyword">int</span> value = <span class="number">10</span>;</span><br><span class="line">  <span class="comment">// 下面是声明常量的实例</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BOXWIDTH = <span class="number">6</span>;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">final</span> String TITLE = <span class="string">"Manager"</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeValue</span><span class="params">()</span></span>&#123;</span><br><span class="line">     value = <span class="number">12</span>; <span class="comment">//将输出一个错误</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h5 id="final方法"><a href="#final方法" class="headerlink" title="final方法"></a>final方法</h5><ul>
+<li>类中的final方法可以被子类继承，但不能被子类修改。</li>
+<li>声明final方法的主要目的是防止该方法的内容被修改。<br>如下所示，使用final修饰符声明方法。<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">changeName</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//方法体</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h5 id="final类"><a href="#final类" class="headerlink" title="final类"></a>final类</h5><p>final类不能被继承，没有类能够继承final类的任何特性。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="comment">//类体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="abstract修饰符"><a href="#abstract修饰符" class="headerlink" title="abstract修饰符"></a>abstract修饰符</h4><h5 id="抽象类："><a href="#抽象类：" class="headerlink" title="抽象类："></a>抽象类：</h5><ul>
+<li>抽象类不能用来实例化对象，声明抽象类的唯一目的是为了对该类进行扩充。</li>
+<li>一个类不能同时被abstract和final修饰。如果一个类包含抽象方法，那么该类一定要声明为抽象类，否则将会编译错误。</li>
+<li>抽象类可以包含抽象方法和非抽象方法。<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Caravan</span></span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">double</span> price;</span><br><span class="line">   <span class="keyword">private</span> String model;</span><br><span class="line">   <span class="keyword">private</span> String year;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">goFast</span><span class="params">()</span></span>; <span class="comment">//抽象方法</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">changeColor</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h5 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h5><ul>
+<li>抽象方法是一种没有任何实现的方法，该方法的具体实现由子类提供。</li>
+<li>抽象方法不能被声明成final和static。</li>
+<li>任何继承抽象类的子类必须实现父类的所有抽象方法，除非该子类也是抽象类。</li>
+<li>如果一个类包含若干个抽象方法，那么该类必须声明为抽象类，抽象类可以不包含抽象方法。<br>抽象方法的声明以分号结尾，例如:public abstract sample();<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">SuperClass</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">m</span><span class="params">()</span></span>; <span class="comment">//抽象方法</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">SuperClass</span></span>&#123;</span><br><span class="line">     <span class="comment">//实现抽象方法</span></span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">m</span><span class="params">()</span></span>&#123;</span><br><span class="line">          .........</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h4 id="synchronized-同步-修饰符"><a href="#synchronized-同步-修饰符" class="headerlink" title="synchronized(同步)修饰符"></a>synchronized(同步)修饰符</h4><p>synchronized关键字声明的方法同一时间只能被一个线程访问。synchronized修饰符可以应用于四个访问修饰符。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">showDetails</span><span class="params">()</span></span>&#123;</span><br><span class="line">    .......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="transient-瞬态-修饰符"><a href="#transient-瞬态-修饰符" class="headerlink" title="transient(瞬态)修饰符"></a>transient(瞬态)修饰符</h4><p>序列化的对象包含被transient修饰的实例变量时，java虚拟机（JVM）跳过该特定的变量。<br>该修饰符包含在定义变量的语句中，用来预处理类和变量的数据类型。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">transient</span> <span class="keyword">int</span> limit = <span class="number">55</span>;   <span class="comment">// 不会持久化</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> b; <span class="comment">// 持久化</span></span><br></pre></td></tr></table></figure></div></p>
+<h4 id="volatile（挥发性）修饰符"><a href="#volatile（挥发性）修饰符" class="headerlink" title="volatile（挥发性）修饰符"></a>volatile（挥发性）修饰符</h4><p>volatile修饰的成员变量在每次被线程访问时，都强制从共享内存中重新读取该成员变量的值。而且当成员变量发生变化时，会强制线程将变量值回写到共享内存。这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。<br>一个volatile对象引用可能是null。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实例</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> active;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        active = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">while</span> (active) <span class="comment">// 第一行</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 代码</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        active = <span class="keyword">false</span>; <span class="comment">// 第二行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>通常情况下，在一个线程调用 run() 方法（在 Runnable 开启的线程），在另一个线程调用 stop() 方法。 如果 第一行 中缓冲区的 active 值被使用，那么在 第二行 的 active 值为 false 时循环不会停止。<br><br>但是以上代码中我们使用了 volatile 修饰 active，所以该循环会停止。</p>
+<h3 id="本章总结"><a href="#本章总结" class="headerlink" title="本章总结"></a>本章总结</h3><p>Java的类（外部类）有2种访问权限：public，default。<br>而方法和变量有4种：public、default、protected，private。<br>其中默认访问权限和protected很相似，有着细微的差别。</p>
+<ul>
+<li>public意味着任何地方的其他类都能访问。</li>
+<li>default则是同一个包的类可以访问。</li>
+<li>protected表示同一个包的类可以访问，其他的包的该类子类也可以访问。</li>
+<li>private表示只有自己类能够访问。</li>
+</ul>
+<p>修饰符：abstract、static、final</p>
+<ul>
+<li>abstract：表示是抽象类。使用对象：类、接口、方法。</li>
+<li>static：可以当做普通类使用，而不用先实例化一个外部类。（用他修饰后，就成了静态内部类了）。使用对象：类、变量、方法、初始化函数（注意：修饰类时只能修饰内部类）</li>
+<li>final：表示类不可以被继承。使用对象：类、变量、方法。</li>
+</ul>
+<h5 id="关于static"><a href="#关于static" class="headerlink" title="关于static"></a>关于static</h5><ul>
+<li>static全局变量与普通的全局变量：static全局变量只初使化一次，防止在其他文件单元中被引用;</li>
+<li>static局部变量和普通局部变量：static局部变量只被初始化一次，下一次依据上一次结果值；</li>
+<li>static函数与普通函数：static函数在内存中只有一份，普通函数在每个被调用中维持一份拷贝。</li>
+</ul>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/13/JavaBasics/Java运算符/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Java运算符
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/12/JavaBasics/Java变量类型/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Java变量类型</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

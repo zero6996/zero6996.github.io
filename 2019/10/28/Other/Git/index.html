@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Git | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="git简单使用速查">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git">
+<meta property="og:url" content="https://zero6996.github.io/2019/10/28/Other/Git/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="git简单使用速查">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.846Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git">
+<meta name="twitter:description" content="git简单使用速查">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-Other/Git" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Git
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/10/28/Other/Git/" class="article-date">
+  <time datetime="2019-10-28T14:48:13.000Z" itemprop="datePublished">2019-10-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Other/">Other</a>
+  </div>
+
+    
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-Git简介"><a href="#1-Git简介" class="headerlink" title="1. Git简介"></a>1. Git简介</h2><p>Git是目前世界上最先进的<strong>分布式版本控制系统</strong>。</p>
+<a id="more"></a>
+<p>Linus大神为了解决Linux代码管理问题，在2005年花费两周时间用C编写了Git，此后迅速成为最流行的分布式版本控制系统。2008年，GitHub网站上线，它为开源项目免费提供Git存储，无数开源项目迁移至GitHub。</p>
+<blockquote>
+<p>本文仅做Git最基本操作的学习，方便速查。详细教程请看廖雪峰<a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">Git教程</a></p>
+</blockquote>
+<h3 id="1-1-安装Git"><a href="#1-1-安装Git" class="headerlink" title="1.1 安装Git"></a>1.1 安装Git</h3><p><a href="https://git-scm.com/" target="_blank" rel="noopener">进入官网</a>下载Git安装包，直接默认安装即可。</p>
+<p>打开CMD，输入git，测试是否安装成功。</p>
+<h2 id="2-远程仓库"><a href="#2-远程仓库" class="headerlink" title="2. 远程仓库"></a>2. 远程仓库</h2><p>使用远程仓库，需要先配置SSH。</p>
+<h3 id="2-1-配置SSH"><a href="#2-1-配置SSH" class="headerlink" title="2.1 配置SSH"></a>2.1 配置SSH</h3><p>SSH用于身份验证，我们首先需要生成一个SSH密钥，然后添加到GitHub中。</p>
+<ol>
+<li>打开Git Bash</li>
+<li>输入以下命令生成一个ssh密钥：<code>ssh-keygen -t rsa -C &#39;your email@example.com&#39;</code>，一般情况下无需设置，一路回车就行。</li>
+<li>输入命令<code>cd ~/.ssh/</code>，进入ssh文件夹。里面有两个文件，<code>id_rsa</code>和<code>id_rsa.pub</code>，这两个就是SSH Key的密钥对。其中<code>id_rsa</code>是私钥，不能泄露！<code>id_rsa.pub</code>是公钥，可以公开使用。</li>
+<li>将SSH公钥复制到剪贴板：<code>clip &lt; ~/.ssh/id_rsa.pub</code></li>
+<li>登录GitHub，右上角点击个人头像，然后点击<code>settings</code>进入设置界面。</li>
+<li>点击<code>SSH and GPG keys</code>，然后点击<code>New SSH key</code>，填上任意title，在Key文本框内粘贴<code>id_rsa.pub</code>文件的内容，点击<code>Add Key</code>，就成功添加SSH key了！</li>
+</ol>
+<h3 id="2-2-克隆远程仓库"><a href="#2-2-克隆远程仓库" class="headerlink" title="2.2 克隆远程仓库"></a>2.2 克隆远程仓库</h3><p>首先需要在GitHub创建一个仓库，直接点击<code>New repository</code>，然后根据提示即可创建仓库。接下来我们将远程仓库克隆到本地，进行操作。</p>
+<ol>
+<li>打开GitHub仓库界面，点击右边的<code>clone or download</code>，选择SSH方式，复制仓库地址。</li>
+<li>打开Git Bash</li>
+<li>输入<code>git git@github.com:zero6996/Learn_Git.git</code>，即可将远程仓库克隆到本地。</li>
+</ol>
+<h2 id="3-Git基本操作"><a href="#3-Git基本操作" class="headerlink" title="3. Git基本操作"></a>3. Git基本操作</h2><ul>
+<li><p>初始化git，将当前文件夹交由git管理：<code>git init</code></p>
+</li>
+<li><p>查看当前分支状态：<code>git status</code></p>
+</li>
+<li>提交到暂存区：<code>git add &lt;file&gt;</code></li>
+<li>提交到仓库：<code>git commit file -m &quot;message&quot;</code></li>
+</ul>
+<h3 id="3-1-配置用户信息"><a href="#3-1-配置用户信息" class="headerlink" title="3.1 配置用户信息"></a>3.1 配置用户信息</h3><ul>
+<li>配置全局用户信息：<code>git config --system user.email youremail@email.com</code></li>
+<li>配置当前用户信息：<code>git config --global user.name yourname</code></li>
+</ul>
+<blockquote>
+<p>用户配置文件在<code>.git/config</code></p>
+</blockquote>
+<h3 id="3-2-查看日志"><a href="#3-2-查看日志" class="headerlink" title="3.2 查看日志"></a>3.2 查看日志</h3><ul>
+<li>查看当前工作日志：<code>git log</code></li>
+<li>查看历史工作日志：<code>git reflog</code></li>
+<li>查看更改日志：<code>git diff</code></li>
+</ul>
+<h3 id="3-3-回退版本"><a href="#3-3-回退版本" class="headerlink" title="3.3 回退版本"></a>3.3 回退版本</h3><ul>
+<li>退回到上N个版本：<code>git reset --hard HEAD^</code>，一个<code>^</code>代表退回一个版本，以此类推。</li>
+</ul>
+<blockquote>
+<p>HEAD指向的版本就是当前版本</p>
+</blockquote>
+<ul>
+<li>退回到指定版本：<code>git reset --hard commit_id</code>，<code>commit_id</code>是指定版本号，举例<code>git reset --hard cbc5fdb</code>。</li>
+</ul>
+<h3 id="3-4-文件操作"><a href="#3-4-文件操作" class="headerlink" title="3.4 文件操作"></a>3.4 文件操作</h3><ul>
+<li>移动文件：<code>git mv movefile_name targetdir/</code></li>
+<li>删除文件：<code>git rm filename</code>，如果该文件已提交到版本库中，则直接删除版本库中文件。</li>
+</ul>
+<h2 id="4-分支管理"><a href="#4-分支管理" class="headerlink" title="4. 分支管理"></a>4. 分支管理</h2><h3 id="4-1-分支基本操作"><a href="#4-1-分支基本操作" class="headerlink" title="4.1 分支基本操作"></a>4.1 分支基本操作</h3><ul>
+<li>查看分支：<code>git branch</code></li>
+<li>创建分支：<code>git branch &lt;name&gt;</code></li>
+<li>切换分支：<code>git checkout &lt;name&gt;</code>或者<code>git switch &lt;name&gt;</code></li>
+<li>创建+切换分支：<code>git checkout -b &lt;name&gt;</code>或<code>git switch -c &lt;name&gt;</code></li>
+<li>合并某分支到当前分支：<code>git merge &lt;name&gt;</code></li>
+<li>删除分支：<code>git branch -d &lt;name&gt;</code></li>
+</ul>
+<h2 id="5-标签管理"><a href="#5-标签管理" class="headerlink" title="5. 标签管理"></a>5. 标签管理</h2><p>标签可以用于给版本库中的版本打标记，方便版本管理。</p>
+<ul>
+<li>命令 <code>git tag &lt;tagname&gt;</code>用于新建一个标签，默认为HEAD，也可以指定一个commit_id。</li>
+<li>命令 <code>git tag -a &lt;tagname&gt; -m &#39;message...</code>可以指定标签信息。</li>
+<li><p>命令<code>git tag</code> 可以查看所有标签。</p>
+</li>
+<li><p>命令 <code>git push origin &lt;tagname&gt;</code> 可以推送一个本地标签到远程</p>
+</li>
+<li>命令 <code>git push origin --tags</code>可以推送本地全部未推送的标签到远程</li>
+<li>命令 <code>git tag -d &lt;tagname&gt;</code>可以删除一个本地标签</li>
+<li>命令 <code>git push origin :refs/tags/&lt;tagname&gt;</code>可以删除一个远程标签</li>
+</ul>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/11/04/Other/Live2D/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Hexo博客添加live2d动态模型插件
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/09/05/FrameWork/SSM整合项目/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">SSM整合Demo</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>会话技术Cookie和Session | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="会话技术Cookie和Session">
+<meta property="og:type" content="article">
+<meta property="og:title" content="会话技术Cookie和Session">
+<meta property="og:url" content="https://zero6996.github.io/2019/06/16/JavaWeb/Cookie和Session/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="会话技术Cookie和Session">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/16/Cookie%E5%8E%9F%E7%90%86-1560669241487.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/16/Session%E5%8E%9F%E7%90%86-1560647657175.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/16/%E7%99%BB%E5%BD%95%E6%A1%88%E4%BE%8B-1560651918633.bmp">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="会话技术Cookie和Session">
+<meta name="twitter:description" content="会话技术Cookie和Session">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/16/Cookie%E5%8E%9F%E7%90%86-1560669241487.bmp">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaWeb/Cookie和Session" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      会话技术Cookie和Session
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/06/16/JavaWeb/Cookie和Session/" class="article-date">
+  <time datetime="2019-06-16T07:30:00.000Z" itemprop="datePublished">2019-06-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
+  </div>
+
+    
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-会话技术"><a href="#1-会话技术" class="headerlink" title="1. 会话技术"></a>1. 会话技术</h2><p>会话是浏览器和服务器之间的多次请求和响应，在一次会话中往往会产生一些数据，可以通过会话技术(Session和Cookie)保存会话中产生的数据</p>
+<a id="more"></a>
+<p>一次会话中包含多次请求和响应</p>
+<ul>
+<li>一次会话：浏览器第一次给服务器资源发送请求，会话建立，直到有一方断开为止。</li>
+<li>主要功能：在一次会话的范围内的多次请求之间，共享数据</li>
+<li>客户端会话技术：Cookie</li>
+<li>服务器端会话技术：Session</li>
+</ul>
+<h2 id="2-Cookie"><a href="#2-Cookie" class="headerlink" title="2. Cookie"></a>2. Cookie</h2><p>客户端会话技术，将数据保存到客户端</p>
+<h3 id="2-1-快速入门"><a href="#2-1-快速入门" class="headerlink" title="2.1 快速入门"></a>2.1 快速入门</h3><ol>
+<li>创建Cookie对象，绑定数据：<code>new Cookie(String name, String value)</code></li>
+<li>发送Cookie对象：<code>response.addCookie(Cookie cookie)</code></li>
+<li>获取Cookie，拿到数据：<code>Cookie[] request.getCookies()</code></li>
+</ol>
+<h3 id="2-2-实现原理"><a href="#2-2-实现原理" class="headerlink" title="2.2 实现原理"></a>2.2 实现原理</h3><p>基于响应头<code>set-cookie</code>和请求头<code>cookie</code>实现 </p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/16/Cookie%E5%8E%9F%E7%90%86-1560669241487.bmp" alt="title"></p>
+<h3 id="2-3-cookie的细节"><a href="#2-3-cookie的细节" class="headerlink" title="2.3 cookie的细节"></a>2.3 cookie的细节</h3><ol>
+<li><p>一次可不可以发送多个cookie？</p>
+<p>可以创建多个Cookie对象，使用response调用多次addCookie方法发送cookie即可</p>
+</li>
+<li><p>cookie在浏览器中保存多长时间？</p>
+<p>默认情况下，当浏览器关闭后，Cookie数据被销毁。可以通过设置<code>setMaxAge(int seconds)</code>来进行持久化存储，参数填写正数：将Cookie数据写到硬盘的文件中，持久化存储，并指定cookie存活时间，时间到后，cookie文件自动失效；负数是默认值，即浏览器关闭自动销毁；零表示删除cookie信息。</p>
+</li>
+<li><p>cookie能不能存储中文？</p>
+<p>在tomcat8之前cookie中不能直接存储中文数据，需要将中文数据进行转码(一般采用URL编码，使用<code>URLEncoder</code>和<code>URLDecoder</code>来编解码)；在tomcat8之后，cookie支持中文数据。特殊字符还是不支持，建议使用URL编码存储，方便URL解码解析。</p>
+</li>
+<li><p>假设在一个tomcat服务器中，部署了多个web项目，那么在这些web项目中cookie能不能共享呢？</p>
+<p>默认情况下cookie不能共享。可以通过<code>setPath(String path)</code>方法设置cookie的获取范围，默认情况下设置当前虚拟目录，如果要共享，将path设置为<code>&quot;/&quot;</code>即可。</p>
+</li>
+<li><p>在不同的tomcat服务器之间cookie能否共享？</p>
+<p>可以通过<code>setDomain(String path)</code>方法设置域名，如果设置的一级域名相同，那么多个服务器之间cookie可以共享，例：<code>setDomain(&quot;.baidu.com&quot;)</code>，那么<code>tieba.baidu.com</code>和<code>news.baidu.com</code>中的cookie可以共享。</p>
+</li>
+</ol>
+<blockquote>
+<p>一级域名：一级域名中只含有一个<code>.</code>，且<code>.</code>左边要没有内容。最后一个点的右边被称为一级域名，一级域名又被称为顶级域名。一级域名左边有内容的是二级域名。例<code>tieba.baidu.com</code>中，<code>.baodu.com</code>就是一级域名。</p>
+</blockquote>
+<h3 id="2-4-Cookie的特点和作用"><a href="#2-4-Cookie的特点和作用" class="headerlink" title="2.4 Cookie的特点和作用"></a>2.4 Cookie的特点和作用</h3><ol>
+<li>cookie存储数据在客户端浏览器</li>
+<li>浏览器对于单个cookie的大小有限制(4kb)，以及对同一个域名下的总cookie数量也有限制(20个)</li>
+<li>cookie一般用于存储少量的不敏感数据</li>
+<li>在不登录的情况下，完成服务器对客户端的身份识别(记住我)</li>
+</ol>
+<h3 id="2-5-案例："><a href="#2-5-案例：" class="headerlink" title="2.5 案例："></a>2.5 案例：</h3><p>记住上一次访问时间</p>
+<h4 id="2-5-1-需求"><a href="#2-5-1-需求" class="headerlink" title="2.5.1 需求"></a>2.5.1 需求</h4><ol>
+<li>访问一个Servlet，如果是第一次访问，则提示：你好，欢迎你首次访问</li>
+<li>如果不是第一次访问，则提示：欢迎回来，你上次访问时间是：xxxx</li>
+</ol>
+<h4 id="2-5-2-需求分析"><a href="#2-5-2-需求分析" class="headerlink" title="2.5.2 需求分析"></a>2.5.2 需求分析</h4><ol>
+<li>采用cookie来完成</li>
+<li>在服务器中的Servlet判断是否有一个名为lastTime的cookie<ul>
+<li>有：代表不是第一次访问，先响应数据：欢迎回来，你上次访问时间是：xxxx。在回写cookie：将lasttime更新</li>
+<li>没有：代表是第一次访问，响应数据：你好，欢迎首次访问。回写cookie：设置一个lasttime为当前时间。</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-5-3-代码实现"><a href="#2-5-3-代码实现" class="headerlink" title="2.5.3 代码实现"></a>2.5.3 代码实现</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/CookieExercise"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CookieExercise</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 设置响应的消息体的数据格式以及编码</span></span><br><span class="line">        response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line">        <span class="comment">// 1. 获取所有cookie</span></span><br><span class="line">        Cookie[] cookies = request.getCookies();</span><br><span class="line">        <span class="keyword">boolean</span> flag = <span class="keyword">false</span>; <span class="comment">// 默认cookie没有lastTime</span></span><br><span class="line">        <span class="comment">// 如果有cookie，则进行遍历</span></span><br><span class="line">        <span class="keyword">if</span> (cookies != <span class="keyword">null</span> &amp;&amp; cookies.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">// 2. 遍历cookie数据</span></span><br><span class="line">            <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</span><br><span class="line">                <span class="comment">// 3. 获取cookie的名称</span></span><br><span class="line">                String name = cookie.getName();</span><br><span class="line">                <span class="comment">// 4. 判断名称是否是：lastTime</span></span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"lastTime"</span>.equals(name))&#123;</span><br><span class="line">                    <span class="comment">// 有，则代表不是第一次访问</span></span><br><span class="line">                    flag = <span class="keyword">true</span>; <span class="comment">// 代表有lastTime</span></span><br><span class="line">                    <span class="comment">// 设置cookie的value</span></span><br><span class="line">                    <span class="comment">// 获取当前时间的字符串，重新设置cookie的值，然后发送</span></span><br><span class="line">                    Date date = <span class="keyword">new</span> Date();</span><br><span class="line">                    SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy年MM月dd日 HH:mm:ss"</span>);</span><br><span class="line">                    String str_date = sdf.format(date);</span><br><span class="line">                    System.out.println(<span class="string">"编码前："</span>+str_date);</span><br><span class="line">                    <span class="comment">// url编码</span></span><br><span class="line">                    str_date = URLEncoder.encode(str_date,<span class="string">"utf-8"</span>);</span><br><span class="line">                    System.out.println(<span class="string">"编码后："</span>+str_date);</span><br><span class="line">                    <span class="comment">// 设置cookie的存活时间一个月</span></span><br><span class="line">                    cookie.setMaxAge(<span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span>);</span><br><span class="line">                    response.addCookie(cookie); <span class="comment">// 将cookie值添加</span></span><br><span class="line">                    <span class="comment">// 5. 响应数据</span></span><br><span class="line">                    <span class="comment">// 获取cookie的value值</span></span><br><span class="line">                    String value = cookie.getValue();</span><br><span class="line">                    System.out.println(<span class="string">"解码前："</span>+value);</span><br><span class="line">                    <span class="comment">// url解码</span></span><br><span class="line">                    value = URLDecoder.decode(value,<span class="string">"utf-8"</span>);</span><br><span class="line">                    System.out.println(<span class="string">"解码后："</span>+value);</span><br><span class="line">                    <span class="comment">// 将数据响应</span></span><br><span class="line">                    response.getWriter().write(<span class="string">"&lt;h3&gt;欢迎回来,你的上次访问时是"</span>+value+<span class="string">"&lt;/h3&gt;"</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果没有cookie信息或者没有lastTime</span></span><br><span class="line">        <span class="keyword">if</span> (cookies == <span class="keyword">null</span> || cookies.length == <span class="number">0</span> || flag == <span class="keyword">false</span>)&#123;</span><br><span class="line">            <span class="comment">// 没有，代表是第一次访问</span></span><br><span class="line">            <span class="comment">// 获取当前时间字符串，设置cookie值发送</span></span><br><span class="line">            Date date = <span class="keyword">new</span> Date();</span><br><span class="line">            SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy年MM月dd日 HH:mm:ss"</span>);</span><br><span class="line">            String str_date = sdf.format(date);</span><br><span class="line">            System.out.println(<span class="string">"编码前："</span>+str_date);</span><br><span class="line">            <span class="comment">// url编码</span></span><br><span class="line">            str_date = URLEncoder.encode(str_date,<span class="string">"utf-8"</span>);</span><br><span class="line">            System.out.println(<span class="string">"编码后："</span>+str_date);</span><br><span class="line">            <span class="comment">// 新建cookie对象，设置lastTime</span></span><br><span class="line">            Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"lastTime"</span>, str_date);</span><br><span class="line">            <span class="comment">// 设置cookie存活时间</span></span><br><span class="line">            cookie.setMaxAge(<span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span>);</span><br><span class="line">            <span class="comment">// 发送cookie</span></span><br><span class="line">            response.addCookie(cookie);</span><br><span class="line">            <span class="comment">// 响应数据</span></span><br><span class="line">            response.getWriter().write(<span class="string">"&lt;h3&gt;你好，欢迎首次访问&lt;/h3&gt;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="3-JSP简单入门"><a href="#3-JSP简单入门" class="headerlink" title="3. JSP简单入门"></a>3. JSP简单入门</h2><p>Java Server Pages（Java服务器端页面），简称JSP。可以理解为一个特殊的页面，其中既可以定义html标签，又可以定义java代码。主要用于简化书写。</p>
+<h3 id="3-1-原理"><a href="#3-1-原理" class="headerlink" title="3.1 原理"></a>3.1 原理</h3><ul>
+<li>JSP本质上就是一个Servlet，通过<code>HttpJspBase</code>来生成Servlet。</li>
+</ul>
+<p><code>public abstract class HttpJspBase extends HttpServlet implements HttpJspPage</code></p>
+<h3 id="3-2-JSP的脚本"><a href="#3-2-JSP的脚本" class="headerlink" title="3.2 JSP的脚本"></a>3.2 JSP的脚本</h3><p>就是JSP定义Java代码的方式</p>
+<ol>
+<li><code>&lt;% 代码 %&gt;</code>：定义的java代码，在service方法中。service方法中可以定义什么，该脚本中就可以定义什么。</li>
+<li><code>&lt;!% 代码 %&gt;</code>：定义的java代码，JSP转换后在java类的成员位置(成员变量、成员方法等)</li>
+<li><code>&lt;%= 代码 %&gt;</code>：定义的java代码，会输出到页面上。 输出语句中可以定义什么，该脚本中就可以定义什么。</li>
+</ol>
+<h3 id="3-3-JSP的内置对象"><a href="#3-3-JSP的内置对象" class="headerlink" title="3.3 JSP的内置对象"></a>3.3 JSP的内置对象</h3><p>内置对象就是在JSP页面中不需要获取和创建，可以直接使用的对象。JSP一共有9个内置对象。今天简单学习3个。</p>
+<ul>
+<li>request</li>
+<li>response</li>
+<li>out：字符输出流对象。可以将数据输出到页面上。和<code>response.getWriter()</code>类似</li>
+<li><code>response.getWriter()</code>和<code>out.write()</code>的区别<ol>
+<li>在tomcat服务器真正给客户端做出响应之前，会先找response缓冲区数据，再找out缓冲区数据</li>
+<li><code>response.getWriter()</code>数据输出永远在<code>out.write()</code>的之前</li>
+</ol>
+</li>
+</ul>
+<h2 id="4-Session"><a href="#4-Session" class="headerlink" title="4. Session"></a>4. Session</h2><p> 服务器端会话技术，在一次会话的多次请求间共享数据，将数据保存在服务器端的对象(<code>HttpSession</code>)中。</p>
+<h3 id="4-1-HttpSession对象"><a href="#4-1-HttpSession对象" class="headerlink" title="4.1 HttpSession对象"></a>4.1 <code>HttpSession</code>对象</h3><ol>
+<li>获取<code>HttpSession</code>对象：<code>HttpSession session = request.getSession();</code></li>
+<li>使用<code>HttpSession</code>对象，有三个常用方法<ul>
+<li><code>Object getAttribute(String name)</code></li>
+<li><code>void setAttribute(String name, Object value)</code></li>
+<li><code>void removeAttribute(String name)</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="4-2-原理"><a href="#4-2-原理" class="headerlink" title="4.2 原理"></a>4.2 原理</h3><ul>
+<li>服务器如何确保在一次会话范围内，多次获取的Session对象是同一个？</li>
+</ul>
+<p>Session的实现是依赖于Cookie的。当客户端第一次向服务器发起请求时，没有cookie。会在内存中创建一个新的Session对象，并通过响应头<code>set-cookie</code>将<code>JSESSIONID=xxxxx</code>传递给客户端，客户端保存在cookie信息中。第二次向服务器发起请求时，请求头中会携带这个<code>JSESSIONID=xxxxx</code>，服务器自动获取后会查找内存中是否有这个ID的session对象，能找到就说明是同一个session对象。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/16/Session%E5%8E%9F%E7%90%86-1560647657175.bmp" alt="title"></p>
+<h3 id="4-3-细节问题"><a href="#4-3-细节问题" class="headerlink" title="4.3 细节问题"></a>4.3 细节问题</h3><h4 id="1-当客户端关闭后，服务器不关闭，两次获取的session是否为同一个？"><a href="#1-当客户端关闭后，服务器不关闭，两次获取的session是否为同一个？" class="headerlink" title="1. 当客户端关闭后，服务器不关闭，两次获取的session是否为同一个？"></a>1. 当客户端关闭后，服务器不关闭，两次获取的session是否为同一个？</h4><ul>
+<li><p>默认情况下，不是</p>
+</li>
+<li><p>如果需要两次相同，可以创建Cookie，键为JSESSIONID，并设置cookie存活时间。在服务器不关闭的情况下，在存活时间内，只要是同一个cookie访问，两次获取的session对象就是同一个。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 获取session</span></span><br><span class="line">HttpSession session = request.getSession();</span><br><span class="line"><span class="comment">// 2. 期望客户端关闭后，session也相同</span></span><br><span class="line">Cookie c = <span class="keyword">new</span> Cookie(<span class="string">"JSESSIONID"</span>, session.getId()); <span class="comment">// 手动设置sessionid为当前的session对象id</span></span><br><span class="line">c.setMaxAge(<span class="number">60</span> * <span class="number">60</span>); <span class="comment">// 设置cookie最大存活时间</span></span><br><span class="line">response.addCookie(c); <span class="comment">// 发送cookie</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h4 id="2-客户端不关闭，服务器关闭后，两次获取的session是同一个吗？"><a href="#2-客户端不关闭，服务器关闭后，两次获取的session是同一个吗？" class="headerlink" title="2. 客户端不关闭，服务器关闭后，两次获取的session是同一个吗？"></a>2. 客户端不关闭，服务器关闭后，两次获取的session是同一个吗？</h4><ul>
+<li>不是同一个，但是我们要确保数据不丢失。</li>
+<li>session的钝化：在服务器正常关闭之前，将session对象序列化到硬盘上。</li>
+<li>session的活化：在服务器启动后，将session文件转化为内存中的session对象即可。</li>
+</ul>
+<h4 id="3-session什么时候被销毁"><a href="#3-session什么时候被销毁" class="headerlink" title="3. session什么时候被销毁"></a>3. session什么时候被销毁</h4><ol>
+<li>服务器被关闭</li>
+<li>session对象调用<code>invalidate()</code>方法</li>
+<li>session默认失效时间是 30分钟，可以在web.xml中配置<code>session-config</code></li>
+</ol>
+<h3 id="4-4-session的特点"><a href="#4-4-session的特点" class="headerlink" title="4.4 session的特点"></a>4.4 session的特点</h3><ol>
+<li>session用于存储一次会话的多次请求的数据，存储在服务器端</li>
+<li>session可以存储任意类型，任意大小的数据</li>
+</ol>
+<h4 id="session与cookie的区别"><a href="#session与cookie的区别" class="headerlink" title="session与cookie的区别"></a>session与cookie的区别</h4><ol>
+<li>session存储数据在服务器端，cookie在客户端</li>
+<li>session没有数据大小限制，cookie有限制(4kb)</li>
+<li>session数据安全，cookie相对而言不安全</li>
+</ol>
+<h2 id="5-案例"><a href="#5-案例" class="headerlink" title="5. 案例"></a>5. 案例</h2><h3 id="5-1-需求"><a href="#5-1-需求" class="headerlink" title="5.1 需求"></a>5.1 需求</h3><ol>
+<li>访问带有验证码的登陆页面login.jsp</li>
+<li>用户输入用户名，密码以及验证码<ul>
+<li>如果用户名和密码输入错误，跳转登陆页面，提示：用户名或密码错误</li>
+<li>如果验证码输入有误，跳转登陆页面，提示：验证码错误</li>
+<li>如果全部输入正确，则跳转主页success.jsp，显示：用户名，欢迎你</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-2-分析"><a href="#5-2-分析" class="headerlink" title="5.2 分析"></a>5.2 分析</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/16/%E7%99%BB%E5%BD%95%E6%A1%88%E4%BE%8B-1560651918633.bmp" alt="title"></p>
+<h3 id="5-3-代码实现"><a href="#5-3-代码实现" class="headerlink" title="5.3 代码实现"></a>5.3 代码实现</h3><ol>
+<li>登陆的Servlet</li>
+</ol>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/loginServlet"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 设置request编码</span></span><br><span class="line">        request.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">        <span class="comment">// 2. 获取参数</span></span><br><span class="line">        <span class="comment">// todo：改进，获取参数Map,封装进User对象</span></span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        User loginUser = <span class="keyword">new</span> User();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BeanUtils.populate(loginUser,map);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 获取用户输入的验证码</span></span><br><span class="line">        String checkCode = request.getParameter(<span class="string">"checkCode"</span>);</span><br><span class="line">        <span class="comment">// 3. 获取生成的验证码</span></span><br><span class="line">        HttpSession session = request.getSession();</span><br><span class="line">        String checkCode_session = (String) session.getAttribute(<span class="string">"checkCode_session"</span>);</span><br><span class="line">        <span class="comment">// 3.1 删除session中存储的验证码</span></span><br><span class="line">        session.removeAttribute(<span class="string">"checkCode_session"</span>);</span><br><span class="line">        <span class="comment">// 4. 判断验证码是否正确</span></span><br><span class="line">        <span class="keyword">if</span> (checkCode_session != <span class="keyword">null</span> &amp;&amp; checkCode_session.equalsIgnoreCase(checkCode))&#123;<span class="comment">// 忽略大小写比较</span></span><br><span class="line">            <span class="comment">// 验证码正确，调用UserDao的login方法进行登陆操作</span></span><br><span class="line">            UserDao dao = <span class="keyword">new</span> UserDao();</span><br><span class="line">            User user = dao.login(loginUser);</span><br><span class="line">            <span class="comment">// 判断用户名是否成功登陆</span></span><br><span class="line">            <span class="keyword">if</span> (user != <span class="keyword">null</span> )&#123; <span class="comment">// todo: 需要调用UserDao查询数据库，进行数据对比</span></span><br><span class="line">                <span class="comment">// 登陆成功</span></span><br><span class="line">                <span class="comment">// 存储用户信息</span></span><br><span class="line">                session.setAttribute(<span class="string">"User"</span>,user.getUsername());</span><br><span class="line">                <span class="comment">// 重定向到success.jsp</span></span><br><span class="line">                response.sendRedirect(request.getContextPath() + <span class="string">"/success.jsp"</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 登陆失败</span></span><br><span class="line">                <span class="comment">// 存储信息到request</span></span><br><span class="line">                request.setAttribute(<span class="string">"login_error"</span>,<span class="string">"用户名或密码错误！"</span>);</span><br><span class="line">                <span class="comment">// 转发到登陆页面</span></span><br><span class="line">                request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request,response);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 验证码不一致</span></span><br><span class="line">            <span class="comment">// 存储信息到request</span></span><br><span class="line">            request.setAttribute(<span class="string">"cc_error"</span>,<span class="string">"验证码错误！"</span>);</span><br><span class="line">            <span class="comment">// 转发到登陆页面</span></span><br><span class="line">            request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request,response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<ol start="2">
+<li>登陆的前端页面</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Login&lt;/title&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        window.onload = function () &#123;</span><br><span class="line">            document.getElementById(<span class="string">"img"</span>).onclick = function () &#123;</span><br><span class="line">                <span class="keyword">this</span>.src = <span class="string">"/Demo6_14/checkCodeServlet?time="</span> + <span class="keyword">new</span> Date().getTime();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        div&#123;</span><br><span class="line">            color: red;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action=<span class="string">"/Demo6_14/loginServlet"</span> method=<span class="string">"post"</span>&gt;</span><br><span class="line">    &lt;table&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td&gt;用户名&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&lt;input type="text" name="username"&gt;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td&gt;密码&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&lt;input type="password" name="password"&gt;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td&gt;验证码&lt;/td&gt;</span><br><span class="line">            &lt;td&gt;&lt;input type="text" name="checkCode"&gt;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td colspan="2"&gt;&lt;img src="/Demo6_14/checkCodeServlet" id="img"&gt;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td colspan="2"&gt;&lt;input type="submit" value="登陆"&gt;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">    &lt;div&gt;&lt;%= request.getAttribute("cc_error") == null ? "" : request.getAttribute("cc_error") %&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div&gt;&lt;%= request.getAttribute("login_error") == null ? "" : request.getAttribute("login_error") %&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Dao类</li>
+</ol>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 操作数据库中User表的类，主要查询数据</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 声明JDBCTemplate对象共用</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 登陆方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(User loginUser)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            String sql = <span class="string">"select * from user where username = ? and password = ?"</span>;</span><br><span class="line">            User user = template.queryForObject(sql,</span><br><span class="line">                    <span class="keyword">new</span> BeanPropertyRowMapper&lt;User&gt;(User<span class="class">.<span class="keyword">class</span>),</span></span><br><span class="line"><span class="class">                    <span class="title">loginUser</span>.<span class="title">getUsername</span>(), <span class="title">loginUser</span>.<span class="title">getPassword</span>())</span>;</span><br><span class="line">            <span class="keyword">return</span> user;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (DataAccessException e)&#123;</span><br><span class="line">            <span class="comment">// 登陆失败，打印异常，返回null</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<ol start="4">
+<li>验证码生成类在上一篇文章</li>
+</ol>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/19/JavaWeb/JSP/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            JSP和MVC
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/13/JavaWeb/HTTP和Response对象/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">HTTP协议和Response</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

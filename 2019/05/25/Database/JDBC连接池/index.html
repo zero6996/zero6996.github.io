@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JDBC连接池 | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="数据库连接和Spring JDBC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDBC连接池">
+<meta property="og:url" content="https://zero6996.github.io/2019/05/25/Database/JDBC连接池/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="数据库连接和Spring JDBC">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/25/c3p0-1558796235077.jpg">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.752Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JDBC连接池">
+<meta name="twitter:description" content="数据库连接和Spring JDBC">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/25/c3p0-1558796235077.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-Database/JDBC连接池" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      JDBC连接池
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/05/25/Database/JDBC连接池/" class="article-date">
+  <time datetime="2019-05-25T15:59:00.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
+  </div>
+
+    
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-数据库连接池"><a href="#1-数据库连接池" class="headerlink" title="1. 数据库连接池"></a>1. 数据库连接池</h2><p>其实就是一个容器(集合)，存放数据库连接的容器。当系统初始化好后，容器被创建，容器中会申请一些连接对象。当用户来访问数据库时，从容器中获取连接对象，用户访问完后，会将连接对象归还给容器。</p>
+<a id="more"></a>
+<h3 id="1-1-好处"><a href="#1-1-好处" class="headerlink" title="1.1 好处"></a>1.1 好处</h3><ol>
+<li>节约资源</li>
+<li>用户访问高效</li>
+</ol>
+<h3 id="1-2-实现"><a href="#1-2-实现" class="headerlink" title="1.2 实现"></a>1.2 实现</h3><p>标准接口：<code>DataSource</code> ，<code>javax.sql</code>包下的，主要方法如下：</p>
+<ol>
+<li>获取连接：<code>getConnection()</code></li>
+<li>归还连接：<code>close()</code>。 如果连接对象Connection是从连接池中获取的，那么调用<code>close()</code>方法，则不会关闭连接，而是归还连接。</li>
+</ol>
+<p>一般我们不去实现它，有数据库厂商来实现</p>
+<ol>
+<li>C3P0：数据库连接池技术</li>
+<li>Druid：数据库连接池实现技术，由阿里巴巴提供的</li>
+</ol>
+<h2 id="2-C3P0数据库连接池技术"><a href="#2-C3P0数据库连接池技术" class="headerlink" title="2. C3P0数据库连接池技术"></a>2. C3P0数据库连接池技术</h2><h3 id="2-1-导入Jar包"><a href="#2-1-导入Jar包" class="headerlink" title="2.1 导入Jar包"></a>2.1 导入Jar包</h3><p><a href="https://sourceforge.net/projects/c3p0/" target="_blank" rel="noopener">官方下载地址</a></p>
+<p>下载完后解压，然后导入两个包：<code>c3p0-0.9.5.2.jar</code>和<code>mchange-commons-java-0.2.12.jar</code></p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/25/c3p0-1558796235077.jpg" alt="c3p0"></p>
+<blockquote>
+<p>Notice：不要忘记导入数据库驱动Jar包</p>
+</blockquote>
+<h3 id="2-2-定义配置文件"><a href="#2-2-定义配置文件" class="headerlink" title="2.2 定义配置文件"></a>2.2 定义配置文件</h3><ul>
+<li>名称：<code>c3p0.properties</code>或者<code>c3p0-config.xml</code></li>
+<li>路径：将文件放在src目录下即可。</li>
+</ul>
+<h3 id="2-3-创建核心对象"><a href="#2-3-创建核心对象" class="headerlink" title="2.3 创建核心对象"></a>2.3 创建核心对象</h3><ul>
+<li>数据库连接池对象：<code>ComboPooledDataSource</code></li>
+<li>基本使用如下：</li>
+</ul>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">C3P0Demo1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 创建数据库连接池对象</span></span><br><span class="line">        ComboPooledDataSource dataSource = <span class="keyword">new</span> ComboPooledDataSource();</span><br><span class="line">        <span class="comment">// 2. 获取一个连接对象</span></span><br><span class="line">        Connection conn = dataSource.getConnection();</span><br><span class="line">        <span class="comment">// 3. 进行具体操作</span></span><br><span class="line">        System.out.println(conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="3-Druid：数据库连接池实现技术"><a href="#3-Druid：数据库连接池实现技术" class="headerlink" title="3. Druid：数据库连接池实现技术"></a>3. Druid：数据库连接池实现技术</h2><h3 id="3-1-使用步骤"><a href="#3-1-使用步骤" class="headerlink" title="3.1 使用步骤"></a>3.1 使用步骤</h3><ol>
+<li>导入jar包：<code>druid-1.0.9.jar</code></li>
+<li>定义配置文件：<code>properties</code>形式的，可以叫任意名称，可以放任意目录下</li>
+<li>加载配置文件：使用<code>Properties</code>对象来加载</li>
+<li>获取数据库连接池对象：通过工厂类<code>DruidDataSourceFactory</code>来获取</li>
+<li>获取连接：<code>getConnection</code></li>
+</ol>
+<h3 id="3-2-基本使用示例"><a href="#3-2-基本使用示例" class="headerlink" title="3.2 基本使用示例"></a>3.2 基本使用示例</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Druid演示</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidDemo1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 定义配置文件</span></span><br><span class="line">        <span class="comment">// 2. 加载配置文件</span></span><br><span class="line">        Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">        InputStream is = DruidDemo1.class.getClassLoader().getResourceAsStream("druid.properties");</span><br><span class="line">        <span class="comment">// 3. 获取连接池对象</span></span><br><span class="line">        DataSource ds = DruidDataSourceFactory.createDataSource(pro);</span><br><span class="line">        <span class="comment">// 4. 获取连接</span></span><br><span class="line">        Connection conn = ds.getConnection();</span><br><span class="line">        <span class="comment">// 5. 进行具体操作</span></span><br><span class="line">        System.out.println(conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-3-定义工具类"><a href="#3-3-定义工具类" class="headerlink" title="3.3 定义工具类"></a>3.3 定义工具类</h3><ol>
+<li>定义一个类</li>
+<li>提供静态代码块加载配置文件，初始化连接池对象</li>
+<li>提供方法<ol>
+<li>获取连接方法：通过数据库连接池获取连接</li>
+<li>释放资源</li>
+<li>获取连接池的方法</li>
+</ol>
+</li>
+</ol>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Druid连接池的工具类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidUtils</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 定义成员变量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DataSource ds;</span><br><span class="line">    <span class="comment">// 静态初始化代码块</span></span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">            pro.load(DruidUtils.class.getClassLoader().getResourceAsStream("druid.properties"));</span><br><span class="line">            <span class="comment">// 获取DataSource对象</span></span><br><span class="line">            ds = DruidDataSourceFactory.createDataSource(pro);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取连接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ds.getConnection();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 释放资源</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(Statement stmt,Connection conn)</span></span>&#123;</span><br><span class="line">        close(<span class="keyword">null</span>,stmt,conn);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(ResultSet rs, Statement stmt, Connection conn)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (rs!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (stmt!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (conn!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取连接池方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataSource <span class="title">getDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 测试工具类</span></span><br><span class="line"><span class="comment">// 使用工具类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidDemo2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 完成添加操作，给account表添加一条记录</span></span><br><span class="line">        Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        PreparedStatement pstmt = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 获取连接池对象</span></span><br><span class="line">            conn = DruidUtils.getConnection();</span><br><span class="line">            <span class="comment">// 定义sql</span></span><br><span class="line">            String sql = <span class="string">"insert into account values(null,?,?)"</span>;</span><br><span class="line">            <span class="comment">// 获取执行sql对象</span></span><br><span class="line">            pstmt = conn.prepareStatement(sql);</span><br><span class="line">            <span class="comment">// 给？赋值</span></span><br><span class="line">            pstmt.setString(<span class="number">1</span>,<span class="string">"小六"</span>);</span><br><span class="line">            pstmt.setDouble(<span class="number">2</span>,<span class="number">2699</span>);</span><br><span class="line">            <span class="comment">// 执行sql</span></span><br><span class="line">            <span class="keyword">int</span> count = pstmt.executeUpdate();</span><br><span class="line">            System.out.println(count);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            DruidUtils.close(pstmt,conn);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="4-Spring-JDBC"><a href="#4-Spring-JDBC" class="headerlink" title="4. Spring JDBC"></a>4. Spring JDBC</h2><p>是Spring框架对JDBC的简单封装，提供了一个JDBCTemplate对象简化JDBC的开发</p>
+<h3 id="4-1-使用步骤"><a href="#4-1-使用步骤" class="headerlink" title="4.1 使用步骤"></a>4.1 使用步骤</h3><ol>
+<li>导入Jar包</li>
+<li>创建<code>JDBCTemplate</code>对象，该对象依赖于数据源<code>DataSource</code>，例：<code>JdbcTemplate template = new JdbcTemplate(ds);</code></li>
+<li>调用<code>JDBCTemaplate</code>的方法来完成CRUD的操作</li>
+</ol>
+<p><strong>常用方法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>update()</code></td>
+<td>执行DML语句。增、删、改语句</td>
+</tr>
+<tr>
+<td><code>queryForMap()</code></td>
+<td>查询结果，将结果集封装为Map集合。列名作key，值作value，将这条记录封装为一个Map集合返回。注：该方法查询结果集长度只能是1</td>
+</tr>
+<tr>
+<td><code>queryForList()</code></td>
+<td>查询结果，将结果集封装为List集合。将每一条记录封装为一个Map集合，再将Map集合装载到List集合中</td>
+</tr>
+<tr>
+<td><code>queryForObject()</code></td>
+<td>查询结果，将结果封装为对象。一般用于聚合函数的查询</td>
+</tr>
+<tr>
+<td><code>query()</code></td>
+<td>查询结果，将结果封装为JavaBean对象。一般我们使用<code>new BeanPropertyRowMapper&lt;类型&gt;(类型.class)</code>来完成数据到JavaBean的自动封装。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-2-使用示例"><a href="#4-2-使用示例" class="headerlink" title="4.2 使用示例"></a>4.2 使用示例</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jdbcTemplate基础入门</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JDBCTemplateDemo1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建jdbcTemplate对象</span></span><br><span class="line">        JdbcTemplate jt = <span class="keyword">new</span> JdbcTemplate(DruidUtils.getDataSource());</span><br><span class="line">        <span class="comment">// 调用方法</span></span><br><span class="line">        String sql = <span class="string">"update account set balance=3000 where id=?"</span>;</span><br><span class="line">        <span class="keyword">int</span> count = jt.update(sql, <span class="number">6</span>); <span class="comment">// 返回值是影响的行数</span></span><br><span class="line">        System.out.println(count); <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="4-3-练习"><a href="#4-3-练习" class="headerlink" title="4.3 练习"></a>4.3 练习</h3><ol>
+<li>修改6号数据的salary为10000</li>
+<li>添加一条记录</li>
+<li>删除刚刚添加的记录</li>
+<li>查询id为8的记录，将其封装为Map集合</li>
+<li>查询所有记录，将其封装为List</li>
+<li>查询所有记录，将其封装为Emp对象的List集合</li>
+<li>查询总记录数</li>
+</ol>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exercise</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 获取JdbcTemplate对象</span></span><br><span class="line">        <span class="comment">// 使用Junit单元测试，让方法单独执行</span></span><br><span class="line">        <span class="keyword">private</span> JdbcTemplate jt = <span class="keyword">new</span> JdbcTemplate(DruidUtils.getDataSource());</span><br><span class="line">        <span class="comment">// 编写sql语句并执行</span></span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 1. 修改6号数据的salary为10000</span></span><br><span class="line">            String update = <span class="string">"update staff set salary=10000 where id=?"</span>;</span><br><span class="line">            jt.update(update,<span class="number">6</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 2. 添加一条记录,字段分别为id，name，性别，工资，入职时间，部门id</span></span><br><span class="line">            jt.update(<span class="string">"insert into staff(id,name,salary) values(?,?,?)"</span>,<span class="number">13</span>,<span class="string">"冬兵"</span>,<span class="number">7889</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 3. 删除刚刚添加的记录</span></span><br><span class="line">            jt.update(<span class="string">"delete from staff where name=?"</span>,<span class="string">"冬兵"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test4</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 4. 查询id为8的记录，将其封装为Map集合</span></span><br><span class="line">            <span class="comment">// 注意：这个方法查询的结果集只能是1</span></span><br><span class="line">            Map&lt;String, Object&gt; stringObjectMap = jt.queryForMap(<span class="string">"select * from staff where id=?"</span>, <span class="number">8</span>);</span><br><span class="line">            System.out.println(stringObjectMap); <span class="comment">// &#123;id=8, name=美队, gender=男, salary=8000.0, join_date=2008-08-08, dept_id=2&#125;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test5</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 5. 查询所有记录，将其封装为List</span></span><br><span class="line">            List&lt;Map&lt;String, Object&gt;&gt; maplist = jt.queryForList(<span class="string">"select * from staff"</span>);</span><br><span class="line">            <span class="keyword">for</span> (Map&lt;String, Object&gt; stringObjectMap : maplist) &#123;</span><br><span class="line">                System.out.println(stringObjectMap);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test6</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 6. 查询所有记录，将其封装为Emp对象的List集合，自己完成实现类</span></span><br><span class="line">            String sql = <span class="string">"select * from staff"</span>;</span><br><span class="line">            List&lt;Emp&gt; list = jt.query(sql, <span class="keyword">new</span> RowMapper&lt;Emp&gt;() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> Emp <span class="title">mapRow</span><span class="params">(ResultSet rs, <span class="keyword">int</span> i)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">                    Emp emp = <span class="keyword">new</span> Emp();</span><br><span class="line">                    <span class="keyword">int</span> id = rs.getInt(<span class="string">"id"</span>);</span><br><span class="line">                    String name = rs.getString(<span class="string">"name"</span>);</span><br><span class="line">                    String gender = rs.getString(<span class="string">"gender"</span>);</span><br><span class="line">                    <span class="keyword">double</span> salary = rs.getDouble(<span class="string">"salary"</span>);</span><br><span class="line">                    Date join_date = rs.getDate(<span class="string">"join_date"</span>);</span><br><span class="line">                    <span class="keyword">int</span> dept_id = rs.getInt(<span class="string">"dept_id"</span>);</span><br><span class="line">                    emp.setId(id);</span><br><span class="line">                    emp.setName(name);</span><br><span class="line">                    emp.setGender(gender);</span><br><span class="line">                    emp.setSalary(salary);</span><br><span class="line">                    emp.setJoin_date(join_date);</span><br><span class="line">                    emp.setDept_id(dept_id);</span><br><span class="line">                    <span class="keyword">return</span> emp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">for</span> (Emp emp : list) &#123;</span><br><span class="line">                System.out.println(emp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test6_2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 6. 查询所有记录，将其封装为Emp对象的List集合,使用jdbc提供的实现类来完成</span></span><br><span class="line">            String sql = <span class="string">"select * from staff"</span>;</span><br><span class="line">            List&lt;Emp&gt; list = jt.query(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Emp&gt;(Emp<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">            <span class="keyword">for</span> (Emp emp : list) &#123;</span><br><span class="line">                System.out.println(emp);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">            Failed to convert property value of type 'null' to required type 'int' for property 'dept_id'</span></span><br><span class="line"><span class="comment">            需要将Emp类中变量改为为引用数据类型,然后重新生成方法</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test7</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 7. 查询总记录数</span></span><br><span class="line">            String sql = <span class="string">"select count(id) from staff"</span>;</span><br><span class="line">            Long count = jt.queryForObject(sql, Long<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            System.out.println(count);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/05/26/JavaWeb/HTML/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            HTML基础
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/05/24/Database/JDBC/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">JDBC</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

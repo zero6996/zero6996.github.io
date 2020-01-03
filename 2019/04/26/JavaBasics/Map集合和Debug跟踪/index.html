@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Map集合和Debug跟踪 | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="Java中Map集合的特点及使用，Debug跟踪的使用">
+<meta name="keywords" content="Java,集合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Map集合和Debug跟踪">
+<meta property="og:url" content="https://zero6996.github.io/2019/04/26/JavaBasics/Map集合和Debug跟踪/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="Java中Map集合的特点及使用，Debug跟踪的使用">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/26/Collection%E4%B8%8EMap-1556257061416.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/26/debug%E8%B0%83%E8%AF%95%E7%AA%97%E5%8F%A3%E5%8A%9F%E8%83%BD%E7%AE%80%E8%BF%B0-1556287135342.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/26/04_%E6%96%97%E5%9C%B0%E4%B8%BB%E6%A1%88%E4%BE%8B%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90-1556289337309.bmp">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Map集合和Debug跟踪">
+<meta name="twitter:description" content="Java中Map集合的特点及使用，Debug跟踪的使用">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/26/Collection%E4%B8%8EMap-1556257061416.bmp">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaBasics/Map集合和Debug跟踪" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Map集合和Debug跟踪
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/26/JavaBasics/Map集合和Debug跟踪/" class="article-date">
+  <time datetime="2019-04-26T15:59:00.000Z" itemprop="datePublished">2019-04-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java学习笔记/">Java学习笔记</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/集合/">集合</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-Map集合"><a href="#1-Map集合" class="headerlink" title="1. Map集合"></a>1. Map集合</h2><p>生活中我们常会看到一种集合：IP地址与主机名，身份证号与个人等，这种一一对应的关系，叫做映射。Java中的<code>java.util.Map</code>接口是专门用来存放这种映射关系的集合类。</p>
+<a id="more"></a>
+<h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><p>通过查看Map接口描述，发现Map接口下的集合与Collection接口下的集合，它们存储数据的形式不同，如下图。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/26/Collection%E4%B8%8EMap-1556257061416.bmp" alt="title"></p>
+<ul>
+<li><code>Collection</code>中的集合，元素是孤立存在的，向集合中存储元素采用一个个元素的方式存储。</li>
+<li><code>Map</code>中的集合，元素是成对存在的。每个元素由键值对组成，通过键可以找对应的值。</li>
+<li><code>Collection</code>中的集合称为单列集合，<code>Map</code>中的集合称为双列集合。</li>
+<li>需要注意的是，<code>Map</code>中的集合不能包含重复的键，值可以重复；每个键只能对应一个值。</li>
+</ul>
+<h3 id="1-2-Map常用子类"><a href="#1-2-Map常用子类" class="headerlink" title="1.2 Map常用子类"></a>1.2 Map常用子类</h3><p>Map有多个子类，这里主要讲解常用的HashMap集合、LinkedHashMap集合。</p>
+<ul>
+<li><strong>HashMap&lt;K,V&gt;</strong>：存储数据采用的哈希表结构，元素的存取顺序不一致。由于要保证键的唯一、不重复，需要重写键的hashCode()和equals()方法。</li>
+<li><strong>LinkedHashMap</strong>：HashMap下有个子类LinkedHashMap，存储数据采用的哈希表结构+链表结构。通过链表结构可以保证元素的存取顺序一致；通过哈希表结构可以保证键的唯一性，需要重写键的hashCode和equals方法。</li>
+</ul>
+<blockquote>
+<p>Tips:Map接口中的集合都有两个泛型变量&lt;K,V&gt;,在使用时，需为两个泛型变量赋予数据类型。两个泛型变量&lt;K,V&gt;的数据类型可以相同，也可不同。</p>
+</blockquote>
+<h3 id="1-3-Map接口中的常用方法"><a href="#1-3-Map接口中的常用方法" class="headerlink" title="1.3 Map接口中的常用方法"></a>1.3 Map接口中的常用方法</h3><p>Map接口中定义了多种方法，常用的如下：</p>
+<ul>
+<li><code>public V put(K key, V value)</code>:  把指定的键与指定的值添加到Map集合中。</li>
+<li><code>public V remove(Object key)</code>: 把指定的键 所对应的键值对元素 在Map集合中删除，返回被删除元素的值。</li>
+<li><code>public V get(Object key)</code> 根据指定的键，在Map集合中获取对应的值。</li>
+<li><code>boolean containsKey(Object key)</code> 判断集合中是否包含指定的键。</li>
+<li><code>public Set&lt;K&gt; keySet()</code>: 获取Map集合中所有的键，存储到Set集合中。</li>
+<li><code>public Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet()</code>: 获取到Map集合中所有的键值对对象的集合(Set集合)。</li>
+</ul>
+<p>Map接口的方法示例：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建Map对象</span></span><br><span class="line">        HashMap&lt;String,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">// put(键,值)添加元素</span></span><br><span class="line">        System.out.println(map.put(<span class="string">"小明"</span>,<span class="number">15</span>)); <span class="comment">// 如果添加的元素对键名没有在集合中，会返回一个null，并添加元素</span></span><br><span class="line">        System.out.println(map.put(<span class="string">"小明"</span>,<span class="number">11</span>)); <span class="comment">// 如果添加的元素对键名在集合中存在，则返回该键对应的值，然后替换为新值</span></span><br><span class="line">        map.put(<span class="string">"小张"</span>,<span class="number">18</span>);</span><br><span class="line">        map.put(<span class="string">"李小"</span>,<span class="number">16</span>);</span><br><span class="line">        System.out.println(map); <span class="comment">// &#123;小明=15, 小张=18, 李小=16&#125;</span></span><br><span class="line">        <span class="comment">// remove(键名)删除指定元素</span></span><br><span class="line">        System.out.println(map.remove(<span class="string">"李小"</span>));</span><br><span class="line">        System.out.println(map); <span class="comment">// &#123;小明=15, 小张=18&#125;</span></span><br><span class="line">        <span class="comment">// 通过键名查询对应的值</span></span><br><span class="line">        System.out.println(map.get(<span class="string">"小明"</span>)); <span class="comment">// 15</span></span><br><span class="line">        System.out.println(map.get(<span class="string">"小张"</span>)); <span class="comment">// 18</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<blockquote>
+<p>Tips:</p>
+<p>使用put方法时，若指定的键(key)在集合中没有，则表示没有这个键值对，返回null，并把指定键值添加到集合中。</p>
+<p>若指定的键(key)在集合中存在，则返回值为集合中键对应的值，并把指定键所对应的值，替换为新值。</p>
+</blockquote>
+<h3 id="1-4-Map集合遍历键找值的方式"><a href="#1-4-Map集合遍历键找值的方式" class="headerlink" title="1.4 Map集合遍历键找值的方式"></a>1.4 Map集合遍历键找值的方式</h3><p>遍历方式：即通过元素中的键名，获取键所对应的值。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoGetValue</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;String,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">"小明"</span>,<span class="number">16</span>);</span><br><span class="line">        map.put(<span class="string">"小李"</span>,<span class="number">19</span>);</span><br><span class="line">        map.put(<span class="string">"小张"</span>,<span class="number">17</span>);</span><br><span class="line">        map.put(<span class="string">"小德"</span>,<span class="number">12</span>);</span><br><span class="line">        <span class="comment">// 获取所以键，存储到set集合中</span></span><br><span class="line">        Set&lt;String&gt; keys = map.keySet();</span><br><span class="line">        <span class="keyword">for</span>(String key:keys)&#123;</span><br><span class="line">            System.out.println(key+<span class="string">"的年龄是："</span>+map.get(key)+<span class="string">"岁"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="1-5-Entry键值对对象"><a href="#1-5-Entry键值对对象" class="headerlink" title="1.5 Entry键值对对象"></a>1.5 Entry键值对对象</h3><p>Map中存放的是两种对象，一种称为key(键)，一种称为value(值)，在Map中是一一对应关系，这一对对象又称做Map中的一个<code>Entry(项)</code>。<code>Entry</code>将键值对的对应关系封装成了对象。即键值对对象，这样我们遍历Map集合时，就可以从每一个键值对(Entry)对象中获取对应的键与对应的值。</p>
+<p>Entry同样提供了获取对应键和对应值的方法：</p>
+<ul>
+<li><code>public K getKey()</code>: 获取Entry对象中的键。</li>
+<li><code>public V getValue()</code>:获取Entry对象中的值。</li>
+</ul>
+<p>在Map集合中也提供了获取所以Entry对象的方法：</p>
+<ul>
+<li><code>public Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet()</code>:获取Map集合中所有的键值对对象的集合(Set集合)。</li>
+</ul>
+<h3 id="1-6-Map集合遍历键值对方式"><a href="#1-6-Map集合遍历键值对方式" class="headerlink" title="1.6 Map集合遍历键值对方式"></a>1.6 Map集合遍历键值对方式</h3><p>键值对方式：即通过集合中每个键值对(Entry)对象，获取键值对(Entry)对象中的键与值。<br>操作步骤：</p>
+<ol>
+<li>获取Map集合中，所以键值对(Entry)对象，以Set集合形式返回。方法提示：<code>entrySet()</code>。</li>
+<li>遍历包含键值对(Entry)对象的Set集合，得到每一个键值对(Entry)对象。</li>
+<li>通过键值对(Entry)对象，获取Entry对象中的键与值。  方法提示:<code>getkey() getValue()</code>   <div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EntryDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;String,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">"小米"</span>,<span class="number">32</span>);</span><br><span class="line">        map.put(<span class="string">"小花"</span>,<span class="number">25</span>);</span><br><span class="line">        map.put(<span class="string">"小马"</span>,<span class="number">52</span>);</span><br><span class="line">        Set&lt;Map.Entry&lt;String,Integer&gt;&gt; entrys = map.entrySet();</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String,Integer&gt; entry:entrys)&#123;</span><br><span class="line">            String key = entry.getKey();</span><br><span class="line">            <span class="keyword">int</span> value = entry.getValue();</span><br><span class="line">            System.out.println(key+<span class="string">"的年龄是:"</span>+value+<span class="string">"岁"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<blockquote>
+<p>Tips: Map集合不能直接使用迭代器或foreach进行遍历。但是转Set之后就可以使用了。</p>
+</blockquote>
+<h3 id="1-7-HashMap存储自定义类型键值"><a href="#1-7-HashMap存储自定义类型键值" class="headerlink" title="1.7 HashMap存储自定义类型键值"></a>1.7 HashMap存储自定义类型键值</h3><p>练习：每位学生（姓名，年龄）都有自己的家庭住址。那么，既然有对应关系，则将学生对象和家庭住址存储到map集合中。学生作为键, 家庭住址作为值。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 学生类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	<span class="comment">// ... 省略get/set方法，初始化构造方法等</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMapTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建HashMap集合对象</span></span><br><span class="line">        Map&lt;Student, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">25</span>),<span class="string">"上海"</span>);</span><br><span class="line">        map.put(<span class="keyword">new</span> Student(<span class="string">"李四"</span>,<span class="number">28</span>),<span class="string">"北京"</span>);</span><br><span class="line">        map.put(<span class="keyword">new</span> Student(<span class="string">"王五"</span>,<span class="number">20</span>),<span class="string">"广州"</span>);</span><br><span class="line">        map.put(<span class="keyword">new</span> Student(<span class="string">"赵六"</span>,<span class="number">19</span>),<span class="string">"深圳"</span>);</span><br><span class="line">        map.put(<span class="keyword">new</span> Student(<span class="string">"孙钱"</span>,<span class="number">24</span>),<span class="string">"杭州"</span>);</span><br><span class="line">        <span class="comment">// 取出元素</span></span><br><span class="line">        Set&lt;Student&gt; keys = map.keySet(); <span class="comment">// 获取所以键名放入set中</span></span><br><span class="line">        <span class="keyword">for</span> (Student key:keys)&#123;</span><br><span class="line">            System.out.println(key.toString() + <span class="string">"....."</span> + map.get(key)); <span class="comment">// 注意Student类要重写toString方法</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="1-8-LinkedHashMap"><a href="#1-8-LinkedHashMap" class="headerlink" title="1.8 LinkedHashMap"></a>1.8 LinkedHashMap</h3><p>HashMap可以保证成对元素唯一性，且查询速度很快，可存入的顺序是无序的，如果要保证有序，可以使用<code>HashMap</code>下的一个子类<code>LinkedHashMap</code>，它是链表和哈希表组成的一个数据存储结构。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedHashMapDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LinkedHashMap&lt;String,Integer&gt; linkMap = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line">        linkMap.put(<span class="string">"小米"</span>,<span class="number">11</span>);</span><br><span class="line">        linkMap.put(<span class="string">"小花"</span>,<span class="number">15</span>);</span><br><span class="line">        linkMap.put(<span class="string">"小中"</span>,<span class="number">19</span>);</span><br><span class="line">        Set&lt;Map.Entry&lt;String,Integer&gt;&gt; entrys = linkMap.entrySet();</span><br><span class="line">        <span class="keyword">for</span>(Map.Entry&lt;String,Integer&gt; entry:entrys)&#123;</span><br><span class="line">            System.out.println(entry.getKey() + <span class="string">"的年龄是："</span> + entry.getValue() + <span class="string">"岁"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 如此就保证了存入元素的有序性</span></span><br></pre></td></tr></table></figure></div></p>
+<h3 id="1-9-Map集合练习"><a href="#1-9-Map集合练习" class="headerlink" title="1.9 Map集合练习"></a>1.9 Map集合练习</h3><p>计算一个字符串中每个字符出现次数。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"请输入一个字符串:"</span>);</span><br><span class="line">        String line = <span class="keyword">new</span> Scanner(System.in).nextLine();</span><br><span class="line">        findChar(line);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">findChar</span><span class="params">(String line)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个集合，存储字符及出现次数</span></span><br><span class="line">        HashMap&lt;Character,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; line.length();i++)&#123;</span><br><span class="line">            <span class="keyword">char</span> c = line.charAt(i); <span class="comment">// 返回指定索引处字符</span></span><br><span class="line">            <span class="keyword">if</span>(!map.containsKey(c))&#123; <span class="comment">// 判断字符 是否在键集中,不在则执行下面语句</span></span><br><span class="line">                map.put(c,<span class="number">1</span>); <span class="comment">// 第一次出现，添加该字符，并计数1</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123; <span class="comment">// 则说明字符键名在键集中了，就是出现过</span></span><br><span class="line">                Integer count = map.get(c); <span class="comment">// 获取前一次值</span></span><br><span class="line">                map.put(c,++count); <span class="comment">// 再次存入，并更新值</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(map);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="2-知识点补充"><a href="#2-知识点补充" class="headerlink" title="2. 知识点补充"></a>2. 知识点补充</h2><h3 id="2-1-JDK9对集合添加的优化"><a href="#2-1-JDK9对集合添加的优化" class="headerlink" title="2.1 JDK9对集合添加的优化"></a>2.1 JDK9对集合添加的优化</h3><p>Java 9，添加了几种集合工厂方法，更方便创建少量元素的集合、map实例。新的List、Set、Map的静态工厂方法可以更方便地创建集合的不可变实例。示例如下：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JDK9NewMethod</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Set&lt;String&gt; str = Set.of(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>);</span><br><span class="line"><span class="comment">//        str1.add("d"); // 这里使用add方法，编译不会报错，执行会报错，因为是不可变集合。</span></span><br><span class="line">        System.out.println(str);</span><br><span class="line">        List&lt;String&gt; list = List.of(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">        Map&lt;String,Integer&gt; map = Map.of(<span class="string">"a"</span>,<span class="number">1</span>,<span class="string">"b"</span>,<span class="number">2</span>);</span><br><span class="line">        System.out.println(map);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>注意事项：</p>
+<blockquote>
+<ol>
+<li>of()方法只是Map,List,Set这三个接口的静态方法，其父类接口和子类实现并没有这类方法，如HashSet，ArrayList等。<br>2.返回的集合是不可变的。</li>
+</ol>
+</blockquote>
+<h3 id="2-2-Debug跟踪"><a href="#2-2-Debug跟踪" class="headerlink" title="2.2 Debug跟踪"></a>2.2 Debug跟踪</h3><h4 id="使用IDEA的断点调试功能，查看程序的运行过程"><a href="#使用IDEA的断点调试功能，查看程序的运行过程" class="headerlink" title="使用IDEA的断点调试功能，查看程序的运行过程"></a>使用IDEA的断点调试功能，查看程序的运行过程</h4><p>下图为调试窗口基本功能。<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/26/debug%E8%B0%83%E8%AF%95%E7%AA%97%E5%8F%A3%E5%8A%9F%E8%83%BD%E7%AE%80%E8%BF%B0-1556287135342.png" alt="title"></p>
+<h2 id="3-斗地主Map实现"><a href="#3-斗地主Map实现" class="headerlink" title="3. 斗地主Map实现"></a>3. 斗地主Map实现</h2><h3 id="需求分析："><a href="#需求分析：" class="headerlink" title="需求分析："></a>需求分析：</h3><ol>
+<li>准备牌：<br>完成数字与纸牌的映射关系：<br>使用双列Map(HashMap)集合，完成一个数字与字符串纸牌的对应关系(相当于一个字典)。</li>
+<li>洗牌：<br>通过数字完成洗牌发牌</li>
+<li>发牌：<br>将每个人以及底牌设计为ArrayList<string>,将最后3张牌直接存放于底牌，剩余牌通过对3取模依次发牌。<br>存放的过程中要求数字大小与斗地主规则的大小对应。<br>将代表不同纸牌的数字分配给不同的玩家与底牌。</string></li>
+<li>看牌：<br>通过Map集合找到对应字符展示。<br>通过查询纸牌与数字的对应关系，由数字转成纸牌字符串再进行展示。<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/26/04_%E6%96%97%E5%9C%B0%E4%B8%BB%E6%A1%88%E4%BE%8B%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90-1556289337309.bmp" alt="title"><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Poker</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 准备牌</span></span><br><span class="line">        List&lt;String&gt; colors = List.of(<span class="string">"♥"</span>,<span class="string">"♦"</span>,<span class="string">"♠"</span>,<span class="string">"♣"</span>);</span><br><span class="line">        List&lt;String&gt; numbers = List.of(<span class="string">"2"</span>,<span class="string">"3"</span>,<span class="string">"4"</span>,<span class="string">"5"</span>,<span class="string">"6"</span>,<span class="string">"7"</span>,<span class="string">"8"</span>,<span class="string">"9"</span>,<span class="string">"10"</span>,<span class="string">"J"</span>,<span class="string">"Q"</span>,<span class="string">"K"</span>,<span class="string">"A"</span>);</span><br><span class="line">        HashMap&lt;Integer,String&gt; pokerMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> cardID = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (String color:colors)&#123;</span><br><span class="line">            <span class="keyword">for</span> (String num:numbers)&#123;</span><br><span class="line">                pokerMap.put(cardID,color+num);</span><br><span class="line">                cardID++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        pokerMap.put(<span class="number">52</span>,<span class="string">"小☺"</span>);</span><br><span class="line">        pokerMap.put(<span class="number">53</span>,<span class="string">"大☠"</span>);</span><br><span class="line"><span class="comment">//        System.out.println(pokerMap);</span></span><br><span class="line">        ArrayList&lt;Integer&gt; cardKeys = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        cardKeys.addAll(pokerMap.keySet());<span class="comment">// 获取map的键名集合，并转换为List集合，方便打乱。</span></span><br><span class="line">        <span class="comment">// 打乱顺序，洗牌</span></span><br><span class="line">        Collections.shuffle(cardKeys); <span class="comment">// 牌编号集合</span></span><br><span class="line">        <span class="comment">// 创建3个玩家集合和底牌集合。</span></span><br><span class="line">        ArrayList&lt;String&gt; bottomCard = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// 底牌</span></span><br><span class="line">        ArrayList&lt;String&gt; player1 = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// 玩家1</span></span><br><span class="line">        ArrayList&lt;String&gt; player2 = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// 玩家2</span></span><br><span class="line">        ArrayList&lt;String&gt; player3 = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// 玩家3</span></span><br><span class="line">        <span class="comment">// 发牌的编号</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; cardKeys.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= <span class="number">51</span>)&#123;</span><br><span class="line">                bottomCard.add(pokerMap.get(cardKeys.get(i))); <span class="comment">// 根据牌编号，获取对应在牌盒中的牌，放入底牌</span></span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">0</span>)&#123;</span><br><span class="line">                player1.add(pokerMap.get(cardKeys.get(i))); <span class="comment">// 根据牌编号，获取对应在牌盒中的牌，放入玩家1手中</span></span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">1</span>)&#123;</span><br><span class="line">                player2.add(pokerMap.get(cardKeys.get(i))); <span class="comment">// 根据牌编号，获取对应在牌盒中的牌，放入玩家2手中</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                player3.add(pokerMap.get(cardKeys.get(i))); <span class="comment">// 根据牌编号，获取对应在牌盒中的牌，放入玩家3手中</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 根据花色排序，后续可改进为根据数字排序</span></span><br><span class="line">        Collections.sort(bottomCard);</span><br><span class="line">        Collections.sort(player1);</span><br><span class="line">        Collections.sort(player2);</span><br><span class="line">        Collections.sort(player3);</span><br><span class="line">        <span class="comment">// 看牌</span></span><br><span class="line">        System.out.println(player1);</span><br><span class="line">        System.out.println(player2);</span><br><span class="line">        System.out.println(player3);</span><br><span class="line">        System.out.println(bottomCard);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<h3 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h3><ol>
+<li>Map集合中的子类和常用方法</li>
+<li>Debug跟踪的使用</li>
+<li>使用Map实现斗地主案例</li>
+</ol>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/27/JavaBasics/Java中的异常处理和进程线程概念 /" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Java中的异常处理和进程线程概念
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/25/JavaBasics/数据结构简述和List,Set集合/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">数据结构概述和List/Set集合</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

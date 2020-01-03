@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>函数式接口 | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="使用函数式接口编程，自定义函数式接口，常用接口等">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式接口">
+<meta property="og:url" content="https://zero6996.github.io/2019/05/14/JavaBasics/函数式接口/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="使用函数式接口编程，自定义函数式接口，常用接口等">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数式接口">
+<meta name="twitter:description" content="使用函数式接口编程，自定义函数式接口，常用接口等">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaBasics/函数式接口" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      函数式接口
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/05/14/JavaBasics/函数式接口/" class="article-date">
+  <time datetime="2019-05-14T14:00:00.000Z" itemprop="datePublished">2019-05-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java学习笔记/">Java学习笔记</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-函数式接口"><a href="#1-函数式接口" class="headerlink" title="1. 函数式接口"></a>1. 函数式接口</h2><p>函数式接口在Java中是指：<strong>有且仅有一个抽象方法的接口</strong>。</p>
+<p>函数式接口，也称为SAM(Single Abstract Method interfaces)接口，即适用于函数式编程场景的接口。而java中的函数式编程体现就是Lambda，所以函数式接口就是可以适用于Lambda使用的接口。只有确保接口中有且仅有一个抽象方法，java中的Lambda才能顺利地进行推导。</p>
+<a id="more"></a>
+<blockquote>
+<p>注：“<strong>语法糖</strong>“是指使用更加方便，但是原理不变的代码语法。例如在遍历集合时使用的for-each语法，其实底层的实现原理仍然是迭代器，这便是“语法糖”。从应用层面来讲，Java中的Lambda可以被当做是匿名内部类的“语法糖”，但是二者在原理上是不同的。</p>
+</blockquote>
+<h3 id="1-1-格式"><a href="#1-1-格式" class="headerlink" title="1.1 格式"></a>1.1 格式</h3><p>​    只要确保接口中有且仅有一个抽象方法即可：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修饰符 <span class="class"><span class="keyword">interface</span> 接口名称</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> 返回值类型 方法名称(可选参数信息);</span><br><span class="line">    <span class="comment">// 其他非抽象方法内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>​    由于接口当中抽象方法的<code>public abstract</code>是可以省略的，所以定义一个函数式接口很简单：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyFun</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MyMethod</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="1-2-FunctionalInterface注解"><a href="#1-2-FunctionalInterface注解" class="headerlink" title="1.2 @FunctionalInterface注解"></a>1.2 @FunctionalInterface注解</h3><p>​    与<code>@Override</code>注解的作用类似，Java 8中专门为函数式接口引入了一个新的注解：<code>@FunctionalInterface</code>。该注解可用于一个接口的定义上：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyFun</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MyMethod</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>​    一旦使用该注解来定义接口，编译器将会强制检查该接口是否确定有且仅有一个抽象方法，否则将会报错。</p>
+<h3 id="1-3-自定义函数式接口"><a href="#1-3-自定义函数式接口" class="headerlink" title="1.3 自定义函数式接口"></a>1.3 自定义函数式接口</h3><p>对于刚刚定义好的<code>MyFun</code>函数式接口，典型使用场景就是作为方法的参数：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoFunInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 使用lambda调用函数式接口中的方法</span></span><br><span class="line">        doSomething(()-&gt; System.out.println(<span class="string">"Lambda执行了！"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用自定义的函数式接口作为方法参数</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">(MyFun inter)</span></span>&#123;</span><br><span class="line">        inter.MyMethod(); <span class="comment">// 调用自定义的函数式接口方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="2-函数式编程"><a href="#2-函数式编程" class="headerlink" title="2. 函数式编程"></a>2. 函数式编程</h2><p>在兼顾面向对象特性的基础上，Java语言通过Lambda表达式与方法引用等，打开了函数式编程的大门。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数式接口的使用：一般可以作为方法的参数和返回值类型</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 定义一个方法，参数使用函数式接口MyFun</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(MyFun myFun)</span></span>&#123;</span><br><span class="line">        myFun.MyMethod();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 调用show方法，方法的参数是一个接口，所以可以传递接口的实现类对象</span></span><br><span class="line">        show(<span class="keyword">new</span> MyFunImpl());</span><br><span class="line">        <span class="comment">// 调用show方法，方法的参数是一个接口,所以我们可以传递接口的匿名内部类</span></span><br><span class="line">        show(<span class="keyword">new</span> MyFun() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MyMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"使用匿名内部类重写接口中的抽象方法"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 调用show方法，方法的参数是一个函数式接口,所以我们可以传递lambda表达式</span></span><br><span class="line">        show(()-&gt; System.out.println(<span class="string">"使用Lambda表达式重写接口中的抽象方法"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// result:</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">使用实现类重写MyFun接口抽象方法</span></span><br><span class="line"><span class="comment">使用匿名内部类重写接口中的抽象方法</span></span><br><span class="line"><span class="comment">使用Lambda表达式重写接口中的抽象方法</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="2-1-Lambda的延迟执行"><a href="#2-1-Lambda的延迟执行" class="headerlink" title="2.1 Lambda的延迟执行"></a>2.1 Lambda的延迟执行</h3><p>有些场景的代码执行后，结果不一定会被使用，从而造成性能浪费。而Lambda表达式是延迟执行的，这正好可以作为解决方案，提升性能。</p>
+<h4 id="性能浪费的日志"><a href="#性能浪费的日志" class="headerlink" title="性能浪费的日志"></a>性能浪费的日志</h4><p>注：日志可以帮助我们快速的定位问题，记录程序运行过程中的情况，以便项目的监控和优化。</p>
+<p>一种典型场景就是对参数进行有条件使用，例如对日志消息进行拼接后，在满足条件情况下进行打印输出：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02Logger</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 定义三个日志信息</span></span><br><span class="line">        String msg1 = <span class="string">"hello"</span>;</span><br><span class="line">        String msg2 = <span class="string">"world"</span>;</span><br><span class="line">        String msg3 = <span class="string">"java"</span>;</span><br><span class="line">        <span class="comment">// 调用方法，传递日志级别和日志信息</span></span><br><span class="line">        log(<span class="number">1</span>,msg1+msg2+msg3);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 定义一个根据日志的级别，显示日志信息的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(<span class="keyword">int</span> level, String msg)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 对日志等级进行判断，如果是1级别，那么输出日志信息</span></span><br><span class="line">        <span class="keyword">if</span> (level == <span class="number">1</span>)&#123;</span><br><span class="line">            System.out.println(msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>上述代码仍存在问题：无论级别是否满足要求，作为<code>log</code>方法的第二个参数，三个字符串一定会首先被拼接并传入方法内，然后才会进行级别判断。如级别不符合要求，那么字符串拼接操作就白做了，浪费性能。</p>
+<blockquote>
+<p>备注：SLF4J是应用非常广泛的日志框架，它在记录日志时为了解决这种性能浪费的问题，并不推荐首先进行字符串的拼接，而是将字符串的若干部分作为可变参数传入方法中，仅在日志级别满足要求的情况下才会进行字符串拼接。例如：<code>LOGGER.debug(&quot;变量{}的取值为{}。&quot;, &quot;os&quot;, &quot;macOS&quot;)</code>，其中的大括号<code>{}</code>为占位符。如果满足日志级别要求，则会将“os”和“macOS”两个字符串依次拼接到大括号的位置；否则不会进行字符串拼接。这也是一种可行解决方案，但Lambda可以做到更好。</p>
+</blockquote>
+<h4 id="Lambda优化写法"><a href="#Lambda优化写法" class="headerlink" title="Lambda优化写法"></a>Lambda优化写法</h4><p>使用Lambda必然需要一个函数式接口：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MessageInter</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">Message</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>对<code>log</code>方法进行改造：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoLogLambda</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String msg1 = <span class="string">"hello"</span>;</span><br><span class="line">        String msg2 = <span class="string">"world"</span>;</span><br><span class="line">        String msg3 = <span class="string">"java"</span>;</span><br><span class="line">        log(<span class="number">1</span>,() -&gt; msg1 + msg2 + msg3);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(<span class="keyword">int</span> level,MessageInter msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (level == <span class="number">1</span>)&#123;</span><br><span class="line">            System.out.println(msg.Message()); <span class="comment">// 只有当条件满足时，才会去调用字符串拼接方法，不满足不会拼接</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>如此，只有当级别满足要求时，才会进行三个字符串拼接，不会造成性能浪费。</p>
+<h4 id="证明Lambda的延迟"><a href="#证明Lambda的延迟" class="headerlink" title="证明Lambda的延迟"></a>证明Lambda的延迟</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoLoggerDelay</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(<span class="keyword">int</span> level,MessageInter msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (level == <span class="number">1</span>)&#123;</span><br><span class="line">            System.out.println(msg.Message());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String msg1 = <span class="string">"hello"</span>;</span><br><span class="line">        String msg2 = <span class="string">"world"</span>;</span><br><span class="line">        String msg3 = <span class="string">"java"</span>;</span><br><span class="line">        log(<span class="number">2</span>,() -&gt;&#123;</span><br><span class="line">            System.out.println(<span class="string">"满足条件Lambda执行！"</span>);</span><br><span class="line">            <span class="keyword">return</span> msg1 + msg2 + msg3;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>从结果中可以看出，在不符合级别要求的情况下，Lambda将不会执行。从而达到节省性能的效果。</p>
+<blockquote>
+<p>实际上使用内部类也可以达到同样的效果，只是将代码操作延迟到了另外一个对象当中通过调用方法来完成。而是否调用其所在方法是在条件判断之后才执行的。</p>
+</blockquote>
+<h3 id="2-2-使用Lambda作为参数和返回值"><a href="#2-2-使用Lambda作为参数和返回值" class="headerlink" title="2.2 使用Lambda作为参数和返回值"></a>2.2 使用Lambda作为参数和返回值</h3><p>抛开实现原理不说，Java中的Lambda表达式可以被看做是匿名内部类的替代品。如果方法的参数是一个<strong>函数式接口类型</strong>，那么就可以使用Lambda表达式进行替代。使用Lambda表达式作为方法参数，其实就是使用函数式接口作为方法参数。</p>
+<p>例如<code>java.lang.Runnable</code>接口就是一个函数式接口，假设有一个<code>startThread</code>方法使用该接口作为参数，那么就可以使用Lambda进行传参。这种情况其实和<code>Thread</code>类的构造方法参数为<code>Runnable</code>没有本质区别。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用lambda作为方法参数</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoRunnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 调用方法，参数是接口，我们可以传递匿名内部类，实现类接口lambda等。</span></span><br><span class="line">        startThread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"--&gt;"</span> + <span class="string">"线程启动了"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 调用方法，参数是一个函数式接口，我们可以传递lambda</span></span><br><span class="line">        startThread(() -&gt; System.out.println(Thread.currentThread().getName() + <span class="string">"--&gt;"</span> + <span class="string">"线程启动了"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 定义一个方法，方法参数使用函数式接口Runnable</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">startThread</span><span class="params">(Runnable run)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 开启多线程</span></span><br><span class="line">        <span class="keyword">new</span> Thread(run).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>类似地，如果一个方法的返回值类型是一个函数式接口，那么就可以直接返回一个Lambda表达式。当需要通过一个方法来获取一个<code>java.util.Comparator</code>接口类型的对象作为排序器时，就可以调用该方法获取。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用Lambda作为返回值类型</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoComparator</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 定义一个方法，方法返回值类型使用函数式接口Comparator</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Comparator&lt;String&gt; <span class="title">getComparator</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 方法的返回值类型是一个接口，那么我们可以返回这个接口的匿名内部类</span></span><br><span class="line"><span class="comment">//        return new Comparator&lt;String&gt;() &#123;</span></span><br><span class="line"><span class="comment">//            @Override</span></span><br><span class="line"><span class="comment">//            public int compare(String o1, String o2) &#123;</span></span><br><span class="line"><span class="comment">//                return o2.length() - o1.length();</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//        &#125;;</span></span><br><span class="line">        <span class="comment">// 方法的返回值类型是一个函数式接口，所以我们可以返回一个Lambda表达式</span></span><br><span class="line">        <span class="keyword">return</span> (String o1,String o2) -&gt; o2.length() - o1.length();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">        String[] arr = &#123;<span class="string">"aaa"</span>,<span class="string">"b"</span>,<span class="string">"cccc"</span>,<span class="string">"dddddd"</span>&#125;;</span><br><span class="line">        System.out.println(Arrays.toString(arr));</span><br><span class="line">        <span class="comment">// 调用Arrays中的sort方法，对字符串数组进行排序</span></span><br><span class="line">        Arrays.sort(arr,getComparator());</span><br><span class="line">        System.out.println(Arrays.toString(arr));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="3-常用函数式接口"><a href="#3-常用函数式接口" class="headerlink" title="3. 常用函数式接口"></a>3. 常用函数式接口</h2><p>JDK提供了大量常用的函数式接口以丰富Lambda的典型使用场景，它们主要在<code>java.util.function</code>包中被提供。</p>
+<h3 id="3-1-Supplier接口"><a href="#3-1-Supplier接口" class="headerlink" title="3.1 Supplier接口"></a>3.1 Supplier接口</h3><p><code>java.util.funtion.Supplier&lt;T&gt;</code>接口仅包含一个无参的方法：<code>T get()</code>。用来获取一个泛型参数指定类型的对象数据。由于这是一个函数式接口，也就意味着对应的Lambda表达式需要”<strong>对外提供</strong>“一个符合泛型类型的对象数据。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoSupplier</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 定义一个方法，方法的参数传递Supplier&lt;T&gt;接口，泛型执行get方法就会返回一个String</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getString</span><span class="params">(Supplier&lt;String&gt; sup)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sup.get();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 调用getString方法，方法的参数Supplier是一个函数式接口，所以可以传递Lambda表达式</span></span><br><span class="line">        String s = getString(() -&gt; <span class="string">"你好呀"</span>);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Supplier&lt;T&gt;接口被称之为生成型接口，指定接口的泛型是什么类型，那么接口中的get方法就会生产什么类型数据</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="3-2-练习：求数组元素最大值"><a href="#3-2-练习：求数组元素最大值" class="headerlink" title="3.2 练习：求数组元素最大值"></a>3.2 练习：求数组元素最大值</h3><p>使用<code>Supplier</code>接口作为方法参数类型，通过Lambda表达式求出int数组中的最大值。</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoMaxArray</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 定义一个方法，用于获取int类型数组中元素的最大值，方法的参数传递Supplier接口，泛型使用Integer</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getMax</span><span class="params">(Supplier&lt;Integer&gt; sup)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sup.get();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">99</span>,<span class="number">35</span>,<span class="number">72</span>,<span class="number">956</span>,<span class="number">12</span>,-<span class="number">3</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> maxValue = getMax(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">int</span> max = arr[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i : arr) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i&gt;max)</span><br><span class="line">                    max = i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> max;</span><br><span class="line">        &#125;);</span><br><span class="line">        System.out.println(<span class="string">"数组中最大值元素为："</span> + maxValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-3-Consumer接口"><a href="#3-3-Consumer接口" class="headerlink" title="3.3 Consumer接口"></a>3.3 Consumer接口</h3><p><code>java.util.function.Consumer&lt;T&gt;</code>接口则正好与Supplier接口相反，它不是生产一个数据，而是消费一个数据，其数据类型由泛型决定。</p>
+<h4 id="抽象方法：accept"><a href="#抽象方法：accept" class="headerlink" title="抽象方法：accept"></a>抽象方法：accept</h4><p><code>Consumer</code>接口中包含抽象方法<code>void accept(T t)</code>,意为消费一个指定泛型的数据。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoConsumer</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        定义一个方法</span></span><br><span class="line"><span class="comment">        方法的参数传递一个字符串的姓名</span></span><br><span class="line"><span class="comment">        方法的参数传递Consumer接口，泛型使用String</span></span><br><span class="line"><span class="comment">        可以使用Consumer接口消费字符串的姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(String name,Consumer&lt;String&gt; con)</span></span>&#123;</span><br><span class="line">        con.accept(name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 调用method方法，传递字符串姓名，方法的另一个参数是Consumer接口，是一个函数式接口，可以使用Lambda表达式</span></span><br><span class="line">        method(<span class="string">"上海"</span>,(String name)-&gt;&#123;</span><br><span class="line">            <span class="comment">// 对传递的字符串进行消费</span></span><br><span class="line">            <span class="comment">// 消费方式：直接输出字符串</span></span><br><span class="line">            System.out.println(name);</span><br><span class="line">            <span class="comment">// 消费方式：对字符串进行反转输出</span></span><br><span class="line">            String reName = <span class="keyword">new</span> StringBuffer(name).reverse().toString();</span><br><span class="line">            System.out.println(reName);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// result:</span></span><br><span class="line">上海</span><br><span class="line">海上</span><br></pre></td></tr></table></figure></div>
+<h4 id="默认方法-andThen"><a href="#默认方法-andThen" class="headerlink" title="默认方法: andThen"></a>默认方法: andThen</h4><p>如果一个方法的参数和返回值全都是<code>Consumer</code>类型，那么就可以实现效果：消费数据的时候，先做一个操作，然后在做另一个操作，实现组合。而这个方法就是<code>Consumer</code>接口中的default方法<code>andThen</code>。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    Consumer接口的默认方法andThen</span></span><br><span class="line"><span class="comment">    作用：需要两个Consumer接口，可以把两个Consumer接口组合到一起，在对数据进行消费</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    例如：</span></span><br><span class="line"><span class="comment">      Consumer&lt;String&gt; con1</span></span><br><span class="line"><span class="comment">      Consumer&lt;String&gt; con2</span></span><br><span class="line"><span class="comment">      String s= "hello";</span></span><br><span class="line"><span class="comment">      con1.accept(s);</span></span><br><span class="line"><span class="comment">      con2.accept(s);</span></span><br><span class="line"><span class="comment">      连接两个Consumer接口，再进行消费</span></span><br><span class="line"><span class="comment">      con1.andThen(con2).accept(s); 谁写前面谁先消费</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoAndThen</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">consumerString</span><span class="params">(String s,Consumer&lt;String&gt; one,Consumer&lt;String&gt; two)</span></span>&#123;</span><br><span class="line"><span class="comment">//        one.accept(s);</span></span><br><span class="line"><span class="comment">//        two.accept(s);</span></span><br><span class="line">        <span class="comment">// 使用andThen方法，把两个Consumer接口连接到一起消费数据,等效于上面</span></span><br><span class="line">        one.andThen(two).accept(s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 因为有两个Consumer接口，所以要传递两个Lambda进去</span></span><br><span class="line">        consumerString(<span class="string">"Hello"</span>,</span><br><span class="line">                s -&gt; System.out.println(s.toUpperCase()),</span><br><span class="line">                s -&gt; System.out.println(s.toLowerCase()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-4-练习：格式化打印信息"><a href="#3-4-练习：格式化打印信息" class="headerlink" title="3.4 练习：格式化打印信息"></a>3.4 练习：格式化打印信息</h3><p>将下面字符串数组中的信息，按照格式<code>姓名：xxx，性别：x。</code>的格式将信息打印出来。要求将打印姓名的动作作为第一个<code>Consumer</code>接口的Lambda实例，将打印性别作为第二个<code>Consumer</code>接口的Lambda实例，将两个<code>Consumer</code>接口按照顺序拼接到一起。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串数组</span></span><br><span class="line">String[] arr = &#123; <span class="string">"迪丽热巴,女"</span>, <span class="string">"古力娜扎,女"</span>, <span class="string">"马尔扎哈,男"</span>&#125;;</span><br></pre></td></tr></table></figure></div>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerExercise</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String[] arr = &#123; <span class="string">"迪丽热巴,女"</span>, <span class="string">"古力娜扎,女"</span>, <span class="string">"马尔扎哈,男"</span>&#125;;</span><br><span class="line">        printInfo(arr,s -&gt; System.out.print(<span class="string">"姓名："</span>+s.split(<span class="string">","</span>)[<span class="number">0</span>]), <span class="comment">// 消费方式：对info进行切割，读取姓名，按照指定格式输出</span></span><br><span class="line">                  s -&gt; System.out.println(<span class="string">",性别："</span>+s.split(<span class="string">","</span>)[<span class="number">1</span>]+<span class="string">"。"</span>)); <span class="comment">// 对info进行切割，读取年龄，按照指定格式输出</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printInfo</span><span class="params">(String[] arr, Consumer&lt;String&gt; one, Consumer&lt;String&gt; two)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (String info:arr)</span><br><span class="line">            one.andThen(two).accept(info);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* result：</span></span><br><span class="line"><span class="comment">姓名：迪丽热巴,性别：女。</span></span><br><span class="line"><span class="comment">姓名：古力娜扎,性别：女。</span></span><br><span class="line"><span class="comment">姓名：马尔扎哈,性别：男。</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="3-5-Predicate接口"><a href="#3-5-Predicate接口" class="headerlink" title="3.5 Predicate接口"></a>3.5 Predicate接口</h3><p>有时我们需要对某种类型的数据进行判断，从而得到一个boolean值结果。这时可以使用<code>java.util.function.Predicate&lt;T&gt;</code>接口。</p>
+<h4 id="抽象方法：test"><a href="#抽象方法：test" class="headerlink" title="抽象方法：test"></a>抽象方法：test</h4><p><code>Predicate</code>接口中包含一个抽象方法：<code>boolean test(T t)</code>。用于条件判断场景：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoPredicate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkString</span><span class="params">(String s,Predicate&lt;String&gt; pre)</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> pre.test(s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">"helloworld"</span>;</span><br><span class="line">        <span class="keyword">boolean</span> b = checkString(s, str -&gt; str.length() &gt; <span class="number">5</span>);<span class="comment">// 对参数传递的字符串进行判断，判断字符串长度是否大于5，并把判断的结果返回</span></span><br><span class="line">        System.out.println(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="默认方法：and"><a href="#默认方法：and" class="headerlink" title="默认方法：and"></a>默认方法：and</h4><p>既然是条件判断，就会存在与、或、非三种常见的逻辑关系。其中将两个<code>Predicate</code>条件使用“与”逻辑连接起来实现“<strong>并且</strong>”的效果时，可以使用default方法<code>and</code>。</p>
+<p>​    如果要判断一个字符串既包含大写”H”，又要包含大写”W”，示例代码如下：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoPredicateAnd</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(String s, Predicate&lt;String&gt; one, Predicate&lt;String&gt; two)</span></span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> isValid = one.and(two).test(s);</span><br><span class="line">        System.out.println(<span class="string">"字符串符合要求吗："</span> + isValid);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        contains(String str)</span></span><br><span class="line"><span class="comment">            当且仅当该字符串包含str时，返回true，反之返回false</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        method(<span class="string">"Helloworld"</span>,s-&gt;s.contains(<span class="string">"H"</span>),s-&gt;s.contains(<span class="string">"W"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// result:false</span></span><br></pre></td></tr></table></figure></div>
+<h4 id="默认方法：or"><a href="#默认方法：or" class="headerlink" title="默认方法：or"></a>默认方法：or</h4><p>与<code>and</code>类似的，默认方法<code>or</code>实现逻辑关系中的”<strong>或</strong>“。</p>
+<p>如果希望实现逻辑”字符串包含大写H或者大写W”，那么只需要将上个例子代码<code>and</code>修改为<code>or</code>即可实现。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoPredicateAnd</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(String s, Predicate&lt;String&gt; one, Predicate&lt;String&gt; two)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 只需修改and--&gt;or即可</span></span><br><span class="line">        <span class="keyword">boolean</span> isValid = one.or(two).test(s);</span><br><span class="line">        System.out.println(<span class="string">"字符串符合要求吗："</span> + isValid);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        method(<span class="string">"Helloworld"</span>,s-&gt;s.contains(<span class="string">"H"</span>),s-&gt;s.contains(<span class="string">"W"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="默认方法：negate"><a href="#默认方法：negate" class="headerlink" title="默认方法：negate"></a>默认方法：negate</h4><p>“非”(取反)。源码中只是对结果boolean值进行”!”取反而已。调用方法跟<code>and</code>和<code>or</code>一样。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoPredicateNegate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(Predicate&lt;String&gt; pre)</span></span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> isLong = pre.negate().test(<span class="string">"helloworld"</span>);</span><br><span class="line">        System.out.println(<span class="string">"字符串很长吗："</span>+isLong);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        method(s-&gt;s.length()&lt;<span class="number">5</span>); <span class="comment">// true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-6-练习：集合信息筛选"><a href="#3-6-练习：集合信息筛选" class="headerlink" title="3.6 练习：集合信息筛选"></a>3.6 练习：集合信息筛选</h3><p>数组当中有多条”姓名+性别”格式的信息，通过<code>Predicate</code>接口的方法将符合要求的字符串筛选到集合<code>ArrayList</code>中，需同时满足以下两个条件：</p>
+<pre><code>1. 必须为女生
+ 2. 姓名必须是4个字
+</code></pre><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组</span></span><br><span class="line">String[] array = &#123; <span class="string">"迪丽热巴,女"</span>, <span class="string">"古力娜扎,女"</span>, <span class="string">"马尔扎哈,男"</span>, <span class="string">"赵丽颖,女"</span> &#125;;</span><br></pre></td></tr></table></figure></div>
+<h4 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExercisePredicate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">FilterArray</span><span class="params">(String s, Predicate&lt;String&gt; one,Predicate&lt;String&gt; two)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> one.and(two).test(s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String[] array = &#123; <span class="string">"迪丽热巴,女"</span>, <span class="string">"古力娜扎,女"</span>, <span class="string">"马尔扎哈,男"</span>, <span class="string">"赵丽颖,女"</span> &#125;;</span><br><span class="line">        ArrayList&lt;String&gt; arrayList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String s:array)&#123;</span><br><span class="line">            <span class="keyword">boolean</span> b = FilterArray(s, str -&gt; str.split(<span class="string">","</span>)[<span class="number">0</span>].length() == <span class="number">4</span>, str -&gt; str.contains(<span class="string">"女"</span>));</span><br><span class="line">            <span class="keyword">if</span> (b==<span class="keyword">true</span>)</span><br><span class="line">                arrayList.add(s);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(arrayList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-7-Function接口"><a href="#3-7-Function接口" class="headerlink" title="3.7 Function接口"></a>3.7 Function接口</h3><p><code>java.util.function.Function&lt;T,R&gt;</code>接口用来根据一个类型的数据得到另一个类型的数据，前者称为前置条件，后者称为后置条件。</p>
+<h4 id="抽象方法：apply"><a href="#抽象方法：apply" class="headerlink" title="抽象方法：apply"></a>抽象方法：apply</h4><p>Function接口中最主要的抽象方法为：<code>R apply(T t)</code>，根据类型T的参数获取类型R的结果。</p>
+<p>​    使用的场景例如：将<code>String</code>类型转换为<code>Integer</code>类型。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoFunctionApply</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        定义一个方法</span></span><br><span class="line"><span class="comment">        方法的参数传递 一个字符串类型的整数</span></span><br><span class="line"><span class="comment">        方法的参数传递以Function接口，泛型使用&lt;String,Integer&gt;</span></span><br><span class="line"><span class="comment">        使用Function接口中的方法apply，把字符串类型的整数，转换为Integer类型的整数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">change</span><span class="params">(String s, Function&lt;String,Integer&gt; fun)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> in = fun.apply(s); <span class="comment">// 自动拆箱，Integer-&gt;int</span></span><br><span class="line">        System.out.println(in);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        change(<span class="string">"10"</span>,str-&gt;Integer.parseInt(str));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="默认方法：andThen"><a href="#默认方法：andThen" class="headerlink" title="默认方法：andThen"></a>默认方法：andThen</h4><p><code>Function</code>接口中有一个默认的andThen方法，用来进行组合操作。</p>
+<p>​    该方法同样用于“先做什么，再做什么”的场景，和<code>Consumer</code>中的<code>andThen</code>差不多</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	分析：</span></span><br><span class="line"><span class="comment">        转换了两次</span></span><br><span class="line"><span class="comment">        第一次是把String类型转换为了Integer类型</span></span><br><span class="line"><span class="comment">            所以我们可以使用Function&lt;String,Integer&gt; fun1</span></span><br><span class="line"><span class="comment">                Integer i = fun1.apply("123")+10;</span></span><br><span class="line"><span class="comment">        第二次是把Integer类型转换为String类型</span></span><br><span class="line"><span class="comment">            所以我们可以使用Function&lt;Integer,String&gt; fun2</span></span><br><span class="line"><span class="comment">                String s = fun2.apply(i);</span></span><br><span class="line"><span class="comment">        我们可以使用andThen方法，把两次转换组合在一起使用</span></span><br><span class="line"><span class="comment">            String s = fun1.andThen(fun2).apply("123");</span></span><br><span class="line"><span class="comment">            fun1先调用apply方法，把字符串转换为Integer</span></span><br><span class="line"><span class="comment">            fun2再调用apply方法，把Integer转换为字符串</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoFunctionAndThen</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">MySwitch</span><span class="params">(String s, Function&lt;String,Integer&gt; fun1,Function&lt;Integer,String&gt; fun2)</span></span>&#123;</span><br><span class="line">        String str = fun1.andThen(fun2).apply(s);</span><br><span class="line">        System.out.println(str); <span class="comment">// 133</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">"123"</span>;</span><br><span class="line">        MySwitch(s,str-&gt;Integer.parseInt(str)+<span class="number">10</span>,i-&gt;i+<span class="string">""</span>);<span class="comment">// 字符串转换为整数并+10，然后再转换回字符串</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-8-练习：自定义函数模型拼接"><a href="#3-8-练习：自定义函数模型拼接" class="headerlink" title="3.8 练习：自定义函数模型拼接"></a>3.8 练习：自定义函数模型拼接</h3><p>使用<code>Function</code>进行函数模型的拼接，按照顺序需要执行的多个函数操作如下：</p>
+<pre><code>1. 将字符串截取数字年龄部分，得到字符串
+ 2. 将年龄字符串转换为int类型的数字
+ 3. 将int数字累加100，得到结果int数字
+</code></pre><h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExerciseFunction</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">change</span><span class="params">(String s, Function&lt;String,String&gt; one,Function&lt;String,Integer&gt; two,Function&lt;Integer,Integer&gt; three)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> one.andThen(two).andThen(three).apply(s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">"赵丽颖,20"</span>;</span><br><span class="line">        <span class="keyword">int</span> n = change(str, s -&gt; s.split(<span class="string">","</span>)[<span class="number">1</span>], s -&gt; Integer.parseInt(s), i -&gt; i += <span class="number">100</span>);</span><br><span class="line">        System.out.println(n); <span class="comment">// 120</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="今日目标"><a href="#今日目标" class="headerlink" title="今日目标"></a>今日目标</h2><ul>
+<li style="list-style: none"><input type="checkbox" checked> 能够使用@FunctionalInterface注解</li>
+<li style="list-style: none"><input type="checkbox" checked> 能够自定义无参无返回函数式接口</li>
+<li style="list-style: none"><input type="checkbox" checked> 能够自定义有参有返回函数式接口</li>
+<li style="list-style: none"><input type="checkbox" checked> 能够理解Lambda延迟执行的特点</li>
+<li style="list-style: none"><input type="checkbox" checked> 能够使用Lambda作为方法的参数</li>
+<li style="list-style: none"><input type="checkbox" checked> 能够使用Lambda作为方法的返回值</li>
+<li style="list-style: none"><input type="checkbox" checked> 能够使用Supplier函数式接口</li>
+<li style="list-style: none"><input type="checkbox" checked> 能够使用Consumer函数式接口</li>
+<li style="list-style: none"><input type="checkbox" checked> 能够使用Function函数式接口</li>
+<li style="list-style: none"><input type="checkbox" checked> 能够使用Predicate函数式接口</li>
+</ul>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/05/15/JavaBasics/Stream流和方法引用/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Steeam流和方法引用
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/05/13/JavaBasics/网络编程/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">网络编程</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

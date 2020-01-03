@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Java流程控制语句 | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="记录了Java的所有流程控制语句及相关使用方法">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java流程控制语句">
+<meta property="og:url" content="https://zero6996.github.io/2019/04/14/JavaBasics/Java流程控制/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="记录了Java的所有流程控制语句及相关使用方法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/if-1555208361145.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/if_else-1555208575720.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/ifelseifelse-1555209112731.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/switch-1555210158065.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/for-1555210990394.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/while-1555221264283.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/do...while-1555221971998.png">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java流程控制语句">
+<meta name="twitter:description" content="记录了Java的所有流程控制语句及相关使用方法">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/if-1555208361145.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaBasics/Java流程控制" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Java流程控制语句
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/14/JavaBasics/Java流程控制/" class="article-date">
+  <time datetime="2019-04-14T06:00:00.000Z" itemprop="datePublished">2019-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java学习笔记/">Java学习笔记</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><p>在一个程序执行中，各条语句的执行顺序对程序的结果是有直接影响的。所以必须清楚每条语句的执行流程，而且，我们需要通过控制语句的执行顺序来实现我们要完成的功能。</p>
+<a id="more"></a>
+<h3 id="1-if-else-判断语句"><a href="#1-if-else-判断语句" class="headerlink" title="1. if else 判断语句"></a>1. if else 判断语句</h3><h4 id="1-1-if语句第一种格式：if"><a href="#1-1-if语句第一种格式：if" class="headerlink" title="1.1 if语句第一种格式：if"></a>1.1 if语句第一种格式：if</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(关系表达式)&#123;</span><br><span class="line">    语句体；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><p>执行流程</p>
+<ul>
+<li>首先判断关系表达式其结果是true还是false</li>
+<li>如果是true就执行语句体</li>
+<li>如果是false就不执行语句体<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/if-1555208361145.png" alt="title"><h4 id="1-2-if语句第二种格式：if…else"><a href="#1-2-if语句第二种格式：if…else" class="headerlink" title="1.2 if语句第二种格式：if…else"></a>1.2 if语句第二种格式：if…else</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(关系表达式)&#123;</span><br><span class="line">    语句体<span class="number">1</span>；</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    语句体<span class="number">2</span>；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+</li>
+<li><p>执行流程</p>
+<ul>
+<li>首先判断关系表达式看其结果是true还是false</li>
+<li>如果是true就执行语句体1</li>
+<li>如果是false就执行语句体2<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/if_else-1555208575720.png" alt="title"><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 判断给定的数据是奇数还是偶数</span></span><br><span class="line">    <span class="comment">// 定义变量</span></span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(a % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">"a是偶数"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"a是奇数"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"结束"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-3-if语句第三种格式：if…else-if…else"><a href="#1-3-if语句第三种格式：if…else-if…else" class="headerlink" title="1.3 if语句第三种格式：if…else if…else"></a>1.3 if语句第三种格式：if…else if…else</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (判断条件<span class="number">1</span>) &#123;</span><br><span class="line">    执行语句<span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (判断条件<span class="number">2</span>) &#123;</span><br><span class="line">    执行语句<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> (判断条件n) &#123;</span><br><span class="line">    执行语句n;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    执行语句n+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>执行流程<ul>
+<li>首先判断关系表达式1看其结果是true还是false</li>
+<li>如果是true就执行语句体1</li>
+<li>如果是false就继续判断关系表达式2看其结果是true还是false</li>
+<li>true则执行语句体2，false就继续往下判断</li>
+<li>如果没有任何关系表达式为true，则执行else语句体<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/ifelseifelse-1555209112731.png" alt="title"></li>
+</ul>
+</li>
+</ul>
+<h3 id="2-switch选择语句"><a href="#2-switch选择语句" class="headerlink" title="2. switch选择语句"></a>2. switch选择语句</h3><h4 id="2-1-选择语句–switch"><a href="#2-1-选择语句–switch" class="headerlink" title="2.1 选择语句–switch"></a>2.1 选择语句–switch</h4><ul>
+<li><p>switch语句格式：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(表达式)&#123;</span><br><span class="line">    <span class="keyword">case</span> 常量值<span class="number">1</span>：</span><br><span class="line">        语句体<span class="number">1</span>；</span><br><span class="line">	<span class="keyword">break</span>；</span><br><span class="line">    <span class="keyword">case</span> 常量值<span class="number">2</span>：</span><br><span class="line">	语句体<span class="number">2</span>；</span><br><span class="line">	<span class="keyword">break</span>；</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">	语句体n+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>执行流程</p>
+<ul>
+<li>首先计算表达式的值</li>
+<li>其次，和case依次比较，一旦有对应的值，就会执行相应的语句，在执行的过程中，遇到break就会结束。</li>
+<li>最后，如果所有的case都和表达式的值不匹配，就会执行default语句体部分，然后程序结束。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/switch-1555210158065.png" alt="title"></li>
+</ul>
+</li>
+</ul>
+<p>实例：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">switch_exercise</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] agrs)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> weekday = <span class="number">6</span>;</span><br><span class="line">		<span class="keyword">switch</span>(weekday) &#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">				System.out.println(<span class="string">"今天星期一"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">				System.out.println(<span class="string">"今天星期二"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">				System.out.println(<span class="string">"今天星期三"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">				System.out.println(<span class="string">"今天星期四"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">				System.out.println(<span class="string">"今天星期五"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">				System.out.println(<span class="string">"今天星期六"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">				System.out.println(<span class="string">"今天星期日"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">				System.out.println(<span class="string">"输入数据有误"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>switch语句使用的注意事项：</p>
+<ol>
+<li>多个case后面的数值不可重复。</li>
+<li>switch后面小括号中只能是下列数据类型：<ul>
+<li>基本数据类型：byte/short/char/int</li>
+<li>引用数据类型：String字符串、enum枚举</li>
+</ul>
+</li>
+<li>switch语句格式可以很灵活：前后顺序可以颠倒，而且break语句还可以省略，但需要考虑case穿透性。<br>“匹配哪一个case就从哪一个位置向下执行，直到遇到break或者整体结束为止。”</li>
+</ol>
+<h4 id="2-2-case的穿透性"><a href="#2-2-case的穿透性" class="headerlink" title="2.2 case的穿透性"></a>2.2 case的穿透性</h4><p>在switch语句中，如果case的后面不写break，将出现穿透现象，也就是不会在判断下一个case的值，直接向后运行，直到遇到break，或者整体switch结束。<br>故编写switch语句时，必须写上break。</p>
+<h3 id="3-for循环语句"><a href="#3-for循环语句" class="headerlink" title="3. for循环语句"></a>3. for循环语句</h3><h4 id="3-1-循环概述"><a href="#3-1-循环概述" class="headerlink" title="3.1 循环概述"></a>3.1 循环概述</h4><p>循环语句可以在满足循环条件的情况下，反复执行某一段代码，这段被重复执行的代码被称为循环体语句。当反复执行这个循环体时，需要在合适的时候把循环判断条件修改为false，从而结束循环，否则循环将一直执行下去，形成死循环。</p>
+<h4 id="3-2-循环语句–for"><a href="#3-2-循环语句–for" class="headerlink" title="3.2 循环语句–for"></a>3.2 循环语句–for</h4><ul>
+<li><p>for循环语句格式：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>（初始化表达式<span class="number">1</span>；布尔表达式<span class="number">2</span>；步进表达式<span class="number">4</span>）&#123;</span><br><span class="line">	循环体<span class="number">3</span>；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>执行流程</p>
+<ul>
+<li>执行顺序：1234&gt;234&gt;234…直到2不满足为止。</li>
+<li>1负责完成循环变量初始化</li>
+<li>2负责判断是否满足循环条件，不满足则跳出循环</li>
+<li>3具体执行的语句</li>
+<li>4循环后，循环条件所涉及变量的变化情况</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/for-1555210990394.png" alt="title"></p>
+<p>实例：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">for_exercise</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">100</span>;i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">				sum += i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"sum:"</span> + sum);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="4-while循环语句"><a href="#4-while循环语句" class="headerlink" title="4. while循环语句"></a>4. while循环语句</h3><ul>
+<li><p>while循环语句格式：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">初始化表达式<span class="number">1</span>：</span><br><span class="line">    <span class="keyword">while</span>（布尔表达式<span class="number">2</span>）&#123;</span><br><span class="line">	循环体<span class="number">3</span>；</span><br><span class="line">	步进表达式<span class="number">4</span>；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>执行流程</p>
+<ul>
+<li>执行顺序：1234&gt;234&gt;234&gt;234…直到2不满足为止。</li>
+<li>1负责完成循环变量初始化。</li>
+<li>2负责判断是否满足循环条件，不满足则跳出循环。</li>
+<li>3具体执行的语句。</li>
+<li>4循环后，循环变量的变化情况。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/while-1555221264283.png" alt="title"></p>
+<p>实例：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">while_exercise</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] agrs)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span>(i &lt;= <span class="number">100</span>) &#123;</span><br><span class="line">			sum += i;</span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"1~100的值为："</span> + sum);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="5-do-while循环语句"><a href="#5-do-while循环语句" class="headerlink" title="5. do while循环语句"></a>5. do while循环语句</h3><ul>
+<li><p>do…while循环格式：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">初始化表达式<span class="number">1</span></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">	循环体<span class="number">3</span>；</span><br><span class="line">	步进表达式<span class="number">4</span>；</span><br><span class="line">&#125;<span class="keyword">while</span>（布尔表达式<span class="number">2</span>）；</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>执行流程</p>
+<ul>
+<li>执行顺序：134&gt;234&gt;234…知道2不满足为止。</li>
+<li>1负责完成循环变量初始化。</li>
+<li>2负责判断是否满足循环条件，不满足则跳出循环。</li>
+<li>3具体执行的语句</li>
+<li>4循环后，循环变量的变化情况</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/14/do...while-1555221971998.png" alt="title"></p>
+<p>实例：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">do_while_exercise</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">do</span> &#123;</span><br><span class="line">			System.out.println(<span class="string">"hello:"</span> + i);</span><br><span class="line">			i++;</span><br><span class="line">		&#125;<span class="keyword">while</span>(i&lt;=<span class="number">10</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>Tips：do…while循环特点是会无条件执行一次循环体，即使我们将循环条件写出false，也依然会循环一次。这样的循环具有一定风险，不推荐使用。</p>
+<h3 id="7-循环语句的区别"><a href="#7-循环语句的区别" class="headerlink" title="7.循环语句的区别"></a>7.循环语句的区别</h3><ul>
+<li>三种循环的小区别：<ul>
+<li>控制条件语句所控制的那个变量，在for循环结束后，就不能再被访问到了，而while循环结束还可以继续使用，如果你想继续使用，就用while，否则推荐使用for。原因是for循环结束，该变量就从内存中消失，能够提高内存的使用效率</li>
+<li>在已知循环次数的时候推荐使用for，循环次数未知时推荐使用while。</li>
+<li>如果条件判断从来没有满足过，那么for循环和while循环将会执行0次，但是do…while循环会执行至少一次。</li>
+<li>for循环的变量在小括号当中定义，只有循环内部可以使用。while循环和do…while循环初始化语句本来就在外面，所以出了循环可以继续使用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="8-跳出语句"><a href="#8-跳出语句" class="headerlink" title="8. 跳出语句"></a>8. 跳出语句</h3><h4 id="break"><a href="#break" class="headerlink" title="break"></a>break</h4><ul>
+<li>使用场景：终止switch或者循环<ul>
+<li>在选择结构switch语句中</li>
+<li>在循环语句中</li>
+<li>离开使用场景的存在是没有意义的</li>
+</ul>
+</li>
+</ul>
+<h4 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h4><ul>
+<li>使用场景：结束本次循环，继续下一次循环</li>
+</ul>
+<h3 id="9-扩展知识点"><a href="#9-扩展知识点" class="headerlink" title="9.扩展知识点"></a>9.扩展知识点</h3><h4 id="9-1嵌套循环"><a href="#9-1嵌套循环" class="headerlink" title="9.1嵌套循环"></a>9.1嵌套循环</h4><ul>
+<li>所谓嵌套循环，是指一个循环的循环体是另一个循环。比如for循环里面还有一个for循环，就是嵌套循环。总共的循环次数 = 外循环次数 * 内循环次数</li>
+<li><p>嵌套循环格式：</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(初始化表达式<span class="number">1</span>；循环条件<span class="number">2</span>；步进表达式<span class="number">7</span>)&#123;</span><br><span class="line">    <span class="keyword">for</span>(初始化表达式<span class="number">3</span>；循环条件<span class="number">4</span>；步进表达式<span class="number">6</span>)&#123;</span><br><span class="line">	执行语句<span class="number">5</span>；</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>嵌套循环执行流程：</p>
+<ul>
+<li>执行顺序：123456&gt;456&gt;723456&gt;456</li>
+<li>外循环一次，内循环多次</li>
+<li>比如跳绳：一共5组，每组跳10个。5组就是外循环，10个就是内循环。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/15/JavaBasics/Java开发工具安装/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Java开发工具的安装
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/13/JavaBasics/Java运算符/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Java运算符</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

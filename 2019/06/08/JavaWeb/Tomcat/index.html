@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Tomcat服务器 | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="Tomcat服务器的简单使用和项目部署">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tomcat服务器">
+<meta property="og:url" content="https://zero6996.github.io/2019/06/08/JavaWeb/Tomcat/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="Tomcat服务器的简单使用和项目部署">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/08/tomcat%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-1560005163914.png">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.831Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tomcat服务器">
+<meta name="twitter:description" content="Tomcat服务器的简单使用和项目部署">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/08/tomcat%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-1560005163914.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaWeb/Tomcat" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Tomcat服务器
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/06/08/JavaWeb/Tomcat/" class="article-date">
+  <time datetime="2019-06-08T14:50:00.000Z" itemprop="datePublished">2019-06-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
+  </div>
+
+    
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-Web服务器软件"><a href="#1-Web服务器软件" class="headerlink" title="1. Web服务器软件"></a>1. Web服务器软件</h2><ul>
+<li><p>安装了服务器软件的计算机就是<strong>服务器</strong></p>
+</li>
+<li><p>服务器软件：接收用户的请求，处理请求，返回响应</p>
+</li>
+<li>Web服务器软件：接收用户的请求，处理请求，做出响应。在web服务器软件中，可以部署web项目，让用户通过浏览器来访问这些项目</li>
+</ul>
+<a id="more"></a>
+<h3 id="1-1-常见的Java相关的Web服务器软件"><a href="#1-1-常见的Java相关的Web服务器软件" class="headerlink" title="1.1 常见的Java相关的Web服务器软件"></a>1.1 常见的Java相关的Web服务器软件</h3><ol>
+<li>WebLogic：Oracle公司，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
+<li>WebSphere：IBM公司，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
+<li>JBOSS：JBOOS公司的，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
+<li>Tomcat：Apache基金组织，中小型的JavaEE服务器，仅仅支持少量的JavaEE规范Servlet/jsp。开源免费的</li>
+</ol>
+<blockquote>
+<p>Tips：<strong>JavaEE</strong>是Java语言在企业开发中使用的技术规范的总和，一共规定了13项大的规范。</p>
+</blockquote>
+<h3 id="1-2-Tomcat"><a href="#1-2-Tomcat" class="headerlink" title="1.2 Tomcat"></a>1.2 Tomcat</h3><h4 id="1-2-1-下载"><a href="#1-2-1-下载" class="headerlink" title="1.2.1 下载"></a>1.2.1 下载</h4><ol>
+<li>前往Tomcat官网<a href="https://tomcat.apache.org/download-80.cgi" target="_blank" rel="noopener">下载</a>安装版：<code>Windows Service Installer</code>，也可以下载解压版。</li>
+</ol>
+<h4 id="1-2-2-安装"><a href="#1-2-2-安装" class="headerlink" title="1.2.2 安装"></a>1.2.2 安装</h4><ol>
+<li>安装版点击安装即可，软件会自动注册服务</li>
+<li>解压版解压即可使用</li>
+</ol>
+<h5 id="Tomcat目录结构："><a href="#Tomcat目录结构：" class="headerlink" title="Tomcat目录结构："></a>Tomcat目录结构：</h5><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/08/tomcat%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-1560005163914.png" alt="path"></p>
+<blockquote>
+<p>Notice：注意，安装或解压的路径不要有中文</p>
+</blockquote>
+<h4 id="1-2-3-卸载"><a href="#1-2-3-卸载" class="headerlink" title="1.2.3 卸载"></a>1.2.3 卸载</h4><ol>
+<li>安装版进入文件夹点击<code>Uninstall.exe</code>即可卸载软件</li>
+<li>解压版直接删除文件夹即可</li>
+</ol>
+<h4 id="1-2-4-启动"><a href="#1-2-4-启动" class="headerlink" title="1.2.4 启动"></a>1.2.4 启动</h4><p>安装版会自动注册并启动服务，无需手动启动</p>
+<p>解压版启动方式：</p>
+<ol>
+<li>进入解压后的文件夹，进入bin目录，双击<code>startup.bat</code>运行该文件</li>
+<li>访问：浏览器输入：<code>http://localhost:8080</code> 即可本地访问</li>
+</ol>
+<h4 id="1-2-5-关闭"><a href="#1-2-5-关闭" class="headerlink" title="1.2.5 关闭"></a>1.2.5 关闭</h4><p>解压版关闭</p>
+<ol>
+<li><code>bin/shutdows.bat</code>，双击即可关闭服务</li>
+<li>直接关闭窗口或者<code>ctrl+c</code></li>
+</ol>
+<p>根据进程PID关闭</p>
+<ol>
+<li><code>cmd</code>输入<code>netstat -ano</code>，打印当前运行进程PID等信息，找到本地地址端口号8080的，查看其PID。</li>
+<li>打开任务管理器，进程显示PID，然后根据PID号直接结束进程。</li>
+</ol>
+<blockquote>
+<p> Tips: windows下删除服务命令：<code>sc delete 服务名称</code></p>
+</blockquote>
+<p><a href="https://blog.csdn.net/u011982967/article/details/80999552" target="_blank" rel="noopener">安装参考文章</a></p>
+<h4 id="1-2-6-配置"><a href="#1-2-6-配置" class="headerlink" title="1.2.6 配置"></a>1.2.6 配置</h4><h5 id="项目部署的方式"><a href="#项目部署的方式" class="headerlink" title="项目部署的方式"></a>项目部署的方式</h5><ol>
+<li>直接将项目文件夹放在webapps目录下即可，也可将项目打包成一个war包，再将war包放入wabapps目录下，war包会自动解压。</li>
+<li><p>配置<code>conf/server.xml</code>文件完成部署，在<code>&lt;Host&gt;</code>标签体中配置：<code>&lt;Context docBase=&quot;D:\Project&quot; path=&quot;/index&quot; /&gt;</code>；docBase：项目存放的本地路径，path：虚拟目录。</p>
+</li>
+<li><p>在<code>conf\Catalina\localhost\</code>下创建任意名称(文件名称即虚拟路径)的xml文件。在文件中编写<code>&lt;Context docBase=&quot;D:\Project /&gt;&quot;</code></p>
+</li>
+</ol>
+<h5 id="静态项目和动态项目"><a href="#静态项目和动态项目" class="headerlink" title="静态项目和动态项目"></a>静态项目和动态项目</h5><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Java动态项目目录结构：</span><br><span class="line">-- 项目名称</span><br><span class="line">    -- WEB-INF</span><br><span class="line">    	-- web.xml：该项目的核心配置文件</span><br><span class="line">    	-- classes目录：放置字节码文件</span><br><span class="line">    	-- lib目录：放置项目依赖的jar包</span><br></pre></td></tr></table></figure></div>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/09/JavaWeb/Servlet/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Servlet接口
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/07/JavaWeb/XML简述/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">XML简单入门</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

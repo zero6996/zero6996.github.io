@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Java中的常用工具类 | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="简单介绍了几个Java中常用的工具类">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中的常用工具类">
+<meta property="og:url" content="https://zero6996.github.io/2019/04/19/JavaBasics/Java中的常用类/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="简单介绍了几个Java中常用的工具类">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%86%85%E5%AD%98%E5%9B%BE-1555640143003.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/equalsIgnoreCase-1555643567275.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95-1555663220471.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/static%E5%86%85%E5%AD%98%E5%9B%BE-1555683796541.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97-1555684497323.png">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java中的常用工具类">
+<meta name="twitter:description" content="简单介绍了几个Java中常用的工具类">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%86%85%E5%AD%98%E5%9B%BE-1555640143003.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaBasics/Java中的常用类" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Java中的常用工具类
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/19/JavaBasics/Java中的常用类/" class="article-date">
+  <time datetime="2019-04-19T15:00:00.000Z" itemprop="datePublished">2019-04-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java学习笔记/">Java学习笔记</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-String类概述"><a href="#1-String类概述" class="headerlink" title="1. String类概述"></a>1. String类概述</h2><p>java.lang.String 类代表字符串。Java程序中所有的字符串文字都可以被看作是实现此类的实例。<br><br>类String中包括用于检查各个字符串的方法，比如用于比较字符串、搜索字符串、提取子字符串以及创建具有翻译为大写或者小写的所有字符的字符串副本。</p>
+<a id="more"></a>
+<h3 id="1-1-字符串的特点"><a href="#1-1-字符串的特点" class="headerlink" title="1.1 字符串的特点"></a>1.1 字符串的特点</h3><ol>
+<li>字符串的内容永不可变。</li>
+<li>因为不可变，所以字符串是可以共享的</li>
+<li>字符串效果上相当于是char[]字符数组，但底层原理是byte[]字节数组。</li>
+</ol>
+<h3 id="1-2-创建字符串的常见3-1种方式"><a href="#1-2-创建字符串的常见3-1种方式" class="headerlink" title="1.2 创建字符串的常见3+1种方式"></a>1.2 创建字符串的常见3+1种方式</h3><h4 id="三种构造方法"><a href="#三种构造方法" class="headerlink" title="三种构造方法"></a>三种构造方法</h4><ol>
+<li>public String(): 创建一个空白字符串，不含有任何内容。</li>
+<li>public String(char[] array)：根据字符数组的内容，来创建对应的字符串。</li>
+<li>public String(byte[] array): 根据字节数组的内容，来创建对应的字符串。<h4 id="一种直接创建："><a href="#一种直接创建：" class="headerlink" title="一种直接创建："></a>一种直接创建：</h4><code>String str = &quot;Hello&quot;;</code></li>
+</ol>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02StringTwo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str1 = <span class="string">"abc"</span>;</span><br><span class="line">        String str2 = <span class="string">"abc"</span>;</span><br><span class="line">        <span class="keyword">char</span>[] charArray = &#123;<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>&#125;;</span><br><span class="line">        String str3 = <span class="keyword">new</span> String(charArray);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%86%85%E5%AD%98%E5%9B%BE-1555640143003.png" alt="title"></p>
+<h3 id="1-3-常用方法"><a href="#1-3-常用方法" class="headerlink" title="1.3 常用方法"></a>1.3 常用方法</h3><h4 id="判断功能的方法"><a href="#判断功能的方法" class="headerlink" title="判断功能的方法"></a>判断功能的方法</h4><ul>
+<li><p>public boolean equals(Object Obj):参数可以是任何对象，只有参数是一个字符串且内容相同时返回true，反之false。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo03StringEquals</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str1 = <span class="string">"Hello"</span>;</span><br><span class="line">        String str2 = <span class="string">"Hello"</span>;</span><br><span class="line">        <span class="keyword">char</span>[] charArray = &#123;<span class="string">'H'</span>,<span class="string">'e'</span>,<span class="string">'l'</span>,<span class="string">'l'</span>,<span class="string">'o'</span>&#125;;</span><br><span class="line">        String str3 = <span class="keyword">new</span> String(charArray);</span><br><span class="line"></span><br><span class="line">        System.out.println(str1.equals(str2));</span><br><span class="line">        System.out.println(str2.equals(str3));</span><br><span class="line">        System.out.println(str3.equals(<span class="string">"Hello"</span>));</span><br><span class="line">        System.out.println(<span class="string">"Hello"</span>.equals(str3));</span><br><span class="line"></span><br><span class="line">        String str4 = <span class="keyword">null</span>;</span><br><span class="line">        System.out.println(<span class="string">"abc"</span>.equals(str4)); <span class="comment">// false 推荐写法</span></span><br><span class="line">	    System.out.println(str4.equals(<span class="string">"abc"</span>)); <span class="comment">// 报错，NullPointerException</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">注意事项：</span><br><span class="line"><span class="number">1</span>. 任何对象都能用Object进行接收。</span><br><span class="line"><span class="number">2</span>. equals方法具有对称性，也就是a.equals(b)和b.equals(a)效果是一样的。</span><br><span class="line"><span class="number">3</span>. 如果比较双方一个常量一个变量，推荐把常量字符串写在前面。&lt;br&gt;推荐：<span class="string">"abc"</span>.equals(str),不推荐:str.equals(<span class="string">"abc"</span>)。</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>public boolean equalsIgnoreCase(String anotherString):将此字符串与指定对象进行比较，忽略大小写。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/equalsIgnoreCase-1555643567275.png" alt="title"></p>
+</li>
+</ul>
+<h4 id="String当中与获取相关的常用方法"><a href="#String当中与获取相关的常用方法" class="headerlink" title="String当中与获取相关的常用方法"></a>String当中与获取相关的常用方法</h4><ul>
+<li>public int lenght(); 获取字符串当中含有的字符个数，拿到字符串长度。</li>
+<li>public String concat(String str); 将指定的字符串连接到该字符串的末尾。</li>
+<li>public char charAt(int index); 获取指定索引位置的单个字符。</li>
+<li>public int indexOf(String str); 查找参数字符串在本字符串当中首次出现的索引位置，如果没有返回-1值。</li>
+</ul>
+<p>举例代码如下：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo04StringGet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = <span class="string">"abcdefghijklmnobqrstuvwxyz"</span>.length();</span><br><span class="line">        System.out.println(<span class="string">"字符串长度为："</span> + length);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//拼接字符串</span></span><br><span class="line">        String str1 = <span class="string">"Hello"</span>;</span><br><span class="line">        String str2 = <span class="string">"World"</span>;</span><br><span class="line">        String str3 = str1.concat(str2);</span><br><span class="line">        System.out.println(str1); <span class="comment">// Hello</span></span><br><span class="line">        System.out.println(str2); <span class="comment">// World</span></span><br><span class="line">        System.out.println(str3); <span class="comment">// HelloWorld</span></span><br><span class="line">        System.out.println(<span class="string">"Hello"</span>.charAt(<span class="number">0</span>)); <span class="comment">// H</span></span><br><span class="line">        String str4 = str3;</span><br><span class="line">        System.out.println(str4.indexOf(<span class="string">"llo"</span>)); <span class="comment">//返回索引位置，即2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<ul>
+<li>public String substring(int index):截取从参数位置一直到字符串末尾，返回新字符串</li>
+<li>public String substring(int begin,int end):截取从begin开始，一直到end结束，中间的字符串。[begin,end)，包含左边，不包含右边。</li>
+</ul>
+<p>举例代码如下：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05SubString</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str1 = <span class="string">"HelloWorld"</span>;</span><br><span class="line">        System.out.println(str1.substring(<span class="number">5</span>)); <span class="comment">// 返回World</span></span><br><span class="line">        System.out.println(str1.substring(<span class="number">4</span>,<span class="number">7</span>)); <span class="comment">// owo , 4~6不含7</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="String当中与转换相关的常用方法"><a href="#String当中与转换相关的常用方法" class="headerlink" title="String当中与转换相关的常用方法"></a>String当中与转换相关的常用方法</h4><ul>
+<li>public char[] toCharArray(); 将当前字符串拆分成为字符数组作为返回值。</li>
+<li>public byte[] getBytes(); 获取当前字符串底层的字节数组。</li>
+<li>public String replace(CharSequence oldString, CharSequence newString);将所有出现的老字符串替换为新的字符串，返回替换后的结果新字符串。</li>
+</ul>
+<p>例子：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo06StringConvert</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] chars = <span class="string">"Hello"</span>.toCharArray();</span><br><span class="line">        System.out.println(chars); <span class="comment">// Hello</span></span><br><span class="line">        System.out.println(chars[<span class="number">0</span>]); <span class="comment">// H</span></span><br><span class="line">        System.out.println(chars.length); <span class="comment">// 5</span></span><br><span class="line">        System.out.println(<span class="string">"========================="</span>);</span><br><span class="line">        String str = <span class="string">"abc"</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = str.getBytes();</span><br><span class="line">        System.out.println(bytes); <span class="comment">//指向内存地址中abc对应的byte值</span></span><br><span class="line">        System.out.println(bytes[<span class="number">0</span>]); <span class="comment">// [0] = 97,[1] = 98,[2] = 99</span></span><br><span class="line">        String str2 = <span class="string">"你怎么回事小老弟，会不会玩啊，fuck"</span>;</span><br><span class="line">        System.out.println(str2.replace(<span class="string">"fuck"</span>,<span class="string">"儒雅随和"</span>));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Tips：CharSequence意思是说可以接受字符串类型。是一个接口，也是一种引用类型。作为参数类型，可以把String对象传递到方法中。</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="String中分割字符串的方法"><a href="#String中分割字符串的方法" class="headerlink" title="String中分割字符串的方法"></a>String中分割字符串的方法</h4><p>public String[] split(String regex); 按照参数的规则，将字符串切分为若干部分。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo07StringSplit</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str1 = <span class="string">"a,b,c"</span>;</span><br><span class="line">        String[] array1 = str1.split(<span class="string">","</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;array1.length;i++)&#123;</span><br><span class="line">            System.out.println(array1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        String str2 = <span class="string">"a b c"</span>;</span><br><span class="line">        String[] array2 = str2.split(<span class="string">" "</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;array2.length;i++)&#123;</span><br><span class="line">            System.out.println(array2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        String str3 = <span class="string">"XXX.YYY.ZZZ"</span>;</span><br><span class="line">        String[] array3 = str3.split(<span class="string">"\\."</span>); <span class="comment">//注意转义</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;array3.length;i++)&#123;</span><br><span class="line">            System.out.print(array3[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h4><p>拼接字符串练习，输入数组{1,2,3}，返回[1#2#3]。<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Demo08StringExercise &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] arr = &#123;1,2,3,4&#125;;</span><br><span class="line">        System.out.println(arrayToString(arr));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    public static String arrayToString(int[] arr)&#123;</span><br><span class="line">        String str = &quot;[&quot;;</span><br><span class="line">        for (int i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">            if(i != arr.length-1)&#123;</span><br><span class="line">                str += (arr[i]+&quot;#&quot;);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                str += (arr[i]+&quot;]&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>统计字符个数：键盘录入一个字符，统计字符串中大小写字母及数字字符个数<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">键盘输入一个字符串，统计其中各种字符出现次数，返回次数。</span></span><br><span class="line"><span class="comment">字符种类：大写字母，小写字母，数字，其他</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo09StringExercise02</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        System.out.println(<span class="string">"请输入字符串："</span>);</span><br><span class="line">        String input = sc.next(); <span class="comment">// 获取键盘输入的字符串</span></span><br><span class="line">        System.out.println(stringCount(input));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">stringCount</span><span class="params">(String input)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> countUpper = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> countLower = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> countNumber = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> countOther = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">char</span>[] chars = input.toCharArray();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; chars.length;i++)&#123;</span><br><span class="line">            <span class="keyword">char</span> ch = chars[i]; <span class="comment">// 单个字符，底层表示为byte[]数值</span></span><br><span class="line">            <span class="keyword">if</span>(ch &gt;= <span class="string">'A'</span> &amp;&amp; ch &lt;= <span class="string">'Z'</span>)&#123;</span><br><span class="line">                countUpper++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (ch &gt;= <span class="string">'a'</span> &amp;&amp; ch &lt;= <span class="string">'z'</span>)&#123;</span><br><span class="line">                countLower++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (ch &gt;= <span class="string">'0'</span> &amp;&amp; ch &lt;= <span class="string">'9'</span>)&#123;</span><br><span class="line">                countNumber++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                countOther++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"大写字母："</span>+countUpper+<span class="string">"\n小写字母："</span>+countLower+<span class="string">"\n数字:"</span>+countNumber+<span class="string">"\n其他类型："</span>+countOther;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="2-static关键字"><a href="#2-static关键字" class="headerlink" title="2. static关键字"></a>2. static关键字</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>关于static关键字的使用，它可以用来修饰的成员变量和成员方法，被修饰的成员是属于类的，而不是单单是属于某个对象的。也就是说，既然属于类，就不可以靠创建对象来调用了。</p>
+<h3 id="2-2定义和使用格式"><a href="#2-2定义和使用格式" class="headerlink" title="2.2定义和使用格式"></a>2.2定义和使用格式</h3><p>当static修饰成员变量时，该变量称为类变量。该类的每个对象都共享同一个类变量的值。任何对象都可以更改该类变量的值，但也可以在不创建该类对象的情况下对类变量进行操作。</p>
+<h4 id="类变量"><a href="#类变量" class="headerlink" title="类变量"></a>类变量</h4><ul>
+<li>类变量：使用static关键字修饰的成员变量。格式：static 数据类型 变量名。</li>
+</ul>
+<p>实例：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义学生类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> sid; <span class="comment">//学号</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">static</span> String room;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> idCount = <span class="number">0</span>; <span class="comment">//自动分配学号</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sid = ++idCount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.sid = ++idCount;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	......省略get/set方法</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//实例使用</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo10Class</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu = <span class="keyword">new</span> Student(<span class="string">"法师"</span>,<span class="number">11</span>);</span><br><span class="line">        stu.room = <span class="string">"101号教室"</span>;</span><br><span class="line">        System.out.println(<span class="string">"姓名："</span>+stu.getName()+<span class="string">",年龄:"</span>+stu.getAge()+<span class="string">"岁,教室："</span>+stu.getRoom()+<span class="string">",学号："</span>+stu.getSid());</span><br><span class="line">        Student stu2 = <span class="keyword">new</span> Student(<span class="string">"盗贼"</span>,<span class="number">15</span>);</span><br><span class="line">        System.out.println(<span class="string">"姓名："</span>+stu2.getName()+<span class="string">",年龄:"</span>+stu2.getAge()+<span class="string">"岁,教室："</span>+stu2.getRoom()+<span class="string">",学号："</span>+stu2.getSid());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h4><p>当static修饰成员方法时，该方法称为类方法。静态方法在声明中有static，建议使用类名来调用，而不需要创建类的对象。</p>
+<ul>
+<li>类方法：使用static关键字修饰的成员方法，一般称为静态方法。<br>格式如下：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95-1555663220471.png" alt="title"></li>
+</ul>
+<p>实例：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MyClass</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num; <span class="comment">// 成员变量</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> numStatic; <span class="comment">//静态变量</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"这是一个成员方法！"</span>);</span><br><span class="line">        System.out.println(num); <span class="comment">//成员方法可以访问成员变量</span></span><br><span class="line">        System.out.println(numStatic); <span class="comment">// 成员方法可以访问静态变量</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">methodStatic</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.print(<span class="string">"这是一个静态方法！"</span>);</span><br><span class="line">        System.out.println(numStatic); <span class="comment">//静态方法可以访问静态变量</span></span><br><span class="line">        <span class="comment">//System.out.println(num); //静态方法无法访问成员变量</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实例类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01StaticMethod</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyClass obj = <span class="keyword">new</span> MyClass(); <span class="comment">// 首先创建对象</span></span><br><span class="line">        obj.method(); <span class="comment">// 才能使用没有static关键字的内容</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//对于静态方法来说，可以通过对象名进行调用，也可以直接通过类名称来调用。</span></span><br><span class="line">        obj.methodStatic(); <span class="comment">// 不推荐写法，编译器编译时会自动优化为下面方法。</span></span><br><span class="line">        MyClass.methodStatic(); <span class="comment">// 推荐写法，类名称.静态方法。</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 对于本类当中的静态方法，可以省略名称</span></span><br><span class="line">        myMethod();</span><br><span class="line">        Demo01StaticMethod.myMethod(); <span class="comment">// 完全等效于上面</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">myMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"自己的方法!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<ul>
+<li>静态方法调用总结：<ul>
+<li>静态方法可以直接访问类变量和静态方法。</li>
+<li>静态方法不能直接访问普通成员变量或成员方法。原因：因为在内存中是[先]有的静态内容，[后]有的非静态内容,”前人不知后事，后人尽知前史”。</li>
+<li>静态方法中，不能使用this关键字。</li>
+<li>无论是成员变量，还是成员方法。如果有了static，都推荐使用类名称进行调用。静态变量：类名称.静态变量；静态方法：类名称.静态方法();</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-静态原理图解"><a href="#2-3-静态原理图解" class="headerlink" title="2.3 静态原理图解"></a>2.3 静态原理图解</h4><p>static修饰的内容：</p>
+<ul>
+<li>是随着类的加载而加载的，且只加载一次。</li>
+<li>存储于一块固定的内存区域(静态区),所以，可以直接被类名调用。</li>
+<li>它优先于对象存在，所以，可以被所有对象共享。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/static%E5%86%85%E5%AD%98%E5%9B%BE-1555683796541.png" alt="title"></li>
+</ul>
+<h4 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h4><ul>
+<li>静态代码块：定义在成员位置，使用static修饰的代码块{}。<ul>
+<li>位置：类中方法外。</li>
+<li>执行：随着类的加载而执行且只执行一次，优先于main方法和构造方法的执行。</li>
+</ul>
+</li>
+<li>格式：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97-1555684497323.png" alt="title"></li>
+<li>作用：用来一次性地对静态成员变量进行赋值。</li>
+</ul>
+<h2 id="3-Arrays类"><a href="#3-Arrays类" class="headerlink" title="3. Arrays类"></a>3. Arrays类</h2><p>java.util.Arrays此类包含用来操作数组的各种方法，比如排序和搜索等。其所有方法均为静态方法，调用起来非常简单。</p>
+<h3 id="3-1-操作数组的方法"><a href="#3-1-操作数组的方法" class="headerlink" title="3.1 操作数组的方法"></a>3.1 操作数组的方法</h3><ul>
+<li>public static String toString(int[] a): 返回指定数组内容的字符串表示形式。</li>
+<li>public static void sort(int[] a): 对指定的int型数组按数字升序进行排序。</li>
+</ul>
+<p>举例：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo03Arrays</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">54</span>,<span class="number">86</span>,<span class="number">37</span>,<span class="number">28</span>&#125;;</span><br><span class="line">        System.out.println(arr); <span class="comment">// 打印数组内存地址</span></span><br><span class="line">        String str = Arrays.toString(arr); <span class="comment">//将指定数组内容变成字符串返回。</span></span><br><span class="line">        System.out.println(str);</span><br><span class="line">        <span class="keyword">int</span>[] arr2 = &#123;<span class="number">2</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">1</span>&#125;;</span><br><span class="line">        Arrays.sort(arr2); <span class="comment">// 升序排序</span></span><br><span class="line">        System.out.println(Arrays.toString(arr2)); <span class="comment">// [1, 2, 3, 4, 5, 8, 9]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="小练习-1"><a href="#小练习-1" class="headerlink" title="小练习"></a>小练习</h4><p>对一个随机字符串进行升序排序，然后倒序输出<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo04ArraysExercise</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">"ehiaroaklcmbzhywqiem"</span>;</span><br><span class="line">        <span class="keyword">char</span>[] chars = str.toCharArray();</span><br><span class="line">        Arrays.sort(chars); <span class="comment">// 对字符串进行升序排序</span></span><br><span class="line">        System.out.println(chars);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = chars.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123; <span class="comment">//快捷键:[chars.forr] , 对chars对象进行倒序遍历; [fori],正序遍历</span></span><br><span class="line">            System.out.print(chars[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="4-Math类"><a href="#4-Math类" class="headerlink" title="4. Math类"></a>4. Math类</h2><p>java.lang.Math类包含用于执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。类似这样的工具类，里面提供了大量的静态方法，完成与数学运算的操作。</p>
+<h3 id="4-1-基本运算的方法"><a href="#4-1-基本运算的方法" class="headerlink" title="4.1 基本运算的方法"></a>4.1 基本运算的方法</h3><ul>
+<li>public static double abs(double num): 返回绝对值。</li>
+<li>public static double ceil(double num): 向上取整。</li>
+<li>public static double floor(double num): 向下取整。</li>
+<li>public static double round(double num): 四舍五入。</li>
+</ul>
+<p>实例：<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05Math</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"以下示例abs用法"</span>);</span><br><span class="line">        System.out.println(Math.abs(<span class="number">3.14</span>)); <span class="comment">// 3.14</span></span><br><span class="line">        System.out.println(Math.abs(-<span class="number">2.5</span>)); <span class="comment">// 2.5</span></span><br><span class="line">        System.out.println(Math.abs(<span class="number">0</span>)); <span class="comment">// 0</span></span><br><span class="line">        System.out.println(<span class="string">"以下示例ceil用法"</span>);</span><br><span class="line">        System.out.println(Math.ceil(<span class="number">3.9</span>)); <span class="comment">// 4.0</span></span><br><span class="line">        System.out.println(Math.ceil(<span class="number">3.1</span>)); <span class="comment">// 4.0</span></span><br><span class="line">        System.out.println(Math.ceil(<span class="number">3.0</span>)); <span class="comment">// 3.0</span></span><br><span class="line">        System.out.println(<span class="string">"以下示例floor用法"</span>);</span><br><span class="line">        System.out.println(Math.floor(<span class="number">30.9</span>)); <span class="comment">// 30.0</span></span><br><span class="line">        System.out.println(Math.floor(<span class="number">30.1</span>)); <span class="comment">// 30.0</span></span><br><span class="line">        System.out.println(Math.floor(<span class="number">31.0</span>)); <span class="comment">// 31.0</span></span><br><span class="line">        System.out.println(<span class="string">"以下示例round用法"</span>);</span><br><span class="line">        System.out.println(Math.round(<span class="number">20.4</span>)); <span class="comment">//20</span></span><br><span class="line">        System.out.println(Math.round(<span class="number">20.5</span>)); <span class="comment">//21</span></span><br><span class="line">        System.out.println(<span class="string">"圆周率："</span> + Math.PI);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="小练习-2"><a href="#小练习-2" class="headerlink" title="小练习"></a>小练习</h4><p>请使用 Math 相关的API，计算在 -10.8 到 5.9 之间，绝对值大于 6 或者小于 2.1 的整数有多少个？<br><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo06mathExercise</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> min = -<span class="number">10.8</span>;</span><br><span class="line">        <span class="keyword">double</span> max = <span class="number">5.9</span>;</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = (<span class="keyword">int</span>)min; i &lt; max; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> abs = Math.abs(i); <span class="comment">// 绝对值化</span></span><br><span class="line">            <span class="keyword">if</span>(abs &gt; <span class="number">6</span> || abs &lt;<span class="number">2.1</span>)&#123;</span><br><span class="line">                num++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="字符串类及常用方法API"><a href="#字符串类及常用方法API" class="headerlink" title="字符串类及常用方法API"></a>字符串类及常用方法API</h3><ol>
+<li>public String(): 创建一个空白字符串，不含有任何内容。</li>
+<li>public String(char[] array)：根据字符数组的内容，来创建对应的字符串。</li>
+<li>public String(byte[] array): 根据字节数组的内容，来创建对应的字符串</li>
+<li>public boolean equals(Object Obj):参数可以是任何对象，只有参数是一个字符串且内容相同时返回true，反之false。</li>
+<li>public boolean equalsIgnoreCase(String anotherString):将此字符串与指定对象进行比较，忽略大小写。</li>
+<li>public int lenght(); 获取字符串当中含有的字符个数，拿到字符串长度。</li>
+<li>public String concat(String str); 将指定的字符串连接到该字符串的末尾。</li>
+<li>public char charAt(int index); 获取指定索引位置的单个字符。</li>
+<li>public int indexOf(String str); 查找参数字符串在本字符串当中首次出现的索引位置，如果没有返回-1值。</li>
+<li>public String substring(int index):截取从参数位置一直到字符串末尾，返回新字符串。</li>
+<li>public String substring(int begin,int end):截取从begin开始，一直到end结束，中间的字符串。[begin,end)，包含左边，不包含右边。</li>
+<li>public char[] toCharArray(); 将当前字符串拆分成为字符数组作为返回值。</li>
+<li>public byte[] getBytes(); 获取当前字符串底层的字节数组。</li>
+<li>public String replace(CharSequence oldString, CharSequence newString);将所有出现的老字符串替换为新的字符串，返回替换后的结果新字符串。</li>
+<li>public String[] split(String regex); 按照参数的规则，将字符串切分为若干部分。</li>
+</ol>
+<h3 id="static关键字及常用方法"><a href="#static关键字及常用方法" class="headerlink" title="static关键字及常用方法"></a>static关键字及常用方法</h3><ol>
+<li>类变量：使用static关键字修饰的成员变量。格式：static 数据类型 变量名；</li>
+<li>类方法：使用static关键字修饰的成员方法，一般称为静态方法。</li>
+</ol>
+<h3 id="Arrays类操作数组的常用方法"><a href="#Arrays类操作数组的常用方法" class="headerlink" title="Arrays类操作数组的常用方法"></a>Arrays类操作数组的常用方法</h3><ol>
+<li>public static String toString(int[] a): 返回指定数组内容的字符串表示形式。</li>
+<li>public static void sort(int[] a): 对指定的int型数组按数字升序进行排序。</li>
+</ol>
+<h3 id="Math类常用方法"><a href="#Math类常用方法" class="headerlink" title="Math类常用方法"></a>Math类常用方法</h3><ol>
+<li>public static double abs(double num): 返回绝对值。</li>
+<li>public static double ceil(double num): 向上取整。</li>
+<li>public static double floor(double num): 向下取整。</li>
+<li>public static double round(double num): 四舍五入。</li>
+</ol>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/20/JavaBasics/Java三大特性之--继承/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Java三大特性之继承
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/18/JavaBasics/API概述/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">API概述</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

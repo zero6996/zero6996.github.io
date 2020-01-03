@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>HTTP协议和Response | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="HTTP协议和Response对象的基本使用">
+<meta name="keywords" content="HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP协议和Response">
+<meta property="og:url" content="https://zero6996.github.io/2019/06/13/JavaWeb/HTTP和Response对象/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="HTTP协议和Response对象的基本使用">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.831Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP协议和Response">
+<meta name="twitter:description" content="HTTP协议和Response对象的基本使用">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaWeb/HTTP和Response对象" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      HTTP协议和Response
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/06/13/JavaWeb/HTTP和Response对象/" class="article-date">
+  <time datetime="2019-06-13T15:59:00.000Z" itemprop="datePublished">2019-06-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-HTTP协议"><a href="#1-HTTP协议" class="headerlink" title="1. HTTP协议"></a>1. HTTP协议</h2><p>HTTP协议分为<strong>请求消息</strong>和<strong>响应消息</strong>两部分。请求消息是客户端发送给服务器端的数据，数据格式由请求行、请求头、请求空行、请求体4部分组成。下面讲解响应消息格式。</p>
+<a id="more"></a>
+<h2 id="1-1-响应消息"><a href="#1-1-响应消息" class="headerlink" title="1.1 响应消息"></a>1.1 响应消息</h2><p>响应消息是服务器端发送给客户端的数据，具体数据格式如下4部分。</p>
+<h4 id="1-1-1-响应行"><a href="#1-1-1-响应行" class="headerlink" title="1.1.1 响应行"></a>1.1.1 响应行</h4><ol>
+<li>格式：HTTP/1.1(协议/版本)  200(响应状态码)  OK(状态码描述)</li>
+<li>响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态，状态码都是3位数字，具体分类如下。<ul>
+<li>1xx：服务器接收客户端消息，但没有接收完毕，等待一段时间后，服务器会发送1xx状态码询问客户端是否还要继续发送数据。比较特殊的情况，了解即可。</li>
+<li>2xx：成功。例：200表示成功</li>
+<li>3xx：重定向。例：302(重定向)，304(访问缓存)</li>
+<li>4xx：客户端错误。例：404(请求路径没有对应的资源或没权限访问)，405(请求方式没有对应的doXxx方法)</li>
+<li>5xx：服务器端错误。例：500(服务器内部出现异常)</li>
+</ul>
+</li>
+</ol>
+<h4 id="1-1-2-响应头"><a href="#1-1-2-响应头" class="headerlink" title="1.1.2 响应头"></a>1.1.2 响应头</h4><ol>
+<li>格式：头名称：值</li>
+<li>常见响应头：<ul>
+<li>Content-Type：服务器告诉客户端本次响应体数据格式以及编码格式</li>
+<li>Content-disposition：服务器告诉客户端以什么格式打开响应体数据。默认值<code>in-line</code>：在当前页面内打开。<code>attachment;filename=xxx</code>：以附件形式打开响应体(用于文件下载)。</li>
+</ul>
+</li>
+</ol>
+<h4 id="1-1-3-响应空行"><a href="#1-1-3-响应空行" class="headerlink" title="1.1.3 响应空行"></a>1.1.3 响应空行</h4><h4 id="1-1-4-响应体"><a href="#1-1-4-响应体" class="headerlink" title="1.1.4 响应体"></a>1.1.4 响应体</h4><p>就是传输的数据。</p>
+<h4 id="响应字符串格式"><a href="#响应字符串格式" class="headerlink" title="响应字符串格式"></a>响应字符串格式</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK		&lt;-----响应行</span><br><span class="line">Content-Type: text/html;charset=UTF-8		&lt;-----响应头</span><br><span class="line">Content-Length: 90</span><br><span class="line">Date: Thu, 13 Jun 2019 10:01:19 GMT</span><br><span class="line">		&lt;-----响应空行</span><br><span class="line">&lt;html&gt;		&lt;-----响应体</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;$Title$&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">  hello,response</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></div>
+<h2 id="2-Response对象"><a href="#2-Response对象" class="headerlink" title="2. Response对象"></a>2. Response对象</h2><p>主要功能是设置响应消息</p>
+<h3 id="2-1-设置响应行"><a href="#2-1-设置响应行" class="headerlink" title="2.1 设置响应行"></a>2.1 设置响应行</h3><ul>
+<li>设置状态码：<code>setStatus(int sc)</code></li>
+</ul>
+<h3 id="2-2-设置响应头"><a href="#2-2-设置响应头" class="headerlink" title="2.2 设置响应头"></a>2.2 设置响应头</h3><ul>
+<li>设置响应头：<code>setHeader(String name,String value)</code></li>
+</ul>
+<h3 id="2-3-设置响应体数据"><a href="#2-3-设置响应体数据" class="headerlink" title="2.3 设置响应体数据"></a>2.3 设置响应体数据</h3><p>使用步骤有以下两步</p>
+<h4 id="2-3-1-获取输出流"><a href="#2-3-1-获取输出流" class="headerlink" title="2.3.1 获取输出流"></a>2.3.1 获取输出流</h4><ul>
+<li>字符输出流：<code>PrintWriter getWriter()</code></li>
+<li>字节输出流：<code>ServletOutputStream getOutputSteam()</code></li>
+</ul>
+<h4 id="2-3-2-使用输出流"><a href="#2-3-2-使用输出流" class="headerlink" title="2.3.2 使用输出流"></a>2.3.2 使用输出流</h4><p>将数据输出到客户端浏览器</p>
+<h3 id="2-4-小案例"><a href="#2-4-小案例" class="headerlink" title="2.4 小案例"></a>2.4 小案例</h3><h4 id="2-4-1-完成重定向"><a href="#2-4-1-完成重定向" class="headerlink" title="2.4.1 完成重定向"></a>2.4.1 完成重定向</h4><ul>
+<li><p>重定向：资源的跳转方式</p>
+</li>
+<li><p>代码实现</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 设置状态码为302</span></span><br><span class="line">response.setStatus(<span class="number">302</span>);</span><br><span class="line"><span class="comment">// 2. 设置响应头location</span></span><br><span class="line">response.setHeader(<span class="string">"location"</span>,<span class="string">"/Demo6_13/responseDemo2"</span>);</span><br><span class="line"><span class="comment">// 简单的重定向方法</span></span><br><span class="line">response.sendRedirect(<span class="string">"/Demo6_13/responseDemo2"</span>);</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>重定向(<code>redirect</code>)的特点</p>
+<ul>
+<li>地址栏发生变化</li>
+<li>重定向可以访问其他站点(服务器)的资源</li>
+<li>重定向是两次请求。所以不能使用request对象来共享数据</li>
+</ul>
+</li>
+<li><p>转发(<code>forward</code>)的特点</p>
+<ul>
+<li>转发地址栏路径不变</li>
+<li>转发只能访问当前服务器下的资源</li>
+<li>转发是一次请求。故可以使用request对象来共享数据</li>
+</ul>
+</li>
+<li><p>路径的写法分类</p>
+<ul>
+<li><p>相对路径：通过相对路径不可以确定唯一资源</p>
+<ul>
+<li>例：<code>./index.html</code>。不以<code>/</code>开头，而是以<code>.</code>开头的路径</li>
+<li>规则：找到当前资源和目标资源之间的相对位置关系。例：<code>./</code>表示当前目录，<code>../</code>表示上一级目录。</li>
+</ul>
+</li>
+<li><p>绝对路径：通过绝对路径可以确定唯一资源</p>
+<ul>
+<li>例：<code>http://localhost/Demo6_13/responseDemo2</code>或<code>/Demo6_13/responseDemo2</code>。这种以<code>/</code>开头的路径</li>
+<li>规则：判断定义的路径是给谁用的？判断请求将来从哪儿发出。给客户端浏览器使用需要加虚拟目录(项目的访问路径)，给服务器使用不需要加虚拟目录。</li>
+</ul>
+<blockquote>
+<p>虚拟目录建议使用<code>request.getContextPath()</code>来动态获取</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-2-服务器输出字符数据到浏览器"><a href="#2-4-2-服务器输出字符数据到浏览器" class="headerlink" title="2.4.2 服务器输出字符数据到浏览器"></a>2.4.2 服务器输出字符数据到浏览器</h4><p>先获取字符输出流，再输出数据。</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3.1 获取流对象之前，将流的默认编码ISO-8859-1设置为utf-8</span></span><br><span class="line">response.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line"><span class="comment">// 3.2 告诉浏览器服务器发送的消息体数据的编码，建议浏览器使用该编码来解码</span></span><br><span class="line">response.setHeader(<span class="string">"Content-type"</span>,<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line"><span class="comment">// 3.3 可以使用简化的形式，设置编码</span></span><br><span class="line">response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line"><span class="comment">// Notice: 3.1步骤可以省略，推荐使用3.3方法</span></span><br><span class="line"><span class="comment">// 1. 获取字符输出流</span></span><br><span class="line">PrintWriter pw = response.getWriter();</span><br><span class="line"><span class="comment">// 2. 输出数据</span></span><br><span class="line">pw.write(<span class="string">"&lt;h1&gt;hello response&lt;/h1&gt;"</span>);</span><br><span class="line"><span class="comment">// 3. 解决中文乱码问题</span></span><br><span class="line">pw.write(<span class="string">"你好，response"</span>);</span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">	乱码原因是：PrintWriter pw = response.getWriter(); 获取的流默认编码是ISO-8859-1</span></span><br><span class="line"><span class="comment">	故需在获取流之前，设置该流的默认编码，或者直接告诉浏览器响应体使用的编码，推荐其解码方式。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></div>
+<h4 id="2-4-3-服务器输出字节数据到浏览器"><a href="#2-4-3-服务器输出字节数据到浏览器" class="headerlink" title="2.4.3 服务器输出字节数据到浏览器"></a>2.4.3 服务器输出字节数据到浏览器</h4><p>获取字节输出流输出数据，一般用于获取图片字节数据然后输出到浏览器显示图片</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 获取字节输出流</span></span><br><span class="line">ServletOutputStream sos = response.getOutputStream();</span><br><span class="line"><span class="comment">// 2. 输出数据</span></span><br><span class="line">sos.write(<span class="string">"你好"</span>.getBytes());</span><br><span class="line">sos.write(<span class="string">"hello"</span>.getBytes());</span><br></pre></td></tr></table></figure></div>
+<h4 id="2-4-4-验证码"><a href="#2-4-4-验证码" class="headerlink" title="2.4.4 验证码"></a>2.4.4 验证码</h4><p>本质就是一张图片，主要作用是防止恶意表单注册</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/checkCodeServlet"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckCodeServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 创建一个对象，在内存中画图片(验证码图片对象)</span></span><br><span class="line">        <span class="keyword">int</span> width = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">int</span> height = <span class="number">50</span>;</span><br><span class="line">        BufferedImage image = <span class="keyword">new</span> BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 美化图片</span></span><br><span class="line">        <span class="comment">// 2.1 填充背景色</span></span><br><span class="line">        Graphics g = image.getGraphics(); <span class="comment">// 获取画笔对象</span></span><br><span class="line">        g.setColor(Color.PINK); <span class="comment">// 设置画笔颜色</span></span><br><span class="line">        g.fillRect(<span class="number">0</span>,<span class="number">0</span>,width,height); <span class="comment">// 填充颜色</span></span><br><span class="line">        <span class="comment">// 2.2 画边框</span></span><br><span class="line">        g.setColor(Color.blue);</span><br><span class="line">        g.drawRect(<span class="number">0</span>,<span class="number">0</span>,width-<span class="number">1</span>, height-<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 2.3 写验证码</span></span><br><span class="line">        String str = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"</span>;</span><br><span class="line">        <span class="comment">// 2.3.1 生产随机角标</span></span><br><span class="line">        Random ran = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">4</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> index = ran.nextInt(str.length());</span><br><span class="line">            <span class="comment">// 2.3.2 获取字符</span></span><br><span class="line">            <span class="keyword">char</span> ch = str.charAt(index);</span><br><span class="line">            g.drawString(ch+<span class="string">""</span> ,width/<span class="number">5</span>*i,height/<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 2.4 画干扰线</span></span><br><span class="line">        g.setColor(Color.GREEN);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 2.4.1 随机生产坐标点</span></span><br><span class="line">            <span class="keyword">int</span> x1 = ran.nextInt(width);</span><br><span class="line">            <span class="keyword">int</span> x2 = ran.nextInt(width);</span><br><span class="line">            <span class="keyword">int</span> y1 = ran.nextInt(height);</span><br><span class="line">            <span class="keyword">int</span> y2 = ran.nextInt(height);</span><br><span class="line">            <span class="comment">// 根据坐标点画线</span></span><br><span class="line">            g.drawLine(x1,y1,x2,y2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3. 将图片输出到页面展示</span></span><br><span class="line">        ImageIO.write(image,<span class="string">"jpg"</span>,response.getOutputStream());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="在网页中使用验证码"><a href="#在网页中使用验证码" class="headerlink" title="在网页中使用验证码"></a>在网页中使用验证码</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>验证码<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">        <span class="comment">// 1.给超链接和图片绑定单击事件</span></span></span><br><span class="line"><span class="actionscript">        <span class="comment">// 2. 重新设置图片的src属性值</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">            <span class="comment">// 1. 获取图片对象</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> img = <span class="built_in">document</span>.getElementById(<span class="string">"checkCode"</span>);</span></span><br><span class="line"><span class="actionscript">            <span class="comment">// 2. 创建单击事件</span></span></span><br><span class="line"><span class="actionscript">            changeimg = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">                <span class="comment">// 获取时间戳</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span></span><br><span class="line"><span class="actionscript">                img.src = <span class="string">"/Demo6_13/checkCodeServlet?"</span>+date;</span></span><br><span class="line">            &#125;</span><br><span class="line"><span class="actionscript">            <span class="comment">// 3. 绑定单击事件</span></span></span><br><span class="line">            img.onclick = changeimg;</span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.getElementById(<span class="string">"change"</span>).onclick = changeimg;</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"/Demo6_13/checkCodeServlet"</span> <span class="attr">id</span>=<span class="string">"checkCode"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">id</span>=<span class="string">"change"</span> &gt;</span>看不清？换一张<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<h2 id="3-ServletContext对象"><a href="#3-ServletContext对象" class="headerlink" title="3. ServletContext对象"></a>3. ServletContext对象</h2><p>这个对象代表整个Web应用，可以和程序的容器(服务器)来进行通信</p>
+<h3 id="3-1-获取"><a href="#3-1-获取" class="headerlink" title="3.1 获取"></a>3.1 获取</h3><ol>
+<li>通过request对象获取：<code>request.getServletContext();</code></li>
+<li>通过HttpServlet获取：<code>this.getServletContext();</code></li>
+</ol>
+<h3 id="3-2-功能"><a href="#3-2-功能" class="headerlink" title="3.2 功能"></a>3.2 功能</h3><h4 id="3-2-1-获取MIME类型"><a href="#3-2-1-获取MIME类型" class="headerlink" title="3.2.1 获取MIME类型"></a>3.2.1 获取MIME类型</h4><ul>
+<li>MIME类型：在互联网通信过程中定义的一种文件数据类型，存储在服务器的<code>web.xml</code>文件中</li>
+<li>格式：大类型/小类型，例：<code>text/html</code>，<code>image/jpeg</code></li>
+<li>获取方法：<code>String getMimeType(String file)</code></li>
+</ul>
+<h4 id="3-2-2-域对象：共享数据"><a href="#3-2-2-域对象：共享数据" class="headerlink" title="3.2.2 域对象：共享数据"></a>3.2.2 域对象：共享数据</h4><p>常用方法如下：</p>
+<ol>
+<li><code>setAttribute(String name,Object value)</code></li>
+<li><code>getAttribute(String name)</code></li>
+<li><code>removeAttribute(String name)</code></li>
+</ol>
+<ul>
+<li>ServletContext对象范围：所有用户所有请求的数据</li>
+</ul>
+<h4 id="3-2-3-获取文件的真实-服务器-路径"><a href="#3-2-3-获取文件的真实-服务器-路径" class="headerlink" title="3.2.3 获取文件的真实(服务器)路径"></a>3.2.3 获取文件的真实(服务器)路径</h4><ul>
+<li><code>String getRealPath(String path)</code></li>
+</ul>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取文件的服务器路径</span></span><br><span class="line">String c = context.getRealPath(<span class="string">"/c.txt"</span>); <span class="comment">// web目录下的资源访问</span></span><br><span class="line">String b = context.getRealPath(<span class="string">"/WEB-INF/b.txt"</span>); <span class="comment">// WEB-INF目录下的资源访问</span></span><br><span class="line">String a = context.getRealPath(<span class="string">"/WEB-INF/classes/a.txt"</span>); <span class="comment">// src目录下的资源访问</span></span><br></pre></td></tr></table></figure></div>
+<h2 id="4-综合案例：文件下载"><a href="#4-综合案例：文件下载" class="headerlink" title="4. 综合案例：文件下载"></a>4. 综合案例：文件下载</h2><h3 id="4-1-案例需求"><a href="#4-1-案例需求" class="headerlink" title="4. 1 案例需求"></a>4. 1 案例需求</h3><ol>
+<li>页面显示超链接</li>
+<li>点击超链接后弹出下载提示框</li>
+<li>完成图片文件下载</li>
+</ol>
+<h3 id="4-2-分析"><a href="#4-2-分析" class="headerlink" title="4.2 分析"></a>4.2 分析</h3><ol>
+<li>浏览器默认超链接指向的资源如果能够被解析，则在浏览器中展示，如果不能解析，则弹出下载提示框。不满足需求！</li>
+<li>任何资源都必须弹出下载提示框</li>
+<li>使用响应头设置资源的打开方式：<code>content-disposition:attachment;filename=xxx</code></li>
+</ol>
+<h3 id="4-3-步骤"><a href="#4-3-步骤" class="headerlink" title="4.3 步骤"></a>4.3 步骤</h3><ol>
+<li>定义页面，编辑超链接href属性，指向Servlet，传递资源名称filename</li>
+<li>定义Servlet<ol>
+<li>获取文件名称</li>
+<li>使用字节输入流加载文件进内存</li>
+<li>指定response的响应头：<code>content-disposition:attachment;filename=xxx</code></li>
+<li>将数据写出到response输出流，返回给客户端</li>
+</ol>
+</li>
+</ol>
+<h3 id="4-2-代码实现"><a href="#4-2-代码实现" class="headerlink" title="4.2 代码实现"></a>4.2 代码实现</h3><p><code>downloadServlet</code>代码，主要实现文件的输入输出</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/downloadServlet"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DownloadServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 获取请求参数，文件名称</span></span><br><span class="line">        String filename = request.getParameter(<span class="string">"filename"</span>);</span><br><span class="line">        <span class="comment">// 2. 使用字节输入流加载文件进内存</span></span><br><span class="line">        <span class="comment">// 2.1 找到文件服务器路径</span></span><br><span class="line">        ServletContext context = <span class="keyword">this</span>.getServletContext();</span><br><span class="line">        String realPath = context.getRealPath(<span class="string">"/img/"</span> + filename);</span><br><span class="line">        <span class="comment">// 2.2 用字节流关联文件对象</span></span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(realPath);</span><br><span class="line">        <span class="comment">// 3. 设置response响应头</span></span><br><span class="line">        <span class="comment">// 3.1 设置响应头类型</span></span><br><span class="line">        String mimeType = context.getMimeType(filename); <span class="comment">// 获取文件的mime类型</span></span><br><span class="line">        response.setHeader(<span class="string">"content-type"</span>,mimeType);</span><br><span class="line">        <span class="comment">// 3.2 解决中文文件名问题</span></span><br><span class="line">        <span class="comment">// 3.2.1 获取user-agent请求头</span></span><br><span class="line">        String agent = request.getHeader(<span class="string">"user-agent"</span>);</span><br><span class="line">        <span class="comment">// 3.2.2 使用工具类方法编码文件名</span></span><br><span class="line">        filename = DownLoadUtils.getFileName(agent, filename);</span><br><span class="line">        response.setHeader(<span class="string">"content-disposition"</span>,<span class="string">"attachment;filename="</span>+filename);</span><br><span class="line">        <span class="comment">// 4. 将输入流的数据写出到输出流中，将文件输出到浏览器中</span></span><br><span class="line">        ServletOutputStream sos = response.getOutputStream();</span><br><span class="line">        <span class="keyword">byte</span>[] buff = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span> * <span class="number">8</span>];</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> ((len = fis.read(buff)) != -<span class="number">1</span>)&#123;</span><br><span class="line">            sos.write(buff,<span class="number">0</span>,len);</span><br><span class="line">        &#125;</span><br><span class="line">        fis.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>前端html页面，提供了文件下载的超链接</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>下载文件<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>文件下载<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/Demo6_13/downloadServlet?filename=九尾.jpg"</span>&gt;</span>九尾<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/Demo6_13/downloadServlet?filename=2.jpg"</span>&gt;</span>图片2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p>DownLoadUtils工具类，主要功能获取客户端的浏览器版本信息，然后根据不同的版本信息，设置filename的编码方式</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DownLoadUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getFileName</span><span class="params">(String agent, String filename)</span> <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (agent.contains(<span class="string">"MSIE"</span>)) &#123;</span><br><span class="line">            <span class="comment">// IE浏览器</span></span><br><span class="line">            filename = URLEncoder.encode(filename, <span class="string">"utf-8"</span>);</span><br><span class="line">            filename = filename.replace(<span class="string">"+"</span>, <span class="string">" "</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (agent.contains(<span class="string">"Firefox"</span>)) &#123;</span><br><span class="line">            <span class="comment">// 火狐浏览器</span></span><br><span class="line">            BASE64Encoder base64Encoder = <span class="keyword">new</span> BASE64Encoder();</span><br><span class="line">            filename = <span class="string">"=?utf-8?B?"</span> + base64Encoder.encode(filename.getBytes(<span class="string">"utf-8"</span>)) + <span class="string">"?="</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 其它浏览器</span></span><br><span class="line">            filename = URLEncoder.encode(filename, <span class="string">"utf-8"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> filename;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getFileName</span><span class="params">(String agent)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/16/JavaWeb/Cookie和Session/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            会话技术Cookie和Session
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/10/JavaWeb/HTTP协议和Request对象/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">HTTP协议和Request对象</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JSP和MVC | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="JSP学习，EL表达式和JSTL标签，MVC和三层架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSP和MVC">
+<meta property="og:url" content="https://zero6996.github.io/2019/06/19/JavaWeb/JSP/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="JSP学习，EL表达式和JSTL标签，MVC和三层架构">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/19/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84-1560957316811.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/19/1560959814288-1560959814341.png">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.831Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSP和MVC">
+<meta name="twitter:description" content="JSP学习，EL表达式和JSTL标签，MVC和三层架构">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/19/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84-1560957316811.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaWeb/JSP" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      JSP和MVC
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/06/19/JavaWeb/JSP/" class="article-date">
+  <time datetime="2019-06-19T15:59:00.000Z" itemprop="datePublished">2019-06-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
+  </div>
+
+    
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-JSP"><a href="#1-JSP" class="headerlink" title="1. JSP"></a>1. JSP</h2><p>JSP全称<code>Java Server Pages</code>，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。标签通常以<code>&lt;%开头 以%&gt;</code>结束。</p>
+<a id="more"></a>
+<h3 id="1-1-指令"><a href="#1-1-指令" class="headerlink" title="1.1 指令"></a>1.1 指令</h3><p>指令主要用于配置JSP页面，导入资源文件。</p>
+<ul>
+<li><p>格式：<code>&lt;%@ 指令名称 属性名1=属性值1 属性名2=属性值2 ... %&gt;</code></p>
+</li>
+<li><p>主要有三种指令：page、include、taglib</p>
+</li>
+</ul>
+<h4 id="1-1-1-page"><a href="#1-1-1-page" class="headerlink" title="1.1.1 page"></a>1.1.1 page</h4><p>主要用于配置JSP页面的</p>
+<ol>
+<li><code>contentType()</code>：设置响应体的mime类型以及字符集，设置当前jsp页面的编码(只有高级的IDE才能生效，如果使用低级工具，则需使用<code>pageEncoding</code>属性来设置当前页面的字符集)。</li>
+<li><code>import</code>：导包，用法同Java中的导包。</li>
+<li><code>errorPage</code>：当前页面发生异常后，会自动跳转到指定的错误页面</li>
+<li><code>isErrorPage</code>：标识当前页面是否是错误页面，默认值false。设置为true代表当前页面是错误页面，就可以使用内置对象<code>exception</code>。</li>
+</ol>
+<h4 id="1-1-2-include"><a href="#1-1-2-include" class="headerlink" title="1.1.2 include"></a>1.1.2 include</h4><p>页面包含的，用于导入其他页面的资源文件</p>
+<ul>
+<li><code>&lt;%@include file=&quot;other.jsp&quot; %&gt;</code></li>
+</ul>
+<h4 id="1-1-3-taglib"><a href="#1-1-3-taglib" class="headerlink" title="1.1.3 taglib"></a>1.1.3 taglib</h4><p>导入外部资源</p>
+<ul>
+<li><code>&lt;%@taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;</code><ul>
+<li><code>prefix</code>：前缀，自定义的。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-注释"><a href="#1-2-注释" class="headerlink" title="1.2 注释"></a>1.2 注释</h3><ol>
+<li>html注释<code>&lt;!--  --&gt;</code>：只能注释html代码片段。</li>
+<li>JSP注释<code>&lt;%--  --%&gt;</code>：可以注释所有，推荐使用。</li>
+</ol>
+<h3 id="1-3-内置对象"><a href="#1-3-内置对象" class="headerlink" title="1.3 内置对象"></a>1.3 内置对象</h3><p>在jsp页面中不需要创建，直接使用的对象就是内置对象，一共有9个。     </p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>真实类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pageContext</code></td>
+<td><code>PageContext</code></td>
+<td>当前页面共享数据，还可以获取其他八个内置对象</td>
+</tr>
+<tr>
+<td><code>request</code></td>
+<td><code>HttpServletRequest</code></td>
+<td>一次请求访问的多个资源(通过转发)</td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td><code>HttpSession</code></td>
+<td>一次会话的多个请求间</td>
+</tr>
+<tr>
+<td><code>application</code></td>
+<td><code>ServletContext</code></td>
+<td>所有用户间共享数据</td>
+</tr>
+<tr>
+<td><code>response</code></td>
+<td><code>HttpServletResponse</code></td>
+<td>响应对象</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td><code>Object</code></td>
+<td>当前页面(Servlet)的对象，<code>this</code></td>
+</tr>
+<tr>
+<td><code>out</code></td>
+<td><code>JspWriter</code></td>
+<td>输出对象，数据输出到页面上</td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td><code>ServletConfig</code></td>
+<td>Servlet的配置对象</td>
+</tr>
+<tr>
+<td><code>exception</code></td>
+<td><code>Throwable</code></td>
+<td>异常对象</td>
+</tr>
+</tbody>
+</table>
+<h4 id="面试题：写出JSP中的9个内置对象"><a href="#面试题：写出JSP中的9个内置对象" class="headerlink" title="面试题：写出JSP中的9个内置对象"></a>面试题：写出JSP中的9个内置对象</h4><h2 id="2-MVC开发模式"><a href="#2-MVC开发模式" class="headerlink" title="2. MVC开发模式"></a>2. MVC开发模式</h2><h3 id="2-1-JSP演变历史"><a href="#2-1-JSP演变历史" class="headerlink" title="2.1 JSP演变历史"></a>2.1 JSP演变历史</h3><ol>
+<li>早期只有servlet，只能使用response输出标签数据，非常麻烦</li>
+<li>后来出现了jsp，简化了Servlet的开发，但是如果过度的使用jsp，在jsp中既写大量的java代码，又写html标签，会造成代码很难维护，也很难分工协作。</li>
+<li>故此后Java的Web开发，借鉴了MVC开发模式，使得程序的设计更加合理性。</li>
+</ol>
+<h3 id="2-2-MVC"><a href="#2-2-MVC" class="headerlink" title="2.2 MVC"></a>2.2 MVC</h3><p>MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。</p>
+<ol>
+<li>M：Model(模型)，JavaBean。主要完成具体的业务操作，如：查询数据库，封装对象等。</li>
+<li>V：View(视图)，JSP。主要展示数据</li>
+<li>C：Controller(控制器)，Servlet。主要功能有获取用户的输入，调用模型，将模型返回的数据交给视图进行展示。</li>
+</ol>
+<h4 id="2-2-1-优缺点"><a href="#2-2-1-优缺点" class="headerlink" title="2.2.1 优缺点"></a>2.2.1 优缺点</h4><p>优点：</p>
+<ol>
+<li>耦合性低，方便维护，有利于分工协作</li>
+<li>复用性高</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>使得项目架构变得复杂，对开发人员要求高</li>
+</ol>
+<h2 id="3-EL表达式"><a href="#3-EL表达式" class="headerlink" title="3. EL表达式"></a>3. EL表达式</h2><p> EL（Expression Language） 是为了使JSP写起来更加简单。表达式语言的灵感来自于 ECMAScript 和 XPath 表达式语言，它提供了在 JSP 中简化表达式的方法，让Jsp的代码更加简化。</p>
+<ul>
+<li>语法：<code>${表达式}</code></li>
+<li>jsp默认支持el表达式，有两种方法可以忽略el表达式。<ol>
+<li>忽略当前jsp页面中所有的el表达式：设置jsp中的page指令<code>isELIgnored=&quot;true&quot;</code>即可。</li>
+<li>忽略当前el表达式：使用<code>\${表达式}</code></li>
+</ol>
+</li>
+</ul>
+<h3 id="3-1-基本使用"><a href="#3-1-基本使用" class="headerlink" title="3.1 基本使用"></a>3.1 基本使用</h3><h4 id="3-1-1-运算符"><a href="#3-1-1-运算符" class="headerlink" title="3.1.1 运算符"></a>3.1.1 运算符</h4><ol>
+<li>算数运算符：<code>+ - * /(div) %(mod)</code></li>
+<li>比较运算符：<code>&gt; &lt; = &gt;= &lt;= == !=</code></li>
+<li>逻辑运算符：<code>&amp;&amp;(and)  ||(or)  !(not)</code></li>
+<li>空运算符：empty<ul>
+<li>功能：用于判断字符串、集合、数组对象是否为null或者长度是否为0。</li>
+<li><code>${empty list}</code>：判断list是否为null或者长度为0</li>
+<li><code>${not empty str}</code>：表示判断str对象是否不为null并且长度&gt;0</li>
+</ul>
+</li>
+</ol>
+<h4 id="3-1-2-获取值"><a href="#3-1-2-获取值" class="headerlink" title="3.1.2 获取值"></a>3.1.2 获取值</h4><p>el表达式只能从域对象中获取值，语法如下</p>
+<h5 id="1-域名称-键名"><a href="#1-域名称-键名" class="headerlink" title="1.${域名称.键名}"></a>1.<code>${域名称.键名}</code></h5><h5 id="表示从指定域中获取指定键的值。"><a href="#表示从指定域中获取指定键的值。" class="headerlink" title="表示从指定域中获取指定键的值。"></a>表示从指定域中获取指定键的值。</h5><p>域名称对应对象：</p>
+<table>
+<thead>
+<tr>
+<th>域名称</th>
+<th>对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pageScope</td>
+<td>pageContext</td>
+</tr>
+<tr>
+<td>requestScope</td>
+<td>request</td>
+</tr>
+<tr>
+<td>sessionScope</td>
+<td>session</td>
+</tr>
+<tr>
+<td>applicationScope</td>
+<td>application(ServletContext)</td>
+</tr>
+</tbody>
+</table>
+<p>例：在request域中存储了name=张三，使用<code>${requestScope.name}</code>即可获取值。</p>
+<h5 id="2-键名"><a href="#2-键名" class="headerlink" title="2. ${键名"></a>2. <code>${键名</code></h5><p>表示依次从最小的域中查找是否有该键对应的值，直到找到为止。</p>
+<h5 id="3-获取对象、List集合、Map集合的值"><a href="#3-获取对象、List集合、Map集合的值" class="headerlink" title="3. 获取对象、List集合、Map集合的值"></a>3. 获取对象、List集合、Map集合的值</h5><ul>
+<li>获取对象：<code>${域名称.键名.属性名}</code>，其本质上会去调用对象的<code>getter</code>方法</li>
+<li>获取List集合：<code>${域名称.键名[索引]}</code></li>
+<li>获取Map集合：<code>${域名称.键名.key名称}</code>或者<code>${域名称.键名[&quot;key名称&quot;]}</code></li>
+</ul>
+<h4 id="3-1-3-隐式对象"><a href="#3-1-3-隐式对象" class="headerlink" title="3.1.3 隐式对象"></a>3.1.3 隐式对象</h4><p>EL表达式中有11个隐式对象，常用的就pageContext</p>
+<p><code>pageContext</code>：获取jsp其他八个内置对象</p>
+<p>通常用它来动态获取虚拟目录：<code>${pageContext.request.contextPath}</code></p>
+<h2 id="4-JSTL标签"><a href="#4-JSTL标签" class="headerlink" title="4. JSTL标签"></a>4. JSTL标签</h2><ul>
+<li><code>JavaServer Pages Tag Library</code>：JSP标准标签库，是由Apache组织提供的开源免费的jsp标签</li>
+<li>作用：用于简化和替换jsp页面上的java代码</li>
+</ul>
+<h3 id="4-1-使用步骤"><a href="#4-1-使用步骤" class="headerlink" title="4.1 使用步骤"></a>4.1 使用步骤</h3><ol>
+<li>导入JSTL相关jar包</li>
+<li>引入标签库，使用taglib指令：<code>&lt;%@taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;</code></li>
+<li>使用标签</li>
+</ol>
+<h3 id="4-2-常用的JSTL标签"><a href="#4-2-常用的JSTL标签" class="headerlink" title="4.2 常用的JSTL标签"></a>4.2 常用的JSTL标签</h3><h4 id="4-2-1-if"><a href="#4-2-1-if" class="headerlink" title="4.2.1 if"></a>4.2.1 if</h4><p>相当于java代码的if语句，有一个必须属性<code>test</code>。</p>
+<ul>
+<li><code>test</code>属性：接受布尔表达式<ul>
+<li>如果表达式为true，则显示if标签体内容，如果为false，则不显示标签体内容。</li>
+<li>一般情况下，test属性值会结合el表达式一起使用</li>
+</ul>
+</li>
+<li>注意：<code>c:if</code>标签没有else情况，想要else情况，则可以再定义一个<code>c:if</code>标签</li>
+</ul>
+<h4 id="4-2-2-choose"><a href="#4-2-2-choose" class="headerlink" title="4.2.2 choose"></a>4.2.2 choose</h4><p>相当于java代码的switch语句</p>
+<h4 id="4-2-3-foreach"><a href="#4-2-3-foreach" class="headerlink" title="4.2.3 foreach"></a>4.2.3 foreach</h4><p>相当于java代码的for语句，代码举例如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.util.ArrayList"</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.util.List"</span> %&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</span><br><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">"c"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span>%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;foreach标签&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;%--</span><br><span class="line">    foreach:相当于java的<span class="keyword">for</span>语句</span><br><span class="line">        <span class="number">1</span>. 完成重复性操作</span><br><span class="line">            属性：</span><br><span class="line">                begin:开始值</span><br><span class="line">                end：结束值</span><br><span class="line">                <span class="keyword">var</span>：临时遍历</span><br><span class="line">                step：步长</span><br><span class="line">                varStatus:循环状态对象</span><br><span class="line">                    index: 容器中元素的索引，从<span class="number">0</span>开始</span><br><span class="line">                    count：循环次数，从<span class="number">1</span>开始</span><br><span class="line">        <span class="number">2</span>. 遍历容器</span><br><span class="line">            属性：</span><br><span class="line">                items：容器对象</span><br><span class="line">                <span class="keyword">var</span>：容器中元素的临时变量</span><br><span class="line">                varStatus:循环状态对象</span><br><span class="line">                    index: 容器中元素的索引，从<span class="number">0</span>开始</span><br><span class="line">                    count：循环次数，从<span class="number">1</span>开始</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;c:forEach begin=<span class="string">"0"</span> end=<span class="string">"10"</span> <span class="keyword">var</span>=<span class="string">"i"</span> step=<span class="string">"2"</span> varStatus=<span class="string">"s"</span>&gt;</span><br><span class="line">    $&#123;i&#125; &lt;h3&gt;$&#123;s.index&#125;&lt;/h3&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br><span class="line"></span><br><span class="line">&lt;hr&gt;</span><br><span class="line">&lt;%</span><br><span class="line">    List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">    list.add(<span class="string">"a"</span>);</span><br><span class="line">    list.add(<span class="string">"b"</span>);</span><br><span class="line">    list.add(<span class="string">"c"</span>);</span><br><span class="line">    list.add(<span class="string">"d"</span>);</span><br><span class="line">    request.setAttribute(<span class="string">"list"</span>,list);</span><br><span class="line"></span><br><span class="line">%&gt;</span><br><span class="line">&lt;c:forEach items=<span class="string">"$&#123;list&#125;"</span> <span class="keyword">var</span>=<span class="string">"str"</span> varStatus=<span class="string">"s"</span>&gt;</span><br><span class="line">    $&#123;s.index&#125; $&#123;s.count&#125; $&#123;str&#125;&lt;br&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-综合练习"><a href="#4-3-综合练习" class="headerlink" title="4.3 综合练习"></a>4.3 综合练习</h3><p>在request域中有一个存有User对象的List集合。需要使用jstl+el将List集合数据展示到jsp页面的表格table中。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.util.ArrayList"</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.util.List"</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"cn.zero.domain.User"</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.util.Date"</span> %&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</span><br><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">"c"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;综合练习&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;%--</span><br><span class="line">    在request域中有一个存有User对象的List集合。</span><br><span class="line">    请使用jstl+el将List集合数据展示到jsp页面的表格table中。</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%</span><br><span class="line">    List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">    list.add(<span class="keyword">new</span> User(<span class="string">"小张"</span>,<span class="number">21</span>,<span class="keyword">new</span> Date()));</span><br><span class="line">    list.add(<span class="keyword">new</span> User(<span class="string">"小王"</span>,<span class="number">22</span>,<span class="keyword">new</span> Date()));</span><br><span class="line">    list.add(<span class="keyword">new</span> User(<span class="string">"小李"</span>,<span class="number">23</span>,<span class="keyword">new</span> Date()));</span><br><span class="line">    request.setAttribute(<span class="string">"list"</span>,list);</span><br><span class="line">%&gt;</span><br><span class="line">&lt;table border=<span class="string">"1"</span> width=<span class="string">"500"</span> align=<span class="string">"center"</span>&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;th&gt;编号&lt;/th&gt;</span><br><span class="line">        &lt;th&gt;姓名&lt;/th&gt;</span><br><span class="line">        &lt;th&gt;年龄&lt;/th&gt;</span><br><span class="line">        &lt;th&gt;生日&lt;/th&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;c:forEach items=<span class="string">"$&#123;list&#125;"</span> <span class="keyword">var</span>=<span class="string">"user"</span> varStatus=<span class="string">"s"</span>&gt;</span><br><span class="line">        &lt;c:<span class="keyword">if</span> test=<span class="string">"$&#123;s.count % 2 == 0&#125;"</span>&gt;</span><br><span class="line">            &lt;tr bgcolor=<span class="string">"#f08080"</span>&gt;</span><br><span class="line">                &lt;td&gt;$&#123;s.count&#125;&lt;/td&gt;</span><br><span class="line">                &lt;td&gt;$&#123;user.name&#125;&lt;/td&gt;</span><br><span class="line">                &lt;td&gt;$&#123;user.age&#125;&lt;/td&gt;</span><br><span class="line">                &lt;td&gt;$&#123;user.birStr&#125;&lt;/td&gt;</span><br><span class="line">            &lt;/tr&gt;</span><br><span class="line">        &lt;/c:if&gt;</span><br><span class="line">        &lt;c:<span class="keyword">if</span> test=<span class="string">"$&#123;s.count % 2 != 0&#125;"</span>&gt;</span><br><span class="line">            &lt;tr bgcolor=<span class="string">"#00bfff"</span>&gt;</span><br><span class="line">                &lt;td&gt;$&#123;s.count&#125;&lt;/td&gt;</span><br><span class="line">                &lt;td&gt;$&#123;user.name&#125;&lt;/td&gt;</span><br><span class="line">                &lt;td&gt;$&#123;user.age&#125;&lt;/td&gt;</span><br><span class="line">                &lt;td&gt;$&#123;user.birStr&#125;&lt;/td&gt;</span><br><span class="line">            &lt;/tr&gt;</span><br><span class="line">        &lt;/c:if&gt;</span><br><span class="line">    &lt;/c:forEach&gt;</span><br><span class="line">&lt;/table&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="5-三层架构"><a href="#5-三层架构" class="headerlink" title="5. 三层架构"></a>5. 三层架构</h2><p>三层架构(3-tier architecture) 通常意义上的三层架构就是将整个业务应用划分为：界面层（User Interface layer）、业务逻辑层（Business Logic Layer）、数据访问层（Data access layer）。</p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/19/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84-1560957316811.png" alt="title"></p>
+<ul>
+<li>界面层(表示层)：用户看的界面。用户可以通过界面上的组件和服务器进行交互。</li>
+<li>业务逻辑层：处理业务逻辑的。</li>
+<li>数据访问层：操作数据存储文件。</li>
+</ul>
+<h2 id="6-综合案例：用户信息列表展示"><a href="#6-综合案例：用户信息列表展示" class="headerlink" title="6. 综合案例：用户信息列表展示"></a>6. 综合案例：用户信息列表展示</h2><h3 id="6-1-需求"><a href="#6-1-需求" class="headerlink" title="6.1 需求"></a>6.1 需求</h3><p>用户点击查询，显示所有用户，可以对数据进行增删改查操作</p>
+<h3 id="6-2-设计"><a href="#6-2-设计" class="headerlink" title="6.2 设计"></a>6.2 设计</h3><h4 id="6-2-1-技术选型"><a href="#6-2-1-技术选型" class="headerlink" title="6.2.1 技术选型"></a>6.2.1 技术选型</h4><p><code>Servlet+JSP+MySQL+JDBCTemplate+Duird+BeanUtils+tomcat</code></p>
+<h4 id="6-2-2-数据库设计"><a href="#6-2-2-数据库设计" class="headerlink" title="6.2.2 数据库设计"></a>6.2.2 数据库设计</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">Users</span>; <span class="comment">-- 创建数据库</span></span><br><span class="line"><span class="keyword">use</span> <span class="keyword">Users</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">user</span>( <span class="comment">-- 创建表</span></span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    gender <span class="built_in">varchar</span>(<span class="number">5</span>),</span><br><span class="line">    age <span class="built_in">int</span>,</span><br><span class="line">    address <span class="built_in">varchar</span>(<span class="number">32</span>),</span><br><span class="line">    qq <span class="built_in">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    email <span class="built_in">varchar</span>(<span class="number">50</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<h4 id="6-2-3-开发阶段"><a href="#6-2-3-开发阶段" class="headerlink" title="6.2.3 开发阶段"></a>6.2.3 开发阶段</h4><ol>
+<li>环境搭建<ol>
+<li>创建数据库环境</li>
+<li>创建项目，导入所需jar包</li>
+</ol>
+</li>
+<li>编码</li>
+</ol>
+<h4 id="6-2-4-测试"><a href="#6-2-4-测试" class="headerlink" title="6.2.4 测试"></a>6.2.4 测试</h4><h4 id="6-2-5-部署运维"><a href="#6-2-5-部署运维" class="headerlink" title="6.2.5 部署运维"></a>6.2.5 部署运维</h4><h3 id="6-3-代码实现"><a href="#6-3-代码实现" class="headerlink" title="6.3 代码实现"></a>6.3 代码实现</h3><h3 id="6-3-1-分析图"><a href="#6-3-1-分析图" class="headerlink" title="6.3.1 分析图"></a>6.3.1 分析图</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/19/1560959814288-1560959814341.png" alt="title"></p>
+<p>代码后续见GitHub</p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/24/Jottings/2019-06-24/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            &#39;2019.6.24&#39;
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/16/JavaWeb/Cookie和Session/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">会话技术Cookie和Session</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>

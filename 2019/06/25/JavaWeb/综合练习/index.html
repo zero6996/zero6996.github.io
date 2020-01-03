@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>用户管理系统 | Zero的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="实现管理员登录，对用户信息进行增删改的小项目">
+<meta name="keywords" content="Project">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用户管理系统">
+<meta property="og:url" content="https://zero6996.github.io/2019/06/25/JavaWeb/综合练习/index.html">
+<meta property="og:site_name" content="Zero的博客">
+<meta property="og:description" content="实现管理员登录，对用户信息进行增删改的小项目">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/3.%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD-1561276529181.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/4.%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD-1561276588764.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/5.%E4%BF%AE%E6%94%B9%E5%8A%9F%E8%83%BD-1561276609416.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/6.%E5%88%A0%E9%99%A4%E9%80%89%E4%B8%AD%E5%8A%9F%E8%83%BD-1561276629972.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/7.%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD-1561276688555.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/7_2.%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD2-1561276716927.bmp">
+<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/%E5%A4%8D%E6%9D%82%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2-1561276734854.bmp">
+<meta property="og:updated_time" content="2020-01-03T03:19:43.831Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用户管理系统">
+<meta name="twitter:description" content="实现管理员登录，对用户信息进行增删改的小项目">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/3.%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD-1561276529181.bmp">
+  
+    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/4.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-JavaWeb/综合练习" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      用户管理系统
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/06/25/JavaWeb/综合练习/" class="article-date">
+  <time datetime="2019-06-25T14:30:00.000Z" itemprop="datePublished">2019-06-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Project/">Project</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+    <!-- Table of Contents -->
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="1-综合练习"><a href="#1-综合练习" class="headerlink" title="1. 综合练习"></a>1. 综合练习</h2><p>实现管理员登录，对用户信息进行增删改查的小项目</p>
+<a id="more"></a>
+<h3 id="1-1-简单功能"><a href="#1-1-简单功能" class="headerlink" title="1.1 简单功能"></a>1.1 简单功能</h3><h4 id="1-登录"><a href="#1-登录" class="headerlink" title="1. 登录"></a>1. 登录</h4><p>登录功能输入用户名密验证码，表单信息会提交到<code>loginServlet</code>进行登录校验，成功则跳转到首页，失败则返回失败信息。</p>
+<h4 id="2-首页列表查询"><a href="#2-首页列表查询" class="headerlink" title="2. 首页列表查询"></a>2. 首页列表查询</h4><p>点击查询，会跳转到<code>findUserByPageServlet</code>，这个<code>Servlet</code>主要功能是查询总记录数据<code>findTotalCount()</code>和分页信息数据<code>findByPage()</code>，然后转发到前端做显示。</p>
+<h4 id="3-添加"><a href="#3-添加" class="headerlink" title="3. 添加"></a>3. 添加</h4><p>点击添加联系人按钮，跳转到<code>add.jsp</code>页面，填写信息后点击提交，会将form表单填写的所有信息传递给<code>AddUserServlet</code>进行处理。</p>
+<p><code>AddUserServlet</code>主要操作：</p>
+<ol>
+<li>设置编码<code>setCharacterEncoding(&quot;utf-8&quot;)</code></li>
+<li>获取所有请求参数<code>request.getParameterMap()</code></li>
+<li>使用<code>BeanUtils.populate</code>将请求参数封装成User对象</li>
+<li>调用<code>service</code>的<code>addUser(User user)</code>方法完成保存</li>
+<li>跳转回查询界面</li>
+</ol>
+<p><code>UserService</code>业务层主要进行保存操作。</p>
+<p><code>UserDao</code>数据访问层，封装了对数据库的所有操作。</p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/3.%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD-1561276529181.bmp" alt="title"></p>
+<h4 id="4-删除"><a href="#4-删除" class="headerlink" title="4. 删除"></a>4. 删除</h4><p>点击删除按钮，会将这条数据的ID获取，封装在请求头里面传递给后台</p>
+<p><code>DelUserServlet</code>主要操作：</p>
+<ol>
+<li>获取要删除的用户ID，<code>getParameter</code></li>
+<li>调用<code>service</code>的<code>delUser(String id)</code>方法完成删除</li>
+<li>跳转回查询页面</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/4.%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD-1561276588764.bmp" alt="title"></p>
+<h4 id="5-修改"><a href="#5-修改" class="headerlink" title="5. 修改"></a>5. 修改</h4><p>修改用到了两个<code>Servlet</code>进行处理。首先点击修改按钮，会将用户ID传递随请求头传递给<code>findUserServlet</code>。</p>
+<p><code>findUserServlet</code>主要操作：</p>
+<ol>
+<li>获取用户ID</li>
+<li>根据ID查询用户信息<code>findUser(id)</code>，返回一个User对象</li>
+<li>将User对象存入request</li>
+<li>转发到<code>update.jsp</code></li>
+</ol>
+<p><code>update.jsp</code>页面主要操作：</p>
+<ol>
+<li>从request域中获取User对象的数据</li>
+<li>使用EL表达式将所有数据回写到页面里。<code>${user.xxx}</code></li>
+<li>将获取的ID值填入隐藏域值，以确定修改用户。<code>&lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;${user.id}&quot;&gt;</code></li>
+<li>点击提交，提交表单信息到<code>UpdateUserServlet</code>进行处理。</li>
+</ol>
+<p><code>UpdateUserServlet</code>主要操作：</p>
+<ol>
+<li>设置编码</li>
+<li>获取表单数据，并封装成User对象</li>
+<li>调用Service方法<code>updateUser(User user)</code>，将User对象传入，完成修改</li>
+<li>跳转回查询页面</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/5.%E4%BF%AE%E6%94%B9%E5%8A%9F%E8%83%BD-1561276609416.bmp" alt="title"></p>
+<h3 id="1-2-复杂功能"><a href="#1-2-复杂功能" class="headerlink" title="1.2 复杂功能"></a>1.2 复杂功能</h3><h4 id="1-删除选中"><a href="#1-删除选中" class="headerlink" title="1. 删除选中"></a>1. 删除选中</h4><p>点击删除选中按钮，主要问题就是要先获取选中的用户条目，在将这些选中条目的ID提交到后台进行批量删除操作。</p>
+<h5 id="1-1-获取选中条目的ID-通过form表单提交到后台。"><a href="#1-1-获取选中条目的ID-通过form表单提交到后台。" class="headerlink" title="1.1 获取选中条目的ID,通过form表单提交到后台。"></a>1.1 获取选中条目的ID,通过form表单提交到后台。</h5><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">为删除选中按钮绑定单击事件，提交每个条目复选框的值(该值就是条目的ID)</span></span><br><span class="line"><span class="comment">1. 给每一个条目添加checkbox,值是条目对应的ID</span></span><br><span class="line"><span class="comment">2. 获取当前页面的所有复选框标签，然后遍历，判断其是否有checked属性，有则允许提交表单</span></span><br><span class="line"><span class="comment">3. 提交form表单</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 为删除选中绑定单击事件</span></span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"delSelected"</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (confirm(<span class="string">"确定要删除所有选中的信息么?"</span>))&#123;</span><br><span class="line">            <span class="keyword">var</span> flag = <span class="literal">false</span>;</span><br><span class="line">            <span class="comment">// 判断是否有选中信息</span></span><br><span class="line">            <span class="keyword">var</span> cbs = <span class="built_in">document</span>.getElementsByName(<span class="string">"uid"</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; cbs.length; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(cbs[i].checked)&#123; <span class="comment">// 如果有任何一个信息被选中(checkbox.checked返回布尔值，表示是否被选中)</span></span><br><span class="line">                    flag = <span class="literal">true</span>; <span class="comment">// 允许提交</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (flag)<span class="comment">//判断是否允许提交</span></span><br><span class="line">                <span class="comment">// 使用提交方法提交信息到后台</span></span><br><span class="line">                <span class="built_in">document</span>.getElementById(<span class="string">"form"</span>).submit();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">全选/全不选功能JS代码</span></span><br><span class="line"><span class="comment">1. 在表头单元格添加一个复选框</span></span><br><span class="line"><span class="comment">2. 获取该复选框标签对象</span></span><br><span class="line"><span class="comment">3. 为该对象绑定单击事件，点击就获取所有的复选框对象，然后遍历，设置这些复选框的checked=this.checked。(this:就是当前复选框对象,即'firstCB')</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"firstCB"</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取列表所有的cb</span></span><br><span class="line">    <span class="keyword">var</span> cbs = <span class="built_in">document</span>.getElementsByName(<span class="string">"uid"</span>);</span><br><span class="line">    <span class="comment">// 遍历</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; cbs.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 设置这些cbs[i]的checked状态等于firstCB.checked</span></span><br><span class="line">        cbs[i].checked = <span class="keyword">this</span>.checked;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="1-2-后台DelSelectedServlet主要操作"><a href="#1-2-后台DelSelectedServlet主要操作" class="headerlink" title="1.2 后台DelSelectedServlet主要操作"></a>1.2 后台<code>DelSelectedServlet</code>主要操作</h5><ol>
+<li>获取请求参数的ID数组。<code>getParameterValues()</code></li>
+<li>调用<code>service</code>的<code>delUser(String[] ids)</code>进行批量删除。该方法会对id数组进行遍历，然后调用<code>dao</code>的<code>delUser(Int id)</code>方法操作数据库进行删除。</li>
+<li>全部删除完毕，跳转回查询页面。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/6.%E5%88%A0%E9%99%A4%E9%80%89%E4%B8%AD%E5%8A%9F%E8%83%BD-1561276629972.bmp" alt="title"></p>
+<h4 id="2-分页查询"><a href="#2-分页查询" class="headerlink" title="2. 分页查询"></a>2. 分页查询</h4><h4 id="2-1-好处："><a href="#2-1-好处：" class="headerlink" title="2.1 好处："></a>2.1 好处：</h4><ol>
+<li>减轻服务器内存的开销</li>
+<li>提升用户的体验</li>
+</ol>
+<h4 id="2-2-分析"><a href="#2-2-分析" class="headerlink" title="2.2 分析"></a>2.2 分析</h4><p>前端需要传递给后台的信息主要有两个，当前页码<code>currentPage</code>和每页显示条数<code>rows</code></p>
+<ol>
+<li>当前页码<code>currentPage</code>：需要查询数据库得到总记录数<code>totalCount=select count(*) from user;</code>，然后通过三元运算符<code>totalCount % rows == 0 ? totalCount / rows:totalCount / rows + 1</code>计算出<code>totalPage</code>总页码。将总页码数返回给前端页面做进一步处理</li>
+<li>每页显示条数<code>rows</code>：自定义的条数。</li>
+</ol>
+<p>当第一次访问<code>findUserByPageServlet</code>时，后台会做两次SQL查询，查询总记录数和当前分页数据，然后全部封装进<code>PageBean</code>对象，存入request返回。前端接受到这个对象，会在分页查询功能区遍历该对象，进行当前页码计算，以确定有多少分页。当用户点击不同分页时，会将当前页码返回给<code>findUserByPageServlet</code>做进一步的查询操作。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--分页查询部分代码,遍历生成li,有多少页就会生成多少li--%&gt;</span><br><span class="line">&lt;c:forEach begin=<span class="string">"1"</span> end=<span class="string">"$&#123;userPage.totalPage&#125;"</span> <span class="keyword">var</span>=<span class="string">"i"</span>&gt;</span><br><span class="line">    &lt;c:<span class="keyword">if</span> test=<span class="string">"$&#123;userPage.currentPage == i&#125;"</span>&gt; &lt;%--如果服务器返回的页码等于当前页码，则将按钮激活--%&gt;</span><br><span class="line">        &lt;li class="active"&gt;&lt;a href="$&#123;pageContext.request.contextPath&#125;/findUserByPageServlet?currentPage=$&#123;i&#125;&amp;name=$&#123;condition.name[0]&#125;&amp;address=$&#123;condition.address[0]&#125;&amp;email=$&#123;condition.email[0]&#125;"&gt;$&#123;i&#125;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;/c:if&gt;</span><br><span class="line">    &lt;c:<span class="keyword">if</span> test=<span class="string">"$&#123;userPage.currentPage != i&#125;"</span>&gt; &lt;%--如果服务器返回的页码不等于当前页码，则正常显示--%&gt;</span><br><span class="line">        &lt;li&gt;&lt;a href="$&#123;pageContext.request.contextPath&#125;/findUserByPageServlet?currentPage=$&#123;i&#125;&amp;name=$&#123;condition.name[0]&#125;&amp;address=$&#123;condition.address[0]&#125;&amp;email=$&#123;condition.email[0]&#125;"&gt;$&#123;i&#125;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;/c:if&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/7.%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD-1561276688555.bmp" alt="title"><br><code>findUserByPageServlet</code>主要操作：</p>
+<ol>
+<li>接受请求参数，获取当前页码和每页显示条目数</li>
+<li>调用<code>service</code>的<code>findUserByPage(currentPage,rows,condition)</code>方法查询数据，返回<code>PageBean</code>对象，里面封装了当前分页数据对象。</li>
+<li>将<code>PageBean</code>对象存入request域中</li>
+<li>转发到<code>list.jsp</code>进行显示</li>
+</ol>
+<p><code>findUserByPage()</code>方法主要功能：</p>
+<ol>
+<li>创建一个空的<code>PageBean</code>对象</li>
+<li>设置当前页码属性和显示条目属性</li>
+<li>调用<code>dao</code>的<code>findTotalCount()</code>方法查询总记录数，并设置进<code>PageBean</code></li>
+<li>计算开始索引<code>start = (currentPage - 1) * rows</code>，然后调用<code>dao</code>的<code>findByPage(start,rows)</code>方法查询当前分页数据集合。</li>
+<li>计算总页码数，并设置。</li>
+<li>返回<code>PageBean</code>对象</li>
+</ol>
+<p><code>findTotalCount</code>方法功能：</p>
+<ol>
+<li>定义模板初始化sql。<code>select count(*) from user where 1 = 1</code></li>
+<li>遍历条件map，获取其值</li>
+<li>如果值不为空或null，则拼接sql字符串，同时将对应值传入list集合。</li>
+<li>使用<code>queryForObject()</code>方法查询出总记录数，并返回</li>
+</ol>
+<p><code>findByPage</code>方法功能：</p>
+<ol>
+<li>定义初始化sql。</li>
+<li>遍历条件map，获取其值</li>
+<li>如果值不为空或null，则拼接sql字符串，同时将对应值传入list集合。</li>
+<li>将分页查询添加进sql字符串。<code>limit ?,?</code></li>
+<li>将分页查询参数值添加入参数集合中。<code>params.add(start); params.add(rows);</code></li>
+<li>使用<code>query</code>查询数据，返回分页数据对象集合。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/7_2.%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD2-1561276716927.bmp" alt="title"></p>
+<h4 id="3-复杂条件查询"><a href="#3-复杂条件查询" class="headerlink" title="3. 复杂条件查询"></a>3. 复杂条件查询</h4><p>前端主要就是要将复杂条件查询的数据通过表单参数提交到后台，后台获取参数map后，调用方法查询数据，返回当前分页数据。将<code>PageBean</code>和条件参数map存入request，交给前端做进一步处理。</p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/%E5%A4%8D%E6%9D%82%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2-1561276734854.bmp" alt="title"></p>
+<h3 id="项目成果"><a href="#项目成果" class="headerlink" title="项目成果"></a>项目成果</h3><p><a href="http://111.230.219.30/showUser/login.jsp" target="_blank" rel="noopener">用户信息管理系统</a></p>
+<h3 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h3><h4 id="6月26号"><a href="#6月26号" class="headerlink" title="6月26号"></a>6月26号</h4><p>完成了项目主体内容，前后端数据交互进行复杂条件查询，分页查询，增加用户，删除用户，批量删除等功能。</p>
+<h4 id="6月27号"><a href="#6月27号" class="headerlink" title="6月27号"></a>6月27号</h4><ol>
+<li>学习了filter过滤器，编写了过滤器实现访问权限控制。即访问除了登录相关页面以外的页面或者资源，会先进行判断用户是否登录，登录则放行，未登录则转发到登录页面。</li>
+<li>将前端分页查询到的内容用户编号显示，进行了唯一操作。即查询到10个用户，第一页会显示编号1~5的用户，第二页显示5~10用户。</li>
+</ol>
+<h4 id="7月1号"><a href="#7月1号" class="headerlink" title="7月1号"></a>7月1号</h4><p>将复杂条件搜索框整合为了一个，实现了输入查询条件，显示符合条件的用户信息。其主要难点在于数据传递和SQL语句的编写。</p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/27/JavaWeb/Filter和Listener/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Filter和Listener
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/06/24/Jottings/2019-06-24/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">&#39;2019.6.24&#39;</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    <link rel="stylesheet" href="/css/gitment.css"> 
+<script src="/js/gitment.js"></script>
+
+<div id="gitmentContainer"></div>
+
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
+    <h3 class="avatar-name">
+      
+        zero
+      
+    </h3>
+    <p class="avatar-slogan">
+      在追赶前人的脚步上努力的Java菜鸟
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/03/ComputerScience/计算机早期历史/">计算机早期历史</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/04/Other/Live2D/">Hexo博客添加live2d动态模型插件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/28/Other/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/FrameWork/SSM整合项目/">SSM整合Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/FrameWork/SpringMVC框架2/">SpringMVC学习2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >主题作者(一路眼瞎)</a>
+      
+        <a style="display: block;" href="https://www.hamusita.cn/" title target='_blank'
+        >小哈的博客</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 Zero &nbsp;&nbsp;
+    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<!-- 添加页面点击小红心js效果-->
+{% if theme.clicklove %}
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+{% endif%}
+
+<!--页面标题崩溃欺骗-->
+<script type="text/javascript" src="/js/crash_cheat.js"></script>
