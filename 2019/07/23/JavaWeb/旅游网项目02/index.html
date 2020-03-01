@@ -1,122 +1,868 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  
+    <meta charset="utf-8">
+    <meta name="keywords" content="旅游网项目02, Zero的博客">
+    <meta name="description" content="1. 前言旅游网项目，今日内容主要为优化Servlet、分类数据查询和分页查询。
 
-  
-  <title>旅游网项目02 | Zero的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
-  
-  <meta name="description" content="黑马旅游网综合项目">
-<meta name="keywords" content="Project">
-<meta property="og:type" content="article">
-<meta property="og:title" content="旅游网项目02">
-<meta property="og:url" content="https://zero6996.github.io/2019/07/23/JavaWeb/旅游网项目02/index.html">
-<meta property="og:site_name" content="Zero的博客">
-<meta property="og:description" content="黑马旅游网综合项目">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/25/1.%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2-1564023806439.bmp">
-<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/25/cid-1564023861129.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/25/%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2-1564023971902.png">
-<meta property="og:updated_time" content="2020-01-03T11:43:19.608Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="旅游网项目02">
-<meta name="twitter:description" content="黑马旅游网综合项目">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/25/1.%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2-1564023806439.bmp">
-  
-    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/images/4.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/highlight.css">
+2. 优化Servlet2.1 目的为了减少Servlet的数量，现在是一个功能一个Servlet，将其优化为相同功能的Servlet为一个模块。相当于在数">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>旅游网项目02 | Zero的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
 </head>
-</html>
+
+
 <body>
-  <div id="fullpage" class="mobile-nav-right">
-    
-      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
-    
-    
-      <header id="header">
-  <div id="nav-toggle" class="nav-toggle"></div>
-  <div class="head-box global-width">
-    <nav class="nav-box nav-right">
-      
-        <a class="nav-item" href="/" title
-        
-        >首页</a>
-      
-        <a class="nav-item" href="/archives" title
-        
-        >归档</a>
-      
-    </nav>
-  </div>
-</header>
-      <div id="middlecontent" title class="global-width sidebar-right">
-        <section id="main"><article id="post-JavaWeb/旅游网项目02" class="article global-container article-type-post" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 class="article-title" itemprop="name">
-      旅游网项目02
-    </h1>
-  
 
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/07/23/JavaWeb/旅游网项目02/" class="article-date">
-  <time datetime="2019-07-23T15:59:00.000Z" itemprop="datePublished">2019-07-23</time>
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
 </a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
-  </div>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        旅游网项目02
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
 
     
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Project/">Project</a></li></ul>
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
 
-  </div>
-  
-    <span id="busuanzi_container_page_pv">
-      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-  
-    <!-- Table of Contents -->
-  
+    #articleContent :focus {
+        outline: none;
+    }
 
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>旅游网项目，今日内容主要为优化Servlet、分类数据查询和分页查询。</p>
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Project/" target="_blank">
+                                <span class="chip bg-color">Project</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JavaWeb/" class="post-category" target="_blank">
+                                JavaWeb
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-07-23
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4.1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        20 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>旅游网项目，今日内容主要为优化Servlet、分类数据查询和分页查询。</p>
 <a id="more"></a>
 <h2 id="2-优化Servlet"><a href="#2-优化Servlet" class="headerlink" title="2. 优化Servlet"></a>2. 优化<code>Servlet</code></h2><h3 id="2-1-目的"><a href="#2-1-目的" class="headerlink" title="2.1 目的"></a>2.1 目的</h3><p>为了减少Servlet的数量，现在是一个功能一个Servlet，将其优化为相同功能的Servlet为一个模块。相当于在数据库中一张表对应一个Servlet，在Servlet中提供不同的方法，完成用户的请求。</p>
 <h3 id="2-2-BaseServlet编写"><a href="#2-2-BaseServlet编写" class="headerlink" title="2.2 BaseServlet编写"></a>2.2 <code>BaseServlet</code>编写</h3><p>主要进行方法的分发，利用反射机制，获取请求路径和方法名称，再获取方法对象然后执行。</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.travel.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用反射机制，完成方法的分发</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"baseServlet的service方法被执行"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 完成方法分发</span></span><br><span class="line">        <span class="comment">// 1. 获取请求路径</span></span><br><span class="line">        String uri = req.getRequestURI(); <span class="comment">// uri = /travel/user/add</span></span><br><span class="line">        System.out.println(<span class="string">"请求uri："</span>+uri);</span><br><span class="line">        <span class="comment">// 2. 获取方法名称</span></span><br><span class="line">        String methodName = uri.substring(uri.lastIndexOf(<span class="string">'/'</span>) + <span class="number">1</span>);<span class="comment">// 为何+1？</span></span><br><span class="line">        System.out.println(<span class="string">"方法名称"</span>+methodName);</span><br><span class="line">        <span class="comment">// 3. 获取方法对象Method</span></span><br><span class="line">        System.out.println(<span class="keyword">this</span>); <span class="comment">// this表示当前调用service的对象，谁调用我我表示谁</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 获取方法</span></span><br><span class="line">            Method method = <span class="keyword">this</span>.getClass().getMethod(methodName, HttpServletRequest<span class="class">.<span class="keyword">class</span>, <span class="title">HttpServletResponse</span>.<span class="title">class</span>)</span>;</span><br><span class="line">            <span class="comment">// 4.执行方法</span></span><br><span class="line">            method.invoke(<span class="keyword">this</span>,req,resp);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<pre><code class="java">package cn.itcast.travel.web.servlet;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+/**
+ * 使用反射机制，完成方法的分发
+ */
+public class BaseServlet extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("baseServlet的service方法被执行");
+
+        // 完成方法分发
+        // 1. 获取请求路径
+        String uri = req.getRequestURI(); // uri = /travel/user/add
+        System.out.println("请求uri："+uri);
+        // 2. 获取方法名称
+        String methodName = uri.substring(uri.lastIndexOf('/') + 1);// 为何+1？
+        System.out.println("方法名称"+methodName);
+        // 3. 获取方法对象Method
+        System.out.println(this); // this表示当前调用service的对象，谁调用我我表示谁
+        try {
+            // 获取方法
+            Method method = this.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
+            // 4.执行方法
+            method.invoke(this,req,resp);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
 <h3 id="2-3-UserServlet改写"><a href="#2-3-UserServlet改写" class="headerlink" title="2.3 UserServlet改写"></a>2.3 <code>UserServlet</code>改写</h3><p>继承自<code>BaseServlet</code>，所有用户相关的方法都抽取在内。只需访问<code>user/对应方法</code>即可完成相应功能。</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.travel.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.ResultInfo;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.User;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.service.UserService;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.service.impl.UserServiceImpl;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.beanutils.BeanUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpSession;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/user/*"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServlet</span> <span class="keyword">extends</span> <span class="title">BaseServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明UserService业务对象</span></span><br><span class="line">    <span class="keyword">private</span> UserService service = <span class="keyword">new</span> UserServiceImpl();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 用户注册功能</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/23 21:35</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">regist</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 获取用户输入的验证码</span></span><br><span class="line">        String check = request.getParameter(<span class="string">"check"</span>);</span><br><span class="line">        <span class="comment">// 从session中获取生成的验证码</span></span><br><span class="line">        HttpSession session = request.getSession();</span><br><span class="line">        String checkcode_server = (String)session.getAttribute(<span class="string">"CHECKCODE_SERVER"</span>);</span><br><span class="line">        session.removeAttribute(<span class="string">"CHECKCODE_SERVER"</span>); <span class="comment">// 确保验证码只能使用一次</span></span><br><span class="line">        <span class="comment">// 如果验证码错误，直接注册失败</span></span><br><span class="line">        <span class="keyword">if</span> (checkcode_server == <span class="keyword">null</span> || !checkcode_server.equalsIgnoreCase(check))&#123;</span><br><span class="line">            <span class="comment">// 验证码错误</span></span><br><span class="line">            ResultInfo info = <span class="keyword">new</span> ResultInfo();</span><br><span class="line">            <span class="comment">// 注册失败</span></span><br><span class="line">            info.setFlag(<span class="keyword">false</span>);</span><br><span class="line">            info.setErrorMsg(<span class="string">"验证码错误"</span>);</span><br><span class="line">            <span class="comment">// 将info对象序列化为json</span></span><br><span class="line">            ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">            String json = mapper.writeValueAsString(info);</span><br><span class="line">            response.setContentType(<span class="string">"application/json;charset=utf-8"</span>);</span><br><span class="line">            response.getWriter().write(json);</span><br><span class="line">            <span class="keyword">return</span>; <span class="comment">// todo:为何return?</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 验证通过</span></span><br><span class="line">        <span class="comment">// 1. 获取前台表单数据</span></span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 封装为user对象</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 调用service完成注册</span></span><br><span class="line">        service = <span class="keyword">new</span> UserServiceImpl();</span><br><span class="line">        <span class="keyword">boolean</span> flag = service.regist(user);</span><br><span class="line">        ResultInfo info = <span class="keyword">new</span> ResultInfo();</span><br><span class="line">        <span class="comment">// 4. 响应结果</span></span><br><span class="line">        <span class="keyword">if</span> (flag)&#123;</span><br><span class="line">            <span class="comment">// 注册成功</span></span><br><span class="line">            info.setFlag(<span class="keyword">true</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">// 注册失败</span></span><br><span class="line">            info.setFlag(<span class="keyword">false</span>);</span><br><span class="line">            info.setErrorMsg(<span class="string">"注册失败！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将info对象序列化为json</span></span><br><span class="line">        ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        String json = mapper.writeValueAsString(info);</span><br><span class="line">        <span class="comment">// 将json数据回写客户端</span></span><br><span class="line">        <span class="comment">// 设置content-type</span></span><br><span class="line">        response.setContentType(<span class="string">"application/json;charset=utf-8"</span>);</span><br><span class="line">        response.getWriter().write(json);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 邮箱激活功能</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/23 21:36</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">active</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 获取激活码</span></span><br><span class="line">        String code = request.getParameter(<span class="string">"code"</span>);</span><br><span class="line">        <span class="keyword">if</span> (code != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 2. 调用service完成激活</span></span><br><span class="line">            service = <span class="keyword">new</span> UserServiceImpl();</span><br><span class="line">            <span class="keyword">boolean</span> flag = service.active(code);</span><br><span class="line">            <span class="comment">// 3. 判断标记</span></span><br><span class="line">            String msg = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span> (flag)&#123;</span><br><span class="line">                <span class="comment">// 激活成功</span></span><br><span class="line">                msg = <span class="string">"激活成功，请&lt;a href='login.html'&gt;登录&lt;/a&gt;"</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">// 激活失败</span></span><br><span class="line">                msg = <span class="string">"激活失败，请联系管理员！"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 回写数据</span></span><br><span class="line">            response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line">            response.getWriter().write(msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 用户登录功能</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/23 21:37</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 获取用户名和密码</span></span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        <span class="comment">// 2. 封装User对象</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3. 调用service查询</span></span><br><span class="line">        service = <span class="keyword">new</span> UserServiceImpl();</span><br><span class="line">        User u = service.login(user);</span><br><span class="line">        ResultInfo info = <span class="keyword">new</span> ResultInfo();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 判断用户对象是否为null</span></span><br><span class="line">        <span class="keyword">if</span> (u == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 用户名或密码错误</span></span><br><span class="line">            info.setFlag(<span class="keyword">false</span>);</span><br><span class="line">            info.setErrorMsg(<span class="string">"用户名或密码错误"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 5. 判断用户账户是否激活</span></span><br><span class="line">        <span class="keyword">if</span> (u != <span class="keyword">null</span> &amp;&amp; !<span class="string">"Y"</span>.equals(u.getStatus()))&#123;</span><br><span class="line">            <span class="comment">// 用户未激活</span></span><br><span class="line">            info.setFlag(<span class="keyword">false</span>);</span><br><span class="line">            info.setErrorMsg(<span class="string">"您的账户尚未激活，请激活"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 6. 判断登录成功</span></span><br><span class="line">        <span class="keyword">if</span> (u != <span class="keyword">null</span> &amp;&amp; <span class="string">"Y"</span>.equals(u.getStatus()))&#123;</span><br><span class="line">            <span class="comment">// 登录成功</span></span><br><span class="line">            info.setFlag(<span class="keyword">true</span>);</span><br><span class="line">            <span class="comment">// 将登陆用户信息存入session中</span></span><br><span class="line">            request.getSession().setAttribute(<span class="string">"user"</span>,u);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 响应数据</span></span><br><span class="line">        ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        response.setContentType(<span class="string">"application/json;charset=utf-8"</span>);</span><br><span class="line">        mapper.writeValue(response.getOutputStream(),info);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 查询单个用户，前台显示登录用户功能</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/23 21:38</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findOne</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 从session中获取登录用户</span></span><br><span class="line">        Object user = request.getSession().getAttribute(<span class="string">"user"</span>);</span><br><span class="line">        <span class="comment">// 将user回写客户端</span></span><br><span class="line">        ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        response.setContentType(<span class="string">"application/json;charset=utf-8"</span>);</span><br><span class="line">        mapper.writeValue(response.getOutputStream(),user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 用户退出功能</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/23 21:38</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exit</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 销毁session</span></span><br><span class="line">        request.getSession().invalidate();</span><br><span class="line">        <span class="comment">// 2. 跳转到登录页面</span></span><br><span class="line">        response.sendRedirect(request.getContextPath()+<span class="string">"/login.html"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<pre><code class="java">package cn.itcast.travel.web.servlet;
+
+import cn.itcast.travel.domain.ResultInfo;
+import cn.itcast.travel.domain.User;
+import cn.itcast.travel.service.UserService;
+import cn.itcast.travel.service.impl.UserServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.beanutils.BeanUtils;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
+@WebServlet("/user/*")
+public class UserServlet extends BaseServlet {
+
+    // 声明UserService业务对象
+    private UserService service = new UserServiceImpl();
+
+
+    /**
+     * @Description: 用户注册功能
+     * @Author: zero
+     * @param request
+     * @param response
+     * @return void
+     * @Date 2019/7/23 21:35
+     */
+    public void regist(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 获取用户输入的验证码
+        String check = request.getParameter("check");
+        // 从session中获取生成的验证码
+        HttpSession session = request.getSession();
+        String checkcode_server = (String)session.getAttribute("CHECKCODE_SERVER");
+        session.removeAttribute("CHECKCODE_SERVER"); // 确保验证码只能使用一次
+        // 如果验证码错误，直接注册失败
+        if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(check)){
+            // 验证码错误
+            ResultInfo info = new ResultInfo();
+            // 注册失败
+            info.setFlag(false);
+            info.setErrorMsg("验证码错误");
+            // 将info对象序列化为json
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(info);
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().write(json);
+            return; // todo:为何return?
+        }
+
+        // 验证通过
+        // 1. 获取前台表单数据
+        Map&lt;String, String[]&gt; map = request.getParameterMap();
+
+        // 2. 封装为user对象
+        User user = new User();
+        try {
+            BeanUtils.populate(user,map);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        // 3. 调用service完成注册
+        service = new UserServiceImpl();
+        boolean flag = service.regist(user);
+        ResultInfo info = new ResultInfo();
+        // 4. 响应结果
+        if (flag){
+            // 注册成功
+            info.setFlag(true);
+        }else{
+            // 注册失败
+            info.setFlag(false);
+            info.setErrorMsg("注册失败！");
+        }
+
+        // 将info对象序列化为json
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(info);
+        // 将json数据回写客户端
+        // 设置content-type
+        response.setContentType("application/json;charset=utf-8");
+        response.getWriter().write(json);
+    }
+
+    /**
+     * @Description: 邮箱激活功能
+     * @Author: zero
+     * @param request
+     * @param response
+     * @return void
+     * @Date 2019/7/23 21:36
+     */
+    public void active(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 1. 获取激活码
+        String code = request.getParameter("code");
+        if (code != null){
+            // 2. 调用service完成激活
+            service = new UserServiceImpl();
+            boolean flag = service.active(code);
+            // 3. 判断标记
+            String msg = null;
+            if (flag){
+                // 激活成功
+                msg = "激活成功，请&lt;a href='login.html'&gt;登录&lt;/a&gt;";
+            }else{
+                // 激活失败
+                msg = "激活失败，请联系管理员！";
+            }
+            // 回写数据
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().write(msg);
+        }
+    }
+
+    /**
+     * @Description: 用户登录功能
+     * @Author: zero
+     * @param request
+     * @param response
+     * @return void
+     * @Date 2019/7/23 21:37
+     */
+    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 1. 获取用户名和密码
+        Map&lt;String, String[]&gt; map = request.getParameterMap();
+        // 2. 封装User对象
+        User user = new User();
+        try {
+            BeanUtils.populate(user,map);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        // 3. 调用service查询
+        service = new UserServiceImpl();
+        User u = service.login(user);
+        ResultInfo info = new ResultInfo();
+
+        // 4. 判断用户对象是否为null
+        if (u == null){
+            // 用户名或密码错误
+            info.setFlag(false);
+            info.setErrorMsg("用户名或密码错误");
+        }
+        // 5. 判断用户账户是否激活
+        if (u != null &amp;&amp; !"Y".equals(u.getStatus())){
+            // 用户未激活
+            info.setFlag(false);
+            info.setErrorMsg("您的账户尚未激活，请激活");
+        }
+        // 6. 判断登录成功
+        if (u != null &amp;&amp; "Y".equals(u.getStatus())){
+            // 登录成功
+            info.setFlag(true);
+            // 将登陆用户信息存入session中
+            request.getSession().setAttribute("user",u);
+        }
+        // 响应数据
+        ObjectMapper mapper = new ObjectMapper();
+        response.setContentType("application/json;charset=utf-8");
+        mapper.writeValue(response.getOutputStream(),info);
+    }
+
+    /**
+     * @Description: 查询单个用户，前台显示登录用户功能
+     * @Author: zero
+     * @param request
+     * @param response
+     * @return void
+     * @Date 2019/7/23 21:38
+     */
+    public void findOne(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 从session中获取登录用户
+        Object user = request.getSession().getAttribute("user");
+        // 将user回写客户端
+        ObjectMapper mapper = new ObjectMapper();
+        response.setContentType("application/json;charset=utf-8");
+        mapper.writeValue(response.getOutputStream(),user);
+    }
+
+    /**
+     * @Description: 用户退出功能
+     * @Author: zero
+     * @param request
+     * @param response
+     * @return void
+     * @Date 2019/7/23 21:38
+     */
+    public void exit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 1. 销毁session
+        request.getSession().invalidate();
+        // 2. 跳转到登录页面
+        response.sendRedirect(request.getContextPath()+"/login.html");
+    }
+}
+</code></pre>
 <h3 id="2-4-页面路径改写"><a href="#2-4-页面路径改写" class="headerlink" title="2.4 页面路径改写"></a>2.4 页面路径改写</h3><p>将所有用户相关的请求路径改为<code>user/对应方法</code>。例登录路径：<code>user/login</code></p>
-<p>激活功能URL：<code>String content = &quot;&lt;a href=&#39;http://localhost/travel/user/active?code=&quot;+user.getCode()+&quot;&#39;&gt;点击激活账户&lt;/a&gt;&quot;;</code></p>
+<p>激活功能URL：<code>String content = "&lt;a href='http://localhost/travel/user/active?code="+user.getCode()+"'&gt;点击激活账户&lt;/a&gt;";</code></p>
 <h2 id="3-分类数据展示"><a href="#3-分类数据展示" class="headerlink" title="3. 分类数据展示"></a>3. 分类数据展示</h2><h3 id="3-1-分析"><a href="#3-1-分析" class="headerlink" title="3.1 分析"></a>3.1 分析</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/25/1.%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2-1564023806439.bmp" alt="title"></p>
-<h3 id="3-2-后台代码实现"><a href="#3-2-后台代码实现" class="headerlink" title="3.2 后台代码实现"></a>3.2 后台代码实现</h3><h4 id="3-2-1-CategoryServlet代码"><a href="#3-2-1-CategoryServlet代码" class="headerlink" title="3.2.1 CategoryServlet代码"></a>3.2.1 <code>CategoryServlet</code>代码</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.travel.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.Category;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.service.CategoryService;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.service.impl.CategoryServiceImpl;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: Date:Create: in 2019/7/23 22:51</span></span><br><span class="line"><span class="comment"> * Modified By:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/category/*"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CategoryServlet</span> <span class="keyword">extends</span> <span class="title">BaseServlet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> CategoryService service = <span class="keyword">new</span> CategoryServiceImpl();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>:查询所有</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/23 22:52</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAll</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 调用servvice查询所有</span></span><br><span class="line">        List&lt;Category&gt; categories = service.findAll();</span><br><span class="line">        <span class="comment">// 2. 序列化为json返回</span></span><br><span class="line">        writeValue(categories,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="3-2-2-CategoryService代码"><a href="#3-2-2-CategoryService代码" class="headerlink" title="3.2.2 CategoryService代码"></a>3.2.2 <code>CategoryService</code>代码</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.travel.service.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.dao.CategoryDao;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.dao.impl.CategoryDaoImpl;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.Category;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.service.CategoryService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: Date:Create: in 2019/7/23 22:49</span></span><br><span class="line"><span class="comment"> * Modified By:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CategoryServiceImpl</span> <span class="keyword">implements</span> <span class="title">CategoryService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> CategoryDao categoryDao = <span class="keyword">new</span> CategoryDaoImpl();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Category&gt; <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> categoryDao.findAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="3-2-3-CategoryDao代码"><a href="#3-2-3-CategoryDao代码" class="headerlink" title="3.2.3 CategoryDao代码"></a>3.2.3 <code>CategoryDao</code>代码</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.travel.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.Category;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: Date:Create: in 2019/7/23 22:42</span></span><br><span class="line"><span class="comment"> * Modified By:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CategoryDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 查询所有</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> List集合</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/23 22:44</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;Category&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-2-后台代码实现"><a href="#3-2-后台代码实现" class="headerlink" title="3.2 后台代码实现"></a>3.2 后台代码实现</h3><h4 id="3-2-1-CategoryServlet代码"><a href="#3-2-1-CategoryServlet代码" class="headerlink" title="3.2.1 CategoryServlet代码"></a>3.2.1 <code>CategoryServlet</code>代码</h4><pre><code class="java">package cn.itcast.travel.web.servlet;
+
+import cn.itcast.travel.domain.Category;
+import cn.itcast.travel.service.CategoryService;
+import cn.itcast.travel.service.impl.CategoryServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * @Author: zero
+ * @Description: Date:Create: in 2019/7/23 22:51
+ * Modified By:
+ */
+@WebServlet("/category/*")
+public class CategoryServlet extends BaseServlet {
+    private CategoryService service = new CategoryServiceImpl();
+
+    /**
+     * @Description:查询所有
+     * @Author: zero
+     * @param request
+     * @param response
+     * @return void
+     * @Date 2019/7/23 22:52
+     */
+    public void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1. 调用servvice查询所有
+        List&lt;Category&gt; categories = service.findAll();
+        // 2. 序列化为json返回
+        writeValue(categories,response);
+    }
+}
+</code></pre>
+<h4 id="3-2-2-CategoryService代码"><a href="#3-2-2-CategoryService代码" class="headerlink" title="3.2.2 CategoryService代码"></a>3.2.2 <code>CategoryService</code>代码</h4><pre><code class="java">package cn.itcast.travel.service.impl;
+
+import cn.itcast.travel.dao.CategoryDao;
+import cn.itcast.travel.dao.impl.CategoryDaoImpl;
+import cn.itcast.travel.domain.Category;
+import cn.itcast.travel.service.CategoryService;
+
+import java.util.List;
+
+/**
+ * @Author: zero
+ * @Description: Date:Create: in 2019/7/23 22:49
+ * Modified By:
+ */
+
+public class CategoryServiceImpl implements CategoryService {
+
+    private CategoryDao categoryDao = new CategoryDaoImpl();
+
+    @Override
+    public List&lt;Category&gt; findAll() {
+        return categoryDao.findAll();
+    }
+}
+
+</code></pre>
+<h4 id="3-2-3-CategoryDao代码"><a href="#3-2-3-CategoryDao代码" class="headerlink" title="3.2.3 CategoryDao代码"></a>3.2.3 <code>CategoryDao</code>代码</h4><pre><code class="java">package cn.itcast.travel.dao;
+
+import cn.itcast.travel.domain.Category;
+
+import java.util.List;
+
+/**
+ * @Author: zero
+ * @Description: Date:Create: in 2019/7/23 22:42
+ * Modified By:
+ */
+public interface CategoryDao {
+    /**
+     * @Description: 查询所有
+     * @Author: zero
+     * @param
+     * @return List集合
+     * @Date 2019/7/23 22:44
+     */
+    List&lt;Category&gt; findAll();
+}
+</code></pre>
 <h4 id="3-2-4-优化部分代码"><a href="#3-2-4-优化部分代码" class="headerlink" title="3.2.4 优化部分代码"></a>3.2.4 优化部分代码</h4><p>将序列化<code>json</code>方法封装在<code>BaseServlet</code>，减少代码冗余</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 直接将传入的对象序列化为json，并且写回客户端</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/23 23:16</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeValue</span><span class="params">(Object obj,HttpServletResponse response)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">    response.setContentType(<span class="string">"application/json;charset=utf-8"</span>);</span><br><span class="line">    mapper.writeValue(response.getOutputStream(),obj);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 将传入的对象序列化为json后返回</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> String</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/23 23:18</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">writeValueAsString</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> JsonProcessingException </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ObjectMapper().writeValueAsString(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h3 id="3-3-前台代码实现"><a href="#3-3-前台代码实现" class="headerlink" title="3.3 前台代码实现"></a>3.3 前台代码实现</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询分类数据</span></span><br><span class="line">$.<span class="keyword">get</span>("category/findAll",&#123;&#125;,<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// [&#123;cid:1,cname:xxx&#125;,&#123;cid:2,cname:xxx&#125;,]</span></span><br><span class="line">    <span class="keyword">var</span> lis = <span class="string">'&lt;li class="nav-active"&gt;&lt;a href="index.html"&gt;首页&lt;/a&gt;&lt;/li&gt;'</span>;</span><br><span class="line">    <span class="comment">// 遍历数组，拼接字符串（&lt;li&gt;）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> li = <span class="string">'&lt;li&gt;&lt;a href="route_list.html"&gt;'</span>+data[i].cname+<span class="string">'&lt;/a&gt;&lt;/li&gt;'</span>;</span><br><span class="line">        lis += li;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 拼接收藏排行榜的li，&lt;li&gt;&lt;a href="favoriterank.html"&gt; 收藏排行榜&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line">    lis+=<span class="string">'&lt;li&gt;&lt;a href="favoriterank.html"&gt;收藏排行榜&lt;/a&gt;&lt;/li&gt;'</span>;</span><br><span class="line">    <span class="comment">// 将lis字符串，设置到ul的html内容中</span></span><br><span class="line">    $(<span class="string">"#category"</span>).html(lis);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+<pre><code class="java">/**
+     * @Description: 直接将传入的对象序列化为json，并且写回客户端
+     * @Author: zero
+     * @param obj
+     * @param response
+     * @return void
+     * @Date 2019/7/23 23:16
+     */
+public void writeValue(Object obj,HttpServletResponse response) throws IOException{
+    ObjectMapper mapper = new ObjectMapper();
+    response.setContentType("application/json;charset=utf-8");
+    mapper.writeValue(response.getOutputStream(),obj);
+}
+/**
+     * @Description: 将传入的对象序列化为json后返回
+     * @Author: zero
+     * @param obj
+     * @return String
+     * @Date 2019/7/23 23:18
+     */
+public String writeValueAsString(Object obj) throws JsonProcessingException {
+    return new ObjectMapper().writeValueAsString(obj);
+}
+</code></pre>
+<h3 id="3-3-前台代码实现"><a href="#3-3-前台代码实现" class="headerlink" title="3.3 前台代码实现"></a>3.3 前台代码实现</h3><pre><code class="javascript">// 查询分类数据
+$.get("category/findAll",{},function (data) {
+    // [{cid:1,cname:xxx},{cid:2,cname:xxx},]
+    var lis = '&lt;li class="nav-active"&gt;&lt;a href="index.html"&gt;首页&lt;/a&gt;&lt;/li&gt;';
+    // 遍历数组，拼接字符串（&lt;li&gt;）
+    for (var i = 0; i &lt; data.length; i++) {
+        var li = '&lt;li&gt;&lt;a href="route_list.html"&gt;'+data[i].cname+'&lt;/a&gt;&lt;/li&gt;';
+        lis += li;
+    }
+    // 拼接收藏排行榜的li，&lt;li&gt;&lt;a href="favoriterank.html"&gt; 收藏排行榜&lt;/a&gt;&lt;/li&gt;
+    lis+='&lt;li&gt;&lt;a href="favoriterank.html"&gt;收藏排行榜&lt;/a&gt;&lt;/li&gt;';
+    // 将lis字符串，设置到ul的html内容中
+    $("#category").html(lis);
+})
+</code></pre>
 <h3 id="3-4-对分类数据进行缓存优化"><a href="#3-4-对分类数据进行缓存优化" class="headerlink" title="3.4 对分类数据进行缓存优化"></a>3.4 对分类数据进行缓存优化</h3><p>分类的数据在每一次页面加载后都会重新请求数据库来加载，对数据库的压力比较大，且分类的数据不会经常产生变化，故在此可以使用redis来缓存这个数据。</p>
-<h3 id="3-5-优化代码实现"><a href="#3-5-优化代码实现" class="headerlink" title="3.5 优化代码实现"></a>3.5 优化代码实现</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 使用redis缓存，优化代码，减少对数据库的访问</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> List</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/24 20:52</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Category&gt; <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 初始化集合对象</span></span><br><span class="line">    List&lt;Category&gt; cs = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 1. 从redis中查询数据</span></span><br><span class="line">    <span class="comment">// 1.1 获取redis客户端连接对象</span></span><br><span class="line">    Jedis jedis = JedisUtil.getJedis();</span><br><span class="line">    <span class="comment">// 1.2 使用sortedset排序查询</span></span><br><span class="line">    Set&lt;String&gt; categorys = jedis.zrange(<span class="string">"category"</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 2. 判断集合是否为null</span></span><br><span class="line">    <span class="keyword">if</span> (categorys == <span class="keyword">null</span> || categorys.size() == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">// 2.1 为空，则表示第一次访问</span></span><br><span class="line">        System.out.println(<span class="string">"redis中无数据，查询数据库..."</span>);</span><br><span class="line">        <span class="comment">// 2.2 查询数据库，获取数据</span></span><br><span class="line">        cs = categoryDao.findAll();</span><br><span class="line">        <span class="comment">// 2.3 将集合数据存储到redis中的category的key</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cs.size(); i++) &#123;</span><br><span class="line">            jedis.zadd(<span class="string">"category"</span>,cs.get(i).getCid(),cs.get(i).getCname());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">// 3. 不为空，将查询到的set集合数据存入list再返回</span></span><br><span class="line">        <span class="comment">// 因返回的是list集合，故将查询到的set集合数据转换为list数据</span></span><br><span class="line">        System.out.println(<span class="string">"redis中有数据，查询缓存..."</span>);</span><br><span class="line">        cs = <span class="keyword">new</span> ArrayList&lt;Category&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String name : categorys) &#123;</span><br><span class="line">            Category category = <span class="keyword">new</span> Category();</span><br><span class="line">            category.setCname(name);</span><br><span class="line">            cs.add(category);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cs;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="3-5-优化代码实现"><a href="#3-5-优化代码实现" class="headerlink" title="3.5 优化代码实现"></a>3.5 优化代码实现</h3><pre><code class="java">/**
+     * @Description: 使用redis缓存，优化代码，减少对数据库的访问
+     * @Author: zero
+     * @param
+     * @return List
+     * @Date 2019/7/24 20:52
+     */
+@Override
+public List&lt;Category&gt; findAll() {
+    // 初始化集合对象
+    List&lt;Category&gt; cs = null;
+    // 1. 从redis中查询数据
+    // 1.1 获取redis客户端连接对象
+    Jedis jedis = JedisUtil.getJedis();
+    // 1.2 使用sortedset排序查询
+    Set&lt;String&gt; categorys = jedis.zrange("category", 0, -1);
+    // 2. 判断集合是否为null
+    if (categorys == null || categorys.size() == 0){
+        // 2.1 为空，则表示第一次访问
+        System.out.println("redis中无数据，查询数据库...");
+        // 2.2 查询数据库，获取数据
+        cs = categoryDao.findAll();
+        // 2.3 将集合数据存储到redis中的category的key
+        for (int i = 0; i &lt; cs.size(); i++) {
+            jedis.zadd("category",cs.get(i).getCid(),cs.get(i).getCname());
+        }
+
+    }else{
+        // 3. 不为空，将查询到的set集合数据存入list再返回
+        // 因返回的是list集合，故将查询到的set集合数据转换为list数据
+        System.out.println("redis中有数据，查询缓存...");
+        cs = new ArrayList&lt;Category&gt;();
+        for (String name : categorys) {
+            Category category = new Category();
+            category.setCname(name);
+            cs.add(category);
+        }
+    }
+    return cs;
+}
+</code></pre>
 <h2 id="4-旅游线路的分页展示"><a href="#4-旅游线路的分页展示" class="headerlink" title="4. 旅游线路的分页展示"></a>4. 旅游线路的分页展示</h2><h3 id="4-1-类别id的传递"><a href="#4-1-类别id的传递" class="headerlink" title="4.1  类别id的传递"></a>4.1  类别id的传递</h3><ul>
 <li>从<code>redis</code>中查询数据是，需要将分数也查询出来；并且在返回list集合里，将<code>cid</code>的值设置为对应分数</li>
 </ul>
@@ -124,210 +870,675 @@
 <ul>
 <li>前台页面传递对应<code>cid</code>，修改<code>header.html</code>，加上<code>data[i].cid</code>即可。</li>
 </ul>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> li = <span class="string">'&lt;li&gt;&lt;a href="route_list.html?cid='</span>+data[i].cid+<span class="string">'"&gt;'</span>+data[i].cname+<span class="string">'&lt;/a&gt;&lt;/li&gt;'</span>;</span><br></pre></td></tr></table></figure></div>
+<pre><code class="javascript">var li = '&lt;li&gt;&lt;a href="route_list.html?cid='+data[i].cid+'"&gt;'+data[i].cname+'&lt;/a&gt;&lt;/li&gt;';
+</code></pre>
 <ul>
 <li>获取<code>cid</code></li>
 </ul>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> search = location.search;</span><br><span class="line">    <span class="comment">// alert(search);</span></span><br><span class="line">    <span class="comment">// 切割字符串，拿到第二个值</span></span><br><span class="line">    <span class="keyword">var</span> cid = search.split(<span class="string">"="</span>)[<span class="number">1</span>];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
+<pre><code class="javascript">$(function(){
+    var search = location.search;
+    // alert(search);
+    // 切割字符串，拿到第二个值
+    var cid = search.split("=")[1];
+});
+</code></pre>
 <h3 id="4-2-根据id查询不同类别的旅游线路"><a href="#4-2-根据id查询不同类别的旅游线路" class="headerlink" title="4.2  根据id查询不同类别的旅游线路"></a>4.2  根据id查询不同类别的旅游线路</h3><h4 id="4-2-1-分析"><a href="#4-2-1-分析" class="headerlink" title="4.2.1  分析"></a>4.2.1  分析</h4><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/25/%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2-1564023971902.png" alt="title"></p>
 <h4 id="4-2-2-后台代码实现"><a href="#4-2-2-后台代码实现" class="headerlink" title="4.2.2  后台代码实现"></a>4.2.2  后台代码实现</h4><h5 id="4-2-2-1-PageBean对象"><a href="#4-2-2-1-PageBean对象" class="headerlink" title="4.2.2.1 PageBean对象"></a>4.2.2.1 <code>PageBean</code>对象</h5><p>后台返回给前台的对象</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageBean</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> totalCount; <span class="comment">// 总记录数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> totalPage; <span class="comment">// 总页数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> currentPage; <span class="comment">// 当前页码</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> pageSize; <span class="comment">// 每页显示的条数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; list; <span class="comment">// 每页显示的数据集合</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 省略getset方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<pre><code class="java">public class PageBean&lt;T&gt; {
+
+    private int totalCount; // 总记录数
+    private int totalPage; // 总页数
+    private int currentPage; // 当前页码
+    private int pageSize; // 每页显示的条数
+
+    private List&lt;T&gt; list; // 每页显示的数据集合
+
+    // 省略getset方法
+}
+</code></pre>
 <h5 id="4-2-2-2-RouteServlet控制器代码"><a href="#4-2-2-2-RouteServlet控制器代码" class="headerlink" title="4.2.2.2 RouteServlet控制器代码"></a>4.2.2.2 <code>RouteServlet</code>控制器代码</h5><p>负责接收前台传递的参数并处理，调用<code>service</code>查询到<code>PageBean</code>对象后序列化为<code>json</code>再返回给前端。</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.travel.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.PageBean;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.Route;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.service.RouteService;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.service.impl.RouteServiceImpl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: Date:Create: in 2019/7/24 21:52</span></span><br><span class="line"><span class="comment"> * Modified By:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/route/*"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RouteServlet</span> <span class="keyword">extends</span> <span class="title">BaseServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RouteService routeService = <span class="keyword">new</span> RouteServiceImpl();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pageQuery</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 接受参数</span></span><br><span class="line">        String currentPageStr = request.getParameter(<span class="string">"currentPage"</span>);</span><br><span class="line">        String pageSizeStr = request.getParameter(<span class="string">"pageSize"</span>);</span><br><span class="line">        String cidStr = request.getParameter(<span class="string">"cid"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 处理参数</span></span><br><span class="line">        <span class="keyword">int</span> cid = <span class="number">0</span>; <span class="comment">// 类别id</span></span><br><span class="line">        <span class="keyword">if</span> (cidStr != <span class="keyword">null</span> &amp;&amp; cidStr.length() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            cid = Integer.parseInt(cidStr);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> currentPage = <span class="number">0</span>; <span class="comment">// 当前页码，如果不传递，则默认为第一页</span></span><br><span class="line">        <span class="keyword">if</span> (currentPageStr != <span class="keyword">null</span> &amp;&amp; currentPageStr.length() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            currentPage = Integer.parseInt(currentPageStr);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            currentPage = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> pageSize = <span class="number">0</span>; <span class="comment">// 每页显示条数，默认为5</span></span><br><span class="line">        <span class="keyword">if</span> (pageSizeStr != <span class="keyword">null</span> &amp;&amp; pageSizeStr.length() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            pageSize = Integer.parseInt(pageSizeStr);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            pageSize = <span class="number">5</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 调用service查询PageBean对象</span></span><br><span class="line">        PageBean&lt;Route&gt; pb = routeService.pageQuery(cid, currentPage, pageSize);</span><br><span class="line">        <span class="comment">// 4. 将pageBean对象序列化为json，返回</span></span><br><span class="line">        writeValue(pb,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<pre><code class="java">package cn.itcast.travel.web.servlet;
+
+import cn.itcast.travel.domain.PageBean;
+import cn.itcast.travel.domain.Route;
+import cn.itcast.travel.service.RouteService;
+import cn.itcast.travel.service.impl.RouteServiceImpl;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * @Author: zero
+ * @Description: Date:Create: in 2019/7/24 21:52
+ * Modified By:
+ */
+@WebServlet("/route/*")
+public class RouteServlet extends BaseServlet {
+
+    private RouteService routeService = new RouteServiceImpl();
+
+    public void pageQuery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1. 接受参数
+        String currentPageStr = request.getParameter("currentPage");
+        String pageSizeStr = request.getParameter("pageSize");
+        String cidStr = request.getParameter("cid");
+
+        // 2. 处理参数
+        int cid = 0; // 类别id
+        if (cidStr != null &amp;&amp; cidStr.length() &gt; 0){
+            cid = Integer.parseInt(cidStr);
+        }
+        int currentPage = 0; // 当前页码，如果不传递，则默认为第一页
+        if (currentPageStr != null &amp;&amp; currentPageStr.length() &gt; 0){
+            currentPage = Integer.parseInt(currentPageStr);
+        }else {
+            currentPage = 1;
+        }
+        int pageSize = 0; // 每页显示条数，默认为5
+        if (pageSizeStr != null &amp;&amp; pageSizeStr.length() &gt; 0){
+            pageSize = Integer.parseInt(pageSizeStr);
+        }else {
+            pageSize = 5;
+        }
+
+        // 3. 调用service查询PageBean对象
+        PageBean&lt;Route&gt; pb = routeService.pageQuery(cid, currentPage, pageSize);
+        // 4. 将pageBean对象序列化为json，返回
+        writeValue(pb,response);
+    }
+}
+</code></pre>
 <h5 id="4-2-2-3-RouteServiceImpl代码"><a href="#4-2-2-3-RouteServiceImpl代码" class="headerlink" title="4.2.2.3 RouteServiceImpl代码"></a>4.2.2.3 <code>RouteServiceImpl</code>代码</h5><p>根据当前页码，类别信息等，从数据库中查询出当前类别对应数据集合，封装<code>PageBean</code>对象后返回</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.travel.service.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.dao.RouteDao;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.dao.impl.RouteDaoImpl;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.PageBean;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.Route;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.service.RouteService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: Date:Create: in 2019/7/24 22:04</span></span><br><span class="line"><span class="comment"> * Modified By:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RouteServiceImpl</span> <span class="keyword">implements</span> <span class="title">RouteService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RouteDao routeDao = <span class="keyword">new</span> RouteDaoImpl();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 查询当前页数据集合并封装为PageBean对象后返回</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cid</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> currentPage</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pageSize</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 封装好的PageBean对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/24 22:50</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PageBean&lt;Route&gt; <span class="title">pageQuery</span><span class="params">(<span class="keyword">int</span> cid, <span class="keyword">int</span> currentPage, <span class="keyword">int</span> pageSize)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 封装PageBean</span></span><br><span class="line">        PageBean&lt;Route&gt; pb = <span class="keyword">new</span> PageBean&lt;&gt;();</span><br><span class="line">        <span class="comment">// 设置当前页码</span></span><br><span class="line">        pb.setCurrentPage(currentPage);</span><br><span class="line">        <span class="comment">// 设置每页显示的条数</span></span><br><span class="line">        pb.setPageSize(pageSize);</span><br><span class="line">        <span class="comment">// 设置总记录数</span></span><br><span class="line">        <span class="keyword">int</span> totalCount = routeDao.findTotalCount(cid);</span><br><span class="line">        pb.setTotalCount(totalCount);</span><br><span class="line">        <span class="comment">// 设置当前页显示的数据集合</span></span><br><span class="line">        <span class="keyword">int</span> start = (currentPage - <span class="number">1</span>) * pageSize; <span class="comment">// 开始的记录数</span></span><br><span class="line">        List&lt;Route&gt; list = routeDao.findByPage(cid, start, pageSize);</span><br><span class="line">        pb.setList(list);</span><br><span class="line">        <span class="comment">// 设置总页数 = 总记录数 / 每页显示条数</span></span><br><span class="line">        <span class="keyword">int</span> totalPage = totalCount % pageSize == <span class="number">0</span> ? totalCount / pageSize : (totalCount / pageSize) + <span class="number">1</span>;</span><br><span class="line">        pb.setTotalPage(totalPage);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> pb;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<pre><code class="java">package cn.itcast.travel.service.impl;
+
+import cn.itcast.travel.dao.RouteDao;
+import cn.itcast.travel.dao.impl.RouteDaoImpl;
+import cn.itcast.travel.domain.PageBean;
+import cn.itcast.travel.domain.Route;
+import cn.itcast.travel.service.RouteService;
+
+import java.util.List;
+
+/**
+ * @Author: zero
+ * @Description: Date:Create: in 2019/7/24 22:04
+ * Modified By:
+ */
+
+public class RouteServiceImpl implements RouteService {
+
+    private RouteDao routeDao = new RouteDaoImpl();
+
+    /**
+     * @Description: 查询当前页数据集合并封装为PageBean对象后返回
+     * @Author: zero
+     * @param cid
+     * @param currentPage
+     * @param pageSize
+     * @return 封装好的PageBean对象
+     * @Date 2019/7/24 22:50
+     */
+    @Override
+    public PageBean&lt;Route&gt; pageQuery(int cid, int currentPage, int pageSize) {
+        // 封装PageBean
+        PageBean&lt;Route&gt; pb = new PageBean&lt;&gt;();
+        // 设置当前页码
+        pb.setCurrentPage(currentPage);
+        // 设置每页显示的条数
+        pb.setPageSize(pageSize);
+        // 设置总记录数
+        int totalCount = routeDao.findTotalCount(cid);
+        pb.setTotalCount(totalCount);
+        // 设置当前页显示的数据集合
+        int start = (currentPage - 1) * pageSize; // 开始的记录数
+        List&lt;Route&gt; list = routeDao.findByPage(cid, start, pageSize);
+        pb.setList(list);
+        // 设置总页数 = 总记录数 / 每页显示条数
+        int totalPage = totalCount % pageSize == 0 ? totalCount / pageSize : (totalCount / pageSize) + 1;
+        pb.setTotalPage(totalPage);
+
+        return pb;
+    }
+}
+</code></pre>
 <h5 id="4-2-2-4-RouteDaoImpl，DAO实现类"><a href="#4-2-2-4-RouteDaoImpl，DAO实现类" class="headerlink" title="4.2.2.4 RouteDaoImpl，DAO实现类"></a>4.2.2.4 <code>RouteDaoImpl</code>，DAO实现类</h5><p>查询当前类别总记录数和类别当前页的数据集合</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.travel.dao.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.dao.RouteDao;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.domain.Route;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.travel.util.JDBCUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: Date:Create: in 2019/7/24 22:09</span></span><br><span class="line"><span class="comment"> * Modified By:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RouteDaoImpl</span> <span class="keyword">implements</span> <span class="title">RouteDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 根据cid查询总记录数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cid</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 总记录数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/24 22:08</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTotalCount</span><span class="params">(<span class="keyword">int</span> cid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> template.queryForObject(<span class="string">"select count(*) from tab_route where cid = ?"</span>,Integer<span class="class">.<span class="keyword">class</span>,<span class="title">cid</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 根据cid，start，pageSize查询当前页的数据集合</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: zero</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cid</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> start</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pageSize</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 查询到的当前页数据集合</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2019/7/24 22:08</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Route&gt; <span class="title">findByPage</span><span class="params">(<span class="keyword">int</span> cid, <span class="keyword">int</span> start, <span class="keyword">int</span> pageSize)</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">"select * from tab_route where cid = ? limit ? , ?"</span>;</span><br><span class="line">        <span class="keyword">return</span> template.query(sql,<span class="keyword">new</span> BeanPropertyRowMapper&lt;Route&gt;(Route<span class="class">.<span class="keyword">class</span>),<span class="title">cid</span>,<span class="title">start</span>,<span class="title">pageSize</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="4-2-3-前台代码实现"><a href="#4-2-3-前台代码实现" class="headerlink" title="4.2.3 前台代码实现"></a>4.2.3 前台代码实现</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> search = location.search;</span><br><span class="line">    <span class="comment">// alert(search);</span></span><br><span class="line">    <span class="comment">// 切割字符串，拿到第二个值</span></span><br><span class="line">    <span class="keyword">var</span> cid = search.split(<span class="string">"="</span>)[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当页码加载完毕后，调用load方法，</span></span><br><span class="line">    load(cid);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params">cid, currentPage</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 发送ajax请求，请求route/pageQuery，传递cid</span></span><br><span class="line">    $.<span class="keyword">get</span>("route/pageQuery",&#123;cid:cid,<span class="attr">currentPage</span>:currentPage&#125;,<span class="function"><span class="keyword">function</span> (<span class="params">pb</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 解析PageBean数据，展示到页面上</span></span><br><span class="line">        <span class="comment">// 1. 分页工具条数据展示</span></span><br><span class="line">        <span class="comment">// 1.1 展示总页码和总记录数</span></span><br><span class="line">        $(<span class="string">"#totalPage"</span>).html(pb.totalPage);</span><br><span class="line">        $(<span class="string">"#totalCount"</span>).html(pb.totalCount);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> lis = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">var</span> fristPage = <span class="string">'&lt;li onclick="javascript:load('</span>+cid+<span class="string">')"&gt;&lt;a href="javascript:void(0)"&gt;首页&lt;/a&gt;&lt;/li&gt;'</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算上一页的页码</span></span><br><span class="line">        <span class="keyword">var</span> beforeNum = pb.currentPage - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (beforeNum &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">            beforeNum = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> beforePage = <span class="string">'&lt;li onclick="javascript:load('</span>+cid+<span class="string">','</span>+beforeNum+<span class="string">')" class="threeword"&gt;&lt;a href="javascript:void(0)"&gt;上一页&lt;/a&gt;&lt;/li&gt;'</span>;</span><br><span class="line"></span><br><span class="line">        lis += fristPage;</span><br><span class="line">        lis += beforePage;</span><br><span class="line">        <span class="comment">// 1.2 展示分页页码</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">                    仿百度分页样式：前五后四</span></span><br><span class="line"><span class="comment">                    1. 一共展示10个页码，能够达到前5后4的效果</span></span><br><span class="line"><span class="comment">                    2. 如果前边不足5个，后边补齐10个</span></span><br><span class="line"><span class="comment">                    3. 如果后边不足4个，前边补齐10个</span></span><br><span class="line"><span class="comment">                 */</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 定义开始位置begin和结束位置end</span></span><br><span class="line">        <span class="keyword">var</span> begin; <span class="comment">// 开始位置</span></span><br><span class="line">        <span class="keyword">var</span> end; <span class="comment">// 结束位置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 显示10个页码</span></span><br><span class="line">        <span class="keyword">if</span>(pb.totalPage &lt; <span class="number">10</span>)&#123;</span><br><span class="line">            <span class="comment">// 总页码不足10页</span></span><br><span class="line">            begin = <span class="number">1</span>;</span><br><span class="line">            end = pb.totalPage;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">// 总页码超过10页</span></span><br><span class="line">            <span class="comment">// 实现前5后4效果</span></span><br><span class="line">            begin = pb.currentPage - <span class="number">5</span>;</span><br><span class="line">            end = pb.currentPage + <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 进行数据修正</span></span><br><span class="line">            <span class="comment">// 2. 如果前边不够5个，后边补齐10个</span></span><br><span class="line">            <span class="keyword">if</span> (begin &lt; <span class="number">1</span>)&#123;</span><br><span class="line">                begin = <span class="number">1</span>;</span><br><span class="line">                end = begin + <span class="number">9</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 3. 如果后边不足4个，前边补齐10个</span></span><br><span class="line">            <span class="keyword">if</span> (end &gt; pb.totalPage)&#123;</span><br><span class="line">                end = pb.totalPage;</span><br><span class="line">                begin = end - <span class="number">9</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = begin; i &lt;= end; i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> li;</span><br><span class="line">            <span class="comment">// 判断当前页码是否等于i</span></span><br><span class="line">            <span class="keyword">if</span> (pb.currentPage == i)&#123;</span><br><span class="line">                li = <span class="string">'&lt;li class="curPage" onclick="javascript:load('</span>+cid+<span class="string">','</span>+i+<span class="string">')"&gt;&lt;a href="javascript:void(0)"&gt;'</span>+i+<span class="string">'&lt;/a&gt;&lt;/li&gt;'</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">// 创建页码的li</span></span><br><span class="line">                li = <span class="string">'&lt;li onclick="javascript:load('</span>+cid+<span class="string">','</span>+i+<span class="string">')"&gt;&lt;a href="javascript:void(0)"&gt;'</span>+i+<span class="string">'&lt;/a&gt;&lt;/li&gt;'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 拼接进字符串</span></span><br><span class="line">            lis += li;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// for (var i = 1; i &lt;= pb.totalPage ; i++) &#123;</span></span><br><span class="line">        <span class="comment">//     var li;</span></span><br><span class="line">        <span class="comment">//     // 判断当前页码是否等于i</span></span><br><span class="line">        <span class="comment">//     if (pb.currentPage == i)&#123;</span></span><br><span class="line">        <span class="comment">//         li = '&lt;li class="curPage" onclick="javascript:load('+cid+','+i+')"&gt;&lt;a href="javascript:void(0)"&gt;'+i+'&lt;/a&gt;&lt;/li&gt;';</span></span><br><span class="line">        <span class="comment">//     &#125;else&#123;</span></span><br><span class="line">        <span class="comment">//         // 创建页码的li</span></span><br><span class="line">        <span class="comment">//         li = '&lt;li onclick="javascript:load('+cid+','+i+')"&gt;&lt;a href="javascript:void(0)"&gt;'+i+'&lt;/a&gt;&lt;/li&gt;';</span></span><br><span class="line">        <span class="comment">//     &#125;</span></span><br><span class="line">        <span class="comment">//     // 拼接进字符串</span></span><br><span class="line">        <span class="comment">//     lis += li;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算下一页页码</span></span><br><span class="line">        <span class="keyword">var</span> nextNum = pb.currentPage + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(nextNum &gt;= pb.totalPage)&#123;</span><br><span class="line">            nextNum = pb.totalPage;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> nextPage = <span class="string">'&lt;li onclick="javascript:load('</span>+cid+<span class="string">','</span>+nextNum+<span class="string">')" class="threeword"&gt;&lt;a href="javascript:void(0);"&gt;下一页&lt;/a&gt;&lt;/li&gt;'</span>;</span><br><span class="line">        <span class="keyword">var</span> lastPage = <span class="string">'&lt;li onclick="javascript:load('</span>+cid+<span class="string">','</span>+pb.totalPage+<span class="string">')" class="threeword"&gt;&lt;a href="javascript:;"&gt;末页&lt;/a&gt;&lt;/li&gt;'</span>;</span><br><span class="line"></span><br><span class="line">        lis += nextPage;</span><br><span class="line">        lis += lastPage;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将lis内容设置到ul中</span></span><br><span class="line">        $(<span class="string">"#pageNum"</span>).html(lis);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 列表数据展示</span></span><br><span class="line">        <span class="keyword">var</span> route_lis = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; pb.list.length; i++) &#123;</span><br><span class="line">            <span class="comment">// 获取数据 &#123;rid": 1,"rname": "xxx","price": 999.0,xxxx&#125;</span></span><br><span class="line">            <span class="keyword">var</span> route = pb.list[i];</span><br><span class="line">            <span class="keyword">var</span> li = <span class="string">'&lt;li&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                &lt;div class="img"&gt;&lt;img src="'</span>+route.rimage+<span class="string">'" style="width: 299px"&gt;&lt;/div&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                    &lt;div class="text1"&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                    &lt;p&gt;'</span>+route.rname+<span class="string">'&lt;/p&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                    &lt;br/&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                    &lt;p&gt;'</span>+route.routeIntroduce+<span class="string">'&lt;/p&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                &lt;/div&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                &lt;div class="price"&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                    &lt;p class="price_num"&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                    &lt;span&gt;&amp;yen;&lt;/span&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                &lt;span&gt;'</span>+route.price+<span class="string">'&lt;/span&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                &lt;span&gt;起&lt;/span&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                &lt;/p&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                &lt;p&gt;&lt;a href="route_detail.html"&gt;查看详情&lt;/a&gt;&lt;/p&gt;\n'</span> +</span><br><span class="line">                <span class="string">'                &lt;/div&gt;\n'</span> +</span><br><span class="line">                <span class="string">'             &lt;/li&gt;'</span>;</span><br><span class="line"></span><br><span class="line">            route_lis += li;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $(<span class="string">"#route"</span>).html(route_lis);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 每次点击翻页后，定位到页面顶部</span></span><br><span class="line">        <span class="built_in">window</span>.scrollTo(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></div>
+<pre><code class="java">package cn.itcast.travel.dao.impl;
 
-      
-    </div>
-    
-      <footer class="article-footer">
-        完
-      </footer>
-    
-  </div>
-  
-    
-<nav id="article-nav">
-  <div class="article-nav-block">
-    
-      <a href="/2019/07/27/JavaWeb/旅游网项目03/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption"></strong>
-        <div class="article-nav-title">
-          
-            旅游网项目03
-          
-        </div>
-      </a>
-    
-  </div>
-  <div class="article-nav-block">
-    
-      <a href="/2019/07/21/JavaWeb/旅游网项目01/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">旅游网项目01</div>
-        <strong class="article-nav-caption"></strong>
-      </a>
-    
-  </div>
-</nav>
+import cn.itcast.travel.dao.RouteDao;
+import cn.itcast.travel.domain.Route;
+import cn.itcast.travel.util.JDBCUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-    <link rel="stylesheet" href="/css/gitment.css"> 
-<script src="/js/gitment.js"></script>
+import java.util.List;
 
-<div id="gitmentContainer"></div>
+/**
+ * @Author: zero
+ * @Description: Date:Create: in 2019/7/24 22:09
+ * Modified By:
+ */
 
-<script>
-var gitment = new Gitment({
-  owner: '',
-  repo: '',
-  oauth: {
-    client_id: '',
-    client_secret: '',
-  },
+public class RouteDaoImpl implements RouteDao {
+
+    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+
+    /**
+     * @Description: 根据cid查询总记录数
+     * @Author: zero
+     * @param cid
+     * @return 总记录数
+     * @Date 2019/7/24 22:08
+     */
+    @Override
+    public int findTotalCount(int cid) {
+        return template.queryForObject("select count(*) from tab_route where cid = ?",Integer.class,cid);
+    }
+
+    /**
+     * @Description: 根据cid，start，pageSize查询当前页的数据集合
+     * @Author: zero
+     * @param cid
+     * @param start
+     * @param pageSize
+     * @return 查询到的当前页数据集合
+     * @Date 2019/7/24 22:08
+     */
+    @Override
+    public List&lt;Route&gt; findByPage(int cid, int start, int pageSize) {
+        String sql = "select * from tab_route where cid = ? limit ? , ?";
+        return template.query(sql,new BeanPropertyRowMapper&lt;Route&gt;(Route.class),cid,start,pageSize);
+    }
+}
+</code></pre>
+<h4 id="4-2-3-前台代码实现"><a href="#4-2-3-前台代码实现" class="headerlink" title="4.2.3 前台代码实现"></a>4.2.3 前台代码实现</h4><pre><code class="javascript">&lt;script&gt;
+    $(function () {
+    var search = location.search;
+    // alert(search);
+    // 切割字符串，拿到第二个值
+    var cid = search.split("=")[1];
+
+    // 当页码加载完毕后，调用load方法，
+    load(cid);
 })
-gitment.render('gitmentContainer')
-</script>
 
-  
-  
+
+function load(cid, currentPage) {
+    // 发送ajax请求，请求route/pageQuery，传递cid
+    $.get("route/pageQuery",{cid:cid,currentPage:currentPage},function (pb) {
+        // 解析PageBean数据，展示到页面上
+        // 1. 分页工具条数据展示
+        // 1.1 展示总页码和总记录数
+        $("#totalPage").html(pb.totalPage);
+        $("#totalCount").html(pb.totalCount);
+
+        var lis = "";
+        var fristPage = '&lt;li onclick="javascript:load('+cid+')"&gt;&lt;a href="javascript:void(0)"&gt;首页&lt;/a&gt;&lt;/li&gt;';
+
+        // 计算上一页的页码
+        var beforeNum = pb.currentPage - 1;
+        if (beforeNum &lt;= 0){
+            beforeNum = 1;
+        }
+
+        var beforePage = '&lt;li onclick="javascript:load('+cid+','+beforeNum+')" class="threeword"&gt;&lt;a href="javascript:void(0)"&gt;上一页&lt;/a&gt;&lt;/li&gt;';
+
+        lis += fristPage;
+        lis += beforePage;
+        // 1.2 展示分页页码
+        /*
+                    仿百度分页样式：前五后四
+                    1. 一共展示10个页码，能够达到前5后4的效果
+                    2. 如果前边不足5个，后边补齐10个
+                    3. 如果后边不足4个，前边补齐10个
+                 */
+
+        // 定义开始位置begin和结束位置end
+        var begin; // 开始位置
+        var end; // 结束位置
+
+        // 1. 显示10个页码
+        if(pb.totalPage &lt; 10){
+            // 总页码不足10页
+            begin = 1;
+            end = pb.totalPage;
+        }else{
+            // 总页码超过10页
+            // 实现前5后4效果
+            begin = pb.currentPage - 5;
+            end = pb.currentPage + 4;
+
+            // 进行数据修正
+            // 2. 如果前边不够5个，后边补齐10个
+            if (begin &lt; 1){
+                begin = 1;
+                end = begin + 9;
+            }
+            // 3. 如果后边不足4个，前边补齐10个
+            if (end &gt; pb.totalPage){
+                end = pb.totalPage;
+                begin = end - 9;
+            }
+        }
+
+        for (var i = begin; i &lt;= end; i++) {
+            var li;
+            // 判断当前页码是否等于i
+            if (pb.currentPage == i){
+                li = '&lt;li class="curPage" onclick="javascript:load('+cid+','+i+')"&gt;&lt;a href="javascript:void(0)"&gt;'+i+'&lt;/a&gt;&lt;/li&gt;';
+            }else{
+                // 创建页码的li
+                li = '&lt;li onclick="javascript:load('+cid+','+i+')"&gt;&lt;a href="javascript:void(0)"&gt;'+i+'&lt;/a&gt;&lt;/li&gt;';
+            }
+            // 拼接进字符串
+            lis += li;
+        }
+
+
+
+
+
+        // for (var i = 1; i &lt;= pb.totalPage ; i++) {
+        //     var li;
+        //     // 判断当前页码是否等于i
+        //     if (pb.currentPage == i){
+        //         li = '&lt;li class="curPage" onclick="javascript:load('+cid+','+i+')"&gt;&lt;a href="javascript:void(0)"&gt;'+i+'&lt;/a&gt;&lt;/li&gt;';
+        //     }else{
+        //         // 创建页码的li
+        //         li = '&lt;li onclick="javascript:load('+cid+','+i+')"&gt;&lt;a href="javascript:void(0)"&gt;'+i+'&lt;/a&gt;&lt;/li&gt;';
+        //     }
+        //     // 拼接进字符串
+        //     lis += li;
+        // }
+
+        // 计算下一页页码
+        var nextNum = pb.currentPage + 1;
+        if(nextNum &gt;= pb.totalPage){
+            nextNum = pb.totalPage;
+        }
+
+        var nextPage = '&lt;li onclick="javascript:load('+cid+','+nextNum+')" class="threeword"&gt;&lt;a href="javascript:void(0);"&gt;下一页&lt;/a&gt;&lt;/li&gt;';
+        var lastPage = '&lt;li onclick="javascript:load('+cid+','+pb.totalPage+')" class="threeword"&gt;&lt;a href="javascript:;"&gt;末页&lt;/a&gt;&lt;/li&gt;';
+
+        lis += nextPage;
+        lis += lastPage;
+
+        // 将lis内容设置到ul中
+        $("#pageNum").html(lis);
+
+
+        // 2. 列表数据展示
+        var route_lis = "";
+
+        for (var i = 0; i &lt; pb.list.length; i++) {
+            // 获取数据 {rid": 1,"rname": "xxx","price": 999.0,xxxx}
+            var route = pb.list[i];
+            var li = '&lt;li&gt;\n' +
+                '                &lt;div class="img"&gt;&lt;img src="'+route.rimage+'" style="width: 299px"&gt;&lt;/div&gt;\n' +
+                '                    &lt;div class="text1"&gt;\n' +
+                '                    &lt;p&gt;'+route.rname+'&lt;/p&gt;\n' +
+                '                    &lt;br/&gt;\n' +
+                '                    &lt;p&gt;'+route.routeIntroduce+'&lt;/p&gt;\n' +
+                '                &lt;/div&gt;\n' +
+                '                &lt;div class="price"&gt;\n' +
+                '                    &lt;p class="price_num"&gt;\n' +
+                '                    &lt;span&gt;&amp;yen;&lt;/span&gt;\n' +
+                '                &lt;span&gt;'+route.price+'&lt;/span&gt;\n' +
+                '                &lt;span&gt;起&lt;/span&gt;\n' +
+                '                &lt;/p&gt;\n' +
+                '                &lt;p&gt;&lt;a href="route_detail.html"&gt;查看详情&lt;/a&gt;&lt;/p&gt;\n' +
+                '                &lt;/div&gt;\n' +
+                '             &lt;/li&gt;';
+
+            route_lis += li;
+        }
+
+        $("#route").html(route_lis);
+
+        // 每次点击翻页后，定位到页面顶部
+        window.scrollTo(0,0);
+    });
+}
+&lt;/script&gt;
+</code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/07/23/JavaWeb/旅游网项目02/" class="b-link-green">旅游网项目02</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-07-23T23-59-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/07/27/JavaWeb/旅游网项目03/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="旅游网项目03">
+                        
+                        <span class="card-title">旅游网项目03</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">前言今日内容为旅游网项目的旅游线路名称查询，详情页展示，线路收藏功能。
+
+1. 旅游线路名称查询功能1.1 查询参数的传递在header.html中添加如下js
+// 给搜索按钮绑定单击事件，获取搜索输入框的内容
+$("#search_bt</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-27
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaWeb/" class="post-category" target="_blank">
+                                    JavaWeb
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Project/" target="_blank">
+                        <span class="chip bg-color">Project</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/07/21/JavaWeb/旅游网项目01/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="旅游网项目01">
+                        
+                        <span class="card-title">旅游网项目01</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 前言为了巩固web基础知识，提升综合运用能力，故编写此项目，以做练习。
+今日内容为登录注册内容。
+
+2. 技术选型2.1 Web层
+Servlet：前端控制器
+html：视图
+Filter：过滤器
+BeanUtils：数据封装
+Jac</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaWeb/" class="post-category" target="_blank">
+                                    JavaWeb
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Project/" target="_blank">
+                        <span class="chip bg-color">Project</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
 </article>
-</section>
-        <aside id="sidebar">
-  
-    <div class="widget-box">
-  <div class="avatar-box">
-    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
-    <h3 class="avatar-name">
-      
-        zero
-      
-    </h3>
-    <p class="avatar-slogan">
-      在追赶前人的脚步上努力的Java菜鸟
-    </p>
-  </div>
 </div>
 
 
-  
-    
-  <div class="widget-box">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-box">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
     </div>
-  </div>
+</div>
 
-  
-    
-  <div class="widget-box">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-box">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/02/29/Other/hexo部署至coding/">Hexo部署至coding</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/22/ComputerScience/04_二进制/">计科04:[二进制]</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/10/ComputerScience/03_布尔逻辑和逻辑门/">计科03:[布尔代数和逻辑门]</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/08/ComputerScience/02_电子计算机/">计科02:[电子计算机]</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/03/ComputerScience/01_计算机早期历史/">计科01:[计算机早期历史]</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-      <div class="widget-box">
-    <h3 class="widget-title">友链</h3>
-    <div class="widget">
-      
-        <a style="display: block;" href="https://blog.littleha.cn/" title target='_blank'
-        >小哈博客</a>
-      
-    </div>
-  </div>
-
-  
-</aside>
-      </div>
-      <footer id="footer">
-  <div class="foot-box global-width">
-    &copy; 2020 Zero &nbsp;&nbsp;
-    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
-    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
-    <br>
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
-  </div>
-</footer>
-      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
-if (!window.jQuery) {
-var script = document.createElement('script');
-script.src = "/js/jquery-2.0.3.min.js";
-document.body.write(script);
-}
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
 </script>
+    
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
+</main>
 
 
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
 
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">250.7k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
     </div>
-    <nav id="mobile-nav" class="mobile-nav-box">
-  <div class="mobile-nav-img mobile-nav-top"></div>
-  
-    <a href="/" class="mobile-nav-link">首页</a>
-  
-    <a href="/archives" class="mobile-nav-link">归档</a>
-  
-  <div class="mobile-nav-img  mobile-nav-bottom"></div>
-</nav>    
-  </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>
-<!-- 添加页面点击小红心js效果-->
-{% if theme.clicklove %}
-  <script type="text/javascript" src="/js/clicklove.js"></script>
-{% endif%}
-
-<!--页面标题崩溃欺骗-->
-<script type="text/javascript" src="/js/crash_cheat.js"></script>
