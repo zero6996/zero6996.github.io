@@ -1,100 +1,438 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  
+    <meta charset="utf-8">
+    <meta name="keywords" content="Redis数据库, Zero的博客">
+    <meta name="description" content="RedisRedis是一款高性能的NOSQL系列的非关系型数据库，完全开源免费的数据库，key-value型数据库，遵守BSD协议。
 
-  
-  <title>Redis数据库 | Zero的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
-  
-  <meta name="description" content="Redis概念及基本使用">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Redis数据库">
-<meta property="og:url" content="https://zero6996.github.io/2019/07/14/Database/Redis/index.html">
-<meta property="og:site_name" content="Zero的博客">
-<meta property="og:description" content="Redis概念及基本使用">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/14/4.%E6%A1%88%E4%BE%8B-1563119468012.bmp">
-<meta property="og:updated_time" content="2020-01-03T11:43:19.530Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis数据库">
-<meta name="twitter:description" content="Redis概念及基本使用">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/14/4.%E6%A1%88%E4%BE%8B-1563119468012.bmp">
-  
-    <link rel="alternate" href="/atom.xml" title="Zero的博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/images/4.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/highlight.css">
+1. 基本概念1.1 什么是NOSQLNoSQL(NoSQL = Not Only SQL)，意即“不仅">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Redis数据库 | Zero的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
 </head>
-</html>
+
+
 <body>
-  <div id="fullpage" class="mobile-nav-right">
-    
-      <div id="wrapper" style="background-image: url(/images/wlop3.jpg)" title="图片作者wlop">
-    
-    
-      <header id="header">
-  <div id="nav-toggle" class="nav-toggle"></div>
-  <div class="head-box global-width">
-    <nav class="nav-box nav-right">
-      
-        <a class="nav-item" href="/" title
-        
-        >首页</a>
-      
-        <a class="nav-item" href="/archives" title
-        
-        >归档</a>
-      
-    </nav>
-  </div>
-</header>
-      <div id="middlecontent" title class="global-width sidebar-right">
-        <section id="main"><article id="post-Database/Redis" class="article global-container article-type-post" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 class="article-title" itemprop="name">
-      Redis数据库
-    </h1>
-  
 
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/07/14/Database/Redis/" class="article-date">
-  <time datetime="2019-07-14T15:59:00.000Z" itemprop="datePublished">2019-07-14</time>
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
 </a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
-  </div>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Redis数据库
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
 
     
-  </div>
-  
-    <span id="busuanzi_container_page_pv">
-      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-  
-    <!-- Table of Contents -->
-  
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
 
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p><code>Redis</code>是一款高性能的NOSQL系列的非关系型数据库，完全开源免费的数据库，key-value型数据库，遵守BSD协议。</p>
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JavaWeb/" class="post-category" target="_blank">
+                                JavaWeb
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-07-14
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4.1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        18 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p><code>Redis</code>是一款高性能的NOSQL系列的非关系型数据库，完全开源免费的数据库，key-value型数据库，遵守BSD协议。</p>
 <a id="more"></a>
 <h2 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h2><h3 id="1-1-什么是NOSQL"><a href="#1-1-什么是NOSQL" class="headerlink" title="1.1 什么是NOSQL"></a>1.1 什么是NOSQL</h3><p><code>NoSQL(NoSQL = Not Only SQL)</code>，意即“不仅仅是SQL”，是一项全新的数据库理念，泛指非关系型的数据库。</p>
 <p>随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是超大规模和高并发的SNS类型的web2.0纯动态网站已经显得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。</p>
@@ -212,7 +550,13 @@
 <li>获取：<code>get key</code></li>
 <li>删除：<code>del key</code></li>
 </ul>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="POWERSHELL"><figure class="iseeu highlight /powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; set ts teststring</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; get ts</span><br><span class="line"><span class="string">"teststring"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; del ts</span><br><span class="line">(integer) <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
+<pre><code class="powershell">127.0.0.1:6379&gt; set ts teststring
+OK
+127.0.0.1:6379&gt; get ts
+"teststring"
+127.0.0.1:6379&gt; del ts
+(integer) 1
+</code></pre>
 <h3 id="3-3-哈希类型-Hash"><a href="#3-3-哈希类型-Hash" class="headerlink" title="3.3 哈希类型:Hash"></a>3.3 哈希类型:<code>Hash</code></h3><ul>
 <li>存储：<code>hset key field value</code></li>
 <li>获取：<ul>
@@ -222,7 +566,22 @@
 </li>
 <li>删除：<code>hdel key field</code></li>
 </ul>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="POWERSHELL"><figure class="iseeu highlight /powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; hset myhash username shangsan</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; hset myhash password <span class="number">123</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; hget myhash username</span><br><span class="line"><span class="string">"shangsan"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; hgetall myhash</span><br><span class="line"><span class="number">1</span>) <span class="string">"username"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"shangsan"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"password"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"123"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; hdel myhash username</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; hdel myhash password</span><br><span class="line">(integer) <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
+<pre><code class="powershell">127.0.0.1:6379&gt; hset myhash username shangsan
+(integer) 1
+127.0.0.1:6379&gt; hset myhash password 123
+(integer) 1
+127.0.0.1:6379&gt; hget myhash username
+"shangsan"
+127.0.0.1:6379&gt; hgetall myhash
+1) "username"
+2) "shangsan"
+3) "password"
+4) "123"
+127.0.0.1:6379&gt; hdel myhash username
+(integer) 1
+127.0.0.1:6379&gt; hdel myhash password
+(integer) 1
+</code></pre>
 <h3 id="3-4-列表类型-List"><a href="#3-4-列表类型-List" class="headerlink" title="3.4 列表类型:List"></a>3.4 列表类型:<code>List</code></h3><p>可以添加一个元素到列表的头部(左边)或尾部(右边)</p>
 <ul>
 <li>添加：<ul>
@@ -237,33 +596,89 @@
 </ul>
 </li>
 </ul>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="POWERSHELL"><figure class="iseeu highlight /powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lpush mylist c</span><br><span class="line">(integer) <span class="number">9998</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lpush mylist b</span><br><span class="line">(integer) <span class="number">9999</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lpush mylist a</span><br><span class="line">(integer) <span class="number">10000</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lrange mylist <span class="number">0</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"a"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"b"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"c"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lpop mylist</span><br><span class="line"><span class="string">"a"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lpop mylist</span><br><span class="line"><span class="string">"b"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lpop mylist</span><br><span class="line"><span class="string">"c"</span></span><br></pre></td></tr></table></figure></div>
+<pre><code class="powershell">127.0.0.1:6379&gt; lpush mylist c
+(integer) 9998
+127.0.0.1:6379&gt; lpush mylist b
+(integer) 9999
+127.0.0.1:6379&gt; lpush mylist a
+(integer) 10000
+127.0.0.1:6379&gt; lrange mylist 0 2
+1) "a"
+2) "b"
+3) "c"
+127.0.0.1:6379&gt; lpop mylist
+"a"
+127.0.0.1:6379&gt; lpop mylist
+"b"
+127.0.0.1:6379&gt; lpop mylist
+"c"
+</code></pre>
 <h3 id="3-5-集合类型-set"><a href="#3-5-集合类型-set" class="headerlink" title="3.5 集合类型:set"></a>3.5 集合类型:<code>set</code></h3><p>不允许重复元素</p>
 <ul>
 <li>存储：<code>add key value</code></li>
 <li>获取：<code>smembers key</code>，获取集合中所有元素</li>
 <li>删除：<code>srem key value</code>，删除集合中的某个元素</li>
 </ul>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="POWERSHELL"><figure class="iseeu highlight /powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; sadd myset a</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; sadd myset a</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; smembers myset</span><br><span class="line"><span class="number">1</span>) <span class="string">"a"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; srem myset a</span><br><span class="line">(integer) <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
+<pre><code class="powershell">127.0.0.1:6379&gt; sadd myset a
+(integer) 1
+127.0.0.1:6379&gt; sadd myset a
+(integer) 0
+127.0.0.1:6379&gt; smembers myset
+1) "a"
+127.0.0.1:6379&gt; srem myset a
+(integer) 1
+</code></pre>
 <h3 id="3-6-有序集合类型-sortedset"><a href="#3-6-有序集合类型-sortedset" class="headerlink" title="3.6 有序集合类型:sortedset"></a>3.6 有序集合类型:<code>sortedset</code></h3><p>不允许重复元素，且元素有顺序。每个元素都会关联一个<code>double</code>类型的分数。<code>redis</code>正是通过分数来为集合中的成员进行从小到大的排序。</p>
 <ul>
 <li>存储：<code>zadd key score vlaue</code></li>
 <li>获取：<code>zrange key start end [withscores]</code>，withscores可以在获取时同时获取分数。</li>
 <li>删除：<code>zrem key value</code></li>
 </ul>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="POWERSHELL"><figure class="iseeu highlight /powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zadd mysort <span class="number">50</span> zhangsan</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zadd mysort <span class="number">36</span> lisi</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zadd mysort <span class="number">88</span> wangwu</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrange mysort <span class="number">0</span> <span class="literal">-1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"lisi"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"zhangsan"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"wangwu"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrem mysort lisi</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrange mysort <span class="number">0</span> <span class="literal">-1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"zhangsan"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"wangwu"</span></span><br></pre></td></tr></table></figure></div>
+<pre><code class="powershell">127.0.0.1:6379&gt; zadd mysort 50 zhangsan
+(integer) 1
+127.0.0.1:6379&gt; zadd mysort 36 lisi
+(integer) 1
+127.0.0.1:6379&gt; zadd mysort 88 wangwu
+(integer) 1
+127.0.0.1:6379&gt; zrange mysort 0 -1
+1) "lisi"
+2) "zhangsan"
+3) "wangwu"
+127.0.0.1:6379&gt; zrem mysort lisi
+(integer) 1
+127.0.0.1:6379&gt; zrange mysort 0 -1
+1) "zhangsan"
+2) "wangwu"
+</code></pre>
 <h3 id="3-7-通用命令"><a href="#3-7-通用命令" class="headerlink" title="3.7 通用命令"></a>3.7 通用命令</h3><ol>
 <li><code>keys *</code>：查询所有的键</li>
 <li><code>type key</code>：获取键对应的<code>value</code>类型</li>
 <li><code>del key</code>：删除指定的<code>key valu</code></li>
 </ol>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="POWERSHELL"><figure class="iseeu highlight /powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; keys *</span><br><span class="line"><span class="number">1</span>) <span class="string">"counter:__rand_int__"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"mylist"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"key:__rand_int__"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"mysort"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; type mylist</span><br><span class="line">list</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; type mysort</span><br><span class="line">zset</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; del mylist</span><br><span class="line">(integer) <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
+<pre><code class="powershell">127.0.0.1:6379&gt; keys *
+1) "counter:__rand_int__"
+2) "mylist"
+3) "key:__rand_int__"
+4) "mysort"
+127.0.0.1:6379&gt; type mylist
+list
+127.0.0.1:6379&gt; type mysort
+zset
+127.0.0.1:6379&gt; del mylist
+(integer) 1
+</code></pre>
 <h2 id="4-持久化"><a href="#4-持久化" class="headerlink" title="4. 持久化"></a>4. 持久化</h2><p><code>redis</code>是一个内存数据库，当<code>redis</code>服务器重启或电脑重启时，数据会丢失。我们可以将<code>redis</code>内存中的数据持久化保存到硬盘的文件中。</p>
 <h4 id="4-1-redis持久化机制"><a href="#4-1-redis持久化机制" class="headerlink" title="4.1 redis持久化机制"></a>4.1 redis持久化机制</h4><ul>
 <li><p>RDB：默认方式，不需要进行配置。在一定的间隔时间中，检测key的变化情况，然后持久化数据。</p>
 <ul>
 <li><p>编辑<code>redis.windows.conf</code>文件</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PROPERTIES"><figure class="iseeu highlight /properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#   after 900 sec (15 min) if at least 1 key changed</span></span><br><span class="line"><span class="attr">save</span> <span class="string">900 1</span></span><br><span class="line"><span class="comment">#   after 300 sec (5 min) if at least 10 keys changed</span></span><br><span class="line"><span class="attr">save</span> <span class="string">300 10</span></span><br><span class="line"><span class="comment">#   after 60 sec if at least 10000 keys changed</span></span><br><span class="line"><span class="attr">save</span> <span class="string">60 10000</span></span><br></pre></td></tr></table></figure></div>
+<pre><code class="properties">#   after 900 sec (15 min) if at least 1 key changed
+save 900 1
+#   after 300 sec (5 min) if at least 10 keys changed
+save 300 10
+#   after 60 sec if at least 10000 keys changed
+save 60 10000
+</code></pre>
 </li>
 <li><p>重启redis服务器，并指定配置文件名称：<code>redis-server.exe redis.windows.conf</code></p>
 </li>
@@ -272,7 +687,16 @@
 <li><p>AOF：日志记录的方式，可以记录每一条命令的操作。可以每一次命令操作后，持久化数据。</p>
 <ul>
 <li><p>编辑<code>redis.windows.conf</code>文件</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PROPERTIES"><figure class="iseeu highlight /properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启AOF</span></span><br><span class="line"><span class="attr">appendonly</span> <span class="string">yes</span></span><br><span class="line"><span class="comment"># 三种同步方式:</span></span><br><span class="line"><span class="comment"># 1. 每一次操作都进行持久化</span></span><br><span class="line"><span class="comment"># appendfsync always </span></span><br><span class="line"><span class="comment"># 2. 每隔一秒进行一次持久化，缺省值</span></span><br><span class="line"><span class="attr">appendfsync</span> <span class="string">everysec</span></span><br><span class="line"><span class="comment"># 3. 不进行持久化</span></span><br><span class="line"><span class="comment"># appendfsync no</span></span><br></pre></td></tr></table></figure></div>
+<pre><code class="properties"># 开启AOF
+appendonly yes
+# 三种同步方式:
+# 1. 每一次操作都进行持久化
+# appendfsync always 
+# 2. 每隔一秒进行一次持久化，缺省值
+appendfsync everysec
+# 3. 不进行持久化
+# appendfsync no
+</code></pre>
 </li>
 <li><p>重启服务器，指定配置文件。</p>
 </li>
@@ -280,11 +704,98 @@
 </li>
 </ul>
 <h2 id="5-Java客户端：Jedis"><a href="#5-Java客户端：Jedis" class="headerlink" title="5. Java客户端：Jedis"></a>5. Java客户端：<code>Jedis</code></h2><p><code>Jedis</code>是一款java操作redis数据库的工具。</p>
-<h3 id="5-1Jedis操作各种Redis中的数据结构"><a href="#5-1Jedis操作各种Redis中的数据结构" class="headerlink" title="5.1Jedis操作各种Redis中的数据结构"></a>5.1<code>Jedis</code>操作各种<code>Redis</code>中的数据结构</h3><h4 id="5-1-1-字符串类型："><a href="#5-1-1-字符串类型：" class="headerlink" title="5.1.1 字符串类型："></a>5.1.1 字符串类型：</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 1. 获取连接</span></span><br><span class="line">    Jedis jedis = <span class="keyword">new</span> Jedis(); <span class="comment">// 如果使用空参构造，默认值'localhost',6379</span></span><br><span class="line">    <span class="comment">// 2. 操作</span></span><br><span class="line">    <span class="comment">// 存储</span></span><br><span class="line">    jedis.set(<span class="string">"username"</span>,<span class="string">"wangwu"</span>);</span><br><span class="line">    <span class="comment">// 获取</span></span><br><span class="line">    String username = jedis.get(<span class="string">"username"</span>);</span><br><span class="line">    System.out.println(username);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 可以使用setex()方法存储指定过期时间的 key value</span></span><br><span class="line">    jedis.setex(<span class="string">"activecode"</span>,<span class="number">20</span>,<span class="string">"gj8a"</span>); <span class="comment">//将activecode：gj8a键值对存入redis，并且20秒后自动删除该键值对</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 关闭连接</span></span><br><span class="line">    jedis.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="5-1-2-哈希类型："><a href="#5-1-2-哈希类型：" class="headerlink" title="5.1.2 哈希类型："></a>5.1.2 哈希类型：</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 1. 获取连接</span></span><br><span class="line">    Jedis jedis = <span class="keyword">new</span> Jedis();</span><br><span class="line">    <span class="comment">// 2. 操作</span></span><br><span class="line">    <span class="comment">// 存储hash</span></span><br><span class="line">    jedis.hset(<span class="string">"user"</span>,<span class="string">"name"</span>,<span class="string">"lisi"</span>);</span><br><span class="line">    jedis.hset(<span class="string">"user"</span>,<span class="string">"age"</span>,<span class="string">"23"</span>);</span><br><span class="line">    jedis.hset(<span class="string">"user"</span>,<span class="string">"gender"</span>,<span class="string">"female"</span>);</span><br><span class="line">    <span class="comment">// 获取hash</span></span><br><span class="line">    String name = jedis.hget(<span class="string">"user"</span>, <span class="string">"name"</span>);</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="comment">// 获取hash的所有map中的数据</span></span><br><span class="line">    Map&lt;String, String&gt; user = jedis.hgetAll(<span class="string">"user"</span>);</span><br><span class="line">    Set&lt;String&gt; keySet = user.keySet();</span><br><span class="line">    <span class="keyword">for</span> (String key:keySet) &#123;</span><br><span class="line">        String value = user.get(key);</span><br><span class="line">        System.out.println(key+<span class="string">":"</span>+value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 3. 关闭连接</span></span><br><span class="line">    jedis.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="5-1-3-列表类型："><a href="#5-1-3-列表类型：" class="headerlink" title="5.1.3 列表类型："></a>5.1.3 列表类型：</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test4</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 获取连接</span></span><br><span class="line">    Jedis jedis = <span class="keyword">new</span> Jedis();</span><br><span class="line">    <span class="comment">// 2. 操作</span></span><br><span class="line">    jedis.del(<span class="string">"mylist"</span>);</span><br><span class="line">    <span class="comment">// list存储</span></span><br><span class="line">    jedis.lpush(<span class="string">"mylist"</span>,<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>); <span class="comment">// 从左边存</span></span><br><span class="line">    jedis.rpush(<span class="string">"mylist"</span>,<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>); <span class="comment">// 从右边存</span></span><br><span class="line">    <span class="comment">// 获取</span></span><br><span class="line">    List&lt;String&gt; mylist = jedis.lrange(<span class="string">"mylist"</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">    System.out.println(mylist); <span class="comment">// [c, b, a, a, b, c]</span></span><br><span class="line">    <span class="comment">// 弹出</span></span><br><span class="line">    String element1 = jedis.lpop(<span class="string">"mylist"</span>);</span><br><span class="line">    System.out.println(element1);</span><br><span class="line">    String element2 = jedis.rpop(<span class="string">"mylist"</span>);</span><br><span class="line">    System.out.println(element2);</span><br><span class="line">    List&lt;String&gt; mylist２ = jedis.lrange(<span class="string">"mylist"</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">    System.out.println(mylist２);</span><br><span class="line">    <span class="comment">// 3.关闭连接</span></span><br><span class="line">    jedis.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="5-1-4-集合类型："><a href="#5-1-4-集合类型：" class="headerlink" title="5.1.4 集合类型："></a>5.1.4 集合类型：</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test5</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 获取连接</span></span><br><span class="line">    Jedis jedis = <span class="keyword">new</span> Jedis();</span><br><span class="line">    <span class="comment">// 2. 操作</span></span><br><span class="line">    <span class="comment">// 存储</span></span><br><span class="line">    jedis.sadd(<span class="string">"myset"</span>,<span class="string">"java"</span>,<span class="string">"php"</span>,<span class="string">"c"</span>);</span><br><span class="line">    <span class="comment">// 获取</span></span><br><span class="line">    Set&lt;String&gt; myset = jedis.smembers(<span class="string">"myset"</span>);</span><br><span class="line">    System.out.println(myset);</span><br><span class="line">    jedis.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="5-1-5-有序集合类型："><a href="#5-1-5-有序集合类型：" class="headerlink" title="5.1.5 有序集合类型："></a>5.1.5 有序集合类型：</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test6</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 获取连接</span></span><br><span class="line">    Jedis jedis = <span class="keyword">new</span> Jedis();</span><br><span class="line">    <span class="comment">// 2. 操作</span></span><br><span class="line">    <span class="comment">// 存储</span></span><br><span class="line">    jedis.zadd(<span class="string">"mysortedset"</span>,<span class="number">8</span>,<span class="string">"亚索"</span>);</span><br><span class="line">    jedis.zadd(<span class="string">"mysortedset"</span>,<span class="number">6</span>,<span class="string">"剑圣"</span>);</span><br><span class="line">    jedis.zadd(<span class="string">"mysortedset"</span>,<span class="number">3</span>,<span class="string">"vn"</span>);</span><br><span class="line">    <span class="comment">// 获取</span></span><br><span class="line">    Set&lt;String&gt; mysortedset = jedis.zrange(<span class="string">"mysortedset"</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">    System.out.println(mysortedset); <span class="comment">// [vn, 剑圣, 亚索]</span></span><br><span class="line">    jedis.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="5-1Jedis操作各种Redis中的数据结构"><a href="#5-1Jedis操作各种Redis中的数据结构" class="headerlink" title="5.1Jedis操作各种Redis中的数据结构"></a>5.1<code>Jedis</code>操作各种<code>Redis</code>中的数据结构</h3><h4 id="5-1-1-字符串类型："><a href="#5-1-1-字符串类型：" class="headerlink" title="5.1.1 字符串类型："></a>5.1.1 字符串类型：</h4><pre><code class="java">@Test
+public void test2(){
+    // 1. 获取连接
+    Jedis jedis = new Jedis(); // 如果使用空参构造，默认值'localhost',6379
+    // 2. 操作
+    // 存储
+    jedis.set("username","wangwu");
+    // 获取
+    String username = jedis.get("username");
+    System.out.println(username);
+
+    // 可以使用setex()方法存储指定过期时间的 key value
+    jedis.setex("activecode",20,"gj8a"); //将activecode：gj8a键值对存入redis，并且20秒后自动删除该键值对
+
+    // 3. 关闭连接
+    jedis.close();
+}
+</code></pre>
+<h4 id="5-1-2-哈希类型："><a href="#5-1-2-哈希类型：" class="headerlink" title="5.1.2 哈希类型："></a>5.1.2 哈希类型：</h4><pre><code class="java">@Test
+public void test3(){
+    // 1. 获取连接
+    Jedis jedis = new Jedis();
+    // 2. 操作
+    // 存储hash
+    jedis.hset("user","name","lisi");
+    jedis.hset("user","age","23");
+    jedis.hset("user","gender","female");
+    // 获取hash
+    String name = jedis.hget("user", "name");
+    System.out.println(name);
+    // 获取hash的所有map中的数据
+    Map&lt;String, String&gt; user = jedis.hgetAll("user");
+    Set&lt;String&gt; keySet = user.keySet();
+    for (String key:keySet) {
+        String value = user.get(key);
+        System.out.println(key+":"+value);
+    }
+    // 3. 关闭连接
+    jedis.close();
+}
+</code></pre>
+<h4 id="5-1-3-列表类型："><a href="#5-1-3-列表类型：" class="headerlink" title="5.1.3 列表类型："></a>5.1.3 列表类型：</h4><pre><code class="java">@Test
+public void test4() {
+    // 1. 获取连接
+    Jedis jedis = new Jedis();
+    // 2. 操作
+    jedis.del("mylist");
+    // list存储
+    jedis.lpush("mylist","a","b","c"); // 从左边存
+    jedis.rpush("mylist","a","b","c"); // 从右边存
+    // 获取
+    List&lt;String&gt; mylist = jedis.lrange("mylist", 0, -1);
+    System.out.println(mylist); // [c, b, a, a, b, c]
+    // 弹出
+    String element1 = jedis.lpop("mylist");
+    System.out.println(element1);
+    String element2 = jedis.rpop("mylist");
+    System.out.println(element2);
+    List&lt;String&gt; mylist２ = jedis.lrange("mylist", 0, -1);
+    System.out.println(mylist２);
+    // 3.关闭连接
+    jedis.close();
+}
+</code></pre>
+<h4 id="5-1-4-集合类型："><a href="#5-1-4-集合类型：" class="headerlink" title="5.1.4 集合类型："></a>5.1.4 集合类型：</h4><pre><code class="java">@Test
+public void test5() {
+    // 1. 获取连接
+    Jedis jedis = new Jedis();
+    // 2. 操作
+    // 存储
+    jedis.sadd("myset","java","php","c");
+    // 获取
+    Set&lt;String&gt; myset = jedis.smembers("myset");
+    System.out.println(myset);
+    jedis.close();
+}
+</code></pre>
+<h4 id="5-1-5-有序集合类型："><a href="#5-1-5-有序集合类型：" class="headerlink" title="5.1.5 有序集合类型："></a>5.1.5 有序集合类型：</h4><pre><code class="java">@Test
+public void test6() {
+    // 1. 获取连接
+    Jedis jedis = new Jedis();
+    // 2. 操作
+    // 存储
+    jedis.zadd("mysortedset",8,"亚索");
+    jedis.zadd("mysortedset",6,"剑圣");
+    jedis.zadd("mysortedset",3,"vn");
+    // 获取
+    Set&lt;String&gt; mysortedset = jedis.zrange("mysortedset", 0, -1);
+    System.out.println(mysortedset); // [vn, 剑圣, 亚索]
+    jedis.close();
+}
+</code></pre>
 <h3 id="5-2-Jedis连接池：JedisPool"><a href="#5-2-Jedis连接池：JedisPool" class="headerlink" title="5.2 Jedis连接池：JedisPool"></a>5.2 <code>Jedis</code>连接池：<code>JedisPool</code></h3><ul>
 <li>使用方法：<ul>
 <li>创建<code>JedisPool</code>连接池对象</li>
@@ -292,8 +803,75 @@
 </ul>
 </li>
 </ul>
-<h4 id="5-2-1-jedis详细配置"><a href="#5-2-1-jedis详细配置" class="headerlink" title="5.2.1 jedis详细配置"></a>5.2.1 <code>jedis</code>详细配置</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PROPERTIES"><figure class="iseeu highlight /properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#最大活动对象数     </span></span><br><span class="line"><span class="meta">redis.pool.maxTotal</span>=<span class="string">1000    </span></span><br><span class="line"><span class="comment">#最大能够保持idel状态的对象数      </span></span><br><span class="line"><span class="meta">redis.pool.maxIdle</span>=<span class="string">100  </span></span><br><span class="line"><span class="comment">#最小能够保持idel状态的对象数   </span></span><br><span class="line"><span class="meta">redis.pool.minIdle</span>=<span class="string">50    </span></span><br><span class="line"><span class="comment">#当池内没有返回对象时，最大等待时间    </span></span><br><span class="line"><span class="meta">redis.pool.maxWaitMillis</span>=<span class="string">10000    </span></span><br><span class="line"><span class="comment">#当调用borrow Object方法时，是否进行有效性检查    </span></span><br><span class="line"><span class="meta">redis.pool.testOnBorrow</span>=<span class="string">true    </span></span><br><span class="line"><span class="comment">#当调用return Object方法时，是否进行有效性检查    </span></span><br><span class="line"><span class="meta">redis.pool.testOnReturn</span>=<span class="string">true  </span></span><br><span class="line"><span class="comment">#“空闲链接”检测线程，检测的周期，毫秒数。如果为负值，表示不运行“检测线程”。默认为-1.  </span></span><br><span class="line"><span class="meta">redis.pool.timeBetweenEvictionRunsMillis</span>=<span class="string">30000  </span></span><br><span class="line"><span class="comment">#向调用者输出“链接”对象时，是否检测它的空闲超时；</span></span><br><span class="line"><span class="meta">redis.pool.testWhileIdle</span>=<span class="string">true  </span></span><br><span class="line"><span class="comment"># 对于“空闲链接”检测线程而言，每次检测的链接资源的个数。默认为3.  </span></span><br><span class="line"><span class="meta">redis.pool.numTestsPerEvictionRun</span>=<span class="string">50  </span></span><br><span class="line"><span class="comment">#redis服务器的IP    </span></span><br><span class="line"><span class="meta">redis.ip</span>=<span class="string">xxxxxx  </span></span><br><span class="line"><span class="comment">#redis服务器的Port    </span></span><br><span class="line"><span class="meta">redis1.port</span>=<span class="string">6379</span></span><br></pre></td></tr></table></figure></div>
-<h4 id="5-2-2-自定义jedis工具类"><a href="#5-2-2-自定义jedis工具类" class="headerlink" title="5.2.2 自定义jedis工具类"></a>5.2.2 自定义<code>jedis</code>工具类</h4><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.zero.jedis.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPool;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPoolConfig;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JedisPool工具类</span></span><br><span class="line"><span class="comment"> *  加载配置文件，配置连接池参数</span></span><br><span class="line"><span class="comment"> *  提供获取连接的方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JedisPoolUtils</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> JedisPool jedisPool;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// 读取配置文件</span></span><br><span class="line">        InputStream is = JedisPoolUtils.class.getClassLoader().getResourceAsStream("jedis.properties");</span><br><span class="line">        <span class="comment">// 创建Properties对象</span></span><br><span class="line">        Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">// 关联文件</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            pro.load(is);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 获取数据，设置到JedisPoolConfig中</span></span><br><span class="line">        JedisPoolConfig config = <span class="keyword">new</span> JedisPoolConfig();</span><br><span class="line">        config.setMaxTotal(Integer.parseInt(pro.getProperty(<span class="string">"maxTotal"</span>)));</span><br><span class="line">        config.setMaxIdle(Integer.parseInt(pro.getProperty(<span class="string">"maxIdle"</span>)));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化JedisPool</span></span><br><span class="line">        jedisPool = <span class="keyword">new</span> JedisPool(config, pro.getProperty(<span class="string">"host"</span>), Integer.parseInt(pro.getProperty(<span class="string">"port"</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取连接方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Jedis <span class="title">getJedis</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jedisPool.getResource();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="5-2-1-jedis详细配置"><a href="#5-2-1-jedis详细配置" class="headerlink" title="5.2.1 jedis详细配置"></a>5.2.1 <code>jedis</code>详细配置</h4><pre><code class="properties">#最大活动对象数     
+redis.pool.maxTotal=1000    
+#最大能够保持idel状态的对象数      
+redis.pool.maxIdle=100  
+#最小能够保持idel状态的对象数   
+redis.pool.minIdle=50    
+#当池内没有返回对象时，最大等待时间    
+redis.pool.maxWaitMillis=10000    
+#当调用borrow Object方法时，是否进行有效性检查    
+redis.pool.testOnBorrow=true    
+#当调用return Object方法时，是否进行有效性检查    
+redis.pool.testOnReturn=true  
+#“空闲链接”检测线程，检测的周期，毫秒数。如果为负值，表示不运行“检测线程”。默认为-1.  
+redis.pool.timeBetweenEvictionRunsMillis=30000  
+#向调用者输出“链接”对象时，是否检测它的空闲超时；
+redis.pool.testWhileIdle=true  
+# 对于“空闲链接”检测线程而言，每次检测的链接资源的个数。默认为3.  
+redis.pool.numTestsPerEvictionRun=50  
+#redis服务器的IP    
+redis.ip=xxxxxx  
+#redis服务器的Port    
+redis1.port=6379   
+</code></pre>
+<h4 id="5-2-2-自定义jedis工具类"><a href="#5-2-2-自定义jedis工具类" class="headerlink" title="5.2.2 自定义jedis工具类"></a>5.2.2 自定义<code>jedis</code>工具类</h4><pre><code class="java">package cn.zero.jedis.util;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+/**
+ * JedisPool工具类
+ *  加载配置文件，配置连接池参数
+ *  提供获取连接的方法
+ */
+public class JedisPoolUtils {
+    private static JedisPool jedisPool;
+    static {
+        // 读取配置文件
+        InputStream is = JedisPoolUtils.class.getClassLoader().getResourceAsStream("jedis.properties");
+        // 创建Properties对象
+        Properties pro = new Properties();
+        // 关联文件
+        try {
+            pro.load(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 获取数据，设置到JedisPoolConfig中
+        JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxTotal(Integer.parseInt(pro.getProperty("maxTotal")));
+        config.setMaxIdle(Integer.parseInt(pro.getProperty("maxIdle")));
+
+        // 初始化JedisPool
+        jedisPool = new JedisPool(config, pro.getProperty("host"), Integer.parseInt(pro.getProperty("port")));
+    }
+
+    /**
+     * 获取连接方法
+     * @return
+     */
+    public static Jedis getJedis(){
+        return jedisPool.getResource();
+    }
+}
+</code></pre>
 <h2 id="6-练习"><a href="#6-练习" class="headerlink" title="6. 练习"></a>6. 练习</h2><h3 id="6-1-需求"><a href="#6-1-需求" class="headerlink" title="6.1 需求"></a>6.1 需求</h3><ol>
 <li>提供index.html页面，页面中有一个省份下拉列表</li>
 <li>当 页面加载完毕后 发送ajax请求，加载所有省份。</li>
@@ -310,200 +888,419 @@
 </li>
 </ul>
 <h3 id="6-2-代码实现"><a href="#6-2-代码实现" class="headerlink" title="6.2 代码实现"></a>6.2 代码实现</h3><p>后端service实现类核心代码：</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 使用redis缓存</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">findAllJson</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 1. 先从redis中查询数据</span></span><br><span class="line">       <span class="comment">// 1.1 获取redis客户端连接对象</span></span><br><span class="line">       Jedis jedis = JedisPoolUtils.getJedis();</span><br><span class="line">       <span class="comment">// 1.2 查询数据</span></span><br><span class="line">       String province_json = jedis.get(<span class="string">"province"</span>);</span><br><span class="line">       <span class="comment">// 2. 判断province_json 是否为null</span></span><br><span class="line">       <span class="keyword">if</span> (province_json == <span class="keyword">null</span> || province_json.length() == <span class="number">0</span>)&#123;</span><br><span class="line">           <span class="comment">// redis中无数据</span></span><br><span class="line">           System.out.println(<span class="string">"redis中无数据，查询数据库..."</span>);</span><br><span class="line">           <span class="comment">// 2.1 从数据库中查询</span></span><br><span class="line">           List&lt;Province&gt; ps = dao.findAll();</span><br><span class="line">           <span class="comment">// 2.2 将list序列化为json</span></span><br><span class="line">           ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               province_json = mapper.writeValueAsString(ps);</span><br><span class="line">           &#125; <span class="keyword">catch</span> (JsonProcessingException e) &#123;</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">// 2.3 将json数据存入redis中</span></span><br><span class="line">           jedis.set(<span class="string">"province"</span>,province_json);</span><br><span class="line">           <span class="comment">// 归还连接</span></span><br><span class="line">           jedis.close();</span><br><span class="line">       &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">           System.out.println(<span class="string">"redis中有数据，查询缓存..."</span>);</span><br><span class="line">           System.out.println(province_json);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> province_json;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+<pre><code class="java">    /**
+     * 使用redis缓存
+     * @return
+     */
+    @Override
+    public String findAllJson() {
+        // 1. 先从redis中查询数据
+        // 1.1 获取redis客户端连接对象
+        Jedis jedis = JedisPoolUtils.getJedis();
+        // 1.2 查询数据
+        String province_json = jedis.get("province");
+        // 2. 判断province_json 是否为null
+        if (province_json == null || province_json.length() == 0){
+            // redis中无数据
+            System.out.println("redis中无数据，查询数据库...");
+            // 2.1 从数据库中查询
+            List&lt;Province&gt; ps = dao.findAll();
+            // 2.2 将list序列化为json
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                province_json = mapper.writeValueAsString(ps);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            // 2.3 将json数据存入redis中
+            jedis.set("province",province_json);
+            // 归还连接
+            jedis.close();
+        }else {
+            System.out.println("redis中有数据，查询缓存...");
+            System.out.println(province_json);
+        }
+        return province_json;
+    }
+</code></pre>
 <p>后端servlet代码：</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.zero.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.zero.domain.Province;</span><br><span class="line"><span class="keyword">import</span> cn.zero.service.impl.ProvinceServiceImpl;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/provinceServlet"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProvinceServlet</span> <span class="keyword">extends</span> <span class="title">javax</span>.<span class="title">servlet</span>.<span class="title">http</span>.<span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)</span> <span class="keyword">throws</span> javax.servlet.ServletException, IOException </span>&#123;</span><br><span class="line"><span class="comment">//        // 1. 调用service查询</span></span><br><span class="line"><span class="comment">//        ProvinceServiceImpl service = new ProvinceServiceImpl();</span></span><br><span class="line"><span class="comment">//        List&lt;Province&gt; list = service.findAll();</span></span><br><span class="line"><span class="comment">//        // 2. 序列化list为json</span></span><br><span class="line"><span class="comment">//        ObjectMapper mapper = new ObjectMapper();</span></span><br><span class="line"><span class="comment">//        String json = mapper.writeValueAsString(list);</span></span><br><span class="line"></span><br><span class="line">        ProvinceServiceImpl service = <span class="keyword">new</span> ProvinceServiceImpl();</span><br><span class="line">        String json = service.findAllJson();</span><br><span class="line">        System.out.println(json);</span><br><span class="line">        <span class="comment">// 3. 响应结果</span></span><br><span class="line">        response.setContentType(<span class="string">"application/json;charset=utf-8"</span>);</span><br><span class="line">        response.getWriter().write(json);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)</span> <span class="keyword">throws</span> javax.servlet.ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<pre><code class="java">package cn.zero.web.servlet;
+
+import cn.zero.domain.Province;
+import cn.zero.service.impl.ProvinceServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.servlet.annotation.WebServlet;
+import java.io.IOException;
+import java.util.List;
+
+@WebServlet("/provinceServlet")
+public class ProvinceServlet extends javax.servlet.http.HttpServlet {
+    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+//        // 1. 调用service查询
+//        ProvinceServiceImpl service = new ProvinceServiceImpl();
+//        List&lt;Province&gt; list = service.findAll();
+//        // 2. 序列化list为json
+//        ObjectMapper mapper = new ObjectMapper();
+//        String json = mapper.writeValueAsString(list);
+
+        ProvinceServiceImpl service = new ProvinceServiceImpl();
+        String json = service.findAllJson();
+        System.out.println(json);
+        // 3. 响应结果
+        response.setContentType("application/json;charset=utf-8");
+        response.getWriter().write(json);
+
+    }
+
+    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        this.doPost(request, response);
+    }
+}
+</code></pre>
 <p>前端代码：</p>
-<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Province<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery-3.3.1.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">            <span class="comment">// 发送ajax请求，加载所有省份数据</span></span></span><br><span class="line"><span class="javascript">            $.<span class="keyword">get</span>("provinceServlet",&#123;&#125;,<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">                <span class="comment">// data = [&#123;"id":1,"name":"北京"&#125;,&#123;"id":2,"name":"上海"&#125;,&#123;"id":3,"name":"广州"&#125;,&#123;"id":4,"name":"深圳"&#125;]</span></span></span><br><span class="line"><span class="actionscript">                <span class="comment">// 1. 获取select</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> province = $(<span class="string">"#province"</span>);</span></span><br><span class="line"><span class="actionscript">                <span class="comment">// 2. 遍历json数组</span></span></span><br><span class="line"><span class="javascript">                $(data).each(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">                    <span class="comment">// 3. 创建&lt;option&gt;</span></span></span><br><span class="line"><span class="actionscript">                    <span class="keyword">var</span> option = <span class="string">"&lt;option name='"</span>+<span class="keyword">this</span>.id+<span class="string">"'&gt;"</span>+<span class="keyword">this</span>.name+<span class="string">"&lt;/option&gt;"</span></span></span><br><span class="line"><span class="actionscript">                    <span class="comment">// 4. 调用select的append追加option</span></span></span><br><span class="line">                    province.append(option);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">"province"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>--请选择省份--<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-
-      
-    </div>
-    
-      <footer class="article-footer">
-        完
-      </footer>
-    
-  </div>
-  
-    
-<nav id="article-nav">
-  <div class="article-nav-block">
-    
-      <a href="/2019/07/16/JavaWeb/Maven/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption"></strong>
-        <div class="article-nav-title">
-          
-            Maven
-          
-        </div>
-      </a>
-    
-  </div>
-  <div class="article-nav-block">
-    
-      <a href="/2019/07/10/JavaWeb/AJAX和JSON/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">AJAX和Json</div>
-        <strong class="article-nav-caption"></strong>
-      </a>
-    
-  </div>
-</nav>
-
-    <link rel="stylesheet" href="/css/gitment.css"> 
-<script src="/js/gitment.js"></script>
-
-<div id="gitmentContainer"></div>
-
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Province&lt;/title&gt;
+    &lt;script src="js/jquery-3.3.1.min.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+        $(function () {
+            // 发送ajax请求，加载所有省份数据
+            $.get("provinceServlet",{},function (data) {
+                // data = [{"id":1,"name":"北京"},{"id":2,"name":"上海"},{"id":3,"name":"广州"},{"id":4,"name":"深圳"}]
+                // 1. 获取select
+                var province = $("#province");
+                // 2. 遍历json数组
+                $(data).each(function () {
+                    // 3. 创建&lt;option&gt;
+                    var option = "&lt;option name='"+this.id+"'&gt;"+this.name+"&lt;/option&gt;"
+                    // 4. 调用select的append追加option
+                    province.append(option);
+                });
+            });
+        });
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;select name="" id="province"&gt;
+        &lt;option value=""&gt;--请选择省份--&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 <script>
-var gitment = new Gitment({
-  owner: '',
-  repo: '',
-  oauth: {
-    client_id: '',
-    client_secret: '',
-  },
-})
-gitment.render('gitmentContainer')
-</script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
 
-  
-  
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/07/14/database/redis/" class="b-link-green">Redis数据库</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-07-14T23-59-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/07/16/javaweb/maven/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Maven">
+                        
+                        <span class="card-title">Maven</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. Maven基础概念和配置Maven是一个项目管理工具，它包含了一个项目对象模型(POM:Project Object Model)，一组标准集合，一个项目生命周期(Project Lifecycle)，一个依赖管理系统(Depende</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaWeb/" class="post-category" target="_blank">
+                                    JavaWeb
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/07/10/javaweb/ajax-he-json/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="AJAX和Json">
+                        
+                        <span class="card-title">AJAX和Json</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">AJAXAjax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），是指一种创建交互式网页应用的网页开发技术。
+
+ 同步和异步：在客户端和服务器端相互通信的基础上。
+
+同步：客户</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaWeb/" class="post-category" target="_blank">
+                                    JavaWeb
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
 </article>
-</section>
-        <aside id="sidebar">
-  
-    <div class="widget-box">
-  <div class="avatar-box">
-    <img class="avatar" src="/images/4.jpg" title="祢豆子"></img>
-    <h3 class="avatar-name">
-      
-        zero
-      
-    </h3>
-    <p class="avatar-slogan">
-      在追赶前人的脚步上努力的Java菜鸟
-    </p>
-  </div>
 </div>
 
 
-  
-    
-  <div class="widget-box">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ComputerScience/">ComputerScience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Interview/">Interview</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java学习笔记/">Java学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL基础/">MySQL基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li></ul>
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-box">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTP/" style="font-size: 12px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO流/" style="font-size: 12px;">IO流</a> <a href="/tags/JQuery/" style="font-size: 12px;">JQuery</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 12px;">JavaScript</a> <a href="/tags/MyBatis/" style="font-size: 12px;">MyBatis</a> <a href="/tags/Project/" style="font-size: 16px;">Project</a> <a href="/tags/Spring/" style="font-size: 18px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 14px;">SpringMVC</a> <a href="/tags/反射/" style="font-size: 10px;">反射</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/线程/" style="font-size: 12px;">线程</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/集合/" style="font-size: 12px;">集合</a>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
     </div>
-  </div>
+</div>
 
-  
-    
-  <div class="widget-box">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-box">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/02/29/Other/hexo部署至coding/">Hexo部署至coding</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/22/ComputerScience/04_二进制/">计科04:[二进制]</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/10/ComputerScience/03_布尔逻辑和逻辑门/">计科03:[布尔代数和逻辑门]</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/08/ComputerScience/02_电子计算机/">计科02:[电子计算机]</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/03/ComputerScience/01_计算机早期历史/">计科01:[计算机早期历史]</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-      <div class="widget-box">
-    <h3 class="widget-title">友链</h3>
-    <div class="widget">
-      
-        <a style="display: block;" href="https://blog.littleha.cn/" title target='_blank'
-        >小哈博客</a>
-      
-    </div>
-  </div>
-
-  
-</aside>
-      </div>
-      <footer id="footer">
-  <div class="foot-box global-width">
-    &copy; 2020 Zero &nbsp;&nbsp;
-    驱动于 <a href="http://hexo.io/" target="_blank">Hexo</a>
-    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
-    <br>
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
-  </div>
-</footer>
-      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
-if (!window.jQuery) {
-var script = document.createElement('script');
-script.src = "/js/jquery-2.0.3.min.js";
-document.body.write(script);
-}
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
 </script>
+    
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
+</main>
 
 
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
 
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">250.7k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
     </div>
-    <nav id="mobile-nav" class="mobile-nav-box">
-  <div class="mobile-nav-img mobile-nav-top"></div>
-  
-    <a href="/" class="mobile-nav-link">首页</a>
-  
-    <a href="/archives" class="mobile-nav-link">归档</a>
-  
-  <div class="mobile-nav-img  mobile-nav-bottom"></div>
-</nav>    
-  </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>
-<!-- 添加页面点击小红心js效果-->
-{% if theme.clicklove %}
-  <script type="text/javascript" src="/js/clicklove.js"></script>
-{% endif%}
-
-<!--页面标题崩溃欺骗-->
-<script type="text/javascript" src="/js/crash_cheat.js"></script>

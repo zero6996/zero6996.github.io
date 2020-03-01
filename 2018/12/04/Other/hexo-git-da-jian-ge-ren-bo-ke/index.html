@@ -1,0 +1,929 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Hexo+Git搭建个人博客, Zero的博客">
+    <meta name="description" content="前言基于hexo+github pages服务搭建博客,快速,便捷,免费的搭建属于自己的个人博客
+1.准备工作在开始一切之前,你必须已经:
+
+有一个github账号,没有的话去注册一个
+电脑 安装 了node.js,npm,并了解相关基础知">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Hexo+Git搭建个人博客 | Zero的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Hexo+Git搭建个人博客
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Hexo/" target="_blank">
+                                <span class="chip bg-color">Hexo</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Other/" class="post-category" target="_blank">
+                                Other
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-12-04
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        8 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>基于hexo+github pages服务搭建博客,快速,便捷,免费的搭建属于自己的个人博客</p>
+<h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h2><p>在开始一切之前,你必须已经:</p>
+<ul>
+<li>有一个github账号,没有的话去<a href="https://github.com" target="_blank" rel="noopener">注册一个</a></li>
+<li>电脑 <a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">安装</a> 了node.js,npm,并了解相关基础知识</li>
+<li>安装了<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git for windows</a> (或其他git客户端工具)</li>
+</ul>
+<a id="more"></a>
+<h2 id="2-创建仓库"><a href="#2-创建仓库" class="headerlink" title="2.创建仓库"></a>2.创建仓库</h2><ul>
+<li>新建一个名为 用户名.github.io的仓库.比如说,如果你的github用户名是test</li>
+<li>那么你就新建test.github.io的仓库(必须是你的用户名,其他的无效)</li>
+<li>然后你的网站访问地址就是<a href="http://test.github.io" target="_blank" rel="noopener">http://test.github.io</a> 了<br>注意几个地方:<ul>
+<li>注册的邮箱一定要验证,否则不会成功</li>
+<li>仓库名字必须是:username.github.io,其中username就是你的用户名</li>
+<li>仓库创建成功不会立即生效,需要过一段时间(等待github分配网站域名等)</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-绑定域名"><a href="#3-绑定域名" class="headerlink" title="3.绑定域名"></a>3.绑定域名</h2><ul>
+<li>域名配置最常见有2种方式,CNAME和A记录,CNAME填写域名,A记录填写IP</li>
+<li>由于不带WWW方式只能采用A记录,所以先ping一下username.github.io的IP</li>
+<li>然后到你的域名DNS设置页,将A记录指向你ping出来的IP,将CNAME指向:yourname.github.io</li>
+<li>这样可以保证无论是否添加WWW都可以访问</li>
+<li>例:<ul>
+<li>记录类型:A      主机记录:@   解析线路默认  记录值:IP</li>
+<li>记录类型:CNAME  主机记录:www 解析线路默认  记录值:username.github.io</li>
+</ul>
+</li>
+<li>然后到你的github项目跟目录新建一个名为CNAME的文件(无后缀),里面填写你自定义的域名</li>
+</ul>
+<h2 id="4-配置SSH-key"><a href="#4-配置SSH-key" class="headerlink" title="4.配置SSH key"></a>4.配置SSH key</h2><p>提交代码需要github权限才可以,这里使用ssh key来解决本地和服务器的连接问题</p>
+<pre><code class="bash">$ cd ~/.ssh # 检查本机已存在的ssh秘钥
+</code></pre>
+<p>如果提示:”No such file or directory”说明你是第一次使用git</p>
+<pre><code class="bash">ssh-keygen -t rsa -C 'your email@example.com'
+</code></pre>
+<p>一般情况下直接默认值就行,所以不用设置密码,一路回车就行<br>最终会在.ssh目录下生成两个文件,id_rsa和id_rsa.pub,这两个就是SSH Key的密钥对id_rsa是私钥,不能泄露!</p>
+<pre><code class="bash">cat id_rsa.pub
+</code></pre>
+<p>复制输出的内容,打开你的github主页,打开”Account settings”&gt;&gt;”SSH keys”页面</p>
+<ol>
+<li>点击 ‘Add SSH Key’,填上任意title,在Key文本框内粘贴id_rsa.pub文件的内容</li>
+<li>点击 ‘Add Key’,就成功添加Key了<br>测试是否成功<pre><code class="bash">$ ssh -T git@github.com
+</code></pre>
+如果提示”Are you sure you want to continum connecting (yes/no)?” 输入yes,就会看到<pre><code>Hi zero6996! You've successfully authenticated, but GitHub does not provide shell access.
+</code></pre>说明SSH配置成功!<br>此时你还需要配置:<pre><code class="bash">$ git config --global user.name 'zero6996' #你的github用户名
+$ git config --global user.email 'youremail@xx.com' #你的github注册email
+</code></pre>
+<h2 id="5-hexo简介"><a href="#5-hexo简介" class="headerlink" title="5.hexo简介"></a>5.hexo简介</h2>Hexo是一个简单,快速,强大的基于GitHub Pages的博客发布工具,支持Markdown格式,有众多优秀的插件和主题<br><a href="http://hexo.io" target="_blank" rel="noopener">官网</a><br><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">Github</a><h3 id="5-1-安装注意事项"><a href="#5-1-安装注意事项" class="headerlink" title="5.1.安装注意事项"></a>5.1.安装注意事项</h3></li>
+<li>很多命令既可以用Windows的cmd来完成,也可以使用git bash来完成,但是部分命令会有一些问题,为避免不必要的问题,这里统一使用git bash来执行</li>
+<li>hexo不同版本差别较大,网上很文章的配置信息都是基于2.x的,所以注意不要被误导</li>
+<li>hexo有两种”_config.yml” 文件,一个是跟目录下的全局的”_config.yml” , 一个是各个”theme” 下的</li>
+<li>安装完node和npm以后,将npm替换为<a href="https://npm.taobao.org/" target="_blank" rel="noopener">淘宝镜像</a>,执行以下命令即可将,后续命令全部以cnpm执行<pre><code class="bash">npm install -g cnpm --registry=https://registry.npm.taobao.org
+</code></pre>
+<h3 id="5-2-安装"><a href="#5-2-安装" class="headerlink" title="5.2.安装"></a>5.2.安装</h3><pre><code class="bash">$ cnpm install -g hexo
+</code></pre>
+<h3 id="5-3-初始化"><a href="#5-3-初始化" class="headerlink" title="5.3.初始化"></a>5.3.初始化</h3>在本地新建一个名为hexo的文件夹(名字任意取),这里作为一个你存放代码的地方,比如我是D:\hexo<pre><code class="bash">$ cd /d/hexo # 进入文件夹
+$ hexo init # 初始化
+</code></pre>
+hexo会自动下载一些文件到这个目录,包括node_modules,目录结构<pre><code class="bash">$ ls
+_config.yml  node_modules/  package-lock.json  scaffolds/  themes/
+db.json      package.json   public/   source/
+$ hexo g # 生成
+$ hexo s # 启动服务
+</code></pre>
+</li>
+</ol>
+<ul>
+<li>执行上述命令之后,hexo就会在public文件夹生成相关html文件,这些文件后续会提交到github上去</li>
+<li>“hexo s”是开启本地预览服务,打开浏览器访问<a href="http://localhost:4000" target="_blank" rel="noopener">localhost:4000</a>即可看到博客内容.</li>
+<li>如果无显示内容或拒绝访问,就是端口占用的问题,重新开启服务,使用”hexo s -p 8888”指定端口</li>
+</ul>
+<h3 id="5-4-修改主题"><a href="#5-4-修改主题" class="headerlink" title="5.4.修改主题"></a>5.4.修改主题</h3><p>hexo社区有丰富的主题可选,从<a href="https://hexo.io/themes/" target="_blank" rel="noopener">官网主题</a>自己挑选下载</p>
+<p>下载主题(以<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">hexo-theme-yilia</a>为例):</p>
+<pre><code class="bash">$ cd /d/hexo/
+$ git clone git@github.com:litten/hexo-theme-yilia.git themes/yilia # 从github克隆主题,到本地的themes/yilia文件夹
+</code></pre>
+<p>下载的主题都在hexo/themes文件夹内</p>
+<pre><code class="bash">$ cd themes
+$ ls
+landscape/  yilia/
+</code></pre>
+<p>修改”_config.yml”中的”theme: landscape”改为”theme: yilia”,然后重新执行”hexo g”来生成页面<br>如果出现一些莫名其妙的问题,可以先执行”hexo clean”来清理一下public的内容,然后再来重新生成和发布</p>
+<h3 id="5-5-上传之前"><a href="#5-5-上传之前" class="headerlink" title="5.5.上传之前"></a>5.5.上传之前</h3><p>上传代码到github之前,记得备份以前的所有代码,因为hexo提交代码时会把你以前的所有代码都删除</p>
+<h3 id="5-6-上传到Github"><a href="#5-6-上传到Github" class="headerlink" title="5.6.上传到Github"></a>5.6.上传到Github</h3><p>如果你一切都配置好了,发布上传只需要”hexo d”就可以了,当然关键是所有东西都配置好<br>首先,”ssh key”肯定要配置好<br>其次,配置”_config.yml”中有关deploy的部分:</p>
+<pre><code>#正确写法
+deploy:
+   type: git
+   repository: git@github.com:zero6996/zero6996.github.io.git
+   branch: master
+</code></pre><p>如果报如下错误:</p>
+<pre><code>Deployer not found: github 或者 Deployer not found: git
+</code></pre><p>原因是还需安装一个插件:</p>
+<pre><code> cnpm install hexo-deployer-git --save
+</code></pre><p>安装无误,输入github账户密码,输入”hexo d”就会将本次有改动的代码全部提交,没有改动的不会</p>
+<h3 id="5-7-常用hexo命令"><a href="#5-7-常用hexo命令" class="headerlink" title="5.7.常用hexo命令"></a>5.7.常用hexo命令</h3><pre><code>hexo new 'postName' # 新建文章
+hexo new page 'pageName' # 新建页面
+hexo generate # 生成静态页面至public目录
+hexo server # 开启预览访问端口(默认4000,使用-p可更换端口)
+hexo deploy # 部署至Github
+hexo help # 查看帮助
+hexo version # 查看版本
+</code></pre><p>以上命令均可缩写</p>
+<pre><code>hexo n == hexo new
+hexo g == hexo generate
+hexo s == hexo server
+hexo d == hexo deploy
+</code></pre><p>以及组合命令:</p>
+<pre><code>hexo s -g # 生成页面并本地预览
+hexo d -g # 生成页面并上传
+hexo s -p # 本地预览并改变端口
+</code></pre><h3 id="5-8-config-yml"><a href="#5-8-config-yml" class="headerlink" title="5.8._config.yml"></a>5.8._config.yml</h3><p>这里面都是一些全局配置,每个参数意思都比较简单明了,需要注意的是冒号后面必须有一个空格</p>
+<h2 id="6-写博客"><a href="#6-写博客" class="headerlink" title="6.写博客"></a>6.写博客</h2><p>进入hexo根目录,执行命令:</p>
+<pre><code>hexo new 'my-first-blog'
+</code></pre><p>hexo会帮我们在_posts下生成相关的md文件,我们只需要打开这个文件就可以开始写博客了</p>
+<p>一般完整格式如下:</p>
+<pre><code>---
+title: postName # 文章页面上的显示名称,一般是中文
+date: 2018-12-5 15:46:10 # 文章生成时间,一般不用改,也可自定义
+categories: 默认分类 # 分类
+tags: [tag1,tag2,tag3] # 文章标签,可空,多标签请用格式
+description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面
+---
+
+以下是正文内容
+</code></pre><p>hexo new page ‘my-second-blog’ 生成的是:index.md,它不会作为文章出现在博客目录</p>
+<h3 id="6-1-写博客工具"><a href="#6-1-写博客工具" class="headerlink" title="6.1.写博客工具"></a>6.1.写博客工具</h3><p>   个人使用的是 ‘Visual Studio Code’ IDE</p>
+<h3 id="6-2-如何让博文列表不显示全部内容"><a href="#6-2-如何让博文列表不显示全部内容" class="headerlink" title="6.2.如何让博文列表不显示全部内容"></a>6.2.如何让博文列表不显示全部内容</h3><p>默认情况下,生成的博文目录会显示全部文章内容,如何设置文章摘要长度呢?</p>
+<p>可以在合适的位置加上’<!--more-->‘即可,显示在页面上的效果就是新增了一个’more&gt;&gt;’功能选项,查看更多内容</p>
+<h3 id="7-关于缺失模块"><a href="#7-关于缺失模块" class="headerlink" title="7.关于缺失模块"></a>7.关于缺失模块</h3><p>缺失模块</p>
+<ol>
+<li>请确保node版本大于6.2</li>
+<li>在博客根目录（注意不是yilia根目录）执行以下命令:<pre><code class="bash">cnpm i hexo-generator-json-content --save
+</code></pre>
+</li>
+<li>在根目录_config.yml里添加配置：<pre><code class="bash">jsonContent:
+ meta: false
+ pages: false
+ posts:
+   title: true
+   date: true
+   path: true
+   text: false
+   raw: false
+   content: false
+   slug: false
+   updated: false
+   comments: false
+   link: false
+   permalink: false
+   excerpt: false
+   categories: false
+   tags: true
+</code></pre>
+<h4 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h4><a href="http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="noopener">以上内容整理参考自文章</a></li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2018/12/04/other/hexo-git-da-jian-ge-ren-bo-ke/" class="b-link-green">Hexo+Git搭建个人博客</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2018-12-04T09-48-13',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/04/10/javabasics/java-ji-chu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java基础">
+                        
+                        <span class="card-title">Java基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Java简介参考Runoob
+搭建开发环境
+JVM(Java Virtual Machine):Java虚拟机，简称JVM，是运行所有Java程序的假想计算机，是Java程序的运行环境，是Java最具吸引力的特性之一。我们编写的Java代码</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java学习笔记/" class="post-category" target="_blank">
+                                    Java学习笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+            </div>
+            <div class="card">
+                <a href="/2018/12/04/other/hexo-git-da-jian-ge-ren-bo-ke/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Hexo+Git搭建个人博客">
+                        
+                        <span class="card-title">Hexo+Git搭建个人博客</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">前言基于hexo+github pages服务搭建博客,快速,便捷,免费的搭建属于自己的个人博客
+1.准备工作在开始一切之前,你必须已经:
+
+有一个github账号,没有的话去注册一个
+电脑 安装 了node.js,npm,并了解相关基础知</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Other/" class="post-category" target="_blank">
+                                    Other
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hexo/" target="_blank">
+                        <span class="chip bg-color">Hexo</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">250.7k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

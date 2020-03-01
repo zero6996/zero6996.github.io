@@ -1,0 +1,1758 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="SpringMVC学习1, Zero的博客">
+    <meta name="description" content="1. SpringMVC基本概念1.1 关于三层架构和MVC
+1.1.1 三层架构
+开发服务器端程序，一般基于两种形式，一种C/S架构程序，一种B/S架构程序
+使用Java语言基本上都是开发B/S架构的程序，B/S架构又分为了三层架构
+三层">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>SpringMVC学习1 | Zero的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        SpringMVC学习1
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/SpringMVC/" target="_blank">
+                                <span class="chip bg-color">SpringMVC</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/SpringMVC/" class="post-category" target="_blank">
+                                SpringMVC
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-09-02
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        7.3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        31 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-SpringMVC基本概念"><a href="#1-SpringMVC基本概念" class="headerlink" title="1. SpringMVC基本概念"></a>1. SpringMVC基本概念</h2><h3 id="1-1-关于三层架构和MVC"><a href="#1-1-关于三层架构和MVC" class="headerlink" title="1.1 关于三层架构和MVC"></a>1.1 关于三层架构和MVC</h3><a id="more"></a>
+<h4 id="1-1-1-三层架构"><a href="#1-1-1-三层架构" class="headerlink" title="1.1.1 三层架构"></a>1.1.1 三层架构</h4><ul>
+<li>开发服务器端程序，一般基于两种形式，一种C/S架构程序，一种B/S架构程序</li>
+<li>使用Java语言基本上都是开发B/S架构的程序，B/S架构又分为了三层架构</li>
+<li>三层架构<ol>
+<li>表现层：WEB层，用来和客户端进行数据交互的。表现层一般会采用MVC的设计模型</li>
+<li>业务层：处理公司具体的业务逻辑</li>
+<li>持久层：用来操作数据库</li>
+</ol>
+</li>
+</ul>
+<h4 id="1-1-2-MVC模型"><a href="#1-1-2-MVC模型" class="headerlink" title="1.1.2 MVC模型"></a>1.1.2 MVC模型</h4><ol>
+<li>MVC全名是<code>Model View Controller</code>模型视图控制器，每个部分各司其职。</li>
+<li>Model：数据模型，JavaBean的类，用来进行数据封装。</li>
+<li>View：指JSP、HTML用来展示数据给用户</li>
+<li>Controller：用来接收用户的请求，整个流程的控制器。用来进行数据校验等。</li>
+</ol>
+<h3 id="1-2-SpringMVC概述"><a href="#1-2-SpringMVC概述" class="headerlink" title="1.2 SpringMVC概述"></a>1.2 SpringMVC概述</h3><h4 id="1-2-1-SpringMVC是什么"><a href="#1-2-1-SpringMVC是什么" class="headerlink" title="1.2.1 SpringMVC是什么"></a>1.2.1 SpringMVC是什么</h4><ol>
+<li>是一种基于Java实现的MVC设计模型的请求驱动类型的轻量级Web框架。</li>
+<li>Spring MVC属于SpringFrameWork的后续产品，已经融合在SpringWebFlow里面。Spring框架提供了构建 Web 应用程序的全功能MVC模块。</li>
+<li>使用Spring可插入的MVC架构，从而在使用Spring进行WEB开发时，可以选择使用Spring的SpringMVC框架或集成其他MVC开发框架，如Struts1(现在一般不用)，Struts2等。</li>
+<li>它通过一套注解，让一个简单的 Java 类成为处理请求的控制器，而无须实现任何接口。同时它还支持<br> RESTful 编程风格的请求。</li>
+</ol>
+<h4 id="1-2-2-SpringMVC在三层架构的位置"><a href="#1-2-2-SpringMVC在三层架构的位置" class="headerlink" title="1.2.2 SpringMVC在三层架构的位置"></a>1.2.2 SpringMVC在三层架构的位置</h4><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/09/06/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84-1567699806413.jpg" alt="三层架构"></p>
+<h4 id="1-2-3-SpringMVC的优势"><a href="#1-2-3-SpringMVC的优势" class="headerlink" title="1.2.3 SpringMVC的优势"></a>1.2.3 SpringMVC的优势</h4><ul>
+<li>清晰的角色划分：<ul>
+<li>前端控制器（DispatcherServlet）</li>
+<li>请求到处理器映射（HandlerMapping）</li>
+<li>处理器适配器（HandlerAdapter）</li>
+<li>视图解析器（ViewResolver）</li>
+<li>处理器或页面控制器（Controller）</li>
+<li>验证器（ Validator）</li>
+<li>命令对象（Command 请求参数绑定到的对象就叫命令对象）</li>
+<li>表单对象（Form Object 提供给表单展示和提交到的对象就叫表单对象）。</li>
+</ul>
+</li>
+<li>分工明确，而且扩展点相当灵活，可以很容易扩展，虽然几乎不需要。</li>
+<li>由于命令对象就是一个 POJO，无需继承框架特定 API，可以使用命令对象直接作为业务对象。</li>
+<li>和 Spring 其他框架无缝集成，是其它 Web 框架所不具备的。</li>
+<li>可适配，通过 HandlerAdapter 可以支持任意的类作为处理器。</li>
+<li>可定制性，HandlerMapping、ViewResolver 等能够非常简单的定制。</li>
+<li>功能强大的数据验证、格式化、绑定机制。</li>
+<li>利用 Spring 提供的 Mock 对象能够非常简单的进行 Web 层单元测试。</li>
+<li>本地化、主题的解析的支持，使我们更容易进行国际化和主题的切换。</li>
+<li><p>强大的 JSP 标签库，使 JSP 编写更容易。</p>
+</li>
+<li><p>支持RESTful风格的编程支持</p>
+</li>
+</ul>
+<h4 id="1-2-4-SpringMVC和Struts2的优劣分析-了解"><a href="#1-2-4-SpringMVC和Struts2的优劣分析-了解" class="headerlink" title="1.2.4 SpringMVC和Struts2的优劣分析[了解]"></a>1.2.4 SpringMVC和Struts2的优劣分析[了解]</h4><ul>
+<li>共同点：<ul>
+<li>都是表现层框架，基于MVC模型编写的。</li>
+<li>底层都离不开原始ServletAPI。</li>
+<li>它们处理请求的机制都是一个核心控制器。</li>
+</ul>
+</li>
+<li>区别：<ul>
+<li>Spring MVC 的入口是 Servlet, 而 Struts2 是 Filter。</li>
+<li>Spring MVC 是基于方法设计的，而 Struts2 是基于类，Struts2 每次执行都会创建一个动作类。所以 Spring MVC 会稍微比 Struts2 快些。</li>
+<li>Spring MVC 使用更加简洁,同时还支持 JSR303, 处理 ajax 的请求更方便。</li>
+<li>Struts2 的 OGNL 表达式使页面的开发效率相比 Spring MVC 更高些，但执行效率并没有比 JSTL 提<br>升，尤其是 Struts2 的表单标签，远没有 html 执行效率高。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>OGNL是对象 - 图形导航语言的缩写，它是一种功能强大的表达式语言，可以存取对象的任意属性，调用对象的方法，遍历整个对象的结构图，实现字段类型转化等功能。</p>
+</blockquote>
+<h2 id="2-SpringMVC入门"><a href="#2-SpringMVC入门" class="headerlink" title="2. SpringMVC入门"></a>2. SpringMVC入门</h2><h3 id="2-1-SpringMVC入门案例"><a href="#2-1-SpringMVC入门案例" class="headerlink" title="2.1 SpringMVC入门案例"></a>2.1 SpringMVC入门案例</h3><h4 id="1-创建Web工程，引入开发相关的jar包"><a href="#1-创建Web工程，引入开发相关的jar包" class="headerlink" title="1. 创建Web工程，引入开发相关的jar包"></a>1. 创建Web工程，引入开发相关的jar包</h4><pre><code class="xml">&lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;!--版本锁定--&gt;
+    &lt;spring.version&gt;5.0.2.RELEASE&lt;/spring.version&gt;
+&lt;/properties&gt;
+
+&lt;dependencies&gt;
+    &lt;!--引入spring相关jar包--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;2.5&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
+        &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+        &lt;version&gt;2.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<h4 id="2-配置核心控制器-DispatcherServlet"><a href="#2-配置核心控制器-DispatcherServlet" class="headerlink" title="2. 配置核心控制器(DispatcherServlet)"></a>2. 配置核心控制器(DispatcherServlet)</h4><ul>
+<li>在web.xml中配置前端控制器</li>
+</ul>
+<pre><code class="xml">&lt;!--配置核心前端控制器--&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;!--加载mvc配置文件--&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;classpath:SpringMVC.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;!--启动服务器就自动加载配置文件，生成对象--&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;!--配置控制器映射，拦截所有请求--&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre>
+<h4 id="3-编写SpringMVC-xml的配置文件"><a href="#3-编写SpringMVC-xml的配置文件" class="headerlink" title="3. 编写SpringMVC.xml的配置文件"></a>3. 编写SpringMVC.xml的配置文件</h4><pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+    &lt;!--开启注解扫描--&gt;
+    &lt;context:component-scan base-package="cn.zero.controller"/&gt;
+
+    &lt;!--配置视图解析器对象--&gt;
+    &lt;bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;
+        &lt;!--配置前缀后缀，访问路径等于：/WEB-INF/pages/xxx.jsp--&gt;
+        &lt;property name="prefix" value="/WEB-INF/pages/"/&gt;
+        &lt;property name="suffix" value=".jsp"/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--开启SpringMVC框架注解的支持--&gt;
+    &lt;mvc:annotation-driven/&gt;
+
+&lt;/beans&gt;
+</code></pre>
+<h4 id="4-编写index-jsp和HelloController控制器类"><a href="#4-编写index-jsp和HelloController控制器类" class="headerlink" title="4. 编写index.jsp和HelloController控制器类"></a>4. 编写index.jsp和HelloController控制器类</h4><ul>
+<li>index.jsp</li>
+</ul>
+<pre><code class="jsp">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;主页&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h3&gt;SpringMVC快速入门&lt;/h3&gt;
+&lt;a href="/hello"&gt;入门程序&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<ul>
+<li>HelloController</li>
+</ul>
+<pre><code class="java">// 控制器类
+@Controller
+public class HelloController {
+
+
+    @RequestMapping("/hello")
+    public String sayHello(){
+        System.out.println("Hello SpringMVC!");
+        return "success";
+    }
+}
+</code></pre>
+<h4 id="5-在WEB-INF下创建pages文件夹，编写success-jsp的成功页面"><a href="#5-在WEB-INF下创建pages文件夹，编写success-jsp的成功页面" class="headerlink" title="5. 在WEB-INF下创建pages文件夹，编写success.jsp的成功页面"></a>5. 在WEB-INF下创建pages文件夹，编写success.jsp的成功页面</h4><pre><code class="jsp">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;访问成功&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h3&gt;入门程序访问成功&lt;/h3&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4 id="6-启动服务器"><a href="#6-启动服务器" class="headerlink" title="6. 启动服务器"></a>6. 启动服务器</h4><p>访问localhost/index.jsp，点击入门程序，查看是否正常跳转。</p>
+<h3 id="2-2-入门案例的执行过程及原理分析"><a href="#2-2-入门案例的执行过程及原理分析" class="headerlink" title="2.2 入门案例的执行过程及原理分析"></a>2.2 入门案例的执行过程及原理分析</h3><h4 id="2-2-1-入门案例的执行流程"><a href="#2-2-1-入门案例的执行流程" class="headerlink" title="2.2.1 入门案例的执行流程"></a>2.2.1 入门案例的执行流程</h4><ol>
+<li>当启动Tomcat服务器的时候，因为配置了load-on-startup标签，所以会创建DispatcherServlet对象，<br>就会加载springmvc.xml配置文件</li>
+<li>开启了注解扫描，那么HelloController对象就会被创建</li>
+<li>从index.jsp发送请求，请求会先到达DispatcherServlet核心控制器，根据配置@RequestMapping注解<br> 找到执行的具体方法</li>
+<li>根据执行方法的返回值，再根据配置的视图解析器，去指定的目录下查找指定名称的JSP文件</li>
+<li>Tomcat服务器渲染页面，做出响应</li>
+<li>如下图示流程图：</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/09/06/flowChart-1567699840232.jpg" alt="flowChart"></p>
+<h4 id="2-2-2-SpringMVC的请求响应流程"><a href="#2-2-2-SpringMVC的请求响应流程" class="headerlink" title="2.2.2 SpringMVC的请求响应流程"></a>2.2.2 SpringMVC的请求响应流程</h4><ul>
+<li>官方完整流程图：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/08/29/mvc-1567090970613.jpg" alt="mvc"></p>
+<h3 id="2-3-组件详解"><a href="#2-3-组件详解" class="headerlink" title="2.3 组件详解"></a>2.3 组件详解</h3><ul>
+<li>前端控制器(DispatcherServlet)<ul>
+<li>用户请求到达前端控制器，它相当于mvc模式中的c。DispatcherServlet 是<strong>整个流程控制的中心</strong>，由它调用其它组件处理用户的请求，DispatcherServlet 的存在降低了组件之间的<strong>耦合性</strong>。</li>
+</ul>
+</li>
+<li>处理器映射器(HandlerMapping)<ul>
+<li>HandlerMapping 负责根据用户请求找到 Handler 即处理器，SpringMVC 提供了不同的映射器实现不同的映射方式，例如：配置文件方式，实现接口方式，注解方式等。</li>
+</ul>
+</li>
+<li>处理器(Handler)<ul>
+<li>它就是我们开发中要编写的具体<strong>业务控制器</strong>。由 DispatcherServlet 把用户请求转发到 Handler。由Handler 对具体的用户请求进行处理。</li>
+</ul>
+</li>
+<li>处理器适配器(HandlerAdapter)<ul>
+<li>通过 HandlerAdapter 对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</li>
+</ul>
+</li>
+<li>视图解析器(ViewResolver)<ul>
+<li>View Resolver 负责将处理结果生成 View 视图，View Resolver首先根据逻辑视图名解析成物理视图名<br>即具体的页面地址，再生成 View 视图对象，最后对 View 进行渲染将处理结果通过页面展示给用户。</li>
+</ul>
+</li>
+<li>视图(View)<ul>
+<li>SpringMVC 框架提供了很多的 View 视图类型的支持，包括：jstlView、freemarkerView、pdfView<br>等。我们最常用的视图就是 jsp。一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-1-lt-mvc-annotation-driven-gt"><a href="#2-3-1-lt-mvc-annotation-driven-gt" class="headerlink" title="2.3.1 <mvc:annotation-driven/>"></a>2.3.1 <code>&lt;mvc:annotation-driven/&gt;</code></h4><p>在SpringMVC 的各个组件中，处理器映射器、处理器适配器、视图解析器称为SpringMVC的三大组件。</p>
+<p>使用自动加载 RequestMappingHandlerMapping(处理映射器)和RequestMappingHandlerAdapter(处 理 适 配 器)， 可用在SpringMVC.xml配置文件中使用替代注解处理器和适配器的配置。</p>
+<h3 id="2-4-RequestMapping注解详解"><a href="#2-4-RequestMapping注解详解" class="headerlink" title="2.4 @RequestMapping注解详解"></a>2.4 @RequestMapping注解详解</h3><ol>
+<li>RequestMapping注解的作用是<strong>建立请求URL和处理方法之间的对应关系</strong></li>
+<li>RequestMapping注解可以作用在方法和类上<ol>
+<li>作用在类上：第一级的访问目录</li>
+<li>作用在方法上：第二级的访问目录</li>
+<li>细节：前端路径可以不写 <code>/</code> 表示应用的根目录开始</li>
+<li>细节：<code>${pageContext.request.contextPath}</code>也可以省略不写，但是路径上不能写 /</li>
+</ol>
+</li>
+<li>RequestMapping的属性<ol>
+<li>path：指定请求路径的url</li>
+<li>value：value属性等同于path属性，指定请求路径url</li>
+<li>mthod：指定该方法的请求方式</li>
+<li>params：指定限制请求参数的条件，允许简单的表达式，例<code>params={“money!100”}</code>表示请求参数中money不能是100。</li>
+<li>headers：发送的请求中必须包含的请求头</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>以上属性出现两个以上时，他们的关系是&amp;&amp;逻辑与关系</p>
+</blockquote>
+<h2 id="3-请求参数的绑定-重点"><a href="#3-请求参数的绑定-重点" class="headerlink" title="3. 请求参数的绑定[重点]"></a>3. 请求参数的绑定[重点]</h2><h3 id="3-1-绑定说明"><a href="#3-1-绑定说明" class="headerlink" title="3.1 绑定说明"></a>3.1 绑定说明</h3><h4 id="3-1-1-绑定的机制"><a href="#3-1-1-绑定的机制" class="headerlink" title="3.1.1 绑定的机制"></a>3.1.1 绑定的机制</h4><ul>
+<li>表单提交的数据都是key=value格式的，例：username=xiaoming&amp;password=123456</li>
+<li>SpringMVC的参数绑定过程是把表单提交的请求参数，作为控制器中方法的参数进行绑定的</li>
+<li>要求：提交表单的name和参数的名称必须是相同的</li>
+</ul>
+<h4 id="3-1-2-支持的数据类型"><a href="#3-1-2-支持的数据类型" class="headerlink" title="3.1.2 支持的数据类型"></a>3.1.2 支持的数据类型</h4><ul>
+<li>基本类型参数：包括基本类型和String类型</li>
+<li>POJO类型参数：包括实体类，以及关联的实体类</li>
+<li>数组和集合类型参数：包括List结构和Map结构的集合(包括数组)</li>
+</ul>
+<h4 id="3-1-3-使用要求"><a href="#3-1-3-使用要求" class="headerlink" title="3.1.3 使用要求"></a>3.1.3 使用要求</h4><ul>
+<li>如果是基本类型或String类型<ul>
+<li>要求参数名称必须和控制器中方法的形参名称保持一致。(严格区分大小写)</li>
+</ul>
+</li>
+<li>如果是 POJO 类型，或者它的关联对象<ul>
+<li>要求表单中参数名称和 POJO 类的属性名称保持一致。并且控制器方法的参数类型是 POJO 类型。</li>
+</ul>
+</li>
+<li>如果是集合类型,有两种方式：<ul>
+<li>要求集合类型的请求参数必须在 POJO 中。在表单中请求参数名称要和 POJO 中集合属性名称相同。给 List 集合中的元素赋值，使用下标。给 Map 集合中的元素赋值，使用键值对。</li>
+<li>接收的请求参数是 json 格式数据。需要借助一个注解实现。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-1-4-绑定参数示例"><a href="#3-1-4-绑定参数示例" class="headerlink" title="3.1.4 绑定参数示例"></a>3.1.4 绑定参数示例</h4><h5 id="1-基本类型和String类型作为参数"><a href="#1-基本类型和String类型作为参数" class="headerlink" title="1. 基本类型和String类型作为参数"></a>1. 基本类型和String类型作为参数</h5><ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">@RequestMapping("/testParam")
+public String testParam(String username){
+    System.out.println("用户名："+username);
+    return "success";
+}
+</code></pre>
+<ul>
+<li>jsp代码</li>
+</ul>
+<pre><code class="jsp">&lt;a href="param/testParam?username=xiaoming"&gt;请求参数绑定&lt;/a&gt;
+</code></pre>
+<h5 id="2-POJO类型作为参数"><a href="#2-POJO类型作为参数" class="headerlink" title="2. POJO类型作为参数"></a>2. POJO类型作为参数</h5><ul>
+<li>需创建实体类Account和User，User类作为账户类的参数。</li>
+</ul>
+<pre><code class="java">public class Account implements Serializable {
+    private String username;
+    private String password;
+    private Double money;
+    private User user;
+}
+public class User {
+    private String name;
+    private Integer age;
+}
+</code></pre>
+<ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">/**
+     * 接收参数，封装为POJO类型
+     * @param account
+     * @return
+     */
+@RequestMapping(value = "/testPojo",method = RequestMethod.POST)
+public String testPojo(Account account){
+    System.out.println(account);
+    return "success";
+}
+</code></pre>
+<ul>
+<li>Jsp</li>
+</ul>
+<pre><code class="jsp">&lt;form action="/param/testPojo" method="post"&gt;
+    用户名：&lt;input type="text" name="username"&gt;&lt;br&gt;
+    密码：&lt;input type="password" name="password"&gt;&lt;br&gt;
+    余额：&lt;input type="text" name="money"&gt;&lt;br&gt;
+    真实姓名：&lt;input type="text" name="user.name"&gt;&lt;br&gt;
+    年龄：&lt;input type="text" name="user.age"&gt;&lt;br&gt;
+    &lt;input type="submit" value="提交"&gt;
+&lt;/form&gt;
+</code></pre>
+<ul>
+<li>访问结果：<code>Account{username='admin', password='123', money=333.0, user=User{name='xiaoming', age=22}}</code></li>
+</ul>
+<h5 id="3-POJO类中包含集合类型参数"><a href="#3-POJO类中包含集合类型参数" class="headerlink" title="3. POJO类中包含集合类型参数"></a>3. POJO类中包含集合类型参数</h5><ul>
+<li>修改Account类</li>
+</ul>
+<pre><code class="java">public class Account implements Serializable {
+    private String username;
+    private String password;
+    private Double money;
+
+    // 演示绑定POJO对象
+//    private User user;
+
+    // POJO类中包含集合类型参数
+    private List&lt;User&gt; list;
+    private Map&lt;String,User&gt; map;
+}
+</code></pre>
+<ul>
+<li>控制器添加方法</li>
+</ul>
+<pre><code class="java">/**
+     * POJO类中包含集合类型参数
+     */
+@RequestMapping(value = "/testSetType",method = RequestMethod.POST)
+public String testSetType(Account account){
+    System.out.println(account);
+    return "success";
+}
+</code></pre>
+<ul>
+<li>Jsp</li>
+</ul>
+<pre><code class="jsp">&lt;h3&gt;POJO类中包含集合类型参数&lt;/h3&gt;
+&lt;form action="/param/testSetType" method="post"&gt;
+    用户名：&lt;input type="text" name="username"&gt;&lt;br&gt;
+    密码：&lt;input type="password" name="password"&gt;&lt;br&gt;
+    余额：&lt;input type="text" name="money"&gt;&lt;br&gt;
+    &lt;h4&gt;封装到list集合中&lt;/h4&gt;
+    真实姓名：&lt;input type="text" name="list[0].name"&gt;&lt;br&gt;
+    年龄：&lt;input type="text" name="list[0].age"&gt;&lt;br&gt;
+    &lt;h4&gt;封装到map集合中&lt;/h4&gt;
+    真实姓名：&lt;input type="text" name="map['user'].name"&gt;&lt;br&gt;
+    年龄：&lt;input type="text" name="map['user'].age"&gt;&lt;br&gt;
+    &lt;input type="submit" value="提交"&gt;
+&lt;/form&gt;
+</code></pre>
+<ul>
+<li>访问结果：<code>Account{username='admin', password='111', money=333.0, list=[User{name='小明', age=22}], map={user=User{name='小李', age=21}}}</code></li>
+</ul>
+<h5 id="4-POST请求参数中文乱码问题"><a href="#4-POST请求参数中文乱码问题" class="headerlink" title="4. POST请求参数中文乱码问题"></a>4. POST请求参数中文乱码问题</h5><p>在web.xml中，添加过滤器</p>
+<pre><code class="xml">&lt;!--添加过滤器，解决POST中文乱码问题--&gt;
+&lt;filter&gt;
+    &lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;encoding&lt;/param-name&gt;
+        &lt;param-value&gt;UTF-8&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+</code></pre>
+<h3 id="3-2-特殊情况"><a href="#3-2-特殊情况" class="headerlink" title="3.2 特殊情况"></a>3.2 特殊情况</h3><p>如果User类中有一个Date参数，在表单提交时日期格式不正确，封装POJO对象就会失败，这时就需要自己定义一个类型转换器。 </p>
+<h4 id="3-2-1-自定义类型转换器"><a href="#3-2-1-自定义类型转换器" class="headerlink" title="3.2.1 自定义类型转换器"></a>3.2.1 自定义类型转换器</h4><p>表单提交的任何数据类型全部都是字符串类型，但是后台定义Integer类型，数据也可以封装上，说明Spring框架内部会默认进行数据类型转换。如果想自定义数据类型转换，可以实现Converter的接口</p>
+<h5 id="1-第一步：定义一个类，实现Converter接口，该接口有两个泛型。"><a href="#1-第一步：定义一个类，实现Converter接口，该接口有两个泛型。" class="headerlink" title="1. 第一步：定义一个类，实现Converter接口，该接口有两个泛型。"></a>1. 第一步：定义一个类，实现Converter接口，该接口有两个泛型。</h5><pre><code class="java">/**
+ * 将字符串类型转换为日期格式
+ */
+public class StringToDateConverter implements Converter&lt;String, Date&gt; {
+
+    /**
+     * @param source 传入的字符串参数
+     * @return
+     */
+    @Override
+    public Date convert(String source) {
+        if (source == null){
+            throw new RuntimeException("please entry param！");
+        }
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        // 把字符串转换为日期
+        try {
+            return df.parse(source);
+        } catch (Exception e) {
+            throw new RuntimeException("Data switch Error！");
+        }
+    }
+}
+</code></pre>
+<h5 id="2-在SpringMVC-xml中配置类型转换器"><a href="#2-在SpringMVC-xml中配置类型转换器" class="headerlink" title="2. 在SpringMVC.xml中配置类型转换器"></a>2. 在SpringMVC.xml中配置类型转换器</h5><pre><code class="xml">&lt;!--配置自定义类型转换器--&gt;
+&lt;bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"&gt;
+    &lt;!--注册转换器类--&gt;
+    &lt;property name="converters"&gt;
+        &lt;set&gt;
+            &lt;bean class="cn.zero.utils.StringToDateConverter"/&gt;
+        &lt;/set&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+
+&lt;!--开启SpringMVC框架注解的支持
+    配置一下让转换器生效--&gt;
+&lt;mvc:annotation-driven conversion-service="conversionService"/&gt;
+</code></pre>
+<ul>
+<li>重启服务器在测试一下，就支持<code>yyyy-MM-dd</code>的日期格式了。</li>
+</ul>
+<h4 id="3-2-2-使用ServletAPI对象作为方法参数"><a href="#3-2-2-使用ServletAPI对象作为方法参数" class="headerlink" title="3.2.2 使用ServletAPI对象作为方法参数"></a>3.2.2 使用ServletAPI对象作为方法参数</h4><ul>
+<li><p>示例获取Servlet对象</p>
+<ul>
+<li>在控制器中新增方法</li>
+</ul>
+<pre><code class="java">/**
+     * 测试获取ServetlAPI
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     */
+@RequestMapping("/testServletAPI")
+public String testServletAPI(HttpServletRequest request,
+                             HttpServletResponse response,
+                             HttpSession session){
+    System.out.println(request);
+    System.out.println(response);
+    System.out.println(session);
+    return "success";
+}
+</code></pre>
+<ul>
+<li>jsp代码：<code>&lt;a href="/param/testServletAPI"&gt;测试访问ServletAPI&lt;/a&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="4-常用注解"><a href="#4-常用注解" class="headerlink" title="4. 常用注解"></a>4. 常用注解</h2><h3 id="4-1-RequestParam"><a href="#4-1-RequestParam" class="headerlink" title="4.1 @RequestParam"></a>4.1 @RequestParam</h3><h4 id="1-使用说明"><a href="#1-使用说明" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><ul>
+<li>作用：把请求中指定名称的参数给控制器中的形参赋值</li>
+<li>属性：<ul>
+<li>value：请求参数中的名称</li>
+<li>required：请求参数中是否必须提供此参数。默认为true，表示必须提供，不提供将报错。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-示例"><a href="#2-示例" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">@Controller
+@RequestMapping("anno")
+public class AnnotationController {
+
+    @RequestMapping("/useRequestParam")
+    public String useRequestParam(@RequestParam("name") String username,
+                                  @RequestParam(value = "age",required = false) Integer age){
+        System.out.println(username+":"+age);
+        return "success";
+    }
+}
+</code></pre>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;常用注解测试&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h2&gt;1. 测试requestParam注解的使用&lt;/h2&gt;
+&lt;a href="/anno/useRequestParam?name=xiaoming"&gt;@RequestParam注解&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<ul>
+<li>结果：<code>xiaoming:null</code>，因配置了required=false，故请求参数中无age不会报错。</li>
+</ul>
+<h3 id="4-2-RequestBody"><a href="#4-2-RequestBody" class="headerlink" title="4.2 @RequestBody"></a>4.2 @RequestBody</h3><h4 id="1-使用说明-1"><a href="#1-使用说明-1" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><ul>
+<li>作用：用于获取请求体内容。直接使用得到是key=value&amp;key=value结构的数据。get请求方式不适用。</li>
+<li>属性：<ul>
+<li>required：是否必须有请求体。默认值true，表示必须有请求体，故get请求方式会报错。如取值为false，get请求得到的是null。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-示例-1"><a href="#2-示例-1" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">/**
+     * RequestBody:用于获取请求体内容。
+     * @param body
+     * @return
+     */
+@RequestMapping("/useRequestBody")
+public String useRequestBody(@RequestBody(required = false) String body){
+    System.out.println(body);
+    return "success";
+}
+</code></pre>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;h3&gt;2. 测试@RequestBody注解使用&lt;/h3&gt;
+&lt;h5&gt;POST请求测试&lt;/h5&gt;
+&lt;form action="/anno/useRequestBody" method="post"&gt;
+    用户名：&lt;input type="text" name="name"&gt;&lt;br&gt;
+    年龄：&lt;input type="text" name="age"&gt;&lt;br&gt;
+    &lt;input type="submit" value="提交"&gt;
+&lt;/form&gt;
+&lt;h5&gt;GET请求测试&lt;/h5&gt;
+&lt;a href="/anno/useRequestBody?body=test"&gt;requestBody注解get请求&lt;/a&gt;
+</code></pre>
+<ul>
+<li>测试结果：<ul>
+<li>POST请求：<code>name=xiaoming&amp;age=1</code></li>
+<li>GET请求：<code>null</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="4-3-ResponseBody"><a href="#4-3-ResponseBody" class="headerlink" title="4.3 @ResponseBody"></a>4.3 @ResponseBody</h3><h4 id="1-使用说明-2"><a href="#1-使用说明-2" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><p>该注解的作用是将控制器方法返回的对象通过适当的转换器转换为指定格式之后，写入到response对象的body区，通常用来<strong>返回JSON数据</strong>或者是XML数据。</p>
+<ul>
+<li>注意：使用此注解后不会在走视图解析器，而是直接将数据写入到输出流中，效果等同于通过response对象输出指定格式数据(<code>response.getWriter.write(JSONObject.fromObject(user).toString());</code>)。</li>
+</ul>
+<h4 id="2-示例-2"><a href="#2-示例-2" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">@RequestMapping("/testResponseBody")
+@ResponseBody
+public Student testResponseBody(){
+    return new Student("小明","男");
+}
+</code></pre>
+<ul>
+<li>访问页面结果：<code>{"name":"小明","sex":"男"}</code></li>
+<li>因返回值满足key-value(对象或map)格式，所以会自动将响应头的Content-Type设置为了<code>application/html;charset=utf-8</code>，然后把转换后的内容以输出流的形式响应给客户端。</li>
+</ul>
+<blockquote>
+<p>注意：使用该注解返回json数据还需额外jar包：jackson，依赖坐标如下</p>
+<pre><code class="xml">&lt;!--添加对json数据的支持 --&gt;
+&lt;dependency&gt;
+ &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+ &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+ &lt;version&gt;2.8.3&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+ &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+ &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+ &lt;version&gt;2.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+</blockquote>
+<ul>
+<li>如果返回是字符串类型，控制器代码如下</li>
+</ul>
+<pre><code class="java">@RequestMapping(value = "/testResponseBody",produces = "text/html;charset=utf-8") 
+@ResponseBody
+public String testResponseBody(){
+    return "你好!";
+}
+</code></pre>
+<ul>
+<li>访问结果：<code>你好!</code></li>
+<li>如果返回值不能解析为json格式，注解就会将其直接以输出流形式输出到页面上。</li>
+</ul>
+<blockquote>
+<p>注：使用produces设置响应头Content-Type为<code>text/html;charset=utf-8</code>解决中文乱码问题。</p>
+</blockquote>
+<h3 id="4-4-PathVaribale"><a href="#4-4-PathVaribale" class="headerlink" title="4.4 @PathVaribale"></a>4.4 @PathVaribale</h3><h4 id="1-使用说明-3"><a href="#1-使用说明-3" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><p>路径变量，用于绑定 url 中的占位符。例如：请求url中/delete/{id}，这个{id}就是url占位符。url 支持占位符是 Spring3.0 之后加入的，是 SpringMVC支持<strong>REST风格</strong>URL的一个重要标志。</p>
+<ul>
+<li>属性<ul>
+<li>value：用于指定url中占位符名称。</li>
+<li>required：是否必须提供占位符。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-示例-3"><a href="#2-示例-3" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">/**
+     * PathVaribale：用于绑定 url 中的占位符
+     */
+@RequestMapping("/usePathVariable/{id}")
+public String usePathVariable(@PathVariable("id") Integer id){
+    System.out.println(id);
+    return "success";
+}
+</code></pre>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;h3&gt;3. 测试@PathVaribale注解&lt;/h3&gt;
+&lt;a href="/anno/usePathVariable/100"&gt;PathVariable注解的使用&lt;/a&gt;
+</code></pre>
+<ul>
+<li>测试结构：<code>100</code></li>
+</ul>
+<h4 id="3-关于REST风格URL"><a href="#3-关于REST风格URL" class="headerlink" title="3. 关于REST风格URL"></a>3. 关于REST风格URL</h4><ul>
+<li>什么是REST：<ul>
+<li><strong>表现层状态转换</strong>（REST，英文：<strong>Representational State Transfer</strong>），一种万维网软件架构风格，目的是便于不同软件/程序在网络中互相传递信息。它是一种针对网络应用的设计和开发方式，可以降低开发的复杂性，提高系统的可伸缩性。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/c5c83872dad2" target="_blank" rel="noopener">详细内容见文章</a></p>
+<ul>
+<li>RESTful的优点：结构清晰、符合标准、易于理解、扩展方便。RESTful可以通过一套统一的接口为 Web、iOS和Android提供服务，另外对于很多平台来说（比如像Facebook，Twiter、微博、微信等开放平台），它们不需要有显式的前端，只需要一套提供服务的接口，于是RESTful便是它们最好的选择。</li>
+<li>RESTful的特性<ul>
+<li><strong>资源(Resources)</strong>：网络上的一个实体，或说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲、一种服务，总之就是一个具体的存在。通过一个URI来指向它。</li>
+<li><strong>表现层(Representation)</strong>：把资源具体呈现出来的形式，叫做它的表现层。比如，文本可以用 txt 格式表现，也可以用 HTML 格式、XML 格式、JSON 格式表现，甚至可以采用二进制格式。</li>
+<li><strong>状态转化(Status Transfer)</strong>：每发出一个请求，就代表了客户端和服务器的一次交互过程。HTTP协议，是一个无状态协议，即所有的状态都保存在服务器端。因此，如果客户端想要操作服务器，必须通过某种手段，让服务器端发生“状态转化”。而这种转化是建立在表现层上的。所以就是“表现层状态转化”。具体说，就是HTTP协议里面，四个表示操作方式的动词以及对应的基本操作：GET(获取资源)、POST(新建资源)、PUT(更新资源)、DELETE(删除资源)。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-基于HiddentHttpMethodFilter的REST风格示例-了解"><a href="#4-基于HiddentHttpMethodFilter的REST风格示例-了解" class="headerlink" title="4. 基于HiddentHttpMethodFilter的REST风格示例[了解]"></a>4. 基于HiddentHttpMethodFilter的REST风格示例[了解]</h4><ul>
+<li><p>作用：</p>
+<ul>
+<li>由于浏览器form表单只支持GET和POST请求，而DELETE、PUT等method并不支持，Spring3.0添加了一个过滤器，可以将浏览器请求改为指定的请求方式，发送给我们的控制器方法，使得支持DELETE和PUT请求。</li>
+</ul>
+</li>
+<li><p>使用步骤：</p>
+<ul>
+<li>第一步：在web.xml中配置该过滤器</li>
+<li>第二步：请求方式必须使用POST请求</li>
+<li>第三部：按照要求提供_method请求参数，该参数的取值就是我们需要的请求方式。</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;!-- 更新 --&gt;
+&lt;form action="springmvc/testRestPUT/1" method="post"&gt;
+    用户名称：&lt;input type="text" name="username"&gt;&lt;br/&gt;
+    &lt;input type="hidden" name="_method" value="PUT"&gt;
+    &lt;input type="submit" value="更新"&gt;
+&lt;/form&gt;
+</code></pre>
+<ul>
+<li>控制器</li>
+</ul>
+<pre><code class="java">/**
+* put 请求：更新
+* @param username
+* @return
+*/
+@RequestMapping(value="/testRestPUT/{id}",method=RequestMethod.PUT)
+public String testRestfulURLPUT(@PathVariable("id")Integer id,User user){
+    System.out.println("rest put "+id+","+user);
+    return "success";
+}
+
+</code></pre>
+</li>
+</ul>
+<h3 id="4-5-RequestHeader"><a href="#4-5-RequestHeader" class="headerlink" title="4.5 @RequestHeader"></a>4.5 @RequestHeader</h3><h4 id="1-使用说明-4"><a href="#1-使用说明-4" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><ul>
+<li>作用：用于获取请求消息头</li>
+<li>属性<ul>
+<li>value：提供消息头名称</li>
+<li>required：是否必须有此消息头</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>了解即可，一般不用</p>
+</blockquote>
+<h4 id="2-示例-4"><a href="#2-示例-4" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">/**
+     * RequestHeader：用于获取请求消息头。
+     */
+@RequestMapping("/useRequestHeader")
+public String useRequestHeader(@RequestHeader(value = "Accept-Language",required = false)String requestHeader){
+    System.out.println(requestHeader);
+    return "success";
+}
+</code></pre>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;h3&gt;4. 测试@RequestHeader注解&lt;/h3&gt;
+&lt;a href="/anno/useRequestHeader"&gt;获取请求消息头&lt;/a&gt;
+</code></pre>
+<ul>
+<li>结果：<code>zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7</code></li>
+</ul>
+<h3 id="4-6-CookieValue"><a href="#4-6-CookieValue" class="headerlink" title="4.6 @CookieValue"></a>4.6 @CookieValue</h3><h4 id="1-使用说明-5"><a href="#1-使用说明-5" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><ul>
+<li>作用：用于把指定cookie名称的值传入控制器方法参数</li>
+<li>属性：<ul>
+<li>value：指定cookie的名称</li>
+<li>required：是否必须有此cookie</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-示例-5"><a href="#2-示例-5" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">/**
+     * @CookieValue：用于把指定cookie名称的值传入控制器方法参数。
+     * @param cookieValue
+     * @return
+     */
+@RequestMapping("/useCookieValue")
+public String useCookieValue(@CookieValue(value = "JSESSIONID",required = false)String cookieValue){
+    System.out.println(cookieValue);
+    return "success";
+}
+</code></pre>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;h3&gt;5. 测试@CookieValue&lt;/h3&gt;
+&lt;a href="/anno/useCookieValue"&gt;绑定cookie的值&lt;/a&gt;
+</code></pre>
+<ul>
+<li>结果：<code>C8001453C280DF881950883018287F9C</code></li>
+</ul>
+<h3 id="4-7-ModelAttribute"><a href="#4-7-ModelAttribute" class="headerlink" title="4.7 @ModelAttribute"></a>4.7 @ModelAttribute</h3><h4 id="1-使用说明-6"><a href="#1-使用说明-6" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><ul>
+<li>作用：该注解是SpringMVC4.3版本以后新加入的。它可以用于修饰方法和参数。<ul>
+<li><strong>出现在方法上</strong>，表示当前方法会在控制器的方法执行之前，先执行。它可以修饰有具体返回值的方法，也可以修饰没有返回值的方法。</li>
+<li><strong>出现在参数上</strong>，获取指定的数据给参数赋值。</li>
+</ul>
+</li>
+<li>属性：<ul>
+<li>value：用于获取数据的key。key可以是POJO的属性名称，也可以是map结构的key。</li>
+</ul>
+</li>
+<li>应用场景<ul>
+<li>当表单提交数据不是完整的实体类数据时，保证没有提交数据的字段使用数据库对象原来的数据。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-示例-6"><a href="#2-示例-6" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
+<li><p>基于POJO属性的基本使用</p>
+<ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">/**
+     * 出现在方法上：
+     *    被ModelAttribute 修饰的方法
+     *    当前方法会在控制器的方法执行之前，先执行。
+     * @param user
+     */
+@ModelAttribute
+public void showModel(User user){
+    System.out.println("执行了showModel方法"+user.getName());
+}
+
+/**
+     * 接收请求的方法
+     * @param user
+     * @return
+     */
+@RequestMapping("/testModelAttribute")
+public String testModelAttribute(User user) {
+    System.out.println("执行了控制器的方法"+user.getName());
+    return "success";
+}
+</code></pre>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;h3&gt;6. 测试@ModelAttribute&lt;/h3&gt;
+&lt;a href="/anno/testModelAttribute?name=test"&gt;测试ModelAttribute注解的使用&lt;/a&gt;
+</code></pre>
+<ul>
+<li>测试结果：<pre><code>执行了showModel方法test
+执行了控制器的方法test
+</code></pre></li>
+</ul>
+</li>
+<li><p>基于Map的应用场景示例：修饰方法带返回值</p>
+<ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">/**
+     * 出现在方法上：
+     *    被ModelAttribute 修饰的方法
+     *    当前方法会在控制器的方法执行之前，先执行。
+     *    在控制器执行前，查询数据库中用户信息
+     * @param name
+     */
+@ModelAttribute
+public User showModel(String name){
+    // 调用数据库查询方法，返回用户对象
+    User user = findUserByName(name);
+    System.out.println("执行了findUser方法"+user);
+    return user;
+}
+
+/**
+     * 模拟修改用户方法
+     * @param user
+     * @return
+     */
+@RequestMapping("/updateUser")
+public String updateUser(User user) {
+    System.out.println("控制器中处理请求的方法：修改用户"+user);
+    return "success";
+}
+
+/**
+     * 模拟数据库查询操作
+     * @param name
+     * @return
+     */
+private User findUserByName(String name) {
+    User user = new User();
+    user.setName(name);
+    user.setAge(19);
+    user.setDate(new Date());
+    return user;
+}
+</code></pre>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;h4&gt;6.1 2 基于Map应用场景示例：修饰方法带返回值&lt;/h4&gt;
+&lt;form action="/anno/updateUser" method="post"&gt;
+    用户名称：&lt;input type="text" name="name"&gt;&lt;br&gt;
+    年龄：&lt;input type="text" name="age"&gt;&lt;br&gt;
+    &lt;input type="submit" value="保存"&gt;
+&lt;/form&gt;
+</code></pre>
+<ul>
+<li>测试结果：</li>
+</ul>
+<pre><code>执行了findUser方法User{name='小王', age=19, date=Sun Sep 01 17:02:46 CST 2019}
+控制器中处理请求的方法：修改用户User{name='小王', age=11, date=Sun Sep 01 17:02:46 CST 2019}
+</code></pre></li>
+<li><p>基于Map的应用场景示例：修饰方法不带返回值</p>
+<ul>
+<li>前端代码不变，修改控制器方法</li>
+</ul>
+<pre><code class="java">@ModelAttribute
+public void showModel(String name, Map&lt;String,User&gt; map){
+    // 调用数据库查询方法，返回用户对象
+    User user = findUserByName(name);
+    System.out.println("showModel"+System.identityHashCode(user));
+    System.out.println("执行了findUser方法"+user);
+    map.put("user",user);
+}
+
+@RequestMapping("/updateUser")
+    public String updateUser(@ModelAttribute("user") User user) {
+        System.out.println("update"+System.identityHashCode(user));
+        System.out.println("控制器中处理请求的方法：修改用户"+user);
+        return "success";
+    }
+</code></pre>
+</li>
+</ul>
+<h3 id="4-8-SessionAttribute"><a href="#4-8-SessionAttribute" class="headerlink" title="4.8 @SessionAttribute"></a>4.8 @SessionAttribute</h3><h4 id="1-使用说明-7"><a href="#1-使用说明-7" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><ul>
+<li>作用：用于多次执行控制器方法间的参数共享</li>
+<li>属性<ul>
+<li>value：用于指定存入的属性名称</li>
+<li>type：用于指定存入的数据类型</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-示例-7"><a href="#2-示例-7" class="headerlink" title="2. 示例"></a>2. 示例</h4><h5 id="2-1-存储值"><a href="#2-1-存储值" class="headerlink" title="2.1 存储值"></a>2.1 存储值</h5><ul>
+<li>控制器代码</li>
+</ul>
+<pre><code class="java">@Controller
+@RequestMapping("anno")
+@SessionAttributes(value = {"msg"}) // @SessionAttributes该注解只能作用在类上，这里使用效果是将msg再存一份到session域中
+public class AnnotationController {
+
+    /**
+     * SessionAttribute注解
+     * 将值存储到request域中
+     * @return
+     */
+    @RequestMapping("/useSessionAttribute")
+    public String useSessionAttribute(Model model) {
+        // 底层会存储到request域对象中
+        model.addAttribute("msg","小明");
+        return "success";
+    }
+}
+</code></pre>
+<ul>
+<li>Anno.jsp</li>
+</ul>
+<pre><code class="jsp">&lt;h3&gt;7. 测试@SessionAttribute&lt;/h3&gt;
+&lt;a href="/anno/useSessionAttribute"&gt;使用SessionAttribute存储值&lt;/a&gt;&lt;br&gt;
+</code></pre>
+<ul>
+<li>success.jsp</li>
+</ul>
+<pre><code class="jsp">&lt;body&gt;
+&lt;h3&gt;测试程序访问成功&lt;/h3&gt;
+存储到request域中：${msg}
+&lt;br&gt;
+存储到session域中：${sessionScope}
+&lt;/body&gt;
+</code></pre>
+<ul>
+<li>测试结果：</li>
+</ul>
+<pre><code>测试程序访问成功
+存储到request域中：小明 
+存储到session域中：{msg=小明}
+</code></pre><h5 id="2-2-获取值"><a href="#2-2-获取值" class="headerlink" title="2.2 获取值"></a>2.2 获取值</h5><ul>
+<li>控制器</li>
+</ul>
+<pre><code class="java">/**
+     * 获取值
+     * @param map
+     * @return
+     */
+@RequestMapping("/getSessionAttribute")
+public String getSessionAttribute(ModelMap map) { // model无法获取，只能通过它的实现类ModelMap来获取
+    System.out.println("getSessionAttribute....");
+    // 获取存储在request域中的数据
+    String msg = (String) map.get("msg");
+    System.out.println(msg);
+    return "success";
+}
+</code></pre>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;a href="/anno/getSessionAttribute"&gt;获取值&lt;/a&gt;&lt;br&gt;
+</code></pre>
+<ul>
+<li>测试结果，后台显示：</li>
+</ul>
+<pre><code>getSessionAttribute....
+小明
+</code></pre><h5 id="2-3-清除值"><a href="#2-3-清除值" class="headerlink" title="2.3 清除值"></a>2.3 清除值</h5><ul>
+<li>控制器</li>
+</ul>
+<pre><code class="java">    /**
+     * 删除值
+     * @param status
+     * @return
+     */
+@RequestMapping("/delSessionAttribute")
+public String delSessionAttribute(SessionStatus status) {
+    System.out.println("delSessionAttribute....");
+    status.setComplete(); // 删除session域中存储的值
+    return "success";
+}
+</code></pre>
+<ul>
+<li>jsp</li>
+</ul>
+<pre><code class="jsp">&lt;a href="/anno/delSessionAttribute"&gt;删除值&lt;/a&gt;
+</code></pre>
+<ul>
+<li>测试结果，后台显示：<code>delSessionAttribute....</code></li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/09/02/framework/springmvc-kuang-jia-1/" class="b-link-green">SpringMVC学习1</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-09-02T23-59-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/09/04/framework/springmvc-kuang-jia-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="SpringMVC学习2">
+                        
+                        <span class="card-title">SpringMVC学习2</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 响应数据和结果视图1.1 返回值分类
+1.1.1 字符串Controller方法返回字符串可以指定逻辑视图名，通过视图解析器解析为物理视图地址。
+// 返回值是字符串
+@RequestMapping("/testString")
+pu</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-04
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/SpringMVC/" class="post-category" target="_blank">
+                                    SpringMVC
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringMVC/" target="_blank">
+                        <span class="chip bg-color">SpringMVC</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/08/29/framework/springmvc-ru-men/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="SpringMVC入门">
+                        
+                        <span class="card-title">SpringMVC入门</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. SpringMVC 入门1.1 简介Spring MVC是Spring提供的一个强大而灵活的web框架，目前最好的实现MVC设计模式的框架。借助于注解，Spring MVC提供了几乎是POJO的开发模式，使得控制器的开发和测试更加简单</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/SpringMVC/" class="post-category" target="_blank">
+                                    SpringMVC
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringMVC/" target="_blank">
+                        <span class="chip bg-color">SpringMVC</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">250.7k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

@@ -1,0 +1,1186 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="数据结构概述和List/Set集合, Zero的博客">
+    <meta name="description" content="1. 数据结构常见的数据结构数据存储的常用结构有：栈、队列、数组、链表和红黑树。下面分别了解一下：
+栈
+栈：stack，又称堆栈，它是运算受限的线性表，限定仅在表尾进行插入和删除操作的线性表；又被称为后进先出(Last In First O">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>数据结构概述和List/Set集合 | Zero的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        数据结构概述和List/Set集合
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java学习笔记/" class="post-category" target="_blank">
+                                Java学习笔记
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-04-25
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        5.1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        20 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-数据结构"><a href="#1-数据结构" class="headerlink" title="1. 数据结构"></a>1. 数据结构</h2><h3 id="常见的数据结构"><a href="#常见的数据结构" class="headerlink" title="常见的数据结构"></a>常见的数据结构</h3><p>数据存储的常用结构有：栈、队列、数组、链表和红黑树。下面分别了解一下：</p>
+<h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><ul>
+<li><strong>栈</strong>：<strong>stack</strong>，又称堆栈，它是运算受限的线性表，限定仅在表尾进行插入和删除操作的线性表；又被称为后进先出(Last In First Out)的线性表，简称LIFO结构。</li>
+</ul>
+<a id="more"></a>
+<p>简单的说：采用该结构的集合，对元素的存取有以下特点：</p>
+<ul>
+<li>先进后出(即，先存进去的元素，要在后它存进去的元素依次取出后，才能取出该元素)。</li>
+<li>栈的入口、出口都是栈的顶端位置。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E5%A0%86%E6%A0%88-1556160250265.png" alt="title"></li>
+<li><strong>压栈</strong>：就是存元素。即、把元素存储到栈的顶端位置，栈中已有元素依次向栈底方向移动一个位置。</li>
+<li><strong>弹栈</strong>：就是取元素。即、把栈的顶端位置元素取出，栈中已有元素依次向栈顶方向移动一个位置。</li>
+</ul>
+<h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><ul>
+<li><strong>队列</strong>：<strong>queue</strong>，简称队，它同堆栈一样，也是一种运算受限的线性表，只允许在一端进行插入操作，而在另一端进行删除操作的线性表，又被称为先进先出(First In First Out)的线性表，简称FIFO结构。<br>采用该结构的集合，对元素的存取有如下特点：</li>
+<li>先进先出(即，先存进去的元素，会比后它进来的元素先出去)。</li>
+<li>队列的入口、出口各占一侧。如下图示：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E9%98%9F%E5%88%97%E5%9B%BE-1556161254994.bmp" alt="title"></li>
+</ul>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><ul>
+<li><strong>数组</strong>：<strong>Array</strong>是有序的元素序列，数组是在内存中开辟一段连续的空间，并在此空间存放元素。<br>数据结构特点：<br></li>
+<li><p>查找元素快：通过索引，可以快速访问指定位置的元素<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E6%95%B0%E7%BB%84%E6%9F%A5%E8%AF%A2%E5%BF%AB-1556161542860.png" alt="title"></p>
+</li>
+<li><p>增删元素慢</p>
+<ul>
+<li><strong>指定索引位置增加元素</strong>： 需要创建一个新数组，将指定新元素存储在指定索引位置，在把原数组元素根据索引，复制到新数组对应索引的位置。如下图：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E6%95%B0%E7%BB%84%E6%B7%BB%E5%8A%A0-1556161717343.png" alt="title"></li>
+<li><strong>指定索引位置删除元素</strong>：需要创建一个新数组，把原数组元素根据索引，复制到新数组对应索引位置，原数组中指定索引位置元素不复制到新数组中。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E6%95%B0%E7%BB%84%E5%88%A0%E9%99%A4-1556161853599.png" alt="title"></li>
+</ul>
+</li>
+</ul>
+<h4 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h4><ul>
+<li><strong>链表</strong>：<strong>linked list</strong>由一系列结点node(链表中每一个元素称为结点)组成，结点可以在运行时i动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域(每一个节点包含指向下一个节点的指针)。链表结构有单向链表与双向链表，这里介绍的是单向链表。<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84%E7%89%B9%E7%82%B9-1556162344765.png" alt="title"><br><br>采用该数据结构的集合，对元素的存取有如下的特点：</li>
+<li>多个结点之间，通过地址进行连接。例如多个人手拉手，每个人使用自己的右手拉住下一个人的左手，依次类推，这样多个人就连在一起了。<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84-1556162662545.png" alt="title"><br></li>
+<li>查找元素慢：想查找某个元素，需要通过连接的节点，依次向后查找指定元素。</li>
+<li>增删元素快：只需修改连接下个元素的地址即可。<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E5%A2%9E%E5%8A%A0%E7%BB%93%E7%82%B9-1556163144732.png" alt="title"><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E5%88%A0%E9%99%A4%E7%BB%93%E7%82%B9-1556163150767.bmp" alt="title"></li>
+</ul>
+<h4 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h4><ul>
+<li><strong>二叉树</strong>:<strong>binary tree</strong>,是每个节点不超过2的有序<strong>树(tree)</strong>。即每个节点最多只有两个分支(不存在分支度大于2的节点)的数结构。通常分支被称作”左子树”和”右子树”。二叉树的分支具有左右次序，不能颠倒。<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E4%BA%8C%E5%8F%89%E6%A0%91-1556164470030.bmp" alt="title"><br>二叉树有一种比较有意思的叫做红黑树，红黑树本身就是一颗二叉查找树，将节点插入后，该树仍然是一颗二叉查找树。也意味着，树的键值仍然有序的。<br>红黑树的约束：</li>
+</ul>
+<ol>
+<li>节点可以是红色的或者黑色的</li>
+<li>根节点是黑色的</li>
+<li>叶子节点(特指空节点)是黑色的</li>
+<li>每个红色节点的子节点都是黑色的</li>
+<li>任何一个节点到其每一个叶子节点的所有路径上黑色节点数相同<br>红黑树特点：速度特别快,趋近平衡树,查找叶子元素最少和最多次数不多于二倍<br><a href="https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/5-TreeSet%20and%20TreeMap.md" target="_blank" rel="noopener">红黑树详解</a></li>
+</ol>
+<h2 id="2-List集合"><a href="#2-List集合" class="headerlink" title="2. List集合"></a>2. List集合</h2><h3 id="2-1-List接口"><a href="#2-1-List接口" class="headerlink" title="2.1 List接口"></a>2.1 List接口</h3><p><code>java.util.List</code>接口继承自<code>Collection</code>接口，是单列集合的一个重要分支，习惯将实现了<code>List</code>接口的对象称为List集合。在List集合中允许出现重复的元素，所有的元素是以一种线性方式进行存储的，在程序中可以通过索引来访问集合中的指定元素。另外，List集合还有一个特定就是元素有序，即元素的存入顺序和取出顺序一致。</p>
+<p>List接口特点：</p>
+<ol>
+<li>它是一个元素存取有序的集合。例如，存元素的顺序是11、22、33.那么集合中，元素的存储就是按照11、22、33的顺序完成的。</li>
+<li>它是一个带有索引的集合，通过索引就可以精确的操作集合中的元素(与数组的索引是一个道理)</li>
+<li>集合中可以有重复的元素，通过元素的equals方法，来比较是否为重复的元素。</li>
+</ol>
+<h3 id="2-2-List接口中常用的方法"><a href="#2-2-List接口中常用的方法" class="headerlink" title="2.2 List接口中常用的方法"></a>2.2 List接口中常用的方法</h3><p>List作为Collection集合的子接口，不但继承了Collection接口中的全部方法，而且还增加了一些根据元素索引来操作集合的特有方法。</p>
+<ul>
+<li><code>public void add(int index, E element)</code>:将指定的元素，添加到该集合中的指定位置上。</li>
+<li><code>public E get(int index)</code>: 返回集合中指定位置的元素</li>
+<li><code>public E remove(int index)</code>:移除列表中指定位置的元素，返回的是被移除的元素</li>
+<li><code>public E set(int index,E element)</code>:用指定元素替换集合中指定位置的元素，返回值是更新前的元素。</li>
+</ul>
+<p>List集合特有的方法都是跟索引相关的，代码如下：</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.List;
+
+public class Demo01List {
+    public static void main(String[] args) {
+        // 创建List集合对象
+        List&lt;String&gt; list =  new ArrayList&lt;String&gt;();
+
+        //往 尾部添加 元素
+        list.add("小米");
+        list.add("小天");
+        list.add("小风");
+        System.out.println(list);  // [小米, 小天, 小风]
+
+        // add(int index,String s) 往指定位置添加元素
+        list.add(1,"小洪");
+        System.out.println(list); // [小米, 小洪, 小天, 小风]
+        // remove(int index) 删除指定位置元素，返回被删除元素
+        System.out.println("删除索引位置为2的元素"+list.remove(2)); // 删除索引位置为2的元素小天
+        // set(int index, String s) 将指定位置的元素进行替换(修改)
+        System.out.println(list.set(1,"小华")); // 返回的是被替换的元素， 小洪
+        for (int i = 0; i &lt; list.size(); i++) {
+            System.out.println(list.get(i)); // get(int index) 获取指定索引位置的元素
+        }
+    }
+}
+</code></pre>
+<h2 id="3-List的子类"><a href="#3-List的子类" class="headerlink" title="3. List的子类"></a>3. List的子类</h2><p><code>java.util.ArrayList</code>集合数据存储的结构是数组结构。元素增删慢，查找快，因日常开发中使用最多的功能为查询数据、遍历数据，所以ArrayList是常用的集合。</p>
+<h3 id="3-1-LinkedList集合"><a href="#3-1-LinkedList集合" class="headerlink" title="3.1 LinkedList集合"></a>3.1 LinkedList集合</h3><p><code>java.util.LinkedList</code>集合数据存储的结构是链表结构。方便元素添加、删除的集合。</p>
+<blockquote>
+<p>LinkedList是一个双向链表，如下图就是一个双向链表。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8-1556175171141.png" alt="title"></p>
+</blockquote>
+<p>实际开发中对一个集合元素的添加与删除经常涉及到首尾操作，而LinkedList提供了大量首尾操作的方法。这些方法了解即可：</p>
+<ul>
+<li><code>public void addFirst(E e)</code>:将指定元素插入此列表的开头。</li>
+<li><code>public void addLast(E e)</code>:将指定元素添加到此列表的结尾。</li>
+<li><code>public E getFirst()</code>:返回此列表的第一个元素。</li>
+<li><code>public E getLast()</code>:返回此列表的最后一个元素。</li>
+<li><code>public E removeFirst()</code>:移除并返回此列表的第一个元素。</li>
+<li><code>public E removeLast()</code>:移除并返回此列表的最后一个元素。</li>
+<li><code>public E pop()</code>:从此列表所表示的堆栈处弹出一个元素。</li>
+<li><code>public void push(E e)</code>:将元素推入此列表所表示的堆栈。</li>
+<li><code>public boolean isEmpty()</code>：如果列表不包含元素，则返回true。</li>
+</ul>
+<p>LinkedList是List的子类，List中的方法LinkedList都是可以使用的。方法演示：</p>
+<pre><code class="java">import java.util.LinkedList;
+
+public class Demo02LinkedList {
+    public static void main(String[] args) {
+        LinkedList&lt;Integer&gt; list = new LinkedList&lt;&gt;();
+        list.addFirst(0);
+        list.addLast(1);
+        list.addLast(2);
+        list.addLast(3);
+        System.out.println(list); // [0,1,2,3]
+        System.out.println("返回此列表第一个元素:"+list.getFirst()); // 0
+        System.out.println("返回此列表最后一个元素:"+list.getLast()); // 3
+        System.out.println("删除第一个元素并返回它:"+list.removeFirst()); // 0
+        System.out.println("删除最后一个元素并返回它:"+list.removeLast()); // 3
+        System.out.println(list.pop()); // 弹出，就是移除元素,栈在列表左侧
+        list.push(3);
+        System.out.println(list);
+        System.out.println(list.isEmpty()); // 判断列表是否为空，空则返回true
+    }
+}
+</code></pre>
+<h2 id="4-Set接口"><a href="#4-Set接口" class="headerlink" title="4. Set接口"></a>4. Set接口</h2><p><code>java.util.Set</code>接口和<code>java.util.List</code>接口一样，同样继承自<code>Collection</code>接口，它与<code>Collection</code>接口中的方法基本一致，并没有对该接口进行功能上的扩充，只是比<code>Collection</code>接口更加严格了。与<code>List</code>接口不同的是，<code>Set</code>接口中元素无序，并且有规则保证存入元素不出现重复。</p>
+<p><code>Set</code>集合有多个子类，这里主要介绍其中的<code>java.util.HashSet</code>、<code>java.util.LinkedHashSet</code>这两个集合。</p>
+<blockquote>
+<p>Tips：Set集合取出元素的方式可以采用：迭代器、增强for。</p>
+</blockquote>
+<h3 id="4-1-HashSet集合介绍"><a href="#4-1-HashSet集合介绍" class="headerlink" title="4.1 HashSet集合介绍"></a>4.1 HashSet集合介绍</h3><p><code>java.util.HashSet</code>是<code>Set</code>接口的一个实现类，它存储的元素是不可重复的，并且元素都是无序的。它的底层实现其实是一个<code>java.util.HashMap</code>支持。</p>
+<p><code>HashSet</code>是根据对象的哈希值来确定元素在集合中的存储位置，因此具有良好的存取和查找性能。保证元素唯一性的方式依赖与：<code>hashCode</code>与<code>equals</code>方法。以下代码示意使用Set集合存储：</p>
+<pre><code class="java">import java.util.HashSet;
+
+public class Demo03HashSet {
+    public static void main(String[] args) {
+        // 创建 Set集合
+        HashSet&lt;String&gt; set = new HashSet&lt;&gt;();
+        // 添加元素
+        set.add(new String("cba"));
+        set.add("abc");
+        set.add("bac");
+        set.add("cba");
+        // 遍历
+        for (String s:set){
+            System.out.println(s); // cba,abc,bac 自动去重了
+        }
+    }
+}
+</code></pre>
+<h4 id="hashCode方法"><a href="#hashCode方法" class="headerlink" title="hashCode方法"></a>hashCode方法</h4><p>hashCode方法返回对象的哈希值</p>
+<pre><code class="java">/*
+    哈希值：是一个十进制的整数，由系统随机给出(就是对象的地址值，是一个逻辑地址，不是数据实际存储的物理地址)
+    在Object类有一个方法，可以获取对象的哈希值
+    int hashCode() 返回该对象的哈希码值
+    hashCode()方法的源码：
+        public native int hashCode();
+        native:代办该方法调用的是本地操作系统的方法。
+ */
+public class DemoHashCode {
+    public static void main(String[] args) {
+        // Person类继承了Object类，所以可以使用Object类的hashCode方法
+        Person p1 = new Person();
+        System.out.println(p1.hashCode()); // 1072408673
+        System.out.println(new Person().hashCode()); // 1531448569
+
+        System.out.println("abc".hashCode()); // 96354
+        // 以下两个为特殊情况，内容不同hash值相同
+        System.out.println("重地".hashCode()); // 1179395
+        System.out.println("通话".hashCode()); // 1179395
+    }
+}
+</code></pre>
+<p>Set集合去重原理：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/Set%E5%8E%BB%E9%87%8D%E5%8E%9F%E7%90%86-1556188205465.png" alt="title"></p>
+<h3 id="4-2-HashSet集合存储数据的结构-哈希表"><a href="#4-2-HashSet集合存储数据的结构-哈希表" class="headerlink" title="4.2 HashSet集合存储数据的结构(哈希表)"></a>4.2 HashSet集合存储数据的结构(哈希表)</h3><h4 id="什么是哈希表？"><a href="#什么是哈希表？" class="headerlink" title="什么是哈希表？"></a>什么是哈希表？</h4><p>在JDK 1.8之前，哈希表底层采用数组+链表实现，即使用链表处理冲突，同一hash值的链表都存储在一个链表里。但是当位于一个桶中的元素较多，即hash值相等的元素较多时，通过Key值依次查找的效率较低。而JDK 1.8中，哈希表存储采用数组+链表+红黑树实现，而链表长度超过阈值(8)时，将链表转换为红黑树，这样大大减少了查找时间。</p>
+<p>简单的来说，哈希表是由数组+链表+红黑树(JDK1.8增加了红黑树部分)实现的，如下图示。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E5%93%88%E5%B8%8C%E8%A1%A8-1556182995014.png" alt="title"><br>哈希表存储流程图：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/25/%E5%93%88%E5%B8%8C%E6%B5%81%E7%A8%8B%E5%9B%BE-1556183133856.png" alt="title"></p>
+<p>JDK1.8引入红黑树大程度优化了HashMap性能，而保证HashSet集合元素的唯一是根据对象的hashCode和equals方法决定的。如果我们往集合中存放自定义的对象，那么为了保证其唯一，就必须重写hashCode和equals方法建立当前对象的比较方式。</p>
+<h3 id="4-3-HashSet存储自定义类型元素"><a href="#4-3-HashSet存储自定义类型元素" class="headerlink" title="4.3 HashSet存储自定义类型元素"></a>4.3 HashSet存储自定义类型元素</h3><p>给HashSet存放自定义类型的元素时，需要重写对象中的hashCode和equals方法，建立自己的比较方式，才能保证HashCode集合中对象的唯一性。以下代码示例：</p>
+<pre><code class="java">import java.util.HashSet;
+/*
+    HashSet存储自定义类型元素
+    set集合保存元素唯一：
+        存储的元素(String,Integer,....student,Person),必须重写hashCode方法和equals方法
+    要求：
+        同名同年龄的人，视为同一人，只能存储一次
+ */
+public class Demo04MyHashSet {
+    public static void main(String[] args) {
+        // 创建hashSet集合，存储Person
+        HashSet&lt;Person&gt; set = new HashSet&lt;&gt;();
+        Person p1 = new Person("小米",11);
+        Person p2 = new Person("小米",11);
+        Person p3 = new Person("小米",12);
+        System.out.println(p1.hashCode()); // 1072408673
+        System.out.println(p2.hashCode()); // 1531448569
+        // 因为hashcode值不一样，所以认为是不同元素，没有起到去重效果。
+        System.out.println(p1==p2); // false 比较对象地址值不同，也认定是两个不同元素
+        System.out.println(p1.equals(p2));
+        set.add(p1);
+        set.add(p2);
+        set.add(p3);
+        System.out.println(set);
+    }
+}
+</code></pre>
+<h3 id="4-4-LinkedHashSet"><a href="#4-4-LinkedHashSet" class="headerlink" title="4.4 LinkedHashSet"></a>4.4 LinkedHashSet</h3><p>HashSet可以保证元素唯一，可是元素存放进去是没有顺序的，如果要保证允许，可以使用HashSet的一个子类<code>java.util.LinkedHashSet</code>，它是链表和哈希表组合的一个数据存储结构。<br>示例如下：</p>
+<pre><code class="java">import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class DemoLinkedHashSet {
+    public static void main(String[] args) {
+        Set&lt;String&gt; set = new LinkedHashSet&lt;&gt;();
+        set.add("aaa");
+        set.add("ccc");
+        set.add("bbb");
+        set.add("ddd");
+        for(String s:set){
+            System.out.println(s);
+        }
+    }
+}
+</code></pre>
+<h3 id="4-5-可变参数"><a href="#4-5-可变参数" class="headerlink" title="4.5 可变参数"></a>4.5 可变参数</h3><p>如果我们定义一个方法需要接受多个参数，并且多个参数类型一致，我们可以对其简化成如下格式：</p>
+<pre><code>修饰符 返回值类型 方法名(参数类型... 形参名){ }
+</code></pre><p><strong>…</strong>用在参数上，我们称之为可变参数，这个写法完全等价与</p>
+<pre><code>修饰符 返回值类型 方法名(参数类型[] 形参名){ }
+</code></pre><p>后面的这种定义，在调用时必须传递数组，而前者可以直接传递数据。</p>
+<p>同样是代表数组，但是在调用这个带有可变参数的方法时，不用创建数组(这就是简单方便之处),直接将数组中的元素作为实际参数进行传递。其实是编译成的class文件，先将这些元素封装到一个数组中，再进行传递。这些动作在编译.class文件时，就自动完成了。<br>代码示例如下：</p>
+<pre><code class="java">public class ChangeArgs {
+    public static void main(String[] args) {
+        int[] arr = {1,3,65,491,5};
+        int sum = getSum(arr);
+        System.out.println(sum);
+
+        int sum2 = getSum(6,7,2,63,737); // 使用了可变参数写法，可以传递多个数据
+        System.out.println(sum2);
+    }
+    // 原始写法
+//    public static int getSum(int[] arr){
+//        int sum = 0;
+//        for(int a : arr){
+//            sum += a;
+//        }
+//
+//        return sum;
+//    }
+    // 使用可变参数写法
+    public static int getSum(int... arr){
+        int sum = 0;
+        for (int a:arr){
+            sum += a;
+        }
+        return sum;
+    }
+}
+</code></pre>
+<h2 id="5-Collections"><a href="#5-Collections" class="headerlink" title="5. Collections"></a>5. Collections</h2><h3 id="5-1-常用功能"><a href="#5-1-常用功能" class="headerlink" title="5.1 常用功能"></a>5.1 常用功能</h3><ul>
+<li><code>java.utils.Collections</code>是集合工具类，用来对集合进行操作。部分方法如下：</li>
+</ul>
+<ul>
+<li><code>public static &lt;T&gt; boolean addAll(Collection&lt;T&gt; c, T... elements)</code>:往集合中添加一些元素。</li>
+<li><code>public static void shuffle(List&lt;?&gt; list) 打乱顺序</code>:打乱集合顺序。</li>
+<li><code>public static &lt;T&gt; void sort(List&lt;T&gt; list)</code>:将集合中元素按照默认规则排序。</li>
+<li><code>public static &lt;T&gt; void sort(List&lt;T&gt; list，Comparator&lt;? super T&gt; )</code>:将集合中元素按照指定规则排序。</li>
+</ul>
+<p>代码示例：</p>
+<pre><code class="java">public class DemoCollections {
+    public static void main(String[] args) {
+        ArrayList&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        // 原写法
+//        list.add(1);
+//        list.add(2);
+//        list.add(43);
+//        list.add(675);
+        // 使用工具类添加元素
+        Collections.addAll(list,64,267,1242,5);
+        System.out.println(list); // [64, 267, 1242, 5]
+        // 排序
+        Collections.sort(list);
+        System.out.println(list); // [5, 64, 267, 1242]
+    }
+}
+</code></pre>
+<h3 id="5-2-Comparator比较器"><a href="#5-2-Comparator比较器" class="headerlink" title="5.2 Comparator比较器"></a>5.2 Comparator比较器</h3><p><code>public static &lt;T&gt; void sort(List&lt;T&gt; list)</code>:将集合中元素按照默认规则排序。</p>
+<p>代码示例：</p>
+<pre><code class="java">public class Demo02 {
+    public static void main(String[] args) {
+        ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();
+        list.add("cba");
+        list.add("aba");
+        list.add("sba");
+        list.add("nba");
+        //排序方法
+        Collections.sort(list);
+        System.out.println(list); // [aba, cba, nba, sba]
+    }
+}
+</code></pre>
+<p>排序方式，简单的就是比较两个对象之间的大小，在Java中提供了两种比较实现的方式，一种是比较死板的采用<code>java.lang.Comparable</code>接口去实现，一种是灵活的当我需要做排序的时候在去选择的<code>java.util.Comparator</code>接口完成。</p>
+<p>我们采用的<code>public static &lt;T&gt; void sort(List&lt;T&gt; list)</code>这个方法完成的排序，实际上要求了被排序的类型需要实现Comparable接口完成比较的功能，在String类型上如下：</p>
+<pre><code class="java">public final class String implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence { }
+</code></pre>
+<p>String类实现了这个接口，并完成了比较规则的定义，但是这样就把这种规则写死了，如果要实现一些别的操作，可以使用<code>public static &lt;T&gt; void sort(List&lt;T&gt; list，Comparator&lt;? super T&gt; )</code>方法灵活的完成。这个里面就涉及到了Comparator这个接口，位于位于java.util包下，排序是comparator能实现的功能之一,该接口代表一个比较器，比较器具有可比性！顾名思义就是做排序的，通俗地讲需要比较两个对象谁排在前谁排在后，那么比较的方法就是：</p>
+<ul>
+<li><code>public int compare(String o1, String o2)</code>：比较其两个参数的顺序。</li>
+</ul>
+<blockquote>
+<p>两个对象比较的结果有三种：大于，等于，小于。</p>
+</blockquote>
+<blockquote>
+<p>如果要按照升序排序，则o1 小于o2，返回（负数），相等返回0，01大于02返回（正数）</p>
+</blockquote>
+<blockquote>
+<p>如果要按照降序排序，则o1 小于o2，返回（正数），相等返回0，01大于02返回（负数）</p>
+</blockquote>
+<pre><code class="java">public class Demo03 {
+    public static void main(String[] args) {
+        ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();
+        list.add("cba");
+        list.add("aba");
+        list.add("sba");
+        list.add("nba");
+        //排序方法  按照第一个单词的降序
+        Collections.sort(list, new Comparator&lt;String&gt;() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.charAt(0) - o1.charAt(0);
+            }
+        });
+        System.out.println(list); // [sba, nba, cba, aba]
+    }
+}
+</code></pre>
+<h3 id="5-3-简述Comparable和Comparator两个接口的区别。"><a href="#5-3-简述Comparable和Comparator两个接口的区别。" class="headerlink" title="5.3 简述Comparable和Comparator两个接口的区别。"></a>5.3 简述Comparable和Comparator两个接口的区别。</h3><p><strong>Comparable</strong>：强行对实现它的每个类的对象进行整体排序。这种排序被称为类的自然排序，类的compareTo方法被称为它的自然比较方法。只能在类中实现compareTo()一次，不能经常修改类的代码实现自己想要的排序。实现此接口的对象列表（和数组）可以通过Collections.sort（和Arrays.sort）进行自动排序，对象可以用作有序映射中的键或有序集合中的元素，无需指定比较器。</p>
+<p><strong>Comparator</strong>强行对某个对象进行整体排序。可以将Comparator 传递给sort方法（如Collections.sort或 Arrays.sort），从而允许在排序顺序上实现精确控制。还可以使用Comparator来控制某些数据结构（如有序set或有序映射）的顺序，或者为那些没有自然顺序的对象collection提供排序。</p>
+<h3 id="5-4-Exercise"><a href="#5-4-Exercise" class="headerlink" title="5.4 Exercise"></a>5.4 Exercise</h3><p>创建一个学生类，存储到ArrayList集合中完成指定排序操作。</p>
+<pre><code class="java">// Student类
+public class Student implements Comparable&lt;Student&gt;{
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return this.age-o.age; // 升序
+    }
+}
+
+// 测试类
+public class Demo04 {
+    public static void main(String[] args) {
+        ArrayList&lt;Student&gt; list = new ArrayList&lt;&gt;();
+        list.add(new Student("小明",11));
+        list.add(new Student("小李",14));
+        list.add(new Student("小张",17));
+        list.add(new Student("小化",16));
+        // 升序操作
+        Collections.sort(list);// 报错，要求 该list中元素类型  必须实现比较器Comparable接口
+        for (Student sd:list){
+            System.out.println(sd);
+        }
+    }
+}
+</code></pre>
+<p>必须实现Comparable接口，重写compareTo方法，才能进行升序操作。</p>
+<h3 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h3><ol>
+<li>基本数据结构简述</li>
+<li>List集合的相关操作方法</li>
+<li>LinkedList集合的方法</li>
+<li>Set，HashSet，LinkedHashSet等集合的使用方法，自定义元素等</li>
+<li>哈希表定义</li>
+<li>可变参数的使用</li>
+<li>Collections工具类的使用方法</li>
+<li>Comparator比较器</li>
+<li>Comparable和Comparator两个接口的区别</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/04/25/javabasics/shu-ju-jie-gou-jian-shu-he-list-set-ji-he/" class="b-link-green">数据结构概述和List/Set集合</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-04-25T23-59-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/04/26/javabasics/map-ji-he-he-debug-gen-zong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Map集合和Debug跟踪">
+                        
+                        <span class="card-title">Map集合和Debug跟踪</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. Map集合生活中我们常会看到一种集合：IP地址与主机名，身份证号与个人等，这种一一对应的关系，叫做映射。Java中的java.util.Map接口是专门用来存放这种映射关系的集合类。
+
+1.1 概述通过查看Map接口描述，发现Map接</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java学习笔记/" class="post-category" target="_blank">
+                                    Java学习笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/集合/" target="_blank">
+                        <span class="chip bg-color">集合</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/04/24/javabasics/collection-he-fan-xing/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Collction集合和泛型">
+                        
+                        <span class="card-title">Collction集合和泛型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. Collection集合
+集合:集合是java中提供的一种容器，可以用来存储多个数据。集合和数组的区别
+数组的长度是固定的。集合的长度是可变的。
+数组中存储的是同一类型的元素，可以存储基本数据类型值。集合存储的都是对象，而且对象的类型</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java学习笔记/" class="post-category" target="_blank">
+                                    Java学习笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/集合/" target="_blank">
+                        <span class="chip bg-color">集合</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">250.7k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

@@ -1,0 +1,1464 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="MySQL查询操作, Zero的博客">
+    <meta name="description" content="1. DQL查询语句1.1 排序
+语法：select 字段名 from 表名 order by 字段名1 [ASC|DESC],字段名2 [ASC|DESC]...;
+排序方式：ASC(升序,默认值)；DESC(降序)。
+
+
+# 单列排序
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>MySQL查询操作 | Zero的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        MySQL查询操作
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/MySQL基础/" class="post-category" target="_blank">
+                                MySQL基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-05-19
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        5.4k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        21 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-DQL查询语句"><a href="#1-DQL查询语句" class="headerlink" title="1. DQL查询语句"></a>1. DQL查询语句</h2><h3 id="1-1-排序"><a href="#1-1-排序" class="headerlink" title="1.1 排序"></a>1.1 排序</h3><ul>
+<li>语法：<code>select 字段名 from 表名 order by 字段名1 [ASC|DESC],字段名2 [ASC|DESC]...;</code></li>
+<li>排序方式：ASC(升序,默认值)；DESC(降序)。</li>
+</ul>
+<a id="more"></a>
+<pre><code class="sql"># 单列排序
+SELECT * FROM student2 ORDER BY math; # 以math为条件升序排序，默认升序
+SELECT * FROM student2 ORDER BY math DESC; # 以math为条件进行降序排序
+# 组合排序
+# 查询所有数据，在数学成绩升序排序的基础上，如果数学成绩相同在以英语成绩降序排序
+SELECT * FROM student2 ORDER BY math ASC,english DESC;
+</code></pre>
+<blockquote>
+<p>注意：同时对多个字段进行排序，如果第1字段相等，则按第2字段排序，依次类推。</p>
+</blockquote>
+<h3 id="1-2-聚合函数"><a href="#1-2-聚合函数" class="headerlink" title="1.2 聚合函数"></a>1.2 聚合函数</h3><p>将一列数据作为一个整体，进行纵向的计算，返回一个结果值。</p>
+<ol>
+<li>count：统计个数，一般选择非空的列(主键)</li>
+<li>max：求最大值</li>
+<li>min：求最小值</li>
+<li>sum：求和</li>
+<li>avg：求平均值</li>
+</ol>
+<pre><code class="sql"># 统计学生人数
+SELECT COUNT(id) AS 总人数 FROM student2;
+# 对english列统计个数
+SELECT COUNT(english) FROM student2; -- 7
+# 对english列统计个数,如果值为NULL，替换为0
+SELECT COUNT(IFNULL(english,0)) FROM student2; -- 8
+# 查询年龄大于20岁的人数
+SELECT COUNT(*) FROM student2 WHERE age&gt;20;
+# 查询数学成绩总分
+SELECT SUM(math) AS 数学成绩总分 FROM student2;
+# 查询数学成绩平均分
+SELECT AVG(math) AS 数学平均分 FROM student2;
+# 查询数学成绩最高分
+SELECT MAX(math) AS 数学最高分 FROM student2;
+# 查询数学最低分
+SELECT MIN(math) AS 数学最低分 FROM student2;
+</code></pre>
+<p>IFNULL(列名，默认值)：如果列名不为空，返回该列值。如果为NULL，则返回默认值。</p>
+<blockquote>
+<p>聚合函数的计算排除了NULL值,可以选择非空列进行计算或者使用IFNULL函数</p>
+</blockquote>
+<h3 id="1-3-分组"><a href="#1-3-分组" class="headerlink" title="1.3 分组"></a>1.3 分组</h3><p>分组查询是指使用<code>group by</code> 语句对查询信息进行分组，相同数据作为一组。</p>
+<p><code>select 字段1,字段2... from 表名 group by 分组字段[HAVING 条件];</code></p>
+<pre><code class="sql"># 按性别进行分组，求男女生的数学平均分。
+SELECT sex,AVG(math) FROM student2 GROUP BY sex; # 当我们使用某个字段分组，在查询时也需要将这个字段查询出来，否则看不大数据属于哪组的
+/*
+    group by 将分组字段结果中相同内容作为一组，并且返回每组的第一条数据。单独分组没用，分组的目的就是为了统计，所以一般分组会跟聚合函数一起使用。
+*/
+# 查询男女各有多少人
+SELECT sex,COUNT(*)男女各有多少人 FROM student2 GROUP BY sex; # 分组函数会先查询所有数据，按性别分组，然后统计每组人数
+# 查询年龄大于25岁的人，按照性别分组，统计每组人数
+SELECT sex,COUNT(*)年龄大于25岁人数 FROM student2 WHERE age&gt;25 GROUP BY sex;
+# 查询年龄大于25岁的人，按性别分组，统计每组的人数，并只显示性别人数大于 2 的数据(使用having条件控制)
+SELECT sex,COUNT(*)年龄大于25岁人数且人数大于2的 FROM student2 WHERE age&gt;25 GROUP BY sex HAVING COUNT(*)&gt;2; # 该SQL语句会先过滤掉年龄小于25岁的人，在按照性别分组，然后统计每组人数，最后显示性别人数大于2的数据
+</code></pre>
+<h4 id="having与where的区别"><a href="#having与where的区别" class="headerlink" title="having与where的区别"></a>having与where的区别</h4><table>
+<thead>
+<tr>
+<th>子句</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>where子句</td>
+<td>对查询结果进行分组前，将不符合where条件的行去掉，即在分组之前过滤数据。where后面不可以使用聚合函数。</td>
+</tr>
+<tr>
+<td>having子句</td>
+<td>该子句的作用是筛选满足条件的组，即在分组之后过滤数据。having后面可以使用聚合函数。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-4-limit语句"><a href="#1-4-limit语句" class="headerlink" title="1.4 limit语句"></a>1.4 limit语句</h3><p>limit是限制的意思，作用就是限制查询记录的条数。</p>
+<p>语句：<code>select 字段列表 from 表名 [where子句][group by子句][limit offset(默认0),length];</code></p>
+<pre><code class="sql"># 查询学生表中数据，从第三条开始，显示6条。
+SELECT * FROM student2 LIMIT 2,6;
+# 使用场景：分页，一般使用在类似淘宝商品信息分页。
+</code></pre>
+<h2 id="2-数据库的备份和还原"><a href="#2-数据库的备份和还原" class="headerlink" title="2. 数据库的备份和还原"></a>2. 数据库的备份和还原</h2><h3 id="2-1-备份格式"><a href="#2-1-备份格式" class="headerlink" title="2.1 备份格式"></a>2.1 备份格式</h3><p>在DOS下，使用语句：<code>mysqldump -u用户名 -p密码 数据库&gt;文件路径</code></p>
+<pre><code class="powershell"># 备份db4数据库中数据到本地db4.sql文件中
+mysqldump -uroot -p123456 db4 &gt; C:\Java\JavaWeb\db4.sql
+</code></pre>
+<h3 id="2-2-还原格式"><a href="#2-2-还原格式" class="headerlink" title="2.2 还原格式"></a>2.2 还原格式</h3><p>mysql中的命令，登录后使用：<code>use 数据库; source 导入文件的路径;</code></p>
+<pre><code class="sql">/*还原步骤：
+    1. 删除db4数据库中的所有表
+    2. 登录mysql，选中数据库
+    3. 使用source 命令还原数据
+    4. 查看还原情况
+*/
+use db4;
+source C:\Java\JavaWeb\db4.sql;
+</code></pre>
+<h2 id="3-数据库表的约束"><a href="#3-数据库表的约束" class="headerlink" title="3. 数据库表的约束"></a>3. 数据库表的约束</h2><h3 id="3-1-概述"><a href="#3-1-概述" class="headerlink" title="3.1 概述"></a>3.1 概述</h3><p>对表中的数据进行限制，保证数据的正确性、有效性和完整性。一个表如果添加了约束，不正确的数据将无法插入到表中。约束在创建表的时候添加比较合适。</p>
+<h3 id="3-2-约束种类"><a href="#3-2-约束种类" class="headerlink" title="3.2 约束种类"></a>3.2 约束种类</h3><table>
+<thead>
+<tr>
+<th>约束名</th>
+<th>约束关键字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主键</td>
+<td>primary key</td>
+</tr>
+<tr>
+<td>唯一</td>
+<td>unique</td>
+</tr>
+<tr>
+<td>非空</td>
+<td>not null</td>
+</tr>
+<tr>
+<td>外键</td>
+<td>foreign key</td>
+</tr>
+<tr>
+<td>检查约束</td>
+<td>check，注：mysql不支持</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-3-主键"><a href="#3-3-主键" class="headerlink" title="3.3 主键"></a>3.3 主键</h3><p>用来唯一标识数据库中的每一条记录。通常不用业务字段作为主键，而是单独给每张表设计一个id的字段，把id作为主键。</p>
+<ul>
+<li>主键关键字：primary key</li>
+<li>主键特点：非空(not null)且唯一</li>
+</ul>
+<h4 id="创建主键"><a href="#创建主键" class="headerlink" title="创建主键"></a>创建主键</h4><ol>
+<li>在创建表时给字段添加主键：<code>字段名 字段类型 PRIMARY KEY;</code></li>
+<li>在已有表中添加主键：<code>alter table 表名 add primary key(字段名);</code></li>
+</ol>
+<pre><code class="sql"># 创建表时添加
+create table student3(
+    id int primary key; # id设为主键
+    name varchar(20);
+    age int);
+# 删除主键
+alter table student3 drop primary key;
+# 在已有表中添加主键
+alter table student3 add primary key(id);
+</code></pre>
+<h4 id="主键自增"><a href="#主键自增" class="headerlink" title="主键自增"></a>主键自增</h4><p>可以使用<code>auto_increment</code>将主键字段设置为自增，数据库会自动生成主键字段值。</p>
+<h4 id="修改自增长默认起始值"><a href="#修改自增长默认起始值" class="headerlink" title="修改自增长默认起始值"></a>修改自增长默认起始值</h4><p>默认地 AUTO_INCREMENT 的开始值是 1，如果希望修改起始值,可以使用如下SQL语句。</p>
+<ul>
+<li>创建表时指定起始值</li>
+</ul>
+<pre><code class="sql">create table 表名(
+    列名 int primary key auto_increment,
+)auto_increment=起始值;
+</code></pre>
+<ul>
+<li>创建表后修改起始值</li>
+</ul>
+<pre><code class="sql">alter table 表名 auto_increment=10;
+</code></pre>
+<h4 id="delete和truncate对自增长的影响"><a href="#delete和truncate对自增长的影响" class="headerlink" title="delete和truncate对自增长的影响"></a>delete和truncate对自增长的影响</h4><ul>
+<li>delete：删除所有的记录后，自增长没有影响。</li>
+<li>truncate：删除后，自增长初始值重新开始了。</li>
+</ul>
+<h3 id="3-4-唯一约束"><a href="#3-4-唯一约束" class="headerlink" title="3.4 唯一约束"></a>3.4 唯一约束</h3><p>用以约束表中某一列不能出现重复的值</p>
+<ul>
+<li>语法：<code>字段名 字段类型 unique</code></li>
+</ul>
+<pre><code class="sql"># 创建学生表4，包含字段(id, name),name 这一列设置唯一约束,不能出现同名的学生
+CREATE TABLE student4(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(255) UNIQUE);
+
+# 添加学生
+INSERT INTO student4(NAME) VALUES('xiaohua');
+INSERT INTO student4(NAME) VALUES('xiaohua'); # 错误代码： 1062 Duplicate entry 'xiaohua' for key 'name'
+# 测试插入null
+INSERT INTO student4(NAME) VALUES(NULL); # 不会报错，因为null无数据
+</code></pre>
+<h3 id="3-5-非空约束"><a href="#3-5-非空约束" class="headerlink" title="3.5 非空约束"></a>3.5 非空约束</h3><p>用于约束某一列不能为null</p>
+<p>语法：<code>字段名 字段类型 not null</code></p>
+<pre><code class="sql">-- 创建表学生表5, 包含字段(id,name,gender)其中 name 不能为 NULL
+CREATE TABLE student5(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(100) NOT NULL,
+    gender CHAR(1));
+
+# 添加一条记录其中姓名不赋值
+INSERT INTO student5(NAME,gender) VALUES(NULL,'man'); # 错误代码： 1048 Column 'name' cannot be null
+</code></pre>
+<h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><p>我们可以为字段指定默认值</p>
+<p>语法：<code>字段名 字段类型 default 默认值</code></p>
+<pre><code class="sql">-- 创建一个学生表6，包含字段(id,name,address)， 地址默认值是广州
+CREATE TABLE student6(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(20),
+    address VARCHAR(50) DEFAULT '杭州');
+
+-- 添加一条记录,使用默认地址
+INSERT INTO student6(NAME,address) VALUES('xiaozhang',DEFAULT);
+-- 添加一条记录,不使用默认地址
+INSERT INTO student6(NAME,address) VALUES('xiaohua','上海');
+</code></pre>
+<blockquote>
+<p>Tips: 如果一个字段设置了非空和唯一约束，那么该字段与主键有什么区别？</p>
+<ol>
+<li>主键在一个表中只能有一个。</li>
+<li>自增长只能用在主键上。</li>
+</ol>
+</blockquote>
+<h3 id="3-6-外键约束"><a href="#3-6-外键约束" class="headerlink" title="3.6 外键约束"></a>3.6 外键约束</h3><p><strong>单表的缺点</strong>：</p>
+<pre><code class="sql"># 创建一个员工表包含如下列(id, name, age, dep_name, dep_location),id 主键并自动增长,添加 5 条数据
+CREATE TABLE emp (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(30),
+    age INT,
+    dep_name VARCHAR(30),
+    dep_location VARCHAR(30)
+);
+# 添加数据
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('张三', 20, '研发部', '广州');
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('李四', 21, '研发部', '广州');
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('王五', 20, '研发部', '广州');
+
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('老王', 20, '销售部', '深圳');
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('大王', 22, '销售部', '深圳');
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('小王', 18, '销售部', '深圳');
+</code></pre>
+<ul>
+<li>上数据表的缺点: 一是数据冗余，二是后期可能出现的增删改问题。</li>
+</ul>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><pre><code class="sql"># 将上述数据表分成两张表，部门表\员工表
+-- 创建部门表(id,dep_name,dep_location)
+-- 主表，一对多
+CREATE TABLE department(
+id INT PRIMARY KEY AUTO_INCREMENT,
+dep_name VARCHAR(20),
+dep_location VARCHAR(20));
+
+-- 创建员工表(id,name,age,dep_id)
+-- 从表,多对一
+CREATE TABLE employee(
+id INT PRIMARY KEY AUTO_INCREMENT,
+NAME VARCHAR(20),
+age INT,
+dep_id INT -- 外键对应主表的主键
+);
+
+-- 添加两个部门
+INSERT INTO department VALUES(NULL, '研发部','广州'),(NULL, '销售部', '深圳');
+-- 添加员工，dep_id 表示员工所在部门
+INSERT INTO employee (NAME, age, dep_id) VALUES ('张三', 20, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('李四', 21, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('王五', 20, 1);
+
+INSERT INTO employee (NAME, age, dep_id) VALUES ('老王', 20, 2);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('大王', 22, 2);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('小王', 18, 2);
+</code></pre>
+<p>但是如果我们在employee的dep_id里面输入不存在的部门，数据仍然可以添加，所以要规范dep_id中的数据只能是department表中存在的id。故可以使用外键约束来解决该问题</p>
+<h4 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h4><ul>
+<li>外键：在从表中与主表主键对应的那一列，称为外键。例上从表中的dep_id</li>
+<li>主表：一方，用来约束别人的表</li>
+<li>从表：多方，被别人约束的表</li>
+<li>创建约束语法：<ul>
+<li>新建表时增加外键：<code>[CONSTRAINT] [外键约束名称] FOREIGN KEY(外键字段名) REFERENCES 主表名(主键字段名)</code></li>
+<li>已有表增加外键：<code>ALTER TABLE 从表 ADD [CONSTRAINT] [外键约束名称] FOREIGN KEY (外键字段名) REFERENCES 主表(主键字段名);</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="sql">DROP TABLE employee;
+-- 创建从表 employee 并添加外键约束 emp_depid_fk
+-- 多方，从表
+CREATE TABLE employee(
+id INT PRIMARY KEY AUTO_INCREMENT,
+NAME VARCHAR(20),
+age INT,
+dep_id INT, -- 外键对应主表的主键
+-- 创建外键约束
+CONSTRAINT emp_depid_fk FOREIGN KEY (dep_id) REFERENCES department(id)
+);
+-- 正常添加数据
+INSERT INTO employee (NAME, age, dep_id) VALUES ('张三', 20, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('李四', 21, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('王五', 20, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('老王', 20, 2);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('大王', 22, 2);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('小王', 18, 2);
+
+-- 插入数据，指定一个不存在的部门值
+INSERT INTO employee (NAME, age, dep_id) VALUES ('老板', 35, 6); # 错误代码： 1452 Cannot add or update a child row: a foreign key constraint fails (`db4`.`employee`, CONSTRAINT `emp_depid_fk` FOREIGN KEY (`dep_id`) REFERENCES `department` (`id`))
+</code></pre>
+<h4 id="删除外键"><a href="#删除外键" class="headerlink" title="删除外键"></a>删除外键</h4><ul>
+<li>语法：<code>ALTER TABLE 从表 drop foreign key 外键名称;</code></li>
+</ul>
+<pre><code class="sql">-- 删除employee表的emp_depid_fk外键
+ALTER TABLE employee DROP FOREIGN KEY emp_depid_fk;
+-- 在 employee 表存在的情况下添加外键
+ALTER TABLE employee ADD CONSTRAINT emp_depid_fk FOREIGN KEY(dep_id) REFERENCES department(id);
+</code></pre>
+<h4 id="外键的级联"><a href="#外键的级联" class="headerlink" title="外键的级联"></a>外键的级联</h4><ul>
+<li>级联操作：在修改和删除主表的主键时，同时更新或删除副表的外键值，称为级联操作。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>级联操作语法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ON UPDATE CASCADE</td>
+<td>级联更新，只能是创建表的时候创建级联关系。更新主表中的主键，从表中的外键列也自动同步更新</td>
+</tr>
+<tr>
+<td>ON DELETE CASCADE</td>
+<td>级联删除</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="sql">--  删除 employee 表，重新创建 employee 表，添加级联更新和级联删除
+DROP TABLE employee;
+
+CREATE TABLE employee(
+id INT PRIMARY KEY AUTO_INCREMENT,
+NAME VARCHAR(20),
+age INT,
+dep_id INT, -- 外键对应主表的主键
+-- 创建外键约束
+CONSTRAINT emp_depid_fk FOREIGN KEY (dep_id) REFERENCES
+ department(id) ON UPDATE CASCADE ON DELETE CASCADE # 添加级联更新和级联删除
+);
+
+-- 再次添加数据到员工表和部门表
+INSERT INTO employee (NAME, age, dep_id) VALUES ('张三', 20, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('李四', 21, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('王五', 20, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('老王', 20, 2);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('大王', 22, 2);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('小王', 18, 2);
+
+
+DROP TABLE department; # Cannot delete or update a parent row: a foreign key constraint fails
+
+# 把部门表中 id 等于 1 的部门改成 id 等于 10
+UPDATE department SET id=10 WHERE id=1; # 1 queries executed, 1 success, 0 errors, 0 warnings
+
+-- 删除部门号是 2 的部门
+DELETE FROM department WHERE id=2;
+</code></pre>
+<h3 id="3-7-数据约束小结"><a href="#3-7-数据约束小结" class="headerlink" title="3.7 数据约束小结"></a>3.7 数据约束小结</h3><table>
+<thead>
+<tr>
+<th>约束名</th>
+<th>关键字</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主键</td>
+<td>primary key</td>
+<td>唯一且非空</td>
+</tr>
+<tr>
+<td>默认</td>
+<td>default</td>
+<td>如果一列没有值，使用默认值</td>
+</tr>
+<tr>
+<td>非空</td>
+<td>not null</td>
+<td>这一列必须有值</td>
+</tr>
+<tr>
+<td>唯一</td>
+<td>unique</td>
+<td>这一列不能有重复值</td>
+</tr>
+<tr>
+<td>外键</td>
+<td>foreign key</td>
+<td>主表中主键列，在从表中外键列</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-表与表之间的关系"><a href="#4-表与表之间的关系" class="headerlink" title="4. 表与表之间的关系"></a>4. 表与表之间的关系</h2><table>
+<thead>
+<tr>
+<th>表与表之间的三种关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一对多：最常用的关系 部门和员工</td>
+</tr>
+<tr>
+<td>多对多：学生选课表 和 学生表， 一门课程可以有多个学生选择，一个学生选择多门课程</td>
+</tr>
+<tr>
+<td>一对一：相对使用比较少。员工表 简历表， 公民表 护照表</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-1-一对多"><a href="#4-1-一对多" class="headerlink" title="4.1 一对多"></a>4.1 一对多</h3><p>一对多(1:n) 例如：班级和学生，部门和员工，客户和订单，分类和商品</p>
+<p>一对多建表原则: 在从表(多方)创建一个字段,字段作为外键指向主表(一方)的主键</p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/20/oneToMany-1558281810598.jpg" alt="title"></p>
+<h3 id="4-2-多对多"><a href="#4-2-多对多" class="headerlink" title="4.2 多对多"></a>4.2 多对多</h3><p>多对多(m:n) 例如：老师和学生，学生和课程，用户和角色</p>
+<p>多对多关系建表原则: 需要创建第三张表，中间表中至少两个字段，这两个字段分别作为外键指向各自一方的主 键。</p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/20/ManyToMany-1558281920649.jpg" alt="title"></p>
+<h3 id="4-3-一对一"><a href="#4-3-一对一" class="headerlink" title="4.3 一对一"></a>4.3 一对一</h3><p>一对一（1:1） 可以在任意一方添加外键指向另一方的主键。</p>
+<p>两种建表原则：</p>
+<ol>
+<li>外键唯一：主表的主键和从表的外键（唯一），形成主外键关系，外键唯一 UNIQUE</li>
+<li>外键是主键：主表的主键和从表的主键，形成主外键关系</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/20/OneToOne-1558282085899.jpg" alt="title"></p>
+<h3 id="4-4-综合案例"><a href="#4-4-综合案例" class="headerlink" title="4.4 综合案例"></a>4.4 综合案例</h3><p>根据途牛网的旅游分类、旅游航线等信息设计数据库表结构</p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/20/tuniu-1558320997129.jpg" alt="title"></p>
+<h4 id="SQL语句实现"><a href="#SQL语句实现" class="headerlink" title="SQL语句实现"></a>SQL语句实现</h4><pre><code class="sql">/*
+1. 创建旅游线路分类表，tab_category
+cid 主键，自增
+cname 分类名称，唯一，
+*/
+CREATE TABLE tab_category(
+cid INT PRIMARY KEY AUTO_INCREMENT,
+cname VARCHAR(100) UNIQUE
+);
+/*
+2. 创建航线route表
+rid ，旅游线路主键，自增
+rname 旅游线路名称，非空唯一，
+price 价格
+rdate 上架时间，
+cid 外键
+*/
+CREATE TABLE tab_route(
+rid INT PRIMARY KEY AUTO_INCREMENT,
+rname VARCHAR(100) UNIQUE NOT NULL,
+price DOUBLE,
+rdate DATE,
+cid INT,
+FOREIGN KEY(cid) REFERENCES tab_category(cid) -- 外键指向主表主键
+);
+
+/*
+3. 创建用户表 tab_user
+uid 用户主键，自增长
+username 用户名长度 100，唯一，非空
+password 密码长度 30，非空
+name 真实姓名长度 100
+birthday 生日
+sex 性别，定长字符串 1
+telephone 手机号，字符串 11
+email 邮箱，字符串长度 100
+*/
+CREATE TABLE tab_user(
+uid INT PRIMARY KEY AUTO_INCREMENT,
+username VARCHAR(100) UNIQUE NOT NULL,
+PASSWORD VARCHAR(30) NOT NULL,
+NAME VARCHAR(100),
+birthday DATE,
+sex CHAR(1) DEFAULT '男',
+telephone VARCHAR(11),
+email VARCHAR(100)
+);
+
+/*
+4. 创建用户和航线的中间表，收藏表:
+创建收藏表 tab_favorite
+rid 旅游线路id,外键
+date 收藏时间
+uid 用户 id,外键
+rid 和 uid 不能重复,设置复合主键,同一个用户不能收藏同一个线路两次
+*/
+CREATE TABLE tab_favorite(
+rid INT, -- 旅游线路id
+favtime DATETIME,
+uid INT, -- 用户id
+-- 创建复合主键
+PRIMARY KEY(rid,uid),
+FOREIGN KEY(rid) REFERENCES tab_route(rid),
+FOREIGN KEY(uid) REFERENCES tab_user(uid)
+);
+</code></pre>
+<h4 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h4><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/20/ExerciseCase-1558321667308.jpg" alt="title"></p>
+<h3 id="4-5-表与表之间的关系小结"><a href="#4-5-表与表之间的关系小结" class="headerlink" title="4.5 表与表之间的关系小结"></a>4.5 表与表之间的关系小结</h3><table>
+<thead>
+<tr>
+<th>表与表的关系</th>
+<th>关系的维护</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一对多</td>
+<td>主外键的关系</td>
+</tr>
+<tr>
+<td>多对多</td>
+<td>中间表，两个一对多</td>
+</tr>
+<tr>
+<td>一对一</td>
+<td>特殊一对多，从表中的外键设为唯一；从表的主键又是外键</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-数据库设计"><a href="#6-数据库设计" class="headerlink" title="6. 数据库设计"></a>6. 数据库设计</h2><ul>
+<li>范式：好的数据库设计对数据的存储性能和后期的程序开发，都会产生重要的影响。建立科学的，规范的数据库就需要满足一些规则来优化数据的设计和存储，这些规则就称为范式。</li>
+</ul>
+<h3 id="6-1-三大范式"><a href="#6-1-三大范式" class="headerlink" title="6.1 三大范式"></a>6.1 三大范式</h3><ul>
+<li>范式概念：设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式。各种范式呈递次规范，越高的范式数据库冗余越小。</li>
+<li>六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。</li>
+</ul>
+<p>满足最低要求的范式是第一范式（1NF）。在第一范式的基础上进一步满足更多规范要求的称为第二范式（2NF），其余范式以次类推。一般说来，数据库只需满足第三范式(3NF）就行了</p>
+<h3 id="6-2-第一范式-1NF"><a href="#6-2-第一范式-1NF" class="headerlink" title="6.2  第一范式:1NF"></a>6.2  第一范式:1NF</h3><p>数据库表的每一列都是不可分割的原子数据项，不能是集合、数组等非原子数据项。即表中的某个列有多个值时，必须拆分为不同的列。简而言之，第一范式每一列不可再拆分，称为原子性。</p>
+<h4 id="示例：班级表"><a href="#示例：班级表" class="headerlink" title="示例：班级表"></a>示例：班级表</h4><table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>班级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>小张</td>
+<td>103班</td>
+</tr>
+<tr>
+<td>2</td>
+<td>小李</td>
+<td>102班</td>
+</tr>
+<tr>
+<td>3</td>
+<td>小王</td>
+<td>203班</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-3-第二范式：2NF"><a href="#6-3-第二范式：2NF" class="headerlink" title="6.3 第二范式：2NF"></a>6.3 第二范式：2NF</h3><p>在INF的前提下，非码属性必须完全依赖于码(在1NF基础上消除非主属性对主码的部分函数依赖)，即让表中的非主属性字段都<strong>完全依赖</strong>于主键。<br>所谓完全依赖是指不能存在仅依赖主键一部分的列。简而言之，第二范式就是在第一范式的基础上所有列完全依赖于主键列。</p>
+<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>系名</th>
+<th>系主任</th>
+<th>课程名称</th>
+<th>分数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10010</td>
+<td>张无忌</td>
+<td>经济系</td>
+<td>张三丰</td>
+<td>高等数学</td>
+<td>95</td>
+</tr>
+<tr>
+<td>10010</td>
+<td>张无忌</td>
+<td>经济系</td>
+<td>张三丰</td>
+<td>大学英语</td>
+<td>87</td>
+</tr>
+<tr>
+<td>10010</td>
+<td>张无忌</td>
+<td>经济系</td>
+<td>张三丰</td>
+<td>计算机基础</td>
+<td>65</td>
+</tr>
+<tr>
+<td>10011</td>
+<td>令狐冲</td>
+<td>法律系</td>
+<td>任我行</td>
+<td>法理学</td>
+<td>77</td>
+</tr>
+<tr>
+<td>10011</td>
+<td>令狐冲</td>
+<td>法律系</td>
+<td>任我行</td>
+<td>大学英语</td>
+<td>87</td>
+</tr>
+<tr>
+<td>10011</td>
+<td>令狐冲</td>
+<td>法律系</td>
+<td>任我行</td>
+<td>法律社会学</td>
+<td>65</td>
+</tr>
+<tr>
+<td>10012</td>
+<td>杨过</td>
+<td>法律系</td>
+<td>任我行</td>
+<td>法律社会学</td>
+<td>95</td>
+</tr>
+<tr>
+<td>10012</td>
+<td>杨过</td>
+<td>法律系</td>
+<td>任我行</td>
+<td>法理学</td>
+<td>97</td>
+</tr>
+<tr>
+<td>10012</td>
+<td>杨过</td>
+<td>法律系</td>
+<td>任我行</td>
+<td>大学英语</td>
+<td>99</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>函数依赖：A–&gt;B,如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称B依赖于A。例：学号–&gt;姓名，通过学号可以确定唯一姓名值，故称姓名依赖于学号 ；(学号，课程名称) –&gt; 分数，通过学号+课程名称可以确定唯一分数值，故分数依赖于学号+课程名称。</li>
+<li>完全函数依赖：A–&gt;B,如果A是一个属性组，则B属性值的确定需要依赖于A属性组中所有的属性值。例：(学号，课程名称) –&gt; 分数，确定分数的值只能通过(学号+课程名称)属性组确定，故分数完全依赖于(学号+课程名称)。</li>
+<li>部分函数依赖：A–&gt;B, 如果A是一个属性组，则B属性值的确定只需要依赖于A属性组中某一些值即可。例如：(学号，课程名称) –&gt;姓名，姓名属性值可以通过学号查询，故称姓名属性值部分依赖于(学号，课程名称)属性组。</li>
+<li>传递函数依赖：A—&gt;B, B—&gt;C, 如果通过A属性(属性组)的值，可以确定唯一的B属性值，在通过B属性值可以确定唯一C属性值，则称C传递函数依赖于A。例如：学号–&gt;系名，系名–&gt;系主任，通过学号属性值可以确定唯一系名，通过系名可以确定唯一系主任，那么就可以通过学号确定系主任，故称系主任传递依赖于学号。</li>
+<li>码：如果在一张表中，一个属性或属性组，被其他所有属性完全依赖，则称这一属性或属性组为该表的码。例如：上表中的码为：(学号，课程名称)，通过该属性组可确定所有其他属性值，所有其他属性完全依赖于该属性组，故称为码。<ul>
+<li>主属性：码属性组中的所有属性</li>
+<li>非主属性：除码属性组外的属性</li>
+</ul>
+</li>
+</ol>
+<p><strong>第二范式的特点</strong>：</p>
+<ol>
+<li>一张表只描述一件事情。</li>
+<li>表中的每一列都完全依赖于主键</li>
+</ol>
+<h3 id="6-4-第三范式：3NF"><a href="#6-4-第三范式：3NF" class="headerlink" title="6.4 第三范式：3NF"></a>6.4 第三范式：3NF</h3><p>在2NF基础上，任何非主属性不依赖于其他非主属性(在2NF基础上消除传递依赖)，即表中每一列都直接依赖于主键，而不是通过其他的列来间接依赖于主键，任何非主列不得传递依赖于主键。</p>
+<p><strong>示例</strong>：</p>
+<p>有如下学生信息表</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>所在学院</th>
+<th>学院地点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>小明</td>
+<td>计算机系</td>
+<td>杭州校区</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>存在传递依赖关系：学号–&gt;所在学院–&gt;学院地点</li>
+<li>消除依赖，拆分成两张表</li>
+</ul>
+<p>学生表：<br>| 学号 | 姓名 | 所在学院编号(外键) |<br>| —- | —- | —————— |<br>| 1    | 小明 | 1                  |</p>
+<p>学院表：<br>| 学院编号 | 学院地点 |<br>| ——– | ——– |<br>| 1        | 杭州校区 |</p>
+<h3 id="6-5-三大范式总结"><a href="#6-5-三大范式总结" class="headerlink" title="6.5 三大范式总结"></a>6.5 三大范式总结</h3><table>
+<thead>
+<tr>
+<th>范式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1NF</td>
+<td>原子性：表中每列不可再拆分</td>
+</tr>
+<tr>
+<td>2NF</td>
+<td>不产生局部依赖，一张表只描述一件事情</td>
+</tr>
+<tr>
+<td>3NF</td>
+<td>不产生传递依赖，表中每一列都直接依赖于主键。而不是通过其他列间接依赖于主键。</td>
+</tr>
+</tbody>
+</table>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/05/19/database/mysql-cha-xun-cao-zuo/" class="b-link-green">MySQL查询操作</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-05-19T23-59-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/05/20/jottings/2019-5-20/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="'2019.5.20'">
+                        
+                        <span class="card-title">'2019.5.20'</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">今日随笔 📓今天又是鸽子江的一天! 😆
+下面总结一下最近几天的问题 🔍
+
+1⃣学习效率方面发现最近的学习效率有点问题，经常当天的学习内容都要拖很晚才能完成。也不知道是方法出了问题还是什么。
+
+学习娱乐之间要保持平衡，要有度。
+
+2⃣ </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-user fa-fw"></i>
+                            Zero
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/随笔/" target="_blank">
+                        <span class="chip bg-color">随笔</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/05/18/database/mysql-ji-chu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="MySQL基础">
+                        
+                        <span class="card-title">MySQL基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 数据库基本概念数据库(DataBase)，简称DB，用于存储和管理数据的仓库。
+数据库的特点：
+
+持久化存储数据。数据库其实就是一个文件系统。
+方便存储和管理数据。
+使用了统一的方式操作数据库。
+
+
+安装MySQL
+MySQL基本操作</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/MySQL基础/" class="post-category" target="_blank">
+                                    MySQL基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">250.7k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
