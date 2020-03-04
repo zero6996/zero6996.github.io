@@ -1,7 +1,8 @@
 ---
 title: MySQL基础
 date: 2019-5-18 23:40
-categories: MySQL基础 # 分类
+categories: DataBase # 分类
+tags: MySQL
 description: MySQL基本使用
 ---
 
