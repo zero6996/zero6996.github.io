@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>SpringBoot简单入门</title>
+      <link href="/2020/03/08/FrameWork/SpringBoot%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/"/>
+      <url>/2020/03/08/FrameWork/SpringBoot%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<h2 id="SpringBoot简单入门"><a href="#SpringBoot简单入门" class="headerlink" title="SpringBoot简单入门"></a>SpringBoot简单入门</h2><p>Spring是一个JavaWeb开发框架，极大的简化开发，降低了对配置文件的要求；能迅速的开发web应用，几行代码就可以开发一个http接口。</p><a id="more"></a><h3 id="1-创建简单项目"><a href="#1-创建简单项目" class="headerlink" title="1. 创建简单项目"></a>1. 创建简单项目</h3><ol><li>点击菜单-&gt;New-&gt;Project-&gt;Spring Initalizr 然后点击Next</li></ol><p><img src="http://yanxuan.nosdn.127.net/b9e28697b634eab06db8a659ccede011.png" alt="New Project"></p><ol start="2"><li>输入如图所示两个地方参数，其他参数一般默认，然后Next</li></ol><p><img src="http://yanxuan.nosdn.127.net/a2e77ddd87976719e7a10347a0927741.png" alt="New Project"></p><ol start="3"><li>接着选择Web,然后勾选Spring Web即可，Next</li></ol><p><img src="http://yanxuan.nosdn.127.net/075b6bf7031e1a28d641e9ee64fc64f7.png" alt="选择Web"></p><ol start="4"><li>最后确认一下项目名称和位置即可，点击Finish完成项目创建。</li><li>项目创建好后，自带一个Application，在里面填写如下内容</li></ol><p><img src="http://yanxuan.nosdn.127.net/cb1facc5ce154216aeae0a72342b3210.png" alt="建立简单映射"></p><ol start="6"><li>启动Application项目，测试访问。</li></ol><h3 id="2-关于打包问题"><a href="#2-关于打包问题" class="headerlink" title="2. 关于打包问题"></a>2. 关于打包问题</h3><p>通常部署SpringBoot项目可以采用两种方式：全部打包成一个jar包，或者打包成一个war包。</p><h4 id="2-1-打包成jar包"><a href="#2-1-打包成jar包" class="headerlink" title="2.1 打包成jar包"></a>2.1 打包成jar包</h4><p>使用IDEA的话非常简单，找到右侧侧边栏的maven图标，点击项目生命周期，然后双击<code>install</code>即可，没问题应该显示<code>BUILD SUCCESS</code>。</p><p><img src="http://yanxuan.nosdn.127.net/1c7d5f6b064fdb92b777e4b6d4485677.png" alt="Maven"></p><blockquote><p>使用maven的<code>mvn install</code>一样可以，该命令需在项目根目录打开命令行窗口下运行。</p></blockquote><p>该命令会在你项目的target目录下生产一个jar文件，使用命令<code>java -jar yourjarName.jar</code>运行该jar文件即可启动项目。</p><p><img src="http://yanxuan.nosdn.127.net/d51e68036cb149702808e7bf79d388e3.png" alt="运行jar"></p><p>这个jar包里面包含项目的全部文件，以及Tomcat服务器，所以无论放到哪里只要有java环境就可以运行启动项目。</p><h4 id="2-2-打包成war包"><a href="#2-2-打包成war包" class="headerlink" title="2.2 打包成war包"></a>2.2 打包成war包</h4><ol><li>修改<code>pom.xml</code>，添加打包类型和依赖</li></ol><pre><code class="xml">&lt;!-- 打包成war包需加这一行--&gt;&lt;packaging&gt;war&lt;/packaging&gt;&lt;!-- 打包从war包时需添加此依赖,防止打包冲突--&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;    &lt;scope&gt;provided&lt;/scope&gt; &lt;!-- 表示只在编译和测试过程有效，生成war包不会加入--&gt;&lt;/dependency&gt;</code></pre><ol start="2"><li>修改启动类文件，继承<code>SpringBootServletInitializer</code></li></ol><pre><code class="java">@SpringBootApplicationpublic class HelloDemoApplication extends SpringBootServletInitializer {    @Override    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {        return builder.sources(HelloDemoApplication.class);    }    public static void main(String[] args) {        SpringApplication.run(HelloDemoApplication.class, args);    }}</code></pre><blockquote><p>SpringBoot项目想运行在第三方Tomcat上必须实现<code>SpringBootServletInitializer</code>接口的<code>configure</code>方法才能让外部容器运行。</p></blockquote><ol start="3"><li>使用maven的<code>clean</code>命令，然后使用<code>package</code>命令，就会在target目录下生成<code>.war</code>文件</li></ol><p><img src="http://yanxuan.nosdn.127.net/17f5a60920545e0780cf37f492cf7689.png" alt="生成war"></p><ol start="4"><li>将该文件复制到外部Tomcat的webapps目录下，重命名为<code>ROOT.war</code>，方便访问。</li></ol><blockquote><p>不修改为ROOT，需要加项目名称才可以访问。</p></blockquote><p><img src="http://yanxuan.nosdn.127.net/4acfb821a780f0388eb6355810d275dd.png" alt="部署war"></p><ol start="5"><li>bin目录下点击<code>startup.bat</code>文件，启动项目，测试访问。</li></ol><p><img src="http://yanxuan.nosdn.127.net/84c10736da31d123eb3761476362d5af.png" alt="运行war"></p><h3 id="3-关于Tomcat中文乱码问题"><a href="#3-关于Tomcat中文乱码问题" class="headerlink" title="3. 关于Tomcat中文乱码问题"></a>3. 关于Tomcat中文乱码问题</h3><p>在tomcat的conf文件夹下，打开<code>logging.properties</code>文件，将<code>java.util.logging.ConsoleHandler.encoding = UTF-8</code>修改<code>java.util.logging.ConsoleHandler.encoding = GBK</code></p><p><img src="http://yanxuan.nosdn.127.net/cc6dbe40be3cc9beb0dedbd015abfd7c.png" alt="解决乱码"></p><h3 id="4-SpringBoot热部署"><a href="#4-SpringBoot热部署" class="headerlink" title="4. SpringBoot热部署"></a>4. SpringBoot热部署</h3><ol><li>在settings中开启<code>Build project automatically</code>，自动构建项目功能。</li></ol><p><img src="http://yanxuan.nosdn.127.net/8a4d3961d543c268a9f3831b8f8bd043.png" alt="UTOOLS1583487581224.png"></p><ol start="2"><li>开启动态自动编译，同时按住<code>Ctrl+Shift+Alt+/</code>，然后点击<code>Registry</code>，勾选如下参数，并配置时间。</li></ol><p><img src="http://yanxuan.nosdn.127.net/8a6d4c9a57fd673d6f8a11d3b0a6d9fe.png" alt="UTOOLS1583487512368.png"></p><ol start="3"><li>开启项目的热部署策略，在项目配置中选择如下选项即可。</li></ol><p><img src="http://yanxuan.nosdn.127.net/7e0d63ba102733533ac83ee8e86f9efb.png" alt="UTOOLS1583487836015.png"></p><ol start="4"><li>项目添加热部署插件，在xml中配置如下。</li></ol><pre><code class="xml">&lt;!-- 热部署依赖 --&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;    &lt;optional&gt;true&lt;/optional&gt; &lt;!-- true才生效 --&gt;    &lt;scope&gt;runtime&lt;/scope&gt; &lt;!--仅在运行期有效，不参与打包--&gt;&lt;/dependency&gt;</code></pre><ol start="5"><li>保险起见，浏览器f12 ✅Disable cache。</li></ol><h3 id="5-关于错误处理"><a href="#5-关于错误处理" class="headerlink" title="5. 关于错误处理"></a>5. 关于错误处理</h3><p>定义一个全局的异常处理器，然后跳转到错误页面</p><pre><code class="java">@ControllerAdvicepublic class GlobalExceptionHandler {    @ExceptionHandler(value = Exception.class)    public ModelAndView defaultErrorHandler(HttpServletRequest req,Exception e) throws Exception{        ModelAndView view = new ModelAndView();        view.addObject("exception",e);        view.addObject("url",req.getRequestURL());        view.setViewName("errorPage");        return view;    }}</code></pre><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> FrameWork </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SpringBoot </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>OSI7层模型和TCP/IP四层模型简要总结</title>
       <link href="/2020/03/02/Interview/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B/"/>
       <url>/2020/03/02/Interview/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B/</url>
@@ -42,6 +67,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
       
     </entry>
     
@@ -138,6 +169,12 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Live2D </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -157,6 +194,12 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -171,7 +214,7 @@
       
       <categories>
           
-          <category> SpringMVC </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -196,7 +239,7 @@
       
       <categories>
           
-          <category> SpringMVC </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -221,7 +264,7 @@
       
       <categories>
           
-          <category> SpringMVC </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -246,7 +289,7 @@
       
       <categories>
           
-          <category> SpringMVC </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -271,7 +314,7 @@
       
       <categories>
           
-          <category> Mybatis </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -296,7 +339,7 @@
       
       <categories>
           
-          <category> Mybatis </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -321,7 +364,7 @@
       
       <categories>
           
-          <category> Spring </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -346,7 +389,7 @@
       
       <categories>
           
-          <category> Spring </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -371,7 +414,7 @@
       
       <categories>
           
-          <category> Spring </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -396,7 +439,7 @@
       
       <categories>
           
-          <category> Spring </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -421,7 +464,7 @@
       
       <categories>
           
-          <category> Spring </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -446,7 +489,7 @@
       
       <categories>
           
-          <category> Spring </category>
+          <category> FrameWork </category>
           
       </categories>
       
@@ -487,12 +530,18 @@
     
     
     <entry>
-      <title>&#39;travel项目开发日志&#39;</title>
+      <title>travel项目开发日志</title>
       <link href="/2019/07/29/JavaWeb/travel%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/"/>
       <url>/2019/07/29/JavaWeb/travel%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/</url>
       
         <content type="html"><![CDATA[<h3 id="1-项目简介"><a href="#1-项目简介" class="headerlink" title="1. 项目简介"></a>1. 项目简介</h3><p>黑马旅游网是一个前后端分离的Web项目，后端采用了MVC设计模式。前端通过<code>Ajax</code>来请求后端服务器，获取<code>json</code>数据，然后填充到前端页面，部分不经常变动数据(如导航栏数据)，使用到了<code>redis</code>来做数据缓存以减少对数据库的访问。</p><a id="more"></a><h3 id="2-项目进度"><a href="#2-项目进度" class="headerlink" title="2. 项目进度"></a>2. 项目进度</h3><p>截止7月28日，目前已完成的模块为：</p><ol><li>登录注册</li><li>国内游功能及其内附加功能，如查看详情，收藏等。</li><li>线路搜索功能</li></ol><p>待完成功能：</p><ol><li>首页数据展示功能，包括人气旅游，最新旅游等。</li><li>导航栏功能的添加</li><li>我的收藏功能</li><li>热门推荐</li><li>前端部分样式修改</li><li>记住密码功能</li><li>收藏排行榜</li><li>整体细节方面，如登录后登录按钮消失等。</li></ol><h3 id="3-项目展示"><a href="#3-项目展示" class="headerlink" title="3. 项目展示"></a>3. 项目展示</h3><p><a href="http://www.luoxiansen.cn/travel/index.html" target="_blank" rel="noopener">旅游网项目</a></p><blockquote><p>无法访问多刷新几次试试</p></blockquote><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
       
+      
+      <categories>
+          
+          <category> JavaWeb </category>
+          
+      </categories>
       
       
         <tags>
@@ -639,6 +688,14 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Ajax </tag>
+            
+            <tag> Json </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -688,25 +745,6 @@
             <tag> JQuery </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>IDEA打包项目</title>
-      <link href="/2019/07/01/JavaWeb/IDEA%E6%89%93%E5%8C%85%E9%A1%B9%E7%9B%AE/"/>
-      <url>/2019/07/01/JavaWeb/IDEA%E6%89%93%E5%8C%85%E9%A1%B9%E7%9B%AE/</url>
-      
-        <content type="html"><![CDATA[<h3 id="如何将IDEA中的项目打包成war包？"><a href="#如何将IDEA中的项目打包成war包？" class="headerlink" title="如何将IDEA中的项目打包成war包？"></a>如何将IDEA中的项目打包成war包？</h3><a id="more"></a><h4 id="1-打开项目结构，选择Artifacts，添加一个空的web应用"><a href="#1-打开项目结构，选择Artifacts，添加一个空的web应用" class="headerlink" title="1. 打开项目结构，选择Artifacts，添加一个空的web应用"></a>1. 打开项目结构，选择<code>Artifacts</code>，添加一个空的<code>web</code>应用</h4><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/01/1561992152052-1561995934782.png" alt="title"></p><h4 id="2-改名"><a href="#2-改名" class="headerlink" title="2. 改名"></a>2. 改名</h4><p>按需改名</p><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/01/1561992273664-1561995961288.png" alt="title"></p><h4 id="3-创建META-INF"><a href="#3-创建META-INF" class="headerlink" title="3. 创建META-INF"></a>3. 创建<code>META-INF</code></h4><p>点击创建，选择项目跟目录，即可创建成功。</p><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/01/1561992318178-1561995972034.png" alt="title"></p><h4 id="4-导入项目文件"><a href="#4-导入项目文件" class="headerlink" title="4. 导入项目文件"></a>4. 导入项目文件</h4><p>选中项目，点击<code>Put into Output Root</code>，即可将项目相关的<code>lib</code>包和<code>class</code>文件全部导入。</p><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/01/1561992419651-1561995980538.png" alt="title"></p><p>导入项目文件后，会自动生成为如下目录结构：</p><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/01/1561992441169-1561995987803.png" alt="title"></p><h4 id="5-构建项目"><a href="#5-构建项目" class="headerlink" title="5. 构建项目"></a>5. 构建项目</h4><p>上述步骤完成后点击<code>OK</code>，返回主界面将项目构建一下。</p><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/01/1561992635331-1561995998209.png" alt="title"></p><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/01/1561992656642-1561996005603.png" alt="title"></p><h4 id="6-查看war包"><a href="#6-查看war包" class="headerlink" title="6. 查看war包"></a>6. 查看war包</h4><p>在你项目的<code>artifacts</code>文件夹下，有你刚刚构建的项目文件夹，里面便是构建好的<code>war</code>包。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
-      <categories>
-          
-          <category> JavaWeb </category>
-          
-      </categories>
-      
       
     </entry>
     
@@ -809,6 +847,14 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Cookie </tag>
+            
+            <tag> Session </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -827,12 +873,6 @@
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> HTTP </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1029,12 +1069,6 @@
       </categories>
       
       
-        <tags>
-            
-            <tag> HTML </tag>
-            
-        </tags>
-      
     </entry>
     
     
@@ -1193,7 +1227,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1211,7 +1245,7 @@
     
     
     <entry>
-      <title>Steeam流和方法引用</title>
+      <title>Stream流的简单使用</title>
       <link href="/2019/05/15/JavaBasics/Stream%E6%B5%81%E5%92%8C%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/"/>
       <url>/2019/05/15/JavaBasics/Stream%E6%B5%81%E5%92%8C%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/</url>
       
@@ -1220,14 +1254,14 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Java </tag>
+            <tag> Stream </tag>
             
         </tags>
       
@@ -1245,7 +1279,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1270,7 +1304,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1295,7 +1329,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1322,7 +1356,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1349,7 +1383,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1374,16 +1408,16 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> 线程 </tag>
+            
+            <tag> Lambda </tag>
             
         </tags>
       
@@ -1401,7 +1435,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1428,14 +1462,14 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Java </tag>
+            <tag> Exception </tag>
             
         </tags>
       
@@ -1453,7 +1487,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1480,14 +1514,14 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Java </tag>
+            <tag> 集合 </tag>
             
         </tags>
       
@@ -1505,7 +1539,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1532,7 +1566,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1557,7 +1591,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1582,14 +1616,14 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Java </tag>
+            <tag> 三大特性 </tag>
             
         </tags>
       
@@ -1607,14 +1641,14 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Java </tag>
+            <tag> 三大特性 </tag>
             
         </tags>
       
@@ -1632,7 +1666,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1657,7 +1691,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1682,7 +1716,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1707,7 +1741,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1725,23 +1759,23 @@
     
     
     <entry>
-      <title>Java开发工具的安装</title>
+      <title>IDEA的安装与激活</title>
       <link href="/2019/04/15/JavaBasics/Java%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/"/>
       <url>/2019/04/15/JavaBasics/Java%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</url>
       
-        <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>IDEA是一个专门针对Java的集成开发工具(IDE)，由Java语言编写。所以，需要有JRE运行环境并配置好环境变量。<br>它可以极大地提升我们的开发效率。可以自动编译，检查错误。</p><a id="more"></a><h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><ol><li>官网下载IDE安装包<br><a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">IntelliJ官网</a></li><li>修改Hosts文件，使用注册码激活<br><a href="http://idea.lanyus.com/" target="_blank" rel="noopener">破解教程网站</a></li></ol><h3 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h3><ol><li>新建一个项目，然后点击src文件夹，右击新建package，新建包后右键新建一个class，编写一个HelloWorld程序验证一下是否正常运行。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/15/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15552997771553-1555299788468.png" alt="title"></li><li>IDEA工具默认字体非常小，代码编辑器和控制台的输出字体都需进行调整</li></ol><ul><li>点击菜单栏上的File&gt;Settings&gt;Editor&gt;Font修改字体。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/15/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15552998363731-1555299845339.png" alt="title"></li></ul><h3 id="IDEA的项目目录"><a href="#IDEA的项目目录" class="headerlink" title="IDEA的项目目录"></a>IDEA的项目目录</h3><ul><li>.idea目录和demo.iml和我们开发无关，是IDEA工具自己使用的</li><li>out目录是存储编译后的.class文件</li><li>src目录是存储我们编写的.java源文件<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/15/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15553000533050-1555300185262.png" alt="title"></li></ul><h3 id="IEAD常用快捷键"><a href="#IEAD常用快捷键" class="headerlink" title="IEAD常用快捷键"></a>IEAD常用快捷键</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/15/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15553002176364-1555300220987.png" alt="title"></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+        <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>IDEA是一个专门针对Java的集成开发工具(IDE)，由Java语言编写。所以，需要有JRE运行环境并配置好环境变量。<br>它可以极大地提升我们的开发效率。可以自动编译，检查错误。</p><a id="more"></a><h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><ol><li>官网下载IDE安装包<br><a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">IntelliJ官网</a></li><li>agent破解方式<br>详见<a href="https://zhile.io/" target="_blank" rel="noopener">zhile.io</a> 破解教程</li></ol><blockquote><p>仅供个人学习研究使用，不得用于商业用途！若资金允许请点击<a href="https://www.jetbrains.com/idea/buy/" target="_blank" rel="noopener">链接</a>支持正版</p></blockquote><h3 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h3><ol><li>新建一个项目，然后点击src文件夹，右击新建package，新建包后右键新建一个class，编写一个HelloWorld程序验证一下是否正常运行。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/15/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15552997771553-1555299788468.png" alt="title"></li><li>IDEA工具默认字体非常小，代码编辑器和控制台的输出字体都需进行调整</li></ol><ul><li>点击菜单栏上的File&gt;Settings&gt;Editor&gt;Font修改字体。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/15/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15552998363731-1555299845339.png" alt="title"></li></ul><h3 id="IDEA的项目目录"><a href="#IDEA的项目目录" class="headerlink" title="IDEA的项目目录"></a>IDEA的项目目录</h3><ul><li>.idea目录和demo.iml和我们开发无关，是IDEA工具自己使用的</li><li>out目录是存储编译后的.class文件</li><li>src目录是存储我们编写的.java源文件<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/15/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15553000533050-1555300185262.png" alt="title"></li></ul><h3 id="IEAD常用快捷键"><a href="#IEAD常用快捷键" class="headerlink" title="IEAD常用快捷键"></a>IEAD常用快捷键</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/15/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15553002176364-1555300220987.png" alt="title"></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
       
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Java </tag>
+            <tag> IDEA </tag>
             
         </tags>
       
@@ -1759,7 +1793,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1784,7 +1818,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1809,7 +1843,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1834,7 +1868,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1859,7 +1893,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
@@ -1884,7 +1918,7 @@
       
       <categories>
           
-          <category> Java学习笔记 </category>
+          <category> JavaBasics </category>
           
       </categories>
       
