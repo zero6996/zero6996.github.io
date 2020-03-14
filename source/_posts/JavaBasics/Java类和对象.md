@@ -1,7 +1,7 @@
 ---
 title: Java类和对象
 date: 2019-4-17 17:45
-categories: Java学习笔记 # 分类
+categories: JavaBasics # 分类
 tags: [Java]
 description: 主要内容是Java的类和对象，封装和构造方法
 ---

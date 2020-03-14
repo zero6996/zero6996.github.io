@@ -2,7 +2,7 @@
 title: MySQL多表查询和事务
 date: 2019-5-23 18:00
 categories: DataBase
-tags: MySQL
+tags: [MySQL]
 description: MySQL多表查询和事务概念
 ---
 

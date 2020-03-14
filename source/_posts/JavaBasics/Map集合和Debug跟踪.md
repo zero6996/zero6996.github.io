@@ -1,7 +1,7 @@
 ---
 title: Map集合和Debug跟踪
 date: 2019-4-26 23:59
-categories: Java学习笔记 # 分类
+categories: JavaBasics # 分类
 tags: [Java,集合]
 description: Java中Map集合的特点及使用，Debug跟踪的使用
 ---

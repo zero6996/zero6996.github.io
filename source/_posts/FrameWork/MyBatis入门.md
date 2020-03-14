@@ -1,7 +1,7 @@
 ---
 title: MyBatis基础入门
 date: 2019-8-21 22:50
-categories: Mybatis
+categories: FrameWork
 tags: [MyBatis]
 description: Mybatis基础入门
 ---

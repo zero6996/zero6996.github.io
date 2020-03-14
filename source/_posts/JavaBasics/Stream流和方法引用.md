@@ -1,8 +1,8 @@
 ---
-title: Steeam流和方法引用
+title: Stream流的简单使用
 date: 2019-5-15 22:40
-categories: Java学习笔记 # 分类
-tags: [Java]
+categories: JavaBasics # 分类
+tags: [Stream]
 description: Java中的Stream流的使用以及各种方法引用方式
 ---
 

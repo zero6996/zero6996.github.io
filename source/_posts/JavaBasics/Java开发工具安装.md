@@ -1,9 +1,9 @@
 ---
-title: Java开发工具的安装
+title: IDEA的安装与激活
 date: 2019-4-15 17:00
-categories: Java学习笔记 # 分类
-tags: [Java]
-description: 简单的介绍了Java IDEA开发工具的下载与使用
+categories: JavaBasics # 分类
+tags: [IDEA]
+description: 简单的介绍了IDEA开发工具的下载与使用
 ---
 
 
@@ -16,8 +16,11 @@ IDEA是一个专门针对Java的集成开发工具(IDE)，由Java语言编写。
 ### 安装步骤
 1. 官网下载IDE安装包
 [IntelliJ官网](https://www.jetbrains.com/idea/)
-2. 修改Hosts文件，使用注册码激活
-[破解教程网站](http://idea.lanyus.com/)
+2. agent破解方式
+详见[zhile.io](https://zhile.io/) 破解教程
+
+> 仅供个人学习研究使用，不得用于商业用途！若资金允许请点击[链接](https://www.jetbrains.com/idea/buy/)支持正版
+
 
 ### 使用教程
 1. 新建一个项目，然后点击src文件夹，右击新建package，新建包后右键新建一个class，编写一个HelloWorld程序验证一下是否正常运行。

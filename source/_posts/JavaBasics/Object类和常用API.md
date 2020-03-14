@@ -1,7 +1,7 @@
 ---
 title: Java中的Object类和常用API
 date: 2019-4-23 23:59
-categories: Java学习笔记 # 分类
+categories: JavaBasics # 分类
 tags: [Java]
 description: Java当中Object类和常用API概述
 ---

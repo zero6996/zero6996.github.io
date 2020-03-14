@@ -1,8 +1,8 @@
 ---
 title: Hexo博客添加live2d动态模型插件
 date: 2019-11-04 14:12:13
- 
 categories: Other
+tags: [Live2D]
 description: Live2D插件的安装
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 缓冲流、转换流、序列化流、打印流
 date: 2019-5-10 23:00
-categories: Java学习笔记
+categories: JavaBasics
 tags: [Java,IO流]
 description: 讲述了Java中的4种IO流的增强用法
 ---

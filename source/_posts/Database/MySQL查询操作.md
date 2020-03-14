@@ -2,7 +2,7 @@
 title: MySQL查询操作
 date: 2019-5-19 23:59
 categories: DataBase # 分类
-tags: MySQL
+tags: [MySQL]
 description: MySQL的DQL，约束等
 ---
 

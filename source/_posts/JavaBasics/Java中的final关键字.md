@@ -1,7 +1,7 @@
 ---
 title: Java的final关键字及内部类
 date: 2019-4-22 22:00
-categories: Java学习笔记 # 分类
+categories: JavaBasics # 分类
 tags: [Java]
 description: Java中的final关键字，权限、内部类和引用类型
 ---

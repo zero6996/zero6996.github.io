@@ -2,6 +2,7 @@
 title: 会话技术Cookie和Session
 date: 2019-6-16 15:30
 categories: JavaWeb
+tags: [Cookie,Session]
 description: 会话技术Cookie和Session
 ---
 

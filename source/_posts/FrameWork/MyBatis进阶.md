@@ -1,7 +1,7 @@
 ---
 title: MyBatis进阶
 date: 2019-8-24 23:59
-categories: Mybatis
+categories: FrameWork
 tags: [MyBatis]
 description: Mybatis进阶知识点
 ---

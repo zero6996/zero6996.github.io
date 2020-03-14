@@ -1,7 +1,7 @@
 ---
 title: Java数组
 date: 2019-4-16 16:00
-categories: Java学习笔记 # 分类
+categories: JavaBasics # 分类
 tags: [Java,数组]
 description: 数组的基本概念，特点以及相关应用
 ---

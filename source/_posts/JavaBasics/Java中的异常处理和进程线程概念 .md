@@ -1,8 +1,8 @@
 ---
 title: Java中的异常处理和进程线程概念 
 date: 2019-4-27 23:40
-categories: Java学习笔记 # 分类
-tags: [Java]
+categories: JavaBasics # 分类
+tags: [Exception]
 description: Java中的异常处理方式和进程线程的概念
 ---
 

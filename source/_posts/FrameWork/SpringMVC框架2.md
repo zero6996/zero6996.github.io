@@ -1,7 +1,7 @@
 ---
 title: SpringMVC学习2
 date: 2019-9-4 23:59
-categories: SpringMVC
+categories: FrameWork
 tags: [SpringMVC]
 description: SpringMVC响应数据、文件上传、拦截器等内容
 ---

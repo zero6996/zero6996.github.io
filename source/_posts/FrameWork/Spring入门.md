@@ -1,7 +1,7 @@
 ---
 title: Spring简单入门
 date: 2019-8-5 21:10
-categories: Spring
+categories: FrameWork
 tags: [Spring]
 description: Spring基础入门
 ---

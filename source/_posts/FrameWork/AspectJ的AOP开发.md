@@ -1,7 +1,7 @@
 ---
 title: AspectJ的AOP开发
 date: 2019-8-10 23:28
-categories: Spring
+categories: FrameWork
 tags: [Spring]
 description: 主要学习Spring基于AspectJ的AOP开发
 ---

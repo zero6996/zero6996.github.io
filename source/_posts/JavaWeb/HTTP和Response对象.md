@@ -2,7 +2,6 @@
 title: HTTP协议和Response
 date: 2019-6-13 23:59
 categories: JavaWeb
-tags: [HTTP]
 description: HTTP协议和Response对象的基本使用
 ---
 

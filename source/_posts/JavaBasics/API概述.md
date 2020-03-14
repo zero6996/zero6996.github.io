@@ -1,7 +1,7 @@
 ---
 title: API概述
 date: 2019-4-18 22:00
-categories: Java学习笔记 # 分类
+categories: JavaBasics # 分类
 tags: [Java]
 description: Java当中API概述及基本使用
 ---

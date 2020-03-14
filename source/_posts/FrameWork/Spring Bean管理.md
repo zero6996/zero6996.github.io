@@ -1,7 +1,7 @@
 ---
 title: SpringBean管理
 date: 2019-8-7 20:28
-categories: Spring
+categories: FrameWork
 tags: [Spring]
 description: SpringBean管理
 ---

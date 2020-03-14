@@ -1,7 +1,7 @@
 ---
 title: Java基本数据类型
 date: 2019-4-11 16:00
-categories: Java学习笔记 # 分类
+categories: JavaBasics # 分类
 tags: [Java]
 description: 该文章介绍了Java基本数据类型,引用数据类型,以及类型转换。
 ---

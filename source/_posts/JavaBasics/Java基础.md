@@ -1,7 +1,7 @@
 ---
 title: Java基础
 date: 2019-4-10 22:00
-categories: Java学习笔记 # 分类
+categories: JavaBasics # 分类
 tags: [Java]
 description: 该文章记录了Java简介,开发环境搭建,基础知识等
 ---
