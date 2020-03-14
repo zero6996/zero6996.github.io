@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="Servlet接口, Zero的博客">
     <meta name="description" content="1. ServletJava Servlet是运行在服务器端的小程序，它是作为来自web浏览器或其他HTTP客户端的请求和HTTP服务器上的数据库或应用程序之间的中间层
@@ -272,14 +272,11 @@
     }
 </style>
 
-<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
     </svg>
 </a>
         
@@ -446,7 +443,7 @@
 <li>继承GenericServlet类</li>
 <li>继承HttpServlet方法</li>
 </ol>
-<h4 id="1-1-1-实现Servlet接口"><a href="#1-1-1-实现Servlet接口" class="headerlink" title="1.1.1 实现Servlet接口"></a>1.1.1 实现Servlet接口</h4><pre><code class="java">/*
+<h4 id="1-1-1-实现Servlet接口"><a href="#1-1-1-实现Servlet接口" class="headerlink" title="1.1.1 实现Servlet接口"></a>1.1.1 实现Servlet接口</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
 Servlet的生命周期：从Servlet被创建到Servlet被销毁的过程。
 一次创建，到处服务
 一个Servlet只会有一个对象，服务所有的请求
@@ -455,73 +452,73 @@ Servlet的生命周期：从Servlet被创建到Servlet被销毁的过程。
 2. 初始化 执行init方法
 3. 服务 执行service方法
 4. 销毁 执行destroy方法
-*/
-@WebServlet("/demo1") // 添加注解，设置虚拟访问路径
-public class ServletDemo1 implements Servlet{ // 实现Servlet接口，重写其全部方法
-    // 生命周期方法：当Servlet第一次被创建对象时执行该方法，该方法在整个生命周期中只执行一次
-    @Override
-    public void init(ServletConfig servletConfig) throws ServletException{
-        System.out.println("====Servlet初始化了====");
-    }
-    // 生命周期方法：对客户端响应的方法，该方法会被多次执行，每次请求该servlet都会执行该方法
-    @Override
-    public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException{
-        System.out.println("====Servlet服务中====");
-    }
-    // 生命周期方法： 当Servlet被销毁时执行该方法
-    @Override
-    public void destroy(){
-        System.out.println("====Servlet销毁了====");
-    }
-    // 当停止Tomcat时也就会销毁的Servlet
-    @Override
-    public ServletConfig getServletConfig(){
-        return null;
-    }
-    @Override
-    public String getServletInfo(){
-        return null;
-    }
-}
-</code></pre>
+*/</span>
+<span class="token annotation punctuation">@WebServlet</span><span class="token punctuation">(</span><span class="token string">"/demo1"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 添加注解，设置虚拟访问路径</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServletDemo1</span> <span class="token keyword">implements</span> <span class="token class-name">Servlet</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 实现Servlet接口，重写其全部方法</span>
+    <span class="token comment" spellcheck="true">// 生命周期方法：当Servlet第一次被创建对象时执行该方法，该方法在整个生命周期中只执行一次</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span>ServletConfig servletConfig<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"====Servlet初始化了===="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// 生命周期方法：对客户端响应的方法，该方法会被多次执行，每次请求该servlet都会执行该方法</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">service</span><span class="token punctuation">(</span>ServletRequest servletRequest<span class="token punctuation">,</span> ServletResponse servletResponse<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException<span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"====Servlet服务中===="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// 生命周期方法： 当Servlet被销毁时执行该方法</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"====Servlet销毁了===="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// 当停止Tomcat时也就会销毁的Servlet</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> ServletConfig <span class="token function">getServletConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">getServletInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-1-2-继承GenericServlet类"><a href="#1-1-2-继承GenericServlet类" class="headerlink" title="1.1.2 继承GenericServlet类"></a>1.1.2 继承GenericServlet类</h4><p><code>GenericServlet</code>类默认将Servlet接口中其他方法做了默认空实现，只将<code>service()</code>方法作为抽象方法，在定义Servlet类时，可以继承<code>GenericeSerlvet</code>类，实现<code>service()</code>方法即可。</p>
-<pre><code class="java">public class ServletDemo2 extends GenericServlet{
-    @Override
-    public void service(ServletRequest arg0, ServletResponse arg1) throws ServletException,IOException{
-        System.out.println("创建方法2")
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServletDemo2</span> <span class="token keyword">extends</span> <span class="token class-name">GenericServlet</span><span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">service</span><span class="token punctuation">(</span>ServletRequest arg0<span class="token punctuation">,</span> ServletResponse arg1<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span>IOException<span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"创建方法2"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-1-3-继承HttpServlet方法"><a href="#1-1-3-继承HttpServlet方法" class="headerlink" title="1.1.3 继承HttpServlet方法"></a>1.1.3 继承HttpServlet方法</h4><p>HttpServlet是对HTTP协议的一种封装，简化操作</p>
 <ol>
 <li>定义类继承HttpServlet</li>
 <li>复写doGet/doPost方法</li>
 </ol>
-<pre><code class="java">public class ServletDemo3 extends HttpServlet{
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        System.out.println("get方法执行");
-    }
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        System.out.println("post方法执行");
-        doGet(req,resp);
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServletDemo3</span> <span class="token keyword">extends</span> <span class="token class-name">HttpServlet</span><span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doGet</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span> HttpServletResponse resp<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException<span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"get方法执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doPost</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span> HttpServletResponse resp<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException<span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"post方法执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">doGet</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span>resp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-1-4-配置Servlet"><a href="#1-1-4-配置Servlet" class="headerlink" title="1.1.4 配置Servlet"></a>1.1.4 配置Servlet</h4><p>在web.xml中配置</p>
-<pre><code class="xml">&lt;!--配置servlet--&gt;
-&lt;servlet&gt;
-    &lt;servlet-name&gt;demo1&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;servlet.ServletDemo1&lt;/servlet-class&gt; &lt;!--全类名--&gt;
-&lt;/servlet&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;demo1&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/demo1&lt;/url-pattern&gt; &lt;!--servlet访问路径--&gt;
-&lt;/servlet-mapping&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--配置servlet--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>demo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-class</span><span class="token punctuation">></span></span>servlet.ServletDemo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-class</span><span class="token punctuation">></span></span> <span class="token comment" spellcheck="true">&lt;!--全类名--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-mapping</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>demo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/demo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span> <span class="token comment" spellcheck="true">&lt;!--servlet访问路径--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-mapping</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>urlpartten</code>：Servlet访问路径</p>
 <ol>
-<li>一个Servlet可以定义多个访问路径：<code>@WebServlet({"/d4","/dd4","/ddd4"})</code></li>
+<li>一个Servlet可以定义多个访问路径：<code>@WebServlet({&quot;/d4&quot;,&quot;/dd4&quot;,&quot;/ddd4&quot;})</code></li>
 <li>路径定义规则：<ul>
 <li><code>/xxx</code>：路径匹配</li>
 <li><code>/xxx/xxx</code>：多层路径，类似目录结构</li>
@@ -538,7 +535,7 @@ public class ServletDemo1 implements Servlet{ // 实现Servlet接口，重写其
 <li>调用其方法</li>
 </ol>
 <blockquote>
-<p>Notice：<code>Servlet3.0</code>以后可以使用注解配置，在类上使用<code>@WebServlet("资源路径")</code>，即可完成配置。</p>
+<p>Notice：<code>Servlet3.0</code>以后可以使用注解配置，在类上使用<code>@WebServlet(&quot;资源路径&quot;)</code>，即可完成配置。</p>
 </blockquote>
 <h3 id="1-2-Servlet中的生命周期方法"><a href="#1-2-Servlet中的生命周期方法" class="headerlink" title="1.2 Servlet中的生命周期方法"></a>1.2 Servlet中的生命周期方法</h3><h4 id="1-2-1-被创建：执行init方法，只执行一次"><a href="#1-2-1-被创建：执行init方法，只执行一次" class="headerlink" title="1.2.1. 被创建：执行init方法，只执行一次"></a>1.2.1. 被创建：执行init方法，只执行一次</h4><p>默认情况下，第一次被访问时，Servlet被创建。可以在xml中配置执行Servlet的创建时机。</p>
 <ul>
@@ -561,27 +558,9 @@ public class ServletDemo1 implements Servlet{ // 实现Servlet接口，重写其
 <li>只有服务器正常关闭时，才会执行destroy方法。</li>
 <li>destroy方法在Servlet被销毁之前执行，一般用于释放资源。</li>
 </ul>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -802,7 +781,7 @@ Web服务器软件：接收用户的请求，处理请求，做出响应。在we
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">253.1k</span>
+                <span class="white-color">245k</span>
             
 
             
@@ -852,8 +831,7 @@ Web服务器软件：接收用户的请求，处理请求，做出响应。在we
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input" autofocus="">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>
     </div>
@@ -888,5 +866,5 @@ Web服务器软件：接收用户的请求，处理请求，做出响应。在we
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>

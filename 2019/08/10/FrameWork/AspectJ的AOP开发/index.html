@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="AspectJ的AOP开发, Zero的博客">
     <meta name="description" content="1. AspectJ 简介AspectJ是一个面向切面的框架，它扩展了Java语言。AspectJ定义了AOP语法，它有一个专门的编译器用来生成遵守Java字节编码规范的Class文件。
@@ -271,14 +271,11 @@ AspectJ是一个基于Java语言的AOP框架">
     }
 </style>
 
-<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
     </svg>
 </a>
         
@@ -418,14 +415,14 @@ AspectJ是一个基于Java语言的AOP框架">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.9k
+                        2.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        14 分
+                        11 分
                     </div>
                     
                 
@@ -457,17 +454,17 @@ AspectJ是一个基于Java语言的AOP框架">
 </li>
 </ul>
 <h2 id="2-注解方式实现AOP"><a href="#2-注解方式实现AOP" class="headerlink" title="2. 注解方式实现AOP"></a>2. 注解方式实现AOP</h2><h3 id="2-1-注解开发：环境准备"><a href="#2-1-注解开发：环境准备" class="headerlink" title="2.1 注解开发：环境准备"></a>2.1 注解开发：环境准备</h3><p>xml配置如下：</p>
-<pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>aop</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/aop<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"&gt;
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-    &lt;!--开启AspectJ自动代理--&gt;
-    &lt;aop:aspectj-autoproxy/&gt;
-&lt;/beans&gt;
-</code></pre>
+    <span class="token comment" spellcheck="true">&lt;!--开启AspectJ自动代理--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspectj-autoproxy</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="2-2-AspectJ提供不同的通知类型"><a href="#2-2-AspectJ提供不同的通知类型" class="headerlink" title="2.2 @AspectJ提供不同的通知类型"></a>2.2 <code>@AspectJ</code>提供不同的通知类型</h3><ul>
 <li><code>@Before</code>：前置通知，相当于<code>BeforeAdvice</code></li>
 <li><code>@AfterReturning</code>：后置通知，相当于<code>AfterReturningAdvice</code></li>
@@ -492,88 +489,88 @@ AspectJ是一个基于Java语言的AOP框架">
 <h3 id="2-4-为目标类、定义切面类，实现AOP"><a href="#2-4-为目标类、定义切面类，实现AOP" class="headerlink" title="2.4 为目标类、定义切面类，实现AOP"></a>2.4 为目标类、定义切面类，实现AOP</h3><h4 id="2-4-1-使用前置通知-Before"><a href="#2-4-1-使用前置通知-Before" class="headerlink" title="2.4.1 使用前置通知@Before"></a>2.4.1 使用前置通知<code>@Before</code></h4><ul>
 <li>首先定义目标类<code>ProductDao</code></li>
 </ul>
-<pre><code class="java">public class ProductDao {
-    public void save(){ System.out.println("保存商品。。。"); }
-    public void delete(){
-        System.out.println("删除商品。。。");
-    }
-    public void update(){
-        System.out.println("更新商品。。。");
-    }
-    public void findOne(){
-        System.out.println("查询一个商品。。。");
-    }
-    public void findAll(){
-        System.out.println("查询所有商品。。。");
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ProductDao</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"保存商品。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"删除商品。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"更新商品。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">findOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"查询一个商品。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"查询所有商品。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>定义切面类</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 切面类，注解方式
- */
+ */</span>
 
-@Aspect
-public class MyAspectAnno {
+<span class="token annotation punctuation">@Aspect</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyAspectAnno</span> <span class="token punctuation">{</span>
 
-    @Before(value = "execution( * com.zero.aspectj.demo1.ProductDao.*(..))")  // 匹配任意返回值类型的，具体目标类(com.zero.aspectj.demo1.ProductDao)下的所有任意参数的方法
-    public void before(JoinPoint joinPoint){
-        System.out.println("前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"+joinPoint); // 可以在方法中传入JoinPoint对象，用来获得切点信息，格式为：前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;execution(void com.zero.aspectj.demo1.ProductDao.save())
-    }
-}
-</code></pre>
+    <span class="token annotation punctuation">@Before</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution( * com.zero.aspectj.demo1.ProductDao.*(..))"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// 匹配任意返回值类型的，具体目标类(com.zero.aspectj.demo1.ProductDao)下的所有任意参数的方法</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">before</span><span class="token punctuation">(</span>JoinPoint joinPoint<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"前置通知>>>>>>>>>"</span><span class="token operator">+</span>joinPoint<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 可以在方法中传入JoinPoint对象，用来获得切点信息，格式为：前置通知>>>>>>>>>execution(void com.zero.aspectj.demo1.ProductDao.save())</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml文件</li>
 </ul>
-<pre><code class="xml">&lt;!--开启AspectJ自动代理--&gt;
-&lt;aop:aspectj-autoproxy/&gt;
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--开启AspectJ自动代理--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspectj-autoproxy</span><span class="token punctuation">/></span></span>
 
-&lt;!--目标类--&gt;
-&lt;bean id="productDao" class="com.zero.aspectj.demo1.ProductDao"/&gt;
-&lt;!--切面类--&gt;
-&lt;bean class="com.zero.aspectj.demo1.MyAspectAnno"/&gt;
-</code></pre>
+<span class="token comment" spellcheck="true">&lt;!--目标类--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>productDao<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aspectj.demo1.ProductDao<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token comment" spellcheck="true">&lt;!--切面类--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aspectj.demo1.MyAspectAnno<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContext.xml")
-public class Demo1Test {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span>SpringJUnit4ClassRunner<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@ContextConfiguration</span><span class="token punctuation">(</span><span class="token string">"classpath:applicationContext.xml"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo1Test</span> <span class="token punctuation">{</span>
 
-    @Resource(name = "productDao") // 注入目标类
-    private ProductDao productDao;
+    <span class="token annotation punctuation">@Resource</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"productDao"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 注入目标类</span>
+    <span class="token keyword">private</span> ProductDao productDao<span class="token punctuation">;</span>
 
-    @Test
-    public void test1(){
-        productDao.save();
-        productDao.delete();
-        productDao.update();
-        productDao.findAll();
-        productDao.findOne();
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        productDao<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        productDao<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        productDao<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        productDao<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        productDao<span class="token punctuation">.</span><span class="token function">findOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    }
-}
-</code></pre>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>目标类定义方法时，注意要写上访问权限修饰符<code>public</code>，不然定义<code>execution( * com.zero.aspectj.demo1.ProductDao.*(..))</code>时会匹配不到方法</p>
 </blockquote>
 <h4 id="2-4-2-使用后置通知-AfterReturning"><a href="#2-4-2-使用后置通知-AfterReturning" class="headerlink" title="2.4.2 使用后置通知@AfterReturning"></a>2.4.2 使用后置通知<code>@AfterReturning</code></h4><ul>
 <li>只需要在切面类中定义后置通知方法即可，如果目标方法有返回值，可以通过设置<code>returning</code>属性，来获取返回值。</li>
 </ul>
-<pre><code class="java">// 示例update有返回值，返回更新商品人员
-public String update(){
-    System.out.println("更新商品。。。");
-    return "某某某更新了商品";
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 示例update有返回值，返回更新商品人员</span>
+<span class="token keyword">public</span> String <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"更新商品。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">"某某某更新了商品"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-// 使用后置通知，定义增强方法
-@AfterReturning(value = "execution(* com.zero.aspectj.demo1.ProductDao.update(..))",returning = "result")
-public void afterReturning(Object result){ // 通过returning属性，可以定义方法返回值，作为参数
-    System.out.println("后置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"+result);
-}
-</code></pre>
+<span class="token comment" spellcheck="true">// 使用后置通知，定义增强方法</span>
+<span class="token annotation punctuation">@AfterReturning</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution(* com.zero.aspectj.demo1.ProductDao.update(..))"</span><span class="token punctuation">,</span>returning <span class="token operator">=</span> <span class="token string">"result"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterReturning</span><span class="token punctuation">(</span>Object result<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 通过returning属性，可以定义方法返回值，作为参数</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"后置通知>>>>>>>>"</span><span class="token operator">+</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-4-3-使用环绕通知-Around"><a href="#2-4-3-使用环绕通知-Around" class="headerlink" title="2.4.3 使用环绕通知@Around"></a>2.4.3 使用环绕通知<code>@Around</code></h4><ul>
 <li><code>Around</code>方法的返回值就是目标代理方法执行的返回值</li>
 <li><p>通过参数<code>ProceedingJoinPoing</code>，可以拦截目标方法执行</p>
@@ -581,306 +578,288 @@ public void afterReturning(Object result){ // 通过returning属性，可以定�
 <li><p>示例定义环绕通知方法</p>
 </li>
 </ul>
-<pre><code class="java">// 环绕通知
-@Around(value = "execution(* com.zero.aspectj.demo1.ProductDao.delete(..))")
-public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-    System.out.println("环绕前通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"); // 环绕前代码区
-    Object obj = joinPoint.proceed(); // 执行目标方法
-    System.out.println("环绕后通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;");// 环绕后代码区
-    return obj;
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 环绕通知</span>
+<span class="token annotation punctuation">@Around</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution(* com.zero.aspectj.demo1.ProductDao.delete(..))"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> Object <span class="token function">around</span><span class="token punctuation">(</span>ProceedingJoinPoint joinPoint<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"环绕前通知>>>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 环绕前代码区</span>
+    Object obj <span class="token operator">=</span> joinPoint<span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 执行目标方法</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"环绕后通知>>>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 环绕后代码区</span>
+    <span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>如果不调用<code>ProceedingJoinPoing</code>的<code>proceed</code>方法，那么目标方法就不会被执行，即被拦截了。</p>
 </blockquote>
 <h4 id="2-4-4-异常抛出通知-AfterThrowing"><a href="#2-4-4-异常抛出通知-AfterThrowing" class="headerlink" title="2.4.4 异常抛出通知@AfterThrowing"></a>2.4.4 异常抛出通知<code>@AfterThrowing</code></h4><ul>
 <li>通过设置<code>throwing</code>属性，可以设置发生异常时的处理</li>
 </ul>
-<pre><code class="java">// 目标类
-public void findOne(){
-    System.out.println("查询一个商品。。。");
-    int i = 1/0; // 手动制造一个异常，测试异常通知
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 目标类</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">findOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"查询一个商品。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">/</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 手动制造一个异常，测试异常通知</span>
+<span class="token punctuation">}</span>
 
 
-// 切面类中定义异常通知操作
-// 异常通知
-@AfterThrowing(value = "execution(* com.zero.aspectj.demo1.ProductDao.findOne(..))",throwing = "error") // 设置throwing，获取异常信息
-public void afterThrowing(Throwable error){
-    System.out.println("某某某方法有异常抛出&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"+error.getMessage()); 
-}
-</code></pre>
+<span class="token comment" spellcheck="true">// 切面类中定义异常通知操作</span>
+<span class="token comment" spellcheck="true">// 异常通知</span>
+<span class="token annotation punctuation">@AfterThrowing</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution(* com.zero.aspectj.demo1.ProductDao.findOne(..))"</span><span class="token punctuation">,</span>throwing <span class="token operator">=</span> <span class="token string">"error"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 设置throwing，获取异常信息</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterThrowing</span><span class="token punctuation">(</span>Throwable error<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"某某某方法有异常抛出>>>>>>>>>"</span><span class="token operator">+</span>error<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-4-5-最终通知-After"><a href="#2-4-5-最终通知-After" class="headerlink" title="2.4.5 最终通知@After"></a>2.4.5 最终通知<code>@After</code></h4><ul>
 <li>无论是否出现异常，最终通知总是会被执行的</li>
 </ul>
-<pre><code class="java">// 目标类
-public void findAll(){
-    System.out.println("查询所有商品。。。");
-    int i = 1/0; // 手动制造异常，测试最终通知
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 目标类</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"查询所有商品。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">/</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 手动制造异常，测试最终通知</span>
+<span class="token punctuation">}</span>
 
-// 最终通知,无论增强方法是否有异常都会执行
-@After(value = "execution(* com.zero.aspectj.demo1.ProductDao.findAll(..))")
-public void after(){
-    System.out.println("最终通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;");
-}
-</code></pre>
+<span class="token comment" spellcheck="true">// 最终通知,无论增强方法是否有异常都会执行</span>
+<span class="token annotation punctuation">@After</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution(* com.zero.aspectj.demo1.ProductDao.findAll(..))"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">after</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"最终通知>>>>>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-4-6-通过-Pointcut为切点命名"><a href="#2-4-6-通过-Pointcut为切点命名" class="headerlink" title="2.4.6 通过@Pointcut为切点命名"></a>2.4.6 通过<code>@Pointcut</code>为切点命名</h4><ul>
 <li>在每个通知内定义切点，会造成工作量大，不易维护，对于重复的切点，可以使用<code>@Pointcut</code>进行定义</li>
 <li>切点方法：<code>private void 无参方法，方法名为切点名</code></li>
 <li>当通知多个切点时，可以使用||进行连接。</li>
 <li>切面类代码示例</li>
 </ul>
-<pre><code class="java">@Aspect
-public class MyAspectAnno {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Aspect</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyAspectAnno</span> <span class="token punctuation">{</span>
 
-    // 前置通知
-    @Before(value = "savePointcut()")  // 匹配任意返回值类型的，具体目标类(com.zero.aspectj.demo1.ProductDao)下的所有任意参数的方法
-    public void before(JoinPoint joinPoint){
-        System.out.println("前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"+joinPoint); // 可以在方法中传入JoinPoint对象，用来获得切点信息，格式为：前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;execution(void com.zero.aspectj.demo1.ProductDao.save())
-    }
+    <span class="token comment" spellcheck="true">// 前置通知</span>
+    <span class="token annotation punctuation">@Before</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"savePointcut()"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// 匹配任意返回值类型的，具体目标类(com.zero.aspectj.demo1.ProductDao)下的所有任意参数的方法</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">before</span><span class="token punctuation">(</span>JoinPoint joinPoint<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"前置通知>>>>>>>>>"</span><span class="token operator">+</span>joinPoint<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 可以在方法中传入JoinPoint对象，用来获得切点信息，格式为：前置通知>>>>>>>>>execution(void com.zero.aspectj.demo1.ProductDao.save())</span>
+    <span class="token punctuation">}</span>
 
-    // 后置通知
-    @AfterReturning(value = "updatePointcut()||findOnePointcut()",returning = "result") // 多个切点通知，用||连接
-    public void afterReturning(Object result){ // 通过returning属性，可以定义方法返回值，作为参数
-        System.out.println("后置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"+result);
-    }
+    <span class="token comment" spellcheck="true">// 后置通知</span>
+    <span class="token annotation punctuation">@AfterReturning</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"updatePointcut()||findOnePointcut()"</span><span class="token punctuation">,</span>returning <span class="token operator">=</span> <span class="token string">"result"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 多个切点通知，用||连接</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterReturning</span><span class="token punctuation">(</span>Object result<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 通过returning属性，可以定义方法返回值，作为参数</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"后置通知>>>>>>>>"</span><span class="token operator">+</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    // 环绕通知
-    @Around(value = "deletePointcut()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("环绕前通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;");
-        Object obj = joinPoint.proceed(); // 执行目标方法
-        System.out.println("环绕后通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;");
-        return obj;
-    }
+    <span class="token comment" spellcheck="true">// 环绕通知</span>
+    <span class="token annotation punctuation">@Around</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"deletePointcut()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> Object <span class="token function">around</span><span class="token punctuation">(</span>ProceedingJoinPoint joinPoint<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"环绕前通知>>>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Object obj <span class="token operator">=</span> joinPoint<span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 执行目标方法</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"环绕后通知>>>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    // 异常通知
-    @AfterThrowing(value = "findOnePointcut()",throwing = "error") // 设置throwing，获取异常信息
-    public void afterThrowing(Throwable error){
-        System.out.println("某某某方法有异常抛出&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"+error.getMessage());
-    }
+    <span class="token comment" spellcheck="true">// 异常通知</span>
+    <span class="token annotation punctuation">@AfterThrowing</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"findOnePointcut()"</span><span class="token punctuation">,</span>throwing <span class="token operator">=</span> <span class="token string">"error"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 设置throwing，获取异常信息</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterThrowing</span><span class="token punctuation">(</span>Throwable error<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"某某某方法有异常抛出>>>>>>>>>"</span><span class="token operator">+</span>error<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    // 最终通知
-    @After(value = "findAllPointcut()")
-    public void after(){
-        System.out.println("最终通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;");
-    }
+    <span class="token comment" spellcheck="true">// 最终通知</span>
+    <span class="token annotation punctuation">@After</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"findAllPointcut()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">after</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"最终通知>>>>>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    // 使用Pointcut为所有切点命名
-    @Pointcut(value = "execution(* com.zero.aspectj.demo1.ProductDao.save(..))")
-    private void savePointcut(){}
-    @Pointcut(value = "execution(* com.zero.aspectj.demo1.ProductDao.delete(..))")
-    private void deletePointcut(){}
-    @Pointcut(value = "execution(* com.zero.aspectj.demo1.ProductDao.update(..))")
-    private void updatePointcut(){}
-    @Pointcut(value = "execution(* com.zero.aspectj.demo1.ProductDao.findOne(..))")
-    private void findOnePointcut(){}
-    @Pointcut(value = "execution(* com.zero.aspectj.demo1.ProductDao.findAll(..))")
-    private void findAllPointcut(){}
+    <span class="token comment" spellcheck="true">// 使用Pointcut为所有切点命名</span>
+    <span class="token annotation punctuation">@Pointcut</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution(* com.zero.aspectj.demo1.ProductDao.save(..))"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">savePointcut</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Pointcut</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution(* com.zero.aspectj.demo1.ProductDao.delete(..))"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">deletePointcut</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Pointcut</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution(* com.zero.aspectj.demo1.ProductDao.update(..))"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">updatePointcut</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Pointcut</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution(* com.zero.aspectj.demo1.ProductDao.findOne(..))"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">findOnePointcut</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Pointcut</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"execution(* com.zero.aspectj.demo1.ProductDao.findAll(..))"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">findAllPointcut</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-}
-</code></pre>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="3-XML方式实现AOP"><a href="#3-XML方式实现AOP" class="headerlink" title="3. XML方式实现AOP"></a>3. XML方式实现AOP</h2><h3 id="3-1-使用XML配置切面"><a href="#3-1-使用XML配置切面" class="headerlink" title="3.1 使用XML配置切面"></a>3.1 使用XML配置切面</h3><ul>
 <li>编写客户类及其实现类</li>
 </ul>
-<pre><code class="java">public class CustomerDaoImpl implements CustomerDao{
-    public void save() {
-        System.out.println("保存客户...");
-    }
-    public void update() {
-        System.out.println("修改客户...");
-    }
-    public void delete() {
-        System.out.println("删除客户...");
-    }
-    public void findOne() {
-        System.out.println("查询一个客户...");
-    }
-    public void findAll() {
-        System.out.println("查询全部客户...");
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CustomerDaoImpl</span> <span class="token keyword">implements</span> <span class="token class-name">CustomerDao</span><span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"保存客户..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"修改客户..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"删除客户..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">findOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"查询一个客户..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"查询全部客户..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>编写切面类</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 切面类，XML方式
- */
-public class MyAspectXml {
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyAspectXml</span> <span class="token punctuation">{</span>
 
-    // 前置通知
-    public void before(){
-        System.out.println("XML方式的前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;");
-    }
-    public void afterReturning(Object obj){
-        System.out.println("后置增强&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"+obj);
-    }
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable{
-        System.out.println("环绕前增强&gt;&gt;&gt;&gt;&gt;&gt;&gt;");
-        Object obj = joinPoint.proceed();
-        System.out.println("环绕后增强&gt;&gt;&gt;&gt;&gt;&gt;&gt;");
-        return obj;
-    }
-    public void afterThrowing(Throwable e){
-        System.out.println("异常抛出通知&gt;&gt;&gt;&gt;&gt;&gt;"+e.getMessage());
-    }
-    public void after(){
-        System.out.println("最终通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;");
-    }
-}
-</code></pre>
+    <span class="token comment" spellcheck="true">// 前置通知</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">before</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"XML方式的前置通知>>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterReturning</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"后置增强>>>>>>>>"</span><span class="token operator">+</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> Object <span class="token function">around</span><span class="token punctuation">(</span>ProceedingJoinPoint joinPoint<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable<span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"环绕前增强>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Object obj <span class="token operator">=</span> joinPoint<span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"环绕后增强>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterThrowing</span><span class="token punctuation">(</span>Throwable e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"异常抛出通知>>>>>>"</span><span class="token operator">+</span>e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">after</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"最终通知>>>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>完成切面类的配置</li>
 </ul>
-<pre><code class="xml">&lt;!--使用XML配置方式完成AOP开发--&gt;
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--使用XML配置方式完成AOP开发--></span>
 
-&lt;!--配置目标类--&gt;
-&lt;bean id="customerDao" class="com.zero.aspectj.demo2.CustomerDaoImpl"/&gt;
+<span class="token comment" spellcheck="true">&lt;!--配置目标类--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>customerDao<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aspectj.demo2.CustomerDaoImpl<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 
-&lt;!--配置切面类--&gt;
-&lt;bean id="myAspectXml" class="com.zero.aspectj.demo2.MyAspectXml"/&gt;
-</code></pre>
+<span class="token comment" spellcheck="true">&lt;!--配置切面类--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myAspectXml<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aspectj.demo2.MyAspectXml<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置AOP完成增强</li>
 </ul>
-<pre><code class="xml">&lt;!--进行AOP相关配置--&gt;
-&lt;aop:config&gt;
-    &lt;!--配置切入点：哪些类的哪些方法需要增强--&gt;
-    &lt;aop:pointcut id="savePointcut" expression="execution(* com.zero.aspectj.demo2.CustomerDao.save(..))"/&gt;
-    &lt;aop:pointcut id="updatePointcut" expression="execution(* com.zero.aspectj.demo2.CustomerDao.update(..))"/&gt;
-    &lt;aop:pointcut id="deletePointcut" expression="execution(* com.zero.aspectj.demo2.CustomerDao.delete(..))"/&gt;
-    &lt;aop:pointcut id="findOnePointcut" expression="execution(* com.zero.aspectj.demo2.CustomerDao.findOne(..))"/&gt;
-    &lt;aop:pointcut id="findAllPointcut" expression="execution(* com.zero.aspectj.demo2.CustomerDao.findAll(..))"/&gt;
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--进行AOP相关配置--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>
+    <span class="token comment" spellcheck="true">&lt;!--配置切入点：哪些类的哪些方法需要增强--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>pointcut</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>savePointcut<span class="token punctuation">"</span></span> <span class="token attr-name">expression</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(* com.zero.aspectj.demo2.CustomerDao.save(..))<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>pointcut</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>updatePointcut<span class="token punctuation">"</span></span> <span class="token attr-name">expression</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(* com.zero.aspectj.demo2.CustomerDao.update(..))<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>pointcut</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>deletePointcut<span class="token punctuation">"</span></span> <span class="token attr-name">expression</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(* com.zero.aspectj.demo2.CustomerDao.delete(..))<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>pointcut</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findOnePointcut<span class="token punctuation">"</span></span> <span class="token attr-name">expression</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(* com.zero.aspectj.demo2.CustomerDao.findOne(..))<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>pointcut</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findAllPointcut<span class="token punctuation">"</span></span> <span class="token attr-name">expression</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(* com.zero.aspectj.demo2.CustomerDao.findAll(..))<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 
-    &lt;!--配置AOP的切面--&gt;
-    &lt;aop:aspect ref="myAspectXml"&gt;
-        &lt;!--配置前置通知--&gt;
-        &lt;aop:before method="before" pointcut-ref="savePointcut"/&gt;
-        &lt;!--配置后置通知--&gt;
-        &lt;aop:after-returning method="afterReturning" pointcut-ref="updatePointcut" returning="obj"/&gt;
-        &lt;!--配置环绕通知--&gt;
-        &lt;aop:around method="around" pointcut-ref="deletePointcut"/&gt;
-        &lt;!--配置异常抛出通知--&gt;
-        &lt;aop:after-throwing method="afterThrowing" pointcut-ref="findOnePointcut" throwing="e"/&gt;
-        &lt;!--配置最终通知--&gt;
-        &lt;aop:after method="after" pointcut-ref="findAllPointcut" /&gt;
-    &lt;/aop:aspect&gt;
-&lt;/aop:config&gt;
-</code></pre>
+    <span class="token comment" spellcheck="true">&lt;!--配置AOP的切面--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspect</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myAspectXml<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--配置前置通知--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>before</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>before<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>savePointcut<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--配置后置通知--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>after-returning</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>afterReturning<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>updatePointcut<span class="token punctuation">"</span></span> <span class="token attr-name">returning</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>obj<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--配置环绕通知--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>around</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>around<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>deletePointcut<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--配置异常抛出通知--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>after-throwing</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>afterThrowing<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findOnePointcut<span class="token punctuation">"</span></span> <span class="token attr-name">throwing</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>e<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--配置最终通知--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>after</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>after<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findAllPointcut<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContext2.xml")
-public class Demo2Test {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span>SpringJUnit4ClassRunner<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@ContextConfiguration</span><span class="token punctuation">(</span><span class="token string">"classpath:applicationContext2.xml"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo2Test</span> <span class="token punctuation">{</span>
 
-    @Resource(name = "customerDao")
-    private CustomerDao customerDao;
+    <span class="token annotation punctuation">@Resource</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"customerDao"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> CustomerDao customerDao<span class="token punctuation">;</span>
 
 
-    @Test
-    public void test1(){
-        customerDao.save();
-        customerDao.update();
-        customerDao.delete();
-        customerDao.findOne();
-        customerDao.findAll();
-    }
-}
-</code></pre>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        customerDao<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        customerDao<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        customerDao<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        customerDao<span class="token punctuation">.</span><span class="token function">findOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        customerDao<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>使用AspectJ完成AOP开发所需环境的配置，需要哪些jar包?</li>
 </ul>
-<pre><code class="xml">&lt;!--导入Spring基本开发包--&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;!--导入AOP相关包--&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;aopalliance&lt;/groupId&gt;
-    &lt;artifactId&gt;aopalliance&lt;/artifactId&gt;
-    &lt;version&gt;1.0&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-aop&lt;/artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;!--导入AspectJ相关包--&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
-    &lt;artifactId&gt;aspectjrt&lt;/artifactId&gt;
-    &lt;version&gt;1.8.9&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;!--导入测试相关包--&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;junit&lt;/groupId&gt;
-    &lt;artifactId&gt;junit&lt;/artifactId&gt;
-    &lt;version&gt;4.12&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;!--导入DI属性注入相关包,java注解类--&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;javax.annotation&lt;/groupId&gt;
-    &lt;artifactId&gt;javax.annotation-api&lt;/artifactId&gt;
-    &lt;version&gt;1.2&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--导入Spring基本开发包--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.2.4.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-context<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.2.4.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-beans<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.2.4.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-beans<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.2.4.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--导入AOP相关包--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>aopalliance<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>aopalliance<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-aop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.2.4.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--导入AspectJ相关包--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.aspectj<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>aspectjrt<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.8.9<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-aspects<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.2.4.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--导入测试相关包--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>junit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>junit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.12<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.2.4.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--导入DI属性注入相关包,java注解类--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>javax.annotation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>javax.annotation-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>注解方式实现AOP</li>
 <li>AspectJ的各种通知类型</li>
 <li>切面类的定义，切入点的配置</li>
 <li>XML方式实现AOP，AOP的XML配置</li>
 </ul>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -1101,7 +1080,7 @@ public class Demo2Test {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">253.1k</span>
+                <span class="white-color">245k</span>
             
 
             
@@ -1151,8 +1130,7 @@ public class Demo2Test {
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input" autofocus="">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1187,5 +1165,5 @@ public class Demo2Test {
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>

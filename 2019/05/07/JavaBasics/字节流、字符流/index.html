@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="Java中的字节流和字符流, Zero的博客">
     <meta name="description" content="1. IO概述我们把数据的传输，可以看做是一种数据的流动，按照流动的方向，以内存为基准，分为输入input 和输出output ，即流向内存是输入流，流出内存的输出流。
@@ -269,14 +269,11 @@ Java中I/O操作主要是指使用java.io包下的内容，进行输入、输">
     }
 </style>
 
-<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
     </svg>
 </a>
         
@@ -420,7 +417,7 @@ Java中I/O操作主要是指使用java.io包下的内容，进行输入、输">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.3k
+                        5.2k
                     </div>
                     
 
@@ -476,34 +473,34 @@ Java中I/O操作主要是指使用java.io包下的内容，进行输入、输">
 </ul>
 <p>当你创建一个流对象时，必须传入一个文件路径。该路径下，如果没有这个文件，会创建该文件。如果有这个文件，会清空这个文件的数据。</p>
 <ul>
-<li>构造举例，代码如下：<pre><code class="java">public class FileOutPutDemo01 {
-  public static void main(String[] args) throws IOException {
-      // 使用File对象创建流对象
-      File file = new File("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\a.txt");
-      FileOutputStream fos = new FileOutputStream(file);
-      // 使用文件名称路径创建流对象
-      FileOutputStream fos2 = new FileOutputStream("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\b.txt");
-  }
-}
-</code></pre>
+<li>构造举例，代码如下：<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FileOutPutDemo01</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 使用File对象创建流对象</span>
+      File file <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\a.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      FileOutputStream fos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 使用文件名称路径创建流对象</span>
+      FileOutputStream fos2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\b.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="写出字节数据"><a href="#写出字节数据" class="headerlink" title="写出字节数据"></a>写出字节数据</h4></li>
 </ul>
 <ol>
-<li><strong>写出字节</strong>：<code>write(int b)</code> 方法，每次可以写出一个字节数据，代码使用演示：<pre><code class="java">public class FOSWrite {
- public static void main(String[] args) throws IOException {
-     FileOutputStream fos = new FileOutputStream("D:\\IDEA_WorkSpace\\Demo" +
-             "\\Demo5_6\\fos.txt");
-     // 写入数据
-     fos.write(97);
-     fos.write(98);
-     fos.write(99);
-     // 关闭
-     fos.close();
- }
-}
-// result:
+<li><strong>写出字节</strong>：<code>write(int b)</code> 方法，每次可以写出一个字节数据，代码使用演示：<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FOSWrite</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileOutputStream fos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo"</span> <span class="token operator">+</span>
+             <span class="token string">"\\Demo5_6\\fos.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment" spellcheck="true">// 写入数据</span>
+     fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token number">97</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token number">98</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token number">99</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment" spellcheck="true">// 关闭</span>
+     fos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// result:</span>
 abc
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <blockquote>
@@ -513,29 +510,29 @@ abc
 </code></pre></blockquote>
 <ol start="2">
 <li><p><strong>写出字节数组</strong>：<code>write(byte[] b)</code>，每次可以写出数组中的数据，代码使用演示：</p>
-<pre><code class="java">public class FOSWriteDemo02 {
- public static void main(String[] args) throws IOException {
-     FileOutputStream fos = new FileOutputStream("D:\\IDEA_WorkSpace\\Demo" +
-             "\\Demo5_6\\fos2.txt");
-     // 将字符串转换为字节数组
-     byte[] bytes = "测试写入".getBytes();
-     // 写出字节数组数据
-     fos.write(bytes); // 测试写入
-     fos.close();
- }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FOSWriteDemo02</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileOutputStream fos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo"</span> <span class="token operator">+</span>
+             <span class="token string">"\\Demo5_6\\fos2.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment" spellcheck="true">// 将字符串转换为字节数组</span>
+     <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> <span class="token string">"测试写入"</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment" spellcheck="true">// 写出字节数组数据</span>
+     fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 测试写入</span>
+     fos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><strong>写出指定长度字节数组</strong>：<code>write(byte[] b, int off, int len)</code> ,每次写出从off索引开始，len个字节，代码使用演示：</p>
-<pre><code class="java">public class FosWriteDemo03 {
- public static void main(String[] args) throws IOException {
-     FileOutputStream fos = new FileOutputStream("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fos3.txt");
-     byte[] bytes = "abcdef".getBytes(); // 字符串转换为字节数组
-     fos.write(bytes,2,2); // result：cd
-     fos.close();
- }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FosWriteDemo03</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileOutputStream fos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fos3.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> <span class="token string">"abcdef"</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 字符串转换为字节数组</span>
+     fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>bytes<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// result：cd</span>
+     fos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <h4 id="数据追加续写"><a href="#数据追加续写" class="headerlink" title="数据追加续写"></a>数据追加续写</h4><ul>
@@ -543,37 +540,37 @@ abc
 <li><code>public FileOutputStream(String name, boolean append)</code>： 创建文件输出流以指定的名称写入文件。  </li>
 </ul>
 <p>以上两个构造方法，参数中都需要传入一个boolean类型的值，true表示追加数据，false表示清空原有数据。代码示例如下：</p>
-<pre><code class="java">public class FOSAppendWrite {
-    public static void main(String[] args) throws IOException {
-        FileOutputStream fos = new FileOutputStream("D:\\IDEA_WorkSpace\\Demo" +
-                "\\Demo5_6\\fos2.txt",true); // 创建流对象，设置数据追加
-        fos.write("，测试追加。".getBytes()); // result = 测试写入，测试追加。
-        fos.close();
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FOSAppendWrite</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        FileOutputStream fos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo"</span> <span class="token operator">+</span>
+                <span class="token string">"\\Demo5_6\\fos2.txt"</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 创建流对象，设置数据追加</span>
+        fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"，测试追加。"</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// result = 测试写入，测试追加。</span>
+        fos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="写出换行"><a href="#写出换行" class="headerlink" title="写出换行"></a>写出换行</h4><p>Windows中换行符号是<code>\r\n</code>。以下代码示例具体使用：</p>
-<pre><code class="java">public class FOSWriteDemo04 {
-    public static void main(String[] args) throws IOException {
-        FileOutputStream fos = new FileOutputStream("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\c.txt");
-        byte[] words = {97,98,99,100,101}; // abcde
-        for (byte i:words){
-            fos.write(i);
-            fos.write("\r\n".getBytes()); // 写出一个换行，将换行符号转为数组写出
-        }
-        fos.close();
-    }
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FOSWriteDemo04</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        FileOutputStream fos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\c.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> words <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">97</span><span class="token punctuation">,</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">,</span><span class="token number">101</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// abcde</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">byte</span> i<span class="token operator">:</span>words<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"\r\n"</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 写出一个换行，将换行符号转为数组写出</span>
+        <span class="token punctuation">}</span>
+        fos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-/*
+<span class="token comment" spellcheck="true">/*
 result:
 a
 b
 c
 d
 e
- */
-</code></pre>
+ */</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>Tips：</p>
 <ul>
@@ -603,78 +600,78 @@ e
 </ul>
 <p>当你创建一个流对象时，必须传入一个文件路径。该路径下，如果没有该文件,会抛出<code>FileNotFoundException</code> 。</p>
 <ul>
-<li>代码示例如下：<pre><code class="java">public class FileInputStreamDemo01 {
-  public static void main(String[] args) throws IOException {
-      // 使用File对象创建流对象
-      FileInputStream fis = new FileInputStream(new File("Demo5_6\\fos2.txt"));
-      // 使用文件名创建流对象
-      FileInputStream fis2 = new FileInputStream("Demo5_6\\fos.txt");
-  }
-}
-</code></pre>
+<li>代码示例如下：<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FileInputStreamDemo01</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 使用File对象创建流对象</span>
+      FileInputStream fis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">"Demo5_6\\fos2.txt"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 使用文件名创建流对象</span>
+      FileInputStream fis2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span><span class="token string">"Demo5_6\\fos.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h4 id="读取字节数据"><a href="#读取字节数据" class="headerlink" title="读取字节数据"></a>读取字节数据</h4><ol>
-<li><strong>读取字节</strong>：<code>read</code>方法，每次可以读取一个字节的数据，提升为int类型，读取到文件末尾，返回<code>-1</code>，代码演示如下：<pre><code class="java">public class FISRead {
- public static void main(String[] args) throws IOException {
-     FileOutputStream fos = new FileOutputStream("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt");
-     byte[] bytes = {97,98,99,100,101};
-     for (byte b:bytes){
-         fos.write(b);
-         fos.write("\n".getBytes());
-     }
-     fos.close();
-     // 创建字节输入流对象，指向文件
-     FileInputStream fis = new FileInputStream("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt");
- int b;
-     while ((b = fis.read())!=-1){ // 判断从数据中读取的值不等于-1
-         System.out.println((char)b); // byte字节型转换为char字符型
-     }
-     fis.close();
- }
-}
-</code></pre>
+<li><strong>读取字节</strong>：<code>read</code>方法，每次可以读取一个字节的数据，提升为int类型，读取到文件末尾，返回<code>-1</code>，代码演示如下：<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FISRead</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileOutputStream fos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">97</span><span class="token punctuation">,</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">,</span><span class="token number">101</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">byte</span> b<span class="token operator">:</span>bytes<span class="token punctuation">)</span><span class="token punctuation">{</span>
+         fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     fos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment" spellcheck="true">// 创建字节输入流对象，指向文件</span>
+     FileInputStream fis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">int</span> b<span class="token punctuation">;</span>
+     <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>b <span class="token operator">=</span> fis<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 判断从数据中读取的值不等于-1</span>
+         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// byte字节型转换为char字符型</span>
+     <span class="token punctuation">}</span>
+     fis<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <blockquote>
 <p>Tips:虽然读取了一个字节，但是会自动提示为int类型。操作完毕后，一定要close()。</p>
 </blockquote>
 <ol start="2">
-<li><strong>使用字节数组读取</strong>：<code>read(byte[] b)</code>，每次读取b的长度个字节到数组中，返回读取到的有效字节个数，读取到末尾时，返回<code>-1</code> ，代码使用演示：<pre><code class="java">public class FISReadDemo02 {
- public static void main(String[] args) throws IOException {
-     FileInputStream fis = new FileInputStream("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt");
-     int len; // 定义变量，作为有效个数
-     byte[] bytes = new byte[2]; // 定义字节数组，作为放字节数据的容器，存储2个字节
-     while ((len = fis.read(bytes))!=-1){ // 这样每次可以读取2个字节
-         System.out.println(new String(bytes,0,len)); // 每次读取后，将数组变成字符串打印
-     }
-     fis.close();
- }
-}
-</code></pre>
+<li><strong>使用字节数组读取</strong>：<code>read(byte[] b)</code>，每次读取b的长度个字节到数组中，返回读取到的有效字节个数，读取到末尾时，返回<code>-1</code> ，代码使用演示：<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FISReadDemo02</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileInputStream fis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">int</span> len<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 定义变量，作为有效个数</span>
+     <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">byte</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 定义字节数组，作为放字节数据的容器，存储2个字节</span>
+     <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>len <span class="token operator">=</span> fis<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 这样每次可以读取2个字节</span>
+         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>bytes<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>len<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 每次读取后，将数组变成字符串打印</span>
+     <span class="token punctuation">}</span>
+     fis<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <h3 id="2-5-字节流练习：图片复制"><a href="#2-5-字节流练习：图片复制" class="headerlink" title="2.5 字节流练习：图片复制"></a>2.5 字节流练习：图片复制</h3><h4 id="复制原理图解"><a href="#复制原理图解" class="headerlink" title="复制原理图解"></a>复制原理图解</h4><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/07/2_copy-1557212320372.jpg" alt="title"></p>
-<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre><code class="java">public class CopyImg {
-    public static void main(String[] args) throws IOException {
-        // 创建流对象，指定数据源
-        FileInputStream fis = new FileInputStream("C:\\Users\\14908\\Desktop\\Java\\img\\2_copy.jpg");
-        // 指定目的地
-        FileOutputStream fos = new FileOutputStream("D:\\IDEA_WorkSpace\\Demo" +
-                "\\Demo5_6\\copy.jpg");
-        // 定义长度
-        int len;
-        // 定义数组
-        byte[] b = new byte[1024];
-        // 循环读取
-        while ((len = fis.read(b))!=-1){
-            fos.write(b,0,len);
-        }
-        fos.close();
-        fis.close();
-    }
-}
-</code></pre>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CopyImg</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 创建流对象，指定数据源</span>
+        FileInputStream fis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span><span class="token string">"C:\\Users\\14908\\Desktop\\Java\\img\\2_copy.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 指定目的地</span>
+        FileOutputStream fos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo"</span> <span class="token operator">+</span>
+                <span class="token string">"\\Demo5_6\\copy.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 定义长度</span>
+        <span class="token keyword">int</span> len<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 定义数组</span>
+        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">byte</span><span class="token punctuation">[</span><span class="token number">1024</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 循环读取</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>len <span class="token operator">=</span> fis<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            fos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        fos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fis<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>Tips：<br>    流的关闭原则：先开后关，后开先关。</p>
 </blockquote>
@@ -693,45 +690,45 @@ e
 </code></pre></blockquote>
 <h4 id="构造方法-2"><a href="#构造方法-2" class="headerlink" title="构造方法"></a>构造方法</h4><p><code>FileReader(File file)</code>： 创建一个新的 FileReader ，给定要读取的File对象。<br><code>FileReader(String fileName)</code>： 创建一个新的 FileReader ，给定要读取的文件的名称。</p>
 <p>代码示例如下：</p>
-<pre><code class="java">public class FileReaderDemo throws IOException{
-    public static void main(String[] args){
-        // 使用File对象创建流对象
-        FileReader fr = new FileReader(new File("Demo5_6\\a.txt"))；
-        // 使用文件名称创建流对象
-        FileReader fr2 = new FileReader("Demo5_6\\a.txt")；
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FileReaderDemo</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 使用File对象创建流对象</span>
+        FileReader fr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">"Demo5_6\\a.txt"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>；
+        <span class="token comment" spellcheck="true">// 使用文件名称创建流对象</span>
+        FileReader fr2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token string">"Demo5_6\\a.txt"</span><span class="token punctuation">)</span>；
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="读取字符数据"><a href="#读取字符数据" class="headerlink" title="读取字符数据"></a>读取字符数据</h4><ol>
 <li><p><strong>读取字符</strong>：<code>read</code>方法，每次可以读取一个字符的数据，提升为int类型，读取到文件末尾，返回<code>-1</code>，循环读取，代码演示如下：</p>
-<pre><code class="java">public class FRReadDemo01 {
- public static void main(String[] args) throws IOException {
-     FileReader fr = new FileReader("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\d.txt");
-     int w;
-     while ((w = fr.read())!=-1){
-         System.out.print((char)w);
-     }
-     fr.close();
- }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FRReadDemo01</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileReader fr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\d.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">int</span> w<span class="token punctuation">;</span>
+     <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>w <span class="token operator">=</span> fr<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span>w<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     fr<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>Tips：虽然读取了一个字符，但是会自动提升为int类型。</p>
 </blockquote>
 </li>
 <li><p><strong>使用字符数组读取</strong>：<code>read(char[] cbuf)</code>，每次读取b的长度个字符到数组中，返回读取到的有效字符个数，读取到末尾时，返回<code>-1</code> ，代码演示如下：</p>
-<pre><code class="java">public class FRReadDemo02 {
- public static void main(String[] args) throws IOException {
-     FileReader fr = new FileReader("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\d.txt");
-     int len;
-     char[] cbuf = new char[2]; // 定义字符数组，作为放字符数据的容器
-     while ((len = fr.read(cbuf))!=-1){
-         System.out.print(new String(cbuf,0,len)); // 转换为字符串输出
-     }
-     fr.close();
- }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FRReadDemo02</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileReader fr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\d.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">int</span> len<span class="token punctuation">;</span>
+     <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> cbuf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">char</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 定义字符数组，作为放字符数据的容器</span>
+     <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>len <span class="token operator">=</span> fr<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>cbuf<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>cbuf<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>len<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 转换为字符串输出</span>
+     <span class="token punctuation">}</span>
+     fr<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <h3 id="3-3-字符输出流-Writer"><a href="#3-3-字符输出流-Writer" class="headerlink" title="3.3 字符输出流[Writer]"></a>3.3 字符输出流[Writer]</h3><p><code>java.io.Writer</code>抽象类是表示用于写出字符流的所有类的超类，将指定的字符信息写出到目的地。它定义了字节输出流的基本共性功能方法。</p>
@@ -750,19 +747,19 @@ e
 <li><code>FileWriter(String fileName)</code>： 创建一个新的 FileWriter，给定要读取的文件的名称。 </li>
 </ul>
 <h4 id="基本写出数据"><a href="#基本写出数据" class="headerlink" title="基本写出数据"></a>基本写出数据</h4><p><strong>写出字符</strong>：<code>write(int b)</code> 方法，每次可以写出一个字符数据，代码示例如下：</p>
-<pre><code class="java">public class FWWrite {
-    public static void main(String[] args) throws IOException {
-        FileWriter fw = new FileWriter("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw.txt");
-        // 写出数据
-        fw.write(97);
-        fw.write('b');
-        fw.write('c');
-        fw.write(30000);
-        fw.close();
-        // result: abc田
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FWWrite</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        FileWriter fw <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 写出数据</span>
+        fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token number">97</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'b'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'c'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token number">30000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fw<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// result: abc田</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>Tips:</p>
 <ol>
@@ -776,170 +773,170 @@ e
 <li><code>close</code>:先刷新缓冲区，然后通知系统释放资源。流对象不可以再被使用了。</li>
 </ul>
 <p>代码示例：</p>
-<pre><code class="java">public class FWWriteDemo02 {
-    public static void main(String[] args) throws IOException {
-        FileWriter fw = new FileWriter("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw02.txt");
-        // 写出数据,通过flush
-        fw.write('刷');
-        fw.flush();
-        fw.write('新');
-        fw.flush();
-        // 写出数据，通过close
-        fw.write('关');
-        fw.close();
-        fw.write('闭'); // [报错] java.io.IOException: Stream closed
-        fw.close();
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FWWriteDemo02</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        FileWriter fw <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw02.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 写出数据,通过flush</span>
+        fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'刷'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fw<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'新'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fw<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 写出数据，通过close</span>
+        fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'关'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fw<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'闭'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [报错] java.io.IOException: Stream closed</span>
+        fw<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>Tips：即使使用了flush方法写出了数据，操作到最后还是要调用close方法，释放系统资源。</p>
 </blockquote>
 <h4 id="写出其他数据"><a href="#写出其他数据" class="headerlink" title="写出其他数据"></a>写出其他数据</h4><ol>
-<li><strong>写出字符数组</strong> ：<code>write(char[] cbuf)</code> 和 <code>write(char[] cbuf, int off, int len)</code> ，每次可以写出字符数组中的数据，用法类似FileOutputStream，实例如下：<pre><code class="java">public class FWCharWrite {
- public static void main(String[] args) throws IOException {
-     FileWriter fw = new FileWriter("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw03.txt");
-     char[] chars = "测试写出字符数组".toCharArray(); // 将字符串转换为字符数组
-     fw.write(chars); // 测试写出字符数组
-     fw.write(chars,4,2); // 写出从索引2开始的2个字节，即"字符"2字
-     fw.close();
- }
-}                                                              
-</code></pre>
+<li><strong>写出字符数组</strong> ：<code>write(char[] cbuf)</code> 和 <code>write(char[] cbuf, int off, int len)</code> ，每次可以写出字符数组中的数据，用法类似FileOutputStream，实例如下：<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FWCharWrite</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileWriter fw <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw03.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> <span class="token string">"测试写出字符数组"</span><span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 将字符串转换为字符数组</span>
+     fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>chars<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 测试写出字符数组</span>
+     fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>chars<span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 写出从索引2开始的2个字节，即"字符"2字</span>
+     fw<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>                                                              
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><strong>写出字符串</strong>：<code>write(String str)</code> 和 <code>write(String str, int off, int len)</code> ，每次可以写出字符串中的数据，更为方便，示例如下：</p>
-<pre><code class="java">public class FWWriteString {
- public static void main(String[] args) throws IOException {
-     FileWriter fw = new FileWriter("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw04.txt");
-     fw.write("测试字符串写出"); // 测试字符串写出
-     fw.write("测试写出指定字符",2,2); // 写出
-     fw.close();
- }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FWWriteString</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileWriter fw <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw04.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"测试字符串写出"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 测试字符串写出</span>
+     fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"测试写出指定字符"</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 写出</span>
+     fw<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><strong>续写和换行</strong>：操作类似于FileOutputStream。</p>
-<pre><code class="java">public class FWWriteString {
- public static void main(String[] args) throws IOException {
-     FileWriter fw = new FileWriter("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw04.txt");
-     fw.write("测试字符串写出"); // 测试字符串写出
-     fw.write("\r\n"); // 写出换行符
-     fw.write("测试写出指定字符",2,2); // 写出
-     fw.close();
- }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FWWriteString</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+     FileWriter fw <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw04.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"测试字符串写出"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 测试字符串写出</span>
+     fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"\r\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 写出换行符</span>
+     fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"测试写出指定字符"</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 写出</span>
+     fw<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <h2 id="4-IO异常的处理"><a href="#4-IO异常的处理" class="headerlink" title="4. IO异常的处理"></a>4. IO异常的处理</h2><h3 id="JDK7前的处理"><a href="#JDK7前的处理" class="headerlink" title="JDK7前的处理"></a>JDK7前的处理</h3><p>之前的练习中，一直把异常直接抛出，实际开发中建议使用<code>try...catch...finally</code> 代码块，处理异常部分，代码示例如下：</p>
-<pre><code class="java">public class HandleException01 {
-    public static void main(String[] args) {
-        // 声明一个Fw对象，指向空
-        FileWriter fw = null;
-        try {
-            // 创建一个流对象，将fw指向该对象
-            fw = new FileWriter("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw05.txt");
-            // 写出数据
-            fw.write("异常的处理测试");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally{
-            try{
-                if (fw != null){
-                    fw.close();
-                }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-        }
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HandleException01</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 声明一个Fw对象，指向空</span>
+        FileWriter fw <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 创建一个流对象，将fw指向该对象</span>
+            fw <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw05.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 写出数据</span>
+            fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"异常的处理测试"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">finally</span><span class="token punctuation">{</span>
+            <span class="token keyword">try</span><span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>fw <span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    fw<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-    }
-}
-</code></pre>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="JDK7的处理"><a href="#JDK7的处理" class="headerlink" title="JDK7的处理"></a>JDK7的处理</h3><p>可以使用JDK7优化后的<code>try-with-resource</code> 语句，该语句确保了每个资源在语句结束时关闭。所谓的资源（resource）是指在程序完成后，必须关闭的对象。<br>格式：</p>
-<pre><code class="java">try(创建流对象语句，如多个，使用';'隔开){
-    // 读写语句
-}catch(IOException e){
-    e.printStackTrace();
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">try</span><span class="token punctuation">(</span>创建流对象语句，如多个，使用<span class="token string">';'</span>隔开<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 读写语句</span>
+<span class="token punctuation">}</span><span class="token keyword">catch</span><span class="token punctuation">(</span>IOException e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>代码示例：</p>
-<pre><code class="java">public class FWJDK7Dispose {
-    public static void main(String[] args) {
-        try(FileWriter fw = new FileWriter("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw06.txt");){
-            fw.write("测试JDK7后优化的try...catch");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FWJDK7Dispose</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span><span class="token punctuation">(</span>FileWriter fw <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw06.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"测试JDK7后优化的try...catch"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="JDK9的改进"><a href="#JDK9的改进" class="headerlink" title="JDK9的改进"></a>JDK9的改进</h3><p>JDK9中<code>try-with-resource</code> 的改进，对于<strong>引入对象</strong>的方式，支持的更加简洁。被引入的对象，同样可以自动关闭，无需手动close，格式如下。<br>改进前格式：</p>
-<pre><code class="java">// 被final修饰的对象
-final Resource resource1 = new Resource("resource1");
-// 普通对象
-Resource resource2 = new Resource("resource2");
-// 引入方式：创建新的变量保存
-try (Resource r1 = resource1;
-     Resource r2 = resource2) {
-     // 使用对象
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 被final修饰的对象</span>
+<span class="token keyword">final</span> Resource resource1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Resource</span><span class="token punctuation">(</span><span class="token string">"resource1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 普通对象</span>
+Resource resource2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Resource</span><span class="token punctuation">(</span><span class="token string">"resource2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 引入方式：创建新的变量保存</span>
+<span class="token keyword">try</span> <span class="token punctuation">(</span>Resource r1 <span class="token operator">=</span> resource1<span class="token punctuation">;</span>
+     Resource r2 <span class="token operator">=</span> resource2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// 使用对象</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>改进后的格式：</p>
-<pre><code class="java">// 被final修饰的对象
-final Resource resource1 = new Resource("resource1");
-// 普通对象
-Resource resource2 = new Resource("resource2");
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 被final修饰的对象</span>
+<span class="token keyword">final</span> Resource resource1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Resource</span><span class="token punctuation">(</span><span class="token string">"resource1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 普通对象</span>
+Resource resource2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Resource</span><span class="token punctuation">(</span><span class="token string">"resource2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-// 引入方式：直接引入
-try (resource1; resource2) {
-     // 使用对象
-}
-</code></pre>
+<span class="token comment" spellcheck="true">// 引入方式：直接引入</span>
+<span class="token keyword">try</span> <span class="token punctuation">(</span>resource1<span class="token punctuation">;</span> resource2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// 使用对象</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>改进后的代码实例：</p>
-<pre><code class="java">public class TryDemo {
-    public static void main(String[] args) throws IOException{
-        final FileReader fr = new FileReader("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt");
-        FileWriter fw = new FileWriter("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\out.txt");
-        try(fr;fw){
-            int b;
-            while ((b = fr.read())!=-1){
-                fw.write(b);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TryDemo</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">{</span>
+        <span class="token keyword">final</span> FileReader fr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        FileWriter fw <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\out.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span><span class="token punctuation">(</span>fr<span class="token punctuation">;</span>fw<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">int</span> b<span class="token punctuation">;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>b <span class="token operator">=</span> fr<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                fw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="5-属性集"><a href="#5-属性集" class="headerlink" title="5. 属性集"></a>5. 属性集</h2><h3 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h3><p><code>java.util.Properties</code> 继承于<code>Hashtable</code> ，来表示一个持久的属性集。它使用键值结构存储数据，每个键及其对应值都是一个字符串。该类也被许多Java类使用，比如获取系统属性时，<code>System.getProperties</code> 方法就是返回一个<code>Properties</code>对象。</p>
 <h3 id="5-2-Properties类"><a href="#5-2-Properties类" class="headerlink" title="5.2 Properties类"></a>5.2 Properties类</h3><h4 id="构造方法-4"><a href="#构造方法-4" class="headerlink" title="构造方法"></a>构造方法</h4><p><code>public Properties()</code> :创建一个空的属性列表。</p>
 <h4 id="基本的存储方法"><a href="#基本的存储方法" class="headerlink" title="基本的存储方法"></a>基本的存储方法</h4><ul>
 <li><code>public Object setProperty(String key, String value)</code> ： 保存一对属性。  </li>
 <li><code>public String getProperty(String key)</code> ：使用此属性列表中指定的键搜索属性值，返回搜索到的值</li>
-<li><code>public Set&lt;String&gt; stringPropertyNames()</code> ：返回所有键名称的集合。<pre><code class="java">public class ProDemo {
-  public static void main(String[] args) {
-      // 创建属性集对象
-      Properties pt = new Properties();
-      // 添加键值对元素
-      pt.setProperty("小梦","168");
-      pt.setProperty("小明","175");
-      pt.setProperty("小张","178");
-      // 打印属性集对象
-      System.out.println(pt);
-      // 通过键获取值
-      Set&lt;String&gt; set = pt.stringPropertyNames(); // 获取所以键，放入集合中
-      for (String key:set){
-          System.out.println(key+"--&gt;"+pt.getProperty(key));
-      }
-  }
-}
-// result
-{小明=175, 小张=178, 小梦=168}
-小明--&gt;175
-小张--&gt;178
-小梦--&gt;168
-</code></pre>
+<li><code>public Set&lt;String&gt; stringPropertyNames()</code> ：返回所有键名称的集合。<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ProDemo</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 创建属性集对象</span>
+      Properties pt <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Properties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 添加键值对元素</span>
+      pt<span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"小梦"</span><span class="token punctuation">,</span><span class="token string">"168"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      pt<span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"小明"</span><span class="token punctuation">,</span><span class="token string">"175"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      pt<span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"小张"</span><span class="token punctuation">,</span><span class="token string">"178"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 打印属性集对象</span>
+      System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>pt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 通过键获取值</span>
+      Set<span class="token operator">&lt;</span>String<span class="token operator">></span> set <span class="token operator">=</span> pt<span class="token punctuation">.</span><span class="token function">stringPropertyNames</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 获取所以键，放入集合中</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span>String key<span class="token operator">:</span>set<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>key<span class="token operator">+</span><span class="token string">"-->"</span><span class="token operator">+</span>pt<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// result</span>
+<span class="token punctuation">{</span>小明<span class="token operator">=</span><span class="token number">175</span><span class="token punctuation">,</span> 小张<span class="token operator">=</span><span class="token number">178</span><span class="token punctuation">,</span> 小梦<span class="token operator">=</span><span class="token number">168</span><span class="token punctuation">}</span>
+小明<span class="token operator">--</span><span class="token operator">></span><span class="token number">175</span>
+小张<span class="token operator">--</span><span class="token operator">></span><span class="token number">178</span>
+小梦<span class="token operator">--</span><span class="token operator">></span><span class="token number">168</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h4 id="store方法"><a href="#store方法" class="headerlink" title="store方法"></a>store方法</h4><p><code>Properties</code>集合中的方法<code>store</code>；用于把集合中的临时数据，持久化写入到硬盘中存储。</p>
@@ -952,30 +949,30 @@ try (resource1; resource2) {
 </li>
 </ul>
 <p>代码示例：</p>
-<pre><code class="java">public class ProDemo02 {
-    public static void main(String[] args) throws IOException {
-        // 1. 创建Properties集合对象，添加数据
-        Properties pro = new Properties();
-        pro.setProperty("小明","177");
-        pro.setProperty("小立","181");
-        pro.setProperty("小化","173");
-        // 2. 创建字节输出流/字符输出流对象，绑定输出目的地。
-        FileWriter fw = new FileWriter("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\prop.txt");
-        // 3. 使用Properties集合中的方法store，把集合中的临时数据，写入到硬盘中
-        pro.store(fw,"save data");
-        // 4. 释放资源
-        fw.close();
-        /*
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ProDemo02</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1. 创建Properties集合对象，添加数据</span>
+        Properties pro <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Properties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pro<span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"小明"</span><span class="token punctuation">,</span><span class="token string">"177"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pro<span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"小立"</span><span class="token punctuation">,</span><span class="token string">"181"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pro<span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"小化"</span><span class="token punctuation">,</span><span class="token string">"173"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2. 创建字节输出流/字符输出流对象，绑定输出目的地。</span>
+        FileWriter fw <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\prop.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3. 使用Properties集合中的方法store，把集合中的临时数据，写入到硬盘中</span>
+        pro<span class="token punctuation">.</span><span class="token function">store</span><span class="token punctuation">(</span>fw<span class="token punctuation">,</span><span class="token string">"save data"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 4. 释放资源</span>
+        fw<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">/*
         prop.txt
             #save data
             #Tue May 07 20:47:14 CST 2019
             小明=177
             小立=181
             小化=173
-         */
-    }
-}
-</code></pre>
+         */</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="load方法"><a href="#load方法" class="headerlink" title="load方法"></a>load方法</h4><p>可以使用<code>Properties</code>集合中的方法<code>load</code>，把硬盘中保存的文件(键值对形式的)，读取到集合中使用。</p>
 <ul>
 <li><p><strong>构造方法</strong>：</p>
@@ -993,20 +990,20 @@ try (resource1; resource2) {
 </li>
 </ul>
 <p>代码示例：</p>
-<pre><code class="java">public class ProLoadMethod {
-    public static void main(String[] args) throws IOException {
-        // 1. 创建Properties集合对象
-        Properties pro = new Properties();
-        // 2. 使用Properties集合对象中的load方法来读取保存键值对的文件
-        pro.load(new FileReader("D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\prop.txt"));
-        // 3.遍历Properties集合
-        Set&lt;String&gt; set = pro.stringPropertyNames();
-        for (String key:set){
-            System.out.println(key + "--&gt;" + pro.getProperty(key));
-        }
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ProLoadMethod</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1. 创建Properties集合对象</span>
+        Properties pro <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Properties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2. 使用Properties集合对象中的load方法来读取保存键值对的文件</span>
+        pro<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token string">"D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\prop.txt"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.遍历Properties集合</span>
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> set <span class="token operator">=</span> pro<span class="token punctuation">.</span><span class="token function">stringPropertyNames</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String key<span class="token operator">:</span>set<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>key <span class="token operator">+</span> <span class="token string">"-->"</span> <span class="token operator">+</span> pro<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="今日总结："><a href="#今日总结：" class="headerlink" title="今日总结："></a>今日总结：</h2><ol>
 <li>IO的概述</li>
 <li>IO的分类：根据数据流向：输入流和输出流，根据数据类型：字节流和字符流。</li>
@@ -1029,27 +1026,9 @@ try (resource1; resource2) {
 <li>基本存储方法:<code>setProperty()</code>,<code>getProperty()</code>,<code>stringPropertyNames()</code></li>
 <li>读取<code>load()</code>和写入<code>store()</code>方法</li>
 </ol>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -1277,7 +1256,7 @@ public File(String pathname) ：通过将给定的路径名字符串转换为抽
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">253.1k</span>
+                <span class="white-color">245k</span>
             
 
             
@@ -1327,8 +1306,7 @@ public File(String pathname) ：通过将给定的路径名字符串转换为抽
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input" autofocus="">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1363,5 +1341,5 @@ public File(String pathname) ：通过将给定的路径名字符串转换为抽
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>

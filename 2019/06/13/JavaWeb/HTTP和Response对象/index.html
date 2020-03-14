@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="HTTP协议和Response, Zero的博客">
     <meta name="description" content="1. HTTP协议HTTP协议分为请求消息和响应消息两部分。请求消息是客户端发送给服务器端的数据，数据格式由请求行、请求头、请求空行、请求体4部分组成。下面讲解响应消息格式。
@@ -270,14 +270,11 @@
     }
 </style>
 
-<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
     </svg>
 </a>
         
@@ -413,7 +410,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.7k
+                        2.6k
                     </div>
                     
 
@@ -489,13 +486,13 @@ Date: Thu, 13 Jun 2019 10:01:19 GMT
 <li><p>重定向：资源的跳转方式</p>
 </li>
 <li><p>代码实现</p>
-<pre><code class="java">// 1. 设置状态码为302
-response.setStatus(302);
-// 2. 设置响应头location
-response.setHeader("location","/Demo6_13/responseDemo2");
-// 简单的重定向方法
-response.sendRedirect("/Demo6_13/responseDemo2");
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 1. 设置状态码为302</span>
+response<span class="token punctuation">.</span><span class="token function">setStatus</span><span class="token punctuation">(</span><span class="token number">302</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 2. 设置响应头location</span>
+response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"location"</span><span class="token punctuation">,</span><span class="token string">"/Demo6_13/responseDemo2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 简单的重定向方法</span>
+response<span class="token punctuation">.</span><span class="token function">sendRedirect</span><span class="token punctuation">(</span><span class="token string">"/Demo6_13/responseDemo2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>重定向(<code>redirect</code>)的特点</p>
 <ul>
@@ -532,106 +529,106 @@ response.sendRedirect("/Demo6_13/responseDemo2");
 </li>
 </ul>
 <h4 id="2-4-2-服务器输出字符数据到浏览器"><a href="#2-4-2-服务器输出字符数据到浏览器" class="headerlink" title="2.4.2 服务器输出字符数据到浏览器"></a>2.4.2 服务器输出字符数据到浏览器</h4><p>先获取字符输出流，再输出数据。</p>
-<pre><code class="java">// 3.1 获取流对象之前，将流的默认编码ISO-8859-1设置为utf-8
-response.setCharacterEncoding("utf-8");
-// 3.2 告诉浏览器服务器发送的消息体数据的编码，建议浏览器使用该编码来解码
-response.setHeader("Content-type","text/html;charset=utf-8");
-// 3.3 可以使用简化的形式，设置编码
-response.setContentType("text/html;charset=utf-8");
-// Notice: 3.1步骤可以省略，推荐使用3.3方法
-// 1. 获取字符输出流
-PrintWriter pw = response.getWriter();
-// 2. 输出数据
-pw.write("&lt;h1&gt;hello response&lt;/h1&gt;");
-// 3. 解决中文乱码问题
-pw.write("你好，response");
-/* 
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 3.1 获取流对象之前，将流的默认编码ISO-8859-1设置为utf-8</span>
+response<span class="token punctuation">.</span><span class="token function">setCharacterEncoding</span><span class="token punctuation">(</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 3.2 告诉浏览器服务器发送的消息体数据的编码，建议浏览器使用该编码来解码</span>
+response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Content-type"</span><span class="token punctuation">,</span><span class="token string">"text/html;charset=utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 3.3 可以使用简化的形式，设置编码</span>
+response<span class="token punctuation">.</span><span class="token function">setContentType</span><span class="token punctuation">(</span><span class="token string">"text/html;charset=utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// Notice: 3.1步骤可以省略，推荐使用3.3方法</span>
+<span class="token comment" spellcheck="true">// 1. 获取字符输出流</span>
+PrintWriter pw <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 2. 输出数据</span>
+pw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"&lt;h1>hello response&lt;/h1>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 3. 解决中文乱码问题</span>
+pw<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"你好，response"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/* 
     乱码原因是：PrintWriter pw = response.getWriter(); 获取的流默认编码是ISO-8859-1
     故需在获取流之前，设置该流的默认编码，或者直接告诉浏览器响应体使用的编码，推荐其解码方式。
-*/
-</code></pre>
+*/</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-4-3-服务器输出字节数据到浏览器"><a href="#2-4-3-服务器输出字节数据到浏览器" class="headerlink" title="2.4.3 服务器输出字节数据到浏览器"></a>2.4.3 服务器输出字节数据到浏览器</h4><p>获取字节输出流输出数据，一般用于获取图片字节数据然后输出到浏览器显示图片</p>
-<pre><code class="java">// 1. 获取字节输出流
-ServletOutputStream sos = response.getOutputStream();
-// 2. 输出数据
-sos.write("你好".getBytes());
-sos.write("hello".getBytes());
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 1. 获取字节输出流</span>
+ServletOutputStream sos <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getOutputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 2. 输出数据</span>
+sos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"你好"</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+sos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-4-4-验证码"><a href="#2-4-4-验证码" class="headerlink" title="2.4.4 验证码"></a>2.4.4 验证码</h4><p>本质就是一张图片，主要作用是防止恶意表单注册</p>
-<pre><code class="java">@WebServlet("/checkCodeServlet")
-public class CheckCodeServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. 创建一个对象，在内存中画图片(验证码图片对象)
-        int width = 100;
-        int height = 50;
-        BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@WebServlet</span><span class="token punctuation">(</span><span class="token string">"/checkCodeServlet"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CheckCodeServlet</span> <span class="token keyword">extends</span> <span class="token class-name">HttpServlet</span> <span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doPost</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1. 创建一个对象，在内存中画图片(验证码图片对象)</span>
+        <span class="token keyword">int</span> width <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> height <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">;</span>
+        BufferedImage image <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BufferedImage</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span>height<span class="token punctuation">,</span>BufferedImage<span class="token punctuation">.</span>TYPE_INT_RGB<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        // 2. 美化图片
-        // 2.1 填充背景色
-        Graphics g = image.getGraphics(); // 获取画笔对象
-        g.setColor(Color.PINK); // 设置画笔颜色
-        g.fillRect(0,0,width,height); // 填充颜色
-        // 2.2 画边框
-        g.setColor(Color.blue);
-        g.drawRect(0,0,width-1, height-1);
-        // 2.3 写验证码
-        String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        // 2.3.1 生产随机角标
-        Random ran = new Random();
-        for (int i = 1; i &lt;= 4; i++) {
-            int index = ran.nextInt(str.length());
-            // 2.3.2 获取字符
-            char ch = str.charAt(index);
-            g.drawString(ch+"" ,width/5*i,height/2);
-        }
-        // 2.4 画干扰线
-        g.setColor(Color.GREEN);
-        for (int i = 0; i &lt; 10; i++) {
-            // 2.4.1 随机生产坐标点
-            int x1 = ran.nextInt(width);
-            int x2 = ran.nextInt(width);
-            int y1 = ran.nextInt(height);
-            int y2 = ran.nextInt(height);
-            // 根据坐标点画线
-            g.drawLine(x1,y1,x2,y2);
-        }
-        // 3. 将图片输出到页面展示
-        ImageIO.write(image,"jpg",response.getOutputStream());
-    }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doPost(request,response);
-    }
-}
-</code></pre>
-<h4 id="在网页中使用验证码"><a href="#在网页中使用验证码" class="headerlink" title="在网页中使用验证码"></a>在网页中使用验证码</h4><pre><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;验证码&lt;/title&gt;
-    &lt;script&gt;
-        // 1.给超链接和图片绑定单击事件
-        // 2. 重新设置图片的src属性值
-        window.onload = function () {
-            // 1. 获取图片对象
-            var img = document.getElementById("checkCode");
-            // 2. 创建单击事件
-            changeimg = function () {
-                // 获取时间戳
-                var date = new Date().getTime();
-                img.src = "/Demo6_13/checkCodeServlet?"+date;
-            }
-            // 3. 绑定单击事件
-            img.onclick = changeimg;
-            document.getElementById("change").onclick = changeimg;
-        }
-    &lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;img src="/Demo6_13/checkCodeServlet" id="checkCode"&gt;
-&lt;a href="#" id="change" &gt;看不清？换一张&lt;/a&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+        <span class="token comment" spellcheck="true">// 2. 美化图片</span>
+        <span class="token comment" spellcheck="true">// 2.1 填充背景色</span>
+        Graphics g <span class="token operator">=</span> image<span class="token punctuation">.</span><span class="token function">getGraphics</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 获取画笔对象</span>
+        g<span class="token punctuation">.</span><span class="token function">setColor</span><span class="token punctuation">(</span>Color<span class="token punctuation">.</span>PINK<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 设置画笔颜色</span>
+        g<span class="token punctuation">.</span><span class="token function">fillRect</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>width<span class="token punctuation">,</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 填充颜色</span>
+        <span class="token comment" spellcheck="true">// 2.2 画边框</span>
+        g<span class="token punctuation">.</span><span class="token function">setColor</span><span class="token punctuation">(</span>Color<span class="token punctuation">.</span>blue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        g<span class="token punctuation">.</span><span class="token function">drawRect</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>width<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> height<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.3 写验证码</span>
+        String str <span class="token operator">=</span> <span class="token string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.3.1 生产随机角标</span>
+        Random ran <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">4</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> index <span class="token operator">=</span> ran<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span>str<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 2.3.2 获取字符</span>
+            <span class="token keyword">char</span> ch <span class="token operator">=</span> str<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            g<span class="token punctuation">.</span><span class="token function">drawString</span><span class="token punctuation">(</span>ch<span class="token operator">+</span><span class="token string">""</span> <span class="token punctuation">,</span>width<span class="token operator">/</span><span class="token number">5</span><span class="token operator">*</span>i<span class="token punctuation">,</span>height<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 2.4 画干扰线</span>
+        g<span class="token punctuation">.</span><span class="token function">setColor</span><span class="token punctuation">(</span>Color<span class="token punctuation">.</span>GREEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 2.4.1 随机生产坐标点</span>
+            <span class="token keyword">int</span> x1 <span class="token operator">=</span> ran<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span>width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> x2 <span class="token operator">=</span> ran<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span>width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> y1 <span class="token operator">=</span> ran<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> y2 <span class="token operator">=</span> ran<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 根据坐标点画线</span>
+            g<span class="token punctuation">.</span><span class="token function">drawLine</span><span class="token punctuation">(</span>x1<span class="token punctuation">,</span>y1<span class="token punctuation">,</span>x2<span class="token punctuation">,</span>y2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 3. 将图片输出到页面展示</span>
+        ImageIO<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span><span class="token string">"jpg"</span><span class="token punctuation">,</span>response<span class="token punctuation">.</span><span class="token function">getOutputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doGet</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">doPost</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="在网页中使用验证码"><a href="#在网页中使用验证码" class="headerlink" title="在网页中使用验证码"></a>在网页中使用验证码</h4><pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>验证码<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+        <span class="token comment" spellcheck="true">// 1.给超链接和图片绑定单击事件</span>
+        <span class="token comment" spellcheck="true">// 2. 重新设置图片的src属性值</span>
+        window<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 1. 获取图片对象</span>
+            <span class="token keyword">var</span> img <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"checkCode"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 2. 创建单击事件</span>
+            changeimg <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 获取时间戳</span>
+                <span class="token keyword">var</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                img<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">"/Demo6_13/checkCodeServlet?"</span><span class="token operator">+</span>date<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// 3. 绑定单击事件</span>
+            img<span class="token punctuation">.</span>onclick <span class="token operator">=</span> changeimg<span class="token punctuation">;</span>
+            document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"change"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>onclick <span class="token operator">=</span> changeimg<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/Demo6_13/checkCodeServlet<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkCode<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>change<span class="token punctuation">"</span></span> <span class="token punctuation">></span></span>看不清？换一张<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="3-ServletContext对象"><a href="#3-ServletContext对象" class="headerlink" title="3. ServletContext对象"></a>3. ServletContext对象</h2><p>这个对象代表整个Web应用，可以和程序的容器(服务器)来进行通信</p>
 <h3 id="3-1-获取"><a href="#3-1-获取" class="headerlink" title="3.1 获取"></a>3.1 获取</h3><ol>
 <li>通过request对象获取：<code>request.getServletContext();</code></li>
@@ -654,11 +651,11 @@ public class CheckCodeServlet extends HttpServlet {
 <h4 id="3-2-3-获取文件的真实-服务器-路径"><a href="#3-2-3-获取文件的真实-服务器-路径" class="headerlink" title="3.2.3 获取文件的真实(服务器)路径"></a>3.2.3 获取文件的真实(服务器)路径</h4><ul>
 <li><code>String getRealPath(String path)</code></li>
 </ul>
-<pre><code class="java">// 获取文件的服务器路径
-String c = context.getRealPath("/c.txt"); // web目录下的资源访问
-String b = context.getRealPath("/WEB-INF/b.txt"); // WEB-INF目录下的资源访问
-String a = context.getRealPath("/WEB-INF/classes/a.txt"); // src目录下的资源访问
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 获取文件的服务器路径</span>
+String c <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getRealPath</span><span class="token punctuation">(</span><span class="token string">"/c.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// web目录下的资源访问</span>
+String b <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getRealPath</span><span class="token punctuation">(</span><span class="token string">"/WEB-INF/b.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// WEB-INF目录下的资源访问</span>
+String a <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getRealPath</span><span class="token punctuation">(</span><span class="token string">"/WEB-INF/classes/a.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// src目录下的资源访问</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="4-综合案例：文件下载"><a href="#4-综合案例：文件下载" class="headerlink" title="4. 综合案例：文件下载"></a>4. 综合案例：文件下载</h2><h3 id="4-1-案例需求"><a href="#4-1-案例需求" class="headerlink" title="4. 1 案例需求"></a>4. 1 案例需求</h3><ol>
 <li>页面显示超链接</li>
 <li>点击超链接后弹出下载提示框</li>
@@ -680,102 +677,84 @@ String a = context.getRealPath("/WEB-INF/classes/a.txt"); // src目录下的资�
 </li>
 </ol>
 <h3 id="4-2-代码实现"><a href="#4-2-代码实现" class="headerlink" title="4.2 代码实现"></a>4.2 代码实现</h3><p><code>downloadServlet</code>代码，主要实现文件的输入输出</p>
-<pre><code class="java">@WebServlet("/downloadServlet")
-public class DownloadServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. 获取请求参数，文件名称
-        String filename = request.getParameter("filename");
-        // 2. 使用字节输入流加载文件进内存
-        // 2.1 找到文件服务器路径
-        ServletContext context = this.getServletContext();
-        String realPath = context.getRealPath("/img/" + filename);
-        // 2.2 用字节流关联文件对象
-        FileInputStream fis = new FileInputStream(realPath);
-        // 3. 设置response响应头
-        // 3.1 设置响应头类型
-        String mimeType = context.getMimeType(filename); // 获取文件的mime类型
-        response.setHeader("content-type",mimeType);
-        // 3.2 解决中文文件名问题
-        // 3.2.1 获取user-agent请求头
-        String agent = request.getHeader("user-agent");
-        // 3.2.2 使用工具类方法编码文件名
-        filename = DownLoadUtils.getFileName(agent, filename);
-        response.setHeader("content-disposition","attachment;filename="+filename);
-        // 4. 将输入流的数据写出到输出流中，将文件输出到浏览器中
-        ServletOutputStream sos = response.getOutputStream();
-        byte[] buff = new byte[1024 * 8];
-        int len = 0;
-        while ((len = fis.read(buff)) != -1){
-            sos.write(buff,0,len);
-        }
-        fis.close();
-    }
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@WebServlet</span><span class="token punctuation">(</span><span class="token string">"/downloadServlet"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DownloadServlet</span> <span class="token keyword">extends</span> <span class="token class-name">HttpServlet</span> <span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doPost</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1. 获取请求参数，文件名称</span>
+        String filename <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span><span class="token string">"filename"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2. 使用字节输入流加载文件进内存</span>
+        <span class="token comment" spellcheck="true">// 2.1 找到文件服务器路径</span>
+        ServletContext context <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getServletContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String realPath <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getRealPath</span><span class="token punctuation">(</span><span class="token string">"/img/"</span> <span class="token operator">+</span> filename<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.2 用字节流关联文件对象</span>
+        FileInputStream fis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span>realPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3. 设置response响应头</span>
+        <span class="token comment" spellcheck="true">// 3.1 设置响应头类型</span>
+        String mimeType <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getMimeType</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 获取文件的mime类型</span>
+        response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"content-type"</span><span class="token punctuation">,</span>mimeType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.2 解决中文文件名问题</span>
+        <span class="token comment" spellcheck="true">// 3.2.1 获取user-agent请求头</span>
+        String agent <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getHeader</span><span class="token punctuation">(</span><span class="token string">"user-agent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.2.2 使用工具类方法编码文件名</span>
+        filename <span class="token operator">=</span> DownLoadUtils<span class="token punctuation">.</span><span class="token function">getFileName</span><span class="token punctuation">(</span>agent<span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"content-disposition"</span><span class="token punctuation">,</span><span class="token string">"attachment;filename="</span><span class="token operator">+</span>filename<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 4. 将输入流的数据写出到输出流中，将文件输出到浏览器中</span>
+        ServletOutputStream sos <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getOutputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> buff <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">byte</span><span class="token punctuation">[</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>len <span class="token operator">=</span> fis<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>buff<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            sos<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>buff<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        fis<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doPost(request,response);
-    }
-}
-</code></pre>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doGet</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">doPost</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>前端html页面，提供了文件下载的超链接</p>
-<pre><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;下载文件&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;h2&gt;文件下载&lt;/h2&gt;
-&lt;br&gt;
-&lt;a href="/Demo6_13/downloadServlet?filename=九尾.jpg"&gt;九尾&lt;/a&gt;
-&lt;a href="/Demo6_13/downloadServlet?filename=2.jpg"&gt;图片2&lt;/a&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>下载文件<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span>文件下载<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/Demo6_13/downloadServlet?filename<span class="token punctuation">=</span>九尾.jpg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>九尾<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/Demo6_13/downloadServlet?filename<span class="token punctuation">=</span>2.jpg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>图片2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>DownLoadUtils工具类，主要功能获取客户端的浏览器版本信息，然后根据不同的版本信息，设置filename的编码方式</p>
-<pre><code class="java">public class DownLoadUtils {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DownLoadUtils</span> <span class="token punctuation">{</span>
 
-    public static String getFileName(String agent, String filename) throws UnsupportedEncodingException {
-        if (agent.contains("MSIE")) {
-            // IE浏览器
-            filename = URLEncoder.encode(filename, "utf-8");
-            filename = filename.replace("+", " ");
-        } else if (agent.contains("Firefox")) {
-            // 火狐浏览器
-            BASE64Encoder base64Encoder = new BASE64Encoder();
-            filename = "=?utf-8?B?" + base64Encoder.encode(filename.getBytes("utf-8")) + "?=";
-        } else {
-            // 其它浏览器
-            filename = URLEncoder.encode(filename, "utf-8");
-        }
-        return filename;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">getFileName</span><span class="token punctuation">(</span>String agent<span class="token punctuation">,</span> String filename<span class="token punctuation">)</span> <span class="token keyword">throws</span> UnsupportedEncodingException <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>agent<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"MSIE"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// IE浏览器</span>
+            filename <span class="token operator">=</span> URLEncoder<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>filename<span class="token punctuation">,</span> <span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            filename <span class="token operator">=</span> filename<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">"+"</span><span class="token punctuation">,</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>agent<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"Firefox"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 火狐浏览器</span>
+            BASE64Encoder base64Encoder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BASE64Encoder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            filename <span class="token operator">=</span> <span class="token string">"=?utf-8?B?"</span> <span class="token operator">+</span> base64Encoder<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>filename<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"?="</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 其它浏览器</span>
+            filename <span class="token operator">=</span> URLEncoder<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>filename<span class="token punctuation">,</span> <span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> filename<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void getFileName(String agent) {
-    }
-}
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">getFileName</span><span class="token punctuation">(</span>String agent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -1006,7 +985,7 @@ public class DownloadServlet extends HttpServlet {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">253.1k</span>
+                <span class="white-color">245k</span>
             
 
             
@@ -1056,8 +1035,7 @@ public class DownloadServlet extends HttpServlet {
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input" autofocus="">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1092,5 +1070,5 @@ public class DownloadServlet extends HttpServlet {
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>

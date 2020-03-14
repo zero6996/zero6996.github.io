@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="会话技术Cookie和Session, Zero的博客">
     <meta name="description" content="1. 会话技术会话是浏览器和服务器之间的多次请求和响应，在一次会话中往往会产生一些数据，可以通过会话技术(Session和Cookie)保存会话中产生的数据
@@ -272,14 +272,11 @@
     }
 </style>
 
-<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
     </svg>
 </a>
         
@@ -423,14 +420,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.2k
+                        2.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        13 分
+                        11 分
                     </div>
                     
                 
@@ -474,10 +471,10 @@
 <p>在tomcat8之前cookie中不能直接存储中文数据，需要将中文数据进行转码(一般采用URL编码，使用<code>URLEncoder</code>和<code>URLDecoder</code>来编解码)；在tomcat8之后，cookie支持中文数据。特殊字符还是不支持，建议使用URL编码存储，方便URL解码解析。</p>
 </li>
 <li><p>假设在一个tomcat服务器中，部署了多个web项目，那么在这些web项目中cookie能不能共享呢？</p>
-<p>默认情况下cookie不能共享。可以通过<code>setPath(String path)</code>方法设置cookie的获取范围，默认情况下设置当前虚拟目录，如果要共享，将path设置为<code>"/"</code>即可。</p>
+<p>默认情况下cookie不能共享。可以通过<code>setPath(String path)</code>方法设置cookie的获取范围，默认情况下设置当前虚拟目录，如果要共享，将path设置为<code>&quot;/&quot;</code>即可。</p>
 </li>
 <li><p>在不同的tomcat服务器之间cookie能否共享？</p>
-<p>可以通过<code>setDomain(String path)</code>方法设置域名，如果设置的一级域名相同，那么多个服务器之间cookie可以共享，例：<code>setDomain(".baidu.com")</code>，那么<code>tieba.baidu.com</code>和<code>news.baidu.com</code>中的cookie可以共享。</p>
+<p>可以通过<code>setDomain(String path)</code>方法设置域名，如果设置的一级域名相同，那么多个服务器之间cookie可以共享，例：<code>setDomain(&quot;.baidu.com&quot;)</code>，那么<code>tieba.baidu.com</code>和<code>news.baidu.com</code>中的cookie可以共享。</p>
 </li>
 </ol>
 <blockquote>
@@ -502,75 +499,75 @@
 </ul>
 </li>
 </ol>
-<h4 id="2-5-3-代码实现"><a href="#2-5-3-代码实现" class="headerlink" title="2.5.3 代码实现"></a>2.5.3 代码实现</h4><pre><code class="java">@WebServlet("/CookieExercise")
-public class CookieExercise extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 设置响应的消息体的数据格式以及编码
-        response.setContentType("text/html;charset=utf-8");
-        // 1. 获取所有cookie
-        Cookie[] cookies = request.getCookies();
-        boolean flag = false; // 默认cookie没有lastTime
-        // 如果有cookie，则进行遍历
-        if (cookies != null &amp;&amp; cookies.length &gt; 0){
-            // 2. 遍历cookie数据
-            for (Cookie cookie : cookies) {
-                // 3. 获取cookie的名称
-                String name = cookie.getName();
-                // 4. 判断名称是否是：lastTime
-                if ("lastTime".equals(name)){
-                    // 有，则代表不是第一次访问
-                    flag = true; // 代表有lastTime
-                    // 设置cookie的value
-                    // 获取当前时间的字符串，重新设置cookie的值，然后发送
-                    Date date = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-                    String str_date = sdf.format(date);
-                    System.out.println("编码前："+str_date);
-                    // url编码
-                    str_date = URLEncoder.encode(str_date,"utf-8");
-                    System.out.println("编码后："+str_date);
-                    // 设置cookie的存活时间一个月
-                    cookie.setMaxAge(60 * 60 * 24 * 30);
-                    response.addCookie(cookie); // 将cookie值添加
-                    // 5. 响应数据
-                    // 获取cookie的value值
-                    String value = cookie.getValue();
-                    System.out.println("解码前："+value);
-                    // url解码
-                    value = URLDecoder.decode(value,"utf-8");
-                    System.out.println("解码后："+value);
-                    // 将数据响应
-                    response.getWriter().write("&lt;h3&gt;欢迎回来,你的上次访问时是"+value+"&lt;/h3&gt;");
-                    break;
-                }
-            }
-        }
-        // 如果没有cookie信息或者没有lastTime
-        if (cookies == null || cookies.length == 0 || flag == false){
-            // 没有，代表是第一次访问
-            // 获取当前时间字符串，设置cookie值发送
-            Date date = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-            String str_date = sdf.format(date);
-            System.out.println("编码前："+str_date);
-            // url编码
-            str_date = URLEncoder.encode(str_date,"utf-8");
-            System.out.println("编码后："+str_date);
-            // 新建cookie对象，设置lastTime
-            Cookie cookie = new Cookie("lastTime", str_date);
-            // 设置cookie存活时间
-            cookie.setMaxAge(60 * 60 * 24 * 30);
-            // 发送cookie
-            response.addCookie(cookie);
-            // 响应数据
-            response.getWriter().write("&lt;h3&gt;你好，欢迎首次访问&lt;/h3&gt;");
-        }
-    }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doPost(request, response);
-    }
-}
-</code></pre>
+<h4 id="2-5-3-代码实现"><a href="#2-5-3-代码实现" class="headerlink" title="2.5.3 代码实现"></a>2.5.3 代码实现</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@WebServlet</span><span class="token punctuation">(</span><span class="token string">"/CookieExercise"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CookieExercise</span> <span class="token keyword">extends</span> <span class="token class-name">HttpServlet</span> <span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doPost</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 设置响应的消息体的数据格式以及编码</span>
+        response<span class="token punctuation">.</span><span class="token function">setContentType</span><span class="token punctuation">(</span><span class="token string">"text/html;charset=utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 1. 获取所有cookie</span>
+        Cookie<span class="token punctuation">[</span><span class="token punctuation">]</span> cookies <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> flag <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 默认cookie没有lastTime</span>
+        <span class="token comment" spellcheck="true">// 如果有cookie，则进行遍历</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cookies <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> cookies<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 2. 遍历cookie数据</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>Cookie cookie <span class="token operator">:</span> cookies<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 3. 获取cookie的名称</span>
+                String name <span class="token operator">=</span> cookie<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 4. 判断名称是否是：lastTime</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"lastTime"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// 有，则代表不是第一次访问</span>
+                    flag <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 代表有lastTime</span>
+                    <span class="token comment" spellcheck="true">// 设置cookie的value</span>
+                    <span class="token comment" spellcheck="true">// 获取当前时间的字符串，重新设置cookie的值，然后发送</span>
+                    Date date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    SimpleDateFormat sdf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SimpleDateFormat</span><span class="token punctuation">(</span><span class="token string">"yyyy年MM月dd日 HH:mm:ss"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    String str_date <span class="token operator">=</span> sdf<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"编码前："</span><span class="token operator">+</span>str_date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">// url编码</span>
+                    str_date <span class="token operator">=</span> URLEncoder<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>str_date<span class="token punctuation">,</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"编码后："</span><span class="token operator">+</span>str_date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">// 设置cookie的存活时间一个月</span>
+                    cookie<span class="token punctuation">.</span><span class="token function">setMaxAge</span><span class="token punctuation">(</span><span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">24</span> <span class="token operator">*</span> <span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    response<span class="token punctuation">.</span><span class="token function">addCookie</span><span class="token punctuation">(</span>cookie<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 将cookie值添加</span>
+                    <span class="token comment" spellcheck="true">// 5. 响应数据</span>
+                    <span class="token comment" spellcheck="true">// 获取cookie的value值</span>
+                    String value <span class="token operator">=</span> cookie<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"解码前："</span><span class="token operator">+</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">// url解码</span>
+                    value <span class="token operator">=</span> URLDecoder<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"解码后："</span><span class="token operator">+</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">// 将数据响应</span>
+                    response<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"&lt;h3>欢迎回来,你的上次访问时是"</span><span class="token operator">+</span>value<span class="token operator">+</span><span class="token string">"&lt;/h3>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 如果没有cookie信息或者没有lastTime</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cookies <span class="token operator">==</span> null <span class="token operator">||</span> cookies<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> flag <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 没有，代表是第一次访问</span>
+            <span class="token comment" spellcheck="true">// 获取当前时间字符串，设置cookie值发送</span>
+            Date date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            SimpleDateFormat sdf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SimpleDateFormat</span><span class="token punctuation">(</span><span class="token string">"yyyy年MM月dd日 HH:mm:ss"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            String str_date <span class="token operator">=</span> sdf<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"编码前："</span><span class="token operator">+</span>str_date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// url编码</span>
+            str_date <span class="token operator">=</span> URLEncoder<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>str_date<span class="token punctuation">,</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"编码后："</span><span class="token operator">+</span>str_date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 新建cookie对象，设置lastTime</span>
+            Cookie cookie <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cookie</span><span class="token punctuation">(</span><span class="token string">"lastTime"</span><span class="token punctuation">,</span> str_date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置cookie存活时间</span>
+            cookie<span class="token punctuation">.</span><span class="token function">setMaxAge</span><span class="token punctuation">(</span><span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">24</span> <span class="token operator">*</span> <span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 发送cookie</span>
+            response<span class="token punctuation">.</span><span class="token function">addCookie</span><span class="token punctuation">(</span>cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 响应数据</span>
+            response<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"&lt;h3>你好，欢迎首次访问&lt;/h3>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doGet</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">doPost</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="3-JSP简单入门"><a href="#3-JSP简单入门" class="headerlink" title="3. JSP简单入门"></a>3. JSP简单入门</h2><p>Java Server Pages（Java服务器端页面），简称JSP。可以理解为一个特殊的页面，其中既可以定义html标签，又可以定义java代码。主要用于简化书写。</p>
 <h3 id="3-1-原理"><a href="#3-1-原理" class="headerlink" title="3.1 原理"></a>3.1 原理</h3><ul>
 <li>JSP本质上就是一个Servlet，通过<code>HttpJspBase</code>来生成Servlet。</li>
@@ -611,13 +608,13 @@ public class CookieExercise extends HttpServlet {
 <li><p>默认情况下，不是</p>
 </li>
 <li><p>如果需要两次相同，可以创建Cookie，键为JSESSIONID，并设置cookie存活时间。在服务器不关闭的情况下，在存活时间内，只要是同一个cookie访问，两次获取的session对象就是同一个。</p>
-<pre><code class="java">// 1. 获取session
-HttpSession session = request.getSession();
-// 2. 期望客户端关闭后，session也相同
-Cookie c = new Cookie("JSESSIONID", session.getId()); // 手动设置sessionid为当前的session对象id
-c.setMaxAge(60 * 60); // 设置cookie最大存活时间
-response.addCookie(c); // 发送cookie
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 1. 获取session</span>
+HttpSession session <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 2. 期望客户端关闭后，session也相同</span>
+Cookie c <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cookie</span><span class="token punctuation">(</span><span class="token string">"JSESSIONID"</span><span class="token punctuation">,</span> session<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 手动设置sessionid为当前的session对象id</span>
+c<span class="token punctuation">.</span><span class="token function">setMaxAge</span><span class="token punctuation">(</span><span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 设置cookie最大存活时间</span>
+response<span class="token punctuation">.</span><span class="token function">addCookie</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 发送cookie</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h4 id="2-客户端不关闭，服务器关闭后，两次获取的session是同一个吗？"><a href="#2-客户端不关闭，服务器关闭后，两次获取的session是同一个吗？" class="headerlink" title="2. 客户端不关闭，服务器关闭后，两次获取的session是同一个吗？"></a>2. 客户端不关闭，服务器关闭后，两次获取的session是同一个吗？</h4><ul>
@@ -652,158 +649,140 @@ response.addCookie(c); // 发送cookie
 <h3 id="5-3-代码实现"><a href="#5-3-代码实现" class="headerlink" title="5.3 代码实现"></a>5.3 代码实现</h3><ol>
 <li>登陆的Servlet</li>
 </ol>
-<pre><code class="java">@WebServlet("/loginServlet")
-public class LoginServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. 设置request编码
-        request.setCharacterEncoding("utf-8");
-        // 2. 获取参数
-        // todo：改进，获取参数Map,封装进User对象
-        Map&lt;String, String[]&gt; map = request.getParameterMap();
-        User loginUser = new User();
-        try {
-            BeanUtils.populate(loginUser,map);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        // 获取用户输入的验证码
-        String checkCode = request.getParameter("checkCode");
-        // 3. 获取生成的验证码
-        HttpSession session = request.getSession();
-        String checkCode_session = (String) session.getAttribute("checkCode_session");
-        // 3.1 删除session中存储的验证码
-        session.removeAttribute("checkCode_session");
-        // 4. 判断验证码是否正确
-        if (checkCode_session != null &amp;&amp; checkCode_session.equalsIgnoreCase(checkCode)){// 忽略大小写比较
-            // 验证码正确，调用UserDao的login方法进行登陆操作
-            UserDao dao = new UserDao();
-            User user = dao.login(loginUser);
-            // 判断用户名是否成功登陆
-            if (user != null ){ // todo: 需要调用UserDao查询数据库，进行数据对比
-                // 登陆成功
-                // 存储用户信息
-                session.setAttribute("User",user.getUsername());
-                // 重定向到success.jsp
-                response.sendRedirect(request.getContextPath() + "/success.jsp");
-            }else {
-                // 登陆失败
-                // 存储信息到request
-                request.setAttribute("login_error","用户名或密码错误！");
-                // 转发到登陆页面
-                request.getRequestDispatcher("/login.jsp").forward(request,response);
-            }
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@WebServlet</span><span class="token punctuation">(</span><span class="token string">"/loginServlet"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginServlet</span> <span class="token keyword">extends</span> <span class="token class-name">HttpServlet</span> <span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doPost</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1. 设置request编码</span>
+        request<span class="token punctuation">.</span><span class="token function">setCharacterEncoding</span><span class="token punctuation">(</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2. 获取参数</span>
+        <span class="token comment" spellcheck="true">// todo：改进，获取参数Map,封装进User对象</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> map <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getParameterMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        User loginUser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            BeanUtils<span class="token punctuation">.</span><span class="token function">populate</span><span class="token punctuation">(</span>loginUser<span class="token punctuation">,</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IllegalAccessException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InvocationTargetException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 获取用户输入的验证码</span>
+        String checkCode <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span><span class="token string">"checkCode"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3. 获取生成的验证码</span>
+        HttpSession session <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String checkCode_session <span class="token operator">=</span> <span class="token punctuation">(</span>String<span class="token punctuation">)</span> session<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">"checkCode_session"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.1 删除session中存储的验证码</span>
+        session<span class="token punctuation">.</span><span class="token function">removeAttribute</span><span class="token punctuation">(</span><span class="token string">"checkCode_session"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 4. 判断验证码是否正确</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>checkCode_session <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> checkCode_session<span class="token punctuation">.</span><span class="token function">equalsIgnoreCase</span><span class="token punctuation">(</span>checkCode<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token comment" spellcheck="true">// 忽略大小写比较</span>
+            <span class="token comment" spellcheck="true">// 验证码正确，调用UserDao的login方法进行登陆操作</span>
+            UserDao dao <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserDao</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            User user <span class="token operator">=</span> dao<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span>loginUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 判断用户名是否成功登陆</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>user <span class="token operator">!=</span> null <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// todo: 需要调用UserDao查询数据库，进行数据对比</span>
+                <span class="token comment" spellcheck="true">// 登陆成功</span>
+                <span class="token comment" spellcheck="true">// 存储用户信息</span>
+                session<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"User"</span><span class="token punctuation">,</span>user<span class="token punctuation">.</span><span class="token function">getUsername</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 重定向到success.jsp</span>
+                response<span class="token punctuation">.</span><span class="token function">sendRedirect</span><span class="token punctuation">(</span>request<span class="token punctuation">.</span><span class="token function">getContextPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"/success.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 登陆失败</span>
+                <span class="token comment" spellcheck="true">// 存储信息到request</span>
+                request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"login_error"</span><span class="token punctuation">,</span><span class="token string">"用户名或密码错误！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 转发到登陆页面</span>
+                request<span class="token punctuation">.</span><span class="token function">getRequestDispatcher</span><span class="token punctuation">(</span><span class="token string">"/login.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forward</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-        }else {
-            // 验证码不一致
-            // 存储信息到request
-            request.setAttribute("cc_error","验证码错误！");
-            // 转发到登陆页面
-            request.getRequestDispatcher("/login.jsp").forward(request,response);
-        }
-    }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doPost(request, response);
-    }
-}
-</code></pre>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 验证码不一致</span>
+            <span class="token comment" spellcheck="true">// 存储信息到request</span>
+            request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"cc_error"</span><span class="token punctuation">,</span><span class="token string">"验证码错误！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 转发到登陆页面</span>
+            request<span class="token punctuation">.</span><span class="token function">getRequestDispatcher</span><span class="token punctuation">(</span><span class="token string">"/login.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forward</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doGet</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">doPost</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ol start="2">
 <li>登陆的前端页面</li>
 </ol>
-<pre><code class="jsp">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Login&lt;/title&gt;
-    &lt;script&gt;
+<pre class="line-numbers language-jsp"><code class="language-jsp"><%@ page="" contenttype="text/html;charset=UTF-8" language="java" %="">
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <title>Login</title>
+    <script>
         window.onload = function () {
             document.getElementById("img").onclick = function () {
                 this.src = "/Demo6_14/checkCodeServlet?time=" + new Date().getTime();
             }
         }
-    &lt;/script&gt;
-    &lt;style&gt;
+    </script>
+    <style>
         div{
             color: red;
         }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;form action="/Demo6_14/loginServlet" method="post"&gt;
-    &lt;table&gt;
-        &lt;tr&gt;
-            &lt;td&gt;用户名&lt;/td&gt;
-            &lt;td&gt;&lt;input type="text" name="username"&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;密码&lt;/td&gt;
-            &lt;td&gt;&lt;input type="password" name="password"&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;验证码&lt;/td&gt;
-            &lt;td&gt;&lt;input type="text" name="checkCode"&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td colspan="2"&gt;&lt;img src="/Demo6_14/checkCodeServlet" id="img"&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td colspan="2"&gt;&lt;input type="submit" value="登陆"&gt;&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/table&gt;
-&lt;/form&gt;
-    &lt;div&gt;&lt;%= request.getAttribute("cc_error") == null ? "" : request.getAttribute("cc_error") %&gt;&lt;/div&gt;
-    &lt;div&gt;&lt;%= request.getAttribute("login_error") == null ? "" : request.getAttribute("login_error") %&gt;&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+    </style>
+</head>
+<body>
+<form action="/Demo6_14/loginServlet" method="post">
+    <table>
+        <tr>
+            <td>用户名</td>
+            <td><input type="text" name="username"></td>
+        </tr>
+        <tr>
+            <td>密码</td>
+            <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+            <td>验证码</td>
+            <td><input type="text" name="checkCode"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><img src="/Demo6_14/checkCodeServlet" id="img"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="登陆"></td>
+        </tr>
+    </table>
+</form>
+    <div><%= request.getattribute("cc_error")="=" null="" ?="" ""="" :="" %=""></%=></div>
+    <div><%= request.getattribute("login_error")="=" null="" ?="" ""="" :="" %=""></%=></div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></%@></code></pre>
 <ol start="3">
 <li>Dao类</li>
 </ol>
-<pre><code class="java">// 操作数据库中User表的类，主要查询数据
-public class UserDao {
-    // 声明JDBCTemplate对象共用
-    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 操作数据库中User表的类，主要查询数据</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserDao</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 声明JDBCTemplate对象共用</span>
+    <span class="token keyword">private</span> JdbcTemplate template <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JdbcTemplate</span><span class="token punctuation">(</span>JDBCUtils<span class="token punctuation">.</span><span class="token function">getDataSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // 登陆方法
-    public User login(User loginUser){
-        try{
-            String sql = "select * from user where username = ? and password = ?";
-            User user = template.queryForObject(sql,
-                    new BeanPropertyRowMapper&lt;User&gt;(User.class),
-                    loginUser.getUsername(), loginUser.getPassword());
-            return user;
-        }catch (DataAccessException e){
-            // 登陆失败，打印异常，返回null
-            e.printStackTrace();
-            return null;
-        }
-    }
-}
-</code></pre>
+    <span class="token comment" spellcheck="true">// 登陆方法</span>
+    <span class="token keyword">public</span> User <span class="token function">login</span><span class="token punctuation">(</span>User loginUser<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span><span class="token punctuation">{</span>
+            String sql <span class="token operator">=</span> <span class="token string">"select * from user where username = ? and password = ?"</span><span class="token punctuation">;</span>
+            User user <span class="token operator">=</span> template<span class="token punctuation">.</span><span class="token function">queryForObject</span><span class="token punctuation">(</span>sql<span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">BeanPropertyRowMapper</span><span class="token operator">&lt;</span>User<span class="token operator">></span><span class="token punctuation">(</span>User<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    loginUser<span class="token punctuation">.</span><span class="token function">getUsername</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> loginUser<span class="token punctuation">.</span><span class="token function">getPassword</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> user<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">DataAccessException</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 登陆失败，打印异常，返回null</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ol start="4">
 <li>验证码生成类在上一篇文章</li>
 </ol>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -1011,7 +990,7 @@ public class UserDao {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">253.1k</span>
+                <span class="white-color">245k</span>
             
 
             
@@ -1061,8 +1040,7 @@ public class UserDao {
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input" autofocus="">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1097,5 +1075,5 @@ public class UserDao {
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>

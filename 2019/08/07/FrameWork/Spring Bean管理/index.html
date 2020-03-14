@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="SpringBean管理, Zero的博客">
     <meta name="description" content="1. Spring的工厂类ApplicationContext是继承自BeanFactory的。BeanFactory是一个老版本的工厂类，只有在调用getBean方法时，才会生成类的实例。
@@ -270,14 +270,11 @@ ApplicationContext工厂在加载">
     }
 </style>
 
-<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
     </svg>
 </a>
         
@@ -417,7 +414,7 @@ ApplicationContext工厂在加载">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.2k
+                        4.1k
                     </div>
                     
 
@@ -452,106 +449,106 @@ ApplicationContext工厂在加载">
 <h2 id="2-Spring的Bean管理-XML方式"><a href="#2-Spring的Bean管理-XML方式" class="headerlink" title="2. Spring的Bean管理(XML方式)"></a>2. Spring的Bean管理(XML方式)</h2><h3 id="2-1-使用类构造器实例化-默认无参数"><a href="#2-1-使用类构造器实例化-默认无参数" class="headerlink" title="2.1 使用类构造器实例化(默认无参数)"></a>2.1 使用类构造器实例化(默认无参数)</h3><ul>
 <li>编写Bean1类：</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * Bean的实例化的三种方式：采用无参数的构造方法的方式
- */
-public class Bean1 {
-    public Bean1(){
-        System.out.println("Bean1被实例化了...");
-    }
-}
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bean1</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token function">Bean1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Bean1被实例化了..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>在xml中配置如下内容：</li>
 </ul>
-<pre><code class="xml">&lt;!--    Bean的实例化的三种方式--&gt;
-&lt;!--    第一种：无参构造器的方式--&gt;
-&lt;bean id="bean1" class="com.zero.ioc.demo1.Bean1"&gt;&lt;/bean&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--    Bean的实例化的三种方式--></span>
+<span class="token comment" spellcheck="true">&lt;!--    第一种：无参构造器的方式--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bean1<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo1.Bean1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>在测试方法中加载对象，并完成实例化</li>
 </ul>
-<pre><code class="java">@Test
-public void test1(){
-    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-    Bean1 bean1 = (Bean1) context.getBean("bean1");
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"beans.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Bean1 bean1 <span class="token operator">=</span> <span class="token punctuation">(</span>Bean1<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"bean1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="2-2-使用静态工厂方法实例化-简单工厂模式"><a href="#2-2-使用静态工厂方法实例化-简单工厂模式" class="headerlink" title="2.2 使用静态工厂方法实例化(简单工厂模式)"></a>2.2 使用静态工厂方法实例化(简单工厂模式)</h3><ul>
 <li>编写Bean2类</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * Bean的实例化的三种方式：使用静态工厂方法实例化
- */
-public class Bean2 {
-}
-</code></pre>
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bean2</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>编写静态工厂类</li>
 </ul>
-<pre><code class="java">// Bean2的静态工厂
-public class Bean2Factory {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// Bean2的静态工厂</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bean2Factory</span> <span class="token punctuation">{</span>
 
-    public static Bean2 createBean2(){
-        System.out.println("Bean2Factory已执行...");
-        return new Bean2();
-    }
-}
-</code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Bean2 <span class="token function">createBean2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Bean2Factory已执行..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Bean2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre><code class="xml">&lt;!--    第二种：静态工厂的方式--&gt;
-&lt;bean id="bean2" class="com.zero.ioc.demo1.Bean2Factory" factory-method="createBean2"/&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--    第二种：静态工厂的方式--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bean2<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo1.Bean2Factory<span class="token punctuation">"</span></span> <span class="token attr-name">factory-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>createBean2<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">@Test
-public void test2(){
-    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-    Bean2 bean2 = (Bean2) context.getBean("bean2");
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"beans.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Bean2 bean2 <span class="token operator">=</span> <span class="token punctuation">(</span>Bean2<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"bean2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>JDK12和Spring3.2不兼容！！！在使用静态工厂方法实例化对象时，会导致<code>java.lang.IllegalArgumentException</code>异常，更换Spring版本至4.2即可。</p>
 </blockquote>
 <h3 id="2-3-使用实例工厂方法实例化-工厂方法模式"><a href="#2-3-使用实例工厂方法实例化-工厂方法模式" class="headerlink" title="2.3 使用实例工厂方法实例化(工厂方法模式)"></a>2.3 使用实例工厂方法实例化(工厂方法模式)</h3><ul>
 <li>编写Bean3类</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * Bean的实例化三种方式：实例工厂实例化
- */
-public class Bean3 {
-}
-</code></pre>
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bean3</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>编写实例工厂类</li>
 </ul>
-<pre><code class="java">public class Bean3Factory {
-    public Bean3 createBean3(){
-        System.out.println("Bean3Factory执行了...");
-        return new Bean3();
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bean3Factory</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> Bean3 <span class="token function">createBean3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Bean3Factory执行了..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Bean3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre><code class="xml">&lt;!--    第三种：实例工厂的方式--&gt;
-&lt;bean id="bean3Factory" class="com.zero.ioc.demo1.Bean3Factory"/&gt;
-&lt;bean id="bean3" factory-bean="bean3Factory" factory-method="createBean3"/&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--    第三种：实例工厂的方式--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bean3Factory<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo1.Bean3Factory<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bean3<span class="token punctuation">"</span></span> <span class="token attr-name">factory-bean</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bean3Factory<span class="token punctuation">"</span></span> <span class="token attr-name">factory-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>createBean3<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">@Test
-public void test3(){
-    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-    Bean3 bean3 = (Bean3) context.getBean("bean3");
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"beans.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Bean3 bean3 <span class="token operator">=</span> <span class="token punctuation">(</span>Bean3<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"bean3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="2-4-Bean的配置"><a href="#2-4-Bean的配置" class="headerlink" title="2.4 Bean的配置"></a>2.4 Bean的配置</h3><ul>
 <li><strong>id和name</strong><ul>
 <li>一般情况下，装配一个Bean时，通过指定一个id属性作为Bean的名称</li>
@@ -593,56 +590,56 @@ public void test3(){
 <ul>
 <li>在xml中配置</li>
 </ul>
-<pre><code class="xml">&lt;!--    Bean的作用范围--&gt;
-&lt;!--仅存在一个Bean实例，单实例--&gt;
-&lt;bean id="person" class="com.zero.ioc.demo2.Person" scope="singleton"/&gt;
-&lt;!--每次调用getBean()都会返回一个新实例--&gt;
-&lt;bean id="person" class="com.zero.ioc.demo2.Person" scope="prototype"/&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--    Bean的作用范围--></span>
+<span class="token comment" spellcheck="true">&lt;!--仅存在一个Bean实例，单实例--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo2.Person<span class="token punctuation">"</span></span> <span class="token attr-name">scope</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>singleton<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token comment" spellcheck="true">&lt;!--每次调用getBean()都会返回一个新实例--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo2.Person<span class="token punctuation">"</span></span> <span class="token attr-name">scope</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prototype<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="2-6-Spring容器中Bean的生命周期"><a href="#2-6-Spring容器中Bean的生命周期" class="headerlink" title="2.6 Spring容器中Bean的生命周期"></a>2.6 Spring容器中Bean的生命周期</h3><p>Spring初始化bean或销毁bean时，有时需要作一些处理工作，因此spring可以在创建和拆卸bean时调用bean的两个生命周期方法。</p>
-<pre><code class="xml">&lt;bean id="xxx" class="xxx"
-      init-method="init"
-      destroy-method="destroy"/&gt;
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>xxx<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>xxx<span class="token punctuation">"</span></span>
+      <span class="token attr-name">init-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>init<span class="token punctuation">"</span></span>
+      <span class="token attr-name">destroy-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>destroy<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 
-&lt;!--
+<span class="token comment" spellcheck="true">&lt;!--
 当bean被载入到容器时调用init
 当bean从容器中删除时调用destroy(必须是单例bean才会自动调用，即scope="singleton"才有效)
---&gt;
-</code></pre>
+--></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>web容器中会自动调用，但是main函数或测试用例需手动调用。</p>
 </blockquote>
 <ul>
 <li>示例，创建一个man类</li>
 </ul>
-<pre><code class="java">public class Man {
-    public Man(){
-        System.out.println("Man被实例化了");
-    }
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Man</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token function">Man</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Man被实例化了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void setup(){
-        System.out.println("Man被初始化了");
-    }
-    public void myDestroy(){
-        System.out.println("Man被销毁了");
-    }
-}
-</code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Man被初始化了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">myDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Man被销毁了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre><code class="xml">&lt;bean id="man" class="com.zero.ioc.demo2.Man" init-method="setup" destroy-method="myDestroy"/&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>man<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo2.Man<span class="token punctuation">"</span></span> <span class="token attr-name">init-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>setup<span class="token punctuation">"</span></span> <span class="token attr-name">destroy-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myDestroy<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java"> @Test
-public void test2(){
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-    Man man = (Man) context.getBean("man");
-    context.close();
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ClassPathXmlApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"beans.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Man man <span class="token operator">=</span> <span class="token punctuation">(</span>Man<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"man"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    context<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-6-1-Bean完整生命周期过程"><a href="#2-6-1-Bean完整生命周期过程" class="headerlink" title="2.6.1 Bean完整生命周期过程"></a>2.6.1 Bean完整生命周期过程</h4><p>完整生命周期总共有11个步骤。</p>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/08/07/bean_lifeCycle-1565180819738.jpg" alt="bean_lifeCycle"></p>
 <ol>
@@ -652,100 +649,100 @@ public void test2(){
 <li>如果Bean实现<code>BeanFactoryAware</code>或者<code>ApplicationContextAware</code>设置工厂<code>setBeanFactory</code>或者上下文对象<code>setApplicationContext</code></li>
 <li>如果存在类实现<code>BeanPostProcessor</code>(后处理Bean)，执行<code>postProcessBeforeInitialization</code></li>
 <li>如果Bean实现<code>InitializingBean</code>执行<code>afterPropertiesSet</code></li>
-<li>调用<code>&lt;bean init-method="init"&gt;</code>指定初始化方法init</li>
+<li>调用<code>&lt;bean init-method=&quot;init&quot;&gt;</code>指定初始化方法init</li>
 <li>如果存在类实现<code>BeanPostProcessor</code>(处理Bean)，执行<code>postProcessAfterInitialization</code></li>
 <li>执行业务处理</li>
 <li>如果Bean实现<code>DisposableBean</code>执行<code>destroy</code></li>
-<li>调用<code>&lt;bean destroy-method="customerDestroy"&gt;</code>指定销毁方法<code>customerDestroy</code></li>
+<li>调用<code>&lt;bean destroy-method=&quot;customerDestroy&quot;&gt;</code>指定销毁方法<code>customerDestroy</code></li>
 </ol>
 <p><strong>代码演示</strong>：</p>
 <ul>
 <li>编写man类</li>
 </ul>
-<pre><code class="java">public class Man implements BeanNameAware, ApplicationContextAware, InitializingBean, DisposableBean {
-    private String name;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Man</span> <span class="token keyword">implements</span> <span class="token class-name">BeanNameAware</span><span class="token punctuation">,</span> ApplicationContextAware<span class="token punctuation">,</span> InitializingBean<span class="token punctuation">,</span> DisposableBean <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 
-    public String getName() {
-        return name;
-    }
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void setName(String name) {
-        System.out.println("第二步：设置属性");
-        this.name = name;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第二步：设置属性"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public Man(){
-        System.out.println("第一步：实例化。。。");
-    }
+    <span class="token keyword">public</span> <span class="token function">Man</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第一步：实例化。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void setup(){
-        System.out.println("第七步：Man被初始化了");
-    }
-    public void myDestroy(){
-        System.out.println("第十一步：执行自己定义的销毁方法");
-    }
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第七步：Man被初始化了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">myDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第十一步：执行自己定义的销毁方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public void setBeanName(String s) {
-        System.out.println("第三步：设置Bean的名称"+s); // 就是xml中配置的id的值
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBeanName</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第三步：设置Bean的名称"</span><span class="token operator">+</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 就是xml中配置的id的值</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        System.out.println("第四步：了解工厂信息");
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setApplicationContext</span><span class="token punctuation">(</span>ApplicationContext applicationContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> BeansException <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第四步：了解工厂信息"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("第六步：属性设置后执行 ");
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterPropertiesSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第六步：属性设置后执行 "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void run(){
-        System.out.println("第九步：执行业务方法 ");
-    }
-    public void destroy() throws Exception{
-        System.out.println("第十步：执行Spring的销毁方法");
-    }
-}
-</code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第九步：执行业务方法 "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第十步：执行Spring的销毁方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>编写<code>MyBeanPostProcessor</code>类</li>
 </ul>
-<pre><code class="java">public class MyBeanPostProcessor implements BeanPostProcessor {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyBeanPostProcessor</span> <span class="token keyword">implements</span> <span class="token class-name">BeanPostProcessor</span> <span class="token punctuation">{</span>
 
-    @Override
-    public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
-        System.out.println("第五步：初始化前方法。。。");
-        return o;
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Object <span class="token function">postProcessBeforeInitialization</span><span class="token punctuation">(</span>Object o<span class="token punctuation">,</span> String s<span class="token punctuation">)</span> <span class="token keyword">throws</span> BeansException <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第五步：初始化前方法。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> o<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public Object postProcessAfterInitialization(Object o, String s) throws BeansException {
-        System.out.println("第八步：初始化后方法。。。");
-        return o;
-    }
-}
-</code></pre>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Object <span class="token function">postProcessAfterInitialization</span><span class="token punctuation">(</span>Object o<span class="token punctuation">,</span> String s<span class="token punctuation">)</span> <span class="token keyword">throws</span> BeansException <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第八步：初始化后方法。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> o<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre><code class="xml">&lt;bean id="man" class="com.zero.ioc.demo2.Man" init-method="setup" destroy-method="myDestroy"&gt;
-    &lt;property name="name" value="张三"&gt;&lt;/property&gt;
-&lt;/bean&gt;
-&lt;bean class="com.zero.ioc.demo2.MyBeanPostProcessor"/&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>man<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo2.Man<span class="token punctuation">"</span></span> <span class="token attr-name">init-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>setup<span class="token punctuation">"</span></span> <span class="token attr-name">destroy-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myDestroy<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>张三<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo2.MyBeanPostProcessor<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">@Test
-public void test2(){
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-    Man man = (Man) context.getBean("man");
-    man.run();
-    context.close();
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ClassPathXmlApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"beans.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Man man <span class="token operator">=</span> <span class="token punctuation">(</span>Man<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"man"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    man<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    context<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-/** 
+<span class="token comment" spellcheck="true">/** 
 输出结果:
     第一步：实例化。。。
     第二步：设置属性
@@ -760,8 +757,8 @@ public void test2(){
     信息: Closing org.springframework.context.support.ClassPathXmlApplicationContext@7823a2f9: startup date [Tue Aug 06 19:48:41 CST 2019]; root of context hierarchy
     第十步：执行Spring的销毁方法
     第十一步：执行自己定义的销毁方法
-*/
-</code></pre>
+*/</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="3-Spring的属性注入-XML方式"><a href="#3-Spring的属性注入-XML方式" class="headerlink" title="3. Spring的属性注入(XML方式)"></a>3. Spring的属性注入(XML方式)</h2><p>对于类成员变量，注入方式有三种：构造函数注入、属性setter方法注入、接口注入</p>
 <blockquote>
 <p>Spring支持前两种</p>
@@ -775,45 +772,45 @@ public void test2(){
 <ul>
 <li>创建user类</li>
 </ul>
-<pre><code class="java">public class User {
-    private String name;
-    private Integer age;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
 
-    public User(String name, Integer age){
-        this.name = name;
-        this.age = age;
-    }
+    <span class="token keyword">public</span> <span class="token function">User</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Integer age<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
-}
-</code></pre>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"User{"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", age="</span> <span class="token operator">+</span> age <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre><code class="xml">&lt;!--    Spring属性注入-通过构造方法注入--&gt;
-&lt;bean id="user" class="com.zero.ioc.demo3.User"&gt;
-    &lt;constructor-arg name="name" value="张三"/&gt;
-    &lt;constructor-arg name="age" value="22"/&gt;
-&lt;/bean&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--    Spring属性注入-通过构造方法注入--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo3.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>constructor-arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>张三<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>constructor-arg</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>age<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>22<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">public class demo3Test {
-    @Test
-    public void test1(){
-        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-        User user = (User) context.getBean("user");
-        System.out.println(user);
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">demo3Test</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        ApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"beans.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        User user <span class="token operator">=</span> <span class="token punctuation">(</span>User<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h3 id="3-2-属性注入-set方法注入"><a href="#3-2-属性注入-set方法注入" class="headerlink" title="3.2 属性注入-set方法注入"></a>3.2 属性注入-set方法注入</h3><ul>
@@ -823,163 +820,163 @@ public void test2(){
 <ul>
 <li>创建person类</li>
 </ul>
-<pre><code class="java">public class Person {
-    private String name;
-    private Integer age;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
 
-    private Cat cat;
+    <span class="token keyword">private</span> Cat cat<span class="token punctuation">;</span>
 
-    // 省略get/set方法
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", cat=" + cat +
-                '}';
-    }
-}
-</code></pre>
+    <span class="token comment" spellcheck="true">// 省略get/set方法</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Person{"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", age="</span> <span class="token operator">+</span> age <span class="token operator">+</span>
+                <span class="token string">", cat="</span> <span class="token operator">+</span> cat <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>创建cat类</li>
 </ul>
-<pre><code class="java">public class Cat {
-    private String name;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Cat</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 
-    @Override
-    public String toString() {
-        return "Cat{" +
-                "name='" + name + '\'' +
-                '}';
-    }
-    // 省略get/set方法
-}
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Cat{"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// 省略get/set方法</span>
+<span class="token punctuation">}</span>
 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre><code class="xml">&lt;!--    Spring属性注入-通过set方法注入--&gt;
-&lt;bean id="person" class="com.zero.ioc.demo3.Person"&gt;
-    &lt;property name="name" value="李四"/&gt;
-  &lt;property name="age" value="25"/&gt;
-    &lt;!--        ref可以引入其他bean的id或name--&gt;
-  &lt;property name="cat" ref="cat"/&gt;
-&lt;/bean&gt;
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--    Spring属性注入-通过set方法注入--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo3.Person<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>李四<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>age<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>25<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token comment" spellcheck="true">&lt;!--        ref可以引入其他bean的id或name--></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cat<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cat<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-&lt;bean id="cat" class="com.zero.ioc.demo3.Cat"&gt;
-    &lt;property name="name" value="ketty"/&gt;
-&lt;/bean&gt;
-</code></pre>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cat<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo3.Cat<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ketty<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">@Test
-public void test2(){
-    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-  Person person = (Person) context.getBean("person");
-    System.out.println(person); // Person{name='李四', age=25, cat=Cat{name='ketty'}}
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"beans.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  Person person <span class="token operator">=</span> <span class="token punctuation">(</span>Person<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Person{name='李四', age=25, cat=Cat{name='ketty'}}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <blockquote>
 <p>普通类型的值使用value设置值，对象类型的值使用ref。</p>
 </blockquote>
 <h3 id="3-3-属性注入-p名称空间"><a href="#3-3-属性注入-p名称空间" class="headerlink" title="3.3 属性注入-p名称空间"></a>3.3 属性注入-p名称空间</h3><p>使用p命名空间：为了简化xml文件配置，Spring从2.5开始引入一个新的p名称空间。</p>
-<p>语法：<code>p:&lt;属性名&gt;="xxx" 引入常量值</code>，<code>p:&lt;属性名&gt;-ref="xxx"</code>引用其他Bean对象</p>
+<p>语法：<code>p:&lt;属性名&gt;=&quot;xxx&quot; 引入常量值</code>，<code>p:&lt;属性名&gt;-ref=&quot;xxx&quot;</code>引用其他Bean对象</p>
 <ul>
 <li>示例，配置xml，</li>
 </ul>
-<pre><code class="xml">&lt;!--先在beans中添加:xmlns:p="http://www.springframework.org/schema/p"，引入p命名空间--&gt;
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--先在beans中添加:xmlns:p="http://www.springframework.org/schema/p"，引入p命名空间--></span>
 
-&lt;!--    Spring属性注入-通过p名称空间注入--&gt;
-&lt;!--修改原有的person配置如下，即可实现通过p名称空间注入--&gt;
-&lt;bean id="person" class="com.zero.ioc.demo3.Person" p:name="赵钱" p:age="26" p:cat-ref="cat"/&gt;
+<span class="token comment" spellcheck="true">&lt;!--    Spring属性注入-通过p名称空间注入--></span>
+<span class="token comment" spellcheck="true">&lt;!--修改原有的person配置如下，即可实现通过p名称空间注入--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo3.Person<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">p:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>赵钱<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">p:</span>age</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>26<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">p:</span>cat-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cat<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 
-&lt;bean id="cat" class="com.zero.ioc.demo3.Cat" p:name="小黑"/&gt;
-</code></pre>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cat<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo3.Cat<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">p:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>小黑<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="3-4-属性注入-SpEL注入"><a href="#3-4-属性注入-SpEL注入" class="headerlink" title="3.4 属性注入-SpEL注入"></a>3.4 属性注入-SpEL注入</h3><ul>
 <li><code>SpEL</code>：<code>spring expression language</code>，Spring表达式语言，对依赖注入进行简化</li>
-<li>语法：<code>#{表达式}</code>，<code>&lt;bean id="" value="#{表达式}"/&gt;</code></li>
+<li>语法：<code>#{表达式}</code>，<code>&lt;bean id=&quot;&quot; value=&quot;#{表达式}&quot;/&gt;</code></li>
 </ul>
-<pre><code class="shell">Spel表达式语法：
+<pre class="line-numbers language-shell"><code class="language-shell">Spel表达式语法：
 基本语法：#{}
         #{'hello'}:使用字符串
         #{beanId}:使用另一个bean
         #{beanId.method()}:指定bean和对应方法，并执行方法
         #{T(java.lang.Math).PI}:使用静态字段或方法
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>示例如下，创建Product和Category类用于测试</li>
 </ul>
-<pre><code class="java">public class Product {
-    private String name;
-    private Double price;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Product</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Double price<span class="token punctuation">;</span>
 
-    private Category category;
+    <span class="token keyword">private</span> Category category<span class="token punctuation">;</span>
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", category=" + category +
-                '}';
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Product{"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", price="</span> <span class="token operator">+</span> price <span class="token operator">+</span>
+                <span class="token string">", category="</span> <span class="token operator">+</span> category <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    // 省略get/set方法
-}
+    <span class="token comment" spellcheck="true">// 省略get/set方法</span>
+<span class="token punctuation">}</span>
 
 
-public class Category {
-    private String name;
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Category</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "name='" + name + '\'' +
-                '}';
-    }
-   // 省略get/set方法
-}
-</code></pre>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Category{"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+   <span class="token comment" spellcheck="true">// 省略get/set方法</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>创建简单的计算类</li>
 </ul>
-<pre><code class="java">public class ProductInfo {
-    public Double addPrice(){
-        return Math.random() * 20;
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ProductInfo</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> Double <span class="token function">addPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre><code class="xml">&lt;!--    Spring属性注入-通过SpEL注入--&gt;
-&lt;bean id="category" class="com.zero.ioc.demo3.Category"&gt;
-    &lt;property name="name" value="#{'水果'}"/&gt;
-&lt;/bean&gt;
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--    Spring属性注入-通过SpEL注入--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>category<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo3.Category<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#{<span class="token punctuation">'</span>水果<span class="token punctuation">'</span>}<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-&lt;bean id="productInfo" class="com.zero.ioc.demo3.ProductInfo"/&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>productInfo<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo3.ProductInfo<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 
-&lt;bean id="product" class="com.zero.ioc.demo3.Product"&gt;
-    &lt;property name="name" value="#{'西瓜'}"/&gt;
-    &lt;property name="price" value="#{productInfo.addPrice()}"/&gt;
-    &lt;property name="category" value="#{category}"/&gt;
-&lt;/bean&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>product<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.ioc.demo3.Product<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#{<span class="token punctuation">'</span>西瓜<span class="token punctuation">'</span>}<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>price<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#{productInfo.addPrice()}<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>category<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#{category}<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>测试 </li>
 </ul>
-<pre><code class="java"> @Test
-    public void test3(){
-        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-        Product product = (Product) context.getBean("product");
-        System.out.println(product);
-    }
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        ApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"beans.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Product product <span class="token operator">=</span> <span class="token punctuation">(</span>Product<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"product"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>product<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="3-5-复杂类型的属性注入"><a href="#3-5-复杂类型的属性注入" class="headerlink" title="3.5 复杂类型的属性注入"></a>3.5 复杂类型的属性注入</h3><ul>
 <li>数组类型的属性注入</li>
 <li>List集合类型的属性注入</li>
@@ -1001,13 +998,13 @@ private Properties properties; // 属性类型
 </ul>
 <pre><code>  @Override
   public String toString() {
-      return "CollectionBean{" +
-              "arrs=" + Arrays.toString(arrs) +
-              ", list=" + list +
-              ", set=" + set +
-              ", map=" + map +
-              ", properties=" + properties +
-              '}';
+      return &quot;CollectionBean{&quot; +
+              &quot;arrs=&quot; + Arrays.toString(arrs) +
+              &quot;, list=&quot; + list +
+              &quot;, set=&quot; + set +
+              &quot;, map=&quot; + map +
+              &quot;, properties=&quot; + properties +
+              &#39;}&#39;;
   }
    // 省略get/set方法   
 </code></pre><p>  }</p>
@@ -1016,9 +1013,9 @@ private Properties properties; // 属性类型
 
   ```xml
   &lt;!--    复杂类型的属性注入--&gt;
-  &lt;bean id="collectionBean" class="com.zero.ioc.demo4.CollectionBean"&gt;
+  &lt;bean id=&quot;collectionBean&quot; class=&quot;com.zero.ioc.demo4.CollectionBean&quot;&gt;
       &lt;!--        数组类型的属性注入--&gt;
-      &lt;property name="arrs"&gt;
+      &lt;property name=&quot;arrs&quot;&gt;
           &lt;list&gt;
               &lt;value&gt;aaa&lt;/value&gt;
               &lt;value&gt;bbb&lt;/value&gt;
@@ -1026,7 +1023,7 @@ private Properties properties; // 属性类型
           &lt;/list&gt;
       &lt;/property&gt;
       &lt;!--        List集合类型的属性注入--&gt;
-      &lt;property name="list"&gt;
+      &lt;property name=&quot;list&quot;&gt;
           &lt;list&gt;
               &lt;value&gt;111&lt;/value&gt;
               &lt;value&gt;222&lt;/value&gt;
@@ -1034,7 +1031,7 @@ private Properties properties; // 属性类型
           &lt;/list&gt;
       &lt;/property&gt;
       &lt;!--        set集合类型的属性注入--&gt;
-      &lt;property name="set"&gt;
+      &lt;property name=&quot;set&quot;&gt;
           &lt;set&gt;
               &lt;value&gt;ddd&lt;/value&gt;
               &lt;value&gt;eee&lt;/value&gt;
@@ -1042,31 +1039,31 @@ private Properties properties; // 属性类型
           &lt;/set&gt;
       &lt;/property&gt;
       &lt;!--        map集合类型的属性注入--&gt;
-      &lt;property name="map"&gt;
+      &lt;property name=&quot;map&quot;&gt;
           &lt;map&gt;
-              &lt;entry key="aaa" value="111"/&gt;
-              &lt;entry key="bbb" value="222"/&gt;
-              &lt;entry key="ccc" value="333"/&gt;
+              &lt;entry key=&quot;aaa&quot; value=&quot;111&quot;/&gt;
+              &lt;entry key=&quot;bbb&quot; value=&quot;222&quot;/&gt;
+              &lt;entry key=&quot;ccc&quot; value=&quot;333&quot;/&gt;
           &lt;/map&gt;
       &lt;/property&gt;
       &lt;!--        Properties类型的属性注入--&gt;
-      &lt;property name="properties"&gt;
+      &lt;property name=&quot;properties&quot;&gt;
           &lt;props&gt;
-              &lt;prop key="username"&gt;root&lt;/prop&gt;
-              &lt;prop key="password"&gt;123456&lt;/prop&gt;
+              &lt;prop key=&quot;username&quot;&gt;root&lt;/prop&gt;
+              &lt;prop key=&quot;password&quot;&gt;123456&lt;/prop&gt;
           &lt;/props&gt;
       &lt;/property&gt;
   &lt;/bean&gt;
 
 </code></pre><ul>
 <li><p>测试</p>
-<pre><code class="java">@Test
-public void test1(){
-  ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-  CollectionBean collectionBean = (CollectionBean) context.getBean("collectionBean");
-  System.out.println(collectionBean);
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  ApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"beans.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  CollectionBean collectionBean <span class="token operator">=</span> <span class="token punctuation">(</span>CollectionBean<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"collectionBean"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>collectionBean<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h2 id="4-Spring的Bean管理-注解方式"><a href="#4-Spring的Bean管理-注解方式" class="headerlink" title="4. Spring的Bean管理(注解方式)"></a>4. Spring的Bean管理(注解方式)</h2><h3 id="4-1-使用注解定义Bean"><a href="#4-1-使用注解定义Bean" class="headerlink" title="4.1 使用注解定义Bean"></a>4.1 使用注解定义Bean</h3><ul>
@@ -1086,19 +1083,19 @@ public void test1(){
 <ul>
 <li>创建<code>UserService</code>类</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * Spring的Bean管理的注解方式：
- *      传统方式：需要去XML中配置&lt;bean id="" class=""&gt;&lt;/bean&gt;
+ *      传统方式：需要去XML中配置&lt;bean id="" class="">&lt;/bean>
  *
- */
+ */</span>
 
-@Service("userService")
-public class UserService {
-    public String hello(String name){
-        return "Hello" + name;
-    }
-}
-</code></pre>
+<span class="token annotation punctuation">@Service</span><span class="token punctuation">(</span><span class="token string">"userService"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> String <span class="token function">hello</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Hello"</span> <span class="token operator">+</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml，开启扫描</li>
 </ul>
@@ -1106,7 +1103,7 @@ public class UserService {
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 <pre><code>&lt;!-- 开启注解扫描 --&gt;
-&lt;context:component-scan base-package="com.zero.demo1"/&gt;
+&lt;context:component-scan base-package=&quot;com.zero.demo1&quot;/&gt;
 </code></pre></beans></li>
 </ul>
 <p>  </p>
@@ -1116,10 +1113,10 @@ public class UserService {
   ```java
   @Test
   public void demo1(){
-      ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-      UserService userService = (UserService) context.getBean("userService");
+      ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+      UserService userService = (UserService) context.getBean(&quot;userService&quot;);
 
-      String hello = userService.hello("小明");
+      String hello = userService.hello(&quot;小明&quot;);
       System.out.println(hello);
   }
 </code></pre><h2 id="5-Spring的属性注入-注解方式"><a href="#5-Spring的属性注入-注解方式" class="headerlink" title="5. Spring的属性注入(注解方式)"></a>5. Spring的属性注入(注解方式)</h2><ul>
@@ -1137,52 +1134,52 @@ public class UserService {
 <ul>
 <li>创建一个dao</li>
 </ul>
-<pre><code class="java">@Repository("userDao")
-public class UserDao {
-    public void save(){
-        System.out.println("Dao中保存用户。。。");
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Repository</span><span class="token punctuation">(</span><span class="token string">"userDao"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserDao</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Dao中保存用户。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>修改UserService</li>
 </ul>
-<pre><code class="java">@Service("userService")
-public class UserService {
-    //使用value直接对属性值进行注入
-    @Value("苹果")
-    private String something;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Service</span><span class="token punctuation">(</span><span class="token string">"userService"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//使用value直接对属性值进行注入</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"苹果"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String something<span class="token punctuation">;</span>
 
-    // 自动注入
-    @Autowired
-    @Qualifier("userDao") // 指定注解的Bean名称必须相同‘
-    @Resource(name="userDao") // 可以使用@Resource，指定Bean名称
-    private UserDao dao;
+    <span class="token comment" spellcheck="true">// 自动注入</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token annotation punctuation">@Qualifier</span><span class="token punctuation">(</span><span class="token string">"userDao"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 指定注解的Bean名称必须相同‘</span>
+    <span class="token annotation punctuation">@Resource</span><span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">"userDao"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 可以使用@Resource，指定Bean名称</span>
+    <span class="token keyword">private</span> UserDao dao<span class="token punctuation">;</span>
 
-    public String hello(String name){
-        return "Hello" + name;
-    }
+    <span class="token keyword">public</span> String <span class="token function">hello</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Hello"</span> <span class="token operator">+</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void eat(){
-        System.out.println("eat:"+something);
-    }
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"eat:"</span><span class="token operator">+</span>something<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void save(){
-        System.out.println("Service中保存用户。。。");
-        dao.save();
-    }
-}
-</code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Service中保存用户。。。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dao<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">@Test
-public void demo2(){
-    ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-    UserService userService = (UserService) context.getBean("userService");
-    userService.save();
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">demo2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"applicationContext.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    UserService userService <span class="token operator">=</span> <span class="token punctuation">(</span>UserService<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"userService"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    userService<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <blockquote>
@@ -1193,57 +1190,57 @@ public void demo2(){
 </ul>
 </blockquote>
 <h3 id="5-1-Spring的其他注解"><a href="#5-1-Spring的其他注解" class="headerlink" title="5.1 Spring的其他注解"></a>5.1 Spring的其他注解</h3><p>Spring初始化Bean或销毁bean时，有时需要作一些处理工作，因此spring可以在创建和拆卸bean时调用bean的两个生命周期方法。</p>
-<pre><code class="xml">&lt;bean id="xxx" class="xxx"
-      init-method="setup"
-      destroy-method="teardown"/&gt;
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>xxx<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>xxx<span class="token punctuation">"</span></span>
+      <span class="token attr-name">init-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>setup<span class="token punctuation">"</span></span>
+      <span class="token attr-name">destroy-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>teardown<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 
-&lt;!--
+<span class="token comment" spellcheck="true">&lt;!--
 当bean被载入到容器时调用setup,注解方式：@PostConstruct,初始化
 当bean从容器中删除时调用teardown(必须是单例bean才会自动调用，即scope="singleton"才有效)
 注解方式：@PreDestroy，销毁
---&gt;
-</code></pre>
+--></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>代码示例，创建bean1类</li>
 </ul>
-<pre><code class="java">@Component("bean1")
-public class Bean1 {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span><span class="token string">"bean1"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bean1</span> <span class="token punctuation">{</span>
 
-    // 生命周期注解，初始化
-    @PostConstruct
-    public void init(){
-        System.out.println("initBean...");
-    }
+    <span class="token comment" spellcheck="true">// 生命周期注解，初始化</span>
+    <span class="token annotation punctuation">@PostConstruct</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"initBean..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
 
-    public void say(){
-        System.out.println("say...");
-    }
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"say..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    // 生命周期注解，销毁
-    @PreDestroy
-    public void destroy(){
-        System.out.println("destroyBean...");
-    }
-}
-</code></pre>
+    <span class="token comment" spellcheck="true">// 生命周期注解，销毁</span>
+    <span class="token annotation punctuation">@PreDestroy</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"destroyBean..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre><code class="xml">&lt;!-- 开启注解扫描 --&gt;
-&lt;context:component-scan base-package="com.zero"/&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 开启注解扫描 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">context:</span>component-scan</span> <span class="token attr-name">base-package</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">@Test
-public void test1(){
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-    Bean1 bean1 = (Bean1) context.getBean("bean1");
-    bean1.say();
-    context.close();
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ClassPathXmlApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"applicationContext.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Bean1 bean1 <span class="token operator">=</span> <span class="token punctuation">(</span>Bean1<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"bean1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    bean1<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    context<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="5-2-Bean的作用范围"><a href="#5-2-Bean的作用范围" class="headerlink" title="5.2 Bean的作用范围"></a>5.2 Bean的作用范围</h3><ul>
 <li>使用注解配置的Bean和<code>&lt;bean&gt;</code>配置的一样，默认作用范围都是<code>singleton</code></li>
 <li><p><code>@Scope</code>注解用于指定Bean的作用范围</p>
@@ -1252,25 +1249,25 @@ public void test1(){
 <ul>
 <li>创建bean2类，设置其作用范围</li>
 </ul>
-<pre><code class="java">@Component("bean2")
-@Scope("prototype") // 设置作用范围，使用多例创建对象
-public class Bean2 {
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span><span class="token string">"bean2"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Scope</span><span class="token punctuation">(</span><span class="token string">"prototype"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 设置作用范围，使用多例创建对象</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bean2</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre><code class="java"> @Test
-public void test2(){
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-    Bean2 bean1 = (Bean2) context.getBean("bean2");
-    Bean2 bean2 = (Bean2) context.getBean("bean2");
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ClassPathXmlApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"applicationContext.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Bean2 bean1 <span class="token operator">=</span> <span class="token punctuation">(</span>Bean2<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"bean2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Bean2 bean2 <span class="token operator">=</span> <span class="token punctuation">(</span>Bean2<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"bean2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    System.out.println(bean1 == bean2);
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>bean1 <span class="token operator">==</span> bean2<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-}
-</code></pre>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h3 id="5-3-传统XML配置和注解配置混合使用"><a href="#5-3-传统XML配置和注解配置混合使用" class="headerlink" title="5.3 传统XML配置和注解配置混合使用"></a>5.3 传统XML配置和注解配置混合使用</h3><ul>
@@ -1294,21 +1291,21 @@ public void test2(){
 </ul>
 <p><code>`</code>java<br>public class ProductService {</p>
 <pre><code>// 使用注解
-@Resource(name = "categoryDao")
+@Resource(name = &quot;categoryDao&quot;)
 private CategoryDao categoryDao;
 
-@Resource(name = "productDao")
+@Resource(name = &quot;productDao&quot;)
 private ProductDao productDao;
 </code></pre><p>//    public void setCategoryDao(CategoryDao categoryDao) {<br>//        this.categoryDao = categoryDao;<br>//    }<br>//<br>//    public void setProductDao(ProductDao productDao) {<br>//        this.productDao = productDao;<br>//    }</p>
 <pre><code>public void save(){
-    System.out.println("ProductService中的save方法执行了...");
+    System.out.println(&quot;ProductService中的save方法执行了...&quot;);
     categoryDao.save();
     productDao.save();
 }
 </code></pre><p>}</p>
 <p>public class ProductDao {</p>
 <pre><code>public void save(){
-    System.out.println("ProductDao中的save方法执行了...");
+    System.out.println(&quot;ProductDao中的save方法执行了...&quot;);
 }
 </code></pre><p>}</p>
 </li>
@@ -1321,43 +1318,25 @@ private ProductDao productDao;
   &lt;!--单独开启注解功能--&gt;
   &lt;context:annotation-config/&gt;
 
-  &lt;bean id="productService" class="com.zero.demo3.ProductService"&gt;
-      &lt;!--        &lt;property name="productDao" ref="productDao"/&gt;--&gt;
-      &lt;!--        &lt;property name="categoryDao" ref="categoryDao"/&gt;--&gt;
+  &lt;bean id=&quot;productService&quot; class=&quot;com.zero.demo3.ProductService&quot;&gt;
+      &lt;!--        &lt;property name=&quot;productDao&quot; ref=&quot;productDao&quot;/&gt;--&gt;
+      &lt;!--        &lt;property name=&quot;categoryDao&quot; ref=&quot;categoryDao&quot;/&gt;--&gt;
   &lt;/bean&gt;
-  &lt;bean id="productDao" class="com.zero.demo3.ProductDao"/&gt;
-  &lt;bean id="categoryDao" class="com.zero.demo3.CategoryDao"/&gt;
+  &lt;bean id=&quot;productDao&quot; class=&quot;com.zero.demo3.ProductDao&quot;/&gt;
+  &lt;bean id=&quot;categoryDao&quot; class=&quot;com.zero.demo3.CategoryDao&quot;/&gt;
 </code></pre><ul>
 <li>测试</li>
 </ul>
-<pre><code class="java">@Test
-public void test1() {
-    ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-    ProductService productService = (ProductService) context.getBean("productService");
-    productService.save();
-}
-</code></pre>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"applicationContext.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ProductService productService <span class="token operator">=</span> <span class="token punctuation">(</span>ProductService<span class="token punctuation">)</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"productService"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    productService<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -1577,7 +1556,7 @@ public void test1() {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">253.1k</span>
+                <span class="white-color">245k</span>
             
 
             
@@ -1627,8 +1606,7 @@ public void test1() {
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input" autofocus="">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1663,5 +1641,5 @@ public void test1() {
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>

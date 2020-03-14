@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="SpringMVC学习2, Zero的博客">
     <meta name="description" content="1. 响应数据和结果视图1.1 返回值分类
@@ -272,14 +272,11 @@ pu">
     }
 </style>
 
-<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
     </svg>
 </a>
         
@@ -419,14 +416,14 @@ pu">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.7k
+                        4.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        21 分
+                        19 分
                     </div>
                     
                 
@@ -444,76 +441,76 @@ pu">
             <div id="articleContent">
                 <h2 id="1-响应数据和结果视图"><a href="#1-响应数据和结果视图" class="headerlink" title="1. 响应数据和结果视图"></a>1. 响应数据和结果视图</h2><h3 id="1-1-返回值分类"><a href="#1-1-返回值分类" class="headerlink" title="1.1 返回值分类"></a>1.1 返回值分类</h3><a id="more"></a>
 <h4 id="1-1-1-字符串"><a href="#1-1-1-字符串" class="headerlink" title="1.1.1 字符串"></a>1.1.1 字符串</h4><p>Controller方法返回字符串可以指定逻辑视图名，通过视图解析器解析为物理视图地址。</p>
-<pre><code class="java">// 返回值是字符串
-@RequestMapping("/testString")
-public String testString(Model model){
-    System.out.println("testString方法执行了...");
-    // 模拟从数据库中查询出User对象
-    User user = new User("小明", "123", 22);
-    // 使用model传递数据
-    model.addAttribute("user",user);
-    return "success"; // 指定逻辑视图名，经过视图解析器解析为jsp物理路径：/WEB-INF/pages/success.jsp
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 返回值是字符串</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testString"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> String <span class="token function">testString</span><span class="token punctuation">(</span>Model model<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"testString方法执行了..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 模拟从数据库中查询出User对象</span>
+    User user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"小明"</span><span class="token punctuation">,</span> <span class="token string">"123"</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 使用model传递数据</span>
+    model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 指定逻辑视图名，经过视图解析器解析为jsp物理路径：/WEB-INF/pages/success.jsp</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-1-2-void"><a href="#1-1-2-void" class="headerlink" title="1.1.2 void"></a>1.1.2 void</h4><p>上篇文章中学到Servlet原始API可以作为控制器中方法的参数：</p>
-<pre><code class="java">@RequestMapping("/testReturnVoid")
-public void testReturnVoid(HttpServletRequest request,HttpServletResponse response)
-throws Exception {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testReturnVoid"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testReturnVoid</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span>HttpServletResponse response<span class="token punctuation">)</span>
+<span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
     xxx
-}
-</code></pre>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>所以就可以在controller方法形参上可以定义request和response，使用request或response指定响应结果</p>
 <ul>
 <li>使用request跳转页面：</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
      * 通过request跳转页面
      * @param request
      * @param response
      * @throws Exception
-     */
-@RequestMapping("/testForward")
-public void testForward(HttpServletRequest request,
-                        HttpServletResponse response) throws Exception {
-    System.out.println("testForward方法执行了...");
-    request.getRequestDispatcher("/WEB-INF/pages/success.jsp").forward(request,response);
-}
-</code></pre>
+     */</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testForward"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testForward</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span>
+                        HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"testForward方法执行了..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">getRequestDispatcher</span><span class="token punctuation">(</span><span class="token string">"/WEB-INF/pages/success.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forward</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>通过response重定向页面：</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
      * 通过response重定向页面
      * @param request
      * @param response
      * @throws Exception
-     */
-@RequestMapping("/testRedirect")
-public void testRedirect(HttpServletRequest request,
-                         HttpServletResponse response) throws Exception {
-    System.out.println("testRedirect方法执行了...");
-    response.sendRedirect("testString"); // 重定向到返回字符串页面
-}
-</code></pre>
+     */</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testRedirect"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testRedirect</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span>
+                         HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"testRedirect方法执行了..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    response<span class="token punctuation">.</span><span class="token function">sendRedirect</span><span class="token punctuation">(</span><span class="token string">"testString"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 重定向到返回字符串页面</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>通过response指定响应结果：</li>
 </ul>
-<pre><code class="java"> /**
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token comment" spellcheck="true">/**
      * 通过 response 指定响应结果
      * @param request
      * @param response
      * @throws Exception
-     */
-@RequestMapping("/testReturnJson")
-public void testReturnJson(HttpServletRequest request,
-                           HttpServletResponse response) throws Exception {
-    System.out.println("testReturnJson方法执行了...");
-    // 解决中文乱码问题
-    response.setCharacterEncoding("utf-8");
-    response.setContentType("application/json;charset=utf-8");
-    response.getWriter().write("响应json串");
-}
-</code></pre>
+     */</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testReturnJson"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testReturnJson</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span>
+                           HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"testReturnJson方法执行了..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 解决中文乱码问题</span>
+    response<span class="token punctuation">.</span><span class="token function">setCharacterEncoding</span><span class="token punctuation">(</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    response<span class="token punctuation">.</span><span class="token function">setContentType</span><span class="token punctuation">(</span><span class="token string">"application/json;charset=utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    response<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"响应json串"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-1-3-ModelAndView"><a href="#1-1-3-ModelAndView" class="headerlink" title="1.1.3 ModelAndView"></a>1.1.3 ModelAndView</h4><ul>
 <li>ModelAndView 是 SpringMVC 为我们提供的一个对象，该对象也可以用作控制器方法的返回值。</li>
 </ul>
@@ -526,49 +523,49 @@ public void testReturnJson(HttpServletRequest request,
 <ul>
 <li>控制器</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
      * 返回ModelAndView
      * @return
-     */
-@RequestMapping("/testReturnModelAndView")
-public ModelAndView testReturnModelAndView(){
-    ModelAndView modelAndView = new ModelAndView();
-    // 将user对象存入到modelAndView对象中，底层会把user对象存入request域中
-    modelAndView.addObject("user",new User("小张","222",21));
-    modelAndView.setViewName("success"); // 设置视图名称
-    return modelAndView;
-}
-</code></pre>
+     */</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testReturnModelAndView"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> ModelAndView <span class="token function">testReturnModelAndView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ModelAndView modelAndView <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModelAndView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 将user对象存入到modelAndView对象中，底层会把user对象存入request域中</span>
+    modelAndView<span class="token punctuation">.</span><span class="token function">addObject</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"小张"</span><span class="token punctuation">,</span><span class="token string">"222"</span><span class="token punctuation">,</span><span class="token number">21</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    modelAndView<span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">"success"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 设置视图名称</span>
+    <span class="token keyword">return</span> modelAndView<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>jsp：</li>
 </ul>
-<pre><code class="jsp">&lt;h3&gt;访问成功！&lt;/h3&gt;
+<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>访问成功！</h3>
 ${user.username}
 ${user.password}
 ${user.age}
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h3 id="1-2-转发和重定向"><a href="#1-2-转发和重定向" class="headerlink" title="1.2 转发和重定向"></a>1.2 转发和重定向</h3><h4 id="1-2-1-forward转发"><a href="#1-2-1-forward转发" class="headerlink" title="1.2.1 forward转发"></a>1.2.1 forward转发</h4><p>controller方法提供了String类型的返回值之后，默认就是请求转发。我们也可以写成如下形式：</p>
-<pre><code class="java">@RequestMapping("/testForward")
-    public String testForward()  {
-        System.out.println("testForward方法执行了...");
-        return "forward:/WEB-INF/pages/success.jsp"; // 使用了forward:,路径就必须写成物理视图url
-    }
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testForward"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">testForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"testForward方法执行了..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"forward:/WEB-INF/pages/success.jsp"</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 使用了forward:,路径就必须写成物理视图url</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>注意：如果用了<code>forward:</code>，则路径必须写成实际视图 URL，不能写逻辑视图。</li>
-<li>它相当于：<code>request.getRequestDispatcher("/WEB-INF/pages/success.jsp").forward(request,response);</code></li>
-<li>使用请求转发，即可以转发到jsp，也可以转发到其他控制器方法。例：<code>return "forward:testString";</code></li>
+<li>它相当于：<code>request.getRequestDispatcher(&quot;/WEB-INF/pages/success.jsp&quot;).forward(request,response);</code></li>
+<li>使用请求转发，即可以转发到jsp，也可以转发到其他控制器方法。例：<code>return &quot;forward:testString&quot;;</code></li>
 </ul>
-<h4 id="1-2-2-Redirect重定向"><a href="#1-2-2-Redirect重定向" class="headerlink" title="1.2.2 Redirect重定向"></a>1.2.2 Redirect重定向</h4><pre><code class="java">@RequestMapping("/testRedirect")
-public String testRedirect() {
-    System.out.println("testRedirect方法执行了...");
-    return "redirect:testString"; // 重定向到返回字符串页面
-}
-</code></pre>
+<h4 id="1-2-2-Redirect重定向"><a href="#1-2-2-Redirect重定向" class="headerlink" title="1.2.2 Redirect重定向"></a>1.2.2 Redirect重定向</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testRedirect"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> String <span class="token function">testRedirect</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"testRedirect方法执行了..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">"redirect:testString"</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 重定向到返回字符串页面</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>相当于：<code>response.sendRedirect("testString");</code></li>
+<li>相当于：<code>response.sendRedirect(&quot;testString&quot;);</code></li>
 <li>注意：如果是重定向到 jsp 页面，则 jsp 页面不能写在 WEB-INF 目录中，否则无法找到。</li>
 </ul>
 <h3 id="1-3-ResponseBody响应Json数据"><a href="#1-3-ResponseBody响应Json数据" class="headerlink" title="1.3 ResponseBody响应Json数据"></a>1.3 ResponseBody响应Json数据</h3><ul>
@@ -582,42 +579,42 @@ public String testRedirect() {
 </ul>
 </li>
 </ul>
-<pre><code class="xml">&lt;!-- 设置静态资源不过滤 --&gt;
-&lt;mvc:resources location="/css/" mapping="/css/**"/&gt; &lt;!-- 样式 --&gt;
-&lt;mvc:resources location="/images/" mapping="/images/**"/&gt; &lt;!-- 图片 --&gt;
-&lt;mvc:resources location="/js/" mapping="/js/**"/&gt; &lt;!-- javascript --&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 设置静态资源不过滤 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>resources</span> <span class="token attr-name">location</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/css/<span class="token punctuation">"</span></span> <span class="token attr-name">mapping</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/css/**<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- 样式 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>resources</span> <span class="token attr-name">location</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/images/<span class="token punctuation">"</span></span> <span class="token attr-name">mapping</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/images/**<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- 图片 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>resources</span> <span class="token attr-name">location</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/js/<span class="token punctuation">"</span></span> <span class="token attr-name">mapping</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/js/**<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- javascript --></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>方法2：在web.xml配置文件中配置如下</li>
 </ul>
-<pre><code class="xml">&lt;!--设置访问静态资源--&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;*.css&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;*.js&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--设置访问静态资源--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-mapping</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>*.css<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-mapping</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-mapping</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>*.js<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-mapping</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-3-2-示例"><a href="#1-3-2-示例" class="headerlink" title="1.3.2 示例"></a>1.3.2 示例</h4><p>简单的获取json数据</p>
 <ul>
 <li>控制器代码</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
      * 测试响应json数据
      * @param
      * @return
-     */
-@RequestMapping("/testResponseJson")
-public void testResponseJson(@RequestBody String body){
-    System.out.println("异步请求:"+body);
-}
-</code></pre>
+     */</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testResponseJson"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testResponseJson</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> String body<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"异步请求:"</span><span class="token operator">+</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>jsp</li>
 </ul>
-<pre><code class="jsp">&lt;script&gt;
+<pre class="line-numbers language-jsp"><code class="language-jsp"><script>
     // 页面加载,绑定单机事件
     $(function () {
         $("#btn").click(function () {
@@ -634,74 +631,74 @@ public void testResponseJson(@RequestBody String body){
             })
         })
     })
-&lt;/script&gt;
-&lt;h3&gt;6. ResponseBody响应Json数据&lt;/h3&gt;
-&lt;button id="btn"&gt;发送Ajax请求&lt;/button&gt;
-</code></pre>
+</script>
+<h3>6. ResponseBody响应Json数据</h3>
+<button id="btn">发送Ajax请求</button>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>测试结果：<code>异步请求:{"username":"小明","password":"123","age":33}</code></li>
+<li>测试结果：<code>异步请求:{&quot;username&quot;:&quot;小明&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:33}</code></li>
 </ul>
 <p>如果需要将获取的json格式数据转换为JavaBean对象，则需要导入额外的jar包</p>
 <ul>
 <li>在pom.xml中导入坐标</li>
 </ul>
-<pre><code class="xml">&lt;!--导入json和JavaBean对象相互转换所需jar包：jackson--&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
-    &lt;version&gt;2.9.0&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-    &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
-    &lt;version&gt;2.9.0&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-    &lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;
-    &lt;version&gt;2.9.0&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--导入json和JavaBean对象相互转换所需jar包：jackson--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.fasterxml.jackson.core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jackson-databind<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.9.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.fasterxml.jackson.core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jackson-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.9.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.fasterxml.jackson.core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jackson-annotations<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.9.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>控制器代码修改</li>
 </ul>
-<pre><code class="java">@RequestMapping("/testResponseJson")
-public @ResponseBody User testResponseJson(@RequestBody User user){
-    System.out.println("异步请求:"+user);
-    user.setUsername("花花");
-    user.setAge(18);
-    return user;
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testResponseJson"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@ResponseBody</span> User <span class="token function">testResponseJson</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> User user<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"异步请求:"</span><span class="token operator">+</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    user<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token string">"花花"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    user<span class="token punctuation">.</span><span class="token function">setAge</span><span class="token punctuation">(</span><span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> user<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>前端修改js</li>
 </ul>
-<pre><code class="javascript">&lt;script&gt;
-    // 页面加载,绑定单机事件
-    $(function () {
-    $("#btn").click(function () {
-        // 发送ajax请求
-        $.ajax({
-            type:"post",
-            url:"user/testResponseJson",
-            contentType:"application/json;charset=utf-8",
-            data:'{"username":"小明","password":"123","age":33}',
-            dataType:"json",
-            success:function (data) {
-                // data是服务器端响应的json数据
-                alert(data.username);
-                alert(data.password);
-                alert(data.age);
-            }
-        })
-    })
-})
-&lt;/script&gt;
-</code></pre>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script<span class="token operator">></span>
+    <span class="token comment" spellcheck="true">// 页面加载,绑定单机事件</span>
+    <span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#btn"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 发送ajax请求</span>
+        $<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            type<span class="token punctuation">:</span><span class="token string">"post"</span><span class="token punctuation">,</span>
+            url<span class="token punctuation">:</span><span class="token string">"user/testResponseJson"</span><span class="token punctuation">,</span>
+            contentType<span class="token punctuation">:</span><span class="token string">"application/json;charset=utf-8"</span><span class="token punctuation">,</span>
+            data<span class="token punctuation">:</span><span class="token string">'{"username":"小明","password":"123","age":33}'</span><span class="token punctuation">,</span>
+            dataType<span class="token punctuation">:</span><span class="token string">"json"</span><span class="token punctuation">,</span>
+            success<span class="token punctuation">:</span><span class="token keyword">function</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// data是服务器端响应的json数据</span>
+                <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="2-SpringMVC实现文件上传"><a href="#2-SpringMVC实现文件上传" class="headerlink" title="2. SpringMVC实现文件上传"></a>2. SpringMVC实现文件上传</h2><h3 id="2-1-文件上传回顾"><a href="#2-1-文件上传回顾" class="headerlink" title="2.1 文件上传回顾"></a>2.1 文件上传回顾</h3><h4 id="2-1-1-必要前提"><a href="#2-1-1-必要前提" class="headerlink" title="2.1.1 必要前提"></a>2.1.1 必要前提</h4><ul>
 <li>form表单的enctype(表单请求正文的类型)取值必须是：<code>multipart/form-data</code>，默认值是<code>application/x-www-form-urlencoded</code>。</li>
 <li>method属性取值必须是Post</li>
-<li>提供一个文件选择域<code>&lt;input type="file"/&gt;</code></li>
+<li>提供一个文件选择域<code>&lt;input type=&quot;file&quot;/&gt;</code></li>
 </ul>
 <h4 id="2-1-2-原理分析"><a href="#2-1-2-原理分析" class="headerlink" title="2.1.2 原理分析"></a>2.1.2 原理分析</h4><ul>
 <li>当form表单的enctype取值不是默认值后，<code>request.getParameter()</code>将会失效。</li>
@@ -709,11 +706,11 @@ public @ResponseBody User testResponseJson(@RequestBody User user){
 <li>当form表单的enctype取值为<code>multipart/form-data</code>时，请求正文内容就变成：每一部分都是MIME类型描述的正文。</li>
 </ul>
 <pre><code>-----------------------------7de1a433602ac                     --&gt;分界符
-Content-Disposition: form-data; name="userName"             --&gt;协议头
+Content-Disposition: form-data; name=&quot;userName&quot;             --&gt;协议头
 文件上传测试                                                      --&gt;协议的正文
 -----------------------------7de1a433602ac
-Content-Disposition: form-data; name="file";
-filename="C:\Users\zhy\Desktop\fileupload_demofile\b.txt"
+Content-Disposition: form-data; name=&quot;file&quot;;
+filename=&quot;C:\Users\zhy\Desktop\fileupload_demofile\b.txt&quot;
 Content-Type: text/plain                                     --&gt;协议的类型（MIME 类型）
 文件实际内容xxxxxx
 -----------------------------7de1a433602ac--
@@ -721,73 +718,73 @@ Content-Type: text/plain                                     --&gt;协议的类�
 <ul>
 <li>在pom.xml中导入所需jar包</li>
 </ul>
-<pre><code class="xml">&lt;!--导入文件上传相关jar包--&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
-    &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
-    &lt;version&gt;1.3.1&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;commons-io&lt;/groupId&gt;
-    &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
-    &lt;version&gt;2.4&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--导入文件上传相关jar包--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>commons-fileupload<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>commons-fileupload<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.3.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>commons-io<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>commons-io<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="2-2-SpringMVC传统方式的文件上传"><a href="#2-2-SpringMVC传统方式的文件上传" class="headerlink" title="2.2 SpringMVC传统方式的文件上传"></a>2.2 SpringMVC传统方式的文件上传</h3><p>传统方式的文件上传，指的是我们上传的文件和访问的应用存在于同一台服务器上。且上传完毕后，浏览器可能跳转。</p>
-<h4 id="2-2-1-编写控制器"><a href="#2-2-1-编写控制器" class="headerlink" title="2.2.1 编写控制器"></a>2.2.1 编写控制器</h4><pre><code class="java">/**
+<h4 id="2-2-1-编写控制器"><a href="#2-2-1-编写控制器" class="headerlink" title="2.2.1 编写控制器"></a>2.2.1 编写控制器</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
 * SpringMVC框架方式文件上传
-*/
-@RequestMapping("/MVCfileUpLoad")
-public String MVCfileUpLoad(String picname, MultipartFile uploadFile,
-                            HttpServletRequest request) throws Exception{
-    System.out.println("SpringMVC框架方式文件上传");
-    // 1.定义文件名称
-    String fileName = "";
-    // 1.1. 获取原始文件名
-    String originalFilename = uploadFile.getOriginalFilename();
-    // 1.2. 截取文件扩展名
-    String extentName = originalFilename.substring(originalFilename.lastIndexOf(".") + 1,
-                                                   originalFilename.length());
-    // 1.3. 将文件加上随机数，防止文件重复
-    String uuid = UUID.randomUUID().toString().replace("-", "").toUpperCase();
-    // 1.4. 判断是否输入了文件名
-    if (!StringUtils.isEmpty(picname)){
-        fileName = uuid+"_"+picname+"."+extentName;
-    }else {
-        fileName = uuid+"_"+originalFilename;
-    }
-    System.out.println("文件名称："+fileName);
-    // 2. 获取文件路径
-    String basePath = request.getSession().getServletContext().getRealPath("/uploads");
-    System.out.println("文件路径："+basePath);
-    // 3. 解决用一文件夹中文件过多问题
-    String datePath = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-    // 4. 判断路径是否存在
-    File file = new File(basePath+"/"+datePath);
-    if (!file.exists()){ // 如果文件夹不存在
-        file.mkdirs(); // 创建
-    }
-    // 5. 使用MultipartFile接口中方法，将上传的文件写到指定位置
-    uploadFile.transferTo(new File(file,fileName));
-    return "success";
-}
-</code></pre>
-<h4 id="2-2-2-编写jsp页面"><a href="#2-2-2-编写jsp页面" class="headerlink" title="2.2.2 编写jsp页面"></a>2.2.2 编写jsp页面</h4><pre><code class="jsp">&lt;h3&gt;文件上传&lt;/h3&gt;
-&lt;form action="/file/MVCfileUpLoad" method="post" enctype="multipart/form-data"&gt;
-    文件名称：&lt;input type="text" name="picname"&gt;
-    选择上传文件:&lt;input type="file" name="uploadFile"/&gt; &lt;br&gt;
-    &lt;input type="submit" value="上传"&gt;
-&lt;/form&gt;
-</code></pre>
+*/</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/MVCfileUpLoad"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> String <span class="token function">MVCfileUpLoad</span><span class="token punctuation">(</span>String picname<span class="token punctuation">,</span> MultipartFile uploadFile<span class="token punctuation">,</span>
+                            HttpServletRequest request<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SpringMVC框架方式文件上传"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1.定义文件名称</span>
+    String fileName <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1.1. 获取原始文件名</span>
+    String originalFilename <span class="token operator">=</span> uploadFile<span class="token punctuation">.</span><span class="token function">getOriginalFilename</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1.2. 截取文件扩展名</span>
+    String extentName <span class="token operator">=</span> originalFilename<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>originalFilename<span class="token punctuation">.</span><span class="token function">lastIndexOf</span><span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                                                   originalFilename<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1.3. 将文件加上随机数，防止文件重复</span>
+    String uuid <span class="token operator">=</span> UUID<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1.4. 判断是否输入了文件名</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>picname<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        fileName <span class="token operator">=</span> uuid<span class="token operator">+</span><span class="token string">"_"</span><span class="token operator">+</span>picname<span class="token operator">+</span><span class="token string">"."</span><span class="token operator">+</span>extentName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+        fileName <span class="token operator">=</span> uuid<span class="token operator">+</span><span class="token string">"_"</span><span class="token operator">+</span>originalFilename<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"文件名称："</span><span class="token operator">+</span>fileName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 2. 获取文件路径</span>
+    String basePath <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getServletContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getRealPath</span><span class="token punctuation">(</span><span class="token string">"/uploads"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"文件路径："</span><span class="token operator">+</span>basePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 3. 解决用一文件夹中文件过多问题</span>
+    String datePath <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SimpleDateFormat</span><span class="token punctuation">(</span><span class="token string">"yyyy-MM-dd"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 4. 判断路径是否存在</span>
+    File file <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>basePath<span class="token operator">+</span><span class="token string">"/"</span><span class="token operator">+</span>datePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>file<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果文件夹不存在</span>
+        file<span class="token punctuation">.</span><span class="token function">mkdirs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 创建</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// 5. 使用MultipartFile接口中方法，将上传的文件写到指定位置</span>
+    uploadFile<span class="token punctuation">.</span><span class="token function">transferTo</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>file<span class="token punctuation">,</span>fileName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-2-2-编写jsp页面"><a href="#2-2-2-编写jsp页面" class="headerlink" title="2.2.2 编写jsp页面"></a>2.2.2 编写jsp页面</h4><pre class="line-numbers language-jsp"><code class="language-jsp"><h3>文件上传</h3>
+<form action="/file/MVCfileUpLoad" method="post" enctype="multipart/form-data">
+    文件名称：<input type="text" name="picname">
+    选择上传文件:<input type="file" name="uploadFile"> <br>
+    <input type="submit" value="上传">
+</form>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="2-2-3-配置文件解析器"><a href="#2-2-3-配置文件解析器" class="headerlink" title="2.2.3 配置文件解析器"></a>2.2.3 配置文件解析器</h4><p>在SpringMVC.xml中添加如下配置</p>
-<pre><code class="xml">&lt;!--配置文件上传解析器,id:multipartResolver是固定值--&gt;
-&lt;bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"&gt;
-    &lt;!--设置上传文件的最大尺寸为 5MB=5*1024*1024=5242880字节 --&gt;
-    &lt;property name="maxUploadSize"&gt;
-        &lt;value&gt;5242880&lt;/value&gt;
-    &lt;/property&gt;
-&lt;/bean&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--配置文件上传解析器,id:multipartResolver是固定值--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multipartResolver<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.web.multipart.commons.CommonsMultipartResolver<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token comment" spellcheck="true">&lt;!--设置上传文件的最大尺寸为 5MB=5*1024*1024=5242880字节 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>maxUploadSize<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>5242880<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="2-3-跨服务器方式的文件上传"><a href="#2-3-跨服务器方式的文件上传" class="headerlink" title="2.3 跨服务器方式的文件上传"></a>2.3 跨服务器方式的文件上传</h3><h4 id="2-3-1-分服务器的目的"><a href="#2-3-1-分服务器的目的" class="headerlink" title="2.3.1 分服务器的目的"></a>2.3.1 分服务器的目的</h4><p>实际开发中，会有很多处理不同功能的服务器，例</p>
 <ul>
 <li>应用服务器：负责部署我们的应用</li>
@@ -799,60 +796,60 @@ public String MVCfileUpLoad(String picname, MultipartFile uploadFile,
 <h4 id="2-3-3-具体代码"><a href="#2-3-3-具体代码" class="headerlink" title="2.3.3 具体代码"></a>2.3.3 具体代码</h4><ul>
 <li>控制器</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
      * 跨服务器文件上传
      * @return
-     */
-@RequestMapping("/MVCfileUpLoad2")
-public String MVCfileUpLoad2(String picname, MultipartFile uploadFile) throws Exception{
-    System.out.println("跨服务器文件上传");
-    // 1.定义文件名称
-    String fileName = "";
-    // 1.1. 获取原始文件名
-    String originalFilename = uploadFile.getOriginalFilename();
-    System.out.println(originalFilename);
-    // 1.2. 截取文件扩展名
-    String extentName = originalFilename.substring(originalFilename.lastIndexOf(".") + 1,
-                                                   originalFilename.length());
-    // 1.3. 将文件加上随机数，防止文件重复
-    String uuid = UUID.randomUUID().toString().replace("-", "").toUpperCase();
-    if (!StringUtils.isEmpty(picname)){
-        fileName = uuid+"_"+picname+"."+extentName;
-    }else {
-        fileName = uuid+"_"+originalFilename;
-    }
-    // 定义上传文件服务器路径
-    String path = "http://localhost:8080/uploads/";
+     */</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/MVCfileUpLoad2"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> String <span class="token function">MVCfileUpLoad2</span><span class="token punctuation">(</span>String picname<span class="token punctuation">,</span> MultipartFile uploadFile<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"跨服务器文件上传"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1.定义文件名称</span>
+    String fileName <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1.1. 获取原始文件名</span>
+    String originalFilename <span class="token operator">=</span> uploadFile<span class="token punctuation">.</span><span class="token function">getOriginalFilename</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>originalFilename<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1.2. 截取文件扩展名</span>
+    String extentName <span class="token operator">=</span> originalFilename<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>originalFilename<span class="token punctuation">.</span><span class="token function">lastIndexOf</span><span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                                                   originalFilename<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1.3. 将文件加上随机数，防止文件重复</span>
+    String uuid <span class="token operator">=</span> UUID<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>picname<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        fileName <span class="token operator">=</span> uuid<span class="token operator">+</span><span class="token string">"_"</span><span class="token operator">+</span>picname<span class="token operator">+</span><span class="token string">"."</span><span class="token operator">+</span>extentName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+        fileName <span class="token operator">=</span> uuid<span class="token operator">+</span><span class="token string">"_"</span><span class="token operator">+</span>originalFilename<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// 定义上传文件服务器路径</span>
+    String path <span class="token operator">=</span> <span class="token string">"http://localhost:8080/uploads/"</span><span class="token punctuation">;</span>
 
-    // 完成文件上传，跨服务器版
-    // 创建客户端的对象
-    Client client = Client.create();
-    // 和文件服务器进行连接
-    WebResource resource = client.resource(path+ fileName);
-    // 上传文件     todo:中文乱码问题?
-    resource.put(uploadFile.getBytes());
-    return "success";
-}
-</code></pre>
+    <span class="token comment" spellcheck="true">// 完成文件上传，跨服务器版</span>
+    <span class="token comment" spellcheck="true">// 创建客户端的对象</span>
+    Client client <span class="token operator">=</span> Client<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 和文件服务器进行连接</span>
+    WebResource resource <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">resource</span><span class="token punctuation">(</span>path<span class="token operator">+</span> fileName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 上传文件     todo:中文乱码问题?</span>
+    resource<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>uploadFile<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>jsp</li>
 </ul>
-<pre><code class="jsp">&lt;h3&gt;跨服务器文件上传&lt;/h3&gt;
-&lt;form action="/file/MVCfileUpLoad2" method="post" enctype="multipart/form-data"&gt;
-    文件名称：&lt;input type="text" name="picname"&gt;
-    选择上传文件:&lt;input type="file" name="uploadFile"/&gt; &lt;br&gt;
-    &lt;input type="submit" value="上传"&gt;
-&lt;/form&gt;
-</code></pre>
+<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>跨服务器文件上传</h3>
+<form action="/file/MVCfileUpLoad2" method="post" enctype="multipart/form-data">
+    文件名称：<input type="text" name="picname">
+    选择上传文件:<input type="file" name="uploadFile"> <br>
+    <input type="submit" value="上传">
+</form>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>403Forbidden问题</li>
 </ul>
 <p>上传文件涉及到读写权限，这个报错的意思就是服务器（Tomcat）没有写入的权限，需要在服务器的web.xml文件中找到servlet标签，在servlet里添加如下字段，开启文件读写</p>
-<pre><code class="xml">&lt;init-param&gt;
-    &lt;param-name&gt;readonly&lt;/param-name&gt;
-    &lt;param-value&gt;false&lt;/param-value&gt;
-&lt;/init-param&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>init-param</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-name</span><span class="token punctuation">></span></span>readonly<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-value</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>init-param</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>409 Conflict 问题</li>
 </ul>
@@ -868,107 +865,107 @@ public String MVCfileUpLoad2(String picname, MultipartFile uploadFile) throws Ex
 <h3 id="3-2-实现步骤"><a href="#3-2-实现步骤" class="headerlink" title="3.2 实现步骤"></a>3.2 实现步骤</h3><ul>
 <li>控制器代码，模拟一个异常</li>
 </ul>
-<pre><code class="java">@Controller
-@RequestMapping("user")
-public class UserController {
-    @RequestMapping("/testException")
-    public String testException() throws SysException{
-        System.out.println("testException.....");
-        try {
-            // 模拟异常
-            int i = 1/0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            // 抛出自定义异常信息
-            throw new SysException("查询错误....");
-        }
-        return "success";
-    }
-}
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Controller</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserController</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testException"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">testException</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> SysException<span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"testException....."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 模拟异常</span>
+            <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">/</span><span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 抛出自定义异常信息</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">SysException</span><span class="token punctuation">(</span><span class="token string">"查询错误...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>jsp访问页面和错误页面</li>
 </ul>
 <p>访问页面：</p>
-<pre><code class="jsp">&lt;h3&gt;异常处理&lt;/h3&gt;
-&lt;a href="/user/testException"&gt;测试异常处理&lt;/a&gt;
-</code></pre>
+<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>异常处理</h3>
+<a href="/user/testException">测试异常处理</a>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>错误页面：</p>
-<pre><code class="jsp">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;出错啦！&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;h4&gt;${errorMsg}&lt;/h4&gt;
+<pre class="line-numbers language-jsp"><code class="language-jsp"><%@ page="" contenttype="text/html;charset=UTF-8" language="java" iselignored="false" %="">
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <title>出错啦！</title>
+</head>
+<body>
+<h4>${errorMsg}</h4>
 
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></%@></code></pre>
 <ul>
 <li>编写自定义异常类</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 自定义异常类
- */
-public class SysException extends Exception {
-    // 存储提示信息的
-    private String message;
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SysException</span> <span class="token keyword">extends</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 存储提示信息的</span>
+    <span class="token keyword">private</span> String message<span class="token punctuation">;</span>
 
-    public SysException(String message) {
-        this.message = message;
-    }
+    <span class="token keyword">public</span> <span class="token function">SysException</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token operator">=</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public String getMessage() {
-        return message;
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-}
-</code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setMessage</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token operator">=</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>编写自定义异常解析器</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 异常处理类
- */
-public class SysExceptionResolver implements HandlerExceptionResolver {
-    /**
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SysExceptionResolver</span> <span class="token keyword">implements</span> <span class="token class-name">HandlerExceptionResolver</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
      * 处理异常业务逻辑
      * @param request
      * @param response
      * @param handler
      * @param ex 当前抛出的异常对象
      * @return
-     */
-    @Override
-    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        // 获取异常对象
-        SysException e = null;
-        // 如果抛出的是系统自定义异常则直接转换
-        if (ex instanceof SysException){ // instanceof：判断ex是否是SysException的对象、直接或间接子类、其接口实现类
-            e = (SysException) ex;
-        }else {
-            // 如果抛出的不是系统自定义异常则重新构造一个系统错误异常
-            e = new SysException("系统维护中....");
-        }
-        // 创建ModelAndView对象，跳转页面
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("errorMsg",e.getMessage()); // 获取异常消息，存入对象
-        modelAndView.setViewName("error"); // 跳转错误页面
-        return modelAndView;
-    }
-}
-</code></pre>
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> ModelAndView <span class="token function">resolveException</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">,</span> Object handler<span class="token punctuation">,</span> Exception ex<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 获取异常对象</span>
+        SysException e <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 如果抛出的是系统自定义异常则直接转换</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>ex <span class="token keyword">instanceof</span> <span class="token class-name">SysException</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// instanceof：判断ex是否是SysException的对象、直接或间接子类、其接口实现类</span>
+            e <span class="token operator">=</span> <span class="token punctuation">(</span>SysException<span class="token punctuation">)</span> ex<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 如果抛出的不是系统自定义异常则重新构造一个系统错误异常</span>
+            e <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SysException</span><span class="token punctuation">(</span><span class="token string">"系统维护中...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 创建ModelAndView对象，跳转页面</span>
+        ModelAndView modelAndView <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModelAndView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        modelAndView<span class="token punctuation">.</span><span class="token function">addObject</span><span class="token punctuation">(</span><span class="token string">"errorMsg"</span><span class="token punctuation">,</span>e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 获取异常消息，存入对象</span>
+        modelAndView<span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">"error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 跳转错误页面</span>
+        <span class="token keyword">return</span> modelAndView<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>在SpringMVC.xml中，配置异常处理器</li>
 </ul>
-<pre><code class="xml">&lt;!--配置自定义异常处理器对象--&gt;
-&lt;bean id="SysExceptionResolver" class="cn.zero.exception.SysExceptionResolver"/&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--配置自定义异常处理器对象--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>SysExceptionResolver<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cn.zero.exception.SysExceptionResolver<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="4-SpringMVC中的拦截器"><a href="#4-SpringMVC中的拦截器" class="headerlink" title="4. SpringMVC中的拦截器"></a>4. SpringMVC中的拦截器</h2><h3 id="4-1-拦截器的作用"><a href="#4-1-拦截器的作用" class="headerlink" title="4.1 拦截器的作用"></a>4.1 拦截器的作用</h3><ul>
 <li><p>SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter，用于对处理器进行<strong>预处理和后处理。</strong></p>
 </li>
@@ -987,12 +984,12 @@ public class SysExceptionResolver implements HandlerExceptionResolver {
 <h3 id="4-2-自定义拦截器的步骤"><a href="#4-2-自定义拦截器的步骤" class="headerlink" title="4.2 自定义拦截器的步骤"></a>4.2 自定义拦截器的步骤</h3><ul>
 <li>编写拦截器类，实现<code>HandlerInterceptor</code>接口，重写方法</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 定义拦截器
- */
-public class CustomInterceptor implements HandlerInterceptor {
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CustomInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">HandlerInterceptor</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 预处理，controller方法执行前处理
      * return true放行，执行下一个拦截器，如果没有下一拦截器，执行控制器方法
      * return false不放行
@@ -1001,77 +998,77 @@ public class CustomInterceptor implements HandlerInterceptor {
      * @param handler
      * @return
      * @throws Exception
-     */
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("CustomInterceptor执行了....预处理");
-//        request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request,response);
-        return true;
-    }
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">preHandle</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">,</span> Object handler<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"CustomInterceptor执行了....预处理"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//        request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request,response);</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 后处理，controller方法执行后处理
      * @param request
      * @param response
      * @param handler
      * @param modelAndView
      * @throws Exception
-     */
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("postHandle....后处理");
-//        request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request,response);
-    }
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postHandle</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">,</span> Object handler<span class="token punctuation">,</span> ModelAndView modelAndView<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"postHandle....后处理"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//        request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request,response);</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 结尾处理，最后执行的，success.jsp页面执行完毕后，该方法执行。
      * @param request
      * @param response
      * @param handler
      * @param ex
      * @throws Exception
-     */
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        System.out.println("afterCompletion....尾处理");
-    }
-}
-</code></pre>
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterCompletion</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">,</span> Object handler<span class="token punctuation">,</span> Exception ex<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"afterCompletion....尾处理"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置拦截器</li>
 </ul>
-<pre><code class="xml">&lt;!--配置拦截器--&gt;
-&lt;mvc:interceptors&gt;
-    &lt;mvc:interceptor&gt;
-        &lt;!--要拦截的具体方法--&gt;
-        &lt;mvc:mapping path="/user/*"/&gt;
-        &lt;!--不要拦截的方法--&gt;
-        &lt;!--&lt;mvc:exclude-mapping path=""/&gt;--&gt;
-        &lt;!-- 配置拦截器对象--&gt;
-        &lt;bean class="com.zero.interceptor.CustomInterceptor"/&gt;
-    &lt;/mvc:interceptor&gt;
-&lt;/mvc:interceptors&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--配置拦截器--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>interceptors</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>interceptor</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--要拦截的具体方法--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>mapping</span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/user/*<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--不要拦截的方法--></span>
+        <span class="token comment" spellcheck="true">&lt;!--&lt;mvc:exclude-mapping path=""/>--></span>
+        <span class="token comment" spellcheck="true">&lt;!-- 配置拦截器对象--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.interceptor.CustomInterceptor<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">mvc:</span>interceptor</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">mvc:</span>interceptors</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>控制器</li>
 </ul>
-<pre><code class="java">@Controller
-@RequestMapping("user")
-public class UserController {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Controller</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserController</span> <span class="token punctuation">{</span>
 
-    @RequestMapping("/testInterceptor")
-    public String testInterceptor(){
-        System.out.println("testInterceptor....控制器执行");
-        return "success";
-    }
-}
-</code></pre>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testInterceptor"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">testInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"testInterceptor....控制器执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>success.jsp</li>
 </ul>
-<pre><code class="jsp">&lt;h3&gt;访问成功！&lt;/h3&gt;
-&lt;% System.out.println("success.jsp执行了.....");%&gt;
-</code></pre>
+<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>访问成功！</h3>
+<% system.out.println("success.jsp执行了.....");%="">
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></%></code></pre>
 <ul>
 <li>测试结果</li>
 </ul>
@@ -1094,146 +1091,128 @@ afterCompletion....尾处理
 </ul>
 </li>
 <li>登录后使用重定向退出，涉及到<code>RedirectView</code>类<ul>
-<li>作用：跟<code>return "redirect:xxx"</code>类似，也是重定向操作。</li>
-<li>重定向相对地址：<code>return new RedirectView("index.jsp")</code>，在此请求路径下找相应路。</li>
-<li>重定向绝对路径：<code>return new RedirectView("/index.jsp"</code>，相当于项目路径+此路径。</li>
+<li>作用：跟<code>return &quot;redirect:xxx&quot;</code>类似，也是重定向操作。</li>
+<li>重定向相对地址：<code>return new RedirectView(&quot;index.jsp&quot;)</code>，在此请求路径下找相应路。</li>
+<li>重定向绝对路径：<code>return new RedirectView(&quot;/index.jsp&quot;</code>，相当于项目路径+此路径。</li>
 </ul>
 </li>
 </ul>
 <h4 id="4-3-2-核心代码"><a href="#4-3-2-核心代码" class="headerlink" title="4.3.2 核心代码"></a>4.3.2 核心代码</h4><ul>
 <li>控制器代码</li>
 </ul>
-<pre><code class="java">@Controller
-@RequestMapping("user")
-public class UserController {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Controller</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserController</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 跳转登录页面
      * @param model
      * @return
      * @throws Exception
-     */
-    @RequestMapping("/login")
-    public String login(Model model) throws Exception{
-        return "login";
-    }
+     */</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/login"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">login</span><span class="token punctuation">(</span>Model model<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"login"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 登录提交
      * @param session
      * @param userId 用户账户
      * @param pwd 密码
      * @return
      * @throws Exception
-     */
-    @RequestMapping("/loginSubmit")
-    public String loginSubmit(HttpSession session,String userId,String pwd) throws Exception{
-        // 在session中记录用户身份信息
-        session.setAttribute("activeUser",userId);
-        System.out.println("用户已登录");
-        return "success";
-    }
+     */</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/loginSubmit"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">loginSubmit</span><span class="token punctuation">(</span>HttpSession session<span class="token punctuation">,</span>String userId<span class="token punctuation">,</span>String pwd<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 在session中记录用户身份信息</span>
+        session<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"activeUser"</span><span class="token punctuation">,</span>userId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"用户已登录"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 退出
      * @param session
      * @param request
      * @param response
      * @return
      * @throws Exception
-     */
-    @RequestMapping("/logOut")
-    public RedirectView logOut(HttpSession session,
-                         HttpServletRequest request,
-                         HttpServletResponse response) throws Exception{
-        // 设置session过期
-        session.invalidate();
-           // return new RedirectView("index.jsp"); 相当于：localhost/user/index.jsp
-        return new RedirectView("/index.jsp"); // 相当于：localhost/index.jsp
-    }
-}
-</code></pre>
+     */</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/logOut"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> RedirectView <span class="token function">logOut</span><span class="token punctuation">(</span>HttpSession session<span class="token punctuation">,</span>
+                         HttpServletRequest request<span class="token punctuation">,</span>
+                         HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 设置session过期</span>
+        session<span class="token punctuation">.</span><span class="token function">invalidate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token comment" spellcheck="true">// return new RedirectView("index.jsp"); 相当于：localhost/user/index.jsp</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RedirectView</span><span class="token punctuation">(</span><span class="token string">"/index.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 相当于：localhost/index.jsp</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>定义登录拦截器</li>
 </ul>
-<pre><code class="java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 登录拦截器
- */
-public class LoginInterceptor implements HandlerInterceptor {
-    /**
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">HandlerInterceptor</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
      * 预处理验证用户是否登录
      * @param request
      * @param response
      * @param handler
      * @return
      * @throws Exception
-     */
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("登录拦截器执行");
-        // 如果是登录页面则放行
-        if (request.getRequestURI().indexOf("login")&gt;=0){
-            return true;
-        }
-        HttpSession session = request.getSession();
-        // 如果用户已登录也放行
-        if (session.getAttribute("activeUser")!=null){
-            return true;
-        }
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">preHandle</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">,</span> Object handler<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"登录拦截器执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 如果是登录页面则放行</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>request<span class="token punctuation">.</span><span class="token function">getRequestURI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">"login"</span><span class="token punctuation">)</span><span class="token operator">>=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        HttpSession session <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 如果用户已登录也放行</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>session<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">"activeUser"</span><span class="token punctuation">)</span><span class="token operator">!=</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        // 用户没有登录则跳转到登录页面
-        request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request,response);
-        System.out.println("用户尚未登录");
-        return false;
-    }
-}
-</code></pre>
+        <span class="token comment" spellcheck="true">// 用户没有登录则跳转到登录页面</span>
+        request<span class="token punctuation">.</span><span class="token function">getRequestDispatcher</span><span class="token punctuation">(</span><span class="token string">"/WEB-INF/pages/login.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forward</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"用户尚未登录"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>配置拦截器</li>
 </ul>
-<pre><code class="xml">&lt;!--配置登录拦截器--&gt;
-&lt;mvc:interceptors&gt;
-    &lt;mvc:interceptor&gt;
-        &lt;!--要拦截的具体方法--&gt;
-        &lt;mvc:mapping path="/user/**"/&gt;
-        &lt;!--不要拦截的方法--&gt;
-        &lt;!--&lt;mvc:exclude-mapping path=""/&gt;--&gt;
-        &lt;!-- 配置拦截器对象--&gt;
-        &lt;bean class="com.zero.interceptor.LoginInterceptor"/&gt;
-    &lt;/mvc:interceptor&gt;
-&lt;/mvc:interceptors&gt;
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--配置登录拦截器--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>interceptors</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>interceptor</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--要拦截的具体方法--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>mapping</span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/user/**<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--不要拦截的方法--></span>
+        <span class="token comment" spellcheck="true">&lt;!--&lt;mvc:exclude-mapping path=""/>--></span>
+        <span class="token comment" spellcheck="true">&lt;!-- 配置拦截器对象--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.interceptor.LoginInterceptor<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">mvc:</span>interceptor</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">mvc:</span>interceptors</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>jsp登录页面，其他页面就不贴代码了</li>
 </ul>
-<pre><code class="jsp">&lt;h3&gt;用户登录&lt;/h3&gt;
-&lt;form action="/user/loginSubmit" method="post"&gt;
-    用户名称：&lt;input type="text" name="userId"&gt;&lt;br&gt;
-    密码：&lt;input type="password" name="pwd"&gt;&lt;br&gt;
-    &lt;input type="submit" value="登录"&gt;
-&lt;/form&gt;
-</code></pre>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>用户登录</h3>
+<form action="/user/loginSubmit" method="post">
+    用户名称：<input type="text" name="userId"><br>
+    密码：<input type="password" name="pwd"><br>
+    <input type="submit" value="登录">
+</form>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
-            <hr/>
+            <hr>
 
             
 
@@ -1463,7 +1442,7 @@ SSM整合可以使用多种方式，这里选择XML+注解的方式
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">253.1k</span>
+                <span class="white-color">245k</span>
             
 
             
@@ -1513,8 +1492,7 @@ SSM整合可以使用多种方式，这里选择XML+注解的方式
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input" autofocus="">
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
         </div>
         <div id="searchResult"></div>
     </div>
@@ -1549,5 +1527,5 @@ SSM整合可以使用多种方式，这里选择XML+注解的方式
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>
