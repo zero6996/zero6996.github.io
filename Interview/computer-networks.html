@@ -4,12 +4,14 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Hexo+Git搭建个人博客, Zero的博客">
-    <meta name="description" content="前言基于hexo+github pages服务搭建博客,快速,便捷,免费的搭建属于自己的个人博客
-1.准备工作在开始一切之前,你必须已经:
+    <meta name="keywords" content="OSI7层模型和TCP/IP四层模型简要总结, Zero的博客">
+    <meta name="description" content="前言关于OSI7层模型相关知识点，以前是总结过一篇文章的，但因为太过详细，显的有些繁琐了，今天复习到计网知识，便重新写一篇精简版的，方便回顾记忆。
 
-有一个github账号,没有的话去注册一个
-电脑 安装 了node.js,npm,并了解相关基础知">
+1. OSI7层模型和TCP4层模型
+1.1 模型各层功能
+
+    
+    	OSI7">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Hexo+Git搭建个人博客 | Zero的博客</title>
+    <title>OSI7层模型和TCP/IP四层模型简要总结 | Zero的博客</title>
     <link rel="icon" type="image/jpeg" href="/wlop.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -283,13 +285,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Hexo+Git搭建个人博客
+                        OSI7层模型和TCP/IP四层模型简要总结
                     </div>
                 </div>
             </div>
@@ -381,8 +383,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Hexo/" target="_blank">
-                                <span class="chip bg-color">Hexo</span>
+                            <a href="/tags/计算机网络/" target="_blank">
+                                <span class="chip bg-color">计算机网络</span>
                             </a>
                         
                     </div>
@@ -393,8 +395,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Other/" class="post-category" target="_blank">
-                                Other
+                            <a href="/categories/Interview/" class="post-category" target="_blank">
+                                Interview
                             </a>
                         
                     </div>
@@ -405,21 +407,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2018-12-04
+                    2020-03-02
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.1k
+                        1.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        8 分
+                        5 分
                     </div>
                     
                 
@@ -435,162 +437,146 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>基于hexo+github pages服务搭建博客,快速,便捷,免费的搭建属于自己的个人博客</p>
-<h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h2><p>在开始一切之前,你必须已经:</p>
-<ul>
-<li>有一个github账号,没有的话去<a href="https://github.com" target="_blank" rel="noopener">注册一个</a></li>
-<li>电脑 <a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">安装</a> 了node.js,npm,并了解相关基础知识</li>
-<li>安装了<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git for windows</a> (或其他git客户端工具)</li>
-</ul>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于OSI7层模型相关知识点，以前是总结过一篇<a href="https://zero024.cn/2019/08/02/Interview/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E6%A0%B8%E5%BF%83/">文章</a>的，但因为太过详细，显的有些繁琐了，今天复习到计网知识，便重新写一篇精简版的，方便回顾记忆。</p>
 <a id="more"></a>
-<h2 id="2-创建仓库"><a href="#2-创建仓库" class="headerlink" title="2.创建仓库"></a>2.创建仓库</h2><ul>
-<li>新建一个名为 用户名.github.io的仓库.比如说,如果你的github用户名是test</li>
-<li>那么你就新建test.github.io的仓库(必须是你的用户名,其他的无效)</li>
-<li>然后你的网站访问地址就是<a href="http://test.github.io" target="_blank" rel="noopener">http://test.github.io</a> 了<br>注意几个地方:<ul>
-<li>注册的邮箱一定要验证,否则不会成功</li>
-<li>仓库名字必须是:username.github.io,其中username就是你的用户名</li>
-<li>仓库创建成功不会立即生效,需要过一段时间(等待github分配网站域名等)</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-绑定域名"><a href="#3-绑定域名" class="headerlink" title="3.绑定域名"></a>3.绑定域名</h2><ul>
-<li>域名配置最常见有2种方式,CNAME和A记录,CNAME填写域名,A记录填写IP</li>
-<li>由于不带WWW方式只能采用A记录,所以先ping一下username.github.io的IP</li>
-<li>然后到你的域名DNS设置页,将A记录指向你ping出来的IP,将CNAME指向:yourname.github.io</li>
-<li>这样可以保证无论是否添加WWW都可以访问</li>
-<li>例:<ul>
-<li>记录类型:A      主机记录:@   解析线路默认  记录值:IP</li>
-<li>记录类型:CNAME  主机记录:www 解析线路默认  记录值:username.github.io</li>
-</ul>
-</li>
-<li>然后到你的github项目跟目录新建一个名为CNAME的文件(无后缀),里面填写你自定义的域名</li>
-</ul>
-<h2 id="4-配置SSH-key"><a href="#4-配置SSH-key" class="headerlink" title="4.配置SSH key"></a>4.配置SSH key</h2><p>提交代码需要github权限才可以,这里使用ssh key来解决本地和服务器的连接问题</p>
-<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">cd</span> ~/.ssh <span class="token comment" spellcheck="true"># 检查本机已存在的ssh秘钥</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>如果提示:”No such file or directory”说明你是第一次使用git</p>
-<pre class="line-numbers language-bash"><code class="language-bash">ssh-keygen -t rsa -C <span class="token string">'your email@example.com'</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>一般情况下直接默认值就行,所以不用设置密码,一路回车就行<br>最终会在.ssh目录下生成两个文件,id_rsa和id_rsa.pub,这两个就是SSH Key的密钥对id_rsa是私钥,不能泄露!</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> id_rsa.pub
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>复制输出的内容,打开你的github主页,打开”Account settings”&gt;&gt;”SSH keys”页面</p>
-<ol>
-<li>点击 ‘Add SSH Key’,填上任意title,在Key文本框内粘贴id_rsa.pub文件的内容</li>
-<li>点击 ‘Add Key’,就成功添加Key了<br>测试是否成功<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">ssh</span> -T git@github.com
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-如果提示”Are you sure you want to continum connecting (yes/no)?” 输入yes,就会看到<pre><code>Hi zero6996! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
-</code></pre>说明SSH配置成功!<br>此时你还需要配置:<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">git</span> config --global user.name <span class="token string">'zero6996'</span> <span class="token comment" spellcheck="true">#你的github用户名</span>
-$ <span class="token function">git</span> config --global user.email <span class="token string">'youremail@xx.com'</span> <span class="token comment" spellcheck="true">#你的github注册email</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="5-hexo简介"><a href="#5-hexo简介" class="headerlink" title="5.hexo简介"></a>5.hexo简介</h2>Hexo是一个简单,快速,强大的基于GitHub Pages的博客发布工具,支持Markdown格式,有众多优秀的插件和主题<br><a href="http://hexo.io" target="_blank" rel="noopener">官网</a><br><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">Github</a><h3 id="5-1-安装注意事项"><a href="#5-1-安装注意事项" class="headerlink" title="5.1.安装注意事项"></a>5.1.安装注意事项</h3></li>
-<li>很多命令既可以用Windows的cmd来完成,也可以使用git bash来完成,但是部分命令会有一些问题,为避免不必要的问题,这里统一使用git bash来执行</li>
-<li>hexo不同版本差别较大,网上很文章的配置信息都是基于2.x的,所以注意不要被误导</li>
-<li>hexo有两种”_config.yml” 文件,一个是跟目录下的全局的”_config.yml” , 一个是各个”theme” 下的</li>
-<li>安装完node和npm以后,将npm替换为<a href="https://npm.taobao.org/" target="_blank" rel="noopener">淘宝镜像</a>,执行以下命令即可将,后续命令全部以cnpm执行<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g cnpm --registry<span class="token operator">=</span>https://registry.npm.taobao.org
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="5-2-安装"><a href="#5-2-安装" class="headerlink" title="5.2.安装"></a>5.2.安装</h3><pre class="line-numbers language-bash"><code class="language-bash">$ cnpm <span class="token function">install</span> -g hexo
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="5-3-初始化"><a href="#5-3-初始化" class="headerlink" title="5.3.初始化"></a>5.3.初始化</h3>在本地新建一个名为hexo的文件夹(名字任意取),这里作为一个你存放代码的地方,比如我是D:\hexo<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">cd</span> /d/hexo <span class="token comment" spellcheck="true"># 进入文件夹</span>
-$ hexo init <span class="token comment" spellcheck="true"># 初始化</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-hexo会自动下载一些文件到这个目录,包括node_modules,目录结构<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">ls</span>
-_config.yml  node_modules/  package-lock.json  scaffolds/  themes/
-db.json      package.json   public/   source/
-$ hexo g <span class="token comment" spellcheck="true"># 生成</span>
-$ hexo s <span class="token comment" spellcheck="true"># 启动服务</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ol>
-<ul>
-<li>执行上述命令之后,hexo就会在public文件夹生成相关html文件,这些文件后续会提交到github上去</li>
-<li>“hexo s”是开启本地预览服务,打开浏览器访问<a href="http://localhost:4000" target="_blank" rel="noopener">localhost:4000</a>即可看到博客内容.</li>
-<li>如果无显示内容或拒绝访问,就是端口占用的问题,重新开启服务,使用”hexo s -p 8888”指定端口</li>
-</ul>
-<h3 id="5-4-修改主题"><a href="#5-4-修改主题" class="headerlink" title="5.4.修改主题"></a>5.4.修改主题</h3><p>hexo社区有丰富的主题可选,从<a href="https://hexo.io/themes/" target="_blank" rel="noopener">官网主题</a>自己挑选下载</p>
-<p>下载主题(以<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">hexo-theme-yilia</a>为例):</p>
-<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">cd</span> /d/hexo/
-$ <span class="token function">git</span> clone git@github.com:litten/hexo-theme-yilia.git themes/yilia <span class="token comment" spellcheck="true"># 从github克隆主题,到本地的themes/yilia文件夹</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>下载的主题都在hexo/themes文件夹内</p>
-<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">cd</span> themes
-$ <span class="token function">ls</span>
-landscape/  yilia/
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>修改”_config.yml”中的”theme: landscape”改为”theme: yilia”,然后重新执行”hexo g”来生成页面<br>如果出现一些莫名其妙的问题,可以先执行”hexo clean”来清理一下public的内容,然后再来重新生成和发布</p>
-<h3 id="5-5-上传之前"><a href="#5-5-上传之前" class="headerlink" title="5.5.上传之前"></a>5.5.上传之前</h3><p>上传代码到github之前,记得备份以前的所有代码,因为hexo提交代码时会把你以前的所有代码都删除</p>
-<h3 id="5-6-上传到Github"><a href="#5-6-上传到Github" class="headerlink" title="5.6.上传到Github"></a>5.6.上传到Github</h3><p>如果你一切都配置好了,发布上传只需要”hexo d”就可以了,当然关键是所有东西都配置好<br>首先,”ssh key”肯定要配置好<br>其次,配置”_config.yml”中有关deploy的部分:</p>
-<pre><code>#正确写法
-deploy:
-   type: git
-   repository: git@github.com:zero6996/zero6996.github.io.git
-   branch: master
-</code></pre><p>如果报如下错误:</p>
-<pre><code>Deployer not found: github 或者 Deployer not found: git
-</code></pre><p>原因是还需安装一个插件:</p>
-<pre><code> cnpm install hexo-deployer-git --save
-</code></pre><p>安装无误,输入github账户密码,输入”hexo d”就会将本次有改动的代码全部提交,没有改动的不会</p>
-<h3 id="5-7-常用hexo命令"><a href="#5-7-常用hexo命令" class="headerlink" title="5.7.常用hexo命令"></a>5.7.常用hexo命令</h3><pre><code>hexo new &#39;postName&#39; # 新建文章
-hexo new page &#39;pageName&#39; # 新建页面
-hexo generate # 生成静态页面至public目录
-hexo server # 开启预览访问端口(默认4000,使用-p可更换端口)
-hexo deploy # 部署至Github
-hexo help # 查看帮助
-hexo version # 查看版本
-</code></pre><p>以上命令均可缩写</p>
-<pre><code>hexo n == hexo new
-hexo g == hexo generate
-hexo s == hexo server
-hexo d == hexo deploy
-</code></pre><p>以及组合命令:</p>
-<pre><code>hexo s -g # 生成页面并本地预览
-hexo d -g # 生成页面并上传
-hexo s -p # 本地预览并改变端口
-</code></pre><h3 id="5-8-config-yml"><a href="#5-8-config-yml" class="headerlink" title="5.8._config.yml"></a>5.8._config.yml</h3><p>这里面都是一些全局配置,每个参数意思都比较简单明了,需要注意的是冒号后面必须有一个空格</p>
-<h2 id="6-写博客"><a href="#6-写博客" class="headerlink" title="6.写博客"></a>6.写博客</h2><p>进入hexo根目录,执行命令:</p>
-<pre><code>hexo new &#39;my-first-blog&#39;
-</code></pre><p>hexo会帮我们在_posts下生成相关的md文件,我们只需要打开这个文件就可以开始写博客了</p>
-<p>一般完整格式如下:</p>
-<pre><code>---
-title: postName # 文章页面上的显示名称,一般是中文
-date: 2018-12-5 15:46:10 # 文章生成时间,一般不用改,也可自定义
-categories: 默认分类 # 分类
-tags: [tag1,tag2,tag3] # 文章标签,可空,多标签请用格式
-description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面
----
+<h3 id="1-OSI7层模型和TCP4层模型"><a href="#1-OSI7层模型和TCP4层模型" class="headerlink" title="1. OSI7层模型和TCP4层模型"></a>1. OSI7层模型和TCP4层模型</h3><p><img src="http://yanxuan.nosdn.127.net/db1fb1447ca74d3f923d7953ba014a80.png" alt="UTOOLS1583203255690.png"></p>
+<h4 id="1-1-模型各层功能"><a href="#1-1-模型各层功能" class="headerlink" title="1.1 模型各层功能"></a>1.1 模型各层功能</h4>
+<table border="1">
+    <tr>
+    	<th>OSI7层模型</th>
+        <th>TCP/IP4层模型</th>
+        <th>功能</th>
+        <th>各层协议簇</th>
+    </tr>
+    <tr>
+        <td>应用层</td>
+        <td rowspan="3">应用层</td>
+        <td>文件传输,电子邮件,文件服务,虚拟终端</td>
+        <td>TFTP,HTTP,SNMP,FTP,SMTP,DNS,Telent</td>
+    </tr>
+    <tr>
+        <td>表示层</td>
+        <!-- <td>应用层</td> -->
+        <td>数据格式化,代码转换,数据加解密</td>
+        <td>无协议</td>
+    </tr>
+    <tr>
+        <td>会话层</td>
+        <!-- <td>应用层</td> -->
+        <td>提供建立或解除连接的方法</td>
+        <td>无协议</td>
+    </tr>
+    <tr>
+        <td>传输层</td>
+        <td>传输层</td>
+        <td>提供端对端的接口</td>
+        <td>TCP,UDP</td>
+    </tr>
+    <tr>
+        <td>网络层</td>
+        <td>网络层</td>
+        <td>为数据包选择路由</td>
+        <td>IP,ICMP,RIP,OSPF,BCP</td>
+    </tr>
+    <tr>
+        <td>数据链路层</td>
+        <td rowspan="2">链路层</td>
+        <td>传输有地址的帧及差错控制等功能，提供可靠的数据传输</td>
+        <td>SLIP,CSLIP,PPP,ARP,RARP,MTU</td>
+    </tr>
+    <tr>
+        <td>物理层</td>
+        <!-- <td>链路层</td> -->
+        <td>利用传输介质以比特流数据形式透明传输数据</td>
+        <td>ISO2100,IEEE802,IEEE</td>
+    </tr>
+</table>
 
-以下是正文内容
-</code></pre><p>hexo new page ‘my-second-blog’ 生成的是:index.md,它不会作为文章出现在博客目录</p>
-<h3 id="6-1-写博客工具"><a href="#6-1-写博客工具" class="headerlink" title="6.1.写博客工具"></a>6.1.写博客工具</h3><p>   个人使用的是 ‘Visual Studio Code’ IDE</p>
-<h3 id="6-2-如何让博文列表不显示全部内容"><a href="#6-2-如何让博文列表不显示全部内容" class="headerlink" title="6.2.如何让博文列表不显示全部内容"></a>6.2.如何让博文列表不显示全部内容</h3><p>默认情况下,生成的博文目录会显示全部文章内容,如何设置文章摘要长度呢?</p>
-<p>可以在合适的位置加上’<!--more-->‘即可,显示在页面上的效果就是新增了一个’more&gt;&gt;’功能选项,查看更多内容</p>
-<h3 id="7-关于缺失模块"><a href="#7-关于缺失模块" class="headerlink" title="7.关于缺失模块"></a>7.关于缺失模块</h3><p>缺失模块</p>
-<ol>
-<li>请确保node版本大于6.2</li>
-<li>在博客根目录（注意不是yilia根目录）执行以下命令:<pre class="line-numbers language-bash"><code class="language-bash">cnpm i hexo-generator-json-content --save
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-<li>在根目录_config.yml里添加配置：<pre class="line-numbers language-bash"><code class="language-bash">jsonContent:
- meta: <span class="token boolean">false</span>
- pages: <span class="token boolean">false</span>
- posts:
-   title: <span class="token boolean">true</span>
-   date: <span class="token boolean">true</span>
-   path: <span class="token boolean">true</span>
-   text: <span class="token boolean">false</span>
-   raw: <span class="token boolean">false</span>
-   content: <span class="token boolean">false</span>
-   slug: <span class="token boolean">false</span>
-   updated: <span class="token boolean">false</span>
-   comments: <span class="token boolean">false</span>
-   link: <span class="token boolean">false</span>
-   permalink: <span class="token boolean">false</span>
-   excerpt: <span class="token boolean">false</span>
-   categories: <span class="token boolean">false</span>
-   tags: <span class="token boolean">true</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h4><a href="http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="noopener">以上内容整理参考自文章</a></li>
+<blockquote>
+<p>简言之：OSI7层模型下4层主要完成通信子网的功能，上3层主要完成资源子网的功能。</p>
+</blockquote>
+<h3 id="2-TCP和UDP的区别"><a href="#2-TCP和UDP的区别" class="headerlink" title="2. TCP和UDP的区别"></a>2. TCP和UDP的区别</h3>
+<table border="1">
+    <tr>
+        <th rowspan="2">类型</th>
+        <th colspan="3">特点</th>
+        <th colspan="2">性能</th>
+        <th rowspan="2">应用场景</th>
+        <th rowspan="2">首部字节</th>
+    </tr>
+    <tr>
+        <th>是否面向连接</th>
+        <th>传输可靠性</th>
+        <th>传输形式</th>
+        <th>传输效率</th>
+        <th>所需资源</th>
+    </tr>
+    <tr>
+    	<td>TCP</td>
+        <td>面向连接</td>
+        <td>可靠</td>
+        <td>字节流</td>
+        <td>慢</td>
+        <td>多</td>
+        <td>要求通信数据可靠<br>(如文件传输,邮件收发等)</td>
+        <td>20-60</td>
+    </tr>
+    <tr>
+    	<td>UDP</td>
+        <td>无连接</td>
+        <td>不可靠</td>
+        <td>数据报文段</td>
+        <td>快</td>
+        <td>少</td>
+        <td>要求通信速度高<br>(如视频直播,语音聊天等)</td>
+        <td>8</td>
+    </tr>
+</table>
+
+<ul>
+<li>TCP是面向连接的高可靠性的服务，利用握手确认和重传机制保证数据不丢失，利用序列号保证消息包的顺序交互，因其要保证消息的可靠性和有序性，故传输效率较慢；且消息头最少20字节，资源消耗较多。</li>
+<li>UDP是无连接的不保证数据可靠性的服务，可能会丢失数据且无序；因无序考虑连接和可靠性，故传输效率很快，消息头只需8字节，轻量级。</li>
+</ul>
+<h3 id="3-浏览器输入URL后经历的流程"><a href="#3-浏览器输入URL后经历的流程" class="headerlink" title="3. 浏览器输入URL后经历的流程"></a>3. 浏览器输入URL后经历的流程</h3><ol>
+<li><strong>DNS解析</strong>：首先浏览器会依据URL逐层查询DNS服务器缓存，解析URL中的域名所对应的IP地址。DNS缓存从近到远依次是：浏览器缓存:arrow_right: 系统hosts文件:arrow_right: 路由器缓存:arrow_right:IPS服务器缓存 :arrow_right:根域名服务器缓存:arrow_right:顶级域名服务器缓存。找到IP则返回，不会查询后续缓存。</li>
+<li><strong>TCP连接</strong>：根据IP地址和默认端口(80)来和服务器建立TCP连接(三次握手)。</li>
+<li><strong>发送HTTP请求</strong>：浏览器发出读取文件的HTTP请求，该请求将发送给服务器。</li>
+<li><strong>服务器处理请求并返回HTTP报文</strong>：服务器对浏览器请求作出响应，并把对应的带有HTML文本的HTTP响应报文发送给浏览器。</li>
+<li><strong>浏览器解析渲染页面</strong>：浏览器接收到HTML，并在显示窗口内渲染它。</li>
+<li><strong>连接结束</strong>：浏览器释放TCP连接(四次挥手)。</li>
 </ol>
+<h3 id="4-TCP三次握手和四次挥手-老面试题了"><a href="#4-TCP三次握手和四次挥手-老面试题了" class="headerlink" title="4. TCP三次握手和四次挥手(老面试题了)"></a>4. TCP三次握手和四次挥手(老面试题了)</h3><h4 id="4-1-三次握手"><a href="#4-1-三次握手" class="headerlink" title="4.1 三次握手"></a>4.1 三次握手</h4><p>为了准确无误地把数据送达目标处，TCP协议采用了三次握手策略。</p>
+<p>详细图解如下：</p>
+<p><img src="https://zero024.oss-cn-hangzhou.aliyuncs.com/Figure_bed/2020-03-03/df7235fc411a4c2b88eae79bfe7d3a1f-TCP三次握手.gif" alt="三次握手"></p>
+<p>简单示意图：</p>
+<p><img src="http://yanxuan.nosdn.127.net/06d059232d3b537e997976e0f6066df0.png" alt="三次握手简"></p>
+<ul>
+<li>一次握手：客户端发送带有SYN标志的数据包给服务端；</li>
+<li>二次握手：服务端发送带有SYN/ACK标志的数据包给客户端；</li>
+<li>三次握手：客户端发送带有ACK标志的数据包给服务端，连接建立。</li>
+</ul>
+<h4 id="4-2-为什么要三次握手？"><a href="#4-2-为什么要三次握手？" class="headerlink" title="4.2 为什么要三次握手？"></a>4.2 为什么要三次握手？</h4><p>三次握手的目的是建立可靠的通信信道，通讯就是数据的发送和接收，也就是说三次握手的主要目的是<strong>双方确认自己和对方的发送与接收功能是正常的。</strong>故三次握手的含义如下：</p>
+<ul>
+<li>第一次握手：客户端什么都确认不了；服务端确认了对方发送正常</li>
+<li>第二次握手：客户端可以确认：自己发送、接收正常，对方发送、接收正常；服务端可以确认，自己接收正常，对方发送正常</li>
+<li>第三次握手：客户端已经确认过自己收发正常，对方收发正常；服务器端收到确认包后可以确认，自己发送、接收正常，对方发送接收也正常</li>
+</ul>
+<blockquote>
+<p>所以只需三次握手就能确认双方收发功能是否正常</p>
+</blockquote>
+<h5 id="4-2-1-第二次握手中，传了SYN，为什么还要传ACK"><a href="#4-2-1-第二次握手中，传了SYN，为什么还要传ACK" class="headerlink" title="4.2.1 第二次握手中，传了SYN，为什么还要传ACK"></a>4.2.1 第二次握手中，传了SYN，为什么还要传ACK</h5><p>双方通信无误必须是两者互相发送信息都无误。传了SYN，证明发送方到接收方的通道是没有问题，但是接收方到发送方的通道还需要ACK信号来验证。</p>
+<h4 id="4-3-四次挥手"><a href="#4-3-四次挥手" class="headerlink" title="4.3 四次挥手"></a>4.3 四次挥手</h4><p>断开一个TCP连接需进行“四次挥手”。</p>
+<p>详细图解如下：</p>
+<p><img src="https://zero024.oss-cn-hangzhou.aliyuncs.com/Figure_bed/2020-03-03/fd289bc9b3904ba8831b5dcbb511824d-TCP_四次挥手.gif" alt="四次挥手"></p>
+<p>文字流程：</p>
+<ul>
+<li>客户端发送一个FIN，用来关闭客户端到服务器的数据传送，客户端进入<code>FIN_WAIT_1</code>状态；</li>
+<li>服务器收到这个FIN，回发一个ACK，确认序号为收到的序号加1，此时服务器进入<code>CLOSE_WAIT</code>状态，客户端进入<code>FIN_WAIT_2</code>状态。</li>
+<li>服务器发送一个FIN，用来关闭服务器到客户端的数据传送，服务器进入<code>LAST_ACK</code>状态。</li>
+<li>客户端收到FIN后，进入<code>TIME_WAIT</code>状态，接着回发一个ACK给服务器；服务器进入<code>CLOSED</code>状态，客户端在经过2MSL后也会进入<code>CLOSED</code>状态，完成四次挥手。</li>
+</ul>
+<p>举个栗子：</p>
+<p>我和朋友打电话，通话即将结束时，我说：“我没啥要说的了”，朋友回答：“好的，我知道了”，但是朋友可能还要话要讲，所以我不能直接挂断电话，于是朋友又说了一些话，最后朋友回答：“我说完了”，我回答：“知道了，那我挂了”，这样通信才算结束。</p>
 
             </div>
             <hr>
@@ -614,7 +600,7 @@ description: 附加一段文章摘要，字数最好在140字以内，会出现�
                     </span>
                     <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/Other/undefined.html" class="b-link-green">Hexo+Git搭建个人博客</a>
+                    <a href="/Interview/computer-networks.html" class="b-link-green">OSI7层模型和TCP/IP四层模型简要总结</a>
                 </p>
             </div>
         </div>
@@ -636,7 +622,7 @@ description: 附加一段文章摘要，字数最好在140字以内，会出现�
         repo: 'blog-comments',
         owner: 'zero6996',
         admin: "zero6996",
-        id: '2018-12-04T09-48-13',
+        id: '2020-03-02T19-00-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -661,29 +647,30 @@ description: 附加一段文章摘要，字数最好在140字以内，会出现�
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/JavaBasics/undefined.html">
+                <a href="/FrameWork/SpringBoot-Basic.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java基础">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="SpringBoot简单入门">
                         
-                        <span class="card-title">Java基础</span>
+                        <span class="card-title">SpringBoot简单入门</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Java简介参考Runoob
-搭建开发环境
-JVM(Java Virtual Machine):Java虚拟机，简称JVM，是运行所有Java程序的假想计算机，是Java程序的运行环境，是Java最具吸引力的特性之一。我们编写的Java代码</div>
+                    <div class="summary">SpringBoot简单入门Spring是一个JavaWeb开发框架，极大的简化开发，降低了对配置文件的要求；能迅速的开发web应用，几行代码就可以开发一个http接口。
+
+1. 创建简单项目
+点击菜单-&gt;New-&gt;Projec</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-10
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-03-08
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
-                                    JavaBasics
+                            <a href="/categories/FrameWork/" class="post-category" target="_blank">
+                                    FrameWork
                                 </a>
                             
                             
@@ -693,8 +680,8 @@ JVM(Java Virtual Machine):Java虚拟机，简称JVM，是运行所有Java程序�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/" target="_blank">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/tags/SpringBoot/" target="_blank">
+                        <span class="chip bg-color">SpringBoot</span>
                     </a>
                     
                 </div>
@@ -705,27 +692,25 @@ JVM(Java Virtual Machine):Java虚拟机，简称JVM，是运行所有Java程序�
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/Other/undefined.html">
+                <a href="/Other/hexo-Deployed-to-coding.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Hexo+Git搭建个人博客">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Hexo部署至coding">
                         
-                        <span class="card-title">Hexo+Git搭建个人博客</span>
+                        <span class="card-title">Hexo部署至coding</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">前言基于hexo+github pages服务搭建博客,快速,便捷,免费的搭建属于自己的个人博客
-1.准备工作在开始一切之前,你必须已经:
+                    <div class="summary">前言因本人的hexo是部署至github的，现在换了个主题图片有点多，导致访问速度非常慢，故想到部署到国内的服务器上，所以找到了coding，准备把hexo也同步部署到coding上去。
 
-有一个github账号,没有的话去注册一个
-电脑 安装 了node.js,npm,并了解相关基础知</div>
+本文章记录了如何将hexo部署至coding，从而</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-12-04
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-02-29
                             </span>
                         <span class="publish-author">
                             
@@ -739,7 +724,6 @@ JVM(Java Virtual Machine):Java虚拟机，简称JVM，是运行所有Java程序�
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
