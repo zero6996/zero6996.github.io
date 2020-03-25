@@ -4,6 +4,7 @@ date: 2019-10-28 22:48:13 # 文章生成时间,可任意修改
 categories: Other # 分类
 tags: [Git]
 description: git简单使用速查
+urlname: git-basic
 ---
 
 

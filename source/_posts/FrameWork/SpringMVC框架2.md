@@ -4,6 +4,7 @@ date: 2019-9-4 23:59
 categories: FrameWork
 tags: [SpringMVC]
 description: SpringMVC响应数据、文件上传、拦截器等内容
+urlname: SpringMVC-Response-Data
 ---
 
 

@@ -4,6 +4,7 @@ date: 2020-3-8 09:00
 categories: FrameWork
 tags: [SpringBoot]
 description: SpringBoot的简单入门和一些遇到的问题及解决方法
+urlname: SpringBoot-Basic
 ---
 
 

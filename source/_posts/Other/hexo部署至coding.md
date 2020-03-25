@@ -4,6 +4,7 @@ date: 2020-02-29 19:23:13
 categories: Other
 tags: [Hexo]
 description: 将hexo部署到coding上，以及域名解析
+urlname: hexo-Deployed-to-coding
 ---
 
 

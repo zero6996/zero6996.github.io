@@ -4,6 +4,7 @@ date: 2019-8-7 20:28
 categories: FrameWork
 tags: [Spring]
 description: SpringBean管理
+urlname: Spring-Bean
 ---
 
 

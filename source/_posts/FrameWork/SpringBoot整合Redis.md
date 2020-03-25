@@ -3,6 +3,7 @@ title: 趟坑之路-[SpringBoot整合Redis做缓存]
 date: 2020-03-14 14:00
 categories: FrameWork
 tags: [SpringBoot,Redis]
+urlname: Springboot-Integrate-Redis
 ---
 
 

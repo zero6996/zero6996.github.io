@@ -4,6 +4,7 @@ date: 2019-9-5 23:00
 categories: FrameWork
 tags: [SpringMVC]
 description: SSM整合小项目，主要学习如何配置整合SSM
+urlname: SSM
 ---
 
 

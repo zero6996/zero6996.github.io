@@ -4,6 +4,7 @@ date: 2019-8-29 23:10
 categories: FrameWork
 tags: [SpringMVC]
 description: SpringMVC基础入门
+urlname: SpringMVC-Basic
 ---
 
 

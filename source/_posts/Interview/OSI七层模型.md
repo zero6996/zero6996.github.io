@@ -4,6 +4,7 @@ date: 2020-3-2 19:00
 categories: Interview
 tags: [计算机网络]
 description: OSI开放式互联参考模型、TCP/IP四层模型及面试题
+urlname: computer-networks
 ---
 
 

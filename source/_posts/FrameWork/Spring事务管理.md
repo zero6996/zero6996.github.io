@@ -4,6 +4,7 @@ date: 2019-8-18 23:52
 categories: FrameWork
 tags: [Spring]
 description: Spring的事务管理
+urlname: Spring-Transaction
 ---
 
 

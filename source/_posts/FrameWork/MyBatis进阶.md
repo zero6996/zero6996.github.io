@@ -4,6 +4,7 @@ date: 2019-8-24 23:59
 categories: FrameWork
 tags: [MyBatis]
 description: Mybatis进阶知识点
+urlname: MyBatis-advanced
 ---
 
 

@@ -4,6 +4,7 @@ date: 2019-8-11 23:28
 categories: FrameWork
 tags: [Spring]
 description: 使用Spring组件JDBC Template简化持久化操作
+urlname: JDBC
 ---
 
 
