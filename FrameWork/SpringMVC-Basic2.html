@@ -412,14 +412,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        6.6k
+                        7.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        27 分
+                        35 分
                     </div>
                     
                 
@@ -502,135 +502,146 @@
 <blockquote>
 <p>OGNL是对象 - 图形导航语言的缩写，它是一种功能强大的表达式语言，可以存取对象的任意属性，调用对象的方法，遍历整个对象的结构图，实现字段类型转化等功能。</p>
 </blockquote>
-<h2 id="2-SpringMVC入门"><a href="#2-SpringMVC入门" class="headerlink" title="2. SpringMVC入门"></a>2. SpringMVC入门</h2><h3 id="2-1-SpringMVC入门案例"><a href="#2-1-SpringMVC入门案例" class="headerlink" title="2.1 SpringMVC入门案例"></a>2.1 SpringMVC入门案例</h3><h4 id="1-创建Web工程，引入开发相关的jar包"><a href="#1-创建Web工程，引入开发相关的jar包" class="headerlink" title="1. 创建Web工程，引入开发相关的jar包"></a>1. 创建Web工程，引入开发相关的jar包</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project.build.sourceEncoding</span><span class="token punctuation">></span></span>UTF-8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project.build.sourceEncoding</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>maven.compiler.source</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>maven.compiler.source</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>maven.compiler.target</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>maven.compiler.target</span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--版本锁定--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spring.version</span><span class="token punctuation">></span></span>5.0.2.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>spring.version</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
+<h2 id="2-SpringMVC入门"><a href="#2-SpringMVC入门" class="headerlink" title="2. SpringMVC入门"></a>2. SpringMVC入门</h2><h3 id="2-1-SpringMVC入门案例"><a href="#2-1-SpringMVC入门案例" class="headerlink" title="2.1 SpringMVC入门案例"></a>2.1 SpringMVC入门案例</h3><h4 id="1-创建Web工程，引入开发相关的jar包"><a href="#1-创建Web工程，引入开发相关的jar包" class="headerlink" title="1. 创建Web工程，引入开发相关的jar包"></a>1. 创建Web工程，引入开发相关的jar包</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;
+    &lt;maven.compiler.source&gt;1.8&lt;&#x2F;maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;1.8&lt;&#x2F;maven.compiler.target&gt;
+    &lt;!--版本锁定--&gt;
+    &lt;spring.version&gt;5.0.2.RELEASE&lt;&#x2F;spring.version&gt;
+&lt;&#x2F;properties&gt;
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--引入spring相关jar包--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-context<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${spring.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-web<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${spring.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-webmvc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${spring.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>javax.servlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>servlet-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>provided<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>javax.servlet.jsp<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jsp-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>provided<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;dependencies&gt;
+    &lt;!--引入spring相关jar包--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
+        &lt;artifactId&gt;spring-context&lt;&#x2F;artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;&#x2F;version&gt;
+    &lt;&#x2F;dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
+        &lt;artifactId&gt;spring-web&lt;&#x2F;artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;&#x2F;version&gt;
+    &lt;&#x2F;dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
+        &lt;artifactId&gt;spring-webmvc&lt;&#x2F;artifactId&gt;
+        &lt;version&gt;${spring.version}&lt;&#x2F;version&gt;
+    &lt;&#x2F;dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet&lt;&#x2F;groupId&gt;
+        &lt;artifactId&gt;servlet-api&lt;&#x2F;artifactId&gt;
+        &lt;version&gt;2.5&lt;&#x2F;version&gt;
+        &lt;scope&gt;provided&lt;&#x2F;scope&gt;
+    &lt;&#x2F;dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet.jsp&lt;&#x2F;groupId&gt;
+        &lt;artifactId&gt;jsp-api&lt;&#x2F;artifactId&gt;
+        &lt;version&gt;2.0&lt;&#x2F;version&gt;
+        &lt;scope&gt;provided&lt;&#x2F;scope&gt;
+    &lt;&#x2F;dependency&gt;
+&lt;&#x2F;dependencies&gt;
+</code></pre>
 <h4 id="2-配置核心控制器-DispatcherServlet"><a href="#2-配置核心控制器-DispatcherServlet" class="headerlink" title="2. 配置核心控制器(DispatcherServlet)"></a>2. 配置核心控制器(DispatcherServlet)</h4><ul>
 <li>在web.xml中配置前端控制器</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--配置核心前端控制器--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>DispatcherServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-class</span><span class="token punctuation">></span></span>org.springframework.web.servlet.DispatcherServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-class</span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--加载mvc配置文件--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>init-param</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-name</span><span class="token punctuation">></span></span>contextConfigLocation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-name</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-value</span><span class="token punctuation">></span></span>classpath:SpringMVC.xml<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-value</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>init-param</span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--启动服务器就自动加载配置文件，生成对象--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>load-on-startup</span><span class="token punctuation">></span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>load-on-startup</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet</span><span class="token punctuation">></span></span>
-<span class="token comment" spellcheck="true">&lt;!--配置控制器映射，拦截所有请求--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-mapping</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>DispatcherServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-mapping</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="3-编写SpringMVC-xml的配置文件"><a href="#3-编写SpringMVC-xml的配置文件" class="headerlink" title="3. 编写SpringMVC.xml的配置文件"></a>3. 编写SpringMVC.xml的配置文件</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xmlns:</span>mvc</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/mvc<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xmlns:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/context<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-    <span class="token comment" spellcheck="true">&lt;!--开启注解扫描--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">context:</span>component-scan</span> <span class="token attr-name">base-package</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cn.zero.controller<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--配置核心前端控制器--&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;&#x2F;servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;&#x2F;servlet-class&gt;
+    &lt;!--加载mvc配置文件--&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;&#x2F;param-name&gt;
+        &lt;param-value&gt;classpath:SpringMVC.xml&lt;&#x2F;param-value&gt;
+    &lt;&#x2F;init-param&gt;
+    &lt;!--启动服务器就自动加载配置文件，生成对象--&gt;
+    &lt;load-on-startup&gt;1&lt;&#x2F;load-on-startup&gt;
+&lt;&#x2F;servlet&gt;
+&lt;!--配置控制器映射，拦截所有请求--&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;&#x2F;servlet-name&gt;
+    &lt;url-pattern&gt;&#x2F;&lt;&#x2F;url-pattern&gt;
+&lt;&#x2F;servlet-mapping&gt;
+</code></pre>
+<h4 id="3-编写SpringMVC-xml的配置文件"><a href="#3-编写SpringMVC-xml的配置文件" class="headerlink" title="3. 编写SpringMVC.xml的配置文件"></a>3. 编写SpringMVC.xml的配置文件</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
+       xmlns:mvc=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&quot;
+       xmlns:context=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;
+       xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;
+        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans
+        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd
+        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc
+        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&#x2F;spring-mvc.xsd
+        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context
+        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd&quot;&gt;
 
-    <span class="token comment" spellcheck="true">&lt;!--配置视图解析器对象--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>internalResourceViewResolver<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.web.servlet.view.InternalResourceViewResolver<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token comment" spellcheck="true">&lt;!--配置前缀后缀，访问路径等于：/WEB-INF/pages/xxx.jsp--></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prefix<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/WEB-INF/pages/<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>suffix<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>.jsp<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+    &lt;!--开启注解扫描--&gt;
+    &lt;context:component-scan base-package=&quot;cn.zero.controller&quot;&#x2F;&gt;
 
-    <span class="token comment" spellcheck="true">&lt;!--开启SpringMVC框架注解的支持--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>annotation-driven</span><span class="token punctuation">/></span></span>
+    &lt;!--配置视图解析器对象--&gt;
+    &lt;bean id=&quot;internalResourceViewResolver&quot; class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+        &lt;!--配置前缀后缀，访问路径等于：&#x2F;WEB-INF&#x2F;pages&#x2F;xxx.jsp--&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;&#x2F;WEB-INF&#x2F;pages&#x2F;&quot;&#x2F;&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;&#x2F;&gt;
+    &lt;&#x2F;bean&gt;
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &lt;!--开启SpringMVC框架注解的支持--&gt;
+    &lt;mvc:annotation-driven&#x2F;&gt;
+
+&lt;&#x2F;beans&gt;
+</code></pre>
 <h4 id="4-编写index-jsp和HelloController控制器类"><a href="#4-编写index-jsp和HelloController控制器类" class="headerlink" title="4. 编写index.jsp和HelloController控制器类"></a>4. 编写index.jsp和HelloController控制器类</h4><ul>
 <li>index.jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><%@ page="" contenttype="text/html;charset=UTF-8" language="java" %="">
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-    <title>主页</title>
-</head>
-<body>
 
-<h3>SpringMVC快速入门</h3>
-<a href="/hello">入门程序</a>
-</body>
-</html>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;主页&lt;&#x2F;title&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></%@></code></pre>
+&lt;h3&gt;SpringMVC快速入门&lt;&#x2F;h3&gt;
+&lt;a href=&quot;&#x2F;hello&quot;&gt;入门程序&lt;&#x2F;a&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+</code></pre>
 <ul>
 <li>HelloController</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 控制器类</span>
-<span class="token annotation punctuation">@Controller</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloController</span> <span class="token punctuation">{</span>
 
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 控制器类
+@Controller
+public class HelloController {
 
-    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/hello"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> String <span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Hello SpringMVC!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="5-在WEB-INF下创建pages文件夹，编写success-jsp的成功页面"><a href="#5-在WEB-INF下创建pages文件夹，编写success-jsp的成功页面" class="headerlink" title="5. 在WEB-INF下创建pages文件夹，编写success.jsp的成功页面"></a>5. 在WEB-INF下创建pages文件夹，编写success.jsp的成功页面</h4><pre class="line-numbers language-jsp"><code class="language-jsp"><%@ page="" contenttype="text/html;charset=UTF-8" language="java" %="">
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-    <title>访问成功</title>
-</head>
-<body>
-<h3>入门程序访问成功</h3>
-</body>
-</html>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></%@></code></pre>
+    
+    @RequestMapping(&quot;&#x2F;hello&quot;)
+    public String sayHello(){
+        System.out.println(&quot;Hello SpringMVC!&quot;);
+        return &quot;success&quot;;
+    }
+}
+</code></pre>
+<h4 id="5-在WEB-INF下创建pages文件夹，编写success-jsp的成功页面"><a href="#5-在WEB-INF下创建pages文件夹，编写success-jsp的成功页面" class="headerlink" title="5. 在WEB-INF下创建pages文件夹，编写success.jsp的成功页面"></a>5. 在WEB-INF下创建pages文件夹，编写success.jsp的成功页面</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;访问成功&lt;&#x2F;title&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+&lt;h3&gt;入门程序访问成功&lt;&#x2F;h3&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+</code></pre>
 <h4 id="6-启动服务器"><a href="#6-启动服务器" class="headerlink" title="6. 启动服务器"></a>6. 启动服务器</h4><p>访问localhost/index.jsp，点击入门程序，查看是否正常跳转。</p>
 <h3 id="2-2-入门案例的执行过程及原理分析"><a href="#2-2-入门案例的执行过程及原理分析" class="headerlink" title="2.2 入门案例的执行过程及原理分析"></a>2.2 入门案例的执行过程及原理分析</h3><h4 id="2-2-1-入门案例的执行流程"><a href="#2-2-1-入门案例的执行流程" class="headerlink" title="2.2.1 入门案例的执行流程"></a>2.2.1 入门案例的执行流程</h4><ol>
 <li>当启动Tomcat服务器的时候，因为配置了load-on-startup标签，所以会创建DispatcherServlet对象，<br>就会加载springmvc.xml配置文件</li>
@@ -722,163 +733,185 @@
 <h4 id="3-1-4-绑定参数示例"><a href="#3-1-4-绑定参数示例" class="headerlink" title="3.1.4 绑定参数示例"></a>3.1.4 绑定参数示例</h4><h5 id="1-基本类型和String类型作为参数"><a href="#1-基本类型和String类型作为参数" class="headerlink" title="1. 基本类型和String类型作为参数"></a>1. 基本类型和String类型作为参数</h5><ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testParam"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">testParam</span><span class="token punctuation">(</span>String username<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"用户名："</span><span class="token operator">+</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@RequestMapping(&quot;&#x2F;testParam&quot;)
+public String testParam(String username){
+    System.out.println(&quot;用户名：&quot;+username);
+    return &quot;success&quot;;
+}
+</code></pre>
 <ul>
 <li>jsp代码</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><a href="param/testParam?username=xiaoming">请求参数绑定</a>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;a href=&quot;param&#x2F;testParam?username=xiaoming&quot;&gt;请求参数绑定&lt;&#x2F;a&gt;
+</code></pre>
 <h5 id="2-POJO类型作为参数"><a href="#2-POJO类型作为参数" class="headerlink" title="2. POJO类型作为参数"></a>2. POJO类型作为参数</h5><ul>
 <li>需创建实体类Account和User，User类作为账户类的参数。</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Account</span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> String username<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Double money<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> User user<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Account implements Serializable {
+    private String username;
+    private String password;
+    private Double money;
+    private User user;
+}
+public class User {
+    private String name;
+    private Integer age;
+}
+</code></pre>
 <ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
      * 接收参数，封装为POJO类型
      * @param account
      * @return
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"/testPojo"</span><span class="token punctuation">,</span>method <span class="token operator">=</span> RequestMethod<span class="token punctuation">.</span>POST<span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">testPojo</span><span class="token punctuation">(</span>Account account<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>account<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+@RequestMapping(value = &quot;&#x2F;testPojo&quot;,method = RequestMethod.POST)
+public String testPojo(Account account){
+    System.out.println(account);
+    return &quot;success&quot;;
+}
+</code></pre>
 <ul>
 <li>Jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><form action="/param/testPojo" method="post">
-    用户名：<input type="text" name="username"><br>
-    密码：<input type="password" name="password"><br>
-    余额：<input type="text" name="money"><br>
-    真实姓名：<input type="text" name="user.name"><br>
-    年龄：<input type="text" name="user.age"><br>
-    <input type="submit" value="提交">
-</form>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;form action=&quot;&#x2F;param&#x2F;testPojo&quot; method=&quot;post&quot;&gt;
+    用户名：&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&gt;
+    密码：&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;br&gt;
+    余额：&lt;input type=&quot;text&quot; name=&quot;money&quot;&gt;&lt;br&gt;
+    真实姓名：&lt;input type=&quot;text&quot; name=&quot;user.name&quot;&gt;&lt;br&gt;
+    年龄：&lt;input type=&quot;text&quot; name=&quot;user.age&quot;&gt;&lt;br&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;
+&lt;&#x2F;form&gt;
+</code></pre>
 <ul>
 <li>访问结果：<code>Account{username=&#39;admin&#39;, password=&#39;123&#39;, money=333.0, user=User{name=&#39;xiaoming&#39;, age=22}}</code></li>
 </ul>
 <h5 id="3-POJO类中包含集合类型参数"><a href="#3-POJO类中包含集合类型参数" class="headerlink" title="3. POJO类中包含集合类型参数"></a>3. POJO类中包含集合类型参数</h5><ul>
 <li>修改Account类</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Account</span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> String username<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Double money<span class="token punctuation">;</span>
 
-    <span class="token comment" spellcheck="true">// 演示绑定POJO对象</span>
-<span class="token comment" spellcheck="true">//    private User user;</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Account implements Serializable {
+    private String username;
+    private String password;
+    private Double money;
 
-    <span class="token comment" spellcheck="true">// POJO类中包含集合类型参数</span>
-    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>User<span class="token operator">></span> list<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>User<span class="token operator">></span> map<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;&#x2F; 演示绑定POJO对象
+&#x2F;&#x2F;    private User user;
+
+    &#x2F;&#x2F; POJO类中包含集合类型参数
+    private List&lt;User&gt; list;
+    private Map&lt;String,User&gt; map;
+}
+</code></pre>
 <ul>
 <li>控制器添加方法</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
      * POJO类中包含集合类型参数
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"/testSetType"</span><span class="token punctuation">,</span>method <span class="token operator">=</span> RequestMethod<span class="token punctuation">.</span>POST<span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">testSetType</span><span class="token punctuation">(</span>Account account<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>account<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+@RequestMapping(value = &quot;&#x2F;testSetType&quot;,method = RequestMethod.POST)
+public String testSetType(Account account){
+    System.out.println(account);
+    return &quot;success&quot;;
+}
+</code></pre>
 <ul>
 <li>Jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>POJO类中包含集合类型参数</h3>
-<form action="/param/testSetType" method="post">
-    用户名：<input type="text" name="username"><br>
-    密码：<input type="password" name="password"><br>
-    余额：<input type="text" name="money"><br>
-    <h4>封装到list集合中</h4>
-    真实姓名：<input type="text" name="list[0].name"><br>
-    年龄：<input type="text" name="list[0].age"><br>
-    <h4>封装到map集合中</h4>
-    真实姓名：<input type="text" name="map['user'].name"><br>
-    年龄：<input type="text" name="map['user'].age"><br>
-    <input type="submit" value="提交">
-</form>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;POJO类中包含集合类型参数&lt;&#x2F;h3&gt;
+&lt;form action=&quot;&#x2F;param&#x2F;testSetType&quot; method=&quot;post&quot;&gt;
+    用户名：&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&gt;
+    密码：&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;br&gt;
+    余额：&lt;input type=&quot;text&quot; name=&quot;money&quot;&gt;&lt;br&gt;
+    &lt;h4&gt;封装到list集合中&lt;&#x2F;h4&gt;
+    真实姓名：&lt;input type=&quot;text&quot; name=&quot;list[0].name&quot;&gt;&lt;br&gt;
+    年龄：&lt;input type=&quot;text&quot; name=&quot;list[0].age&quot;&gt;&lt;br&gt;
+    &lt;h4&gt;封装到map集合中&lt;&#x2F;h4&gt;
+    真实姓名：&lt;input type=&quot;text&quot; name=&quot;map[&#39;user&#39;].name&quot;&gt;&lt;br&gt;
+    年龄：&lt;input type=&quot;text&quot; name=&quot;map[&#39;user&#39;].age&quot;&gt;&lt;br&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;
+&lt;&#x2F;form&gt;
+</code></pre>
 <ul>
 <li>访问结果：<code>Account{username=&#39;admin&#39;, password=&#39;111&#39;, money=333.0, list=[User{name=&#39;小明&#39;, age=22}], map={user=User{name=&#39;小李&#39;, age=21}}}</code></li>
 </ul>
 <h5 id="4-POST请求参数中文乱码问题"><a href="#4-POST请求参数中文乱码问题" class="headerlink" title="4. POST请求参数中文乱码问题"></a>4. POST请求参数中文乱码问题</h5><p>在web.xml中，添加过滤器</p>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--添加过滤器，解决POST中文乱码问题--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-name</span><span class="token punctuation">></span></span>characterEncodingFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-name</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-class</span><span class="token punctuation">></span></span>org.springframework.web.filter.CharacterEncodingFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-class</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>init-param</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-name</span><span class="token punctuation">></span></span>encoding<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-name</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-value</span><span class="token punctuation">></span></span>UTF-8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-value</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>init-param</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-mapping</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-name</span><span class="token punctuation">></span></span>characterEncodingFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-name</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-mapping</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--添加过滤器，解决POST中文乱码问题--&gt;
+&lt;filter&gt;
+    &lt;filter-name&gt;characterEncodingFilter&lt;&#x2F;filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;&#x2F;filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;encoding&lt;&#x2F;param-name&gt;
+        &lt;param-value&gt;UTF-8&lt;&#x2F;param-value&gt;
+    &lt;&#x2F;init-param&gt;
+&lt;&#x2F;filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;characterEncodingFilter&lt;&#x2F;filter-name&gt;
+    &lt;url-pattern&gt;&#x2F;*&lt;&#x2F;url-pattern&gt;
+&lt;&#x2F;filter-mapping&gt;
+</code></pre>
 <h3 id="3-2-特殊情况"><a href="#3-2-特殊情况" class="headerlink" title="3.2 特殊情况"></a>3.2 特殊情况</h3><p>如果User类中有一个Date参数，在表单提交时日期格式不正确，封装POJO对象就会失败，这时就需要自己定义一个类型转换器。 </p>
 <h4 id="3-2-1-自定义类型转换器"><a href="#3-2-1-自定义类型转换器" class="headerlink" title="3.2.1 自定义类型转换器"></a>3.2.1 自定义类型转换器</h4><p>表单提交的任何数据类型全部都是字符串类型，但是后台定义Integer类型，数据也可以封装上，说明Spring框架内部会默认进行数据类型转换。如果想自定义数据类型转换，可以实现Converter的接口</p>
-<h5 id="1-第一步：定义一个类，实现Converter接口，该接口有两个泛型。"><a href="#1-第一步：定义一个类，实现Converter接口，该接口有两个泛型。" class="headerlink" title="1. 第一步：定义一个类，实现Converter接口，该接口有两个泛型。"></a>1. 第一步：定义一个类，实现Converter接口，该接口有两个泛型。</h5><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+<h5 id="1-第一步：定义一个类，实现Converter接口，该接口有两个泛型。"><a href="#1-第一步：定义一个类，实现Converter接口，该接口有两个泛型。" class="headerlink" title="1. 第一步：定义一个类，实现Converter接口，该接口有两个泛型。"></a>1. 第一步：定义一个类，实现Converter接口，该接口有两个泛型。</h5>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
  * 将字符串类型转换为日期格式
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StringToDateConverter</span> <span class="token keyword">implements</span> <span class="token class-name">Converter</span><span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Date<span class="token operator">></span> <span class="token punctuation">{</span>
+ *&#x2F;
+public class StringToDateConverter implements Converter&lt;String, Date&gt; {
 
-    <span class="token comment" spellcheck="true">/**
+    &#x2F;**
      * @param source 传入的字符串参数
      * @return
-     */</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> Date <span class="token function">convert</span><span class="token punctuation">(</span>String source<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>source <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"please entry param！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        DateFormat df <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SimpleDateFormat</span><span class="token punctuation">(</span><span class="token string">"yyyy-MM-dd"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 把字符串转换为日期</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> df<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>source<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"Data switch Error！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="2-在SpringMVC-xml中配置类型转换器"><a href="#2-在SpringMVC-xml中配置类型转换器" class="headerlink" title="2. 在SpringMVC.xml中配置类型转换器"></a>2. 在SpringMVC.xml中配置类型转换器</h5><pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--配置自定义类型转换器--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>conversionService<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.context.support.ConversionServiceFactoryBean<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--注册转换器类--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>converters<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>set</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cn.zero.utils.StringToDateConverter<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>set</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+     *&#x2F;
+    @Override
+    public Date convert(String source) {
+        if (source == null){
+            throw new RuntimeException(&quot;please entry param！&quot;);
+        }
+        DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
+        &#x2F;&#x2F; 把字符串转换为日期
+        try {
+            return df.parse(source);
+        } catch (Exception e) {
+            throw new RuntimeException(&quot;Data switch Error！&quot;);
+        }
+    }
+}
+</code></pre>
+<h5 id="2-在SpringMVC-xml中配置类型转换器"><a href="#2-在SpringMVC-xml中配置类型转换器" class="headerlink" title="2. 在SpringMVC.xml中配置类型转换器"></a>2. 在SpringMVC.xml中配置类型转换器</h5>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--配置自定义类型转换器--&gt;
+&lt;bean id=&quot;conversionService&quot; class=&quot;org.springframework.context.support.ConversionServiceFactoryBean&quot;&gt;
+    &lt;!--注册转换器类--&gt;
+    &lt;property name=&quot;converters&quot;&gt;
+        &lt;set&gt;
+            &lt;bean class=&quot;cn.zero.utils.StringToDateConverter&quot;&#x2F;&gt;
+        &lt;&#x2F;set&gt;
+    &lt;&#x2F;property&gt;
+&lt;&#x2F;bean&gt;
 
-<span class="token comment" spellcheck="true">&lt;!--开启SpringMVC框架注解的支持
-    配置一下让转换器生效--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>annotation-driven</span> <span class="token attr-name">conversion-service</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>conversionService<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;!--开启SpringMVC框架注解的支持
+	配置一下让转换器生效--&gt;
+&lt;mvc:annotation-driven conversion-service=&quot;conversionService&quot;&#x2F;&gt;
+</code></pre>
 <ul>
 <li>重启服务器在测试一下，就支持<code>yyyy-MM-dd</code>的日期格式了。</li>
 </ul>
@@ -887,27 +920,29 @@
 <ul>
 <li>在控制器中新增方法</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
-     * 测试获取ServetlAPI
-     * @param request
-     * @param response
-     * @param session
-     * @return
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testServletAPI"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">testServletAPI</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span>
-                             HttpServletResponse response<span class="token punctuation">,</span>
-                             HttpSession session<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>session<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">  &#x2F;**
+       * 测试获取ServetlAPI
+       * @param request
+       * @param response
+       * @param session
+       * @return
+       *&#x2F;
+  @RequestMapping(&quot;&#x2F;testServletAPI&quot;)
+  public String testServletAPI(HttpServletRequest request,
+                               HttpServletResponse response,
+                               HttpSession session){
+      System.out.println(request);
+      System.out.println(response);
+      System.out.println(session);
+      return &quot;success&quot;;
+  }
+</code></pre>
+</li>
+</ul>
 <ul>
 <li>jsp代码：<code>&lt;a href=&quot;/param/testServletAPI&quot;&gt;测试访问ServletAPI&lt;/a&gt;</code></li>
-</ul>
-</li>
 </ul>
 <h2 id="4-常用注解"><a href="#4-常用注解" class="headerlink" title="4. 常用注解"></a>4. 常用注解</h2><h3 id="4-1-RequestParam"><a href="#4-1-RequestParam" class="headerlink" title="4.1 @RequestParam"></a>4.1 @RequestParam</h3><h4 id="1-使用说明"><a href="#1-使用说明" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><ul>
 <li>作用：把请求中指定名称的参数给控制器中的形参赋值</li>
@@ -920,32 +955,36 @@
 <h4 id="2-示例"><a href="#2-示例" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Controller</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"anno"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AnnotationController</span> <span class="token punctuation">{</span>
 
-    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/useRequestParam"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> String <span class="token function">useRequestParam</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestParam</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span> String username<span class="token punctuation">,</span>
-                                  <span class="token annotation punctuation">@RequestParam</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"age"</span><span class="token punctuation">,</span>required <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span> Integer age<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>username<span class="token operator">+</span><span class="token string">":"</span><span class="token operator">+</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@Controller
+@RequestMapping(&quot;anno&quot;)
+public class AnnotationController {
+
+    @RequestMapping(&quot;&#x2F;useRequestParam&quot;)
+    public String useRequestParam(@RequestParam(&quot;name&quot;) String username,
+                                  @RequestParam(value = &quot;age&quot;,required = false) Integer age){
+        System.out.println(username+&quot;:&quot;+age);
+        return &quot;success&quot;;
+    }
+}
+</code></pre>
 <ul>
 <li>jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><%@ page="" contenttype="text/html;charset=UTF-8" language="java" %="">
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-    <title>常用注解测试</title>
-</head>
-<body>
-<h2>1. 测试requestParam注解的使用</h2>
-<a href="/anno/useRequestParam?name=xiaoming">@RequestParam注解</a>
-</body>
-</html>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></%@></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;常用注解测试&lt;&#x2F;title&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+&lt;h2&gt;1. 测试requestParam注解的使用&lt;&#x2F;h2&gt;
+&lt;a href=&quot;&#x2F;anno&#x2F;useRequestParam?name=xiaoming&quot;&gt;@RequestParam注解&lt;&#x2F;a&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+</code></pre>
 <ul>
 <li>结果：<code>xiaoming:null</code>，因配置了required=false，故请求参数中无age不会报错。</li>
 </ul>
@@ -959,30 +998,34 @@
 <h4 id="2-示例-1"><a href="#2-示例-1" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
      * RequestBody:用于获取请求体内容。
      * @param body
      * @return
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/useRequestBody"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">useRequestBody</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span><span class="token punctuation">(</span>required <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span> String body<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+@RequestMapping(&quot;&#x2F;useRequestBody&quot;)
+public String useRequestBody(@RequestBody(required = false) String body){
+    System.out.println(body);
+    return &quot;success&quot;;
+}
+</code></pre>
 <ul>
 <li>jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>2. 测试@RequestBody注解使用</h3>
-<h5>POST请求测试</h5>
-<form action="/anno/useRequestBody" method="post">
-    用户名：<input type="text" name="name"><br>
-    年龄：<input type="text" name="age"><br>
-    <input type="submit" value="提交">
-</form>
-<h5>GET请求测试</h5>
-<a href="/anno/useRequestBody?body=test">requestBody注解get请求</a>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;2. 测试@RequestBody注解使用&lt;&#x2F;h3&gt;
+&lt;h5&gt;POST请求测试&lt;&#x2F;h5&gt;
+&lt;form action=&quot;&#x2F;anno&#x2F;useRequestBody&quot; method=&quot;post&quot;&gt;
+    用户名：&lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;&lt;br&gt;
+    年龄：&lt;input type=&quot;text&quot; name=&quot;age&quot;&gt;&lt;br&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;
+&lt;&#x2F;form&gt;
+&lt;h5&gt;GET请求测试&lt;&#x2F;h5&gt;
+&lt;a href=&quot;&#x2F;anno&#x2F;useRequestBody?body=test&quot;&gt;requestBody注解get请求&lt;&#x2F;a&gt;
+</code></pre>
 <ul>
 <li>测试结果：<ul>
 <li>POST请求：<code>name=xiaoming&amp;age=1</code></li>
@@ -997,40 +1040,44 @@
 <h4 id="2-示例-2"><a href="#2-示例-2" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testResponseBody"</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@ResponseBody</span>
-<span class="token keyword">public</span> Student <span class="token function">testResponseBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token string">"小明"</span><span class="token punctuation">,</span><span class="token string">"男"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@RequestMapping(&quot;&#x2F;testResponseBody&quot;)
+@ResponseBody
+public Student testResponseBody(){
+    return new Student(&quot;小明&quot;,&quot;男&quot;);
+}
+</code></pre>
 <ul>
 <li>访问页面结果：<code>{&quot;name&quot;:&quot;小明&quot;,&quot;sex&quot;:&quot;男&quot;}</code></li>
 <li>因返回值满足key-value(对象或map)格式，所以会自动将响应头的Content-Type设置为了<code>application/html;charset=utf-8</code>，然后把转换后的内容以输出流的形式响应给客户端。</li>
 </ul>
 <blockquote>
 <p>注意：使用该注解返回json数据还需额外jar包：jackson，依赖坐标如下</p>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--添加对json数据的支持 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
- <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.fasterxml.jackson.core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
- <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jackson-databind<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
- <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.8.3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
- <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.fasterxml.jackson.core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
- <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jackson-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
- <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.9.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code class="xml">&lt;!--添加对json数据的支持 --&gt;
+&lt;dependency&gt;
+ &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+ &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+ &lt;version&gt;2.8.3&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+ &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+ &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+ &lt;version&gt;2.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 </blockquote>
 <ul>
 <li>如果返回是字符串类型，控制器代码如下</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"/testResponseBody"</span><span class="token punctuation">,</span>produces <span class="token operator">=</span> <span class="token string">"text/html;charset=utf-8"</span><span class="token punctuation">)</span> 
-<span class="token annotation punctuation">@ResponseBody</span>
-<span class="token keyword">public</span> String <span class="token function">testResponseBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token string">"你好!"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@RequestMapping(value = &quot;&#x2F;testResponseBody&quot;,produces = &quot;text&#x2F;html;charset=utf-8&quot;) 
+@ResponseBody
+public String testResponseBody(){
+    return &quot;你好!&quot;;
+}
+</code></pre>
 <ul>
 <li>访问结果：<code>你好!</code></li>
 <li>如果返回值不能解析为json格式，注解就会将其直接以输出流形式输出到页面上。</li>
@@ -1049,21 +1096,25 @@
 <h4 id="2-示例-3"><a href="#2-示例-3" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
      * PathVaribale：用于绑定 url 中的占位符
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/usePathVariable/{id}"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">usePathVariable</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> Integer id<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+@RequestMapping(&quot;&#x2F;usePathVariable&#x2F;{id}&quot;)
+public String usePathVariable(@PathVariable(&quot;id&quot;) Integer id){
+    System.out.println(id);
+    return &quot;success&quot;;
+}
+</code></pre>
 <ul>
 <li>jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>3. 测试@PathVaribale注解</h3>
-<a href="/anno/usePathVariable/100">PathVariable注解的使用</a>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;3. 测试@PathVaribale注解&lt;&#x2F;h3&gt;
+&lt;a href=&quot;&#x2F;anno&#x2F;usePathVariable&#x2F;100&quot;&gt;PathVariable注解的使用&lt;&#x2F;a&gt;
+</code></pre>
 <ul>
 <li>测试结构：<code>100</code></li>
 </ul>
@@ -1100,28 +1151,32 @@
 <ul>
 <li>jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><!-- 更新 -->
-<form action="springmvc/testRestPUT/1" method="post">
-    用户名称：<input type="text" name="username"><br>
-    <input type="hidden" name="_method" value="PUT">
-    <input type="submit" value="更新">
-</form>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>控制器</li>
-</ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
-* put 请求：更新
-* @param username
-* @return
-*/</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">"/testRestPUT/{id}"</span><span class="token punctuation">,</span>method<span class="token operator">=</span>RequestMethod<span class="token punctuation">.</span>PUT<span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">testRestfulURLPUT</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span>Integer id<span class="token punctuation">,</span>User user<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"rest put "</span><span class="token operator">+</span>id<span class="token operator">+</span><span class="token string">","</span><span class="token operator">+</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">  &lt;!-- 更新 --&gt;
+  &lt;form action=&quot;springmvc&#x2F;testRestPUT&#x2F;1&quot; method=&quot;post&quot;&gt;
+      用户名称：&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&#x2F;&gt;
+      &lt;input type=&quot;hidden&quot; name=&quot;_method&quot; value=&quot;PUT&quot;&gt;
+      &lt;input type=&quot;submit&quot; value=&quot;更新&quot;&gt;
+  &lt;&#x2F;form&gt;
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>控制器</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">  &#x2F;**
+  * put 请求：更新
+  * @param username
+  * @return
+  *&#x2F;
+  @RequestMapping(value=&quot;&#x2F;testRestPUT&#x2F;{id}&quot;,method=RequestMethod.PUT)
+  public String testRestfulURLPUT(@PathVariable(&quot;id&quot;)Integer id,User user){
+      System.out.println(&quot;rest put &quot;+id+&quot;,&quot;+user);
+      return &quot;success&quot;;
+  }
+</code></pre>
 </li>
 </ul>
 <h3 id="4-5-RequestHeader"><a href="#4-5-RequestHeader" class="headerlink" title="4.5 @RequestHeader"></a>4.5 @RequestHeader</h3><h4 id="1-使用说明-4"><a href="#1-使用说明-4" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><ul>
@@ -1138,21 +1193,25 @@
 <h4 id="2-示例-4"><a href="#2-示例-4" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
      * RequestHeader：用于获取请求消息头。
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/useRequestHeader"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">useRequestHeader</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestHeader</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"Accept-Language"</span><span class="token punctuation">,</span>required <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>String requestHeader<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>requestHeader<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+@RequestMapping(&quot;&#x2F;useRequestHeader&quot;)
+public String useRequestHeader(@RequestHeader(value = &quot;Accept-Language&quot;,required = false)String requestHeader){
+    System.out.println(requestHeader);
+    return &quot;success&quot;;
+}
+</code></pre>
 <ul>
 <li>jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>4. 测试@RequestHeader注解</h3>
-<a href="/anno/useRequestHeader">获取请求消息头</a>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;4. 测试@RequestHeader注解&lt;&#x2F;h3&gt;
+&lt;a href=&quot;&#x2F;anno&#x2F;useRequestHeader&quot;&gt;获取请求消息头&lt;&#x2F;a&gt;
+</code></pre>
 <ul>
 <li>结果：<code>zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7</code></li>
 </ul>
@@ -1167,23 +1226,27 @@
 <h4 id="2-示例-5"><a href="#2-示例-5" class="headerlink" title="2. 示例"></a>2. 示例</h4><ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
      * @CookieValue：用于把指定cookie名称的值传入控制器方法参数。
      * @param cookieValue
      * @return
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/useCookieValue"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">useCookieValue</span><span class="token punctuation">(</span><span class="token annotation punctuation">@CookieValue</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"JSESSIONID"</span><span class="token punctuation">,</span>required <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>String cookieValue<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>cookieValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+@RequestMapping(&quot;&#x2F;useCookieValue&quot;)
+public String useCookieValue(@CookieValue(value = &quot;JSESSIONID&quot;,required = false)String cookieValue){
+    System.out.println(cookieValue);
+    return &quot;success&quot;;
+}
+</code></pre>
 <ul>
 <li>jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>5. 测试@CookieValue</h3>
-<a href="/anno/useCookieValue">绑定cookie的值</a>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;5. 测试@CookieValue&lt;&#x2F;h3&gt;
+&lt;a href=&quot;&#x2F;anno&#x2F;useCookieValue&quot;&gt;绑定cookie的值&lt;&#x2F;a&gt;
+</code></pre>
 <ul>
 <li>结果：<code>C8001453C280DF881950883018287F9C</code></li>
 </ul>
@@ -1207,119 +1270,142 @@
 <ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
-     * 出现在方法上：
-     *    被ModelAttribute 修饰的方法
-     *    当前方法会在控制器的方法执行之前，先执行。
-     * @param user
-     */</span>
-<span class="token annotation punctuation">@ModelAttribute</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">showModel</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行了showModel方法"</span><span class="token operator">+</span>user<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">/**
-     * 接收请求的方法
-     * @param user
-     * @return
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/testModelAttribute"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">testModelAttribute</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行了控制器的方法"</span><span class="token operator">+</span>user<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>jsp</li>
-</ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>6. 测试@ModelAttribute</h3>
-<a href="/anno/testModelAttribute?name=test">测试ModelAttribute注解的使用</a>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<ul>
-<li>测试结果：<pre><code>执行了showModel方法test
-执行了控制器的方法test
-</code></pre></li>
-</ul>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">  &#x2F;**
+       * 出现在方法上：
+       *    被ModelAttribute 修饰的方法
+       *    当前方法会在控制器的方法执行之前，先执行。
+       * @param user
+       *&#x2F;
+  @ModelAttribute
+  public void showModel(User user){
+      System.out.println(&quot;执行了showModel方法&quot;+user.getName());
+  }
+  
+  &#x2F;**
+       * 接收请求的方法
+       * @param user
+       * @return
+       *&#x2F;
+  @RequestMapping(&quot;&#x2F;testModelAttribute&quot;)
+  public String testModelAttribute(User user) {
+      System.out.println(&quot;执行了控制器的方法&quot;+user.getName());
+      return &quot;success&quot;;
+  }
+</code></pre>
 </li>
+</ul>
+<ul>
+<li><p>jsp</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">  &lt;h3&gt;6. 测试@ModelAttribute&lt;&#x2F;h3&gt;
+  &lt;a href=&quot;&#x2F;anno&#x2F;testModelAttribute?name=test&quot;&gt;测试ModelAttribute注解的使用&lt;&#x2F;a&gt;
+</code></pre>
+</li>
+</ul>
+<ul>
+<li>测试结果：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">  执行了showModel方法test
+  执行了控制器的方法test
+</code></pre>
+</li>
+</ul>
+<ul>
 <li><p>基于Map的应用场景示例：修饰方法带返回值</p>
 <ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
-     * 出现在方法上：
-     *    被ModelAttribute 修饰的方法
-     *    当前方法会在控制器的方法执行之前，先执行。
-     *    在控制器执行前，查询数据库中用户信息
-     * @param name
-     */</span>
-<span class="token annotation punctuation">@ModelAttribute</span>
-<span class="token keyword">public</span> User <span class="token function">showModel</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 调用数据库查询方法，返回用户对象</span>
-    User user <span class="token operator">=</span> <span class="token function">findUserByName</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行了findUser方法"</span><span class="token operator">+</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> user<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">/**
-     * 模拟修改用户方法
-     * @param user
-     * @return
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/updateUser"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">updateUser</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"控制器中处理请求的方法：修改用户"</span><span class="token operator">+</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">  &#x2F;**
+       * 出现在方法上：
+       *    被ModelAttribute 修饰的方法
+       *    当前方法会在控制器的方法执行之前，先执行。
+       *    在控制器执行前，查询数据库中用户信息
+       * @param name
+       *&#x2F;
+  @ModelAttribute
+  public User showModel(String name){
+      &#x2F;&#x2F; 调用数据库查询方法，返回用户对象
+      User user = findUserByName(name);
+      System.out.println(&quot;执行了findUser方法&quot;+user);
+      return user;
+  }
+  
+  &#x2F;**
+       * 模拟修改用户方法
+       * @param user
+       * @return
+       *&#x2F;
+  @RequestMapping(&quot;&#x2F;updateUser&quot;)
+  public String updateUser(User user) {
+      System.out.println(&quot;控制器中处理请求的方法：修改用户&quot;+user);
+      return &quot;success&quot;;
+  }
+  
+  &#x2F;**
+       * 模拟数据库查询操作
+       * @param name
+       * @return
+       *&#x2F;
+  private User findUserByName(String name) {
+      User user = new User();
+      user.setName(name);
+      user.setAge(19);
+      user.setDate(new Date());
+      return user;
+  }
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>jsp</p>
 
-<span class="token comment" spellcheck="true">/**
-     * 模拟数据库查询操作
-     * @param name
-     * @return
-     */</span>
-<span class="token keyword">private</span> User <span class="token function">findUserByName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    User user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    user<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    user<span class="token punctuation">.</span><span class="token function">setAge</span><span class="token punctuation">(</span><span class="token number">19</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    user<span class="token punctuation">.</span><span class="token function">setDate</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> user<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>jsp</li>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">  &lt;h4&gt;6.1 2 基于Map应用场景示例：修饰方法带返回值&lt;&#x2F;h4&gt;
+  &lt;form action=&quot;&#x2F;anno&#x2F;updateUser&quot; method=&quot;post&quot;&gt;
+      用户名称：&lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;&lt;br&gt;
+      年龄：&lt;input type=&quot;text&quot; name=&quot;age&quot;&gt;&lt;br&gt;
+      &lt;input type=&quot;submit&quot; value=&quot;保存&quot;&gt;
+  &lt;&#x2F;form&gt;
+</code></pre>
+</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><h4>6.1 2 基于Map应用场景示例：修饰方法带返回值</h4>
-<form action="/anno/updateUser" method="post">
-    用户名称：<input type="text" name="name"><br>
-    年龄：<input type="text" name="age"><br>
-    <input type="submit" value="保存">
-</form>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>测试结果：</li>
+<li><p>测试结果：</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">  执行了findUser方法User{name=&#39;小王&#39;, age=19, date=Sun Sep 01 17:02:46 CST 2019}
+  控制器中处理请求的方法：修改用户User{name=&#39;小王&#39;, age=11, date=Sun Sep 01 17:02:46 CST 2019}
+</code></pre>
+</li>
 </ul>
-<pre><code>执行了findUser方法User{name=&#39;小王&#39;, age=19, date=Sun Sep 01 17:02:46 CST 2019}
-控制器中处理请求的方法：修改用户User{name=&#39;小王&#39;, age=11, date=Sun Sep 01 17:02:46 CST 2019}
-</code></pre></li>
+<ul>
 <li><p>基于Map的应用场景示例：修饰方法不带返回值</p>
 <ul>
 <li>前端代码不变，修改控制器方法</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@ModelAttribute</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">showModel</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>User<span class="token operator">></span> map<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 调用数据库查询方法，返回用户对象</span>
-    User user <span class="token operator">=</span> <span class="token function">findUserByName</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"showModel"</span><span class="token operator">+</span>System<span class="token punctuation">.</span><span class="token function">identityHashCode</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行了findUser方法"</span><span class="token operator">+</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
 
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/updateUser"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> String <span class="token function">updateUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@ModelAttribute</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span> User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"update"</span><span class="token operator">+</span>System<span class="token punctuation">.</span><span class="token function">identityHashCode</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"控制器中处理请求的方法：修改用户"</span><span class="token operator">+</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">  @ModelAttribute
+  public void showModel(String name, Map&lt;String,User&gt; map){
+      &#x2F;&#x2F; 调用数据库查询方法，返回用户对象
+      User user = findUserByName(name);
+      System.out.println(&quot;showModel&quot;+System.identityHashCode(user));
+      System.out.println(&quot;执行了findUser方法&quot;+user);
+      map.put(&quot;user&quot;,user);
+  }
+  
+  @RequestMapping(&quot;&#x2F;updateUser&quot;)
+      public String updateUser(@ModelAttribute(&quot;user&quot;) User user) {
+          System.out.println(&quot;update&quot;+System.identityHashCode(user));
+          System.out.println(&quot;控制器中处理请求的方法：修改用户&quot;+user);
+          return &quot;success&quot;;
+      }
+</code></pre>
 </li>
 </ul>
 <h3 id="4-8-SessionAttribute"><a href="#4-8-SessionAttribute" class="headerlink" title="4.8 @SessionAttribute"></a>4.8 @SessionAttribute</h3><h4 id="1-使用说明-7"><a href="#1-使用说明-7" class="headerlink" title="1. 使用说明"></a>1. 使用说明</h4><ul>
@@ -1333,93 +1419,113 @@
 <h4 id="2-示例-7"><a href="#2-示例-7" class="headerlink" title="2. 示例"></a>2. 示例</h4><h5 id="2-1-存储值"><a href="#2-1-存储值" class="headerlink" title="2.1 存储值"></a>2.1 存储值</h5><ul>
 <li>控制器代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Controller</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"anno"</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@SessionAttributes</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"msg"</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// @SessionAttributes该注解只能作用在类上，这里使用效果是将msg再存一份到session域中</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AnnotationController</span> <span class="token punctuation">{</span>
 
-    <span class="token comment" spellcheck="true">/**
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@Controller
+@RequestMapping(&quot;anno&quot;)
+@SessionAttributes(value = {&quot;msg&quot;}) &#x2F;&#x2F; @SessionAttributes该注解只能作用在类上，这里使用效果是将msg再存一份到session域中
+public class AnnotationController {
+    
+	&#x2F;**
      * SessionAttribute注解
      * 将值存储到request域中
      * @return
-     */</span>
-    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/useSessionAttribute"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> String <span class="token function">useSessionAttribute</span><span class="token punctuation">(</span>Model model<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 底层会存储到request域对象中</span>
-        model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span><span class="token string">"小明"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+    @RequestMapping(&quot;&#x2F;useSessionAttribute&quot;)
+    public String useSessionAttribute(Model model) {
+        &#x2F;&#x2F; 底层会存储到request域对象中
+        model.addAttribute(&quot;msg&quot;,&quot;小明&quot;);
+        return &quot;success&quot;;
+    }
+}
+</code></pre>
 <ul>
 <li>Anno.jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><h3>7. 测试@SessionAttribute</h3>
-<a href="/anno/useSessionAttribute">使用SessionAttribute存储值</a><br>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;7. 测试@SessionAttribute&lt;&#x2F;h3&gt;
+&lt;a href=&quot;&#x2F;anno&#x2F;useSessionAttribute&quot;&gt;使用SessionAttribute存储值&lt;&#x2F;a&gt;&lt;br&gt;
+</code></pre>
 <ul>
 <li>success.jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><body>
-<h3>测试程序访问成功</h3>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;body&gt;
+&lt;h3&gt;测试程序访问成功&lt;&#x2F;h3&gt;
 存储到request域中：${msg}
-<br>
+&lt;br&gt;
 存储到session域中：${sessionScope}
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;body&gt;
+</code></pre>
 <ul>
 <li>测试结果：</li>
 </ul>
-<pre><code>测试程序访问成功
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">测试程序访问成功
 存储到request域中：小明 
 存储到session域中：{msg=小明}
-</code></pre><h5 id="2-2-获取值"><a href="#2-2-获取值" class="headerlink" title="2.2 获取值"></a>2.2 获取值</h5><ul>
+</code></pre>
+<h5 id="2-2-获取值"><a href="#2-2-获取值" class="headerlink" title="2.2 获取值"></a>2.2 获取值</h5><ul>
 <li>控制器</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
      * 获取值
      * @param map
      * @return
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/getSessionAttribute"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">getSessionAttribute</span><span class="token punctuation">(</span>ModelMap map<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// model无法获取，只能通过它的实现类ModelMap来获取</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"getSessionAttribute...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 获取存储在request域中的数据</span>
-    String msg <span class="token operator">=</span> <span class="token punctuation">(</span>String<span class="token punctuation">)</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+@RequestMapping(&quot;&#x2F;getSessionAttribute&quot;)
+public String getSessionAttribute(ModelMap map) { &#x2F;&#x2F; model无法获取，只能通过它的实现类ModelMap来获取
+    System.out.println(&quot;getSessionAttribute....&quot;);
+    &#x2F;&#x2F; 获取存储在request域中的数据
+    String msg = (String) map.get(&quot;msg&quot;);
+    System.out.println(msg);
+    return &quot;success&quot;;
+}
+</code></pre>
 <ul>
 <li>jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><a href="/anno/getSessionAttribute">获取值</a><br>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;a href=&quot;&#x2F;anno&#x2F;getSessionAttribute&quot;&gt;获取值&lt;&#x2F;a&gt;&lt;br&gt;
+</code></pre>
 <ul>
 <li>测试结果，后台显示：</li>
 </ul>
-<pre><code>getSessionAttribute....
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">getSessionAttribute....
 小明
-</code></pre><h5 id="2-3-清除值"><a href="#2-3-清除值" class="headerlink" title="2.3 清除值"></a>2.3 清除值</h5><ul>
+</code></pre>
+<h5 id="2-3-清除值"><a href="#2-3-清除值" class="headerlink" title="2.3 清除值"></a>2.3 清除值</h5><ul>
 <li>控制器</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">	&#x2F;**
      * 删除值
      * @param status
      * @return
-     */</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/delSessionAttribute"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">delSessionAttribute</span><span class="token punctuation">(</span>SessionStatus status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"delSessionAttribute...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    status<span class="token punctuation">.</span><span class="token function">setComplete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 删除session域中存储的值</span>
-    <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+@RequestMapping(&quot;&#x2F;delSessionAttribute&quot;)
+public String delSessionAttribute(SessionStatus status) {
+    System.out.println(&quot;delSessionAttribute....&quot;);
+    status.setComplete(); &#x2F;&#x2F; 删除session域中存储的值
+    return &quot;success&quot;;
+}
+</code></pre>
 <ul>
 <li>jsp</li>
 </ul>
-<pre class="line-numbers language-jsp"><code class="language-jsp"><a href="/anno/delSessionAttribute">删除值</a>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-jsp">&lt;a href=&quot;&#x2F;anno&#x2F;delSessionAttribute&quot;&gt;删除值&lt;&#x2F;a&gt;
+</code></pre>
 <ul>
 <li>测试结果，后台显示：<code>delSessionAttribute....</code></li>
 </ul>
@@ -1505,9 +1611,10 @@
                 <div class="card-content article-content">
                     <div class="summary">1. 响应数据和结果视图1.1 返回值分类
 1.1.1 字符串Controller方法返回字符串可以指定逻辑视图名，通过视图解析器解析为物理视图地址。
-// 返回值是字符串
-@RequestMapping("/testString")
-pu</div>
+
+
+&#x2F;&#x2F; 返回值是字符串
+@RequestMapping(&quot</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-04
@@ -1684,7 +1791,7 @@ pu</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">249.3k</span>
+                <span class="white-color">276.8k</span>
             
 
             

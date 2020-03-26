@@ -411,7 +411,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        871
+                        913
                     </div>
                     
 
@@ -468,33 +468,37 @@
 <h4 id="2-2-打包成war包"><a href="#2-2-打包成war包" class="headerlink" title="2.2 打包成war包"></a>2.2 打包成war包</h4><ol>
 <li>修改<code>pom.xml</code>，添加打包类型和依赖</li>
 </ol>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 打包成war包需加这一行--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>packaging</span><span class="token punctuation">></span></span>war<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>packaging</span><span class="token punctuation">></span></span>
 
-<span class="token comment" spellcheck="true">&lt;!-- 打包从war包时需添加此依赖,防止打包冲突--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-tomcat<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>provided<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span> <span class="token comment" spellcheck="true">&lt;!-- 表示只在编译和测试过程有效，生成war包不会加入--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 打包成war包需加这一行--&gt;
+&lt;packaging&gt;war&lt;&#x2F;packaging&gt;
+
+&lt;!-- 打包从war包时需添加此依赖,防止打包冲突--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-tomcat&lt;&#x2F;artifactId&gt;
+    &lt;scope&gt;provided&lt;&#x2F;scope&gt; &lt;!-- 表示只在编译和测试过程有效，生成war包不会加入--&gt;
+&lt;&#x2F;dependency&gt;
+</code></pre>
 <ol start="2">
 <li>修改启动类文件，继承<code>SpringBootServletInitializer</code></li>
 </ol>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@SpringBootApplication</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloDemoApplication</span> <span class="token keyword">extends</span> <span class="token class-name">SpringBootServletInitializer</span> <span class="token punctuation">{</span>
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">protected</span> SpringApplicationBuilder <span class="token function">configure</span><span class="token punctuation">(</span>SpringApplicationBuilder builder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> builder<span class="token punctuation">.</span><span class="token function">sources</span><span class="token punctuation">(</span>HelloDemoApplication<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@SpringBootApplication
+public class HelloDemoApplication extends SpringBootServletInitializer {
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        SpringApplication<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>HelloDemoApplication<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(HelloDemoApplication.class);
+	}
 
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	public static void main(String[] args) {
+		SpringApplication.run(HelloDemoApplication.class, args);
+	}
+
+}
+</code></pre>
 <blockquote>
 <p>SpringBoot项目想运行在第三方Tomcat上必须实现<code>SpringBootServletInitializer</code>接口的<code>configure</code>方法才能让外部容器运行。</p>
 </blockquote>
@@ -530,31 +534,35 @@
 <ol start="4">
 <li>项目添加热部署插件，在xml中配置如下。</li>
 </ol>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 热部署依赖 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-devtools<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span> <span class="token comment" spellcheck="true">&lt;!-- true才生效 --></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>runtime<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span> <span class="token comment" spellcheck="true">&lt;!--仅在运行期有效，不参与打包--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 热部署依赖 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;
+    &lt;artifactId&gt;spring-boot-devtools&lt;&#x2F;artifactId&gt;
+    &lt;optional&gt;true&lt;&#x2F;optional&gt; &lt;!-- true才生效 --&gt;
+    &lt;scope&gt;runtime&lt;&#x2F;scope&gt; &lt;!--仅在运行期有效，不参与打包--&gt;
+&lt;&#x2F;dependency&gt;
+</code></pre>
 <ol start="5">
 <li>保险起见，浏览器f12 ✅Disable cache。</li>
 </ol>
 <h3 id="5-关于错误处理"><a href="#5-关于错误处理" class="headerlink" title="5. 关于错误处理"></a>5. 关于错误处理</h3><p>定义一个全局的异常处理器，然后跳转到错误页面</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@ControllerAdvice</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalExceptionHandler</span> <span class="token punctuation">{</span>
 
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> Exception<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> ModelAndView <span class="token function">defaultErrorHandler</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span>Exception e<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
-        ModelAndView view <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModelAndView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        view<span class="token punctuation">.</span><span class="token function">addObject</span><span class="token punctuation">(</span><span class="token string">"exception"</span><span class="token punctuation">,</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        view<span class="token punctuation">.</span><span class="token function">addObject</span><span class="token punctuation">(</span><span class="token string">"url"</span><span class="token punctuation">,</span>req<span class="token punctuation">.</span><span class="token function">getRequestURL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        view<span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">"errorPage"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> view<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView defaultErrorHandler(HttpServletRequest req,Exception e) throws Exception{
+        ModelAndView view = new ModelAndView();
+        view.addObject(&quot;exception&quot;,e);
+        view.addObject(&quot;url&quot;,req.getRequestURL());
+        view.setViewName(&quot;errorPage&quot;);
+        return view;
+    }
+}
+</code></pre>
 
             </div>
             <hr>
@@ -831,7 +839,7 @@
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">249.3k</span>
+                <span class="white-color">276.8k</span>
             
 
             

@@ -421,14 +421,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.6k
+                        2.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        11 分
+                        12 分
                     </div>
                     
                 
@@ -468,12 +468,14 @@
 </table>
 <br>下面开始整合redis。</p>
 <h3 id="1-整合Redis步骤"><a href="#1-整合Redis步骤" class="headerlink" title="1. 整合Redis步骤"></a>1. 整合Redis步骤</h3><h4 id="1-1-引入依赖"><a href="#1-1-引入依赖" class="headerlink" title="1.1 引入依赖"></a>1.1 引入依赖</h4><p>在<code>pom.xml</code>文件中引入redis依赖</p>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- redis的支持--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-data-redis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- redis的支持--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;&#x2F;artifactId&gt;
+&lt;&#x2F;dependency&gt;
+</code></pre>
 <blockquote>
 <p>1.5版本默认采用的客户端是jedis, 2.x版本默认是lettuce</p>
 <ul>
@@ -482,174 +484,186 @@
 </ul>
 </blockquote>
 <h4 id="1-2-配置文件中配置redis"><a href="#1-2-配置文件中配置redis" class="headerlink" title="1.2 配置文件中配置redis"></a>1.2 配置文件中配置redis</h4><p>在项目的<code>application.properties</code>配置文件中配置redis，配置如下</p>
-<pre class="line-numbers language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">########redis配置##############</span>
-<span class="token comment" spellcheck="true"># Redis数据库索引(默认为0)</span>
-<span class="token attr-name">spring.redis.database</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
-<span class="token comment" spellcheck="true">#服务器地址</span>
-<span class="token attr-name">spring.redis.host</span><span class="token punctuation">=</span><span class="token attr-value">127.0.0.1</span>
-<span class="token comment" spellcheck="true">#连接端口号</span>
-<span class="token attr-name">spring.redis.port</span><span class="token punctuation">=</span><span class="token attr-value">6379</span>
-<span class="token comment" spellcheck="true">#连接密码，默认空</span>
-<span class="token attr-name">spring.redis.password</span><span class="token punctuation">=</span>
-<span class="token comment" spellcheck="true">#连接池最大连接数(负值表示无限制)</span>
-<span class="token attr-name">spring.redis.jedis.pool.max-active</span><span class="token punctuation">=</span><span class="token attr-value">10</span>
-<span class="token comment" spellcheck="true">#连接池最大阻塞等待时间(负值表示无限制)</span>
-<span class="token attr-name">spring.redis.jedis.pool.max-wait</span><span class="token punctuation">=</span><span class="token attr-value">-1</span>
-<span class="token comment" spellcheck="true">#连接池中的最大空闲连接</span>
-<span class="token attr-name">spring.redis.jedis.pool.max-idle</span><span class="token punctuation">=</span><span class="token attr-value">8</span>
-<span class="token comment" spellcheck="true">#连接池中的最小空闲连接</span>
-<span class="token attr-name">spring.redis.jedis.pool.min-idle</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
-<span class="token comment" spellcheck="true">#连接超时时间(毫秒)</span>
-<span class="token attr-name">spring.redis.timeout</span><span class="token punctuation">=</span><span class="token attr-value">5000</span>
-<span class="token comment" spellcheck="true"># 若开启redis方式的session存储，type值应为redis</span>
-<span class="token attr-name">spring.session.store-type</span><span class="token punctuation">=</span><span class="token attr-value">redis</span>
-<span class="token attr-name">spring.session.timeout</span><span class="token punctuation">=</span><span class="token attr-value">10</span>
-<span class="token attr-name">server.servlet.session.timeout</span><span class="token punctuation">=</span><span class="token attr-value">10</span>
-<span class="token comment" spellcheck="true"># 显示hibernate的sql语句,方便查看是否成功缓存</span>
-<span class="token attr-name">spring.jpa.show-sql</span><span class="token punctuation">=</span><span class="token attr-value">true</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="1-3-创建一个Redis缓存配置类"><a href="#1-3-创建一个Redis缓存配置类" class="headerlink" title="1.3 创建一个Redis缓存配置类"></a>1.3 创建一个Redis缓存配置类</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
-<span class="token annotation punctuation">@EnableCaching</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisConfig</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">/*
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-properties">########redis配置##############
+# Redis数据库索引(默认为0)
+spring.redis.database=0
+#服务器地址
+spring.redis.host=127.0.0.1
+#连接端口号
+spring.redis.port=6379
+#连接密码，默认空
+spring.redis.password=
+#连接池最大连接数(负值表示无限制)
+spring.redis.jedis.pool.max-active=10
+#连接池最大阻塞等待时间(负值表示无限制)
+spring.redis.jedis.pool.max-wait=-1
+#连接池中的最大空闲连接
+spring.redis.jedis.pool.max-idle=8
+#连接池中的最小空闲连接
+spring.redis.jedis.pool.min-idle=0
+#连接超时时间(毫秒)
+spring.redis.timeout=5000
+# 若开启redis方式的session存储，type值应为redis
+spring.session.store-type=redis
+spring.session.timeout=10
+server.servlet.session.timeout=10
+# 显示hibernate的sql语句,方便查看是否成功缓存
+spring.jpa.show-sql=true
+</code></pre>
+<h4 id="1-3-创建一个Redis缓存配置类"><a href="#1-3-创建一个Redis缓存配置类" class="headerlink" title="1.3 创建一个Redis缓存配置类"></a>1.3 创建一个Redis缓存配置类</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@Configuration
+@EnableCaching
+public class RedisConfig {
+    &#x2F;*
         SpringBoot2.x的ReidsCacheManager自定义配置方法
         缓存之后,key会多一个前缀,默认是将CacheName作为key的前缀
-     */</span>
-    <span class="token annotation punctuation">@Bean</span>
-    <span class="token keyword">public</span> RedisCacheManager <span class="token function">redisCacheManager</span><span class="token punctuation">(</span>RedisConnectionFactory connectionFactory<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        RedisSerializer<span class="token operator">&lt;</span>String<span class="token operator">></span> redisSerializer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringRedisSerializer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Jackson2JsonRedisSerializer</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     *&#x2F;
+    @Bean
+    public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
+        RedisSerializer&lt;String&gt; redisSerializer = new StringRedisSerializer();
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
 
-        <span class="token comment" spellcheck="true">//解决查询缓存转换异常的问题</span>
-        ObjectMapper om <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        om<span class="token punctuation">.</span><span class="token function">setVisibility</span><span class="token punctuation">(</span>PropertyAccessor<span class="token punctuation">.</span>ALL<span class="token punctuation">,</span> JsonAutoDetect<span class="token punctuation">.</span>Visibility<span class="token punctuation">.</span>ANY<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        om<span class="token punctuation">.</span><span class="token function">enableDefaultTyping</span><span class="token punctuation">(</span>ObjectMapper<span class="token punctuation">.</span>DefaultTyping<span class="token punctuation">.</span>NON_FINAL<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        jackson2JsonRedisSerializer<span class="token punctuation">.</span><span class="token function">setObjectMapper</span><span class="token punctuation">(</span>om<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        &#x2F;&#x2F;解决查询缓存转换异常的问题
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
 
-        <span class="token comment" spellcheck="true">// 配置序列化（可解决Redis中非中文的问题，但会导致反序列化异常，原因是PageImpl没有空参构造器导致的，如果只是做缓存</span>
-        <span class="token comment" spellcheck="true">// 可以选择不自定义value的序列化规则，因为jackson2的序列化器反序列化时需要序列化类有空参构造，如果没有就会报错</span>
-        <span class="token comment" spellcheck="true">// 且不自定义value的序列化规则，不影响其反序列化出来的内容，只是redis中显示非中文，或者使用JDK默认的序列化器）</span>
-        RedisCacheConfiguration config <span class="token operator">=</span> RedisCacheConfiguration<span class="token punctuation">.</span><span class="token function">defaultCacheConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-                <span class="token comment" spellcheck="true">// 缓存有效期60s</span>
-                <span class="token punctuation">.</span><span class="token function">entryTtl</span><span class="token punctuation">(</span>Duration<span class="token punctuation">.</span><span class="token function">ofSeconds</span><span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">//                // 设置key序列化</span>
-                <span class="token punctuation">.</span><span class="token function">serializeKeysWith</span><span class="token punctuation">(</span>RedisSerializationContext<span class="token punctuation">.</span>SerializationPair<span class="token punctuation">.</span><span class="token function">fromSerializer</span><span class="token punctuation">(</span>redisSerializer<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">//                 // 设置value序列化</span>
-<span class="token punctuation">.</span><span class="token function">serializeValuesWith</span><span class="token punctuation">(</span>RedisSerializationContext<span class="token punctuation">.</span>SerializationPair<span class="token punctuation">.</span><span class="token function">fromSerializer</span><span class="token punctuation">(</span>jackson2JsonRedisSerializer<span class="token punctuation">)</span><span class="token punctuation">)</span>
-                <span class="token comment" spellcheck="true">//不缓存null值</span>
-                <span class="token punctuation">.</span><span class="token function">disableCachingNullValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        &#x2F;&#x2F; 配置序列化（可解决Redis中非中文的问题，但会导致反序列化异常，原因是PageImpl没有空参构造器导致的，如果只是做缓存
+        &#x2F;&#x2F; 可以选择不自定义value的序列化规则，因为jackson2的序列化器反序列化时需要序列化类有空参构造，如果没有就会报错
+        &#x2F;&#x2F; 且不自定义value的序列化规则，不影响其反序列化出来的内容，只是redis中显示非中文，或者使用JDK默认的序列化器）
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+                &#x2F;&#x2F; 缓存有效期60s
+                .entryTtl(Duration.ofSeconds(60))
+&#x2F;&#x2F;                &#x2F;&#x2F; 设置key序列化
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
+&#x2F;&#x2F;                 &#x2F;&#x2F; 设置value序列化
+.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
+                &#x2F;&#x2F;不缓存null值
+                .disableCachingNullValues();
 
-        RedisCacheManager cacheManager <span class="token operator">=</span> RedisCacheManager<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span>connectionFactory<span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">cacheDefaults</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"ReidsCacheManager自定义配置方法被调用了..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> cacheManager<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        RedisCacheManager cacheManager = RedisCacheManager.builder(connectionFactory)
+                .cacheDefaults(config)
+                .build();
+        System.out.println(&quot;ReidsCacheManager自定义配置方法被调用了...&quot;);
+        return cacheManager;
+    }
+}
+</code></pre>
 <blockquote>
 <p>如果开启设置value序列化，会和我下面自定义的Page类冲突，故如果使用到我自定义的Page类，需要将value序列化关闭。</p>
 </blockquote>
 <h4 id="1-4-在适当的地方加入缓存"><a href="#1-4-在适当的地方加入缓存" class="headerlink" title="1.4 在适当的地方加入缓存"></a>1.4 在适当的地方加入缓存</h4><ul>
 <li>User类</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Entity</span> <span class="token comment" spellcheck="true">// 表示这是个实体类</span>
-<span class="token annotation punctuation">@Table</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"user_"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 表示该类对应的表名是user</span>
-<span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"all"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 压制所有警告</span>
-<span class="token annotation punctuation">@JsonIgnoreProperties</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"handler"</span><span class="token punctuation">,</span><span class="token string">"hibernateLazyInitianlizer"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//注意需实现序列化接口</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token operator">-</span>6373343588870458520L<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Id</span> <span class="token comment" spellcheck="true">// 表明主键</span>
-    <span class="token annotation punctuation">@GeneratedValue</span><span class="token punctuation">(</span>strategy <span class="token operator">=</span> GenerationType<span class="token punctuation">.</span>IDENTITY<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 表明自增长方式</span>
-    <span class="token annotation punctuation">@Column</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 表名对应的数据库字段名</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> id<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Column</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"name"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 
-    <span class="token keyword">public</span> <span class="token function">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@Entity &#x2F;&#x2F; 表示这是个实体类
+@Table(name = &quot;user_&quot;) &#x2F;&#x2F; 表示该类对应的表名是user
+@SuppressWarnings(&quot;all&quot;) &#x2F;&#x2F; 压制所有警告
+@JsonIgnoreProperties({&quot;handler&quot;,&quot;hibernateLazyInitianlizer&quot;})
+public class User implements Serializable{ &#x2F;&#x2F;注意需实现序列化接口
+    private static final long serialVersionUID = -6373343588870458520L;
+    @Id &#x2F;&#x2F; 表明主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) &#x2F;&#x2F; 表明自增长方式
+    @Column(name = &quot;id&quot;) &#x2F;&#x2F; 表名对应的数据库字段名
+    private int id;
+    @Column(name = &quot;name&quot;)
+    private String name;
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> id<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public User() {
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setId</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> id<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public int getId() {
+        return id;
+    }
 
-    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public String getName() {
+        return name;
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"User{"</span> <span class="token operator">+</span>
-                <span class="token string">"id="</span> <span class="token operator">+</span> id <span class="token operator">+</span>
-                <span class="token string">", name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
-                <span class="token string">'}'</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User{&quot; +
+                &quot;id=&quot; + id +
+                &quot;, name=&#39;&quot; + name + &#39;\&#39;&#39; +
+                &#39;}&#39;;
+    }
+}
+</code></pre>
 <ul>
 <li>UserDao</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserDao</span> <span class="token keyword">extends</span> <span class="token class-name">JpaRepository</span><span class="token operator">&lt;</span>User<span class="token punctuation">,</span>Integer<span class="token operator">></span> <span class="token punctuation">{</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public interface UserDao extends JpaRepository&lt;User,Integer&gt; {
+}
+</code></pre>
 <ul>
 <li>UserService</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> Page4Navigator<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">getList</span><span class="token punctuation">(</span>Pageable pageable<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">delete</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> User <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public interface UserService {
+    public Page4Navigator&lt;User&gt; getList(Pageable pageable);
+    public void save(User user);
+    public void delete(User user);
+    public User get(int id);
+}
+</code></pre>
 <ul>
 <li>UserServiceImpl</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
-<span class="token comment" spellcheck="true">// 设置缓存名称</span>
-<span class="token annotation punctuation">@CacheConfig</span><span class="token punctuation">(</span>cacheNames <span class="token operator">=</span> <span class="token string">"user"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Autowired</span> UserDao userDao<span class="token punctuation">;</span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@Service
+&#x2F;&#x2F; 设置缓存名称
+@CacheConfig(cacheNames = &quot;user&quot;)
+public class UserServiceImpl implements UserService {
+    @Autowired UserDao userDao;
 
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token comment" spellcheck="true">// 开启缓存</span>
-    <span class="token annotation punctuation">@Cacheable</span><span class="token punctuation">(</span>key <span class="token operator">=</span> <span class="token string">"'user'+#p0.offset+'-'+#p0.pageSize "</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> Page4Navigator<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">getList</span><span class="token punctuation">(</span>Pageable pageable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Page<span class="token operator">&lt;</span>User<span class="token operator">></span> pageFromJPA <span class="token operator">=</span> userDao<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span>pageable<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Page4Navigator<span class="token operator">&lt;</span>User<span class="token operator">></span> page <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Page4Navigator</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>pageFromJPA<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> page<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    @Override
+    &#x2F;&#x2F; 开启缓存
+    @Cacheable(key = &quot;&#39;user&#39;+#p0.offset+&#39;-&#39;+#p0.pageSize &quot;)
+    public Page4Navigator&lt;User&gt; getList(Pageable pageable) {
+        Page&lt;User&gt; pageFromJPA = userDao.findAll(pageable);
+        Page4Navigator&lt;User&gt; page = new Page4Navigator&lt;&gt;(pageFromJPA, 5);
+        return page;
+    }
+    
+	@Override
+    &#x2F;&#x2F; 该方法调用后立即清除缓存
+    @CacheEvict(allEntries = true)
+    public void save(User user) {
+        userDao.save(user);
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token comment" spellcheck="true">// 该方法调用后立即清除缓存</span>
-    <span class="token annotation punctuation">@CacheEvict</span><span class="token punctuation">(</span>allEntries <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        userDao<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    @Override
+    @CacheEvict(allEntries = true)
+    public void delete(User user) {
+        userDao.delete(user);
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token annotation punctuation">@CacheEvict</span><span class="token punctuation">(</span>allEntries <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">delete</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        userDao<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token comment" spellcheck="true">// 将查询结果缓存到redis中， user+#p0指定传入的第一个参数+user做为redis的key</span>
-    <span class="token annotation punctuation">@Cacheable</span><span class="token punctuation">(</span>key <span class="token operator">=</span> <span class="token string">"'user '+ #p0"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> User <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> userDao<span class="token punctuation">.</span><span class="token function">findById</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    @Override
+    &#x2F;&#x2F; 将查询结果缓存到redis中， user+#p0指定传入的第一个参数+user做为redis的key
+    @Cacheable(key = &quot;&#39;user &#39;+ #p0&quot;)
+    public User get(int id) {
+        return userDao.findById(id).get();
+    }
+}
+</code></pre>
 <h5 id="Redis注解方式"><a href="#Redis注解方式" class="headerlink" title="Redis注解方式"></a>Redis注解方式</h5><h6 id="CacheConfig"><a href="#CacheConfig" class="headerlink" title="@CacheConfig"></a>@CacheConfig</h6><p>定义该类下所有缓存到redis中的父名称。</p>
 <h6 id="Cacheable"><a href="#Cacheable" class="headerlink" title="@Cacheable"></a>@Cacheable</h6><p>根据方法的请求参数对其结果进行缓存，根据Key进行判断，如已在缓存中，则不执行方法，直接从redis中查询返回结果。</p>
 <ul>
@@ -671,137 +685,140 @@
 <ul>
 <li>分页工具类Page</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Page4Navigator</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span><span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token operator">-</span>4042369404722051112L<span class="token punctuation">;</span>
-    Page<span class="token operator">&lt;</span>T<span class="token operator">></span> page4jpa<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> navigatePages<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> totalPages<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> number<span class="token punctuation">;</span>
-    <span class="token keyword">long</span> totalElements<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> size<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> numberOfElements<span class="token punctuation">;</span>
-    List<span class="token operator">&lt;</span>T<span class="token operator">></span> content<span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> isHasContent<span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> first<span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> last<span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> isHasNext<span class="token punctuation">;</span>
-    <span class="token keyword">boolean</span> isHasPrevious<span class="token punctuation">;</span>
-    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> navigatepageNums<span class="token punctuation">;</span>
 
-    <span class="token keyword">public</span> <span class="token function">Page4Navigator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Page4Navigator&lt;T&gt; implements Serializable{
+    private static final long serialVersionUID = -4042369404722051112L;
+    Page&lt;T&gt; page4jpa;
+    int navigatePages;
+    int totalPages;
+    int number;
+    long totalElements;
+    int size;
+    int numberOfElements;
+    List&lt;T&gt; content;
+    boolean isHasContent;
+    boolean first;
+    boolean last;
+    boolean isHasNext;
+    boolean isHasPrevious;
+    int[] navigatepageNums;
 
-    <span class="token keyword">public</span> <span class="token function">Page4Navigator</span><span class="token punctuation">(</span>Page<span class="token operator">&lt;</span>T<span class="token operator">></span> page4jpa<span class="token punctuation">,</span> <span class="token keyword">int</span> navigatePages<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>page4jpa <span class="token operator">=</span> page4jpa<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>navigatePages <span class="token operator">=</span> navigatePages<span class="token punctuation">;</span>
-        totalPages <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">getTotalPages</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        number <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        totalElements <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">getTotalElements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        size <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        numberOfElements <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">getNumberOfElements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        content <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        isHasContent <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">hasContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        first <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">isFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        last <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">isLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        isHasNext <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        isHasPrevious <span class="token operator">=</span> page4jpa<span class="token punctuation">.</span><span class="token function">hasPrevious</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">calcNavigatepageNums</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public Page4Navigator() {
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">calcNavigatepageNums</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> navigatepageNums<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> totalPages <span class="token operator">=</span> <span class="token function">getTotalPages</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//当总页数小于或等于导航页码数时</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>totalPages <span class="token operator">&lt;=</span> navigatePages<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            navigatepageNums <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>totalPages<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> totalPages<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                navigatepageNums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//当总页数大于导航页码数时</span>
-            navigatepageNums <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>navigatePages<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> startNum <span class="token operator">=</span> num <span class="token operator">-</span> navigatePages <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> endNum <span class="token operator">=</span> num <span class="token operator">+</span> navigatePages <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    public Page4Navigator(Page&lt;T&gt; page4jpa, int navigatePages) {
+        this.page4jpa = page4jpa;
+        this.navigatePages = navigatePages;
+        totalPages = page4jpa.getTotalPages();
+        number = page4jpa.getNumber();
+        totalElements = page4jpa.getTotalElements();
+        size = page4jpa.getSize();
+        numberOfElements = page4jpa.getNumberOfElements();
+        content = page4jpa.getContent();
+        isHasContent = page4jpa.hasContent();
+        first = page4jpa.isFirst();
+        last = page4jpa.isLast();
+        isHasNext = page4jpa.hasNext();
+        isHasPrevious = page4jpa.hasPrevious();
+        calcNavigatepageNums();
+    }
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>startNum <span class="token operator">&lt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                startNum <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">//(最前navigatePages页</span>
-                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> navigatePages<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    navigatepageNums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> startNum<span class="token operator">++</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>endNum <span class="token operator">></span> totalPages<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                endNum <span class="token operator">=</span> totalPages<span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">//最后navigatePages页</span>
-                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> navigatePages <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    navigatepageNums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> endNum<span class="token operator">--</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">//所有中间页</span>
-                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> navigatePages<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    navigatepageNums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> startNum<span class="token operator">++</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>navigatepageNums <span class="token operator">=</span> navigatepageNums<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    private void calcNavigatepageNums() {
+        int navigatepageNums[];
+        int totalPages = getTotalPages();
+        int num = getNumber();
+        &#x2F;&#x2F;当总页数小于或等于导航页码数时
+        if (totalPages &lt;= navigatePages) {
+            navigatepageNums = new int[totalPages];
+            for (int i = 0; i &lt; totalPages; i++) {
+                navigatepageNums[i] = i + 1;
+            }
+        } else { &#x2F;&#x2F;当总页数大于导航页码数时
+            navigatepageNums = new int[navigatePages];
+            int startNum = num - navigatePages &#x2F; 2;
+            int endNum = num + navigatePages &#x2F; 2;
 
-    <span class="token comment" spellcheck="true">//省略get/set方法</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> 
-<span class="token punctuation">}</span>
+            if (startNum &lt; 1) {
+                startNum = 1;
+                &#x2F;&#x2F;(最前navigatePages页
+                for (int i = 0; i &lt; navigatePages; i++) {
+                    navigatepageNums[i] = startNum++;
+                }
+            } else if (endNum &gt; totalPages) {
+                endNum = totalPages;
+                &#x2F;&#x2F;最后navigatePages页
+                for (int i = navigatePages - 1; i &gt;= 0; i--) {
+                    navigatepageNums[i] = endNum--;
+                }
+            } else {
+                &#x2F;&#x2F;所有中间页
+                for (int i = 0; i &lt; navigatePages; i++) {
+                    navigatepageNums[i] = startNum++;
+                }
+            }
+        }
+        this.navigatepageNums = navigatepageNums;
+    }
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;&#x2F;省略get&#x2F;set方法
+    ... ... 
+}
+</code></pre>
 <ul>
 <li>控制器</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserController_Json</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Autowired</span> UserService userService<span class="token punctuation">;</span>
 
-    <span class="token comment" spellcheck="true">/**
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@RestController
+public class UserController_Json {
+    @Autowired UserService userService;
+
+    &#x2F;**
      * 获取全部user对象
      * @return
      * @throws Exception
-     */</span>
-    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/user"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">listUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestParam</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"start"</span><span class="token punctuation">,</span>defaultValue <span class="token operator">=</span> <span class="token string">"0"</span><span class="token punctuation">)</span> <span class="token keyword">int</span> start<span class="token punctuation">,</span>
-                               <span class="token annotation punctuation">@RequestParam</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"size"</span><span class="token punctuation">,</span>defaultValue <span class="token operator">=</span> <span class="token string">"5"</span><span class="token punctuation">)</span> <span class="token keyword">int</span> size<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
-        start <span class="token operator">=</span> start <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token operator">?</span><span class="token number">0</span><span class="token operator">:</span>start<span class="token punctuation">;</span>
-        <span class="token keyword">new</span> <span class="token class-name">Sort<span class="token punctuation">.</span>Order</span><span class="token punctuation">(</span>Sort<span class="token punctuation">.</span>Direction<span class="token punctuation">.</span>DESC<span class="token punctuation">,</span><span class="token string">"id"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Sort orders <span class="token operator">=</span> Sort<span class="token punctuation">.</span><span class="token function">by</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 根据start、size和sort创建分页对象</span>
-        PageRequest pageable <span class="token operator">=</span> PageRequest<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>start<span class="token punctuation">,</span>size<span class="token punctuation">,</span>orders<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// DAO根据这个分页对象获取结果page,这个page对象里，不仅包含了分页信息，还包含了数据信息,类转换异常？</span>
-        Page4Navigator<span class="token operator">&lt;</span>User<span class="token operator">></span> list <span class="token operator">=</span> userService<span class="token punctuation">.</span><span class="token function">getList</span><span class="token punctuation">(</span>pageable<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> list<span class="token punctuation">.</span><span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+     *&#x2F;
+    @GetMapping(&quot;&#x2F;user&quot;)
+    public List&lt;User&gt; listUser(@RequestParam(value = &quot;start&quot;,defaultValue = &quot;0&quot;) int start,
+                               @RequestParam(value = &quot;size&quot;,defaultValue = &quot;5&quot;) int size) throws Exception{
+        start = start &lt; 0?0:start;
+        new Sort.Order(Sort.Direction.DESC,&quot;id&quot;);
+        Sort orders = Sort.by(&quot;id&quot;);
+        &#x2F;&#x2F; 根据start、size和sort创建分页对象
+        PageRequest pageable = PageRequest.of(start,size,orders);
+        &#x2F;&#x2F; DAO根据这个分页对象获取结果page,这个page对象里，不仅包含了分页信息，还包含了数据信息,类转换异常？
+        Page4Navigator&lt;User&gt; list = userService.getList(pageable);
+        return list.getContent();
+    }
 
-    <span class="token comment" spellcheck="true">/**
+    &#x2F;**
      * 获取单个user对象
      * @param id
      * @return
      * @throws Exception
-     */</span>
-    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/user/{id}"</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@ResponseBody</span>
-    <span class="token keyword">public</span> User <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token keyword">int</span> id<span class="token punctuation">,</span>
-                        HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
-        User user <span class="token operator">=</span> userService<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> user<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+     *&#x2F;
+    @GetMapping(&quot;&#x2F;user&#x2F;{id}&quot;)
+    @ResponseBody
+    public User getUser(@PathVariable(&quot;id&quot;) int id,
+                        HttpServletResponse response) throws Exception{
+        User user = userService.get(id);
+        System.out.println(user);
+        return user;
+    }
 
-    <span class="token comment" spellcheck="true">/**
+    &#x2F;**
      * 添加用户
      * @param user
      * @throws Exception
-     */</span>
-    <span class="token annotation punctuation">@PutMapping</span><span class="token punctuation">(</span><span class="token string">"/user"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> User user<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SpringBoot接受到浏览器以JSON格式提交的数据："</span><span class="token operator">+</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        userService<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+    @PutMapping(&quot;&#x2F;user&quot;)
+    public void addUser(@RequestBody User user) throws Exception{
+        System.out.println(&quot;SpringBoot接受到浏览器以JSON格式提交的数据：&quot;+user);
+        userService.save(user);
+    }
+}
+</code></pre>
 <h4 id="1-5-启动redis"><a href="#1-5-启动redis" class="headerlink" title="1.5 启动redis"></a>1.5 启动redis</h4><p>找到<code>redis-server.exe</code>，双击运行。</p>
 <p><img src="http://yanxuan.nosdn.127.net/63d63e531aa2b31f79be985307c226e4.png" alt="redis-server"></p>
 <h4 id="1-6-启动项目"><a href="#1-6-启动项目" class="headerlink" title="1.6 启动项目"></a>1.6 启动项目</h4><p>启动项目测试接口，<a href="http://localhost/user，http://localhost/user/4，查看hql语句输出，可以看到除了第一次访问会查询数据库，后续都没有查询数据库，而是从redis中获取数据。" target="_blank" rel="noopener">http://localhost/user，http://localhost/user/4，查看hql语句输出，可以看到除了第一次访问会查询数据库，后续都没有查询数据库，而是从redis中获取数据。</a></p>
@@ -812,66 +829,71 @@
 <li>不设置<code>RedisConfig</code>配置类中自定义的value序列化规则，因为使用<code>jackson2JsonRedisSerializer</code>设置value的序列化值就会报错，不设置就不会；不设置的弊端就是，Redis数据库中存储的数据是HEX格式的，也就是16进制数据，不方便查阅。</li>
 <li>可以使用另一个Page类，替换我原本的page类，暂时没有深入研究这两个类的区别，有兴趣的同学可以研究下。</li>
 </ol>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyPage</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token keyword">implements</span> <span class="token class-name">Iterable</span><span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">,</span> Serializable <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token operator">-</span>3720998571176536865L<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>T<span class="token operator">></span> content <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">long</span> totalElements<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> pageNumber<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> pageSize<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> first<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> last<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> empty<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> totalPages<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> numberOfElements<span class="token punctuation">;</span>
 
-    <span class="token keyword">public</span> <span class="token function">MyPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class MyPage&lt;T&gt; implements Iterable&lt;T&gt;, Serializable {
+    private static final long serialVersionUID = -3720998571176536865L;
+    private List&lt;T&gt; content = new ArrayList&lt;&gt;();
+    private long totalElements;
+    private int pageNumber;
+    private int pageSize;
+    private boolean first;
+    private boolean last;
+    private boolean empty;
+    private int totalPages;
+    private int numberOfElements;
 
+    public MyPage() {
+    }
 
-    <span class="token keyword">public</span> <span class="token function">MyPage</span><span class="token punctuation">(</span>Page<span class="token operator">&lt;</span>T<span class="token operator">></span> page<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>content <span class="token operator">=</span> page<span class="token punctuation">.</span><span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>totalElements <span class="token operator">=</span> page<span class="token punctuation">.</span><span class="token function">getTotalElements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>pageNumber <span class="token operator">=</span> page<span class="token punctuation">.</span><span class="token function">getPageable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPageNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>pageSize <span class="token operator">=</span> page<span class="token punctuation">.</span><span class="token function">getPageable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPageSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>numberOfElements <span class="token operator">=</span> page<span class="token punctuation">.</span><span class="token function">getNumberOfElements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">// 省略get/set方法</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-
-   <span class="token comment" spellcheck="true">//迭代器</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> Iterator<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>    
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    
+    public MyPage(Page&lt;T&gt; page) {
+        this.content = page.getContent();
+        this.totalElements = page.getTotalElements();
+        this.pageNumber = page.getPageable().getPageNumber();
+        this.pageSize = page.getPageable().getPageSize();
+        this.numberOfElements = page.getNumberOfElements();
+    }
+    
+    &#x2F;&#x2F; 省略get&#x2F;set方法
+    ... ...
+    
+   &#x2F;&#x2F;迭代器
+    @Override
+    public Iterator&lt;T&gt; iterator() {
+        return getContent().iterator();
+    }
+}    
+</code></pre>
 <h4 id="2-2-java-util-LinkedHashMap-cannot-be-cast-to-XXX"><a href="#2-2-java-util-LinkedHashMap-cannot-be-cast-to-XXX" class="headerlink" title="2.2 java.util.LinkedHashMap cannot be cast to XXX"></a>2.2 java.util.LinkedHashMap cannot be cast to XXX</h4><p>发生在读取redis缓存的时候报错，<code>java.lang.ClassCastException: java.util.LinkedHashMap cannot be cast to XXX</code>，但是我个人代码中并没有定义和使用到<code>LinkedHashMap</code>，查资料后发现原因是<code>Jackson2JsonRedisSerializer</code>，该序列化器中默认使用的<code>ObjectMapper</code>是直接<code>new ObjectMapper()</code>创建的，这样<code>ObjectMapper</code>会将redis中的字符串反序列化为<code>LinkedHashMap</code>类型，导致后续类型转换错误。</p>
 <p>解决方法，配置<code>objectMapper</code>的默认类型：</p>
-<pre class="line-numbers language-java"><code class="language-java">Jackson2JsonRedisSerializer<span class="token operator">&lt;</span>Object<span class="token operator">></span> jackson2JsonRedisSerializer <span class="token operator">=</span>
-    <span class="token keyword">new</span> <span class="token class-name">Jackson2JsonRedisSerializer</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-ObjectMapper objectMapper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-objectMapper<span class="token punctuation">.</span><span class="token function">setVisibility</span><span class="token punctuation">(</span>PropertyAccessor<span class="token punctuation">.</span>ALL<span class="token punctuation">,</span> JsonAutoDetect<span class="token punctuation">.</span>Visibility<span class="token punctuation">.</span>ANY<span class="token punctuation">)</span><span class="token punctuation">;</span>
-objectMapper<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span>MapperFeature<span class="token punctuation">.</span>USE_ANNOTATIONS<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-objectMapper<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span>DeserializationFeature<span class="token punctuation">.</span>FAIL_ON_UNKNOWN_PROPERTIES<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-objectMapper<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span>SerializationFeature<span class="token punctuation">.</span>FAIL_ON_EMPTY_BEANS<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 配置如下，解决LinkedHashMap转换异常</span>
-objectMapper<span class="token punctuation">.</span><span class="token function">enableDefaultTyping</span><span class="token punctuation">(</span>ObjectMapper<span class="token punctuation">.</span>DefaultTyping<span class="token punctuation">.</span>NON_FINAL<span class="token punctuation">,</span> JsonTypeInfo<span class="token punctuation">.</span>As<span class="token punctuation">.</span>PROPERTY<span class="token punctuation">)</span><span class="token punctuation">;</span>
-objectMapper<span class="token punctuation">.</span><span class="token function">setSerializationInclusion</span><span class="token punctuation">(</span>JsonInclude<span class="token punctuation">.</span>Include<span class="token punctuation">.</span>NON_NULL<span class="token punctuation">)</span><span class="token punctuation">;</span>
-jackson2JsonRedisSerializer<span class="token punctuation">.</span><span class="token function">setObjectMapper</span><span class="token punctuation">(</span>objectMapper<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2-3-redis数据非中文"><a href="#2-3-redis数据非中文" class="headerlink" title="2.3 redis数据非中文"></a>2.3 redis数据非中文</h4><p>只需在<code>redisCacheManager</code>方法中进行redis的缓存配置，设置value序列化。</p>
-<pre class="line-numbers language-java"><code class="language-java">RedisCacheConfiguration config <span class="token operator">=</span> RedisCacheConfiguration<span class="token punctuation">.</span><span class="token function">defaultCacheConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">// 缓存有效期60s</span>
-    <span class="token punctuation">.</span><span class="token function">entryTtl</span><span class="token punctuation">(</span>Duration<span class="token punctuation">.</span><span class="token function">ofSeconds</span><span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">// 设置key序列化</span>
-    <span class="token punctuation">.</span><span class="token function">serializeKeysWith</span><span class="token punctuation">(</span>RedisSerializationContext<span class="token punctuation">.</span>SerializationPair<span class="token punctuation">.</span><span class="token function">fromSerializer</span><span class="token punctuation">(</span>redisSerializer<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">// 设置value序列化</span>
-    <span class="token punctuation">.</span><span class="token function">serializeValuesWith</span><span class="token punctuation">(</span>RedisSerializationContext<span class="token punctuation">.</span>SerializationPair<span class="token punctuation">.</span><span class="token function">fromSerializer</span><span class="token punctuation">(</span>jackson2JsonRedisSerializer<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">//不缓存null值</span>
-    <span class="token punctuation">.</span><span class="token function">disableCachingNullValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">Jackson2JsonRedisSerializer&lt;Object&gt; jackson2JsonRedisSerializer =
+    new Jackson2JsonRedisSerializer&lt;&gt;(Object.class);
+ObjectMapper objectMapper = new ObjectMapper();
+objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+objectMapper.configure(MapperFeature.USE_ANNOTATIONS, false);
+objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+&#x2F;&#x2F; 配置如下，解决LinkedHashMap转换异常
+objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+</code></pre>
+<h4 id="2-3-redis数据非中文"><a href="#2-3-redis数据非中文" class="headerlink" title="2.3 redis数据非中文"></a>2.3 redis数据非中文</h4><p>只需在<code>redisCacheManager</code>方法中进行redis的缓存配置，设置value序列化。</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+    &#x2F;&#x2F; 缓存有效期60s
+    .entryTtl(Duration.ofSeconds(60))
+    &#x2F;&#x2F; 设置key序列化
+    .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
+    &#x2F;&#x2F; 设置value序列化
+    .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
+    &#x2F;&#x2F;不缓存null值
+    .disableCachingNullValues();
+</code></pre>
 <h4 id="2-4-相同类转换异常"><a href="#2-4-相同类转换异常" class="headerlink" title="2.4 相同类转换异常"></a>2.4 相同类转换异常</h4><p>关闭IDEA的热部署即可，原因和JVM的双亲委派有关，感兴趣的自查。</p>
 
             </div>
@@ -943,35 +965,27 @@ jackson2JsonRedisSerializer<span class="token punctuation">.</span><span class="
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/Algorithm-trip/Data-structure-basic.html">
+                <a href="/Database/Join.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="算法之美-[数据结构基础]">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="最全面的MySQL7种JOIN连接">
                         
-                        <span class="card-title">算法之美-[数据结构基础]</span>
+                        <span class="card-title">最全面的MySQL7种JOIN连接</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">1. 算法概述
-什么是算法$(algorithm)$？
-在计算机领域里，算法就是一系列程序指令，用于处理特定的运算和逻辑问题。衡量算法优劣的主要标准是时间复杂度和空间复杂度。
-
-
-
-
-
-什么是数据结构$(data \ structure)$</div>
+                    <div class="summary">1. MySQL逻辑架构简介MySQL的架构可以在多种不同场景中应用并发挥良好作用，主要体现在存储引擎的架构上，插件式的存储引擎架构将查询处理和其他的系统任务以及数据的存储提取相分离，这种架构可以根据业务的需求和实际需要选择合适的存储引擎。</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-03-24
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-03-20
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Algorithm-trip/" class="post-category" target="_blank">
-                                    Algorithm trip
+                            <a href="/categories/Database/" class="post-category" target="_blank">
+                                    Database
                                 </a>
                             
                             
@@ -981,8 +995,8 @@ jackson2JsonRedisSerializer<span class="token punctuation">.</span><span class="
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Data-structure/" target="_blank">
-                        <span class="chip bg-color">Data structure</span>
+                    <a href="/tags/MySQL-Join/" target="_blank">
+                        <span class="chip bg-color">MySQL Join</span>
                     </a>
                     
                 </div>
@@ -1141,7 +1155,7 @@ jackson2JsonRedisSerializer<span class="token punctuation">.</span><span class="
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">249.3k</span>
+                <span class="white-color">276.8k</span>
             
 
             

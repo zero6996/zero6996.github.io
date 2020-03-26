@@ -465,93 +465,133 @@
 </li>
 <li>然后到你的github项目跟目录新建一个名为CNAME的文件(无后缀),里面填写你自定义的域名</li>
 </ul>
-<h2 id="4-配置SSH-key"><a href="#4-配置SSH-key" class="headerlink" title="4.配置SSH key"></a>4.配置SSH key</h2><p>提交代码需要github权限才可以,这里使用ssh key来解决本地和服务器的连接问题</p>
-<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">cd</span> ~/.ssh <span class="token comment" spellcheck="true"># 检查本机已存在的ssh秘钥</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>如果提示:”No such file or directory”说明你是第一次使用git</p>
-<pre class="line-numbers language-bash"><code class="language-bash">ssh-keygen -t rsa -C <span class="token string">'your email@example.com'</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>一般情况下直接默认值就行,所以不用设置密码,一路回车就行<br>最终会在.ssh目录下生成两个文件,id_rsa和id_rsa.pub,这两个就是SSH Key的密钥对id_rsa是私钥,不能泄露!</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> id_rsa.pub
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="4-配置SSH-key"><a href="#4-配置SSH-key" class="headerlink" title="4.配置SSH key"></a>4.配置SSH key</h2><p>提交代码需要github权限才可以,这里使用ssh key来解决本地和服务器的连接问题<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">$ cd ~&#x2F;.ssh # 检查本机已存在的ssh秘钥
+</code></pre></p>
+<p>如果提示:”No such file or directory”说明你是第一次使用git<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">ssh-keygen -t rsa -C &#39;your email@example.com&#39;
+</code></pre></p>
+<p>一般情况下直接默认值就行,所以不用设置密码,一路回车就行<br>最终会在.ssh目录下生成两个文件,id_rsa和id_rsa.pub,这两个就是SSH Key的密钥对id_rsa是私钥,不能泄露!<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">cat id_rsa.pub
+</code></pre></p>
 <p>复制输出的内容,打开你的github主页,打开”Account settings”&gt;&gt;”SSH keys”页面</p>
 <ol>
 <li>点击 ‘Add SSH Key’,填上任意title,在Key文本框内粘贴id_rsa.pub文件的内容</li>
-<li>点击 ‘Add Key’,就成功添加Key了<br>测试是否成功<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">ssh</span> -T git@github.com
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-如果提示”Are you sure you want to continum connecting (yes/no)?” 输入yes,就会看到<pre><code>Hi zero6996! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
-</code></pre>说明SSH配置成功!<br>此时你还需要配置:<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">git</span> config --global user.name <span class="token string">'zero6996'</span> <span class="token comment" spellcheck="true">#你的github用户名</span>
-$ <span class="token function">git</span> config --global user.email <span class="token string">'youremail@xx.com'</span> <span class="token comment" spellcheck="true">#你的github注册email</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="5-hexo简介"><a href="#5-hexo简介" class="headerlink" title="5.hexo简介"></a>5.hexo简介</h2>Hexo是一个简单,快速,强大的基于GitHub Pages的博客发布工具,支持Markdown格式,有众多优秀的插件和主题<br><a href="http://hexo.io" target="_blank" rel="noopener">官网</a><br><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">Github</a><h3 id="5-1-安装注意事项"><a href="#5-1-安装注意事项" class="headerlink" title="5.1.安装注意事项"></a>5.1.安装注意事项</h3></li>
+<li>点击 ‘Add Key’,就成功添加Key了<br>测试是否成功
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">$ ssh -T git@github.com
+</code></pre>
+</li>
+</ol>
+<p>如果提示”Are you sure you want to continum connecting (yes/no)?” 输入yes,就会看到<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">Hi zero6996! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
+</code></pre></p>
+<p>说明SSH配置成功!<br>此时你还需要配置:<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">$ git config --global user.name &#39;zero6996&#39; #你的github用户名
+$ git config --global user.email &#39;youremail@xx.com&#39; #你的github注册email
+</code></pre></p>
+<h2 id="5-hexo简介"><a href="#5-hexo简介" class="headerlink" title="5.hexo简介"></a>5.hexo简介</h2><p>Hexo是一个简单,快速,强大的基于GitHub Pages的博客发布工具,支持Markdown格式,有众多优秀的插件和主题<br><a href="http://hexo.io" target="_blank" rel="noopener">官网</a><br><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">Github</a></p>
+<h3 id="5-1-安装注意事项"><a href="#5-1-安装注意事项" class="headerlink" title="5.1.安装注意事项"></a>5.1.安装注意事项</h3><ol>
 <li>很多命令既可以用Windows的cmd来完成,也可以使用git bash来完成,但是部分命令会有一些问题,为避免不必要的问题,这里统一使用git bash来执行</li>
 <li>hexo不同版本差别较大,网上很文章的配置信息都是基于2.x的,所以注意不要被误导</li>
 <li>hexo有两种”_config.yml” 文件,一个是跟目录下的全局的”_config.yml” , 一个是各个”theme” 下的</li>
-<li>安装完node和npm以后,将npm替换为<a href="https://npm.taobao.org/" target="_blank" rel="noopener">淘宝镜像</a>,执行以下命令即可将,后续命令全部以cnpm执行<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g cnpm --registry<span class="token operator">=</span>https://registry.npm.taobao.org
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="5-2-安装"><a href="#5-2-安装" class="headerlink" title="5.2.安装"></a>5.2.安装</h3><pre class="line-numbers language-bash"><code class="language-bash">$ cnpm <span class="token function">install</span> -g hexo
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="5-3-初始化"><a href="#5-3-初始化" class="headerlink" title="5.3.初始化"></a>5.3.初始化</h3>在本地新建一个名为hexo的文件夹(名字任意取),这里作为一个你存放代码的地方,比如我是D:\hexo<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">cd</span> /d/hexo <span class="token comment" spellcheck="true"># 进入文件夹</span>
-$ hexo init <span class="token comment" spellcheck="true"># 初始化</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-hexo会自动下载一些文件到这个目录,包括node_modules,目录结构<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">ls</span>
-_config.yml  node_modules/  package-lock.json  scaffolds/  themes/
-db.json      package.json   public/   source/
-$ hexo g <span class="token comment" spellcheck="true"># 生成</span>
-$ hexo s <span class="token comment" spellcheck="true"># 启动服务</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>安装完node和npm以后,将npm替换为<a href="https://npm.taobao.org/" target="_blank" rel="noopener">淘宝镜像</a>,执行以下命令即可将,后续命令全部以cnpm执行
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">npm install -g cnpm --registry=https:&#x2F;&#x2F;registry.npm.taobao.org
+</code></pre>
 </li>
 </ol>
+<h3 id="5-2-安装"><a href="#5-2-安装" class="headerlink" title="5.2.安装"></a>5.2.安装</h3>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">$ cnpm install -g hexo
+</code></pre>
+<h3 id="5-3-初始化"><a href="#5-3-初始化" class="headerlink" title="5.3.初始化"></a>5.3.初始化</h3><p>在本地新建一个名为hexo的文件夹(名字任意取),这里作为一个你存放代码的地方,比如我是D:\hexo<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">$ cd &#x2F;d&#x2F;hexo # 进入文件夹
+$ hexo init # 初始化
+</code></pre></p>
+<p>hexo会自动下载一些文件到这个目录,包括node_modules,目录结构<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">$ ls
+_config.yml  node_modules&#x2F;  package-lock.json  scaffolds&#x2F;  themes&#x2F;
+db.json      package.json   public&#x2F;   source&#x2F;
+$ hexo g # 生成
+$ hexo s # 启动服务
+</code></pre></p>
 <ul>
 <li>执行上述命令之后,hexo就会在public文件夹生成相关html文件,这些文件后续会提交到github上去</li>
 <li>“hexo s”是开启本地预览服务,打开浏览器访问<a href="http://localhost:4000" target="_blank" rel="noopener">localhost:4000</a>即可看到博客内容.</li>
 <li>如果无显示内容或拒绝访问,就是端口占用的问题,重新开启服务,使用”hexo s -p 8888”指定端口</li>
 </ul>
 <h3 id="5-4-修改主题"><a href="#5-4-修改主题" class="headerlink" title="5.4.修改主题"></a>5.4.修改主题</h3><p>hexo社区有丰富的主题可选,从<a href="https://hexo.io/themes/" target="_blank" rel="noopener">官网主题</a>自己挑选下载</p>
-<p>下载主题(以<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">hexo-theme-yilia</a>为例):</p>
-<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">cd</span> /d/hexo/
-$ <span class="token function">git</span> clone git@github.com:litten/hexo-theme-yilia.git themes/yilia <span class="token comment" spellcheck="true"># 从github克隆主题,到本地的themes/yilia文件夹</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>下载的主题都在hexo/themes文件夹内</p>
-<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">cd</span> themes
-$ <span class="token function">ls</span>
-landscape/  yilia/
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>下载主题(以<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">hexo-theme-yilia</a>为例):<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">$ cd &#x2F;d&#x2F;hexo&#x2F;
+$ git clone git@github.com:litten&#x2F;hexo-theme-yilia.git themes&#x2F;yilia # 从github克隆主题,到本地的themes&#x2F;yilia文件夹
+</code></pre></p>
+<p>下载的主题都在hexo/themes文件夹内<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">$ cd themes
+$ ls
+landscape&#x2F;  yilia&#x2F;
+</code></pre></p>
 <p>修改”_config.yml”中的”theme: landscape”改为”theme: yilia”,然后重新执行”hexo g”来生成页面<br>如果出现一些莫名其妙的问题,可以先执行”hexo clean”来清理一下public的内容,然后再来重新生成和发布</p>
 <h3 id="5-5-上传之前"><a href="#5-5-上传之前" class="headerlink" title="5.5.上传之前"></a>5.5.上传之前</h3><p>上传代码到github之前,记得备份以前的所有代码,因为hexo提交代码时会把你以前的所有代码都删除</p>
 <h3 id="5-6-上传到Github"><a href="#5-6-上传到Github" class="headerlink" title="5.6.上传到Github"></a>5.6.上传到Github</h3><p>如果你一切都配置好了,发布上传只需要”hexo d”就可以了,当然关键是所有东西都配置好<br>首先,”ssh key”肯定要配置好<br>其次,配置”_config.yml”中有关deploy的部分:</p>
-<pre><code>#正确写法
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">#正确写法
 deploy:
    type: git
-   repository: git@github.com:zero6996/zero6996.github.io.git
+   repository: git@github.com:zero6996&#x2F;zero6996.github.io.git
    branch: master
-</code></pre><p>如果报如下错误:</p>
-<pre><code>Deployer not found: github 或者 Deployer not found: git
-</code></pre><p>原因是还需安装一个插件:</p>
-<pre><code> cnpm install hexo-deployer-git --save
-</code></pre><p>安装无误,输入github账户密码,输入”hexo d”就会将本次有改动的代码全部提交,没有改动的不会</p>
-<h3 id="5-7-常用hexo命令"><a href="#5-7-常用hexo命令" class="headerlink" title="5.7.常用hexo命令"></a>5.7.常用hexo命令</h3><pre><code>hexo new &#39;postName&#39; # 新建文章
+</code></pre>
+<p>如果报如下错误:<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">Deployer not found: github 或者 Deployer not found: git
+</code></pre></p>
+<p>原因是还需安装一个插件:<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike"> cnpm install hexo-deployer-git --save
+</code></pre></p>
+<p>安装无误,输入github账户密码,输入”hexo d”就会将本次有改动的代码全部提交,没有改动的不会</p>
+<h3 id="5-7-常用hexo命令"><a href="#5-7-常用hexo命令" class="headerlink" title="5.7.常用hexo命令"></a>5.7.常用hexo命令</h3>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">hexo new &#39;postName&#39; # 新建文章
 hexo new page &#39;pageName&#39; # 新建页面
 hexo generate # 生成静态页面至public目录
 hexo server # 开启预览访问端口(默认4000,使用-p可更换端口)
 hexo deploy # 部署至Github
 hexo help # 查看帮助
 hexo version # 查看版本
-</code></pre><p>以上命令均可缩写</p>
-<pre><code>hexo n == hexo new
+</code></pre>
+<p>以上命令均可缩写<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">hexo n == hexo new
 hexo g == hexo generate
 hexo s == hexo server
 hexo d == hexo deploy
-</code></pre><p>以及组合命令:</p>
-<pre><code>hexo s -g # 生成页面并本地预览
+</code></pre></p>
+<p>以及组合命令:<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">hexo s -g # 生成页面并本地预览
 hexo d -g # 生成页面并上传
 hexo s -p # 本地预览并改变端口
-</code></pre><h3 id="5-8-config-yml"><a href="#5-8-config-yml" class="headerlink" title="5.8._config.yml"></a>5.8._config.yml</h3><p>这里面都是一些全局配置,每个参数意思都比较简单明了,需要注意的是冒号后面必须有一个空格</p>
-<h2 id="6-写博客"><a href="#6-写博客" class="headerlink" title="6.写博客"></a>6.写博客</h2><p>进入hexo根目录,执行命令:</p>
-<pre><code>hexo new &#39;my-first-blog&#39;
-</code></pre><p>hexo会帮我们在_posts下生成相关的md文件,我们只需要打开这个文件就可以开始写博客了</p>
-<p>一般完整格式如下:</p>
-<pre><code>---
+</code></pre></p>
+<h3 id="5-8-config-yml"><a href="#5-8-config-yml" class="headerlink" title="5.8._config.yml"></a>5.8._config.yml</h3><p>这里面都是一些全局配置,每个参数意思都比较简单明了,需要注意的是冒号后面必须有一个空格</p>
+<h2 id="6-写博客"><a href="#6-写博客" class="headerlink" title="6.写博客"></a>6.写博客</h2><p>进入hexo根目录,执行命令:<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">hexo new &#39;my-first-blog&#39;
+</code></pre></p>
+<p>hexo会帮我们在_posts下生成相关的md文件,我们只需要打开这个文件就可以开始写博客了</p>
+<p>一般完整格式如下:<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">---
 title: postName # 文章页面上的显示名称,一般是中文
 date: 2018-12-5 15:46:10 # 文章生成时间,一般不用改,也可自定义
 categories: 默认分类 # 分类
@@ -560,37 +600,45 @@ description: 附加一段文章摘要，字数最好在140字以内，会出现�
 ---
 
 以下是正文内容
-</code></pre><p>hexo new page ‘my-second-blog’ 生成的是:index.md,它不会作为文章出现在博客目录</p>
+</code></pre></p>
+<p>hexo new page ‘my-second-blog’ 生成的是:index.md,它不会作为文章出现在博客目录</p>
 <h3 id="6-1-写博客工具"><a href="#6-1-写博客工具" class="headerlink" title="6.1.写博客工具"></a>6.1.写博客工具</h3><p>   个人使用的是 ‘Visual Studio Code’ IDE</p>
 <h3 id="6-2-如何让博文列表不显示全部内容"><a href="#6-2-如何让博文列表不显示全部内容" class="headerlink" title="6.2.如何让博文列表不显示全部内容"></a>6.2.如何让博文列表不显示全部内容</h3><p>默认情况下,生成的博文目录会显示全部文章内容,如何设置文章摘要长度呢?</p>
 <p>可以在合适的位置加上’<!--more-->‘即可,显示在页面上的效果就是新增了一个’more&gt;&gt;’功能选项,查看更多内容</p>
 <h3 id="7-关于缺失模块"><a href="#7-关于缺失模块" class="headerlink" title="7.关于缺失模块"></a>7.关于缺失模块</h3><p>缺失模块</p>
 <ol>
 <li>请确保node版本大于6.2</li>
-<li>在博客根目录（注意不是yilia根目录）执行以下命令:<pre class="line-numbers language-bash"><code class="language-bash">cnpm i hexo-generator-json-content --save
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<li><p>在博客根目录（注意不是yilia根目录）执行以下命令:</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash"> cnpm i hexo-generator-json-content --save
+</code></pre>
 </li>
-<li>在根目录_config.yml里添加配置：<pre class="line-numbers language-bash"><code class="language-bash">jsonContent:
- meta: <span class="token boolean">false</span>
- pages: <span class="token boolean">false</span>
- posts:
-   title: <span class="token boolean">true</span>
-   date: <span class="token boolean">true</span>
-   path: <span class="token boolean">true</span>
-   text: <span class="token boolean">false</span>
-   raw: <span class="token boolean">false</span>
-   content: <span class="token boolean">false</span>
-   slug: <span class="token boolean">false</span>
-   updated: <span class="token boolean">false</span>
-   comments: <span class="token boolean">false</span>
-   link: <span class="token boolean">false</span>
-   permalink: <span class="token boolean">false</span>
-   excerpt: <span class="token boolean">false</span>
-   categories: <span class="token boolean">false</span>
-   tags: <span class="token boolean">true</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h4><a href="http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="noopener">以上内容整理参考自文章</a></li>
+<li><p>在根目录_config.yml里添加配置：</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: false
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</code></pre>
+</li>
 </ol>
+<h4 id="参考自"><a href="#参考自" class="headerlink" title="参考自"></a>参考自</h4><p>   <a href="http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="noopener">以上内容整理参考自文章</a></p>
 
             </div>
             <hr>
@@ -855,7 +903,7 @@ JVM(Java Virtual Machine):Java虚拟机，简称JVM，是运行所有Java程序�
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">249.3k</span>
+                <span class="white-color">276.8k</span>
             
 
             

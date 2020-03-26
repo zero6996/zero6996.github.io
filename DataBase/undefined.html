@@ -417,7 +417,7 @@ MySQL基本操作">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.2k
+                        2.3k
                     </div>
                     
 
@@ -494,12 +494,14 @@ MySQL基本操作">
 <li>使用数据库：<code>use 数据库名称;</code></li>
 </ul>
 <p><strong>操作表：CRUD</strong></p>
-<h5 id="1-C-Create-：创建"><a href="#1-C-Create-：创建" class="headerlink" title="1. C(Create)：创建"></a>1. C(Create)：创建</h5><pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> 表名<span class="token punctuation">(</span>
-    列名<span class="token number">1</span> 数据类型<span class="token number">1</span><span class="token punctuation">,</span>
-    列名<span class="token number">2</span> 数据类型<span class="token number">2</span><span class="token punctuation">,</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-    列名n 数据类型n<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true"># 注意：最后一列，不需要加逗号','</span>
-<span class="token comment" spellcheck="true">/*
+<h5 id="1-C-Create-：创建"><a href="#1-C-Create-：创建" class="headerlink" title="1. C(Create)：创建"></a>1. C(Create)：创建</h5>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">create table 表名(
+	列名1 数据类型1,
+    列名2 数据类型2,
+    ... ...
+    列名n 数据类型n); # 注意：最后一列，不需要加逗号&#39;,&#39;
+&#x2F;*
     常用数据库类型:
     1. int：整数类型。例：`age int`
     2. double：小数类型。例：`score double(5,2)`
@@ -507,8 +509,8 @@ MySQL基本操作">
     4. datetime：日期(年月日时分秒)。例：`date yyyy-MM-dd HH:mm:ss`
     5. timestamp：时间戳类型(年月日时分秒)。如不赋值，则默认使用当前系统时间，来自动赋值。
     6. varchar：字符串类型。例：`name`
-*/</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*&#x2F;
+</code></pre>
 <blockquote>
 <p>Tips: 如果想复制一张表，可以使用<code>create table 表名 like 被复制表名;</code></p>
 </blockquote>
@@ -563,43 +565,47 @@ MySQL基本操作">
 <p>注意：参与运算的必须是数值类型</p>
 </blockquote>
 <p>SQL语句示例：</p>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">/*
-    给student表添加数学、英语成绩列，给每条记录添加对应的数学和英语成绩，查询时将数学和英语的成绩相加显示。
-*/</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student<span class="token punctuation">;</span>
-<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> student <span class="token keyword">ADD</span> math <span class="token keyword">INT</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true"># 添加数学列</span>
-<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> student <span class="token keyword">ADD</span> english <span class="token keyword">INT</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true"># 添加英语列</span>
-<span class="token comment" spellcheck="true">-- 两位同学添加数学英语成绩</span>
-<span class="token keyword">UPDATE</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span> <span class="token keyword">SET</span> <span class="token punctuation">`</span>math<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token string">'86'</span> <span class="token punctuation">,</span> <span class="token punctuation">`</span>english<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token string">'94'</span> <span class="token keyword">WHERE</span> <span class="token punctuation">`</span>age<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token string">'19'</span> <span class="token operator">AND</span> <span class="token punctuation">`</span>name<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token string">'xiaoming'</span> <span class="token operator">AND</span> <span class="token punctuation">`</span>math<span class="token punctuation">`</span> <span class="token operator">IS</span> <span class="token boolean">NULL</span> <span class="token operator">AND</span> <span class="token punctuation">`</span>english<span class="token punctuation">`</span> <span class="token operator">IS</span> <span class="token boolean">NULL</span><span class="token punctuation">;</span>
-<span class="token keyword">UPDATE</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span> <span class="token keyword">SET</span> <span class="token punctuation">`</span>math<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token string">'79'</span> <span class="token punctuation">,</span> <span class="token punctuation">`</span>english<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token string">'88'</span> <span class="token keyword">WHERE</span> <span class="token punctuation">`</span>age<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token string">'18'</span> <span class="token operator">AND</span> <span class="token punctuation">`</span>name<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token string">'xiaohua'</span> <span class="token operator">AND</span> <span class="token punctuation">`</span>math<span class="token punctuation">`</span> <span class="token operator">IS</span> <span class="token boolean">NULL</span> <span class="token operator">AND</span> <span class="token punctuation">`</span>english<span class="token punctuation">`</span> <span class="token operator">IS</span> <span class="token boolean">NULL</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">-- 给所有数学加5分</span>
-<span class="token keyword">SELECT</span> math<span class="token operator">+</span><span class="token number">5</span> <span class="token keyword">FROM</span> student<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">-- 查询math+english的和</span>
-<span class="token keyword">SELECT</span> math<span class="token operator">+</span>english <span class="token keyword">FROM</span> student<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">-- 查询总成绩，并使用别名显示</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span><span class="token punctuation">,</span><span class="token punctuation">(</span>math<span class="token operator">+</span>english<span class="token punctuation">)</span> <span class="token keyword">AS</span> 总成绩 <span class="token keyword">FROM</span> student<span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">&#x2F;*
+	给student表添加数学、英语成绩列，给每条记录添加对应的数学和英语成绩，查询时将数学和英语的成绩相加显示。
+*&#x2F;
+SELECT * FROM student;
+ALTER TABLE student ADD math INT; # 添加数学列
+ALTER TABLE student ADD english INT; # 添加英语列
+-- 两位同学添加数学英语成绩
+UPDATE `student` SET `math` = &#39;86&#39; , `english` = &#39;94&#39; WHERE `age` = &#39;19&#39; AND `name` = &#39;xiaoming&#39; AND `math` IS NULL AND `english` IS NULL;
+UPDATE `student` SET `math` = &#39;79&#39; , `english` = &#39;88&#39; WHERE `age` = &#39;18&#39; AND `name` = &#39;xiaohua&#39; AND `math` IS NULL AND `english` IS NULL;
+-- 给所有数学加5分
+SELECT math+5 FROM student;
+-- 查询math+english的和
+SELECT math+english FROM student;
+-- 查询总成绩，并使用别名显示
+SELECT *,(math+english) AS 总成绩 FROM student;
+</code></pre>
 <p><strong>条件查询</strong>：</p>
 <p>根据指定查询条件，对信息进行过滤显示，语句：<code>select 字段名 from 表名 where 条件;</code></p>
 <ul>
 <li>SQL语句示例</li>
 </ul>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">-- 创建一个学生表，包含如下列：</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> student2<span class="token punctuation">(</span>
-    id <span class="token keyword">INT</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">-- 编号</span>
-    NAME <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true"># 姓名</span>
-    age <span class="token keyword">INT</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">-- 年龄</span>
-    sex <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true"># 性别</span>
-    address <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">-- 地址</span>
-    math <span class="token keyword">INT</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true"># 数学</span>
-    english <span class="token keyword">INT</span> <span class="token comment" spellcheck="true">-- 英语</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> student2<span class="token punctuation">(</span>id<span class="token punctuation">,</span>NAME<span class="token punctuation">,</span>age<span class="token punctuation">,</span>sex<span class="token punctuation">,</span>address<span class="token punctuation">,</span>math<span class="token punctuation">,</span>english<span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'马云'</span><span class="token punctuation">,</span><span class="token number">55</span><span class="token punctuation">,</span><span class="token string">'男'</span><span class="token punctuation">,</span><span class="token string">'
-杭州'</span><span class="token punctuation">,</span><span class="token number">66</span><span class="token punctuation">,</span><span class="token number">78</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'马化腾'</span><span class="token punctuation">,</span><span class="token number">45</span><span class="token punctuation">,</span><span class="token string">'女'</span><span class="token punctuation">,</span><span class="token string">'深圳'</span><span class="token punctuation">,</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">87</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'马景涛'</span><span class="token punctuation">,</span><span class="token number">55</span><span class="token punctuation">,</span><span class="token string">'男'</span><span class="token punctuation">,</span><span class="token string">'香港'</span><span class="token punctuation">,</span><span class="token number">56</span><span class="token punctuation">,</span><span class="token number">77</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token string">'柳岩
-'</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">'女'</span><span class="token punctuation">,</span><span class="token string">'湖南'</span><span class="token punctuation">,</span><span class="token number">76</span><span class="token punctuation">,</span><span class="token number">65</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token string">'柳青'</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">'男'</span><span class="token punctuation">,</span><span class="token string">'湖南'</span><span class="token punctuation">,</span><span class="token number">86</span><span class="token punctuation">,</span><span class="token boolean">NULL</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token string">'刘德华'</span><span class="token punctuation">,</span><span class="token number">57</span><span class="token punctuation">,</span><span class="token string">'男'</span><span class="token punctuation">,</span><span class="token string">'香港
-'</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token string">'马德'</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token string">'女'</span><span class="token punctuation">,</span><span class="token string">'香港'</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token string">'德玛西亚'</span><span class="token punctuation">,</span><span class="token number">18</span><span class="token punctuation">,</span><span class="token string">'男'</span><span class="token punctuation">,</span><span class="token string">'南京'</span><span class="token punctuation">,</span><span class="token number">56</span><span class="token punctuation">,</span><span class="token number">65</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">-- 创建一个学生表，包含如下列：
+CREATE TABLE student2(
+	id INT, -- 编号
+	NAME VARCHAR(20), # 姓名
+	age INT, -- 年龄
+	sex VARCHAR(5), # 性别
+	address VARCHAR(100), -- 地址
+	math INT, # 数学
+	english INT -- 英语
+	);
+
+INSERT INTO student2(id,NAME,age,sex,address,math,english) VALUES(1,&#39;马云&#39;,55,&#39;男&#39;,&#39;
+杭州&#39;,66,78),(2,&#39;马化腾&#39;,45,&#39;女&#39;,&#39;深圳&#39;,98,87),(3,&#39;马景涛&#39;,55,&#39;男&#39;,&#39;香港&#39;,56,77),(4,&#39;柳岩
+&#39;,20,&#39;女&#39;,&#39;湖南&#39;,76,65),(5,&#39;柳青&#39;,20,&#39;男&#39;,&#39;湖南&#39;,86,NULL),(6,&#39;刘德华&#39;,57,&#39;男&#39;,&#39;香港
+&#39;,99,99),(7,&#39;马德&#39;,22,&#39;女&#39;,&#39;香港&#39;,99,99),(8,&#39;德玛西亚&#39;,18,&#39;男&#39;,&#39;南京&#39;,56,65);
+</code></pre>
 <ul>
 <li>运算符</li>
 </ul>
@@ -636,16 +642,18 @@ MySQL基本操作">
 <ul>
 <li>操作示例</li>
 </ul>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true"># 查询math分数大于80分的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> math<span class="token operator">></span><span class="token number">80</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true"># 查询english分数小于或等于80分的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> english <span class="token operator">&lt;=</span><span class="token number">80</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true"># 查询age等于20岁的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> age<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true"># 查询age不等于20岁的学生，注：不等于有两种写法</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> age<span class="token operator">&lt;></span><span class="token number">20</span><span class="token punctuation">;</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> age<span class="token operator">!=</span><span class="token number">20</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql"># 查询math分数大于80分的学生
+SELECT * FROM student2 WHERE math&gt;80;
+# 查询english分数小于或等于80分的学生
+SELECT * FROM student2 WHERE english &lt;=80;
+# 查询age等于20岁的学生
+SELECT * FROM student2 WHERE age=20;
+# 查询age不等于20岁的学生，注：不等于有两种写法
+SELECT * FROM student2 WHERE age&lt;&gt;20;
+SELECT * FROM student2 WHERE age!=20;
+</code></pre>
 <ul>
 <li>逻辑运算符</li>
 </ul>
@@ -677,42 +685,50 @@ MySQL基本操作">
 <ul>
 <li>操作示例</li>
 </ul>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true"># 查询age大于35且性别为男的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> age<span class="token operator">></span><span class="token number">35</span> <span class="token operator">AND</span> sex<span class="token operator">=</span><span class="token string">'男'</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true"># 查询age大于35或性别为男的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> age<span class="token operator">></span><span class="token number">35</span> <span class="token operator">OR</span> sex<span class="token operator">=</span><span class="token string">'男'</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true"># 查询id是1或3或5的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> id<span class="token operator">=</span><span class="token number">1</span> <span class="token operator">OR</span> id<span class="token operator">=</span><span class="token number">3</span> <span class="token operator">OR</span> id<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql"># 查询age大于35且性别为男的学生
+SELECT * FROM student2 WHERE age&gt;35 AND sex=&#39;男&#39;;
+# 查询age大于35或性别为男的学生
+SELECT * FROM student2 WHERE age&gt;35 OR sex=&#39;男&#39;;
+# 查询id是1或3或5的学生
+SELECT * FROM student2 WHERE id=1 OR id=3 OR id=5;
+</code></pre>
 <ul>
 <li><p>in 关键字</p>
 <p>in里面的每个数据都会作为一次条件，只要满足条件就会显示：<code>select 字段名 from 表名 where 字段 in(数据1，数据2,...);</code></p>
 </li>
 </ul>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true"># 查询id是1或3或5的学生，使用in</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> id <span class="token operator">IN</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true"># 查询id不是1或3或5的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> id <span class="token operator">NOT</span> <span class="token operator">IN</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql"># 查询id是1或3或5的学生，使用in
+SELECT * FROM student2 WHERE id IN(1,3,5);
+# 查询id不是1或3或5的学生
+SELECT * FROM student2 WHERE id NOT IN(1,3,5);
+</code></pre>
 <ul>
 <li>范围查询</li>
 </ul>
 <p>表示从值1到值2范围，全部包含：<code>between 值1 and 值2</code></p>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true"># 查询english成绩大于等于75，且小于等于90的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> english <span class="token operator">BETWEEN</span> <span class="token number">75</span> <span class="token operator">AND</span> <span class="token number">90</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql"># 查询english成绩大于等于75，且小于等于90的学生
+SELECT * FROM student2 WHERE english BETWEEN 75 AND 90;
+</code></pre>
 <ul>
 <li>like关键字</li>
 </ul>
 <p>表示模糊查询:<code>select * from 表名 where 字段名 like &#39;通配符字符串;&#39;</code></p>
 <p>通配符：<code>%,匹配任意多个字符串</code>; <code>_,匹配单个字符</code></p>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true"># 查询姓马的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> NAME <span class="token operator">LIKE</span> <span class="token string">'马%'</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true"># 查询姓名中包含'德'字的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> NAME <span class="token operator">LIKE</span> <span class="token string">'%德%'</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true"># 查询姓马，且姓名有两个字的学生</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student2 <span class="token keyword">WHERE</span> NAME <span class="token operator">LIKE</span> <span class="token string">'马_'</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql"># 查询姓马的学生
+SELECT * FROM student2 WHERE NAME LIKE &#39;马%&#39;;
+# 查询姓名中包含&#39;德&#39;字的学生
+SELECT * FROM student2 WHERE NAME LIKE &#39;%德%&#39;;
+# 查询姓马，且姓名有两个字的学生
+SELECT * FROM student2 WHERE NAME LIKE &#39;马_&#39;;
+</code></pre>
 
             </div>
             <hr>
@@ -798,8 +814,9 @@ MySQL基本操作">
 排序方式：ASC(升序,默认值)；DESC(降序)。
 
 
-# 单列排序
-</div>
+
+
+# 单列排</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-19
@@ -991,7 +1008,7 @@ Junit使用步骤
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">249.3k</span>
+                <span class="white-color">276.8k</span>
             
 
             

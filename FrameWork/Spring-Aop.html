@@ -408,14 +408,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.8k
+                        3.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        12 分
+                        14 分
                     </div>
                     
                 
@@ -450,58 +450,62 @@
 </ul>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/08/09/aop-1565345189637.jpg" alt="aop"></p>
 <h2 id="2-AOP的底层实现"><a href="#2-AOP的底层实现" class="headerlink" title="2. AOP的底层实现"></a>2. AOP的底层实现</h2><h3 id="2-1-JDK动态代理"><a href="#2-1-JDK动态代理" class="headerlink" title="2.1 JDK动态代理"></a>2.1 JDK动态代理</h3><p>使用JDK本身的一个类<code>Proxy</code>来实现动态代理，核心代码如下：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyJDKProxy</span> <span class="token keyword">implements</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> UserDao userDao<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token function">MyJDKProxy</span><span class="token punctuation">(</span>UserDao userDao<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>userDao <span class="token operator">=</span> userDao<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> Object <span class="token function">createProxy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        Object proxy <span class="token operator">=</span> Proxy<span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span>userDao<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>userDao<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> proxy<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"所有代理对象的方法都会经过invoke调用"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"save"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 进行权限校验代码区</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"权限校验..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>userDao<span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>userDao<span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class MyJDKProxy implements InvocationHandler {
+    private final UserDao userDao;
+    public MyJDKProxy(UserDao userDao){
+        this.userDao = userDao;
+    }
+    public Object createProxy(){
+        Object proxy = Proxy.newProxyInstance(userDao.getClass().getClassLoader(),userDao.getClass().getInterfaces(),this);
+        return proxy;
+    }
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        System.out.println(&quot;所有代理对象的方法都会经过invoke调用&quot;);
+        if (&quot;save&quot;.equals(method.getName())){
+            &#x2F;&#x2F; 进行权限校验代码区
+            System.out.println(&quot;权限校验...&quot;);
+            return method.invoke(userDao,args);
+        }
+        return method.invoke(userDao,args);
+    }
+}
+</code></pre>
 <h3 id="2-2-使用CGLIB生成代理"><a href="#2-2-使用CGLIB生成代理" class="headerlink" title="2.2 使用CGLIB生成代理"></a>2.2 使用CGLIB生成代理</h3><ul>
 <li>对于不使用接口的业务类，无法使用JDK动态代理</li>
 <li>CGlib采用非常底层字节码技术，可以为一个类创建子类，解决无接口代理问题。</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
  * 示意CGlib生成代理
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyCGlibProxy</span> <span class="token keyword">implements</span> <span class="token class-name">MethodInterceptor</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> UserDao userDao<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token function">MyCGlibProxy</span><span class="token punctuation">(</span>UserDao userDao<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>userDao <span class="token operator">=</span> userDao<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> Object <span class="token function">createProxy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 1. 创建核心类</span>
-        Enhancer enhancer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Enhancer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 2. 设置父类</span>
-        enhancer<span class="token punctuation">.</span><span class="token function">setSuperclass</span><span class="token punctuation">(</span>userDao<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 3. 设置回调</span>
-        enhancer<span class="token punctuation">.</span><span class="token function">setCallback</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 4. 生成代理</span>
-        Object proxy <span class="token operator">=</span> enhancer<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> proxy<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> Object <span class="token function">intercept</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">,</span> MethodProxy methodProxy<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"save"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"权限校验"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> methodProxy<span class="token punctuation">.</span><span class="token function">invokeSuper</span><span class="token punctuation">(</span>proxy<span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> methodProxy<span class="token punctuation">.</span><span class="token function">invokeSuper</span><span class="token punctuation">(</span>proxy<span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ *&#x2F;
+public class MyCGlibProxy implements MethodInterceptor {
+    private final UserDao userDao;
+    public MyCGlibProxy(UserDao userDao){
+        this.userDao = userDao;
+    }
+    public Object createProxy(){
+        &#x2F;&#x2F; 1. 创建核心类
+        Enhancer enhancer = new Enhancer();
+        &#x2F;&#x2F; 2. 设置父类
+        enhancer.setSuperclass(userDao.getClass());
+        &#x2F;&#x2F; 3. 设置回调
+        enhancer.setCallback(this);
+        &#x2F;&#x2F; 4. 生成代理
+        Object proxy = enhancer.create();
+        return proxy;
+    }
+    public Object intercept(Object proxy, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+        if (&quot;save&quot;.equals(method.getName())){
+            System.out.println(&quot;权限校验&quot;);
+            return methodProxy.invokeSuper(proxy,args);
+        }
+        return methodProxy.invokeSuper(proxy,args);
+    }
+}
+</code></pre>
 <h3 id="2-3-小结"><a href="#2-3-小结" class="headerlink" title="2.3 小结"></a>2.3 小结</h3><ul>
 <li>Spring在运行期，生成动态代理对象，不需要特殊的编译器</li>
 <li>Spring AOP的底层就是通过JDK动态代理或CGlib动态代理技术为目标Bean执行横向织入<ul>
@@ -546,83 +550,90 @@
 <ul>
 <li>创建学生接口及其实现类</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">StudentDao</span> <span class="token punctuation">{</span>
-    <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StudentDaoImpl</span> <span class="token keyword">implements</span> <span class="token class-name">StudentDao</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"学生保存"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"学生修改"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"学生删除"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"学生查询"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public interface StudentDao {
+    void save();
+    void update();
+    void delete();
+    void find();
+}
+public class StudentDaoImpl implements StudentDao {
+    public void save() {
+        System.out.println(&quot;学生保存&quot;);
+    }
+    public void update() {
+        System.out.println(&quot;学生修改&quot;);
+    }
+    public void delete() {
+        System.out.println(&quot;学生删除&quot;);
+    }
+    public void find() {
+        System.out.println(&quot;学生查询&quot;);
+    }
+}
+</code></pre>
 <ul>
 <li>创建前置通知增强类</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 使用前置通知实现增强类</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyBeforeAdvice</span> <span class="token keyword">implements</span> <span class="token class-name">MethodBeforeAdvice</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">before</span><span class="token punctuation">(</span>Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">,</span> Object target<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"前置增强>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 使用前置通知实现增强类
+public class MyBeforeAdvice implements MethodBeforeAdvice {
+    public void before(Method method, Object[] args, Object target) throws Throwable {
+        System.out.println(&quot;前置增强&gt;&gt;&gt;&gt;&gt;&gt;&quot;);
+    }
+}
+</code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-<span class="token comment" spellcheck="true">&lt;!--    配置目标类--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>studentDao<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aop.demo2.StudentDaoImpl<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
+       xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd&quot;&gt;
 
-<span class="token comment" spellcheck="true">&lt;!--    前置通知类型--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myBeforeAdvice<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aop.demo2.MyBeforeAdvice<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+&lt;!--    配置目标类--&gt;
+    &lt;bean id=&quot;studentDao&quot; class=&quot;com.zero.aop.demo2.StudentDaoImpl&quot;&#x2F;&gt;
 
-<span class="token comment" spellcheck="true">&lt;!--    Sprint AOP 产生代理对象--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>studentDaoProxy<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.aop.framework.ProxyFactoryBean<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-<span class="token comment" spellcheck="true">&lt;!--        配置目标类--></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>target<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>studentDao<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-<span class="token comment" spellcheck="true">&lt;!--        实现的接口--></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>proxyInterfaces<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aop.demo2.StudentDao<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-<span class="token comment" spellcheck="true">&lt;!--        采用拦截的名称--></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>interceptorNames<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myBeforeAdvice<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;!--    前置通知类型--&gt;
+    &lt;bean id=&quot;myBeforeAdvice&quot; class=&quot;com.zero.aop.demo2.MyBeforeAdvice&quot;&#x2F;&gt;
+
+&lt;!--    Sprint AOP 产生代理对象--&gt;
+    &lt;bean id=&quot;studentDaoProxy&quot; class=&quot;org.springframework.aop.framework.ProxyFactoryBean&quot;&gt;
+&lt;!--        配置目标类--&gt;
+        &lt;property name=&quot;target&quot; ref=&quot;studentDao&quot;&#x2F;&gt;
+&lt;!--        实现的接口--&gt;
+        &lt;property name=&quot;proxyInterfaces&quot; value=&quot;com.zero.aop.demo2.StudentDao&quot;&#x2F;&gt;
+&lt;!--        采用拦截的名称--&gt;
+        &lt;property name=&quot;interceptorNames&quot; value=&quot;myBeforeAdvice&quot;&#x2F;&gt;
+    &lt;&#x2F;bean&gt;
+&lt;&#x2F;beans&gt;
+</code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span>SpringJUnit4ClassRunner<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> 
-<span class="token annotation punctuation">@ContextConfiguration</span><span class="token punctuation">(</span><span class="token string">"classpath:applicationContext.xml"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">demo2Test</span> <span class="token punctuation">{</span>
 
-<span class="token comment" spellcheck="true">//    @Resource(name = "studentDao") </span>
-    <span class="token annotation punctuation">@Resource</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"studentDaoProxy"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 使用代理对象</span>
-    <span class="token keyword">private</span> StudentDao studentDao<span class="token punctuation">;</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@RunWith(SpringJUnit4ClassRunner.class) 
+@ContextConfiguration(&quot;classpath:applicationContext.xml&quot;)
+public class demo2Test {
 
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        studentDao<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        studentDao<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        studentDao<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        studentDao<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+&#x2F;&#x2F;    @Resource(name = &quot;studentDao&quot;) 
+    @Resource(name = &quot;studentDaoProxy&quot;) &#x2F;&#x2F; 使用代理对象
+    private StudentDao studentDao;
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    @Test
+    public void test1(){
+        studentDao.find();
+        studentDao.delete();
+        studentDao.save();
+        studentDao.update();
+    }
+}
+</code></pre>
 <h3 id="3-4-PoingcutAdvisor切点切面"><a href="#3-4-PoingcutAdvisor切点切面" class="headerlink" title="3.4 PoingcutAdvisor切点切面"></a>3.4 <code>PoingcutAdvisor</code>切点切面</h3><ul>
 <li>使用普通Advice作为切面，将对目标类所有方法进行拦截，不够灵活，在实际开发中常采用带有切点的切面</li>
 <li><p>常用<code>PointcutAdvisor</code>实现类</p>
@@ -634,87 +645,95 @@
 <li><p>示例，创建客户类</p>
 </li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CustomerDao</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"客户保存"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"客户修改"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"客户删除"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"客户查询"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class CustomerDao {
+    public void save() {
+        System.out.println(&quot;客户保存&quot;);
+    }
+    public void update() {
+        System.out.println(&quot;客户修改&quot;);
+    }
+    public void delete() {
+        System.out.println(&quot;客户删除&quot;);
+    }
+    public void find() {
+        System.out.println(&quot;客户查询&quot;);
+    }
+}
+</code></pre>
 <ul>
 <li>创建环绕通知型增强类</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyAroundAdvice</span> <span class="token keyword">implements</span> <span class="token class-name">MethodInterceptor</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>MethodInvocation invocation<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"环绕前增强>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 执行目标方法</span>
-        Object obj <span class="token operator">=</span> invocation<span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"环绕后增强>>>>>>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> obj<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class MyAroundAdvice implements MethodInterceptor {
+    public Object invoke(MethodInvocation invocation) throws Throwable {
+        System.out.println(&quot;环绕前增强&gt;&gt;&gt;&gt;&gt;&gt;&quot;);
+        &#x2F;&#x2F; 执行目标方法
+        Object obj = invocation.proceed();
+        System.out.println(&quot;环绕后增强&gt;&gt;&gt;&gt;&gt;&gt;&quot;);
+        return obj;
+    }
+}
+</code></pre>
 <ul>
 <li>配置xml</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-    <span class="token comment" spellcheck="true">&lt;!--配置目标类--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>customerDao<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aop.demo3.CustomerDao<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
+       xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd&quot;&gt;
 
-    <span class="token comment" spellcheck="true">&lt;!--配置通知--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myAroundAdvice<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aop.demo3.MyAroundAdvice<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+	&lt;!--配置目标类--&gt;
+    &lt;bean id=&quot;customerDao&quot; class=&quot;com.zero.aop.demo3.CustomerDao&quot;&#x2F;&gt;
 
-    <span class="token comment" spellcheck="true">&lt;!--一般的切面是使用通知作为切面的，因为要对目标类的指定方法进行增强就需要配置一个带有切入点的切面--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>MyAdvisor<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.aop.support.RegexpMethodPointcutAdvisor<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token comment" spellcheck="true">&lt;!--pattern中配置正则表达式，以达到对指定方法进行增强的效果--></span>
-        <span class="token comment" spellcheck="true">&lt;!--
+	&lt;!--配置通知--&gt;
+    &lt;bean id=&quot;myAroundAdvice&quot; class=&quot;com.zero.aop.demo3.MyAroundAdvice&quot;&#x2F;&gt;
+
+	&lt;!--一般的切面是使用通知作为切面的，因为要对目标类的指定方法进行增强就需要配置一个带有切入点的切面--&gt;
+    &lt;bean id=&quot;MyAdvisor&quot; class=&quot;org.springframework.aop.support.RegexpMethodPointcutAdvisor&quot;&gt;
+		&lt;!--pattern中配置正则表达式，以达到对指定方法进行增强的效果--&gt;
+        &lt;!--
             对单个方法进行增强使用pattern即可
             如果对多个方法，需使用patterns，多个值用逗号隔开
-        --></span>
-        <span class="token comment" spellcheck="true">&lt;!--&lt;property name="pattern" value=".*save.*"/>--></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>patterns<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>.*save.*,.*delete.*<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>advice<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myAroundAdvice<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--配置产生代理--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>customerDaoProxy<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.aop.framework.ProxyFactoryBean<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>target<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>customerDao<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>proxyTargetClass<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>interceptorNames<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>MyAdvisor<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        --&gt;
+		&lt;!--&lt;property name=&quot;pattern&quot; value=&quot;.*save.*&quot;&#x2F;&gt;--&gt;
+        &lt;property name=&quot;patterns&quot; value=&quot;.*save.*,.*delete.*&quot;&#x2F;&gt;
+        &lt;property name=&quot;advice&quot; ref=&quot;myAroundAdvice&quot;&#x2F;&gt;
+    &lt;&#x2F;bean&gt;
+	&lt;!--配置产生代理--&gt;
+    &lt;bean id=&quot;customerDaoProxy&quot; class=&quot;org.springframework.aop.framework.ProxyFactoryBean&quot;&gt;
+        &lt;property name=&quot;target&quot; ref=&quot;customerDao&quot;&#x2F;&gt;
+        &lt;property name=&quot;proxyTargetClass&quot; value=&quot;true&quot;&#x2F;&gt;
+        &lt;property name=&quot;interceptorNames&quot; value=&quot;MyAdvisor&quot;&#x2F;&gt;
+    &lt;&#x2F;bean&gt;
+&lt;&#x2F;beans&gt;
+</code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span>SpringJUnit4ClassRunner<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@ContextConfiguration</span><span class="token punctuation">(</span><span class="token string">"classpath:applicationContext2.xml"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">demo3Test</span> <span class="token punctuation">{</span>
 
-<span class="token comment" spellcheck="true">//    @Resource(name="customerDao") // 不使用代理</span>
-    <span class="token annotation punctuation">@Resource</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"customerDaoProxy"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 使用代理对象</span>
-    <span class="token keyword">private</span> CustomerDao customerDao<span class="token punctuation">;</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(&quot;classpath:applicationContext2.xml&quot;)
+public class demo3Test {
 
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        customerDao<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        customerDao<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        customerDao<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        customerDao<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#x2F;&#x2F;    @Resource(name=&quot;customerDao&quot;) &#x2F;&#x2F; 不使用代理
+    @Resource(name = &quot;customerDaoProxy&quot;) &#x2F;&#x2F; 使用代理对象
+    private CustomerDao customerDao;
+
+    @Test
+    public void test1(){
+        customerDao.find();
+        customerDao.delete();
+        customerDao.save();
+        customerDao.update();
+    }
+}
+</code></pre>
 <h2 id="4-Spring传统AOP的自动代理"><a href="#4-Spring传统AOP的自动代理" class="headerlink" title="4. Spring传统AOP的自动代理"></a>4. Spring传统AOP的自动代理</h2><ul>
 <li>前面的案例中，每个代理都是通过<code>ProxyFactoryBean</code>织入切面代理，在实际开发中，非常多的Bean每个都配置<code>ProxyFactoryBean</code>的话，开发维护量巨大</li>
 <li>解决方案：自动创建代理<ul>
@@ -729,74 +748,83 @@
 <ul>
 <li>将前面案例的<code>CustomerDao,StudentDao,StudentDaoImpl,MyBeforeAdvice,MyAroundAdvice</code>复制到一个文件夹，然后配置xml。</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-<span class="token comment" spellcheck="true">&lt;!--    配置目标类--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>studentDao<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aop.demo4.StudentDaoImpl<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>customerDao<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aop.demo4.CustomerDao<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--配置通知：前置通知--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myBeforeAdvice<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aop.demo4.MyBeforeAdvice<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--配置通知：环绕通知--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myAroundAdvice<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.aop.demo4.MyAroundAdvice<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>beanNames<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>*Dao<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>interceptorNames<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myBeforeAdvice<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
+         xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd&quot;&gt;
+  
+  &lt;!--    配置目标类--&gt;
+      &lt;bean id=&quot;studentDao&quot; class=&quot;com.zero.aop.demo4.StudentDaoImpl&quot;&#x2F;&gt;
+      &lt;bean id=&quot;customerDao&quot; class=&quot;com.zero.aop.demo4.CustomerDao&quot;&#x2F;&gt;
+      &lt;!--配置通知：前置通知--&gt;
+      &lt;bean id=&quot;myBeforeAdvice&quot; class=&quot;com.zero.aop.demo4.MyBeforeAdvice&quot;&#x2F;&gt;
+      &lt;!--配置通知：环绕通知--&gt;
+      &lt;bean id=&quot;myAroundAdvice&quot; class=&quot;com.zero.aop.demo4.MyAroundAdvice&quot;&#x2F;&gt;
+  
+      &lt;bean class=&quot;org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator&quot;&gt;
+          &lt;property name=&quot;beanNames&quot; value=&quot;*Dao&quot;&#x2F;&gt;
+          &lt;property name=&quot;interceptorNames&quot; value=&quot;myBeforeAdvice&quot;&#x2F;&gt;
+      &lt;&#x2F;bean&gt;
+  &lt;&#x2F;beans&gt;
+</code></pre>
+</li>
+</ul>
 <ul>
-<li>测试</li>
+<li><p>测试</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">  @RunWith(SpringJUnit4ClassRunner.class)
+  @ContextConfiguration(&quot;classpath:applicationContext3.xml&quot;)
+  public class demo4Test {
+  
+      @Resource(name = &quot;studentDao&quot;)
+      private StudentDao studentDao;
+      @Resource(name = &quot;customerDao&quot;)
+      private CustomerDao customerDao;
+  
+      @Test
+      public void test1(){
+          studentDao.find();
+          studentDao.delete();
+          studentDao.save();
+          studentDao.update();
+  
+          customerDao.find();
+          customerDao.delete();
+          customerDao.save();
+          customerDao.update();
+  
+  
+      }
+  }
+</code></pre>
+</li>
 </ul>
-<p><code>`</code>java<br>@RunWith(SpringJUnit4ClassRunner.class)<br>@ContextConfiguration(“classpath:applicationContext3.xml”)<br>public class demo4Test {</p>
-<pre><code>@Resource(name = &quot;studentDao&quot;)
-private StudentDao studentDao;
-@Resource(name = &quot;customerDao&quot;)
-private CustomerDao customerDao;
-
-@Test
-public void test1(){
-    studentDao.find();
-    studentDao.delete();
-    studentDao.save();
-    studentDao.update();
-
-    customerDao.find();
-    customerDao.delete();
-    customerDao.save();
-    customerDao.update();
-</code></pre></li>
+<h3 id="4-2-基于切面信息的自动代理"><a href="#4-2-基于切面信息的自动代理" class="headerlink" title="4.2 基于切面信息的自动代理"></a>4.2 基于切面信息的自动代理</h3><ul>
+<li>配置环绕代理，将上述案例xml修改如下即可对指定方法进行增强</li>
 </ul>
-<pre><code>  }
-</code></pre><p>  }</p>
-<pre><code>
 
-
-### 4.2 基于切面信息的自动代理
-
-- 配置环绕代理，将上述案例xml修改如下即可对指定方法进行增强
-
-```xml
-&lt;!--根据切面信息创建代理--&gt;
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--根据切面信息创建代理--&gt;
 &lt;!--配置目标类--&gt;
-&lt;bean id=&quot;studentDao&quot; class=&quot;com.zero.aop.demo4.StudentDaoImpl&quot;/&gt;
-&lt;bean id=&quot;customerDao&quot; class=&quot;com.zero.aop.demo4.CustomerDao&quot;/&gt;
+&lt;bean id=&quot;studentDao&quot; class=&quot;com.zero.aop.demo4.StudentDaoImpl&quot;&#x2F;&gt;
+&lt;bean id=&quot;customerDao&quot; class=&quot;com.zero.aop.demo4.CustomerDao&quot;&#x2F;&gt;
 &lt;!--配置通知：前置通知--&gt;
-&lt;bean id=&quot;myBeforeAdvice&quot; class=&quot;com.zero.aop.demo4.MyBeforeAdvice&quot;/&gt;
+&lt;bean id=&quot;myBeforeAdvice&quot; class=&quot;com.zero.aop.demo4.MyBeforeAdvice&quot;&#x2F;&gt;
 &lt;!--配置通知：环绕通知--&gt;
-&lt;bean id=&quot;myAroundAdvice&quot; class=&quot;com.zero.aop.demo4.MyAroundAdvice&quot;/&gt;
+&lt;bean id=&quot;myAroundAdvice&quot; class=&quot;com.zero.aop.demo4.MyAroundAdvice&quot;&#x2F;&gt;
 
 &lt;!--配置切面--&gt;
 &lt;bean id=&quot;myAdvisor&quot; class=&quot;org.springframework.aop.support.RegexpMethodPointcutAdvisor&quot;&gt;
     &lt;!--对指定包下指定方法进行增强,注意转义--&gt;
-    &lt;property name=&quot;pattern&quot; value=&quot;com\.zero\.aop\.demo4\.CustomerDao\.save&quot;/&gt;
-    &lt;property name=&quot;advice&quot; ref=&quot;myAroundAdvice&quot;/&gt;
-&lt;/bean&gt;
-&lt;bean class=&quot;org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator&quot;&gt;&lt;/bean&gt;
-</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+    &lt;property name=&quot;pattern&quot; value=&quot;com\.zero\.aop\.demo4\.CustomerDao\.save&quot;&#x2F;&gt;
+    &lt;property name=&quot;advice&quot; ref=&quot;myAroundAdvice&quot;&#x2F;&gt;
+&lt;&#x2F;bean&gt;
+&lt;bean class=&quot;org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator&quot;&gt;&lt;&#x2F;bean&gt;
+</code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>什么是AOP</li>
 <li>了解AOP相关术语：连接点，切入点，织入，目标对象，代理对象等。</li>
 <li>传统AOP实现原理：JDK动态代理，CGlib代理</li>
@@ -1065,7 +1093,7 @@ ApplicationContext工厂在加载</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">249.3k</span>
+                <span class="white-color">276.8k</span>
             
 
             

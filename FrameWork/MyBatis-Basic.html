@@ -408,14 +408,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.6k
+                        6.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        24 分
+                        30 分
                     </div>
                     
                 
@@ -465,13 +465,15 @@
 <ul>
 <li>项目src下创建log4j.properties文件，内容如下：</li>
 </ul>
-<pre class="line-numbers language-properties"><code class="language-properties"><span class="token comment" spellcheck="true"># Global logging configuration</span>
-<span class="token attr-name">log4j.rootLogger</span><span class="token punctuation">=</span><span class="token attr-value">DEBUG, stdout</span>
-<span class="token comment" spellcheck="true"># Console output...</span>
-<span class="token attr-name">log4j.appender.stdout</span><span class="token punctuation">=</span><span class="token attr-value">org.apache.log4j.ConsoleAppender</span>
-<span class="token attr-name">log4j.appender.stdout.layout</span><span class="token punctuation">=</span><span class="token attr-value">org.apache.log4j.PatternLayout</span>
-<span class="token attr-name">log4j.appender.stdout.layout.ConversionPattern</span><span class="token punctuation">=</span><span class="token attr-value">%5p [%t] - %m%n</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-properties">  # Global logging configuration
+  log4j.rootLogger=DEBUG, stdout
+  # Console output...
+  log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+  log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+  log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+</code></pre>
 </li>
 </ul>
 <h3 id="2-2-开发步骤"><a href="#2-2-开发步骤" class="headerlink" title="2.2 开发步骤"></a>2.2 开发步骤</h3><ol>
@@ -488,166 +490,187 @@
 </ul>
 </li>
 </ol>
-<h4 id="2-2-1-创建PO类"><a href="#2-2-1-创建PO类" class="headerlink" title="2.2.1 创建PO类"></a>2.2.1 创建PO类</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> id<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> String username<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> String sex<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Date birthday<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> String address<span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 省略get/set</span>
-    <span class="token comment" spellcheck="true">// 省略toString</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2-2-2-创建全局配置文件"><a href="#2-2-2-创建全局配置文件" class="headerlink" title="2.2.2 创建全局配置文件"></a>2.2.2 创建全局配置文件</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8" ?></span>
-<span class="token doctype">&lt;!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd"></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!-- 配置mybatis的环境信息 --></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>environments</span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>development<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>environment</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>development<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            <span class="token comment" spellcheck="true">&lt;!-- 配置JDBC事务控制，由mybatis进行管理 --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>transactionManager</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>JDBC<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>transactionManager</span><span class="token punctuation">></span></span>
-            <span class="token comment" spellcheck="true">&lt;!-- 配置数据源，采用dbcp连接池 --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dataSource</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>POOLED<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>driver<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.mysql.jdbc.Driver<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>jdbc:mysql:///mybatis01?useUnicode<span class="token punctuation">=</span>true&amp;amp;characterEncoding<span class="token punctuation">=</span>utf8<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>root<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>123456<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dataSource</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>environment</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>environments</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2-2-3-编写映射文件"><a href="#2-2-3-编写映射文件" class="headerlink" title="2.2.3 编写映射文件"></a>2.2.3 编写映射文件</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8" ?></span>
-<span class="token doctype">&lt;!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"></span>
-<span class="token comment" spellcheck="true">&lt;!--
-    namespace：命名空间，它的作用就是对SQL进行分类化管理，可以理解为SQL隔离
-    注意：使用mapper代理开发时，namespace有特殊且重要的作用
- --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mapper</span> <span class="token attr-name">namespace</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>test<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--
+<h4 id="2-2-1-创建PO类"><a href="#2-2-1-创建PO类" class="headerlink" title="2.2.1 创建PO类"></a>2.2.1 创建PO类</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class User implements Serializable {
+    private int id;
+    private String username;
+    private String sex;
+    private Date birthday;
+    private String address;
+	&#x2F;&#x2F; 省略get&#x2F;set
+    &#x2F;&#x2F; 省略toString
+}
+</code></pre>
+<h4 id="2-2-2-创建全局配置文件"><a href="#2-2-2-创建全局配置文件" class="headerlink" title="2.2.2 创建全局配置文件"></a>2.2.2 创建全局配置文件</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE configuration
+        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;
+        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;
+&lt;configuration&gt;
+    &lt;!-- 配置mybatis的环境信息 --&gt;
+    &lt;environments default=&quot;development&quot;&gt;
+        &lt;environment id=&quot;development&quot;&gt;
+            &lt;!-- 配置JDBC事务控制，由mybatis进行管理 --&gt;
+            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;&#x2F;transactionManager&gt;
+            &lt;!-- 配置数据源，采用dbcp连接池 --&gt;
+            &lt;dataSource type=&quot;POOLED&quot;&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;
+                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;mybatis01?useUnicode=true&amp;amp;characterEncoding=utf8&quot;&#x2F;&gt;
+                &lt;property name=&quot;username&quot; value=&quot;root&quot;&#x2F;&gt;
+                &lt;property name=&quot;password&quot; value=&quot;123456&quot;&#x2F;&gt;
+            &lt;&#x2F;dataSource&gt;
+        &lt;&#x2F;environment&gt;
+    &lt;&#x2F;environments&gt;
+&lt;&#x2F;configuration&gt;
+</code></pre>
+<h4 id="2-2-3-编写映射文件"><a href="#2-2-3-编写映射文件" class="headerlink" title="2.2.3 编写映射文件"></a>2.2.3 编写映射文件</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;
+        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;
+&lt;!--
+	namespace：命名空间，它的作用就是对SQL进行分类化管理，可以理解为SQL隔离
+	注意：使用mapper代理开发时，namespace有特殊且重要的作用
+ --&gt;
+&lt;mapper namespace=&quot;test&quot;&gt;
+    &lt;!--
         [id]：statement的id，要求在命名空间内唯一
         [parameterType]：参数输入类型
         [resultType]：查询出的单条结果集对应的java类型，返回值类型
         [#{}]： 表示一个占位符?
         [#{id}]：表示该占位符待接收参数的名称为id。
             注意：如果参数为简单类型时，#{}里面的参数名称可以是任意定义
-     --></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserById<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        SELECT * FROM USER WHERE id = #{id1}
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
+     --&gt;
+    &lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;com.zero.model.User&quot;&gt;
+		SELECT * FROM USER WHERE id = #{id1}
+	&lt;&#x2F;select&gt;
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mapper</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2-2-4-加载映射文件"><a href="#2-2-4-加载映射文件" class="headerlink" title="2.2.4 加载映射文件"></a>2.2.4 加载映射文件</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--加载映射文件--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mappers</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mapper</span> <span class="token attr-name">resource</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com/zero/sqlmap/User.xml<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mappers</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2-2-5-编写测试"><a href="#2-2-5-编写测试" class="headerlink" title="2.2.5 编写测试"></a>2.2.5 编写测试</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserTest</span> <span class="token punctuation">{</span>
+&lt;&#x2F;mapper&gt;
+</code></pre>
+<h4 id="2-2-4-加载映射文件"><a href="#2-2-4-加载映射文件" class="headerlink" title="2.2.4 加载映射文件"></a>2.2.4 加载映射文件</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--加载映射文件--&gt;
+&lt;mappers&gt;
+    &lt;mapper resource=&quot;com&#x2F;zero&#x2F;sqlmap&#x2F;User.xml&quot;&#x2F;&gt;
+&lt;&#x2F;mappers&gt;
+</code></pre>
+<h4 id="2-2-5-编写测试"><a href="#2-2-5-编写测试" class="headerlink" title="2.2.5 编写测试"></a>2.2.5 编写测试</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class UserTest {
 
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//1. 读取配置文件</span>
-        InputStream is <span class="token operator">=</span> Resources<span class="token punctuation">.</span><span class="token function">getResourceAsStream</span><span class="token punctuation">(</span><span class="token string">"SqlMapconfig.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。</span>
-        SqlSessionFactory sessionFactory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SqlSessionFactoryBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span>is<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//3. 通过SqlSessionFactory创建SqlSession。</span>
-        SqlSession session <span class="token operator">=</span> sessionFactory<span class="token punctuation">.</span><span class="token function">openSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//4. 调用SqlSession的操作数据库方法。</span>
-        User user <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">selectOne</span><span class="token punctuation">(</span><span class="token string">"findUserById"</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//5. 关闭会话。</span>
-        session<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    @Test
+    public void test1() throws IOException {
+        &#x2F;&#x2F;1. 读取配置文件
+        InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
+        &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
+        &#x2F;&#x2F;3. 通过SqlSessionFactory创建SqlSession。
+        SqlSession session = sessionFactory.openSession();
+        &#x2F;&#x2F;4. 调用SqlSession的操作数据库方法。
+        User user = session.selectOne(&quot;findUserById&quot;,10);
+        System.out.println(user);
+        &#x2F;&#x2F;5. 关闭会话。
+        session.commit();
+    }
+}
+</code></pre>
 <blockquote>
 <p>junit4.12可能会报<code>java.lang.NoClassDefFoundError: org/hamcrest/SelfDescribing</code>，版本切换为5.4后不会报错。</p>
 </blockquote>
 <h4 id="2-2-6-查询案例"><a href="#2-2-6-查询案例" class="headerlink" title="2.2.6 查询案例"></a>2.2.6 查询案例</h4><h5 id="1-模糊查询"><a href="#1-模糊查询" class="headerlink" title="1. 模糊查询"></a>1. 模糊查询</h5><ul>
 <li>模糊查询，修改映射文件，添加如下内容：</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--
         模糊查询用户信息：
             [${}]：表示拼接SQL字符串
              [${value}]：表示要拼接的是简单类型参数。
              注意：
             1、如果参数为简单类型时，${}里面的参数名称必须为value
             2、${}会引起SQL注入，一般情况下不推荐使用。但是有些场景必须使用${}，比如order by ${colname}
-        --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserByName<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>String<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    SELECT * FROM USER WHERE username like '%${value}%'
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-
-
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        --&gt;
+&lt;select id=&quot;findUserByName&quot; parameterType=&quot;String&quot; resultType=&quot;com.zero.model.User&quot;&gt;
+    SELECT * FROM USER WHERE username like &#39;%${value}%&#39;
+&lt;&#x2F;select&gt;
+</code></pre>
 <ul>
 <li>测试文件添加查询语句</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 通过姓名模糊查询用户集合</span>
-List<span class="token operator">&lt;</span>User<span class="token operator">></span> users <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">selectList</span><span class="token punctuation">(</span><span class="token string">"findUserByName"</span><span class="token punctuation">,</span> <span class="token string">"张"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>users<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 通过姓名模糊查询用户集合
+List&lt;User&gt; users = session.selectList(&quot;findUserByName&quot;, &quot;张&quot;);
+System.out.println(users);
+</code></pre>
 <h5 id="2-添加用户"><a href="#2-添加用户" class="headerlink" title="2. 添加用户"></a>2. 添加用户</h5><ul>
 <li>修改映射文件，添加内容</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--插入用户信息--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>insert</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>insertUser<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--如果主键的值是通过MySQL自增机制生成的，那么我们此处无需再‘显式’的给ID赋值--></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--插入用户信息--&gt;
+&lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.zero.model.User&quot;&gt;
+    &lt;!--如果主键的值是通过MySQL自增机制生成的，那么我们此处无需再‘显式’的给ID赋值--&gt;
     INSERT into user (username,sex,birthday,address) values (#{username},#{sex},#{birthday},#{address})
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>insert</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;insert&gt;
+</code></pre>
 <ul>
 <li>测试代码，注意：需在PO类User中添加一个没有id属性的全参构造方法</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 插入用户</span>
-session<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token string">"insertUser"</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"zero"</span><span class="token punctuation">,</span><span class="token string">"男"</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"杭州"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 插入用户
+session.insert(&quot;insertUser&quot;,new User(&quot;zero&quot;,&quot;男&quot;,new Date(),&quot;杭州&quot;));
+</code></pre>
 <h5 id="3-删除用户"><a href="#3-删除用户" class="headerlink" title="3. 删除用户"></a>3. 删除用户</h5><ul>
 <li>修改映射文件</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--通过id删除用户--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>delete</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>deleteUserById<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--通过id删除用户--&gt;
+&lt;delete id=&quot;deleteUserById&quot; parameterType=&quot;int&quot;&gt;
     delete from user where id = #{id}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>delete</span><span class="token punctuation">></span></span>
-<span class="token comment" spellcheck="true">&lt;!--通过姓名删除用户--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>delete</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>deleteUserByName<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>String<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+&lt;&#x2F;delete&gt;
+&lt;!--通过姓名删除用户--&gt;
+&lt;delete id=&quot;deleteUserByName&quot; parameterType=&quot;String&quot;&gt;
     delete from user where username = #{name}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>delete</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;delete&gt;
+</code></pre>
 <ul>
 <li>测试代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 通过id删除用户</span>
-session<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">"deleteUserById"</span><span class="token punctuation">,</span><span class="token number">28</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 通过姓名删除用户，test是映射文件的命名空间</span>
-session<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">"test.deleteUserByName"</span><span class="token punctuation">,</span><span class="token string">"张小明"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 通过id删除用户
+session.delete(&quot;deleteUserById&quot;,28);
+&#x2F;&#x2F; 通过姓名删除用户，test是映射文件的命名空间
+session.delete(&quot;test.deleteUserByName&quot;,&quot;张小明&quot;);
+</code></pre>
 <h5 id="4-更新用户"><a href="#4-更新用户" class="headerlink" title="4. 更新用户"></a>4. 更新用户</h5><ul>
 <li>映射文件</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--通过id更新用户--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>update</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>updateUserById<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--通过id更新用户--&gt;
+&lt;update id=&quot;updateUserById&quot; parameterType=&quot;com.zero.model.User&quot;&gt;
     update user set username=#{username},sex=#{sex} where id=#{id}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>update</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;update&gt;
+</code></pre>
 <ul>
 <li>测试代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 通过id更新用户</span>
-User upUser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-upUser<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输入要修改的用户id</span>
-upUser<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token string">"赵六儿"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 需修改的用户姓名</span>
-upUser<span class="token punctuation">.</span><span class="token function">setSex</span><span class="token punctuation">(</span><span class="token string">"女"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-session<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token string">"updateUserById"</span><span class="token punctuation">,</span>upUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 通过id更新用户
+User upUser = new User();
+upUser.setId(1); &#x2F;&#x2F; 输入要修改的用户id
+upUser.setUsername(&quot;赵六儿&quot;);&#x2F;&#x2F; 需修改的用户姓名
+upUser.setSex(&quot;女&quot;);
+session.update(&quot;updateUserById&quot;,upUser);
+</code></pre>
 <h4 id="2-2-7-返回MySQL自增主键"><a href="#2-2-7-返回MySQL自增主键" class="headerlink" title="2.2.7 返回MySQL自增主键"></a>2.2.7 返回MySQL自增主键</h4><ul>
 <li>MySQL自增主键，是指在insert之前MySQL会自动生成一个自增的主键</li>
 <li><p>可以通过MySQL的函数获取刚插入的自增主键：<code>select LAST_INSERT_ID()</code>，该函数在insert语句之后调用。</p>
@@ -655,67 +678,75 @@ session<span class="token punctuation">.</span><span class="token function">upda
 <li><p>修改映射文件添加用户内容</p>
 </li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--插入用户信息--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>insert</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>insertUser<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--插入用户信息--&gt;
+&lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.zero.model.User&quot;&gt;
+    &lt;!--
    [selectKey标签]：通过select查询来生成主键
    [keyProperty]：指定存放生成主键的属性
    [resultType]：生成主键所对应的Java类型
    [order]：指定该查询主键SQL语句的执行顺序，相对于insert语句
-   [last_insert_id]：MySQL的函数，要配合insert语句一起使用 --></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selectKey</span> <span class="token attr-name">keyProperty</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span> <span class="token attr-name">order</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>AFTER<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   [last_insert_id]：MySQL的函数，要配合insert语句一起使用 --&gt;
+    &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;int&quot; order=&quot;AFTER&quot;&gt;
         SELECT LAST_INSERT_ID()
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selectKey</span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--如果主键的值是通过MySQL自增机制生成的，那么我们此处无需再‘显式’的给ID赋值--></span>
+    &lt;&#x2F;selectKey&gt;
+    &lt;!--如果主键的值是通过MySQL自增机制生成的，那么我们此处无需再‘显式’的给ID赋值--&gt;
     INSERT into user (username,sex,birthday,address) values (#{username},#{sex},#{birthday},#{address})
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>insert</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;insert&gt;
+</code></pre>
 <ul>
 <li>使用Junit4的注解功能，抽取重复代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> SqlSession session <span class="token operator">=</span> null<span class="token punctuation">;</span>
-<span class="token annotation punctuation">@Before</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">before</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"before:获取session"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//1. 读取配置文件</span>
-    InputStream is <span class="token operator">=</span> Resources<span class="token punctuation">.</span><span class="token function">getResourceAsStream</span><span class="token punctuation">(</span><span class="token string">"SqlMapconfig.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。</span>
-    SqlSessionFactory sessionFactory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SqlSessionFactoryBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span>is<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//3. 通过SqlSessionFactory创建SqlSession。</span>
-    session <span class="token operator">=</span> sessionFactory<span class="token punctuation">.</span><span class="token function">openSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
 
-<span class="token annotation punctuation">@After</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">after</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"after:关闭会话"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//5. 关闭会话。</span>
-    session<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">private SqlSession session = null;
+@Before
+public void before() throws IOException {
+    System.out.println(&quot;before:获取session&quot;);
+    &#x2F;&#x2F;1. 读取配置文件
+    InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
+    &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+    SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
+    &#x2F;&#x2F;3. 通过SqlSessionFactory创建SqlSession。
+    session = sessionFactory.openSession();
+}
+
+@After
+public void after(){
+    System.out.println(&quot;after:关闭会话&quot;);
+    &#x2F;&#x2F;5. 关闭会话。
+    session.close();
+}
+</code></pre>
 <ul>
 <li>测试代码</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"> <span class="token comment" spellcheck="true">// 插入用户后，将主键返回，设置到模型id中</span>
-<span class="token annotation punctuation">@Test</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    User user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"zero001"</span><span class="token punctuation">,</span> <span class="token string">"男"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"杭州"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> Row <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token string">"insertUser"</span><span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    session<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"受影响行数："</span><span class="token operator">+</span>Row<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"用户ID:"</span><span class="token operator">+</span>user<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java"> &#x2F;&#x2F; 插入用户后，将主键返回，设置到模型id中
+@Test
+public void test2(){
+    User user = new User(&quot;zero001&quot;, &quot;男&quot;, new Date(), &quot;杭州&quot;);
+    int Row = session.insert(&quot;insertUser&quot;, user);
+    session.commit();
+    System.out.println(&quot;受影响行数：&quot;+Row);
+    System.out.println(&quot;用户ID:&quot;+user.getId());
+}
+</code></pre>
 <h4 id="2-2-8-返回MySQL自增UUID"><a href="#2-2-8-返回MySQL自增UUID" class="headerlink" title="2.2.8 返回MySQL自增UUID"></a>2.2.8 返回MySQL自增UUID</h4><ul>
 <li>映射文件</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>insert</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>insertUser<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.gyf.domain.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selectKey</span> <span class="token attr-name">keyProperty</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>String<span class="token punctuation">"</span></span> <span class="token attr-name">order</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>BEFORE<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.gyf.domain.User&quot;&gt;
+    &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;String&quot; order=&quot;BEFORE&quot;&gt;
         SELECT UUID()
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selectKey</span><span class="token punctuation">></span></span>
+    &lt;&#x2F;selectKey&gt;
     INSERT INTO USER (username,sex,birthday,address) 
     VALUES(#{username},#{sex},#{birthday},#{address})
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>insert</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;insert&gt;
+</code></pre>
 <h3 id="2-3-小结"><a href="#2-3-小结" class="headerlink" title="2.3 小结"></a>2.3 小结</h3><ul>
 <li><code>parameterType</code>和<code>resultType</code><ul>
 <li><code>parameterType</code>：指定输入参数的java类型，可以填写别名或Java类的全限定名(就是全类名)。</li>
@@ -745,71 +776,75 @@ session<span class="token punctuation">.</span><span class="token function">upda
 <h3 id="2-4-MyBatis的Dao编写-了解即可"><a href="#2-4-MyBatis的Dao编写-了解即可" class="headerlink" title="2.4 MyBatis的Dao编写(了解即可)"></a>2.4 MyBatis的Dao编写(了解即可)</h3><ul>
 <li>Dao层</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserDaoImpl</span>  <span class="token keyword">implements</span> <span class="token class-name">UserDao</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> SqlSessionFactory ssf<span class="token punctuation">;</span>
 
-    <span class="token keyword">public</span> <span class="token function">UserDaoImpl</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class UserDaoImpl  implements UserDao {
+    private SqlSessionFactory ssf;
 
-    <span class="token keyword">public</span> <span class="token function">UserDaoImpl</span><span class="token punctuation">(</span>SqlSessionFactory ssf<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>ssf <span class="token operator">=</span> ssf<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public UserDaoImpl() {
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 获取session</span>
-        SqlSession session <span class="token operator">=</span> ssf<span class="token punctuation">.</span><span class="token function">openSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    public UserDaoImpl(SqlSessionFactory ssf) {
+        this.ssf = ssf;
+    }
 
-        <span class="token comment" spellcheck="true">// 插入用户</span>
-        session<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token string">"insertUset"</span><span class="token punctuation">,</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    @Override
+    public void save(User user) {
+        &#x2F;&#x2F; 获取session
+        SqlSession session = ssf.openSession();
 
-        session<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        session<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        &#x2F;&#x2F; 插入用户
+        session.insert(&quot;insertUset&quot;,user);
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> User <span class="token function">findUserById</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 获取session</span>
-        SqlSession session <span class="token operator">=</span> ssf<span class="token punctuation">.</span><span class="token function">openSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        session.commit();
+        session.close();
+    }
 
-        <span class="token comment" spellcheck="true">// 查询用户</span>
-        User user <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">selectOne</span><span class="token punctuation">(</span><span class="token string">"findUserById"</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    @Override
+    public User findUserById(int id) {
+        &#x2F;&#x2F; 获取session
+        SqlSession session = ssf.openSession();
 
-        session<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        session<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        &#x2F;&#x2F; 查询用户
+        User user = session.selectOne(&quot;findUserById&quot;, id);
 
-        <span class="token keyword">return</span> user<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        session.commit();
+        session.close();
+
+        return user;
+    }
+}
+</code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserDaoTest</span> <span class="token punctuation">{</span>
-<span class="token comment" spellcheck="true">//    private SqlSession session = null;</span>
-    <span class="token keyword">private</span> SqlSessionFactory sessionFactory<span class="token punctuation">;</span>
 
-    <span class="token annotation punctuation">@Before</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">before</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"before:获取session"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//1. 读取配置文件</span>
-        InputStream is <span class="token operator">=</span> Resources<span class="token punctuation">.</span><span class="token function">getResourceAsStream</span><span class="token punctuation">(</span><span class="token string">"SqlMapconfig.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。</span>
-        sessionFactory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SqlSessionFactoryBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span>is<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class UserDaoTest {
+&#x2F;&#x2F;    private SqlSession session = null;
+    private SqlSessionFactory sessionFactory;
+
+    @Before
+    public void before() throws IOException {
+        System.out.println(&quot;before:获取session&quot;);
+        &#x2F;&#x2F;1. 读取配置文件
+        InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
+        &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+        sessionFactory = new SqlSessionFactoryBuilder().build(is);
+    }
 
 
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 调用dao</span>
-        <span class="token comment" spellcheck="true">// 1. 创建dao</span>
-        UserDaoImpl userDao <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserDaoImpl</span><span class="token punctuation">(</span>sessionFactory<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 2. 查询</span>
-        User user <span class="token operator">=</span> userDao<span class="token punctuation">.</span><span class="token function">findUserById</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    @Test
+    public void test1(){
+        &#x2F;&#x2F; 调用dao
+        &#x2F;&#x2F; 1. 创建dao
+        UserDaoImpl userDao = new UserDaoImpl(sessionFactory);
+        &#x2F;&#x2F; 2. 查询
+        User user = userDao.findUserById(1);
+        System.out.println(user);
+    }
+}
+</code></pre>
 <h3 id="2-5-MyBatis的Dao编写-mapper代理方式实现"><a href="#2-5-MyBatis的Dao编写-mapper代理方式实现" class="headerlink" title="2.5 MyBatis的Dao编写(mapper代理方式实现)"></a>2.5 MyBatis的Dao编写(mapper代理方式实现)</h3><p>Mapper代理的开发方式，程序员只需编写mapper接口(相当于dao接口)即可。MyBatis会自动的为mapper接口生成动态代理实现类。</p>
 <ul>
 <li>开发规范<ul>
@@ -823,112 +858,124 @@ session<span class="token punctuation">.</span><span class="token function">upda
 <ul>
 <li>编写示例文件</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// mapper类</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserMapper</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> User <span class="token function">findUserById</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>映射文件:</p>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8" ?></span>
-<span class="token doctype">&lt;!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"></span>
-<span class="token comment" spellcheck="true">&lt;!--
-    注意：使用mapper代理开发时，namespace值必须是接口全限定名
- --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mapper</span> <span class="token attr-name">namespace</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.mapper.UserMapper<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>insert</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>save<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; mapper类
+public interface UserMapper {
+    public void save(User user);
+    public User findUserById(int id);
+}
+</code></pre>
+<p>映射文件:</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;
+        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;
+&lt;!--
+	注意：使用mapper代理开发时，namespace值必须是接口全限定名
+ --&gt;
+&lt;mapper namespace=&quot;com.zero.mapper.UserMapper&quot;&gt;
+
+    &lt;insert id=&quot;save&quot; parameterType=&quot;com.zero.model.User&quot;&gt;
         INSERT into user (username,sex,birthday,address)
         values (#{username},#{sex},#{birthday},#{address})
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>insert</span><span class="token punctuation">></span></span>
+    &lt;&#x2F;insert&gt;
 
 
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserById<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        SELECT * FROM USER WHERE id = #{id}
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
+    &lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;com.zero.model.User&quot;&gt;
+		SELECT * FROM USER WHERE id = #{id}
+	&lt;&#x2F;select&gt;
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mapper</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;mapper&gt;
+</code></pre>
 <p>开发规范：</p>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/08/21/mapper-1566398292193.jpg" alt="mapper"></p>
 <ul>
 <li>添加映射配置文件</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--加载映射文件--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mappers</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mapper</span> <span class="token attr-name">resource</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com/zero/mapper/UserMapper.xml<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mappers</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--加载映射文件--&gt;
+&lt;mappers&gt;
+    &lt;mapper resource=&quot;com&#x2F;zero&#x2F;mapper&#x2F;UserMapper.xml&quot;&#x2F;&gt;
+&lt;&#x2F;mappers&gt;
+</code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserMapperTest</span> <span class="token punctuation">{</span>
 
-    <span class="token keyword">private</span> SqlSession session <span class="token operator">=</span> null<span class="token punctuation">;</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class UserMapperTest {
 
-    <span class="token annotation punctuation">@Before</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">before</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"before:获取session"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//1. 读取配置文件</span>
-        InputStream is <span class="token operator">=</span> Resources<span class="token punctuation">.</span><span class="token function">getResourceAsStream</span><span class="token punctuation">(</span><span class="token string">"SqlMapconfig.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。</span>
-        SqlSessionFactory sessionFactory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SqlSessionFactoryBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span>is<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        session <span class="token operator">=</span> sessionFactory<span class="token punctuation">.</span><span class="token function">openSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    private SqlSession session = null;
 
-    <span class="token annotation punctuation">@After</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">after</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"after:关闭会话"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//5. 关闭会话。</span>
-        session<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    @Before
+    public void before() throws IOException {
+        System.out.println(&quot;before:获取session&quot;);
+        &#x2F;&#x2F;1. 读取配置文件
+        InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
+        &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
+        session = sessionFactory.openSession();
+    }
 
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 通过session获取接口代理类[默认代理：JDK实现的代理]</span>
-        UserMapper mapper <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getMapper</span><span class="token punctuation">(</span>UserMapper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 查询</span>
-        User user <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">findUserById</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        mapper<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"xxx"</span><span class="token punctuation">,</span> <span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"xx"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        session<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    @After
+    public void after(){
+        System.out.println(&quot;after:关闭会话&quot;);
+        &#x2F;&#x2F;5. 关闭会话。
+        session.close();
+    }
+
+    @Test
+    public void test1(){
+        &#x2F;&#x2F; 通过session获取接口代理类[默认代理：JDK实现的代理]
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        &#x2F;&#x2F; 查询
+        User user = mapper.findUserById(1);
+        System.out.println(user);
+        mapper.save(new User(&quot;xxx&quot;, &quot;x&quot;, new Date(), &quot;xx&quot;));
+        session.commit();
+    }
+}
+</code></pre>
 <h2 id="3-全局配置文件其他配置"><a href="#3-全局配置文件其他配置" class="headerlink" title="3. 全局配置文件其他配置"></a>3. 全局配置文件其他配置</h2><h3 id="3-1-properties数据库文件配置"><a href="#3-1-properties数据库文件配置" class="headerlink" title="3.1 properties数据库文件配置"></a>3.1 properties数据库文件配置</h3><ul>
 <li>在src下配置<code>db.properties</code>文件</li>
 </ul>
-<pre class="line-numbers language-properties"><code class="language-properties"><span class="token attr-name">driver</span><span class="token punctuation">=</span><span class="token attr-value">com.mysql.jdbc.Driver</span>
-<span class="token attr-name">url</span><span class="token punctuation">=</span><span class="token attr-value">jdbc:mysql:///mybatis01?useUnicode=true&amp;amp;characterEncoding=utf8</span>
-<span class="token attr-name">username</span><span class="token punctuation">=</span><span class="token attr-value">root</span>
-<span class="token attr-name">password</span><span class="token punctuation">=</span><span class="token attr-value">123456</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-properties">driver=com.mysql.jdbc.Driver
+url=jdbc:mysql:&#x2F;&#x2F;&#x2F;mybatis01?useUnicode=true&amp;amp;characterEncoding=utf8
+username=root
+password=123456
+</code></pre>
 <ul>
 <li>在全局配置文件中加载并使用</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--1. 加载配置文件--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span> <span class="token attr-name">resource</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>db.properties<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 
-    <span class="token comment" spellcheck="true">&lt;!-- 配置mybatis的环境信息 --></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>environments</span> <span class="token attr-name">default</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>development<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>environment</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>development<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            <span class="token comment" spellcheck="true">&lt;!-- 配置JDBC事务控制，由mybatis进行管理 --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>transactionManager</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>JDBC<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>transactionManager</span><span class="token punctuation">></span></span>
-            <span class="token comment" spellcheck="true">&lt;!-- 配置数据源，采用dbcp连接池 --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dataSource</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>POOLED<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                <span class="token comment" spellcheck="true">&lt;!--2. 使用${}，可以引用一句加载的java配置文件中的信息--></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>driver<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${driver}<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${url}<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${username}<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${password}<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dataSource</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>environment</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>environments</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;configuration&gt;
+    &lt;!--1. 加载配置文件--&gt;
+    &lt;properties resource=&quot;db.properties&quot;&#x2F;&gt;
+
+    &lt;!-- 配置mybatis的环境信息 --&gt;
+    &lt;environments default=&quot;development&quot;&gt;
+        &lt;environment id=&quot;development&quot;&gt;
+            &lt;!-- 配置JDBC事务控制，由mybatis进行管理 --&gt;
+            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;&#x2F;transactionManager&gt;
+            &lt;!-- 配置数据源，采用dbcp连接池 --&gt;
+            &lt;dataSource type=&quot;POOLED&quot;&gt;
+                &lt;!--2. 使用${}，可以引用一句加载的java配置文件中的信息--&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;${driver}&quot;&#x2F;&gt;
+                &lt;property name=&quot;url&quot; value=&quot;${url}&quot;&#x2F;&gt;
+                &lt;property name=&quot;username&quot; value=&quot;${username}&quot;&#x2F;&gt;
+                &lt;property name=&quot;password&quot; value=&quot;${password}&quot;&#x2F;&gt;
+            &lt;&#x2F;dataSource&gt;
+        &lt;&#x2F;environment&gt;
+    &lt;&#x2F;environments&gt;
+&lt;&#x2F;configuration&gt;
+</code></pre>
 <h3 id="3-2-typeAliases"><a href="#3-2-typeAliases" class="headerlink" title="3.2 typeAliases"></a>3.2 <code>typeAliases</code></h3><p>别名的使用是为了在映射文件中，更方便的去指定参数和结果集的类型，不再用写很长一段全限定名。</p>
 <ul>
 <li>mybatis支持的别名<ul>
@@ -937,61 +984,75 @@ session<span class="token punctuation">.</span><span class="token function">upda
 </li>
 <li>自定义别名</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--
 在全局配置文件中
-进行别名配置--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typeAliases</span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--单个定义别名--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typeAlias</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model.User<span class="token punctuation">"</span></span> <span class="token attr-name">alias</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token comment" spellcheck="true">&lt;!-- 批量配置别名--></span>
-    <span class="token comment" spellcheck="true">&lt;!-- [name]：指定批量定义别名的类包，别名为类名，第一个字母小写(User=user)--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>package</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>typeAliases</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+进行别名配置--&gt;
+&lt;typeAliases&gt;
+    &lt;!--单个定义别名--&gt;
+    &lt;typeAlias type=&quot;com.zero.model.User&quot; alias=&quot;user&quot;&#x2F;&gt;
+    &lt;!-- 批量配置别名--&gt;
+    &lt;!-- [name]：指定批量定义别名的类包，别名为类名，第一个字母小写(User=user)--&gt;
+    &lt;package name=&quot;com.zero.model&quot;&#x2F;&gt;
+&lt;&#x2F;typeAliases&gt;
+</code></pre>
 <h3 id="3-3-加载映射文件的几种方式"><a href="#3-3-加载映射文件的几种方式" class="headerlink" title="3.3 加载映射文件的几种方式"></a>3.3 加载映射文件的几种方式</h3><ul>
 <li>使用相对于类路径的资源。</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mappers</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mapper</span> <span class="token attr-name">resource</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com/zero/mapper/UserMapper.xml<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mappers</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;mappers&gt;
+    &lt;mapper resource=&quot;com&#x2F;zero&#x2F;mapper&#x2F;UserMapper.xml&quot;&#x2F;&gt;
+&lt;&#x2F;mappers&gt;
+</code></pre>
 <ul>
 <li>使用mapper接口的全限定名。注意：此方法要求mapper接口和mapper映射文件名称相同，且在同一目录下。</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mappers</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mapper</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.mapper.UserMapper<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mappers</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>​        如果没有映射文件，那么在接口中要声明注解。不推荐使用</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserMapper</span> <span class="token punctuation">{</span>
 
-    <span class="token annotation punctuation">@Insert</span><span class="token punctuation">(</span><span class="token string">"INSERT into user (username,sex,birthday,address) values (#{username},#{sex},#{birthday},#{address})"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Select</span><span class="token punctuation">(</span><span class="token string">"SELECT * FROM USER WHERE id = #{id}"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> User <span class="token function">findUserById</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;mappers&gt;
+    &lt;mapper class=&quot;com.zero.mapper.UserMapper&quot;&#x2F;&gt;
+&lt;&#x2F;mappers&gt;
+</code></pre>
+<p>​        如果没有映射文件，那么在接口中要声明注解。不推荐使用</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public interface UserMapper {
+
+    @Insert(&quot;INSERT into user (username,sex,birthday,address) values (#{username},#{sex},#{birthday},#{address})&quot;)
+    public void save(User user);
+    @Select(&quot;SELECT * FROM USER WHERE id = #{id}&quot;)
+    public User findUserById(int id);
+}
+</code></pre>
 <ul>
 <li>注册指定包下的所有映射文件。推荐</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mappers</span><span class="token punctuation">></span></span>
-<span class="token comment" spellcheck="true">&lt;!--3. 注册指定包下的所有映射文件--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>package</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.mapper<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mappers</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;mappers&gt;
+&lt;!--3. 注册指定包下的所有映射文件--&gt;
+    &lt;package name=&quot;com.zero.mapper&quot;&#x2F;&gt;
+&lt;&#x2F;mappers&gt;
+</code></pre>
 <h2 id="4-MyBatis的映射文件"><a href="#4-MyBatis的映射文件" class="headerlink" title="4. MyBatis的映射文件"></a>4. MyBatis的映射文件</h2><h3 id="4-1-输入映射ParameterType"><a href="#4-1-输入映射ParameterType" class="headerlink" title="4.1 输入映射ParameterType"></a>4.1 输入映射<code>ParameterType</code></h3><p>指定输入参数的java类型，可以使用别名或类的全限定名。它可以接收简单类型、POJO对象、HashMap</p>
-<h4 id="4-1-1-传递简单类型"><a href="#4-1-1-传递简单类型" class="headerlink" title="4.1.1 传递简单类型"></a>4.1.1 传递简单类型</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserById<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zero.model.User<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<h4 id="4-1-1-传递简单类型"><a href="#4-1-1-传递简单类型" class="headerlink" title="4.1.1 传递简单类型"></a>4.1.1 传递简单类型</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;com.zero.model.User&quot;&gt;
     SELECT * FROM USER WHERE id = #{id}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h4 id="4-1-2-传递POJO对象"><a href="#4-1-2-传递POJO对象" class="headerlink" title="4.1.2 传递POJO对象"></a>4.1.2 传递POJO对象</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--插入用户信息--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>insert</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>insertUser<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selectKey</span> <span class="token attr-name">keyProperty</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span> <span class="token attr-name">order</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>AFTER<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+&lt;&#x2F;select&gt;
+</code></pre>
+<h4 id="4-1-2-传递POJO对象"><a href="#4-1-2-传递POJO对象" class="headerlink" title="4.1.2 传递POJO对象"></a>4.1.2 传递POJO对象</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--插入用户信息--&gt;
+&lt;insert id=&quot;insertUser&quot; parameterType=&quot;user&quot;&gt;
+    &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;int&quot; order=&quot;AFTER&quot;&gt;
         SELECT LAST_INSERT_ID()
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selectKey</span><span class="token punctuation">></span></span>
+    &lt;&#x2F;selectKey&gt;
     INSERT into user (username,sex,birthday,address) values (#{username},#{sex},#{birthday},#{address})
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>insert</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;insert&gt;
+</code></pre>
 <h4 id="4-1-3-传递POJO包装对象"><a href="#4-1-3-传递POJO包装对象" class="headerlink" title="4.1.3 传递POJO包装对象"></a>4.1.3 传递POJO包装对象</h4><p>开发中通过pojo传递查询条件 ，查询条件是综合的查询条件。不仅包括用户查询条件还包括其它的查询条件（比如将用户购买商品信息也作为查询条件），这时可以使用包装对象传递输入参数。</p>
 <ul>
 <li><p>需求：综合查询用户信息，需传入复杂查询条件，如（用户信息、订单信息、商品信息）。</p>
@@ -999,91 +1060,105 @@ session<span class="token punctuation">.</span><span class="token function">upda
 <li><p>定义POJO包装类</p>
 </li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserQueryVO</span> <span class="token punctuation">{</span>
 
-    <span class="token keyword">private</span> User user<span class="token punctuation">;</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class UserQueryVO {
 
-    <span class="token keyword">public</span> User <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> user<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    private User user;
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setUser</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>user <span class="token operator">=</span> user<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+}
+</code></pre>
 <ul>
 <li>修改映射接口</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserMapper</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="token keyword">public</span> User <span class="token function">findUserById</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">findUserByUserQueryVo</span><span class="token punctuation">(</span>UserQueryVO vo<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public interface UserMapper {
+    public void save(User user);
+
+    public User findUserById(int id);
+    public List&lt;User&gt; findUserByUserQueryVo(UserQueryVO vo);
+}
+</code></pre>
 <ul>
 <li>修改映射文件，添加查询方法</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--查找用户id为n的用户--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserByUserQueryVo<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userQueryVO<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--查找用户id为n的用户--&gt;
+&lt;select id=&quot;findUserByUserQueryVo&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
     select u.* from user u where u.id = #{user.id}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;select&gt;
+</code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    UserMapper mapper <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getMapper</span><span class="token punctuation">(</span>UserMapper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 构造查询对象</span>
-    UserQueryVO query <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserQueryVO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 设置set</span>
-    User user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    user<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    query<span class="token punctuation">.</span><span class="token function">setUser</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 查询用户列表</span>
-    List<span class="token operator">&lt;</span>User<span class="token operator">></span> queryVo <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">findUserByUserQueryVo</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>queryVo<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@Test
+public void test1(){
+    UserMapper mapper = session.getMapper(UserMapper.class);
+    &#x2F;&#x2F; 构造查询对象
+    UserQueryVO query = new UserQueryVO();
+    &#x2F;&#x2F; 设置set
+    User user = new User();
+    user.setId(1);
+    query.setUser(user);
+    &#x2F;&#x2F; 查询用户列表
+    List&lt;User&gt; queryVo = mapper.findUserByUserQueryVo(query);
+    System.out.println(queryVo);
+}
+</code></pre>
 <h4 id="4-1-4-传递Map对象"><a href="#4-1-4-传递Map对象" class="headerlink" title="4.1.4 传递Map对象"></a>4.1.4 传递Map对象</h4><ul>
 <li>修改映射接口文件,添加方法</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserMapper</span> <span class="token punctuation">{</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">save</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public interface UserMapper {
 
-    <span class="token keyword">public</span> User <span class="token function">findUserById</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    public void save(User user);
 
-    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">findUserByUserQueryVo</span><span class="token punctuation">(</span>UserQueryVO vo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    public User findUserById(int id);
 
-    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">findUserByMap</span><span class="token punctuation">(</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">></span> map<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public List&lt;User&gt; findUserByUserQueryVo(UserQueryVO vo);
+
+    public List&lt;User&gt; findUserByMap(Map&lt;String,Object&gt; map);
+}
+</code></pre>
 <ul>
 <li>修改映射文件，添加查询语句</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserByMap<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hashMap<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserByMap&quot; parameterType=&quot;hashMap&quot; resultType=&quot;user&quot;&gt;
     select u.* from user u
-    where username like '%${username}%' and sex=#{sex}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+    where username like &#39;%${username}%&#39; and sex=#{sex}
+&lt;&#x2F;select&gt;
+</code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Test</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span>  <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    UserMapper mapper <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getMapper</span><span class="token punctuation">(</span>UserMapper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 构建map</span>
-    Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">,</span><span class="token string">"张"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"sex"</span><span class="token punctuation">,</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// 查询数据</span>
-    List<span class="token operator">&lt;</span>User<span class="token operator">></span> users <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">findUserByMap</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>users<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java"> @Test
+public void  test2(){
+    UserMapper mapper = session.getMapper(UserMapper.class);
+    &#x2F;&#x2F; 构建map
+    Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;username&quot;,&quot;张&quot;);
+    map.put(&quot;sex&quot;,&quot;1&quot;);
+    &#x2F;&#x2F; 查询数据
+    List&lt;User&gt; users = mapper.findUserByMap(map);
+    System.out.println(users);
+}
+</code></pre>
 <blockquote>
 <p>如果查询不到数据，原因是全局配置文件加载外部数据库属性文件会影响到映射文件中的数据读取，需在全局配置文件中将加载外部数据库属性文件关闭。</p>
 </blockquote>
@@ -1099,53 +1174,67 @@ session<span class="token punctuation">.</span><span class="token function">upda
 <li><p>映射接口文件中添加方法</p>
 </li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">findUserCount</span><span class="token punctuation">(</span>UserQueryVO vo<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public int findUserCount(UserQueryVO vo);
+</code></pre>
 <ul>
 <li>映射文件中添加查询方法</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserCount<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userQueryVO<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserCount&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;int&quot;&gt;
     select count(*) from user where sex=#{user.sex}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;select&gt;
+</code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span>  <span class="token function">test3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    UserMapper mapper <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getMapper</span><span class="token punctuation">(</span>UserMapper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    UserQueryVO query <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserQueryVO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    User user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    user<span class="token punctuation">.</span><span class="token function">setSex</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    query<span class="token punctuation">.</span><span class="token function">setUser</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> userCount <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">findUserCount</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>userCount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@Test
+public void  test3(){
+    UserMapper mapper = session.getMapper(UserMapper.class);
+    UserQueryVO query = new UserQueryVO();
+    User user = new User();
+    user.setSex(&quot;1&quot;);
+    query.setUser(user);
+    int userCount = mapper.findUserCount(query);
+    System.out.println(userCount);
+}
+</code></pre>
 <h5 id="4-2-1-2-输出单个POJO对象"><a href="#4-2-1-2-输出单个POJO对象" class="headerlink" title="4.2.1.2 输出单个POJO对象"></a>4.2.1.2 输出单个POJO对象</h5><ul>
 <li>接口文件添加方法</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> User <span class="token function">findUserById</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public User findUserById(int id);
+</code></pre>
 <ul>
 <li>映射文件添加查询方法</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserById<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot;&gt;
     SELECT * FROM USER WHERE id = #{id}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;select&gt;
+</code></pre>
 <h5 id="4-2-1-3-输出多个POJO对象"><a href="#4-2-1-3-输出多个POJO对象" class="headerlink" title="4.2.1.3 输出多个POJO对象"></a>4.2.1.3 输出多个POJO对象</h5><ul>
 <li>接口</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> List<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">findUserByUserQueryVo</span><span class="token punctuation">(</span>UserQueryVO vo<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public List&lt;User&gt; findUserByUserQueryVo(UserQueryVO vo);
+</code></pre>
 <ul>
 <li>映射文件</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserByUserQueryVo<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userQueryVO<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserByUserQueryVo&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
     select u.* from user u where u.id = #{user.id}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;select&gt;
+</code></pre>
 <h5 id="4-2-1-小结"><a href="#4-2-1-小结" class="headerlink" title="4.2.1 小结"></a>4.2.1 小结</h5><p>输出单个POJO对象和POJO列表时，mapper映射文件中的resultType的类型是一样的，mapper接口的方法返回值不同。</p>
 <p>同样的mapper映射文件，返回单个对象和对象列表时，mapper接口在生成动态代理时，会根据返回值的类型，决定调用selectOne方法还是selectList方法。</p>
 <blockquote>
@@ -1158,25 +1247,29 @@ session<span class="token punctuation">.</span><span class="token function">upda
 <ul>
 <li>mapper接口</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> User <span class="token function">findUserByIdResultMap</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public User findUserByIdResultMap(int id);
+</code></pre>
 <ul>
 <li>映射文件</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--设置返回类型为resultMap--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resultMap</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userResultMap<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--自定义resultMap列名与属性之间的映射关系--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">column</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id_<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>result</span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">column</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username_<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>result</span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>sex<span class="token punctuation">"</span></span> <span class="token attr-name">column</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>sex_<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>result</span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>birthday<span class="token punctuation">"</span></span> <span class="token attr-name">column</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>birthday_<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>result</span> <span class="token attr-name">property</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>address<span class="token punctuation">"</span></span> <span class="token attr-name">column</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>address_<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resultMap</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserByIdResultMap<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span> <span class="token attr-name">resultMap</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userResultMap<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--设置返回类型为resultMap--&gt;
+&lt;resultMap id=&quot;userResultMap&quot; type=&quot;user&quot;&gt;
+    &lt;!--自定义resultMap列名与属性之间的映射关系--&gt;
+    &lt;id property=&quot;id&quot; column=&quot;id_&quot; &#x2F;&gt;
+    &lt;result property=&quot;username&quot; column=&quot;username_&quot; &#x2F;&gt;
+    &lt;result property=&quot;sex&quot; column=&quot;sex_&quot; &#x2F;&gt;
+    &lt;result property=&quot;birthday&quot; column=&quot;birthday_&quot; &#x2F;&gt;
+    &lt;result property=&quot;address&quot; column=&quot;address_&quot; &#x2F;&gt;
+&lt;&#x2F;resultMap&gt;
+&lt;select id=&quot;findUserByIdResultMap&quot; parameterType=&quot;int&quot; resultMap=&quot;userResultMap&quot;&gt;
     select id id_, username username_, sex sex_,birthday birthday_, address address_
     from user where id=#{id};
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&lt;&#x2F;select&gt;
+</code></pre>
 <h2 id="5-动态SQL"><a href="#5-动态SQL" class="headerlink" title="5. 动态SQL"></a>5. 动态SQL</h2><h3 id="5-1-if和where"><a href="#5-1-if和where" class="headerlink" title="5.1 if和where"></a>5.1 if和where</h3><ul>
 <li><p>if标签：作为判断入参来使用的，如果条件符合，则把if标签体内的SQL拼接上。</p>
 </li>
@@ -1186,173 +1279,196 @@ session<span class="token punctuation">.</span><span class="token function">upda
 <ul>
 <li>修改mapper接口</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> List<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">findUserList</span><span class="token punctuation">(</span>UserQueryVO vo<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<ul>
-<li>修改映射文件</li>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">  public List&lt;User&gt; findUserList(UserQueryVO vo);
+</code></pre>
+</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--    动态拼接SQL--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserList<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userQueryVO<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    select * from user
-    -- 条件判断
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>where</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user !<span class="token punctuation">=</span> null<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user.sex !<span class="token punctuation">=</span> null and user.sex !<span class="token punctuation">=</span> <span class="token punctuation">'</span><span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                sex=#{user.sex}
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user.username !<span class="token punctuation">=</span> null and user.username !<span class="token punctuation">=</span> <span class="token punctuation">'</span><span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                and username like '%${user.username}%'
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>where</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>测试</li>
+<li><p>修改映射文件</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">  &lt;!--    动态拼接SQL--&gt;
+  &lt;select id=&quot;findUserList&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
+      select * from user
+      -- 条件判断
+      &lt;where&gt;
+          &lt;if test=&quot;user != null&quot;&gt;
+              &lt;if test=&quot;user.sex != null and user.sex != &#39;&#39;&quot;&gt;
+                  sex=#{user.sex}
+              &lt;&#x2F;if&gt;
+              &lt;if test=&quot;user.username != null and user.username != &#39;&#39;&quot;&gt;
+                  and username like &#39;%${user.username}%&#39;
+              &lt;&#x2F;if&gt;
+          &lt;&#x2F;if&gt;
+      &lt;&#x2F;where&gt;
+  &lt;&#x2F;select&gt;
+</code></pre>
+</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 动态拼接SQL</span>
-<span class="token annotation punctuation">@Test</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span>  <span class="token function">test5</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    UserMapper mapper <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getMapper</span><span class="token punctuation">(</span>UserMapper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    UserQueryVO query <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserQueryVO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    User user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    user<span class="token punctuation">.</span><span class="token function">setSex</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    user<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token string">"张"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    query<span class="token punctuation">.</span><span class="token function">setUser</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    List<span class="token operator">&lt;</span>User<span class="token operator">></span> list <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">findUserList</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>测试</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">  &#x2F;&#x2F; 动态拼接SQL
+  @Test
+  public void  test5(){
+      UserMapper mapper = session.getMapper(UserMapper.class);
+      UserQueryVO query = new UserQueryVO();
+      User user = new User();
+      user.setSex(&quot;1&quot;);
+      user.setUsername(&quot;张&quot;);
+      query.setUser(user);
+      List&lt;User&gt; list = mapper.findUserList(query);
+      System.out.println(list);
+  }
+</code></pre>
 </li>
 </ul>
 <h3 id="5-2-SQL片段"><a href="#5-2-SQL片段" class="headerlink" title="5.2 SQL片段"></a>5.2 SQL片段</h3><p>MyBatis提供了SQL片段功能，可提高SQL的可重用性</p>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--声明一个SQL片段--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>sql</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>select_user_where<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user !<span class="token punctuation">=</span> null<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user.sex !<span class="token punctuation">=</span> null and user.sex !<span class="token punctuation">=</span> <span class="token punctuation">'</span><span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            sex=#{user.sex}
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user.username !<span class="token punctuation">=</span> null and user.username !<span class="token punctuation">=</span> <span class="token punctuation">'</span><span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            and username like '%${user.username}%'
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user.address !<span class="token punctuation">=</span> null and user.address !<span class="token punctuation">=</span> <span class="token punctuation">'</span><span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            and address like '%${user.address}%'
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>sql</span><span class="token punctuation">></span></span>
 
-<span class="token comment" spellcheck="true">&lt;!--动态拼接SQL--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserList<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userQueryVO<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--声明一个SQL片段--&gt;
+&lt;sql id=&quot;select_user_where&quot;&gt;
+    &lt;if test=&quot;user != null&quot;&gt;
+        &lt;if test=&quot;user.sex != null and user.sex != &#39;&#39;&quot;&gt;
+            sex=#{user.sex}
+        &lt;&#x2F;if&gt;
+        &lt;if test=&quot;user.username != null and user.username != &#39;&#39;&quot;&gt;
+            and username like &#39;%${user.username}%&#39;
+        &lt;&#x2F;if&gt;
+        &lt;if test=&quot;user.address != null and user.address != &#39;&#39;&quot;&gt;
+            and address like &#39;%${user.address}%&#39;
+        &lt;&#x2F;if&gt;
+    &lt;&#x2F;if&gt;
+&lt;&#x2F;sql&gt;
+
+&lt;!--动态拼接SQL--&gt;
+&lt;select id=&quot;findUserList&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
     select * from user
     -- 条件判断
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>where</span><span class="token punctuation">></span></span>
+    &lt;where&gt;
         -- 引用SQL片段
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include</span> <span class="token attr-name">refid</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>select_user_where<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>where</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        &lt;include refid=&quot;select_user_where&quot;&#x2F;&gt;
+    &lt;&#x2F;where&gt;
+&lt;&#x2F;select&gt;
+</code></pre>
 <h3 id="5-3-forEach遍历"><a href="#5-3-forEach遍历" class="headerlink" title="5.3 forEach遍历"></a>5.3 forEach遍历</h3><ul>
 <li>查询对象类中新增ids属性，存放id列表</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserQueryVO</span> <span class="token punctuation">{</span>
 
-    <span class="token keyword">private</span> User user<span class="token punctuation">;</span>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class UserQueryVO {
 
-    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> ids<span class="token punctuation">;</span>
+    private User user;
 
-    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> <span class="token function">getIds</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> ids<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    private List&lt;Integer&gt; ids;
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setIds</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> ids<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>ids <span class="token operator">=</span> ids<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public List&lt;Integer&gt; getIds() {
+        return ids;
+    }
 
-    <span class="token keyword">public</span> User <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> user<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public void setIds(List&lt;Integer&gt; ids) {
+        this.ids = ids;
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setUser</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>user <span class="token operator">=</span> user<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+}
+</code></pre>
 <ul>
 <li>mapper接口</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
      * 查询多个id的用户数据
-     */</span>
-<span class="token keyword">public</span> List<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">findUserByIds</span><span class="token punctuation">(</span>UserQueryVO vo<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+     *&#x2F;
+public List&lt;User&gt; findUserByIds(UserQueryVO vo);
+</code></pre>
 <ul>
 <li>映射文件</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--foreach示例--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserByIds<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userQueryVO<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">&lt;!--foreach示例--&gt;
+&lt;select id=&quot;findUserByIds&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
     select * from user
     -- select * from user where id in (10,24,37);
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>where</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ids !<span class="token punctuation">=</span> null and ids.size <span class="token punctuation">></span> 0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            <span class="token comment" spellcheck="true">&lt;!--
+    &lt;where&gt;
+        &lt;if test=&quot;ids != null and ids.size &gt; 0&quot;&gt;
+            &lt;!--
                     foreach标签：表示一个foreach循环
                     collection：集合参数的名称，如果是直接传入集合参数，则该处参数名称只能填写[list]
                     item：每次遍历出来的对象
                     open：开始遍历时拼接的串
                     close：结束遍历时拼接的串
                     separator：遍历出的每个对象之间需要拼接的字符
-                --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>foreach</span> <span class="token attr-name">collection</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ids<span class="token punctuation">"</span></span> <span class="token attr-name">item</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">open</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id in(<span class="token punctuation">"</span></span> <span class="token attr-name">close</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>)<span class="token punctuation">"</span></span> <span class="token attr-name">separator</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>,<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+                --&gt;
+            &lt;foreach collection=&quot;ids&quot; item=&quot;id&quot; open=&quot;id in(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
                 ${id}
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>foreach</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>where</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            &lt;&#x2F;foreach&gt;
+        &lt;&#x2F;if&gt;
+    &lt;&#x2F;where&gt;
+&lt;&#x2F;select&gt;
+</code></pre>
 <ul>
 <li>测试</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span>  <span class="token function">test6</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    UserMapper mapper <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getMapper</span><span class="token punctuation">(</span>UserMapper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    UserQueryVO query <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserQueryVO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> ids <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//select * from user where id in (10,24,37);</span>
-    ids<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    ids<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    ids<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">37</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    query<span class="token punctuation">.</span><span class="token function">setIds</span><span class="token punctuation">(</span>ids<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    List<span class="token operator">&lt;</span>User<span class="token operator">></span> users <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">findUserByIds</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>users<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@Test
+public void  test6() {
+    UserMapper mapper = session.getMapper(UserMapper.class);
+    UserQueryVO query = new UserQueryVO();
+    List&lt;Integer&gt; ids = new ArrayList&lt;&gt;();
+    &#x2F;&#x2F;select * from user where id in (10,24,37);
+    ids.add(10);
+    ids.add(24);
+    ids.add(37);
+    query.setIds(ids);
+    List&lt;User&gt; users = mapper.findUserByIds(query);
+    System.out.println(users);
+}
+</code></pre>
 <ul>
 <li><p>关于参数直接传入id集合</p>
 <ul>
 <li>mapper接口</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> List<span class="token operator">&lt;</span>User<span class="token operator">></span> <span class="token function">findUserByLists</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> list<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<ul>
-<li>映射文件</li>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">  public List&lt;User&gt; findUserByLists(List&lt;Integer&gt; list);
+</code></pre>
+</li>
 </ul>
-<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--如果参数是数组的话，parameterType可以写全限定名，也可以写别名--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>findUserByLists<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>java.util.List<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    select * from user
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>where</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>list !<span class="token punctuation">=</span> null and list.size <span class="token punctuation">></span> 0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            -- 如果是直接传入集合参数，则该处参数名称只能填写[list]
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>foreach</span> <span class="token attr-name">collection</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>list<span class="token punctuation">"</span></span> <span class="token attr-name">item</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">open</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id in(<span class="token punctuation">"</span></span> <span class="token attr-name">close</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>)<span class="token punctuation">"</span></span> <span class="token attr-name">separator</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>,<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                ${id}
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>foreach</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>where</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>映射文件</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-xml">  &lt;!--如果参数是数组的话，parameterType可以写全限定名，也可以写别名--&gt;
+  &lt;select id=&quot;findUserByLists&quot; parameterType=&quot;java.util.List&quot; resultType=&quot;user&quot;&gt;
+      select * from user
+      &lt;where&gt;
+          &lt;if test=&quot;list != null and list.size &gt; 0&quot;&gt;
+              -- 如果是直接传入集合参数，则该处参数名称只能填写[list]
+              &lt;foreach collection=&quot;list&quot; item=&quot;id&quot; open=&quot;id in(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
+                  ${id}
+              &lt;&#x2F;foreach&gt;
+          &lt;&#x2F;if&gt;
+      &lt;&#x2F;where&gt;
+  &lt;&#x2F;select&gt;
+</code></pre>
+</li>
+</ul>
 <ul>
 <li>测试同上，查询方法改一下即可。</li>
-</ul>
-</li>
 </ul>
 <h2 id="6-MyBatis与Hibernate的区别"><a href="#6-MyBatis与Hibernate的区别" class="headerlink" title="6. MyBatis与Hibernate的区别"></a>6. MyBatis与Hibernate的区别</h2><h3 id="6-1-MyBatis技术特点"><a href="#6-1-MyBatis技术特点" class="headerlink" title="6.1 MyBatis技术特点"></a>6.1 MyBatis技术特点</h3><ul>
 <li>好处：<ul>
@@ -1661,7 +1777,7 @@ orders和or</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">249.3k</span>
+                <span class="white-color">276.8k</span>
             
 
             
