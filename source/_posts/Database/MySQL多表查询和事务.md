@@ -4,6 +4,7 @@ date: 2019-5-23 18:00
 categories: DataBase
 tags: [MySQL]
 description: MySQL多表查询和事务概念
+urlname: MySQL-Transaction
 ---
 
 

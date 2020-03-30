@@ -4,6 +4,7 @@ date: 2019-7-14 23:59
 categories: DataBase
 tags: [Redis]
 description: Redis概念及基本使用
+urlname: Redis-Basic
 ---
 
 
