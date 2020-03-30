@@ -1,0 +1,1268 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="索引优化, Zero的博客">
+    <meta name="description" content="1. 索引分析
+1.1 单表优化
+创建表插入数据
+
+
+
+create table article(
+    id int(10) unsigned not null primary key auto_increment,
+    autho">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>索引优化 | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        索引优化
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Index-optimize/" target="_blank">
+                                <span class="chip bg-color">Index optimize</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/DataBase/" class="post-category" target="_blank">
+                                DataBase
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-25
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        13 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-索引分析"><a href="#1-索引分析" class="headerlink" title="1. 索引分析"></a>1. 索引分析</h2><a id="more"></a>
+<h3 id="1-1-单表优化"><a href="#1-1-单表优化" class="headerlink" title="1.1 单表优化"></a>1.1 单表优化</h3><ul>
+<li>创建表插入数据</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">create table article(
+    id int(10) unsigned not null primary key auto_increment,
+    author_id int(10) unsigned not null,
+    category_id int(10) unsigned not null,
+    views int(10) unsigned not null,
+    comments int(10) unsigned not null,
+    title varbinary(255) not null,
+    content text not null
+);
+
+insert into article(author_id,category_id,views,comments,title,content) values
+(1,1,1,1,&#39;1&#39;,&#39;1&#39;),
+(2,2,2,2,&#39;2&#39;,&#39;2&#39;),
+(3,1,1,3,&#39;3&#39;,&#39;3&#39;);
+</code></pre>
+<ul>
+<li>查询category_id为1且comments大于1的情况下，views最多的article_id</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">select id,author_id from article where category_id = 1 and comments &gt; 1 order by views desc limit 1
+</code></pre>
+<ul>
+<li>查看执行计划，sql分析：type是all表示全表扫描，Extra还出现了filesort，产生了文件内排序，且未使用到索引；必须优化。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">explain select id,author_id from article where category_id = 1 and comments &gt; 1 order by views desc limit 1
+</code></pre>
+<ul>
+<li>开始优化，创建复合索引</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">CREATE INDEX idx_article_ccv ON article(category_id,comments,views);
+</code></pre>
+<ul>
+<li>再次查看执行计划，sql分析：type变为了range表示范围内索引，且使用到了建立的复合索引，但还是产生了文件内排序。 但是按照Btree索引的工作原理，先排序category_id,再排序commnets，因为comments字段大于1是一个范围值，导致无法利用索引对后面的views进行检索，索引部分失效了</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments &gt; 1 ORDER BY views DESC LIMIT 1
+</code></pre>
+<ul>
+<li>优化2，删除非最优索引，绕过comments创建复合索引</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">drop index idx_article_ccv on article;
+create index idx_article_cv on article(category_id,views); 
+</code></pre>
+<ul>
+<li>查看执行计划，sql分析：type为ref级别，using filesort也没了，非常理想的优化结果。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments &gt; 1 ORDER BY views DESC LIMIT 1
+</code></pre>
+<h3 id="1-2-两表优化"><a href="#1-2-两表优化" class="headerlink" title="1.2 两表优化"></a>1.2 两表优化</h3><ul>
+<li>创建表插数据</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">create table class(
+    id int(10) unsigned not null auto_increment,
+    card int(10) unsigned not null,
+    primary key(id)
+);
+
+create table book(
+    bookid int(10) unsigned not null auto_increment,
+    card int(10) unsigned not null,
+    primary key(bookid)
+);
+给两个表各插入20条数据
+insert into class(card) values
+(FLOOR(1+(RAND()*20))); # 执行20次
+insert into book(card) values
+(FLOOR(1+(RAND()*20))), # 执行20次
+</code></pre>
+<ul>
+<li>开始explain分析, sql分析：type是all，全表扫描</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM class LEFT JOIN book ON class.`card` = book.`card`;
+</code></pre>
+<ul>
+<li>添加索引尝试优化</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">ALTER TABLE book ADD INDEX idx_y(card);
+</code></pre>
+<ul>
+<li>查看计划，sql分析：book表type优化到了ref级别</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">explain select * from class left join book on class.`card` = book.`card`;
+</code></pre>
+<ul>
+<li>继续尝试优化</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">DROP INDEX idx_y ON book;
+ALTER TABLE class ADD INDEX idx_y(card); # 给class表加索引
+</code></pre>
+<ul>
+<li>查看计划，sql分析：class表type仅优化为了index级别，全索引扫描</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM class LEFT JOIN book ON class.`card` = book.`card`;
+</code></pre>
+<ul>
+<li>小结：由于左连接的特性，决定了左边内容一定都是有的，left join 条件用于确定如何从右表搜索行；所以left join一定要给右表建立索引。</li>
+<li>修改回最优索引</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">DROP INDEX idx_y ON class;
+ALTER TABLE book ADD INDEX idx_y(card);
+</code></pre>
+<ul>
+<li>那么当right join时呢?</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">explain select * from class right join book on class.`card` = book.`card`;
+</code></pre>
+<ul>
+<li>跟左连接相反，右连接给左表建立索引即可</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">ALTER TABLE class ADD INDEX idx_x(card);
+</code></pre>
+<ul>
+<li>查看计划，sql分析：可以看到class表优化为了ref级别</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">explain select * from class right join book on class.`card` = book.`card`;
+</code></pre>
+<ul>
+<li>总结：<strong>左连接给右表建索引，右连接给左边建索引。</strong></li>
+</ul>
+<h3 id="1-3-三表优化"><a href="#1-3-三表优化" class="headerlink" title="1.3 三表优化"></a>1.3 三表优化</h3><ul>
+<li>沿用上两张表的情况下，加入一张表</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">CREATE TABLE phone(
+    phone_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    card INT(10) UNSIGNED NOT NULL,
+    PRIMARY KEY(phone_id)
+)ENGINE=INNODB;
+
+INSERT INTO phone(card) VALUES
+(FLOOR(1+(RAND()*20))); # 执行20次
+</code></pre>
+<ul>
+<li>清除上一个case建立的全部索引</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">drop index idx_y on book;
+drop index idx_x on class;
+</code></pre>
+<ul>
+<li>三表查询计划, sql分析：type均为all，必须优化。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">explain select * from class left join book on class.`card`=book.`card` left join phone on book.`card`=phone.`card`;
+</code></pre>
+<ul>
+<li>根据左连接查询给右表建索引原则，给右边的phone表和book表建立索引</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">alter table phone add index z(card);
+ALTER TABLE book ADD INDEX Y(card);
+</code></pre>
+<ul>
+<li>查看计划，sql分析：book和phone表都优化到了red级别，优化很好，因此索引最好设置在需要经常查询的字段中。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">explain select * from class left join book on class.`card`=book.`card` left join phone on book.`card`=phone.`card`;
+</code></pre>
+<ul>
+<li>Join语句优化<ul>
+<li>尽可能减少Join语句中的NestedLoop循环总次数； “永远用小结果集驱动大结果集”</li>
+<li>优先优化NestedLoop的内层循环</li>
+<li>保证Join语句中被驱动表上Join条件字段已经被索引</li>
+<li>当无法保证被驱动表的Join条件被索引且内存资源充足的前提下，不必太吝惜JoinBuffer的设置</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-索引失效"><a href="#2-索引失效" class="headerlink" title="2. 索引失效"></a>2. 索引失效</h2><h3 id="2-1-建表"><a href="#2-1-建表" class="headerlink" title="2.1 建表"></a>2.1 建表</h3>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">create table staffs(
+    id int primary key auto_increment,
+    name varchar(24) not null default &quot;&quot; comment &#39;姓名&#39;,
+    age int not null default 0 comment &#39;年龄&#39;,
+    pos varchar(20) not null default &quot;&quot; comment &#39;职位&#39;,
+    add_time timestamp not null default current_timestamp comment &#39;入职时间&#39;
+)charset utf8 comment &#39;员工记录表&#39;;
+# 插入数据
+insert into staffs(name,age,pos,add_time)values
+(&#39;z3&#39;,22,&#39;manager&#39;,now()),
+(&#39;July&#39;,23,&#39;dev&#39;,now()),
+(&#39;2000&#39;,23,&#39;dev&#39;,now());
+# 建立复合索引
+alter table staffs add index idx_staffs_nameAgePos(name,age,pos);
+show index from staffs;
+</code></pre>
+<h3 id="2-2-索引失效案例"><a href="#2-2-索引失效案例" class="headerlink" title="2.2 索引失效案例"></a>2.2 索引失效案例</h3><h4 id="2-2-1-全值匹配"><a href="#2-2-1-全值匹配" class="headerlink" title="2.2.1 全值匹配"></a>2.2.1 全值匹配</h4><p>如果关键列建立了索引，尽量全部都用到。</p>
+<blockquote>
+<p>全值匹配我最爱，最左前缀要遵守</p>
+</blockquote>
+<h4 id="2-2-2-最佳左前缀法则"><a href="#2-2-2-最佳左前缀法则" class="headerlink" title="2.2.2 最佳左前缀法则"></a>2.2.2 最佳左前缀法则</h4><p>如果索引了多列，要遵守最左前缀法则；指的是查询从索引的最左前列开始且不跳过索引中间的列；<strong>即索引的列一个都不要少</strong>。</p>
+<blockquote>
+<p>带头大哥不能死，中间兄弟不能断</p>
+</blockquote>
+<h4 id="2-2-3-不在索引列上做任何操作-计算、函数、自动or手动类型转换-，会导致索引失效而转向全表扫描"><a href="#2-2-3-不在索引列上做任何操作-计算、函数、自动or手动类型转换-，会导致索引失效而转向全表扫描" class="headerlink" title="2.2.3 不在索引列上做任何操作(计算、函数、自动or手动类型转换)，会导致索引失效而转向全表扫描"></a>2.2.3 不在索引列上做任何操作(计算、函数、自动or手动类型转换)，会导致索引失效而转向全表扫描</h4><ul>
+<li>举例如下</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql"># 没在索引列进行函数相关操作，使用到了索引且type为ref级别
+EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;July&#39;;
+# 在索引列进行了函数操作，会导致索引失效，type为all全表扫描
+EXPLAIN SELECT * FROM staffs WHERE LEFT(NAME,4) = &#39;July&#39;;
+</code></pre>
+<blockquote>
+<p>索引列上少计算</p>
+</blockquote>
+<h4 id="2-2-4-存储引擎不能使用索引中范围条件右边的列"><a href="#2-2-4-存储引擎不能使用索引中范围条件右边的列" class="headerlink" title="2.2.4 存储引擎不能使用索引中范围条件右边的列"></a>2.2.4 存储引擎不能使用索引中范围条件右边的列</h4><ul>
+<li>举例如下操作会让范围后面的pos索引失效，type降低为range类型。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql"># 4.存储引擎不能使用索引中范围条件右边的列
+EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;July&#39; AND age &gt; 25 AND pos=&#39;manager&#39;
+</code></pre>
+<blockquote>
+<p>范围之后全失效</p>
+</blockquote>
+<h4 id="2-2-5-尽量使用覆盖索引-索引列和查询列一致-，减少select"><a href="#2-2-5-尽量使用覆盖索引-索引列和查询列一致-，减少select" class="headerlink" title="2.2.5 尽量使用覆盖索引(索引列和查询列一致)，减少select *"></a>2.2.5 尽量使用覆盖索引(索引列和查询列一致)，减少select *</h4><ul>
+<li>这样可以Using index，性能不错</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT NAME,age,pos FROM staffs WHERE NAME = &#39;July&#39; AND age  = 25 AND pos=&#39;dev&#39;;
+</code></pre>
+<blockquote>
+<p>覆盖索引不写星</p>
+</blockquote>
+<h4 id="2-2-6-mysql在使用不等于-或者-lt-gt-时无法使用索引会导致全表扫描"><a href="#2-2-6-mysql在使用不等于-或者-lt-gt-时无法使用索引会导致全表扫描" class="headerlink" title="2.2.6 mysql在使用不等于(!=或者&lt;&gt;)时无法使用索引会导致全表扫描"></a>2.2.6 mysql在使用不等于(!=或者&lt;&gt;)时无法使用索引会导致全表扫描</h4><ul>
+<li>使用不等也会导致索引失效全表扫描</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME != &#39;July&#39;;
+EXPLAIN SELECT * FROM staffs WHERE NAME &lt;&gt; &#39;July&#39;;
+</code></pre>
+<blockquote>
+<p>不等空值还有or，索引失效要少用</p>
+</blockquote>
+<h4 id="2-2-7-is-null-is-not-null也无法使用索引"><a href="#2-2-7-is-null-is-not-null也无法使用索引" class="headerlink" title="2.2.7 is null,is not null也无法使用索引"></a>2.2.7 is null,is not null也无法使用索引</h4><ul>
+<li>is null 会出现Impossible WHERE情况；is not null会导致索引失效全表扫描</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME IS NULL;
+EXPLAIN SELECT * FROM staffs WHERE NAME is not null;
+</code></pre>
+<blockquote>
+<p>不等空值还有or，索引失效要少用</p>
+</blockquote>
+<h4 id="2-2-8-like以通配符开头-‘-abc…’-也会导致索引失效变成全表扫描。"><a href="#2-2-8-like以通配符开头-‘-abc…’-也会导致索引失效变成全表扫描。" class="headerlink" title="2.2.8 like以通配符开头(‘%abc…’)也会导致索引失效变成全表扫描。"></a>2.2.8 like以通配符开头(‘%abc…’)也会导致索引失效变成全表扫描。</h4><ul>
+<li>百分号尽量写右边，不然会导致索引失效全表扫描，使用覆盖索引关键列可优化到index级别。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME like &#39;%July%&#39;; # 全表扫描
+EXPLAIN SELECT * FROM staffs WHERE NAME LIKE &#39;%July&#39;; # 全表扫描
+EXPLAIN SELECT * FROM staffs WHERE NAME LIKE &#39;July%&#39;; # range范围扫描
+</code></pre>
+<blockquote>
+<p>Like百分<code>%</code>写最右</p>
+</blockquote>
+<h4 id="2-2-9-字符串不加单引号索引失效"><a href="#2-2-9-字符串不加单引号索引失效" class="headerlink" title="2.2.9 字符串不加单引号索引失效"></a>2.2.9 字符串不加单引号索引失效</h4><ul>
+<li>varchar类型字符串不加引号也会导致索引失效全表扫描</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME = 2000; #因为name是varchar类型，mysql做了自动类型转换，导致索引失效
+EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;2000&#39;; # 不会失效
+</code></pre>
+<blockquote>
+<p>Varchar引号不可丢</p>
+</blockquote>
+<h4 id="2-2-10-少用or，用它连接时会索引失效"><a href="#2-2-10-少用or，用它连接时会索引失效" class="headerlink" title="2.2.10 少用or，用它连接时会索引失效"></a>2.2.10 少用or，用它连接时会索引失效</h4><ul>
+<li>or也会导致索引失效</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME=&#39;July&#39; OR NAME = &#39;z3&#39;;
+</code></pre>
+<blockquote>
+<p>不等空值还有or，索引失效要少用</p>
+</blockquote>
+<h3 id="2-3-索引优化分析题"><a href="#2-3-索引优化分析题" class="headerlink" title="2.3 索引优化分析题"></a>2.3 索引优化分析题</h3><h4 id="2-3-1-准备工作"><a href="#2-3-1-准备工作" class="headerlink" title="2.3.1 准备工作"></a>2.3.1 准备工作</h4><ul>
+<li>建立表插数据</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">CREATE TABLE ex01(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    c1 CHAR(10),
+    c2 CHAR(10),
+    c3 CHAR(10),
+    c4 CHAR(10),
+    c5 CHAR(10)
+);
+
+INSERT INTO ex01(c1,c2,c3,c4,c5) VALUES
+(&#39;a1&#39;,&#39;a2&#39;,&#39;a3&#39;,&#39;a4&#39;,&#39;a5&#39;),
+(&#39;b1&#39;,&#39;b2&#39;,&#39;b3&#39;,&#39;b4&#39;,&#39;b5&#39;),
+(&#39;c1&#39;,&#39;c2&#39;,&#39;c3&#39;,&#39;c4&#39;,&#39;c5&#39;),
+(&#39;d1&#39;,&#39;d2&#39;,&#39;d3&#39;,&#39;d4&#39;,&#39;d5&#39;),
+(&#39;e1&#39;,&#39;e2&#39;,&#39;e3&#39;,&#39;e4&#39;,&#39;e5&#39;);
+</code></pre>
+<ul>
+<li>建立索引</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">CREATE INDEX idx_ex01_c1234 ON ex01(c1,c2,c3,c4);
+SHOW INDEX FROM ex01;
+</code></pre>
+<h4 id="2-3-2-根据以下SQL分析索引的使用情况"><a href="#2-3-2-根据以下SQL分析索引的使用情况" class="headerlink" title="2.3.2 根据以下SQL分析索引的使用情况"></a>2.3.2 根据以下SQL分析索引的使用情况</h4><ul>
+<li>全索引使用，全值匹配，ref级别；顺序改变mysql会自动优化，故以下SQL性能一致。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c3 = &#39;a3&#39; AND c4 = &#39;a4&#39;;
+EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c4 = &#39;a4&#39; AND c3 = &#39;a3&#39;;
+EXPLAIN SELECT * FROM ex01 WHERE c4 = &#39;a4&#39; AND c3 = &#39;a3&#39; AND c2 = &#39;a2&#39; AND c1 = &#39;a1&#39;;
+</code></pre>
+<ul>
+<li>三索引使用，范围匹配，range级别；范围之后全失效。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c3 &gt; &#39;a3&#39; AND c4 = &#39;a4&#39;;
+</code></pre>
+<ul>
+<li>全索引使用，范围匹配，range级别。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c4 &gt; &#39;a4&#39; AND c3 = &#39;a3&#39;;
+</code></pre>
+<ul>
+<li>两索引使用，c3作用在排序而不是查找</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c4 = &#39;a4&#39; ORDER BY c3;
+</code></pre>
+<ul>
+<li>两索引使用，c3在排序用不到索引查找</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">explain SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; ORDER BY c3;
+</code></pre>
+<ul>
+<li>两索引使用，因为跳过了c3导致c4无法用到排好序的索引，只能自己排序，从而出现了<code>Using filesort</code></li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; ORDER BY c4;
+</code></pre>
+<ul>
+<li>单索引使用，c2、c3在排序</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c5 = &#39;a5&#39; ORDER BY c2,c3;
+</code></pre>
+<ul>
+<li>单索引使用，因为c3跳过了c2,导致索引没使用到从而自己排序，出现<code>Using filesort</code></li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c5 = &#39;a5&#39; ORDER BY c3,c2;
+</code></pre>
+<ul>
+<li>两索引使用</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">explain SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; ORDER BY c2,c3;
+</code></pre>
+<ul>
+<li>两索引使用，c2、c3用于排序</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c5 = &#39;a5&#39; ORDER BY c2,c3;
+</code></pre>
+<ul>
+<li>两索引使用，c1、c2用到了索引，所以c2变成了一个常量，在order by那边常量不用排序，故没有产生文件内排序</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c5 = &#39;a5&#39; ORDER BY c3,c2;
+</code></pre>
+<ul>
+<li>单索引使用，c2、c3在排序，c4用不到</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1=&#39;a1&#39; AND c4=&#39;a4&#39; GROUP BY c2,c3;
+</code></pre>
+<ul>
+<li>单索引使用，c3跳过了c2产生文件内排序，group by还用到了临时表<code>Using temporary</code></li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1=&#39;a1&#39; AND c4=&#39;a4&#39; GROUP BY c3,c2;
+</code></pre>
+<ul>
+<li><strong>小结</strong>：定值、范围还是排序，一般order by是给范围排序；group by基本上都会进行排序，会产生临时表，<strong>分组之前必定会排序</strong>。</li>
+</ul>
+<h2 id="3-一般建议"><a href="#3-一般建议" class="headerlink" title="3. 一般建议"></a>3. 一般建议</h2><ol>
+<li>对于单键索引，尽量选择针对当前query过滤性更好的索引</li>
+<li>在选择组合索引时，当前Query中过滤性最好的字段在索引字段顺序中，位置越靠前越好。</li>
+<li>在选择组合索引时，尽量选择可以能够包含当前query中的where子句中更多字段的索引。</li>
+<li>尽可能通过分析统计信息和调整query的写法来达到选择合适索引的目的。</li>
+</ol>
+<h4 id="3-1-索引优化口诀"><a href="#3-1-索引优化口诀" class="headerlink" title="3.1 索引优化口诀"></a>3.1 索引优化口诀</h4><ul>
+<li><p>全值匹配我最爱，最左前缀要遵守；</p>
+</li>
+<li><p>带头大哥不能死，中间兄弟不能断；</p>
+</li>
+<li><p>索引列上少计算，范围之后全失效；</p>
+</li>
+<li><p>Like百分写最右，覆盖索引不写星；</p>
+</li>
+<li><p>不等空值还有or，索引失效要少用；</p>
+</li>
+<li><p>Varchar引号不可丢，SQL高级也不难！</p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/DataBase/Index-optimize.html" class="b-link-green">索引优化</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2020-03-25T15-00-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/DataBase/Query-optimize.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="MySQL查询优化">
+                        
+                        <span class="card-title">MySQL查询优化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">查询优化
+1. 小表驱动大表小表驱动大表，就是小的数据集驱动大的数据集。
+
+
+select * from A where id in (select id from B);
+等价于：
+for select id from B
+for sel</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-03-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/DataBase/" class="post-category" target="_blank">
+                                    DataBase
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Query-optimize/" target="_blank">
+                        <span class="chip bg-color">Query optimize</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Algorithm-trip/Data-structure-basic.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="算法之美-[数据结构基础]">
+                        
+                        <span class="card-title">算法之美-[数据结构基础]</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 算法概述
+什么是算法$(algorithm)$？
+在计算机领域里，算法就是一系列程序指令，用于处理特定的运算和逻辑问题。衡量算法优劣的主要标准是时间复杂度和空间复杂度。
+
+
+
+
+
+什么是数据结构$(data \ structure)$</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-03-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Algorithm-trip/" class="post-category" target="_blank">
+                                    Algorithm trip
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Data-structure/" target="_blank">
+                        <span class="chip bg-color">Data structure</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">289.9k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
