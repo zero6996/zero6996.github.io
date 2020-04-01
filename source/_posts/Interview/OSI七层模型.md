@@ -21,7 +21,7 @@ urlname: computer-networks
 
 ### 1. OSI7层模型和TCP4层模型
 
-![UTOOLS1583203255690.png](http://yanxuan.nosdn.127.net/db1fb1447ca74d3f923d7953ba014a80.png)
+![OSI](http://yanxuan.nosdn.127.net/db1fb1447ca74d3f923d7953ba014a80.png)
 
 #### 1.1 模型各层功能
 
