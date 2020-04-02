@@ -1,0 +1,1186 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java中的线程详解和同步方法, Zero的博客">
+    <meta name="description" content="1. 线程线程是进程中的一个执行单元，负责当前进程中程序的执行，一个进程中至少有一个线程。一个进程中是可以有多个线程的，这个应用程序也可以称之为多线程程序。 
+
+1.1 多线程原理代码示例：
+
+&amp;#x2F;&amp;#x2F; 定义线程类
+publ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java中的线程详解和同步方法 | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java中的线程详解和同步方法
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                            <a href="/tags/线程/" target="_blank">
+                                <span class="chip bg-color">线程</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                JavaBasics
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-04-28
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4.6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        17 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-线程"><a href="#1-线程" class="headerlink" title="1. 线程"></a>1. 线程</h2><p>线程是进程中的一个执行单元，负责当前进程中程序的执行，一个进程中至少有一个线程。一个进程中是可以有多个线程的，这个应用程序也可以称之为多线程程序。 </p>
+<a id="more"></a>
+<h3 id="1-1-多线程原理"><a href="#1-1-多线程原理" class="headerlink" title="1.1 多线程原理"></a>1.1 多线程原理</h3><p>代码示例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 定义线程类
+public class MyThread extends Thread{
+    &#x2F;&#x2F; 定义指定线程名称的构造方法
+    public MyThread(String name) {
+        &#x2F;&#x2F; 调用父类的String参数的构造方法，指定线程的名称
+        super(name); 
+    }
+    &#x2F;&#x2F; 重写run方法，完成该线程的执行逻辑
+    @Override
+    public void run(){
+        for(int i = 0;i &lt; 10;i++){
+            System.out.println(getName()+&quot;正在执行第&quot;+i+&quot;次&quot;);&#x2F;&#x2F; getName获取当前线程名称
+        }
+    }
+}
+
+&#x2F;&#x2F; 测试类
+public class TestThread {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 创建线程对象
+        MyThread mt = new MyThread(&quot;小强&quot;);
+        &#x2F;&#x2F; 启动线程
+        mt.start();
+        &#x2F;&#x2F; 在主方法中执行for循环
+        for(int i = 0;i &lt; 10;i++){
+            System.out.println(&quot;旺财&quot;+i);
+        }
+    }
+}
+</code></pre></p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/28/%E7%BA%BF%E7%A8%8B%E6%B5%81%E7%A8%8B%E5%9B%BE-1556453011478.png" alt="title"></p>
+<p>程序启动运行main时候，java虚拟机启动一个进程，主线程main在main()调用时候被创建。随着调用mt的对象的<br>start方法，另外一个新的线程也启动了，这样，整个应用就在多线程下运行。</p>
+<p>多线程执行时，在栈内存中，其实每一个执行线程都有一片自己所属的栈内存空间。进行方法的压栈和弹栈。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/28/%E6%A0%88%E5%86%85%E5%AD%98%E5%8E%9F%E7%90%86%E5%9B%BE-1556454114513.bmp" alt="title"></p>
+<p>当执行线程的任务结束了，线程自动在栈内存中释放了。但是当所有的执行线程都结束了，那么进程就结束了。</p>
+<h3 id="1-2-Thread类"><a href="#1-2-Thread类" class="headerlink" title="1.2 Thread类"></a>1.2 Thread类</h3><p><code>java.lang.Thread</code>类中定义了有关线程的一些方法:</p>
+<p><strong>构造方法</strong>：</p>
+<ul>
+<li><code>public Thread()</code> ：分配一个新的线程对象。</li>
+<li><code>public Thread(String name)</code> :分配一个指定名字的新的线程对象。</li>
+<li><code>public Thread(Runnable target)</code> :分配一个带有指定目标新的线程对象。</li>
+<li><code>public Thread(Runnable target,String name)</code> :分配一个带有指定目标新的线程对象并指定名字。</li>
+</ul>
+<p><strong>常用方法</strong>:</p>
+<ul>
+<li><code>public String getName()</code>:获取当前线程名称。</li>
+<li><code>public void start()</code>:导致此线程开始执行; Java虚拟机调用此线程的run方法。</li>
+<li><code>public void run()</code>:此线程要执行的任务在此处定义代码。</li>
+<li><code>public static void sleep(long millis)</code>:使当前正在执行的线程以指定的毫秒数暂停（暂时停止执行）。</li>
+<li><code>public static Thread currentThread()</code>:返回对当前正在执行的线程对象的引用</li>
+</ul>
+<h3 id="1-3-创建线程方式二"><a href="#1-3-创建线程方式二" class="headerlink" title="1.3 创建线程方式二"></a>1.3 创建线程方式二</h3><p>采用 <code>java.lang.Runnable</code> 也是非常常见的一种，我们只需要重写run方法即可。<br>步骤如下：</p>
+<ol>
+<li>定义Runnable接口的实现类，并重写该接口的run()方法，该run()方法的方法体同样是该线程的线程执行体。</li>
+<li>创建Runnable实现类的实例，并以此实例作为Thread的target来创建Thread对象，该Thread对象才是真正<br>的线程对象。</li>
+<li>调用线程对象的start()方法来启动线程。</li>
+</ol>
+<p>代码示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 实现类
+public class MyRunnable implements Runnable{
+    @Override
+    public void run() { &#x2F;&#x2F; 重写run方法
+        for (int i = 0;i &lt; 10; i++){
+            System.out.println(Thread.currentThread().getName()+&quot; &quot;+i);
+        }
+    }
+}
+&#x2F;&#x2F; 测试类
+public class RunnableDemo {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 创建类对象，线程任务对象
+        MyRunnable mr = new MyRunnable();
+        &#x2F;&#x2F; 创建线程对象
+        Thread r = new Thread(mr,&quot;小强&quot;);
+        r.start();
+        for (int i = 0;i &lt; 10;i++){
+            System.out.println(&quot;旺财&quot;+i);
+        }
+    }
+}
+</code></pre></p>
+<p>通过实现Runnable接口，使得该类有了多线程类的特征。run()方法是多线程程序的一个执行目标。所有的多线程<br>代码都在run方法里面。Thread类实际上也是实现了Runnable接口的类。</p>
+<p>在启动的多线程的时候，需要先通过Thread类的构造方法Thread(Runnable target) 构造出对象，然后调用Thread<br>对象的start()方法来运行多线程代码。</p>
+<p>实际上所有的多线程代码都是通过运行Thread的start()方法来运行的。因此，不管是继承Thread类还是实现Runnable接口来实现多线程，最终还是通过Thread的对象的API来控制线程的，<strong>熟悉Thread类的API</strong>是进行多线程编程的基础。</p>
+<blockquote>
+<p>Tips::Runnable对象仅仅作为Thread对象的target，Runnable实现类里包含的run()方法仅作为线程执行体。<br>而实际的线程对象依然是Thread实例，只是该Thread线程负责执行其target的run()方法。</p>
+</blockquote>
+<h3 id="1-4-Thread和Runnable的区别"><a href="#1-4-Thread和Runnable的区别" class="headerlink" title="1.4 Thread和Runnable的区别"></a>1.4 Thread和Runnable的区别</h3><p>如果一个类继承Thread，则不适合资源共享。但是如果实现了Runable接口的话，则很容易的实现资源共享。</p>
+<p><strong>实现Runnable接口创建多线程程序的好处：</strong></p>
+<ol>
+<li>适合多个相同的程序代码的线程去共享同一个资源。</li>
+<li>可以避免java中的单继承的局限性。</li>
+<li>增加程序的健壮性，实现解耦操作，代码可以被多个线程共享，代码和线程独立。</li>
+<li>线程池只能放入实现Runable或Callable类线程，不能直接放入继承Thread的类</li>
+</ol>
+<blockquote>
+<p>在java中，每次程序运行至少启动2个线程。一个是main线程，一个是垃圾收集线程。因为每当使用java命令执行一个类的时候，实际上都会启动一个JVM，每一个JVM其实在就是在操作系统中启动了一个进程。</p>
+</blockquote>
+<h3 id="1-5-匿名内部类方法实现线程的创建"><a href="#1-5-匿名内部类方法实现线程的创建" class="headerlink" title="1.5    匿名内部类方法实现线程的创建"></a>1.5    匿名内部类方法实现线程的创建</h3><p>使用线程的内匿名内部类方式，可以方便的实现每个线程执行不同的线程任务操作。</p>
+<p>使用匿名内部类的方式实现Runnable接口，重新Runnable接口中的run方法：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class NoNameInnerClassThread {
+    public static void main(String[] args) {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                for(int i = 0;i&lt;10;i++){
+                    System.out.println(&quot;小张&quot;+i);
+                }
+            }
+        };
+        new Thread(r).start();
+        for (int i = 0; i &lt; 10; i++) {
+            System.out.println(&quot;小李&quot;+i);
+        }
+    }
+}
+</code></pre></p>
+<h2 id="2-线程安全"><a href="#2-线程安全" class="headerlink" title="2. 线程安全"></a>2. 线程安全</h2><p>如果有多个线程在同时运行，而这些线程可能会同时运行这段代码。程序每次运行结果和单线程运行的结果是一样的，而且其他的变量的值也和预期的是一样的，就是线程安全的。</p>
+<p>举例演示线程的安全问题：<br>电影院要卖票，模拟电影院的卖票过程。假设要播放的电影是“复联4”，本次电影的座位共100个(本场电影只能卖100张票)。</p>
+<p>我们模拟电影院的售票窗口，实现多个窗口同时卖“复联4”这场电影票(多个窗口一起卖这100张票)</p>
+<p>需要窗口，采用线程对象来模拟；需要票，Runnable接口子类来模拟</p>
+<p>代码示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 实现类
+public class Ticket implements Runnable{
+    private int ticket = 100;
+    &#x2F;&#x2F; 执行卖票流程
+    @Override
+    public void run() {
+        &#x2F;&#x2F; 每个窗口的卖票操作
+        while (true){
+            if (ticket&gt;0){
+                try{
+                    Thread.sleep(100);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName()+&quot;正在卖&quot;+ticket--);
+            }
+        }
+    }
+}
+&#x2F;&#x2F; 测试类
+public class TicketDemo {
+    public static void main(String[] args) {
+        Ticket tk = new Ticket(); &#x2F;&#x2F; 创建线程任务对象
+        &#x2F;&#x2F; 创建3个窗口对象
+        Thread t1 = new Thread(tk,&quot;窗口1&quot;);
+        Thread t2 = new Thread(tk,&quot;窗口2&quot;);
+        Thread t3 = new Thread(tk,&quot;窗口3&quot;);
+        &#x2F;&#x2F; 同时进行卖票操作
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+</code></pre></p>
+<p>结果有一部分会出现如下情况：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/28/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98-1556459958932.jpg" alt="title"><br><br>发现程序出现了两个问题：</p>
+<ol>
+<li>有部分相同的票数被卖了两回。</li>
+<li>不存在的票，比如0票与-1票，是不存在的。</li>
+</ol>
+<p>这种几个窗口(线程)票数不同步了，这种问题称为线程不安全。</p>
+<blockquote>
+<p>线程安全问题都是由全局变量及静态变量引起的。若每个线程中对全局变量、静态变量只有读操作，而无写操作,一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则的话就可能影响线程安全。</p>
+</blockquote>
+<h3 id="2-1-线程同步"><a href="#2-1-线程同步" class="headerlink" title="2.1 线程同步"></a>2.1 线程同步</h3><p>当我们使用多个线程访问同一资源的时候，且多个线程中对资源有写的操作，就容易出现线程安全问题。<br>要解决上述多线程并发访问一个资源的安全性问题:也就是解决重复票与不存在票问题，Java中提供了同步机制<br>(synchronized)来解决。<br>根据案例简述：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-txt">窗口1线程进入操作的时候，窗口2和窗口3线程只能在外等着，窗口1操作结束，窗口1和窗口2和窗口3才有机会进入代码去执行。也就是说在某个线程修改共享资源的时候，其他线程不能修改该资源，等待修改完毕同步之后，才能去抢夺CPU资源，完成对应的操作，保证了数据的同步性，解决了线程不安全的现象。
+</code></pre></p>
+<p>为了保证每个线程都能正常执行原子操作,Java引入了线程同步机制。<br>有三种方式完成同步操作：</p>
+<ol>
+<li>同步代码块。</li>
+<li>同步方法。</li>
+<li>锁机制。</li>
+</ol>
+<h3 id="2-2-同步代码块"><a href="#2-2-同步代码块" class="headerlink" title="2.2 同步代码块"></a>2.2 同步代码块</h3><ul>
+<li><strong>同步代码块</strong>：<code>synchronized</code>关键字可以用于方法中的某个区块中，表示只对这个区块的资源实行互斥访问。格式：<code>synchronized</code>(同步锁){需要同步操作的代码}</li>
+</ul>
+<p><strong>同步锁：</strong><br>对象的同步锁只是一个概念,可以想象为在对象上标记了一个锁。</p>
+<ol>
+<li>锁对象 可以是任意类型。</li>
+<li>多个线程对象 要使用同一把锁。</li>
+</ol>
+<blockquote>
+<p>注意：    在任何时候候,最多允许一个线程拥有同步锁,谁拿到锁就进入代码块,其他的线程只能在外等着<br>(BLOCKED)。</p>
+</blockquote>
+<p>使用同步代码块解决线程同步问题实例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Ticket implements Runnable{
+    private int ticket = 100;
+    Object lock = new Object(); &#x2F;&#x2F; 创建锁对象
+    &#x2F;&#x2F; 执行卖票流程
+    @Override
+    public void run() {
+        &#x2F;&#x2F; 每个窗口的卖票操作
+        while (true){
+            synchronized (lock) { &#x2F;&#x2F; 加锁
+                if (ticket &gt; 0) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread().getName() + &quot;正在卖&quot; + ticket--);
+                }else{
+                    break;
+                }
+            }
+
+        }
+    }
+}
+&#x2F;&#x2F; 当使用了同步代码块后，上述的线程的安全问题就解决了。
+</code></pre></p>
+<h3 id="2-3-同步方法"><a href="#2-3-同步方法" class="headerlink" title="2.3 同步方法"></a>2.3 同步方法</h3><ul>
+<li><strong>同步方法</strong>：使用synchronized修饰的方法,就叫做同步方法,保证A线程执行该方法的时候,其他线程只能在方法外等着。格式：<code>public synchroized void method(){可能会产生线程问题的代码}</code></li>
+</ul>
+<blockquote>
+<p>同步锁是谁？对于非static方法，同步锁就是this。对于static方法，使用当前方法所在类的字节码对象(类名.class)</p>
+</blockquote>
+<p>使用同步方法解决线程安全问题代码示例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Ticket implements Runnable{
+    private int ticket = 100;
+    Object lock = new Object(); &#x2F;&#x2F; 创建锁对象
+    &#x2F;&#x2F; 执行卖票流程
+    @Override
+    public void run() {
+        &#x2F;&#x2F; 每个窗口的卖票操作
+        while (true){
+            sellTicket();
+            if (ticket==0)
+                break;
+        }
+    }
+    public synchronized void sellTicket(){ &#x2F;&#x2F; 使用synchronized修饰方法
+	&#x2F;&#x2F; 卖票操作
+        if (ticket &gt; 0) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName() + &quot;正在卖&quot; + ticket--);
+        }
+    }
+}
+</code></pre></p>
+<h3 id="2-4-Lock锁"><a href="#2-4-Lock锁" class="headerlink" title="2.4 Lock锁"></a>2.4 Lock锁</h3><p><code>java.util.concurrent.locks.Lock</code>机制提供了比<strong>synchronized</strong>代码块和<strong>synchronized</strong>方法更广泛的锁定操作,同步代码块/同步方法具有的功能Lock都有,除此之外更强大,更体现面向对象。</p>
+<p>Lock锁也称同步锁，加锁与释放锁方法化了，如下：</p>
+<ul>
+<li><code>public void lock()</code> :加同步锁。</li>
+<li><code>public void unlock()</code> :释放同步锁。</li>
+</ul>
+<p>使用Lock锁解决线程安全问题代码示例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Ticket implements Runnable{
+    private int ticket = 100;
+    Lock lock = new ReentrantLock();
+    &#x2F;&#x2F; 执行卖票流程
+    @Override
+    public void run() {
+        &#x2F;&#x2F; 每个窗口的卖票操作
+        while (true){
+            lock.lock(); &#x2F;&#x2F; 上锁
+            if (ticket &gt; 0) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName() + &quot;正在卖&quot; + ticket--);
+            }
+            lock.unlock(); &#x2F;&#x2F; 解锁
+            if (ticket == 0)
+                break;
+        }
+    }
+}
+</code></pre></p>
+<h2 id="3-线程状态"><a href="#3-线程状态" class="headerlink" title="3, 线程状态"></a>3, 线程状态</h2><h3 id="3-1线程状态概述"><a href="#3-1线程状态概述" class="headerlink" title="3.1线程状态概述"></a>3.1线程状态概述</h3><p>当线程被创建并启动以后，它既不是一启动就进入了执行状态，也不是一直处于执行状态。在线程的生命周期中，<br>有几种状态呢？在API中 java.lang.Thread.State 这个枚举中给出了六种线程状态：</p>
+<p>这里先列出各个线程状态发生的条件，下面对每种状态进行详细解析：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/28/6%E7%A7%8D%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81-1556462102520.jpg" alt="title"></p>
+<h3 id="3-2-Timed-Waiting-计时等待"><a href="#3-2-Timed-Waiting-计时等待" class="headerlink" title="3.2 Timed Waiting(计时等待)"></a>3.2 Timed Waiting(计时等待)</h3><p>Timed Waiting在API中的描述为：一个正在限时等待另一个线程执行一个（唤醒）动作的线程处于这一状态。</p>
+<p>在前面写的卖票案例中，为了减少线程执行太快，现象不明显等问题，我们在run方法中添加了sleep语句，这样就<br>强制当前正在执行的线程休眠（暂停执行），以“减慢线程”。</p>
+<p>其实当我们调用了sleep方法之后，当前执行的线程就进入到“休眠状态”，其实就是所谓的Timed Waiting(计时等<br>待)，以下通过案例加深理解。</p>
+<p><strong>实现一个计数器，计数到100，在每个数字之间暂停1秒，每隔10个数字输出一个字符串</strong><br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class TimeWaitingDemo extends Thread{
+    public void run(){
+        for (int i = 0; i &lt; 100; i++) {
+            if (i%10==0)
+                System.out.println(&quot;------&quot;+i);
+            System.out.print(i);
+            try {
+                Thread.sleep(1000);
+                System.out.print(&quot;线程睡眠1s！\n&quot;);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public static void main(String[] args){
+        new TimeWaitingDemo().start();
+    }
+}
+</code></pre></p>
+<p>sleep方法的使用还是很简单的,需要注意下面几点：</p>
+<ol>
+<li>进入 TIMED_WAITING 状态的一种常见情形是调用的 sleep 方法，单独的线程也可以调用，不一定非要有协<br>作关系。</li>
+<li>为了让其他线程有机会执行，可以将Thread.sleep()的调用放线程run()之内。这样才能保证该线程执行过程<br>中会睡眠</li>
+<li>sleep与锁无关，线程睡眠到期自动苏醒，并返回到Runnable（可运行）状态。</li>
+</ol>
+<p>Timed Waiting 线程状态图：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/28/%E8%AE%A1%E6%97%B6%E7%AD%89%E5%BE%85-1556463087958.png" alt="title"></p>
+<h3 id="3-3-BLOCKED-锁阻塞"><a href="#3-3-BLOCKED-锁阻塞" class="headerlink" title="3.3 BLOCKED(锁阻塞)"></a>3.3 BLOCKED(锁阻塞)</h3><p>Blocked状态在API中的介绍为：一个正在阻塞等待一个监视器锁（锁对象）的线程处于这一状态。</p>
+<p>在学完同步机制后，这个状态是非常好理解的了。比如，线程A与线程B代码中使用同一锁，如果线程A获<br>取到锁，线程A进入到Runnable状态，那么线程B就进入到Blocked锁阻塞状态。</p>
+<p>这是由Runnable状态进入Blocked状态。除此Waiting以及Time Waiting状态也会在某种情况下进入阻塞状态，如下图示：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/28/%E9%94%81%E9%98%BB%E5%A1%9E-1556463246524.png" alt="title"></p>
+<h3 id="3-4-Wating-无限等待"><a href="#3-4-Wating-无限等待" class="headerlink" title="3.4 Wating(无限等待)"></a>3.4 Wating(无限等待)</h3><p>Wating状态在API中介绍为：一个正在无限期等待另一个线程执行一个特别的（唤醒）动作的线程处于这一状态。<br>代码示例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class WaitingDemo {
+    public static Object obj = new Object();
+
+    public static void main(String[] args){
+        &#x2F;&#x2F; 演示waiting
+        new Thread(new Runnable() { &#x2F;&#x2F; 匿名内部类
+            @Override
+            public void run() {
+                while (true){
+                    synchronized (obj){
+                        try {
+                            System.out.println(Thread.currentThread().getName()+&quot;=== 获取到锁对&quot; +
+                                    &quot;象，调用wait方法，进入waiting状态，释放锁对象&quot;);
+                            obj.wait();&#x2F;&#x2F; 进入无限等待状态
+&#x2F;&#x2F;                            obj.wait(5); &#x2F;&#x2F; 5s后自动醒来
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println(Thread.currentThread().getName()+&quot;=== 从waiting状态&quot; +
+                                &quot;醒来，获取到锁对象，继续执行&quot;);
+                    }
+                }
+            }
+        },&quot;等待线程&quot;).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName()+&quot;------- 等待3秒&quot;);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (obj){
+                    System.out.println(Thread.currentThread().getName()+&quot;------ 获取到锁对象&quot; +
+                            &quot;，调用notify方法，释放锁对象&quot;);
+                    obj.notify(); &#x2F;&#x2F; 释放锁对象
+                }
+            }
+        },&quot;唤醒线程&quot;).start();
+    }
+}
+&#x2F;&#x2F; 输出结果：
+等待线程=== 获取到锁对象，调用wait方法，进入waiting状态，释放锁对象
+唤醒线程------- 等待3秒
+唤醒线程------ 获取到锁对象，调用notify方法，释放锁对象
+等待线程=== 从waiting状态醒来，获取到锁对象，继续执行
+等待线程=== 获取到锁对象，调用wait方法，进入waiting状态，释放锁对象
+.....阻塞等待中
+</code></pre></p>
+<p>通过上述案例可以发现，一个调用了某个对象的 Object.wait 方法的线程会等待另一个线程调用此对象的<br>Object.notify()方法 或 Object.notifyAll()方法。</p>
+<p>其实waiting状态并不是一个线程的操作，它体现的是多个线程间的通信，可以理解为多个线程之间的协作关系，<br>多个线程会争取锁，同时相互之间又存在协作关系。就好比在公司里你和你的同事们，你们可能存在晋升时的竞<br>争，但更多时候你们更多是一起合作以完成某些任务。</p>
+<p>当多个线程协作时，比如A，B线程，如果A线程在Runnable（可运行）状态中调用了wait()方法那么A线程就进入<br>了Waiting（无限等待）状态，同时失去了同步锁。假如这个时候B线程获取到了同步锁，在运行状态中调用了<br>notify()方法，那么就会将无限等待的A线程唤醒。注意是唤醒，如果获取到锁对象，那么A线程唤醒后就进入<br>Runnable（可运行）状态；如果没有获取锁对象，那么就进入到Blocked（锁阻塞状态）。</p>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/28/%E6%97%A0%E9%99%90%E7%AD%89%E5%BE%85-1556464661325.png" alt="title"></p>
+<h3 id="3-5-补充知识点"><a href="#3-5-补充知识点" class="headerlink" title="3.5 补充知识点"></a>3.5 补充知识点</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/28/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%9B%BE-1556464693106.png" alt="title"></p>
+<p>我们在翻阅API的时候会发现Timed Waiting（计时等待） 与 Waiting（无限等待） 状态联系还是很紧密的，<br>比如Waiting（无限等待） 状态中wait方法是空参的，而timed waiting（计时等待） 中wait方法是带参的。<br>这种带参的方法，其实是一种倒计时操作，相当于我们生活中的小闹钟，我们设定好时间，到时通知，可是<br>如果提前得到（唤醒）通知，那么设定好时间在通知也就显得多此一举了，那么这种设计方案其实是一举两<br>得。如果没有得到（唤醒）通知，那么线程就处于Timed Waiting状态,直到倒计时完毕自动醒来；如果在倒<br>计时期间得到（唤醒）通知，那么线程从Timed Waiting状态立刻唤醒。</p>
+<h3 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h3><ol>
+<li>多线程原理解析</li>
+<li>Thread类构造方法和常用方法的使用</li>
+<li>Runnable类的使用</li>
+<li>线程安全问题</li>
+<li>线程同步的三种方法</li>
+<li>线程六种状态概述</li>
+</ol>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/JavaBasics/thread.html" class="b-link-green">Java中的线程详解和同步方法</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-04-28T23-30-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/JavaBasics/threadPool-Lambda.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Java中的线程池与Lambda表达式">
+                        
+                        <span class="card-title">Java中的线程池与Lambda表达式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 等待唤醒机制概念：多个线程在处理同一个资源，但处理的动作(线程的任务)却不相同。
+比如：线程A用来生产包子，线程B用来吃包子，包子可以理解为同一资源。线程A与线程B的处理动作，一个是生产，一个是消费。那么线程A与线程B之间就存在线程通</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/线程/" target="_blank">
+                        <span class="chip bg-color">线程</span>
+                    </a>
+                    
+                    <a href="/tags/Lambda/" target="_blank">
+                        <span class="chip bg-color">Lambda</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/JavaBasics/Throwable.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Java中的异常处理和进程线程概念">
+                        
+                        <span class="card-title">Java中的异常处理和进程线程概念</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 异常
+异常：指的是程序在执行过程中，出现的非正常的情况，最终会导致JVM的非正常停止。
+
+在Java等面向对象的编程语言中，异常本身是一个类，产出异常就是创建异常对象并抛出了一个异常对象。Java处理异常的方式是中断处理。
+
+异常指的</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Exception/" target="_blank">
+                        <span class="chip bg-color">Exception</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">289.9k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

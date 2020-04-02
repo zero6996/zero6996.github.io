@@ -1,0 +1,1551 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="JavaScript进阶, Zero的博客">
+    <meta name="description" content="1. DOM概述DOM (Document Object Model) 译为文档对象模型，是 HTML 和 XML 文档的编程接口。HTML DOM 定义了访问和操作 HTML 文档的标准方法。
+
+
+功能：将标记语言文档的各个组成部分，封装">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>JavaScript进阶 | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        JavaScript进阶
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/JavaScript/" target="_blank">
+                                <span class="chip bg-color">JavaScript</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JavaWeb/" class="post-category" target="_blank">
+                                JavaWeb
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-06-04
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        5.3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        26 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-DOM概述"><a href="#1-DOM概述" class="headerlink" title="1. DOM概述"></a>1. DOM概述</h2><p>DOM (Document Object Model) 译为<strong>文档对象模型</strong>，是 HTML 和 XML 文档的编程接口。HTML DOM 定义了访问和操作 HTML 文档的标准方法。</p>
+<a id="more"></a>
+<ul>
+<li>功能：将标记语言文档的各个组成部分，封装为对象。可以使用这些对象，对标记语言文档进行CRUD的动态操作。</li>
+<li>获取页面标签(元素Element)对象。例：<code>document.getElementById(&quot;id值&quot;)</code>，通过元素id获取元素对象。</li>
+</ul>
+<h3 id="1-1-DOM的3个部分"><a href="#1-1-DOM的3个部分" class="headerlink" title="1.1 DOM的3个部分"></a>1.1 DOM的3个部分</h3><p>W3C的DOM标准被分为3个同的部分：</p>
+<ul>
+<li>核心DOM(针对任何结构化文档的标准模型)<ul>
+<li><code>Document</code>：文档对象</li>
+<li><code>Element</code>：元素对象</li>
+<li><code>Attribute</code>：属性对象</li>
+<li><code>Text</code>：文本对象</li>
+<li><code>Comment</code>：注释对象</li>
+<li><code>Node</code>：节点对象，上述5个对象的父对象</li>
+</ul>
+</li>
+<li>XML DOM(针对XML文档的标准模型)</li>
+<li>HTML DOM(针对HTML文档的标准模型)</li>
+</ul>
+<h3 id="1-2-核心DOM模型"><a href="#1-2-核心DOM模型" class="headerlink" title="1.2 核心DOM模型"></a>1.2 核心DOM模型</h3><h4 id="1-2-1-Document：文档对象"><a href="#1-2-1-Document：文档对象" class="headerlink" title="1.2.1 Document：文档对象"></a>1.2.1 Document：文档对象</h4><h5 id="1-2-1-1-创建-获取"><a href="#1-2-1-1-创建-获取" class="headerlink" title="1.2.1.1 创建(获取)"></a>1.2.1.1 创建(获取)</h5><p>在html dom模型中可以使用window对象来获取</p>
+<ol>
+<li><code>window.document</code></li>
+<li><code>document</code></li>
+</ol>
+<h5 id="1-2-1-2-方法"><a href="#1-2-1-2-方法" class="headerlink" title="1.2.1.2 方法"></a>1.2.1.2 方法</h5><p>获取Element对象：</p>
+<ul>
+<li><code>getElementById()</code>：根据id属性值获取元素对象。id属性一般唯一</li>
+<li><code>getElementByTagName()</code>：根据元素名称获取元素对象们。返回值是一个数组</li>
+<li><code>getElementByClassName()</code>：根据Class属性值获取元素对象们。返回值是一个数组</li>
+<li><code>getElementsByName()</code>：根据name属性值获取元素对象们。返回值是一个数组</li>
+</ul>
+<p>创建其他DOM对象：</p>
+<ul>
+<li><code>createAttribute(name)</code></li>
+<li><code>createComment()</code></li>
+<li><code>createElement()</code></li>
+<li><code>createTextNode()</code></li>
+</ul>
+<h5 id="1-2-1-3-属性"><a href="#1-2-1-3-属性" class="headerlink" title="1.2.1.3 属性"></a>1.2.1.3 属性</h5><p>Element：元素对象</p>
+<ol>
+<li>获取/创建：通过document来获取和创建</li>
+<li>方法：<ol>
+<li><code>removeAttribute()</code>：删除属性</li>
+<li><code>setAttribute()</code>：设置属性</li>
+</ol>
+</li>
+</ol>
+<p>Node：节点对象，其他5个的父对象</p>
+<ul>
+<li>特点：所有dom对象都可以被认为是一个节点</li>
+<li>方法：<ul>
+<li><code>appendChild()</code>：向节点的子节点列表的结尾添加新的子节点</li>
+<li><code>removeChild()</code>：删除(并返回)当前节点的指定子节点。</li>
+<li><code>replaceChild()</code>：用新节点替换一个子节点。</li>
+</ul>
+</li>
+<li>属性：<ul>
+<li><code>parentNode</code>：返回节点的父节点</li>
+</ul>
+</li>
+</ul>
+<h5 id="表格增删案例"><a href="#表格增删案例" class="headerlink" title="表格增删案例"></a>表格增删案例</h5>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;动态表格&lt;&#x2F;title&gt;
+    &lt;style&gt;
+        table{
+            border: 1px solid;
+            margin: auto;
+            width: 500px;
+        }
+        td,th{
+            text-align: center;
+            border: 1px solid;
+        }
+        div{
+            text-align: center;
+            margin: 50px;
+        }
+    &lt;&#x2F;style&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+&lt;div&gt;
+    &lt;input type=&quot;text&quot; id=&quot;id&quot; placeholder=&quot;请输入编号&quot;&gt;
+    &lt;input type=&quot;text&quot; id=&quot;name&quot;  placeholder=&quot;请输入姓名&quot;&gt;
+    &lt;input type=&quot;text&quot; id=&quot;gender&quot;  placeholder=&quot;请输入性别&quot;&gt;
+    &lt;input type=&quot;button&quot; value=&quot;添加&quot; id=&quot;btn_add&quot;&gt;
+&lt;&#x2F;div&gt;
+&lt;table&gt;
+    &lt;caption&gt;学生信息表&lt;&#x2F;caption&gt;
+    &lt;tr&gt;
+        &lt;th&gt;编号&lt;&#x2F;th&gt;
+        &lt;th&gt;姓名&lt;&#x2F;th&gt;
+        &lt;th&gt;性别&lt;&#x2F;th&gt;
+        &lt;th&gt;操作&lt;&#x2F;th&gt;
+    &lt;&#x2F;tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;1&lt;&#x2F;td&gt;
+        &lt;td&gt;钢铁侠&lt;&#x2F;td&gt;
+        &lt;td&gt;男&lt;&#x2F;td&gt;
+        &lt;td&gt;&lt;a href=&quot;javascript:void(0);&quot; onclick=&quot;deltr(this)&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
+    &lt;&#x2F;tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;2&lt;&#x2F;td&gt;
+        &lt;td&gt;蜘蛛侠&lt;&#x2F;td&gt;
+        &lt;td&gt;男&lt;&#x2F;td&gt;
+        &lt;td&gt;&lt;a href=&quot;javascript:void(0);&quot; onclick=&quot;deltr(this)&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
+    &lt;&#x2F;tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;3&lt;&#x2F;td&gt;
+        &lt;td&gt;绿巨人&lt;&#x2F;td&gt;
+        &lt;td&gt;男&lt;&#x2F;td&gt;
+        &lt;td&gt;&lt;a href=&quot;javascript:void(0);&quot; onclick=&quot;deltr(this)&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
+    &lt;&#x2F;tr&gt;
+&lt;&#x2F;table&gt;
+&lt;script&gt;
+    &#x2F;&#x2F; 1. 获取按钮
+    var btn_add = document.getElementById(&quot;btn_add&quot;);
+    btn_add.onclick = function () {
+        &#x2F;&#x2F; 2. 获取文本框内容
+        var id = document.getElementById(&quot;id&quot;).value;
+        var name = document.getElementById(&quot;name&quot;).value;
+        var gender = document.getElementById(&quot;gender&quot;).value;
+        &#x2F;&#x2F; 3. 创建td，赋值td的标签体
+        &#x2F;&#x2F; id的td
+        var td_id = document.createElement(&quot;td&quot;); &#x2F;&#x2F; 创建一个td元素
+        var text_id = document.createTextNode(id); &#x2F;&#x2F; 将获取的id标签内容字符串转换为文本节点
+        td_id.appendChild(text_id); &#x2F;&#x2F; 将节点添加进td中
+        &#x2F;&#x2F; name的td
+        var td_name = document.createElement(&quot;td&quot;);
+        td_name.appendChild(document.createTextNode(name));
+        &#x2F;&#x2F; gender的td
+        var td_gender = document.createElement(&quot;td&quot;);
+        td_gender.appendChild(document.createTextNode(gender));
+        &#x2F;&#x2F; 删除操作
+        var del_td = document.createElement(&quot;td&quot;); &#x2F;&#x2F; 创建td
+        var del_a = document.createElement(&quot;a&quot;); &#x2F;&#x2F; 创建a标签
+        del_a.setAttribute(&quot;href&quot;,&quot;javascript:void(0);&quot;); &#x2F;&#x2F; 设置a标签属性
+        del_a.setAttribute(&quot;onclick&quot;,&quot;deltr(this)&quot;); &#x2F;&#x2F; 绑定onclick事件
+        var text_a = document.createTextNode(&quot;删除&quot;); &#x2F;&#x2F; 创建一个文本节点，并设置内容
+        del_a.appendChild(text_a); &#x2F;&#x2F; 将文本节点添加进a标签中
+        del_td.appendChild(del_a); &#x2F;&#x2F; 将a标签添加进td中
+        &#x2F;&#x2F; 创建tr，将td添加进去
+        var tr = document.createElement(&quot;tr&quot;);
+        tr.appendChild(td_id);
+        tr.appendChild(td_name);
+        tr.appendChild(td_gender);
+        tr.appendChild(del_td);
+        &#x2F;&#x2F; 获取table，将tr添加到table中
+        var table = document.getElementsByTagName(&quot;table&quot;)[0]; &#x2F;&#x2F; 返回一个数组列表，故取第一个
+        table.appendChild(tr);
+    }
+    &#x2F;&#x2F; 可使用innerHTML优化上述内容
+    btn_add.onclick = function ·() {
+        &#x2F;&#x2F; 2. 获取文本框内容
+        var id = document.getElementById(&quot;id&quot;).value;
+        var name = document.getElementById(&quot;name&quot;).value;
+        var gender = document.getElementById(&quot;gender&quot;).value;
+        var table = document.getElementsByTagName(&quot;table&quot;)[0];
+        table.innerHTML += &quot;&lt;tr&gt;\n&quot; +
+            &quot;        &lt;td&gt;&quot;+id+&quot;&lt;&#x2F;td&gt;\n&quot; +
+            &quot;        &lt;td&gt;&quot;+name+&quot;&lt;&#x2F;td&gt;\n&quot; +
+            &quot;        &lt;td&gt;&quot;+gender+&quot;&lt;&#x2F;td&gt;\n&quot; +
+            &quot;        &lt;td&gt;&lt;a href=\&quot;javascript:void(0);\&quot; onclick=\&quot;deltr(this)\&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;\n&quot; +
+            &quot;    &lt;&#x2F;tr&gt;&quot;
+    }
+    function deltr(obj) {
+        var table = obj.parentNode.parentNode.parentNode; &#x2F;&#x2F; 获取当前a标签的父父父级元素table
+        var tr = obj.parentNode.parentNode; &#x2F;&#x2F; 获取父父级tr
+        table.removeChild(tr);
+    }
+&lt;&#x2F;script&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+</code></pre>
+<h3 id="1-3-HTML-DOM"><a href="#1-3-HTML-DOM" class="headerlink" title="1.3 HTML DOM"></a>1.3 HTML DOM</h3><ul>
+<li><p>标签体的设置和获取：<code>innerHTML</code></p>
+</li>
+<li><p>使用html元素对象的属性，详见<a href="http://www.w3school.com.cn/jsref/index.asp" target="_blank" rel="noopener">W3C参考书</a></p>
+</li>
+<li><p>控制元素样式：</p>
+<ul>
+<li><p>使用元素的<code>style</code>属性来设置</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-javascript">  div1.style.border = &quot;1px solid red&quot;;
+  div1.style.width = &quot;200px&quot;;
+  div1.style.fontSize = &quot;20px&quot;; &#x2F;&#x2F; font-size = fontSize
+</code></pre>
+</li>
+<li><p>提前定义好类选择器的样式，通过元素的<code>className</code>属性来设置class属性值。</p>
+</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-html">  &lt;style&gt;
+      .d1{
+          border: 1px solid red;
+          width: 100px;
+          height: 100px;
+      }
+  &lt;&#x2F;style&gt;
+  &lt;script&gt;
+  	var div2 = document.getElementById(&quot;div2&quot;);
+      div2.onclick = function () {
+          div2.className = &quot;d1&quot;;
+      }
+  &lt;&#x2F;script&gt;
+</code></pre>
+</li>
+</ul>
+<h2 id="2-BOM"><a href="#2-BOM" class="headerlink" title="2. BOM"></a>2. BOM</h2><p>BOM(Browser Object Model)浏览器对象模型，将浏览器的各个组成部分封装成对象</p>
+<h3 id="2-1-主要组成"><a href="#2-1-主要组成" class="headerlink" title="2.1 主要组成"></a>2.1 主要组成</h3><ul>
+<li>Window：窗口对象</li>
+<li>Navigator：浏览器对象</li>
+<li>Screen：显示器屏幕对象</li>
+<li>History：历史记录对象</li>
+<li>Location：地址栏对象</li>
+</ul>
+<p>主要学习窗口对象，历史记录对象和地址栏对象，属性方法可参考：<a href="http://www.w3school.com.cn/jsref/index.asp" target="_blank" rel="noopener">W3School</a></p>
+<h3 id="2-2-Window对象"><a href="#2-2-Window对象" class="headerlink" title="2.2 Window对象"></a>2.2 Window对象</h3><h4 id="2-2-1-创建"><a href="#2-2-1-创建" class="headerlink" title="2.2.1 创建"></a>2.2.1 创建</h4><p>window对象无需创建，可直接使用。</p>
+<h4 id="2-2-2-方法"><a href="#2-2-2-方法" class="headerlink" title="2.2.2 方法"></a>2.2.2 方法</h4><h5 id="2-2-2-1-与弹出框有关的方法"><a href="#2-2-2-1-与弹出框有关的方法" class="headerlink" title="2.2.2.1 与弹出框有关的方法"></a>2.2.2.1 与弹出框有关的方法</h5><ul>
+<li><code>alert()</code>：显示带有一段信息和一个确认按钮的警告框。</li>
+<li><code>confirm()</code>：显示带有一段消息以及确认按钮和取消按钮的对话框。返回一个布尔值。</li>
+<li><code>prompt()</code>：显示可提示用户输入的对话框。返回值是用户输入的值。</li>
+</ul>
+<h5 id="2-2-2-2-与打开关闭有关的方法"><a href="#2-2-2-2-与打开关闭有关的方法" class="headerlink" title="2.2.2.2 与打开关闭有关的方法"></a>2.2.2.2 与打开关闭有关的方法</h5><ul>
+<li><code>close()</code>：关闭浏览器窗口，谁调用关闭谁。</li>
+<li><code>open()</code>：打开一个新的浏览器窗口。返回值是新的窗口对象。</li>
+</ul>
+<h5 id="2-2-2-3-与定时器有关的方法"><a href="#2-2-2-3-与定时器有关的方法" class="headerlink" title="2.2.2.3 与定时器有关的方法"></a>2.2.2.3 与定时器有关的方法</h5><ul>
+<li><code>setTimeout()</code>：在指定的毫秒数后调用函数或计算表达式。<ul>
+<li>参数1：js代码或者方法对象</li>
+<li>参数2：毫秒值</li>
+<li>返回值：唯一标识，用于取消定时器</li>
+</ul>
+</li>
+<li><code>clearTimeout()</code>：取消由<code>setTimeout()</code>方法设置的timeout。</li>
+<li><code>setInterval()</code>：按照指定的周期来循环调用函数或计算表达式。</li>
+<li><code>clearInterval()</code>：取消由setInterval()设置的timeout。</li>
+</ul>
+<h5 id="轮播图"><a href="#轮播图" class="headerlink" title="轮播图"></a>轮播图</h5>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;轮播图&lt;&#x2F;title&gt;
+    &lt;script&gt;
+        var number = 1;
+        function fun() {
+            number++;
+            var banner = document.getElementById(&quot;banner&quot;);
+            banner.src = &quot;img&#x2F;banner_&quot;+number+&quot;.jpg&quot;;
+            if (number==3){
+                number = 0;
+            }
+        }
+        setInterval(fun,3000);
+    &lt;&#x2F;script&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+&lt;img src=&quot;img&#x2F;banner_1.jpg&quot; id=&quot;banner&quot; width=&quot;100%&quot;&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+</code></pre>
+<h4 id="2-2-3-属性"><a href="#2-2-3-属性" class="headerlink" title="2.2.3 属性"></a>2.2.3 属性</h4><p>获取其他BOM对象：</p>
+<p><code>window.history</code>，<code>window.localtion</code>，<code>window.Navigator</code>，<code>window.Screen</code></p>
+<p>获取DOM对象：<code>window.document</code></p>
+<h4 id="2-2-4-特点"><a href="#2-2-4-特点" class="headerlink" title="2.2.4 特点"></a>2.2.4 特点</h4><ul>
+<li>Window对象不需要创建可以直接使用。例：<code>window.方法名();</code></li>
+<li>window引用<strong>可以省略</strong>。直接<code>方法名();</code>即可</li>
+</ul>
+<h3 id="2-3-Location对象"><a href="#2-3-Location对象" class="headerlink" title="2.3 Location对象"></a>2.3 Location对象</h3><ol>
+<li>创建(获取)：<code>window.location</code></li>
+<li>方法：<code>reload()</code>：重新加载当前页面(刷新)。</li>
+<li>属性：<code>href</code>：设置或返回完整的URL</li>
+</ol>
+<h4 id="地址栏对象案例"><a href="#地址栏对象案例" class="headerlink" title="地址栏对象案例"></a>地址栏对象案例</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;自动跳转&lt;&#x2F;title&gt;
+    &lt;style&gt;
+        p{
+            text-align: center;
+        }
+        span{
+            color: red;
+        }
+    &lt;&#x2F;style&gt;
+    &lt;script&gt;
+        var t = 5;
+        function fun() {
+            t--;
+            if (t&lt;=0){
+                clearInterval();
+                location.href = &quot;https:&#x2F;&#x2F;www.baidu.com&quot;;
+            }
+            var times = document.getElementById(&quot;time&quot;);
+            times.innerHTML = t;
+        }
+        setInterval(fun,1000);
+    &lt;&#x2F;script&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+&lt;p&gt;&lt;span id=&quot;time&quot;&gt;5&lt;&#x2F;span&gt;秒之后自动跳转页面&lt;&#x2F;p&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+</code></pre>
+<h3 id="2-4-History对象"><a href="#2-4-History对象" class="headerlink" title="2.4 History对象"></a>2.4 History对象</h3><ol>
+<li>创建(获取)：<code>window.histtory</code></li>
+<li>方法<ul>
+<li><code>back()</code>：加载历史列表中的前一个URL。</li>
+<li><code>forward()</code>：加载历史列表中的下一个URL。</li>
+<li><code>go(参数)</code>：加载历史列表中的某个具体页面。参数是正负数，代表前进/后退几个历史记录。</li>
+</ul>
+</li>
+<li>属性：<code>length</code>，返回当前窗口历史列表中的URL数量。</li>
+</ol>
+<h2 id="3-事件监听机制"><a href="#3-事件监听机制" class="headerlink" title="3. 事件监听机制"></a>3. 事件监听机制</h2><h3 id="3-1-概念"><a href="#3-1-概念" class="headerlink" title="3.1 概念"></a>3.1 概念</h3><p>某些组件被执行了某些操作后，触发某些代码的执行。</p>
+<ul>
+<li>事件：某些操作。如单击、双击，键盘按下，鼠标移动等</li>
+<li>事件源：组件。如按钮、文本输入框…</li>
+<li>监听器：js代码</li>
+<li>注册监听：将事件，事件源，监听器结合在一起。当事件源上发生了某个事件，则触发执行某个监听器代码。</li>
+</ul>
+<h3 id="3-2-常见的事件"><a href="#3-2-常见的事件" class="headerlink" title="3.2 常见的事件"></a>3.2 常见的事件</h3><h4 id="3-2-1-点击事件"><a href="#3-2-1-点击事件" class="headerlink" title="3.2.1 点击事件"></a>3.2.1 点击事件</h4><ol>
+<li><code>onclick</code>：单击事件</li>
+<li><code>ondblclick</code>：双击事件</li>
+</ol>
+<h4 id="3-2-2-焦点事件"><a href="#3-2-2-焦点事件" class="headerlink" title="3.2.2 焦点事件"></a>3.2.2 焦点事件</h4><ol>
+<li><code>onblur</code>：失去焦点，一般用于表单校验</li>
+<li><code>onfocus</code>：元素获得焦点</li>
+</ol>
+<h4 id="3-2-3-加载事件"><a href="#3-2-3-加载事件" class="headerlink" title="3.2.3 加载事件"></a>3.2.3 加载事件</h4><p><code>onload</code>：一张页面或一副图像完成加载。</p>
+<h4 id="3-2-4-鼠标事件"><a href="#3-2-4-鼠标事件" class="headerlink" title="3.2.4 鼠标事件"></a>3.2.4 鼠标事件</h4><ol>
+<li><code>onmousedown</code>：鼠标按钮被按下。可以定义形参接收<code>event</code>对象，使用<code>event.button</code>，返回点击的鼠标值：左键0，中键1，右键2</li>
+<li><code>onmouseup</code>：鼠标按钮被松开。</li>
+<li><code>onmousemove</code>：鼠标被移动。</li>
+<li><code>onmouseover</code>：鼠标移到某元素之上。</li>
+<li><code>onmouseout</code>：鼠标从某元素移开。</li>
+</ol>
+<h4 id="3-2-5-键盘事件"><a href="#3-2-5-键盘事件" class="headerlink" title="3.2.5 键盘事件"></a>3.2.5 键盘事件</h4><ol>
+<li><code>onkeydown</code>：某个键盘按键被按下。</li>
+<li><code>onkeyup</code>：某个键盘按键被松开。</li>
+<li><code>onkeypress</code>：某个键盘按键被按下并松开。</li>
+</ol>
+<h4 id="3-2-6-选择和改变"><a href="#3-2-6-选择和改变" class="headerlink" title="3.2.6 选择和改变"></a>3.2.6 选择和改变</h4><ol>
+<li><code>onchange</code>：域的内容被改变</li>
+<li><code>onselect</code>：文本被选中</li>
+</ol>
+<h4 id="3-2-7-表单事件"><a href="#3-2-7-表单事件" class="headerlink" title="3.2.7 表单事件"></a>3.2.7 表单事件</h4><ol>
+<li><code>onsubmit</code>：确认按钮被点击，一般用于表单校验</li>
+<li><code>onreset</code>：重置按钮被点击</li>
+</ol>
+<h3 id="3-3-表格全选案例"><a href="#3-3-表格全选案例" class="headerlink" title="3.3 表格全选案例"></a>3.3 表格全选案例</h3>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;表格全选&lt;&#x2F;title&gt;
+    &lt;style&gt;
+        table{
+            border: 1px solid;
+            width: 500px;
+            margin-left: 30%;
+        }
+
+        td,th{
+            text-align: center;
+            border: 1px solid;
+        }
+        div{
+            margin-top: 10px;
+            margin-left: 30%;
+        }
+        .out{
+            background-color: white;
+        }
+        .over{
+            background-color: pink;
+        }
+    &lt;&#x2F;style&gt;
+    &lt;script&gt;
+        &#x2F;&#x2F; 在页面加载完成后绑定事件
+        window.onload = function () {
+            &#x2F;&#x2F; 给全选按钮绑定单击事件
+            document.getElementById(&quot;selectAll&quot;).onclick = function () {
+                &#x2F;&#x2F; 1.获取所有的checkbox
+                var cbs = document.getElementsByName(&quot;cb&quot;);
+                &#x2F;&#x2F; 2. 遍历
+                for(var i = 0; i &lt; cbs.length; i++){
+                    &#x2F;&#x2F; 3. 设置每一个cb的状态为选中
+                    cbs[i].checked = true;
+                }
+            }
+            &#x2F;&#x2F; 给全不选绑定事件
+            document.getElementById(&quot;unSelectAll&quot;).onclick = function () {
+                &#x2F;&#x2F; 1.获取所有的checkbox
+                var cbs = document.getElementsByName(&quot;cb&quot;);
+                &#x2F;&#x2F; 2. 遍历
+                for(var i = 0; i &lt; cbs.length; i++){
+                    &#x2F;&#x2F; 3. 设置每一个cb的状态为未选中
+                    cbs[i].checked = false;
+                }
+            }
+            &#x2F;&#x2F;给反选绑定事件
+            document.getElementById(&quot;selectRev&quot;).onclick = function () {
+                &#x2F;&#x2F; 1.获取所有的checkbox
+                var cbs = document.getElementsByName(&quot;cb&quot;);
+                &#x2F;&#x2F; 2. 遍历
+                for(var i = 0; i &lt; cbs.length; i++){
+                    &#x2F;&#x2F; 3. 获取当前cb的状态，直接取反赋值
+                    cbs[i].checked = !cbs[i].checked;
+                }
+            }
+            &#x2F;&#x2F; 第一个cb
+            document.getElementById(&quot;firstCb&quot;).onclick = function () {
+                &#x2F;&#x2F; 1.获取所有的checkbox
+                var cbs = document.getElementsByName(&quot;cb&quot;);
+                &#x2F;&#x2F; 2. 遍历
+                for(var i = 0; i &lt; cbs.length; i++){
+                    &#x2F;&#x2F; 3. 获取每一个cb的状态和第一个cb的状态一致
+                    cbs[i].checked = this.checked;
+                }
+            }
+            &#x2F;&#x2F; 给所有tr绑定鼠标移到元素上和移出元素事件
+            var trs = document.getElementsByTagName(&quot;tr&quot;);
+            &#x2F;&#x2F; 遍历
+            for (var i = 0; i &lt; trs.length; i++){
+                &#x2F;&#x2F; 移到元素上事件
+                trs[i].onmouseover = function () {
+                    this.className = &quot;over&quot;;
+                }
+                &#x2F;&#x2F; 移出元素事件
+                trs[i].onmouseout = function () {
+                    this.className = &quot;out&quot;;
+                }
+            }
+        }
+    &lt;&#x2F;script&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+
+&lt;table&gt;
+    &lt;caption&gt;学生信息表&lt;&#x2F;caption&gt;
+    &lt;tr&gt;
+        &lt;th&gt;&lt;input type=&quot;checkbox&quot; name=&quot;cb&quot; id=&quot;firstCb&quot;&gt;&lt;&#x2F;th&gt;
+        &lt;th&gt;编号&lt;&#x2F;th&gt;
+        &lt;th&gt;姓名&lt;&#x2F;th&gt;
+        &lt;th&gt;性别&lt;&#x2F;th&gt;
+        &lt;th&gt;操作&lt;&#x2F;th&gt;
+    &lt;&#x2F;tr&gt;
+
+    &lt;tr&gt;
+        &lt;td&gt;&lt;input type=&quot;checkbox&quot;  name=&quot;cb&quot;&gt;&lt;&#x2F;td&gt;
+        &lt;td&gt;1&lt;&#x2F;td&gt;
+        &lt;td&gt;钢铁侠&lt;&#x2F;td&gt;
+        &lt;td&gt;男&lt;&#x2F;td&gt;
+        &lt;td&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
+    &lt;&#x2F;tr&gt;
+
+    &lt;tr&gt;
+        &lt;td&gt;&lt;input type=&quot;checkbox&quot;  name=&quot;cb&quot;&gt;&lt;&#x2F;td&gt;
+        &lt;td&gt;2&lt;&#x2F;td&gt;
+        &lt;td&gt;绿巨人&lt;&#x2F;td&gt;
+        &lt;td&gt;男&lt;&#x2F;td&gt;
+        &lt;td&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
+    &lt;&#x2F;tr&gt;
+
+    &lt;tr&gt;
+        &lt;td&gt;&lt;input type=&quot;checkbox&quot;  name=&quot;cb&quot;&gt;&lt;&#x2F;td&gt;
+        &lt;td&gt;3&lt;&#x2F;td&gt;
+        &lt;td&gt;雷神&lt;&#x2F;td&gt;
+        &lt;td&gt;?&lt;&#x2F;td&gt;
+        &lt;td&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
+    &lt;&#x2F;tr&gt;
+&lt;&#x2F;table&gt;
+&lt;div&gt;
+    &lt;input type=&quot;button&quot; id=&quot;selectAll&quot; value=&quot;全选&quot;&gt;
+    &lt;input type=&quot;button&quot; id=&quot;unSelectAll&quot; value=&quot;全不选&quot;&gt;
+    &lt;input type=&quot;button&quot; id=&quot;selectRev&quot; value=&quot;反选&quot;&gt;
+&lt;&#x2F;div&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+</code></pre>
+<h3 id="3-4-表单检验案例"><a href="#3-4-表单检验案例" class="headerlink" title="3.4 表单检验案例"></a>3.4 表单检验案例</h3>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;注册页面&lt;&#x2F;title&gt;
+&lt;style&gt;
+    *{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+    body{
+        background: url(&quot;img&#x2F;register_bg.png&quot;) no-repeat center;
+        padding-top: 25px;
+    }
+
+    .rg_layout{
+        width: 900px;
+        height: 500px;
+        border: 8px solid #EEEEEE;
+        background-color: white;
+        &#x2F;*让div水平居中*&#x2F;
+        margin: auto;
+    }
+
+    .rg_left{
+        &#x2F;*border: 1px solid red;*&#x2F;
+        float: left;
+        margin: 15px;
+    }
+    .rg_left &gt; p:first-child{
+        color:#FFD026;
+        font-size: 20px;
+    }
+
+    .rg_left &gt; p:last-child{
+        color:#A6A6A6;
+        font-size: 20px;
+
+    }
+
+    .rg_center{
+        float: left;
+       &#x2F;* border: 1px solid red;*&#x2F;
+
+    }
+
+    .rg_right{
+        &#x2F;*border: 1px solid red;*&#x2F;
+        float: right;
+        margin: 15px;
+    }
+
+    .rg_right &gt; p:first-child{
+        font-size: 15px;
+
+    }
+    .rg_right p a {
+        color:pink;
+    }
+
+    .td_left{
+        width: 100px;
+        text-align: right;
+        height: 45px;
+    }
+    .td_right{
+        padding-left: 50px ;
+    }
+
+    #username,#password,#email,#name,#tel,#birthday,#checkcode{
+        width: 251px;
+        height: 32px;
+        border: 1px solid #A6A6A6 ;
+        &#x2F;*设置边框圆角*&#x2F;
+        border-radius: 5px;
+        padding-left: 10px;
+    }
+    #checkcode{
+        width: 110px;
+    }
+
+    #img_check{
+        height: 32px;
+        vertical-align: middle;
+    }
+
+    #btn_sub{
+        width: 150px;
+        height: 40px;
+        background-color: #FFD026;
+        border: 1px solid #FFD026 ;
+    }
+    .error{
+        color: red;
+    }
+    #td_sub{
+        padding-left: 150px;
+    }
+&lt;&#x2F;style&gt;
+&lt;script&gt;
+    &#x2F;&#x2F; 1. 给表单绑定submit事件。监听器中判断每个方法校验的结果。如果都为true中返回true,有一项false则返回false
+    &#x2F;&#x2F; 2. 定义一些方法分别校验各个表单项
+    &#x2F;&#x2F; 3. 给各个表单项绑定失去焦点onblur事件
+    window.onload = function () {
+        &#x2F;&#x2F; 1. 给表单绑定submit事件。
+        document.getElementById(&quot;form&quot;).onsubmit = function () {
+            &#x2F;&#x2F; 调用用户名校验方法 checkName();
+            &#x2F;&#x2F; 调用密码校验方法 checkPwd();
+            return checkName() &amp;&amp; checkPwd() &amp;&amp; checkEmail() &amp;&amp; checkTname() &amp;&amp; checkPhone();
+        }
+
+        &#x2F;&#x2F; 给各个表单项分别绑定离焦事件
+        document.getElementById(&quot;username&quot;).onblur = checkName;
+        document.getElementById(&quot;password&quot;).onblur = checkPwd;
+        document.getElementById(&quot;email&quot;).onblur = checkEmail;
+        document.getElementById(&quot;name&quot;).onblur = checkTname;
+        document.getElementById(&quot;tel&quot;).onblur = checkPhone;
+        &#x2F;&#x2F; 校验用户名方法
+        function checkName() {
+            &#x2F;&#x2F; 1. 获取用户名值
+            var username = document.getElementById(&quot;username&quot;).value;
+            &#x2F;&#x2F; 2. 定义正则表达式
+            var reg_username = &#x2F;^\w{6,12}$&#x2F;;
+            &#x2F;&#x2F; 3. 判断值是否符合正则规则
+            var flag = reg_username.test(username);
+            &#x2F;&#x2F; 4. 提示信息
+            var s_username = document.getElementById(&quot;s_username&quot;);
+            if (flag){
+                &#x2F;&#x2F; 提示绿色对勾
+                s_username.innerHTML = &quot;&lt;img width=&#39;30&#39; height=&#39;20&#39; src=&#39;img&#x2F;gou.png&#39;&#x2F;&gt;&quot;
+            } else{
+                &#x2F;&#x2F; 提示红色用户名错误
+                s_username.innerHTML = &quot;用户名格式错误！&quot;
+            }
+            return flag;
+        }
+        &#x2F;&#x2F; 校验密码
+        function checkPwd() {
+            &#x2F;&#x2F; 1. 获取密码值
+            var password = document.getElementById(&quot;password&quot;).value;
+            &#x2F;&#x2F; 2. 定义正则表达式
+            var reg_password = &#x2F;^(?![^a-zA-Z]+$)(?!\D+$)&#x2F;;
+            &#x2F;&#x2F; 3. 判断值是否符合正则规则
+            var flag = reg_password.test(password);
+            &#x2F;&#x2F; 4. 提示信息
+            var s_pwd = document.getElementById(&quot;s_pwd&quot;);
+            if (flag){
+                &#x2F;&#x2F; 提示绿色对勾
+                s_pwd.innerHTML = &quot;&lt;img width=&#39;30&#39; height=&#39;20&#39; src=&#39;img&#x2F;gou.png&#39;&#x2F;&gt;&quot;
+            } else{
+                &#x2F;&#x2F; 提示红色密码错误
+                s_pwd.innerHTML = &quot;密码格式错误！&quot;
+            }
+            return flag;
+        }
+        &#x2F;&#x2F; 校验邮箱
+        function checkEmail() {
+            var reg_email = &#x2F;^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$&#x2F;;
+            var flag = reg_email.test(document.getElementById(&quot;email&quot;).value);
+            var s_email = document.getElementById(&quot;s_email&quot;);
+            if (flag){
+                s_email.innerHTML = &quot;&lt;img width=&#39;30&#39; height=&#39;20&#39; src=&#39;img&#x2F;gou.png&#39;&#x2F;&gt;&quot;;
+            }else{
+                s_email.innerHTML = &quot;邮箱格式错误&quot;;
+            }
+        }
+        &#x2F;&#x2F; 校验姓名
+        function checkTname() {
+            var flag = &#x2F;^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$&#x2F;.test(document.getElementById(&quot;name&quot;).value);
+            var s_name = document.getElementById(&quot;s_name&quot;);
+            if (flag){
+                s_name.innerHTML = &quot;&lt;img width=&#39;30&#39; height=&#39;20&#39; src=&#39;img&#x2F;gou.png&#39;&#x2F;&gt;&quot;;
+            }else{
+                s_name.innerHTML = &quot;姓名格式错误&quot;;
+            }
+        }
+        &#x2F;&#x2F; 校验手机号
+        function checkPhone() {
+            var flag = &#x2F;^1[3|4|5|8][0-9]\d{4,8}$&#x2F;.test(document.getElementById(&quot;tel&quot;).value);
+            var s_phone = document.getElementById(&quot;s_phone&quot;);
+            if (flag){
+                s_phone.innerHTML = &quot;&lt;img width=&#39;30&#39; height=&#39;20&#39; src=&#39;img&#x2F;gou.png&#39;&#x2F;&gt;&quot;;
+            } else{
+                s_phone.innerHTML = &quot;手机号码格式错误&quot;
+            }
+        }
+    }
+&lt;&#x2F;script&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;rg_layout&quot;&gt;
+    &lt;div class=&quot;rg_left&quot;&gt;
+        &lt;p&gt;新用户注册&lt;&#x2F;p&gt;
+        &lt;p&gt;USER REGISTER&lt;&#x2F;p&gt;
+    &lt;&#x2F;div&gt;
+    &lt;div class=&quot;rg_center&quot;&gt;
+        &lt;div class=&quot;rg_form&quot;&gt;
+            &lt;!--定义表单 form--&gt;
+            &lt;form action=&quot;#&quot; method=&quot;post&quot; id=&quot;form&quot;&gt;
+                &lt;table&gt;
+                    &lt;tr&gt;
+                        &lt;td class=&quot;td_left&quot;&gt;&lt;label for=&quot;username&quot;&gt;用户名&lt;&#x2F;label&gt;&lt;&#x2F;td&gt;
+                        &lt;td class=&quot;td_right&quot;&gt;
+                            &lt;input type=&quot;text&quot; name=&quot;username&quot; id=&quot;username&quot; placeholder=&quot;请输入用户名&quot;&gt;
+                            &lt;span id=&quot;s_username&quot; class=&quot;error&quot;&gt;&lt;&#x2F;span&gt;
+                        &lt;&#x2F;td&gt;
+                    &lt;&#x2F;tr&gt;
+
+                    &lt;tr&gt;
+                        &lt;td class=&quot;td_left&quot;&gt;&lt;label for=&quot;password&quot;&gt;密码&lt;&#x2F;label&gt;&lt;&#x2F;td&gt;
+                        &lt;td class=&quot;td_right&quot;&gt;
+                            &lt;input type=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot; placeholder=&quot;请输入密码&quot;&gt;
+                            &lt;span id=&quot;s_pwd&quot; class=&quot;error&quot;&gt;&lt;&#x2F;span&gt;
+                        &lt;&#x2F;td&gt;
+                    &lt;&#x2F;tr&gt;
+
+                    &lt;tr&gt;
+                        &lt;td class=&quot;td_left&quot;&gt;&lt;label for=&quot;email&quot;&gt;Email&lt;&#x2F;label&gt;&lt;&#x2F;td&gt;
+                        &lt;td class=&quot;td_right&quot;&gt;
+                            &lt;input type=&quot;email&quot; name=&quot;email&quot; id=&quot;email&quot; placeholder=&quot;请输入邮箱&quot;&gt;
+                            &lt;span id=&quot;s_email&quot; class=&quot;error&quot;&gt;&lt;&#x2F;span&gt;
+                        &lt;&#x2F;td&gt;
+                    &lt;&#x2F;tr&gt;
+
+                    &lt;tr&gt;
+                        &lt;td class=&quot;td_left&quot;&gt;&lt;label for=&quot;name&quot;&gt;姓名&lt;&#x2F;label&gt;&lt;&#x2F;td&gt;
+                        &lt;td class=&quot;td_right&quot;&gt;
+                            &lt;input type=&quot;text&quot; name=&quot;name&quot; id=&quot;name&quot; placeholder=&quot;请输入姓名&quot;&gt;
+                            &lt;span id=&quot;s_name&quot; class=&quot;error&quot;&gt;&lt;&#x2F;span&gt;
+                        &lt;&#x2F;td&gt;
+                    &lt;&#x2F;tr&gt;
+
+                    &lt;tr&gt;
+                        &lt;td class=&quot;td_left&quot;&gt;&lt;label for=&quot;tel&quot;&gt;手机号&lt;&#x2F;label&gt;&lt;&#x2F;td&gt;
+                        &lt;td class=&quot;td_right&quot;&gt;
+                            &lt;input type=&quot;text&quot; name=&quot;tel&quot; id=&quot;tel&quot; placeholder=&quot;请输入手机号&quot;&gt;
+                            &lt;span id=&quot;s_phone&quot; class=&quot;error&quot;&gt;&lt;&#x2F;span&gt;
+                        &lt;&#x2F;td&gt;
+                    &lt;&#x2F;tr&gt;
+
+                    &lt;tr&gt;
+                        &lt;td class=&quot;td_left&quot;&gt;&lt;label&gt;性别&lt;&#x2F;label&gt;&lt;&#x2F;td&gt;
+                        &lt;td class=&quot;td_right&quot;&gt;
+                            &lt;input type=&quot;radio&quot; name=&quot;gender&quot; value=&quot;male&quot; checked&gt; 男
+                            &lt;input type=&quot;radio&quot; name=&quot;gender&quot; value=&quot;female&quot;&gt; 女
+                        &lt;&#x2F;td&gt;
+                    &lt;&#x2F;tr&gt;
+
+                    &lt;tr&gt;
+                        &lt;td class=&quot;td_left&quot;&gt;&lt;label for=&quot;birthday&quot;&gt;出生日期&lt;&#x2F;label&gt;&lt;&#x2F;td&gt;
+                        &lt;td class=&quot;td_right&quot;&gt;&lt;input type=&quot;date&quot; name=&quot;birthday&quot; id=&quot;birthday&quot; placeholder=&quot;请输入出生日期&quot;&gt;&lt;&#x2F;td&gt;
+                    &lt;&#x2F;tr&gt;
+
+                    &lt;tr&gt;
+                        &lt;td class=&quot;td_left&quot;&gt;&lt;label for=&quot;checkcode&quot; &gt;验证码&lt;&#x2F;label&gt;&lt;&#x2F;td&gt;
+                        &lt;td class=&quot;td_right&quot;&gt;&lt;input type=&quot;text&quot; name=&quot;checkcode&quot; id=&quot;checkcode&quot; placeholder=&quot;请输入验证码&quot;&gt;
+                            &lt;img id=&quot;img_check&quot; src=&quot;img&#x2F;verify_code.jpg&quot;&gt;
+                        &lt;&#x2F;td&gt;
+                    &lt;&#x2F;tr&gt;
+                    &lt;tr&gt;
+                        &lt;td colspan=&quot;2&quot; id=&quot;td_sub&quot;&gt;&lt;input type=&quot;submit&quot; id=&quot;btn_sub&quot; value=&quot;注册&quot;&gt;&lt;&#x2F;td&gt;
+                    &lt;&#x2F;tr&gt;
+                &lt;&#x2F;table&gt;
+            &lt;&#x2F;form&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+    &lt;div class=&quot;rg_right&quot;&gt;
+        &lt;p&gt;已有账号?&lt;a href=&quot;#&quot;&gt;立即登录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;
+</code></pre>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/JavaWeb/JavaScriptHigh.html" class="b-link-green">JavaScript进阶</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-06-04T16-30-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/JavaWeb/Bootstrap.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Bootstrap简单入门">
+                        
+                        <span class="card-title">Bootstrap简单入门</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. Bootstrap概述Bootstrap是一个前端开发框架，来自Twitter。Bootstrap是基于HTML、CSS、JavaScript的，它简洁灵活，使得Web开发更加快捷。
+
+
+框架：一个半成品软件，开发人员可以在框架基础上</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaWeb/" class="post-category" target="_blank">
+                                    JavaWeb
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/JavaWeb/JavaScriptBasic.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="JavaScript基础">
+                        
+                        <span class="card-title">JavaScript基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. JavaScript概述JavaScript是一种运行在浏览器中的解释型的编程语言。每一个浏览器都有JavaScript的解析引擎，不需要编译就可以直接被浏览器解析执行了。
+
+
+功能：主要用来增强用户和html页面的交互过程，可以来控</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaWeb/" class="post-category" target="_blank">
+                                    JavaWeb
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JavaScript/" target="_blank">
+                        <span class="chip bg-color">JavaScript</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">289.9k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

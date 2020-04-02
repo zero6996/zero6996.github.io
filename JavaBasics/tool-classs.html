@@ -1,0 +1,1202 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java中的常用工具类, Zero的博客">
+    <meta name="description" content="1. String类概述java.lang.String 类代表字符串。Java程序中所有的字符串文字都可以被看作是实现此类的实例。类String中包括用于检查各个字符串的方法，比如用于比较字符串、搜索字符串、提取子字符串以及创建具有翻译为">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java中的常用工具类 | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java中的常用工具类
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                JavaBasics
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-04-19
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.9k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        17 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-String类概述"><a href="#1-String类概述" class="headerlink" title="1. String类概述"></a>1. String类概述</h2><p>java.lang.String 类代表字符串。Java程序中所有的字符串文字都可以被看作是实现此类的实例。<br><br>类String中包括用于检查各个字符串的方法，比如用于比较字符串、搜索字符串、提取子字符串以及创建具有翻译为大写或者小写的所有字符的字符串副本。</p>
+<a id="more"></a>
+<h3 id="1-1-字符串的特点"><a href="#1-1-字符串的特点" class="headerlink" title="1.1 字符串的特点"></a>1.1 字符串的特点</h3><ol>
+<li>字符串的内容永不可变。</li>
+<li>因为不可变，所以字符串是可以共享的</li>
+<li>字符串效果上相当于是char[]字符数组，但底层原理是byte[]字节数组。</li>
+</ol>
+<h3 id="1-2-创建字符串的常见3-1种方式"><a href="#1-2-创建字符串的常见3-1种方式" class="headerlink" title="1.2 创建字符串的常见3+1种方式"></a>1.2 创建字符串的常见3+1种方式</h3><h4 id="三种构造方法"><a href="#三种构造方法" class="headerlink" title="三种构造方法"></a>三种构造方法</h4><ol>
+<li>public String(): 创建一个空白字符串，不含有任何内容。</li>
+<li>public String(char[] array)：根据字符数组的内容，来创建对应的字符串。</li>
+<li>public String(byte[] array): 根据字节数组的内容，来创建对应的字符串。<h4 id="一种直接创建："><a href="#一种直接创建：" class="headerlink" title="一种直接创建："></a>一种直接创建：</h4><code>String str = &quot;Hello&quot;;</code></li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo02StringTwo {
+    public static void main(String[] args) {
+        String str1 = &quot;abc&quot;;
+        String str2 = &quot;abc&quot;;
+        char[] charArray = {&#39;a&#39;,&#39;b&#39;,&#39;c&#39;};
+        String str3 = new String(charArray);
+
+    }
+}
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%86%85%E5%AD%98%E5%9B%BE-1555640143003.png" alt="title"></p>
+<h3 id="1-3-常用方法"><a href="#1-3-常用方法" class="headerlink" title="1.3 常用方法"></a>1.3 常用方法</h3><h4 id="判断功能的方法"><a href="#判断功能的方法" class="headerlink" title="判断功能的方法"></a>判断功能的方法</h4><ul>
+<li><p>public boolean equals(Object Obj):参数可以是任何对象，只有参数是一个字符串且内容相同时返回true，反之false。</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo03StringEquals {
+    public static void main(String[] args) {
+        String str1 = &quot;Hello&quot;;
+        String str2 = &quot;Hello&quot;;
+        char[] charArray = {&#39;H&#39;,&#39;e&#39;,&#39;l&#39;,&#39;l&#39;,&#39;o&#39;};
+        String str3 = new String(charArray);
+
+        System.out.println(str1.equals(str2));
+        System.out.println(str2.equals(str3));
+        System.out.println(str3.equals(&quot;Hello&quot;));
+        System.out.println(&quot;Hello&quot;.equals(str3));
+
+        String str4 = null;
+        System.out.println(&quot;abc&quot;.equals(str4)); &#x2F;&#x2F; false 推荐写法
+	    System.out.println(str4.equals(&quot;abc&quot;)); &#x2F;&#x2F; 报错，NullPointerException
+    }
+}
+注意事项：
+1. 任何对象都能用Object进行接收。
+2. equals方法具有对称性，也就是a.equals(b)和b.equals(a)效果是一样的。
+3. 如果比较双方一个常量一个变量，推荐把常量字符串写在前面。&lt;br&gt;推荐：&quot;abc&quot;.equals(str),不推荐:str.equals(&quot;abc&quot;)。
+</code></pre>
+</li>
+<li><p>public boolean equalsIgnoreCase(String anotherString):将此字符串与指定对象进行比较，忽略大小写。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/equalsIgnoreCase-1555643567275.png" alt="title"></p>
+</li>
+</ul>
+<h4 id="String当中与获取相关的常用方法"><a href="#String当中与获取相关的常用方法" class="headerlink" title="String当中与获取相关的常用方法"></a>String当中与获取相关的常用方法</h4><ul>
+<li>public int lenght(); 获取字符串当中含有的字符个数，拿到字符串长度。</li>
+<li>public String concat(String str); 将指定的字符串连接到该字符串的末尾。</li>
+<li>public char charAt(int index); 获取指定索引位置的单个字符。</li>
+<li>public int indexOf(String str); 查找参数字符串在本字符串当中首次出现的索引位置，如果没有返回-1值。</li>
+</ul>
+<p>举例代码如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo04StringGet {
+    public static void main(String[] args) {
+        int length = &quot;abcdefghijklmnobqrstuvwxyz&quot;.length();
+        System.out.println(&quot;字符串长度为：&quot; + length);
+
+        &#x2F;&#x2F;拼接字符串
+        String str1 = &quot;Hello&quot;;
+        String str2 = &quot;World&quot;;
+        String str3 = str1.concat(str2);
+        System.out.println(str1); &#x2F;&#x2F; Hello
+        System.out.println(str2); &#x2F;&#x2F; World
+        System.out.println(str3); &#x2F;&#x2F; HelloWorld
+        System.out.println(&quot;Hello&quot;.charAt(0)); &#x2F;&#x2F; H
+        String str4 = str3;
+        System.out.println(str4.indexOf(&quot;llo&quot;)); &#x2F;&#x2F;返回索引位置，即2
+    }
+}
+</code></pre></p>
+<ul>
+<li>public String substring(int index):截取从参数位置一直到字符串末尾，返回新字符串</li>
+<li>public String substring(int begin,int end):截取从begin开始，一直到end结束，中间的字符串。[begin,end)，包含左边，不包含右边。</li>
+</ul>
+<p>举例代码如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo05SubString {
+    public static void main(String[] args) {
+        String str1 = &quot;HelloWorld&quot;;
+        System.out.println(str1.substring(5)); &#x2F;&#x2F; 返回World
+        System.out.println(str1.substring(4,7)); &#x2F;&#x2F; owo , 4~6不含7
+    }
+}
+</code></pre></p>
+<h4 id="String当中与转换相关的常用方法"><a href="#String当中与转换相关的常用方法" class="headerlink" title="String当中与转换相关的常用方法"></a>String当中与转换相关的常用方法</h4><ul>
+<li>public char[] toCharArray(); 将当前字符串拆分成为字符数组作为返回值。</li>
+<li>public byte[] getBytes(); 获取当前字符串底层的字节数组。</li>
+<li>public String replace(CharSequence oldString, CharSequence newString);将所有出现的老字符串替换为新的字符串，返回替换后的结果新字符串。</li>
+</ul>
+<p>例子：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo06StringConvert {
+    public static void main(String[] args) {
+        char[] chars = &quot;Hello&quot;.toCharArray();
+        System.out.println(chars); &#x2F;&#x2F; Hello
+        System.out.println(chars[0]); &#x2F;&#x2F; H
+        System.out.println(chars.length); &#x2F;&#x2F; 5
+        System.out.println(&quot;=========================&quot;);
+        String str = &quot;abc&quot;;
+        byte[] bytes = str.getBytes();
+        System.out.println(bytes); &#x2F;&#x2F;指向内存地址中abc对应的byte值
+        System.out.println(bytes[0]); &#x2F;&#x2F; [0] = 97,[1] = 98,[2] = 99
+        String str2 = &quot;你怎么回事小老弟，会不会玩啊，fuck&quot;;
+        System.out.println(str2.replace(&quot;fuck&quot;,&quot;儒雅随和&quot;));
+
+    }
+}
+Tips：CharSequence意思是说可以接受字符串类型。是一个接口，也是一种引用类型。作为参数类型，可以把String对象传递到方法中。
+</code></pre></p>
+<h4 id="String中分割字符串的方法"><a href="#String中分割字符串的方法" class="headerlink" title="String中分割字符串的方法"></a>String中分割字符串的方法</h4><p>public String[] split(String regex); 按照参数的规则，将字符串切分为若干部分。<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo07StringSplit {
+    public static void main(String[] args) {
+        String str1 = &quot;a,b,c&quot;;
+        String[] array1 = str1.split(&quot;,&quot;);
+        for(int i = 0;i&lt;array1.length;i++){
+            System.out.println(array1[i]);
+        }
+        String str2 = &quot;a b c&quot;;
+        String[] array2 = str2.split(&quot; &quot;);
+        for(int i=0;i&lt;array2.length;i++){
+            System.out.println(array2[i]);
+        }
+        String str3 = &quot;XXX.YYY.ZZZ&quot;;
+        String[] array3 = str3.split(&quot;\\.&quot;); &#x2F;&#x2F;注意转义
+        for (int i=0;i&lt;array3.length;i++){
+            System.out.print(array3[i]);
+        }
+    }
+}
+</code></pre></p>
+<h4 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h4><p>拼接字符串练习，输入数组{1,2,3}，返回[1#2#3]。<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-clike">public class Demo08StringExercise {
+    public static void main(String[] args) {
+        int[] arr = {1,2,3,4};
+        System.out.println(arrayToString(arr));
+
+    }
+    public static String arrayToString(int[] arr){
+        String str = &quot;[&quot;;
+        for (int i=0;i&lt;arr.length;i++){
+            if(i != arr.length-1){
+                str += (arr[i]+&quot;#&quot;);
+            }else{
+                str += (arr[i]+&quot;]&quot;);
+            }
+        }
+        return str;
+    }
+}
+</code></pre></p>
+<p>统计字符个数：键盘录入一个字符，统计字符串中大小写字母及数字字符个数<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">import java.util.Scanner;
+
+&#x2F;*
+键盘输入一个字符串，统计其中各种字符出现次数，返回次数。
+字符种类：大写字母，小写字母，数字，其他
+
+ *&#x2F;
+public class Demo09StringExercise02 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println(&quot;请输入字符串：&quot;);
+        String input = sc.next(); &#x2F;&#x2F; 获取键盘输入的字符串
+        System.out.println(stringCount(input));
+    }
+    public static String stringCount(String input){
+        int countUpper = 0;
+        int countLower = 0;
+        int countNumber = 0;
+        int countOther = 0;
+        char[] chars = input.toCharArray();
+        for(int i = 0;i &lt; chars.length;i++){
+            char ch = chars[i]; &#x2F;&#x2F; 单个字符，底层表示为byte[]数值
+            if(ch &gt;= &#39;A&#39; &amp;&amp; ch &lt;= &#39;Z&#39;){
+                countUpper++;
+            }else if (ch &gt;= &#39;a&#39; &amp;&amp; ch &lt;= &#39;z&#39;){
+                countLower++;
+            }else if (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;){
+                countNumber++;
+            }else{
+                countOther++;
+            }
+        }
+        return &quot;大写字母：&quot;+countUpper+&quot;\n小写字母：&quot;+countLower+&quot;\n数字:&quot;+countNumber+&quot;\n其他类型：&quot;+countOther;
+    }
+}
+</code></pre></p>
+<h2 id="2-static关键字"><a href="#2-static关键字" class="headerlink" title="2. static关键字"></a>2. static关键字</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>关于static关键字的使用，它可以用来修饰的成员变量和成员方法，被修饰的成员是属于类的，而不是单单是属于某个对象的。也就是说，既然属于类，就不可以靠创建对象来调用了。</p>
+<h3 id="2-2定义和使用格式"><a href="#2-2定义和使用格式" class="headerlink" title="2.2定义和使用格式"></a>2.2定义和使用格式</h3><p>当static修饰成员变量时，该变量称为类变量。该类的每个对象都共享同一个类变量的值。任何对象都可以更改该类变量的值，但也可以在不创建该类对象的情况下对类变量进行操作。</p>
+<h4 id="类变量"><a href="#类变量" class="headerlink" title="类变量"></a>类变量</h4><ul>
+<li>类变量：使用static关键字修饰的成员变量。格式：static 数据类型 变量名。</li>
+</ul>
+<p>实例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F;定义学生类
+public class Student {
+    private int sid; &#x2F;&#x2F;学号
+    private String name;
+    private int age;
+    static String room;
+    public static int idCount = 0; &#x2F;&#x2F;自动分配学号
+
+    public Student() {
+        this.sid = ++idCount;
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.sid = ++idCount;
+    }
+	
+	......省略get&#x2F;set方法
+}
+
+
+&#x2F;&#x2F;实例使用
+public class Demo10Class {
+    public static void main(String[] args) {
+        Student stu = new Student(&quot;法师&quot;,11);
+        stu.room = &quot;101号教室&quot;;
+        System.out.println(&quot;姓名：&quot;+stu.getName()+&quot;,年龄:&quot;+stu.getAge()+&quot;岁,教室：&quot;+stu.getRoom()+&quot;,学号：&quot;+stu.getSid());
+        Student stu2 = new Student(&quot;盗贼&quot;,15);
+        System.out.println(&quot;姓名：&quot;+stu2.getName()+&quot;,年龄:&quot;+stu2.getAge()+&quot;岁,教室：&quot;+stu2.getRoom()+&quot;,学号：&quot;+stu2.getSid());
+    }
+}
+</code></pre></p>
+<h4 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h4><p>当static修饰成员方法时，该方法称为类方法。静态方法在声明中有static，建议使用类名来调用，而不需要创建类的对象。</p>
+<ul>
+<li>类方法：使用static关键字修饰的成员方法，一般称为静态方法。<br>格式如下：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95-1555663220471.png" alt="title"></li>
+</ul>
+<p>实例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F;MyClass
+public class MyClass {
+    int num; &#x2F;&#x2F; 成员变量
+    static int numStatic; &#x2F;&#x2F;静态变量
+    public void method(){
+        System.out.println(&quot;这是一个成员方法！&quot;);
+        System.out.println(num); &#x2F;&#x2F;成员方法可以访问成员变量
+        System.out.println(numStatic); &#x2F;&#x2F; 成员方法可以访问静态变量
+    }
+    public static void methodStatic(){
+        System.out.print(&quot;这是一个静态方法！&quot;);
+        System.out.println(numStatic); &#x2F;&#x2F;静态方法可以访问静态变量
+        &#x2F;&#x2F;System.out.println(num); &#x2F;&#x2F;静态方法无法访问成员变量
+    }
+}
+&#x2F;&#x2F;实例类
+public class Demo01StaticMethod {
+    public static void main(String[] args) {
+        MyClass obj = new MyClass(); &#x2F;&#x2F; 首先创建对象
+        obj.method(); &#x2F;&#x2F; 才能使用没有static关键字的内容
+
+        &#x2F;&#x2F;对于静态方法来说，可以通过对象名进行调用，也可以直接通过类名称来调用。
+        obj.methodStatic(); &#x2F;&#x2F; 不推荐写法，编译器编译时会自动优化为下面方法。
+        MyClass.methodStatic(); &#x2F;&#x2F; 推荐写法，类名称.静态方法。
+
+        &#x2F;&#x2F; 对于本类当中的静态方法，可以省略名称
+        myMethod();
+        Demo01StaticMethod.myMethod(); &#x2F;&#x2F; 完全等效于上面
+    }
+    public static void myMethod(){
+        System.out.println(&quot;自己的方法!&quot;);
+    }
+}
+</code></pre></p>
+<ul>
+<li>静态方法调用总结：<ul>
+<li>静态方法可以直接访问类变量和静态方法。</li>
+<li>静态方法不能直接访问普通成员变量或成员方法。原因：因为在内存中是[先]有的静态内容，[后]有的非静态内容,”前人不知后事，后人尽知前史”。</li>
+<li>静态方法中，不能使用this关键字。</li>
+<li>无论是成员变量，还是成员方法。如果有了static，都推荐使用类名称进行调用。静态变量：类名称.静态变量；静态方法：类名称.静态方法();</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-静态原理图解"><a href="#2-3-静态原理图解" class="headerlink" title="2.3 静态原理图解"></a>2.3 静态原理图解</h4><p>static修饰的内容：</p>
+<ul>
+<li>是随着类的加载而加载的，且只加载一次。</li>
+<li>存储于一块固定的内存区域(静态区),所以，可以直接被类名调用。</li>
+<li>它优先于对象存在，所以，可以被所有对象共享。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/static%E5%86%85%E5%AD%98%E5%9B%BE-1555683796541.png" alt="title"></li>
+</ul>
+<h4 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h4><ul>
+<li>静态代码块：定义在成员位置，使用static修饰的代码块{}。<ul>
+<li>位置：类中方法外。</li>
+<li>执行：随着类的加载而执行且只执行一次，优先于main方法和构造方法的执行。</li>
+</ul>
+</li>
+<li>格式：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97-1555684497323.png" alt="title"></li>
+<li>作用：用来一次性地对静态成员变量进行赋值。</li>
+</ul>
+<h2 id="3-Arrays类"><a href="#3-Arrays类" class="headerlink" title="3. Arrays类"></a>3. Arrays类</h2><p>java.util.Arrays此类包含用来操作数组的各种方法，比如排序和搜索等。其所有方法均为静态方法，调用起来非常简单。</p>
+<h3 id="3-1-操作数组的方法"><a href="#3-1-操作数组的方法" class="headerlink" title="3.1 操作数组的方法"></a>3.1 操作数组的方法</h3><ul>
+<li>public static String toString(int[] a): 返回指定数组内容的字符串表示形式。</li>
+<li>public static void sort(int[] a): 对指定的int型数组按数字升序进行排序。</li>
+</ul>
+<p>举例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">import java.util.Arrays;
+
+public class Demo03Arrays {
+    public static void main(String[] args) {
+        int[] arr = {1,3,54,86,37,28};
+        System.out.println(arr); &#x2F;&#x2F; 打印数组内存地址
+        String str = Arrays.toString(arr); &#x2F;&#x2F;将指定数组内容变成字符串返回。
+        System.out.println(str);
+        int[] arr2 = {2,5,3,8,4,9,1};
+        Arrays.sort(arr2); &#x2F;&#x2F; 升序排序
+        System.out.println(Arrays.toString(arr2)); &#x2F;&#x2F; [1, 2, 3, 4, 5, 8, 9]
+    }
+}
+</code></pre></p>
+<h4 id="小练习-1"><a href="#小练习-1" class="headerlink" title="小练习"></a>小练习</h4><p>对一个随机字符串进行升序排序，然后倒序输出<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">import java.util.Arrays;
+
+public class Demo04ArraysExercise {
+    public static void main(String[] args) {
+        String str = &quot;ehiaroaklcmbzhywqiem&quot;;
+        char[] chars = str.toCharArray();
+        Arrays.sort(chars); &#x2F;&#x2F; 对字符串进行升序排序
+        System.out.println(chars);
+        for (int i = chars.length - 1; i &gt;= 0; i--) { &#x2F;&#x2F;快捷键:[chars.forr] , 对chars对象进行倒序遍历; [fori],正序遍历
+            System.out.print(chars[i]);
+        }
+    }
+}
+</code></pre></p>
+<h2 id="4-Math类"><a href="#4-Math类" class="headerlink" title="4. Math类"></a>4. Math类</h2><p>java.lang.Math类包含用于执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。类似这样的工具类，里面提供了大量的静态方法，完成与数学运算的操作。</p>
+<h3 id="4-1-基本运算的方法"><a href="#4-1-基本运算的方法" class="headerlink" title="4.1 基本运算的方法"></a>4.1 基本运算的方法</h3><ul>
+<li>public static double abs(double num): 返回绝对值。</li>
+<li>public static double ceil(double num): 向上取整。</li>
+<li>public static double floor(double num): 向下取整。</li>
+<li>public static double round(double num): 四舍五入。</li>
+</ul>
+<p>实例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo05Math {
+    public static void main(String[] args) {
+        System.out.println(&quot;以下示例abs用法&quot;);
+        System.out.println(Math.abs(3.14)); &#x2F;&#x2F; 3.14
+        System.out.println(Math.abs(-2.5)); &#x2F;&#x2F; 2.5
+        System.out.println(Math.abs(0)); &#x2F;&#x2F; 0
+        System.out.println(&quot;以下示例ceil用法&quot;);
+        System.out.println(Math.ceil(3.9)); &#x2F;&#x2F; 4.0
+        System.out.println(Math.ceil(3.1)); &#x2F;&#x2F; 4.0
+        System.out.println(Math.ceil(3.0)); &#x2F;&#x2F; 3.0
+        System.out.println(&quot;以下示例floor用法&quot;);
+        System.out.println(Math.floor(30.9)); &#x2F;&#x2F; 30.0
+        System.out.println(Math.floor(30.1)); &#x2F;&#x2F; 30.0
+        System.out.println(Math.floor(31.0)); &#x2F;&#x2F; 31.0
+        System.out.println(&quot;以下示例round用法&quot;);
+        System.out.println(Math.round(20.4)); &#x2F;&#x2F;20
+        System.out.println(Math.round(20.5)); &#x2F;&#x2F;21
+        System.out.println(&quot;圆周率：&quot; + Math.PI);
+    }
+}
+</code></pre></p>
+<h4 id="小练习-2"><a href="#小练习-2" class="headerlink" title="小练习"></a>小练习</h4><p>请使用 Math 相关的API，计算在 -10.8 到 5.9 之间，绝对值大于 6 或者小于 2.1 的整数有多少个？<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo06mathExercise {
+    public static void main(String[] args) {
+        double min = -10.8;
+        double max = 5.9;
+        int num = 0;
+        for (int i = (int)min; i &lt; max; i++) {
+            int abs = Math.abs(i); &#x2F;&#x2F; 绝对值化
+            if(abs &gt; 6 || abs &lt;2.1){
+                num++;
+            }
+        }
+        System.out.println(num);
+    }
+}
+</code></pre></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="字符串类及常用方法API"><a href="#字符串类及常用方法API" class="headerlink" title="字符串类及常用方法API"></a>字符串类及常用方法API</h3><ol>
+<li>public String(): 创建一个空白字符串，不含有任何内容。</li>
+<li>public String(char[] array)：根据字符数组的内容，来创建对应的字符串。</li>
+<li>public String(byte[] array): 根据字节数组的内容，来创建对应的字符串</li>
+<li>public boolean equals(Object Obj):参数可以是任何对象，只有参数是一个字符串且内容相同时返回true，反之false。</li>
+<li>public boolean equalsIgnoreCase(String anotherString):将此字符串与指定对象进行比较，忽略大小写。</li>
+<li>public int lenght(); 获取字符串当中含有的字符个数，拿到字符串长度。</li>
+<li>public String concat(String str); 将指定的字符串连接到该字符串的末尾。</li>
+<li>public char charAt(int index); 获取指定索引位置的单个字符。</li>
+<li>public int indexOf(String str); 查找参数字符串在本字符串当中首次出现的索引位置，如果没有返回-1值。</li>
+<li>public String substring(int index):截取从参数位置一直到字符串末尾，返回新字符串。</li>
+<li>public String substring(int begin,int end):截取从begin开始，一直到end结束，中间的字符串。[begin,end)，包含左边，不包含右边。</li>
+<li>public char[] toCharArray(); 将当前字符串拆分成为字符数组作为返回值。</li>
+<li>public byte[] getBytes(); 获取当前字符串底层的字节数组。</li>
+<li>public String replace(CharSequence oldString, CharSequence newString);将所有出现的老字符串替换为新的字符串，返回替换后的结果新字符串。</li>
+<li>public String[] split(String regex); 按照参数的规则，将字符串切分为若干部分。</li>
+</ol>
+<h3 id="static关键字及常用方法"><a href="#static关键字及常用方法" class="headerlink" title="static关键字及常用方法"></a>static关键字及常用方法</h3><ol>
+<li>类变量：使用static关键字修饰的成员变量。格式：static 数据类型 变量名；</li>
+<li>类方法：使用static关键字修饰的成员方法，一般称为静态方法。</li>
+</ol>
+<h3 id="Arrays类操作数组的常用方法"><a href="#Arrays类操作数组的常用方法" class="headerlink" title="Arrays类操作数组的常用方法"></a>Arrays类操作数组的常用方法</h3><ol>
+<li>public static String toString(int[] a): 返回指定数组内容的字符串表示形式。</li>
+<li>public static void sort(int[] a): 对指定的int型数组按数字升序进行排序。</li>
+</ol>
+<h3 id="Math类常用方法"><a href="#Math类常用方法" class="headerlink" title="Math类常用方法"></a>Math类常用方法</h3><ol>
+<li>public static double abs(double num): 返回绝对值。</li>
+<li>public static double ceil(double num): 向上取整。</li>
+<li>public static double floor(double num): 向下取整。</li>
+<li>public static double round(double num): 四舍五入。</li>
+</ol>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/JavaBasics/tool-classs.html" class="b-link-green">Java中的常用工具类</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-04-19T23-00-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/JavaBasics/extend.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Java三大特性之继承">
+                        
+                        <span class="card-title">Java三大特性之继承</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">概述多个类中存在相同属性和行为时，将这些内容抽取到单独一个类中，那么多个类无需再定义这些属性和行为，只要继承那一个类即可。其中，多个类可以称为子类，单独那个类称为父类、超类或者基类。
+
+1. 继承
+定义：继承就是子类继承父类的属性和行为，使</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/三大特性/" target="_blank">
+                        <span class="chip bg-color">三大特性</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/JavaBasics/api.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="API概述">
+                        
+                        <span class="card-title">API概述</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 概述API(Application Programming Interface)，应用程序编程接口。Java API是一本API字典，是JDK中提供给我们使用类的说明文档。这些类将底层的代码实现封装了起来，我们不用关心类是如何实现的，</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">289.9k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

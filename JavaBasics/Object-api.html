@@ -1,0 +1,1174 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java中的Object类和常用API, Zero的博客">
+    <meta name="description" content="1. Object类java.lang.Object类是Java语言中的根类，即所有类的父类。它中描述的所有方法子类都可以使用。在对象实例化的时候，最终找到的父类就是Object。根据JDK源码及Object类的API文档，Object类中">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java中的Object类和常用API | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java中的Object类和常用API
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                JavaBasics
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-04-23
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4.4k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        18 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-Object类"><a href="#1-Object类" class="headerlink" title="1. Object类"></a>1. Object类</h2><p><code>java.lang.Object</code>类是Java语言中的根类，即所有类的父类。它中描述的所有方法子类都可以使用。在对象实例化的时候，最终找到的父类就是Object。<br>根据JDK源码及Object类的API文档，Object类中包含的方法有11个。本章主要学习其中的2个：</p>
+<ul>
+<li><code>public String toString()</code>; 返回该对象的字符串表示。</li>
+<li><code>public boolean equals(Object obj)</code>:指示其他某个对象是否与此对象”相等”。</li>
+</ul>
+<a id="more"></a>
+<h2 id="1-2-toString方法"><a href="#1-2-toString方法" class="headerlink" title="1.2 toString方法"></a>1.2 toString方法</h2><p>toString方法返回该对象的字符串表示，其实返回的字符串内容就是对象的类型+@+内存地址值。<code>Person@3feba861</code><br>由于该方法返回的是内存地址，所以一般要重写它以获取对象属性。<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Person {
+    private String name;
+    private int age;
+
+    @Override
+    public String toString() { &#x2F;&#x2F; 重写toString方法
+        return &quot;Person{&quot; +
+                &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
+                &quot;, age=&quot; + age +
+                &#39;}&#39;;
+    }
+
+	省略get&#x2F;set
+
+}
+</code></pre></p>
+<p>在IntelliJ IDEA中，可以使用快捷键<code>ALT+Insert</code>,点击<code>toString()</code>选项，自动生成该方法。</p>
+<h2 id="1-3-equals方法"><a href="#1-3-equals方法" class="headerlink" title="1.3 equals方法"></a>1.3 equals方法</h2><ul>
+<li><code>public boolean equals(Object obj)</code>:比较两个对象是否“相等”，返回布尔值。<h3 id="默认地址比较"><a href="#默认地址比较" class="headerlink" title="默认地址比较"></a>默认地址比较</h3>如果没有覆盖重写equals方法，那么object类默认进行<code>==</code>运算符的对象地址比较，只要不同就返回false。</li>
+</ul>
+<h3 id="对象内容比较"><a href="#对象内容比较" class="headerlink" title="对象内容比较"></a>对象内容比较</h3><p>如果希望进行对象的内容比较，可以重写equals方法。<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        &#x2F;&#x2F; 如果o不等于空并且o不等于Person类型，返回false。 getClass() != o.getClass()  使用反射技术，判断o是否是Person类型， 等效于 obj instanceof Person
+        if (o == null || getClass() != o.getClass()) return false;
+        &#x2F;&#x2F; 向下转型
+        Person person = (Person) o;
+        &#x2F;* Object.equals(Object a, Object b); equals方法重载解析：
+        Objects.equals(name, person.name); &#x2F;&#x2F; 传入两个对象参数
+        public static boolean equals(Object a, Object b) {
+               &#x2F;&#x2F; 判断a==b 或者 a不等于空，并且a与b的内存地址相同才返回true，反之false
+            return (a == b) || (a != null &amp;&amp; a.equals(b));
+        }
+         *&#x2F;
+        return age == person.age &amp;&amp; Objects.equals(name, person.name);
+    }
+</code></pre></p>
+<p>使用快捷键<code>ALT+Insert</code>可以自动生成该代码。</p>
+<h2 id="1-4-Oebjects类"><a href="#1-4-Oebjects类" class="headerlink" title="1.4 Oebjects类"></a>1.4 Oebjects类</h2><p>在<strong>JDK7</strong>添加了一个Objects工具类，它提供了一些方来操作对象，它由一些静态的实用方法组成，这些方法是null-save(空指针安全的)或null-tolerant(容忍空指针的),用于计算对象的hashcode、返回对象的字符串表示形式、比较两个对象。</p>
+<p>在比较两个对象时，Object的equals方法容易抛出空指针异常，而Objects类中的equals方法就优化了这个问题。方法如下：</p>
+<ul>
+<li><code>public static boolean equals(Objects a,Objects b)</code>:判断两个对象是否相等。<br>源码解析：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">
+    Object.equals(Object a, Object b); &#x2F;&#x2F; 对传入的两个对象进行比较，可防止空指针异常。
+    Objects.equals(name, person.name); &#x2F;&#x2F; 传入两个对象参数
+    public static boolean equals(Object a, Object b) {
+           &#x2F;&#x2F; 判断a==b 或者 a不等于空，并且a与b的内存地址相同,才能返回true，反之false。
+        return (a == b) || (a != null &amp;&amp; a.equals(b));
+ }
+</code></pre>
+</li>
+</ul>
+<h2 id="2-日期时间类"><a href="#2-日期时间类" class="headerlink" title="2. 日期时间类"></a>2. 日期时间类</h2><h3 id="2-1-Date类"><a href="#2-1-Date类" class="headerlink" title="2.1 Date类"></a>2.1 Date类</h3><p><code>java.util.Date</code>类表示特点的瞬间，精确到毫秒。<br>Date中拥有多个构造方法，部分已过时，其中有未过时的构造方法可以把毫秒值转成日期对象。</p>
+<ul>
+<li><code>public Date()</code>:分配Date对象并初始化此对象，以表示分配它的时间(精确到毫秒)。获取当前系统的日期和时间。</li>
+<li><code>public Date(long date)</code>:传递毫秒值，把毫秒值转换为Date日期，以表示自从标准基准时间(称为”历元(epoch)”，即1970年1月1日00:00:00 GMT)以来的指定毫秒数。</li>
+</ul>
+<ul>
+<li><code>public long getTime()</code>：把日期对象转换成对应的时间毫秒值。<blockquote>
+<p>Tips:由于我们处于东八区，所以我们的基准时间为1970年1月1日8时0分0秒。</p>
+</blockquote>
+</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">import java.util.Date;
+
+public class Demo01Date {
+    public static void main(String[] args) {
+        System.out.println(&quot;当前系统时间&quot;+new Date());
+        System.out.println(&quot;将传入的毫秒值转换为日期时间格式&quot;+new Date(0L)); &#x2F;&#x2F; Tue Apr 23 20:39:00 CST 2019
+        System.out.print(&quot;把日期转换为毫秒值&quot;+new Date().getTime()); &#x2F;&#x2F; 相当于System.currenTimeMillis()方法
+    }
+}
+</code></pre>
+<blockquote>
+<p>Tips:在使用println方法时，会自动调用Date类中的toString方法。Date类重写了toString方法，所以结果为指定格式的字符串。</p>
+</blockquote>
+<h2 id="2-2-DateFormat类"><a href="#2-2-DateFormat类" class="headerlink" title="2.2 DateFormat类"></a>2.2 DateFormat类</h2><p><code>java.text.DateFormat</code>是日期/时间格式子类的抽象类，通过这个类可以帮我们完成日期和文本之间的转换，也就是可以在Date对象与String对象之间进行来回转换。</p>
+<ul>
+<li>格式化：按照指定的格式，从Date对象转换为String对象。</li>
+<li>解析：按照指定的格式，从String对象转换为Date对象。</li>
+</ul>
+<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p>由于DateFormat为抽象类，不能直接使用，所以需要常用的子类<code>java.text.SimpleDateFormat</code>。这个类需要一默认(格式)来指定格式化或解析的标准。构造方法为：</p>
+<ul>
+<li><code>public SimpleDateFormat(String pattern)</code>:用指定的模式和默认语言环境的日期格式符号构造SimpleDateFormat。参数pattern是一个字符串，代表日期时间的自定义格式。</li>
+</ul>
+<h3 id="格式规则"><a href="#格式规则" class="headerlink" title="格式规则"></a>格式规则</h3><p>常用格式规则为：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/pattern%E6%A0%BC%E5%BC%8F-1556026542510.png" alt="title"></p>
+<blockquote>
+<p>更详细的格式规则，可参考SimpleDateFormat类的API文档。<br>创建一个SimpleDateFormat对象代码如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+public class Demo03DateFormat {
+    public static void main(String[] args) {
+        DateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+    }
+}
+</code></pre></p>
+</blockquote>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><ul>
+<li><code>public String format(Date date)</code>:将Date对象格式化为字符串。</li>
+<li><code>public Date parse(String source)</code>:将字符串解析为Date对象。</li>
+</ul>
+<h4 id="format方法"><a href="#format方法" class="headerlink" title="format方法"></a>format方法</h4><p>使用DateFormat类中的方法format，将日期格式化为文本，使用步骤如下。</p>
+<ol>
+<li>创建SimpleDateFormat对象，构造方法中传入指定模式</li>
+<li>调用SimpleDateFormat对象中的方法format，按照构造方法中的模式，把Date日期格式转换为符合格式的字符串
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">    &#x2F;&#x2F; 1. 创建SimpleDateFormat对象，构造方法中传入指定模式
+    DateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+    &#x2F;&#x2F; 2. 调用SimpleDateFormat对象中的方法format
+    String a = format.format(new Date());
+    System.out.println(a);  &#x2F;&#x2F; 2019-04-23 22:04:11
+</code></pre>
+</li>
+</ol>
+<h4 id="parse方法"><a href="#parse方法" class="headerlink" title="parse方法"></a>parse方法</h4><p>使用DateFormat类中的方法parse，把文本解析为日期，使用步骤如下：</p>
+<ol>
+<li>创建SimpleDateFormat对象，构造方法中传入指定模式</li>
+<li>调用SimpleDateFormat对象中的方法parse，把符合构造方法中模式的字符串，解析为Date日期</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">DateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+Date date = sdf.parse(&quot;1996-06-03 11:45:03&quot;);
+System.out.println(date);
+&#x2F;*
+注意：
+public Date parse(String source) throws ParseException
+parse方法声明了一个异常叫ParseException,如果字符串和构造方法的模式不一致，那么程序就会抛出异常。
+调用了一个抛出异常的方法，就必须处理这个异常，要么throws继续抛出这个异常，要么try catch自己处理。
+*&#x2F;
+</code></pre>
+<h2 id="2-3-练习"><a href="#2-3-练习" class="headerlink" title="2.3 练习"></a>2.3 练习</h2><p>使用日期时间相关API，计算一个人出生了多少天<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+public class Demo02Test {
+    public static void main(String[] args) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println(&quot;请输入你的出生日期，格式：年-月-日&quot;);
+        String Birthday = sc.next();
+        long CurrentTime = new Date().getTime(); &#x2F;&#x2F; 现在时间
+        DateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;); &#x2F;&#x2F; 设置时间格式
+        long liveTime = CurrentTime - format.parse(Birthday).getTime(); &#x2F;&#x2F; 使用parse把文本解析为日期格式在转换为毫秒值
+&#x2F;&#x2F;        System.out.println(liveTime);
+        System.out.println(&quot;出生了&quot;+liveTime&#x2F;1000&#x2F;60&#x2F;60&#x2F;24+&quot;天&quot;); &#x2F;&#x2F; liveTime&#x2F;1000&#x2F;60&#x2F;60&#x2F;24 把毫秒值转换为天
+    }
+}
+</code></pre></p>
+<h2 id="2-4-Calendar类"><a href="#2-4-Calendar类" class="headerlink" title="2.4 Calendar类"></a>2.4 Calendar类</h2><p><code>java.util.Calendar</code>是日历类，在Date后出现，替换掉了许多Date方法。该类将所有可能用到的时间信息封装为静态成员变量，方便获取。日历类就是方便获取各个时间属性的。</p>
+<h3 id="获取方式"><a href="#获取方式" class="headerlink" title="获取方式"></a>获取方式</h3><p>Calenday为抽象类，由于语言敏感性，Calendar类在创建对象时并非直接创建，而是通过静态方法创建，返回子类对象，如下：<br>Calendar静态方法</p>
+<ul>
+<li><code>public static Calendar getInstance()</code>:使用默认时区和语言环境获取一个日历。<br>示例代码：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">import java.util.Calendar;
+
+public class Demo04Calendar {
+    public static void main(String[] args) {
+        Calendar cal = Calendar.getInstance(); &#x2F;&#x2F; 多态
+
+    }
+}
+</code></pre>
+</li>
+</ul>
+<h3 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h3><p>根据Calendar类的API文档，常用方法有：</p>
+<ul>
+<li><code>public int get(int field)</code>:返回给定日历字段的值。</li>
+<li><code>public void set(int field, int value)</code>:将给定的日历字段设置为给定值。</li>
+<li><code>public abstract void add(int field,int amount)</code>:根据日历规则，为给定的日历字段添加或减去指定的时间量。</li>
+<li><code>public Date getTime()</code>:返回一个表示此Calendar时间值的Date对象,返回从历元到现在的毫秒偏移量。</li>
+</ul>
+<p>Calendar类中提供很多成员常量，代表给定的日历字段：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/Calendar%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98%E5%B8%B8%E9%87%8F-1556029579519.png" alt="title"></p>
+<h4 id="get-set方法"><a href="#get-set方法" class="headerlink" title="get/set方法"></a>get/set方法</h4><p>get方法用来获取指定字段的值，set方法用来设置指定字段的值，演示代码如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">import java.util.Calendar;
+
+public class Demo04Calendar {
+    public static void main(String[] args) {
+        Calendar cal = Calendar.getInstance(); &#x2F;&#x2F; 多态
+        int year = cal.get(Calendar.YEAR); &#x2F;&#x2F; 获取当前年份
+        int month = cal.get(Calendar.MONTH)+1; &#x2F;&#x2F;因为国外月份是0~11，我们是1~12.
+        int day = cal.get(Calendar.DAY_OF_MONTH); &#x2F;&#x2F; 当前天数
+&#x2F;&#x2F;        System.out.println(day);
+&#x2F;&#x2F;        System.out.println(year+&quot;年&quot;+month+&quot;月&quot;+day+&quot;号&quot;);
+        cal.set(Calendar.YEAR,2020); &#x2F;&#x2F;自定义日期
+        cal.set(Calendar.MONTH,06);
+        cal.set(Calendar.DAY_OF_MONTH,03);
+        int year1 = cal.get(Calendar.YEAR);
+        int month1 = cal.get(Calendar.MONTH);
+        int day1 = cal.get(Calendar.DAY_OF_MONTH);
+        System.out.println(year1+&quot;年&quot;+month1+&quot;月&quot;+day1+&quot;号&quot;);
+    }
+}
+</code></pre></p>
+<h4 id="add方法"><a href="#add方法" class="headerlink" title="add方法"></a>add方法</h4><p>add方法可以对指定日历字段的值进行加减操作，如果第二个参数为整数则加上偏移量，负数则减去偏移量，演示代码如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">import java.util.Calendar;
+
+public class Demo05CalendarAddMethod {
+    public static void main(String[] args) {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH)+1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        System.out.println(year+&quot;年&quot;+month+&quot;月&quot;+day+&quot;号&quot;);
+        &#x2F;&#x2F; 使用add方法
+        cal.add(Calendar.YEAR,1); &#x2F;&#x2F; 当前年份+1
+        cal.add(Calendar.MONTH,2);
+        cal.add(Calendar.DAY_OF_MONTH,-20); &#x2F;&#x2F; 天数-20天
+        int year1 = cal.get(Calendar.YEAR);
+        int month1 = cal.get(Calendar.MONTH)+1;
+        int day1 = cal.get(Calendar.DAY_OF_MONTH);
+        System.out.println(year1+&quot;年&quot;+month1+&quot;月&quot;+day1+&quot;号&quot;);
+
+    }
+}
+</code></pre></p>
+<h4 id="getTime方法"><a href="#getTime方法" class="headerlink" title="getTime方法"></a>getTime方法</h4><p>Calendar中的getTime方法并不是获取毫秒时刻，而是拿到对应的Date对象。<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">import java.util.Calendar;
+import java.util.Date;
+
+public class Demo06CalendarGetTime {
+    public static void main(String[] args) {
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime(); &#x2F;&#x2F; 获取的是Date对象
+        System.out.println(date); &#x2F;&#x2F; Tue Apr 23 22:52:25 CST 2019
+    }
+}
+</code></pre></p>
+<h2 id="3-System类"><a href="#3-System类" class="headerlink" title="3. System类"></a>3. System类</h2><p><code>java.lang.System</code>类中提供了大量的静态方法，可以获取与系统相关的信息或者系统级操作，常用方法有：</p>
+<ul>
+<li><code>public static long currentTimeMillis()</code>:返回以毫秒为单位的当前时间。</li>
+<li><code>public static void arraycopy(Object src,int srcPos,Object dest, int destPos, int length)</code>:将数组中指定的数据拷贝到另一个数组中。</li>
+</ul>
+<h3 id="3-1-currentTimeMillis方法"><a href="#3-1-currentTimeMillis方法" class="headerlink" title="3.1 currentTimeMillis方法"></a>3.1 currentTimeMillis方法</h3><p>currentTimeMillis方法获取的是当前系统时间与1970年01月01日00:00(计算机元年)之间的毫秒差值。<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo07CurrentTime {
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
+    }
+}
+</code></pre></p>
+<h3 id="小练习1"><a href="#小练习1" class="headerlink" title="小练习1"></a>小练习1</h3><p>计算for循环打印数字1~9999所需的时间(毫秒)。<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo08SystemTest {
+    public static void main(String[] args) {
+        long CurrentTime = System.currentTimeMillis();
+        for(int i = 1;i &lt; 10000;i++){
+            System.out.println(i);
+        }
+        System.out.println(&quot;打印1~9999花费&quot;+(System.currentTimeMillis() - CurrentTime)+&quot;毫秒&quot;);
+    }
+}
+</code></pre></p>
+<h3 id="3-2-arraycopy方法"><a href="#3-2-arraycopy方法" class="headerlink" title="3.2 arraycopy方法"></a>3.2 arraycopy方法</h3><p>该方法将数组指定数据拷贝到另一个数组中，数组的拷贝动作是系统级的，性能很高。System.arraycopy方法具有5个参数，含义分别为：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/arratcopy%E5%8F%82%E6%95%B0%E5%90%AB%E4%B9%89-1556031999370.png" alt="title"></p>
+<h3 id="小练习2"><a href="#小练习2" class="headerlink" title="小练习2"></a>小练习2</h3><p>将src数组中前3个元素，复制到dest数组的前3个位置上。<br>复制元素前：src[1,2,3,4,5]，dest[6,7,8,9,10]<br>复制元素后：src[1,2,3,4,5], dest[1,2,3,9,10]<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">arraycopy(源数组，源数组索引起始位置，目标数组，目标数组索引起始位置，复制元素个数)
+ *&#x2F;
+public class Demo09SystemArrayCopy {
+    public static void main(String[] args) {
+        int[] src = {1,2,3,4,5};
+        int[] dest = {6,7,8,9,10};
+        System.arraycopy(src,0,dest,0,3);
+        for (int i = 0; i &lt; dest.length; i++) {
+            System.out.print(dest[i]+&quot;,&quot;); &#x2F;&#x2F; 123910
+        }
+    }
+
+}
+</code></pre></p>
+<h2 id="4-StringBuilder类"><a href="#4-StringBuilder类" class="headerlink" title="4. StringBuilder类"></a>4. StringBuilder类</h2><h3 id="4-1-字符串拼接问题"><a href="#4-1-字符串拼接问题" class="headerlink" title="4.1 字符串拼接问题"></a>4.1 字符串拼接问题</h3><p>由于String类的对象内容不可变，所以每当进行字符串拼接时，都会在内存中创建一新的对象。<br>字符串是常量，它们的值在创建后不能被更改。如果字符串进行拼接操作，每次拼接时都会创建一个新的String对象，耗时又浪费空间。可以使用<code>java.lang.StringBuilder</code>类。</p>
+<h3 id="4-2-StringBuilder类概述"><a href="#4-2-StringBuilder类概述" class="headerlink" title="4.2 StringBuilder类概述"></a>4.2 StringBuilder类概述</h3><p>StringBuilder又称为可变字符序列,它是一个类似于 String 的字符串缓冲区，通过某些方法调用可以改变该序列的长度和内容。即它是一个容器，容器中可以装很多字符串。并且能够对其中的字符串进行各种操作。<br>它的内部拥有一个数组用来存放字符串内容，进行字符串拼接时，直接在数组中加入新内容。StringBuilder会自动维护数组的扩容。原理如下图所示：(默认16字符空间，超过自动扩充)<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/01_StringBuilder%E7%9A%84%E5%8E%9F%E7%90%86-1556033213070.bmp" alt="title"></p>
+<h3 id="4-3-构造方法"><a href="#4-3-构造方法" class="headerlink" title="4.3 构造方法"></a>4.3 构造方法</h3><p>常用的构造方法有2个：</p>
+<ul>
+<li><code>public StringBuilder()</code>:构造一个空的StringBuilder容器。</li>
+<li><code>public StringBuilder(String str)</code>:构造一个容器同时将一个字符串添加进去。
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo10StringBuilder {
+    public static void main(String[] args) {
+        StringBuilder strb = new StringBuilder(); &#x2F;&#x2F; 创建一个空容器对象
+        StringBuilder strb2 = new StringBuilder(&quot;Hello&quot;); &#x2F;&#x2F; 带参构造方法
+    }
+}
+</code></pre>
+</li>
+</ul>
+<h3 id="4-4-常用方法"><a href="#4-4-常用方法" class="headerlink" title="4.4 常用方法"></a>4.4 常用方法</h3><p>StringBuilder中常用的方法有2个：</p>
+<ul>
+<li><code>public StringBuilder append(...)</code>：添加任意类型数据的字符串形式，并返回当前对象自身。</li>
+<li><code>public String toString()</code>：将当前StringBuilder对象转换为String对象。</li>
+</ul>
+<h4 id="append方法"><a href="#append方法" class="headerlink" title="append方法"></a>append方法</h4><p>append方法具有多种重载形式，可以接收任意类型的参数。任何数据作为参数都会将对应的字符串内容添加到StringBuilder中。示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo10StringBuilder {
+    public static void main(String[] args) {
+        StringBuilder builder = new StringBuilder(); &#x2F;&#x2F; 创建一个空容器对象
+        StringBuilder result = builder.append(&quot;hello&quot;); &#x2F;&#x2F;向容器中添加一个字符串类型
+        System.out.println(builder); &#x2F;&#x2F; hello
+        System.out.println(result); &#x2F;&#x2F; hello
+        if(builder == result){
+            System.out.println(&quot;它们是同一个容器对象&quot;);
+        }
+        &#x2F;&#x2F; 可以添加任意类型,且可以往容器中连续放入
+        builder.append(100).append(true).append(10.0).append(&#39;A&#39;);
+        System.out.println(builder); &#x2F;&#x2F; hello100true10.0A
+	&#x2F;*
+	如果在开发中，遇到调用一个对象后，返回一个对象的情况，可以使用返回的对象继续调用方法。
+	如上情况，可以把它们连在一起，这叫做链式编程。
+	*&#x2F;
+    }
+}
+</code></pre></p>
+<h4 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a>toString方法</h4><p>通过toString方法，StringBuilder对象将会转换为不可变的String对象。如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo11StringToString {
+    public static void main(String[] args) {
+        StringBuilder builder = new StringBuilder(&quot;hello&quot;).append(&quot;world&quot;);
+        String str = builder.toString(); &#x2F;&#x2F; 将builder容器转换为字符串类型。
+        System.out.println(str);
+        
+
+    }
+}
+</code></pre></p>
+<h2 id="5-包装类"><a href="#5-包装类" class="headerlink" title="5. 包装类"></a>5. 包装类</h2><p>Java提供了两个类型系统，基本类型与引用类型。使用基本类型在于效率，然而很多情况，会创建对象使用，因为对象可以做更多的功能，如果想要我们的基本类型像对象一样操作，就可以使用基本类型对应的包装类，如下：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%AF%B9%E5%BA%94%E5%8C%85%E8%A3%85%E7%B1%BB-1556034717119.png" alt="title"></p>
+<h3 id="5-1-装箱与拆箱"><a href="#5-1-装箱与拆箱" class="headerlink" title="5.1 装箱与拆箱"></a>5.1 装箱与拆箱</h3><p>基本类型与对应的包装类对象之间，来回转换的过程称为”装箱” 与 “拆箱”：</p>
+<ul>
+<li><strong>装箱</strong>:从基本类型转换为对应的包装类对象。</li>
+<li><strong>拆箱</strong>:从包装类对象转换为对应的基本类型。</li>
+</ul>
+<p>用Integer与int为例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Demo12PackClass {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 基本数值 --&gt; 包装对象
+        Integer i = new Integer(4); &#x2F;&#x2F; 使用构造方法
+        Integer iii = Integer.valueOf(4); &#x2F;&#x2F; &#x2F;使用包装类中的valueOf方法
+
+        &#x2F;&#x2F; 包装对象 --&gt; 基本数值
+        int num = i.intValue();
+    }
+}
+</code></pre></p>
+<h3 id="5-2-自动装箱与自动拆箱"><a href="#5-2-自动装箱与自动拆箱" class="headerlink" title="5.2 自动装箱与自动拆箱"></a>5.2 自动装箱与自动拆箱</h3><p>由于我们经常要做基本类型与包装类之间的转换，从Java 5开始，基本类型与包装类的装箱、拆箱动作可以自动完成。示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">Integer i = 4;&#x2F;&#x2F;自动装箱。相当于Integer i = Integer.valueOf(4);
+i = i + 5;&#x2F;&#x2F;等号右边：将i对象转成基本数值(自动拆箱) i.intValue() + 5;
+&#x2F;&#x2F;加法运算完成后，再次装箱，把基本数值转成对象。
+</code></pre></p>
+<h3 id="5-3-基本类型与字符串之间的转换"><a href="#5-3-基本类型与字符串之间的转换" class="headerlink" title="5.3 基本类型与字符串之间的转换"></a>5.3 基本类型与字符串之间的转换</h3><h4 id="基本类型转换为String"><a href="#基本类型转换为String" class="headerlink" title="基本类型转换为String"></a>基本类型转换为String</h4><p>基本类型转换String总共有三种方法，这里只讲解最简单一种方式：基本类型直接与””连接即可，如34+””。</p>
+<h4 id="String转换成对应的基本类型"><a href="#String转换成对应的基本类型" class="headerlink" title="String转换成对应的基本类型"></a>String转换成对应的基本类型</h4><p>除了Character类之外，其他所有包装类都具有parseXxx静态方法可以将字符串参数转换为对应的基本类型：</p>
+<ul>
+<li><code>public static byte parseByte(String s)</code>：将字符串参数转换为对应的byte基本类型。</li>
+<li><code>public static short parseShort(String s)</code>：将字符串参数转换为对应的short基本类型。</li>
+<li><code>public static int parseInt(String s)</code>：将字符串参数转换为对应的int基本类型。</li>
+<li><code>public static long parseLong(String s)</code>：将字符串参数转换为对应的long基本类型。</li>
+<li><code>public static float parseFloat(String s)</code>：将字符串参数转换为对应的float基本类型。</li>
+<li><code>public static double parseDouble(String s)</code>：将字符串参数转换为对应的double基本类型。</li>
+<li><code>public static boolean parseBoolean(String s)</code>：将字符串参数转换为对应的boolean基本类型。</li>
+</ul>
+<blockquote>
+<p>如果字符串参数的内容无法正确转换为对应的基本类型，则会抛出<code>java.lang.NumberFormatException</code>异常。</p>
+</blockquote>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/JavaBasics/Object-api.html" class="b-link-green">Java中的Object类和常用API</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-04-23T23-59-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/JavaBasics/collection.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Collection集合和泛型">
+                        
+                        <span class="card-title">Collection集合和泛型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. Collection集合
+集合:集合是java中提供的一种容器，可以用来存储多个数据。集合和数组的区别
+数组的长度是固定的。集合的长度是可变的。
+数组中存储的是同一类型的元素，可以存储基本数据类型值。集合存储的都是对象，而且对象的类型</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/集合/" target="_blank">
+                        <span class="chip bg-color">集合</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/JavaBasics/final-innerClass.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Java的final关键字及内部类">
+                        
+                        <span class="card-title">Java的final关键字及内部类</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. final关键字继承中子类可以在父类的继承上改写父类内容，比如方法重写。但如果我们随意的继承API中提供的类，改写其内容，显示不合适。为了避免这种随意改写的起来，Java提供了final关键字，用于修改不可改变内容。
+
+
+final：</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">289.9k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

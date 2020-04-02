@@ -1,0 +1,1423 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java中的字节流和字符流, Zero的博客">
+    <meta name="description" content="1. IO概述我们把数据的传输，可以看做是一种数据的流动，按照流动的方向，以内存为基准，分为输入input 和输出output ，即流向内存是输入流，流出内存的输出流。
+Java中I/O操作主要是指使用java.io包下的内容，进行输入、输">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java中的字节流和字符流 | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java中的字节流和字符流
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                            <a href="/tags/IO流/" target="_blank">
+                                <span class="chip bg-color">IO流</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                JavaBasics
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-05-07
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        5.5k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        23 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-IO概述"><a href="#1-IO概述" class="headerlink" title="1. IO概述"></a>1. IO概述</h2><p>我们把数据的传输，可以看做是一种数据的流动，按照流动的方向，以内存为基准，分为<code>输入input</code> 和<code>输出output</code> ，即流向内存是输入流，流出内存的输出流。</p>
+<p>Java中I/O操作主要是指使用<code>java.io</code>包下的内容，进行输入、输出操作。<strong>输入</strong>也叫做<strong>读取</strong>数据，<strong>输出</strong>也叫做作<strong>写出(写入)</strong>数据。</p>
+<a id="more"></a>
+<h3 id="1-1-IO的分类"><a href="#1-1-IO的分类" class="headerlink" title="1.1 IO的分类"></a>1.1 IO的分类</h3><p>根据数据的流向分为：<strong>输入流</strong>和<strong>输出流</strong>。</p>
+<ul>
+<li><strong>输入流</strong> ：把数据从<code>其他设备</code>上读取到<code>内存</code>中的流。 </li>
+<li><strong>输出流</strong> ：把数据从<code>内存</code> 中写出到<code>其他设备</code>上的流。</li>
+</ul>
+<p>根据数据的类型分为：<strong>字节流</strong>和<strong>字符流</strong>。</p>
+<ul>
+<li><strong>字节流</strong> ：以字节为单位，读写数据的流。</li>
+<li><strong>字符流</strong> ：以字符为单位，读写数据的流。</li>
+</ul>
+<h3 id="1-2-顶级父类"><a href="#1-2-顶级父类" class="headerlink" title="1.2 顶级父类"></a>1.2 顶级父类</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/06/IO%E7%88%B6%E7%B1%BB-1557156293866.jpg" alt="title"></p>
+<h2 id="2-字节流"><a href="#2-字节流" class="headerlink" title="2. 字节流"></a>2. 字节流</h2><p>一切文件数据(文本、图片、视频等)在存储时，都是以二进制数字的形式保存，都一个一个的字节，那么传输时一样如此。所以，字节流可以传输任意文件数据。在操作流的时候，我们要时刻明确，无论使用什么样的流对象，底层传输的始终为二进制数据。</p>
+<h3 id="2-1-字节输出流-OutputStream"><a href="#2-1-字节输出流-OutputStream" class="headerlink" title="2.1 字节输出流[OutputStream]"></a>2.1 字节输出流[OutputStream]</h3><p><code>java.io.OutputStream</code>抽象类是表示字节输出流的所有类的超类，将指定的字节信息写出到目的地。它定义了字节输出流的基本共性功能方法。</p>
+<ul>
+<li><code>public void close()</code> ：关闭此输出流并释放与此流相关联的任何系统资源。  </li>
+<li><code>public void flush()</code> ：刷新此输出流并强制任何缓冲的输出字节被写出。  </li>
+<li><code>public void write(byte[] b)</code>：将 b.length字节从指定的字节数组写入此输出流。  </li>
+<li><code>public void write(byte[] b, int off, int len)</code> ：从指定的字节数组写入 len字节，从偏移量 off开始输出到此输出流。  </li>
+<li><code>public abstract void write(int b)</code> ：将指定的字节输出流。</li>
+</ul>
+<blockquote>
+<p>Tips: close方法，当完成流的操作时，必须调用此方法，释放系统资源。</p>
+</blockquote>
+<h3 id="2-2-FileOutputStream类"><a href="#2-2-FileOutputStream类" class="headerlink" title="2.2 FileOutputStream类"></a>2.2 FileOutputStream类</h3><p><code>OutputStream</code>有很多子类，我们从最简单的一个子类开始。<br><code>java.io.FileOutputStream</code>类是文件输出流，用于将数据写出到文件。</p>
+<h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
+<li><code>public FileOutputStream(File file)</code>：创建文件输出流以写入由指定的 File对象表示的文件。 </li>
+<li><code>public FileOutputStream(String name)</code>： 创建文件输出流以指定的名称路径写入文件。</li>
+</ul>
+<p>当你创建一个流对象时，必须传入一个文件路径。该路径下，如果没有这个文件，会创建该文件。如果有这个文件，会清空这个文件的数据。</p>
+<ul>
+<li>构造举例，代码如下：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FileOutPutDemo01 {
+    public static void main(String[] args) throws IOException {
+        &#x2F;&#x2F; 使用File对象创建流对象
+        File file = new File(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\a.txt&quot;);
+        FileOutputStream fos = new FileOutputStream(file);
+        &#x2F;&#x2F; 使用文件名称路径创建流对象
+        FileOutputStream fos2 = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\b.txt&quot;);
+    }
+}
+</code></pre>
+</li>
+</ul>
+<h4 id="写出字节数据"><a href="#写出字节数据" class="headerlink" title="写出字节数据"></a>写出字节数据</h4><ol>
+<li><strong>写出字节</strong>：<code>write(int b)</code> 方法，每次可以写出一个字节数据，代码使用演示：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FOSWrite {
+    public static void main(String[] args) throws IOException {
+        FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo&quot; +
+                &quot;\\Demo5_6\\fos.txt&quot;);
+        &#x2F;&#x2F; 写入数据
+        fos.write(97);
+        fos.write(98);
+        fos.write(99);
+        &#x2F;&#x2F; 关闭
+        fos.close();
+    }
+}
+&#x2F;&#x2F; result:
+abc
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>Tips: </p>
+<pre><code>1. 虽然参数为int类型四个字节，但是只会保留一个字节的信息写出。
+2. 流操作完毕后，必须释放系统资源，调用close方法，千万记得。
+</code></pre></blockquote>
+<ol start="2">
+<li><strong>写出字节数组</strong>：<code>write(byte[] b)</code>，每次可以写出数组中的数据，代码使用演示：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FOSWriteDemo02 {
+    public static void main(String[] args) throws IOException {
+        FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo&quot; +
+                &quot;\\Demo5_6\\fos2.txt&quot;);
+        &#x2F;&#x2F; 将字符串转换为字节数组
+        byte[] bytes = &quot;测试写入&quot;.getBytes();
+        &#x2F;&#x2F; 写出字节数组数据
+        fos.write(bytes); &#x2F;&#x2F; 测试写入
+        fos.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<ol start="3">
+<li><strong>写出指定长度字节数组</strong>：<code>write(byte[] b, int off, int len)</code> ,每次写出从off索引开始，len个字节，代码使用演示：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FosWriteDemo03 {
+    public static void main(String[] args) throws IOException {
+        FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fos3.txt&quot;);
+        byte[] bytes = &quot;abcdef&quot;.getBytes(); &#x2F;&#x2F; 字符串转换为字节数组
+        fos.write(bytes,2,2); &#x2F;&#x2F; result：cd
+        fos.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<h4 id="数据追加续写"><a href="#数据追加续写" class="headerlink" title="数据追加续写"></a>数据追加续写</h4><ul>
+<li><code>public FileOutputStream(File file, boolean append)</code>： 创建文件输出流以写入由指定的 File对象表示的文件。  </li>
+<li><code>public FileOutputStream(String name, boolean append)</code>： 创建文件输出流以指定的名称写入文件。  </li>
+</ul>
+<p>以上两个构造方法，参数中都需要传入一个boolean类型的值，true表示追加数据，false表示清空原有数据。代码示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FOSAppendWrite {
+    public static void main(String[] args) throws IOException {
+        FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo&quot; +
+                &quot;\\Demo5_6\\fos2.txt&quot;,true); &#x2F;&#x2F; 创建流对象，设置数据追加
+        fos.write(&quot;，测试追加。&quot;.getBytes()); &#x2F;&#x2F; result = 测试写入，测试追加。
+        fos.close();
+    }
+}
+</code></pre></p>
+<h4 id="写出换行"><a href="#写出换行" class="headerlink" title="写出换行"></a>写出换行</h4><p>Windows中换行符号是<code>\r\n</code>。以下代码示例具体使用：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FOSWriteDemo04 {
+    public static void main(String[] args) throws IOException {
+        FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\c.txt&quot;);
+        byte[] words = {97,98,99,100,101}; &#x2F;&#x2F; abcde
+        for (byte i:words){
+            fos.write(i);
+            fos.write(&quot;\r\n&quot;.getBytes()); &#x2F;&#x2F; 写出一个换行，将换行符号转为数组写出
+        }
+        fos.close();
+    }
+}
+
+&#x2F;*
+result:
+a
+b
+c
+d
+e
+ *&#x2F;
+</code></pre></p>
+<blockquote>
+<p>Tips：</p>
+<ul>
+<li>回车符<code>\r</code>和换行符<code>\n</code> ：<ul>
+<li>回车符：回到一行的开头（return）。</li>
+<li>换行符：下一行（newline）。</li>
+</ul>
+</li>
+<li>系统中的换行：<ul>
+<li>Windows系统里，每行结尾是 <code>回车+换行</code> ，即<code>\r\n</code>；</li>
+<li>Unix系统里，每行结尾只有 <code>换行</code> ，即<code>\n</code>；</li>
+<li>Mac系统里，每行结尾是 <code>回车</code> ，即<code>\r</code>。从 Mac OS X开始与Linux统一。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="2-3-字节输入流-InputStream"><a href="#2-3-字节输入流-InputStream" class="headerlink" title="2.3 字节输入流[InputStream]"></a>2.3 字节输入流[InputStream]</h3><p><code>java.io.InputStream</code>抽象类是表示字节输入流的所有类的超类，可以读取字节信息到内存中。它定义了字节输入流的基本共性功能方法。</p>
+<ul>
+<li><code>public void close()</code> ：关闭此输入流并释放与此流相关联的任何系统资源。    </li>
+<li><code>public abstract int read()</code>： 从输入流读取数据的下一个字节。 </li>
+<li><code>public int read(byte[] b)</code>： 从输入流中读取一些字节数，并将它们存储到字节数组 b中 。</li>
+</ul>
+<h3 id="2-4-FileInputStream类"><a href="#2-4-FileInputStream类" class="headerlink" title="2.4 FileInputStream类"></a>2.4 FileInputStream类</h3><p><code>java.io.FileInputStream</code>类是文件输入流，从文件中读取字节。</p>
+<h4 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
+<li><code>FileInputStream(File file)</code>： 通过打开与实际文件的连接来创建一个 FileInputStream ，该文件由文件系统中的 File对象 file命名。 </li>
+<li><code>FileInputStream(String name)</code>： 通过打开与实际文件的连接来创建一个 FileInputStream ，该文件由文件系统中的路径名 name命名。  </li>
+</ul>
+<p>当你创建一个流对象时，必须传入一个文件路径。该路径下，如果没有该文件,会抛出<code>FileNotFoundException</code> 。</p>
+<ul>
+<li>代码示例如下：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FileInputStreamDemo01 {
+    public static void main(String[] args) throws IOException {
+        &#x2F;&#x2F; 使用File对象创建流对象
+        FileInputStream fis = new FileInputStream(new File(&quot;Demo5_6\\fos2.txt&quot;));
+        &#x2F;&#x2F; 使用文件名创建流对象
+        FileInputStream fis2 = new FileInputStream(&quot;Demo5_6\\fos.txt&quot;);
+    }
+}
+</code></pre>
+</li>
+</ul>
+<h4 id="读取字节数据"><a href="#读取字节数据" class="headerlink" title="读取字节数据"></a>读取字节数据</h4><ol>
+<li><strong>读取字节</strong>：<code>read</code>方法，每次可以读取一个字节的数据，提升为int类型，读取到文件末尾，返回<code>-1</code>，代码演示如下：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FISRead {
+    public static void main(String[] args) throws IOException {
+        FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt&quot;);
+        byte[] bytes = {97,98,99,100,101};
+        for (byte b:bytes){
+            fos.write(b);
+            fos.write(&quot;\n&quot;.getBytes());
+        }
+        fos.close();
+        &#x2F;&#x2F; 创建字节输入流对象，指向文件
+        FileInputStream fis = new FileInputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt&quot;);
+	int b;
+        while ((b = fis.read())!=-1){ &#x2F;&#x2F; 判断从数据中读取的值不等于-1
+            System.out.println((char)b); &#x2F;&#x2F; byte字节型转换为char字符型
+        }
+        fis.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>Tips:虽然读取了一个字节，但是会自动提示为int类型。操作完毕后，一定要close()。</p>
+</blockquote>
+<ol start="2">
+<li><strong>使用字节数组读取</strong>：<code>read(byte[] b)</code>，每次读取b的长度个字节到数组中，返回读取到的有效字节个数，读取到末尾时，返回<code>-1</code> ，代码使用演示：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FISReadDemo02 {
+    public static void main(String[] args) throws IOException {
+        FileInputStream fis = new FileInputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt&quot;);
+        int len; &#x2F;&#x2F; 定义变量，作为有效个数
+        byte[] bytes = new byte[2]; &#x2F;&#x2F; 定义字节数组，作为放字节数据的容器，存储2个字节
+        while ((len = fis.read(bytes))!=-1){ &#x2F;&#x2F; 这样每次可以读取2个字节
+            System.out.println(new String(bytes,0,len)); &#x2F;&#x2F; 每次读取后，将数组变成字符串打印
+        }
+        fis.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="2-5-字节流练习：图片复制"><a href="#2-5-字节流练习：图片复制" class="headerlink" title="2.5 字节流练习：图片复制"></a>2.5 字节流练习：图片复制</h3><h4 id="复制原理图解"><a href="#复制原理图解" class="headerlink" title="复制原理图解"></a>复制原理图解</h4><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/07/2_copy-1557212320372.jpg" alt="title"></p>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class CopyImg {
+    public static void main(String[] args) throws IOException {
+        &#x2F;&#x2F; 创建流对象，指定数据源
+        FileInputStream fis = new FileInputStream(&quot;C:\\Users\\14908\\Desktop\\Java\\img\\2_copy.jpg&quot;);
+        &#x2F;&#x2F; 指定目的地
+        FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo&quot; +
+                &quot;\\Demo5_6\\copy.jpg&quot;);
+        &#x2F;&#x2F; 定义长度
+        int len;
+        &#x2F;&#x2F; 定义数组
+        byte[] b = new byte[1024];
+        &#x2F;&#x2F; 循环读取
+        while ((len = fis.read(b))!=-1){
+            fos.write(b,0,len);
+        }
+        fos.close();
+        fis.close();
+    }
+}
+</code></pre>
+<blockquote>
+<p>Tips：<br>    流的关闭原则：先开后关，后开先关。</p>
+</blockquote>
+<h2 id="3-字符流"><a href="#3-字符流" class="headerlink" title="3. 字符流"></a>3. 字符流</h2><p>当使用字节流读取文本文件时，可能会有一个小问题。就是遇到中文字符时，可能不会显示完整的字符，那是因为一个中文字符可能占用多个字节存储。所以Java提供一些字符流类，以字符为单位读写数据，专门用于处理文本文件。</p>
+<h3 id="3-1-字符输入流-Reader"><a href="#3-1-字符输入流-Reader" class="headerlink" title="3.1 字符输入流[Reader]"></a>3.1 字符输入流[Reader]</h3><p><code>java.io.Reader</code>抽象类是表示用于读取字符流的所有类的超类，可以读取字符信息到内存中。它定义了字符输入流的基本共性功能方法。</p>
+<ul>
+<li><code>public void close()</code> ：关闭此流并释放与此流相关联的任何系统资源。    </li>
+<li><code>public int read()</code>： 从输入流读取一个字符。 </li>
+<li><code>public int read(char[] cbuf)</code>： 从输入流中读取一些字符，并将它们存储到字符数组 cbuf中 。</li>
+</ul>
+<h3 id="3-2-FileReader类"><a href="#3-2-FileReader类" class="headerlink" title="3.2 FileReader类"></a>3.2 FileReader类</h3><p><code>java.io.FileReader</code>类是读取字符文件的便利类。构造时使用系统默认的字符编码和默认字节缓冲区。</p>
+<blockquote>
+<p>Tips:</p>
+<pre><code>1. 字符编码：字节与字符的对应规则。Windows系统的中文编码默认是GBK编码表(IDEA中是UTF-8)
+2. 字节缓冲区：一个字节数组，用来临时存储字节数据
+</code></pre></blockquote>
+<h4 id="构造方法-2"><a href="#构造方法-2" class="headerlink" title="构造方法"></a>构造方法</h4><p><code>FileReader(File file)</code>： 创建一个新的 FileReader ，给定要读取的File对象。<br><code>FileReader(String fileName)</code>： 创建一个新的 FileReader ，给定要读取的文件的名称。</p>
+<p>代码示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FileReaderDemo throws IOException{
+	public static void main(String[] args){
+		&#x2F;&#x2F; 使用File对象创建流对象
+		FileReader fr = new FileReader(new File(&quot;Demo5_6\\a.txt&quot;))；
+		&#x2F;&#x2F; 使用文件名称创建流对象
+		FileReader fr2 = new FileReader(&quot;Demo5_6\\a.txt&quot;)；
+	}
+}
+</code></pre></p>
+<h4 id="读取字符数据"><a href="#读取字符数据" class="headerlink" title="读取字符数据"></a>读取字符数据</h4><ol>
+<li><strong>读取字符</strong>：<code>read</code>方法，每次可以读取一个字符的数据，提升为int类型，读取到文件末尾，返回<code>-1</code>，循环读取，代码演示如下：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FRReadDemo01 {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\d.txt&quot;);
+        int w;
+        while ((w = fr.read())!=-1){
+            System.out.print((char)w);
+        }
+        fr.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>Tips：虽然读取了一个字符，但是会自动提升为int类型。</p>
+</blockquote>
+<ol start="2">
+<li><strong>使用字符数组读取</strong>：<code>read(char[] cbuf)</code>，每次读取b的长度个字符到数组中，返回读取到的有效字符个数，读取到末尾时，返回<code>-1</code> ，代码演示如下：
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FRReadDemo02 {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\d.txt&quot;);
+        int len;
+        char[] cbuf = new char[2]; &#x2F;&#x2F; 定义字符数组，作为放字符数据的容器
+        while ((len = fr.read(cbuf))!=-1){
+            System.out.print(new String(cbuf,0,len)); &#x2F;&#x2F; 转换为字符串输出
+        }
+        fr.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="3-3-字符输出流-Writer"><a href="#3-3-字符输出流-Writer" class="headerlink" title="3.3 字符输出流[Writer]"></a>3.3 字符输出流[Writer]</h3><p><code>java.io.Writer</code>抽象类是表示用于写出字符流的所有类的超类，将指定的字符信息写出到目的地。它定义了字节输出流的基本共性功能方法。</p>
+<ul>
+<li><code>void write(int c)</code> 写入单个字符。</li>
+<li><code>void write(char[] cbuf)</code>写入字符数组。 </li>
+<li><code>abstract  void write(char[] cbuf, int off, int len)</code>写入字符数组的某一部分,off数组的开始索引,len写的字符个数。 </li>
+<li><code>void write(String str)</code>写入字符串。 </li>
+<li><code>void write(String str, int off, int len)</code> 写入字符串的某一部分,off字符串的开始索引,len写的字符个数。</li>
+<li><code>void flush()</code>刷新该流的缓冲。  </li>
+<li><code>void close()</code> 关闭此流，但要先刷新它。 </li>
+</ul>
+<h3 id="3-4-FileWriter类"><a href="#3-4-FileWriter类" class="headerlink" title="3.4 FileWriter类"></a>3.4 FileWriter类</h3><p><code>java.io.FileWriter</code>类是写出字符到文件的便利类。构造时使用系统默认的字符编码和默认字节缓冲区。</p>
+<h4 id="构造方法-3"><a href="#构造方法-3" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
+<li><code>FileWriter(File file)</code>： 创建一个新的 FileWriter，给定要读取的File对象。   </li>
+<li><code>FileWriter(String fileName)</code>： 创建一个新的 FileWriter，给定要读取的文件的名称。 </li>
+</ul>
+<h4 id="基本写出数据"><a href="#基本写出数据" class="headerlink" title="基本写出数据"></a>基本写出数据</h4><p><strong>写出字符</strong>：<code>write(int b)</code> 方法，每次可以写出一个字符数据，代码示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FWWrite {
+    public static void main(String[] args) throws IOException {
+        FileWriter fw = new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw.txt&quot;);
+        &#x2F;&#x2F; 写出数据
+        fw.write(97);
+        fw.write(&#39;b&#39;);
+        fw.write(&#39;c&#39;);
+        fw.write(30000);
+        fw.close();
+        &#x2F;&#x2F; result: abc田
+    }
+}
+</code></pre></p>
+<blockquote>
+<p>Tips:</p>
+<ol>
+<li>虽然参数为int类型四个字节，但是只会保留一个字符的信息写出。</li>
+<li>未调用close方法，数据只是保存到了缓冲区，并未写出到文件中。</li>
+</ol>
+</blockquote>
+<h4 id="关闭和刷新"><a href="#关闭和刷新" class="headerlink" title="关闭和刷新"></a>关闭和刷新</h4><p>因为内置缓冲区的原因，如果不关闭输出流，无法写出字符到文件中。但是关闭的流对象，是无法继续写出数据的。如果我们既想写出数据，又想继续使用流，就需要<code>flush</code> 方法了。</p>
+<ul>
+<li><code>flush</code> ：刷新缓冲区，流对象可以继续使用。</li>
+<li><code>close</code>:先刷新缓冲区，然后通知系统释放资源。流对象不可以再被使用了。</li>
+</ul>
+<p>代码示例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FWWriteDemo02 {
+    public static void main(String[] args) throws IOException {
+        FileWriter fw = new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw02.txt&quot;);
+        &#x2F;&#x2F; 写出数据,通过flush
+        fw.write(&#39;刷&#39;);
+        fw.flush();
+        fw.write(&#39;新&#39;);
+        fw.flush();
+        &#x2F;&#x2F; 写出数据，通过close
+        fw.write(&#39;关&#39;);
+        fw.close();
+        fw.write(&#39;闭&#39;); &#x2F;&#x2F; [报错] java.io.IOException: Stream closed
+        fw.close();
+    }
+}
+</code></pre></p>
+<blockquote>
+<p>Tips：即使使用了flush方法写出了数据，操作到最后还是要调用close方法，释放系统资源。</p>
+</blockquote>
+<h4 id="写出其他数据"><a href="#写出其他数据" class="headerlink" title="写出其他数据"></a>写出其他数据</h4><ol>
+<li><p><strong>写出字符数组</strong> ：<code>write(char[] cbuf)</code> 和 <code>write(char[] cbuf, int off, int len)</code> ，每次可以写出字符数组中的数据，用法类似FileOutputStream，实例如下：</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FWCharWrite {
+    public static void main(String[] args) throws IOException {
+        FileWriter fw = new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw03.txt&quot;);
+        char[] chars = &quot;测试写出字符数组&quot;.toCharArray(); &#x2F;&#x2F; 将字符串转换为字符数组
+        fw.write(chars); &#x2F;&#x2F; 测试写出字符数组
+        fw.write(chars,4,2); &#x2F;&#x2F; 写出从索引2开始的2个字节，即&quot;字符&quot;2字
+        fw.close();
+    }
+}                                                              
+</code></pre>
+</li>
+<li><p><strong>写出字符串</strong>：<code>write(String str)</code> 和 <code>write(String str, int off, int len)</code> ，每次可以写出字符串中的数据，更为方便，示例如下：</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FWWriteString {
+    public static void main(String[] args) throws IOException {
+        FileWriter fw = new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw04.txt&quot;);
+        fw.write(&quot;测试字符串写出&quot;); &#x2F;&#x2F; 测试字符串写出
+        fw.write(&quot;测试写出指定字符&quot;,2,2); &#x2F;&#x2F; 写出
+        fw.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<ol start="3">
+<li><strong>续写和换行</strong>：操作类似于FileOutputStream。
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FWWriteString {
+    public static void main(String[] args) throws IOException {
+        FileWriter fw = new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw04.txt&quot;);
+        fw.write(&quot;测试字符串写出&quot;); &#x2F;&#x2F; 测试字符串写出
+        fw.write(&quot;\r\n&quot;); &#x2F;&#x2F; 写出换行符
+        fw.write(&quot;测试写出指定字符&quot;,2,2); &#x2F;&#x2F; 写出
+        fw.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<h2 id="4-IO异常的处理"><a href="#4-IO异常的处理" class="headerlink" title="4. IO异常的处理"></a>4. IO异常的处理</h2><h3 id="JDK7前的处理"><a href="#JDK7前的处理" class="headerlink" title="JDK7前的处理"></a>JDK7前的处理</h3><p>之前的练习中，一直把异常直接抛出，实际开发中建议使用<code>try...catch...finally</code> 代码块，处理异常部分，代码示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class HandleException01 {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 声明一个Fw对象，指向空
+        FileWriter fw = null;
+        try {
+            &#x2F;&#x2F; 创建一个流对象，将fw指向该对象
+            fw = new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw05.txt&quot;);
+            &#x2F;&#x2F; 写出数据
+            fw.write(&quot;异常的处理测试&quot;);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                if (fw != null){
+                    fw.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+    }
+}
+</code></pre></p>
+<h3 id="JDK7的处理"><a href="#JDK7的处理" class="headerlink" title="JDK7的处理"></a>JDK7的处理</h3><p>可以使用JDK7优化后的<code>try-with-resource</code> 语句，该语句确保了每个资源在语句结束时关闭。所谓的资源（resource）是指在程序完成后，必须关闭的对象。<br>格式：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">try(创建流对象语句，如多个，使用&#39;;&#39;隔开){
+	&#x2F;&#x2F; 读写语句
+}catch(IOException e){
+	e.printStackTrace();
+}
+</code></pre></p>
+<p>代码示例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FWJDK7Dispose {
+    public static void main(String[] args) {
+        try(FileWriter fw = new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\fw06.txt&quot;);){
+            fw.write(&quot;测试JDK7后优化的try...catch&quot;);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre></p>
+<h3 id="JDK9的改进"><a href="#JDK9的改进" class="headerlink" title="JDK9的改进"></a>JDK9的改进</h3><p>JDK9中<code>try-with-resource</code> 的改进，对于<strong>引入对象</strong>的方式，支持的更加简洁。被引入的对象，同样可以自动关闭，无需手动close，格式如下。<br>改进前格式：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 被final修饰的对象
+final Resource resource1 = new Resource(&quot;resource1&quot;);
+&#x2F;&#x2F; 普通对象
+Resource resource2 = new Resource(&quot;resource2&quot;);
+&#x2F;&#x2F; 引入方式：创建新的变量保存
+try (Resource r1 = resource1;
+     Resource r2 = resource2) {
+     &#x2F;&#x2F; 使用对象
+}
+</code></pre></p>
+<p>改进后的格式：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 被final修饰的对象
+final Resource resource1 = new Resource(&quot;resource1&quot;);
+&#x2F;&#x2F; 普通对象
+Resource resource2 = new Resource(&quot;resource2&quot;);
+
+&#x2F;&#x2F; 引入方式：直接引入
+try (resource1; resource2) {
+     &#x2F;&#x2F; 使用对象
+}
+</code></pre></p>
+<p>改进后的代码实例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class TryDemo {
+    public static void main(String[] args) throws IOException{
+        final FileReader fr = new FileReader(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\read.txt&quot;);
+        FileWriter fw = new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\out.txt&quot;);
+        try(fr;fw){
+            int b;
+            while ((b = fr.read())!=-1){
+                fw.write(b);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre></p>
+<h2 id="5-属性集"><a href="#5-属性集" class="headerlink" title="5. 属性集"></a>5. 属性集</h2><h3 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h3><p><code>java.util.Properties</code> 继承于<code>Hashtable</code> ，来表示一个持久的属性集。它使用键值结构存储数据，每个键及其对应值都是一个字符串。该类也被许多Java类使用，比如获取系统属性时，<code>System.getProperties</code> 方法就是返回一个<code>Properties</code>对象。</p>
+<h3 id="5-2-Properties类"><a href="#5-2-Properties类" class="headerlink" title="5.2 Properties类"></a>5.2 Properties类</h3><h4 id="构造方法-4"><a href="#构造方法-4" class="headerlink" title="构造方法"></a>构造方法</h4><p><code>public Properties()</code> :创建一个空的属性列表。</p>
+<h4 id="基本的存储方法"><a href="#基本的存储方法" class="headerlink" title="基本的存储方法"></a>基本的存储方法</h4><ul>
+<li><code>public Object setProperty(String key, String value)</code> ： 保存一对属性。  </li>
+<li><code>public String getProperty(String key)</code> ：使用此属性列表中指定的键搜索属性值，返回搜索到的值</li>
+<li><code>public Set&lt;String&gt; stringPropertyNames()</code> ：返回所有键名称的集合。
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class ProDemo {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 创建属性集对象
+        Properties pt = new Properties();
+        &#x2F;&#x2F; 添加键值对元素
+        pt.setProperty(&quot;小梦&quot;,&quot;168&quot;);
+        pt.setProperty(&quot;小明&quot;,&quot;175&quot;);
+        pt.setProperty(&quot;小张&quot;,&quot;178&quot;);
+        &#x2F;&#x2F; 打印属性集对象
+        System.out.println(pt);
+        &#x2F;&#x2F; 通过键获取值
+        Set&lt;String&gt; set = pt.stringPropertyNames(); &#x2F;&#x2F; 获取所以键，放入集合中
+        for (String key:set){
+            System.out.println(key+&quot;--&gt;&quot;+pt.getProperty(key));
+        }
+    }
+}
+&#x2F;&#x2F; result
+{小明=175, 小张=178, 小梦=168}
+小明--&gt;175
+小张--&gt;178
+小梦--&gt;168
+</code></pre>
+</li>
+</ul>
+<h4 id="store方法"><a href="#store方法" class="headerlink" title="store方法"></a>store方法</h4><p><code>Properties</code>集合中的方法<code>store</code>；用于把集合中的临时数据，持久化写入到硬盘中存储。</p>
+<ul>
+<li><strong>构造方法</strong><ul>
+<li>void store(OutPutStream out,String comments); 字节输出流，不能写入中文</li>
+<li>void store(Write write,String comments); 字符输出流，可以写中文</li>
+<li>String comments: 注释，用来解释说明保存的文件是做什么的，不能中文注释</li>
+</ul>
+</li>
+</ul>
+<p>代码示例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class ProDemo02 {
+    public static void main(String[] args) throws IOException {
+        &#x2F;&#x2F; 1. 创建Properties集合对象，添加数据
+        Properties pro = new Properties();
+        pro.setProperty(&quot;小明&quot;,&quot;177&quot;);
+        pro.setProperty(&quot;小立&quot;,&quot;181&quot;);
+        pro.setProperty(&quot;小化&quot;,&quot;173&quot;);
+        &#x2F;&#x2F; 2. 创建字节输出流&#x2F;字符输出流对象，绑定输出目的地。
+        FileWriter fw = new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\prop.txt&quot;);
+        &#x2F;&#x2F; 3. 使用Properties集合中的方法store，把集合中的临时数据，写入到硬盘中
+        pro.store(fw,&quot;save data&quot;);
+        &#x2F;&#x2F; 4. 释放资源
+        fw.close();
+        &#x2F;*
+        prop.txt
+            #save data
+            #Tue May 07 20:47:14 CST 2019
+            小明=177
+            小立=181
+            小化=173
+         *&#x2F;
+    }
+}
+</code></pre></p>
+<h4 id="load方法"><a href="#load方法" class="headerlink" title="load方法"></a>load方法</h4><p>可以使用<code>Properties</code>集合中的方法<code>load</code>，把硬盘中保存的文件(键值对形式的)，读取到集合中使用。</p>
+<ul>
+<li><p><strong>构造方法</strong>：</p>
+<ul>
+<li>void load(InputStream inStream); 字节输入流，不能读取含有中文的键值对</li>
+<li>void load(Reader reader); 字符输入流，可以读取中文</li>
+</ul>
+</li>
+<li><p><strong>注意</strong>：</p>
+<ol>
+<li>存储键值对的文件中，键与值的默认连接符号可以使用=，空格(其他符号)，一般使用=</li>
+<li>存储键值对的文件中，可以使用# 做注释，注释的内容不会被读取</li>
+<li>存储键值对的文件中，键值默认都是字符串，不需要再加引号</li>
+</ol>
+</li>
+</ul>
+<p>代码示例：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class ProLoadMethod {
+    public static void main(String[] args) throws IOException {
+        &#x2F;&#x2F; 1. 创建Properties集合对象
+        Properties pro = new Properties();
+        &#x2F;&#x2F; 2. 使用Properties集合对象中的load方法来读取保存键值对的文件
+        pro.load(new FileReader(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_6\\prop.txt&quot;));
+        &#x2F;&#x2F; 3.遍历Properties集合
+        Set&lt;String&gt; set = pro.stringPropertyNames();
+        for (String key:set){
+            System.out.println(key + &quot;--&gt;&quot; + pro.getProperty(key));
+        }
+    }
+}
+</code></pre></p>
+<h2 id="今日总结："><a href="#今日总结：" class="headerlink" title="今日总结："></a>今日总结：</h2><ol>
+<li>IO的概述</li>
+<li>IO的分类：根据数据流向：输入流和输出流，根据数据类型：字节流和字符流。</li>
+<li>字节输出流<code>OutPutStream</code>类的子类<code>FileFileOutputStream</code>类构造方法创建流对象的方式</li>
+<li><code>FileFileOutputStream</code>类的基本方法<code>write</code>的三种使用方式</li>
+<li>数据的追加续写：<code>FileFileOutputStream</code>类的第二个参数布尔值，true追加，false清空。</li>
+<li>关于换行符的写入</li>
+<li>字节输入流<code>InputStream</code>类的子类<code>FileInputStream</code>类</li>
+<li><code>FileInputStream</code>类构造方法创建流对象的方式</li>
+<li><code>FileInputStream</code>类的基本方法<code>read</code>的2种使用方式，读取字节和读取字节数组。</li>
+<li>字符输入流<code>Reader</code>类的子类<code>FileReader</code>类</li>
+<li><code>FileReader</code>类构造方法创建流对象的方式</li>
+<li>读取字符数据的两种方式，读取字符和读取字符数据</li>
+<li>字符输出流<code>Write</code>类的子类<code>FileWrite</code>类构造方法创建流对象的方式</li>
+<li>使用<code>write</code>写出数据的方法：写出字符、写出字符数组写出字符串</li>
+<li>关闭<code>close()</code>和刷新<code>flush</code>方法</li>
+<li>IO异常处理的优化方案</li>
+<li>属性集的概述和使用</li>
+<li><code>Properties</code>类的构造方法创建流对象</li>
+<li>基本存储方法:<code>setProperty()</code>,<code>getProperty()</code>,<code>stringPropertyNames()</code></li>
+<li>读取<code>load()</code>和写入<code>store()</code>方法</li>
+</ol>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/JavaBasics/io-stream.html" class="b-link-green">Java中的字节流和字符流</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-05-07T21-40-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/JavaBasics/io.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="缓冲流、转换流、序列化流、打印流">
+                        
+                        <span class="card-title">缓冲流、转换流、序列化流、打印流</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 缓冲流缓冲流,也叫高效流，是对4个基本的FileXxx 流的增强，所以也是4个流，按照数据类型分类：
+
+字节缓冲流：BufferedInputStream，BufferedOutputStream 
+字符缓冲流：BufferedRea</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/IO流/" target="_blank">
+                        <span class="chip bg-color">IO流</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/JavaBasics/file-recursion.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Java中File类和递归">
+                        
+                        <span class="card-title">Java中File类和递归</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. File类java.io.File 类是文件和目录路径名的抽象表示，主要用于文件和目录的创建、查找和删除等操作。
+
+1.1 构造方法
+public File(String pathname) ：通过将给定的路径名字符串转换为抽象路径名</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">289.9k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

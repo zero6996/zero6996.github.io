@@ -1,0 +1,1198 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java的final关键字及内部类, Zero的博客">
+    <meta name="description" content="1. final关键字继承中子类可以在父类的继承上改写父类内容，比如方法重写。但如果我们随意的继承API中提供的类，改写其内容，显示不合适。为了避免这种随意改写的起来，Java提供了final关键字，用于修改不可改变内容。
+
+
+final：">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java的final关键字及内部类 | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java的final关键字及内部类
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                JavaBasics
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-04-22
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.2k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        13 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-final关键字"><a href="#1-final关键字" class="headerlink" title="1. final关键字"></a>1. final关键字</h2><p>继承中子类可以在父类的继承上改写父类内容，比如方法重写。但如果我们随意的继承API中提供的类，改写其内容，显示不合适。为了避免这种随意改写的起来，Java提供了final关键字，用于修改不可改变内容。</p>
+<a id="more"></a>
+<ul>
+<li>final：不可改变。可用于修饰类、方法和变量。<ul>
+<li>类：被修改的类，不能被继承。</li>
+<li>方法：被修饰的方法，不能被重写。</li>
+<li>变量：被修饰的变量，不能被重新赋值。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-1-使用方式"><a href="#1-1-使用方式" class="headerlink" title="1.1 使用方式"></a>1.1 使用方式</h3><ul>
+<li>修饰类：final class 类名{}</li>
+<li>修饰方法：修饰符 final 返回值类型 方法名(参数列表){方法体}</li>
+<li>修饰变量有以下三种情况：<ul>
+<li>局部变量–基本类型：基本类型的局部变量，被final修饰后，只能赋值一次，不能再更改。</li>
+<li>局部变量–引用类型：引用类型的局部变量，被final修饰后，只能指向一个对象，地址不能再更改。但是不影响对象内部成员变量值的修改。</li>
+<li>成员变量：成员变量涉及到初始化的问题，初始化方式有两种，显式初始化和构造方法初始化。</li>
+</ul>
+</li>
+</ul>
+<p>代码示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class FinalDemo01 {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 1. 以下示意局部变量基本类型使用final关键字修饰。
+        final int a; &#x2F;&#x2F; 使用final修饰，声明变量。
+        a = 10; &#x2F;&#x2F; 第一次赋值，编译通过
+&#x2F;&#x2F;        a = 20; &#x2F;&#x2F; 第二次赋值，报错。
+        final int b = 10; &#x2F;&#x2F; 申明变量同时直接赋值，使用final修饰
+&#x2F;&#x2F;        b = 20; &#x2F;&#x2F; 报错,不可重新赋值
+
+        for(int i = 0; i &lt; 10;i++){
+            final int c = i;
+            System.out.print(c);
+        }
+
+        &#x2F;&#x2F; 2. 以下示例局部变量引用类型使用final关键字修饰。
+        final TestFinal tf = new TestFinal(&quot;张三&quot;,11); &#x2F;&#x2F; 创建一个测试对象。
+&#x2F;&#x2F;        tf = new TestFinal(); &#x2F;&#x2F; 新创建一个对象，把tf指向该对象。报错，使用final修饰后无法改变地址值。
+
+    }
+}
+&#x2F;&#x2F; 成员变量initialize
+public class TestFinal {
+    &#x2F;&#x2F; 创建类时直接初始化，并用final修饰。
+&#x2F;*    final String USERNAME = &quot;张山&quot;;
+    private int age;
+*&#x2F;
+    final String USERNAME;
+    private int age;
+
+    &#x2F;&#x2F; 使用构造方法initialize
+    public TestFinal(String USERNAME, int age) {
+        this.USERNAME = USERNAME;
+        this.age = age;
+    }
+}
+</code></pre></p>
+<h2 id="2-权限修饰符"><a href="#2-权限修饰符" class="headerlink" title="2. 权限修饰符"></a>2. 权限修饰符</h2><p>在Java中提供了四种访问权限，使用不同的访问权限修饰符修饰时，被修饰的内容会有不同的访问权限。</p>
+<ul>
+<li>public：公共的</li>
+<li>protected：受保护的</li>
+<li>default：默认的</li>
+<li>private：私有的</li>
+</ul>
+<h3 id="2-1-不同权限的访问能力"><a href="#2-1-不同权限的访问能力" class="headerlink" title="2.1 不同权限的访问能力"></a>2.1 不同权限的访问能力</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/22/Java%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90-1555902457643.png" alt="title"><br><br>public具有最大权限。private则是最小权限。<br>故编写代码时，如果没有特殊的考虑，应该这样使用权限：</p>
+<ul>
+<li>成员变量使用private，隐藏细节。</li>
+<li>构造方法使用public，方便创建对象。</li>
+<li>成员方法使用public，方便调用方法。</li>
+<li>不加权限修饰符的，其访问能力与default修饰符相同。</li>
+</ul>
+<h2 id="3-内部类"><a href="#3-内部类" class="headerlink" title="3. 内部类"></a>3. 内部类</h2><p>如果一个类A定义在另一个类B里面，里面的那个类A就称为内部类，B则称为外部类。</p>
+<h3 id="成员内部类：定义在类中方法外的类。"><a href="#成员内部类：定义在类中方法外的类。" class="headerlink" title="成员内部类：定义在类中方法外的类。"></a>成员内部类：定义在类中<strong>方法外</strong>的类。</h3><p>在描述事物时，若一个事物内部还包含其他事物，就可以使用内部类这种结构。比如，汽车类Car中包含发动机类Engine，这个Engine类就可以使用内部类来描述，定义在成员位置。<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">class Car{ &#x2F;&#x2F;外部类 
+	...
+    class Engine{ &#x2F;&#x2F;成员内部类
+	...
+    }
+}
+</code></pre></p>
+<ul>
+<li>内部类可以直接访问外部类的成员，包括私有成员。</li>
+<li>访问重名的成员变量，使用格式：外部类名称.this.外部类成员变量名<br>如何使用成员内部类？两种方式：</li>
+</ul>
+<ol>
+<li>间接方式：在外部类的方法中，使用内部类；然后通过调用外部类方法来间接调用内部类。</li>
+<li>直接方式：[外部类名称.内部类名称 对象名 = new 外部类名称().new 内部类名称();]</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 成员内部类示例
+public class Body { &#x2F;&#x2F; 内部类
+
+    public class Heart{ &#x2F;&#x2F; 成员内部类
+
+        &#x2F;&#x2F; 内部类方法
+        public void beat(){
+            System.out.println(&quot;心脏跳动：砰砰砰！&quot;);
+            System.out.println(&quot;我叫：&quot; + name); &#x2F;&#x2F; 内部类可以直接访问外部类成员变量
+        }
+    }
+
+    private String name; &#x2F;&#x2F; 外部类成员变量
+
+    &#x2F;&#x2F; 外部类方法
+    public void methodBody(){
+        System.out.println(&quot;外部类的方法&quot;);
+        new Heart().beat(); &#x2F;&#x2F; 匿名对象
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+&#x2F;&#x2F; 成员内部类示例测试类
+public class InnerClassDemo02 {
+    public static void main(String[] args) {
+        Body body = new Body();
+        body.methodBody(); &#x2F;&#x2F; 间接通过外部类方法访问内部类
+        System.out.println(&quot;下面使用直接访问方式访问内部类&quot;);
+        Body.Heart heart = new Body().new Heart();
+        heart.beat();
+    }
+}
+
+&#x2F;&#x2F; 访问重名的成员变量示例
+public class Other {
+
+    int num = 10; &#x2F;&#x2F; 外部类的成员变量
+
+    public class Inner{
+        int num = 20; &#x2F;&#x2F; 内部类的成员变量
+        public void methodInner(){
+            int num = 30; &#x2F;&#x2F; 内部类方法的局部变量
+            System.out.println(num); &#x2F;&#x2F; 局部变量，就近原则
+            System.out.println(this.num); &#x2F;&#x2F; 内部类成员变量
+            System.out.println(Other.this.num); &#x2F;&#x2F; 外部类成员变量
+        }
+    }
+}
+&#x2F;&#x2F; 访问重名的成员变量示例测试类
+public class InnerClassDemo03 {
+    public static void main(String[] args) {
+        Other.Inner obj = new Other().new Inner();
+        obj.methodInner();
+    }
+}
+</code></pre>
+<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><p>如果一个类是定义在一个<strong>方法内部</strong>的，那么这就是一个局部内部类<br>“局部”：只有当前所属的方法才能使用它，出了这个方法外面就不能用了。<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 局部内部类
+public class Outer {
+
+    public void methodOuter(){
+        class Inner{ &#x2F;&#x2F; 局部内部类
+            int num = 10;
+            public void methodInner(){
+                System.out.println(num);
+            }
+        }
+        Inner inner = new Inner(); &#x2F;&#x2F; 创建局部内部类对象
+        inner.methodInner(); &#x2F;&#x2F; 调用内部类方法,将打印10
+    }
+}
+&#x2F;&#x2F; 测试类
+public class DemoMain {
+    public static void main(String[] args) {
+        Outer outer = new Outer();
+        outer.methodOuter();
+    }
+}
+</code></pre></p>
+<p>小结类的权限修饰符：<br>public &gt; protected &gt; (default) &gt; private<br>定义一个类时，权限修饰符规则：</p>
+<ol>
+<li>外部类：public / (default)</li>
+<li>成员内部类：public / protected / (default) / private</li>
+<li>局部内部类：什么都不能写</li>
+</ol>
+<p>注意事项：<br>局部内部类，如果希望访问所在方法的局部变量，那么这个局部变量必须是[有效的final的]<br>备注：从Java 8+开始，只要局部变量属实不变，那么final关键字可省略<br>原因：</p>
+<ol>
+<li>new出来的对象在堆内存中。</li>
+<li>局部变量是跟着方法走的，在栈内存当中。</li>
+<li>方法运行结束之后，立即出栈，局部变量就会立即消失。</li>
+<li>但new出来的对象会在堆中持续存在，直到垃圾回收消失。</li>
+</ol>
+<h3 id="匿名内部类-重点"><a href="#匿名内部类-重点" class="headerlink" title="匿名内部类(重点)"></a>匿名内部类(重点)</h3><ul>
+<li>匿名内部类：是内部类的简化写法。它本质是一个<strong>带具体实现的父类或者父接口的匿名</strong>的子类对象。<br>开发中，最常用的内部类就是匿名内部类。以接口为例，当使用一个接口时，得做如下几步操作：</li>
+</ul>
+<ol>
+<li>定义子类</li>
+<li>重写接口中的方法</li>
+<li>创建子类对象</li>
+<li>调用重写后的方法<br>我们最终的目的只是为了调用方法，那么该如何简化。匿名内部类就可以处理这种情况。</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 接口类
+public interface MyInterface {
+    void method();
+    void method2();
+}
+&#x2F;*
+匿名内部类的定义格式：
+接口名称 对象名 = new 接口名称(){
+    &#x2F;&#x2F; 覆盖重写所有抽象方法
+}
+
+对格式 “new 接口名称() {...}” 进行解析：
+1. new代表创建对象的动作
+2. 接口名称就是匿名内部类需要实现哪个接口
+3. {...} 这是匿名内部类的内容
+
+另外还有注意几点问题：
+1. 匿名内部类，在创建对象时，只能使用唯一一次。
+如果希望多次创建对象，而且类的内容一样的话，那么就必须使用单独定义的实现类了。
+2. 匿名对象，在[调用方法]时，只能调用唯一一次，如果希望同一对象调用多次方法，那么必须给对象起名。
+3. 匿名内部类是省略了[实现类&#x2F;子类名称]，但匿名对象是省略了[对象名称]。匿名内部类和匿名对象不是一回事！
+ *&#x2F;
+&#x2F;&#x2F; 主方法测试类
+public class DemoMain {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 使用匿名内部类
+        MyInterface obj = new MyInterface() {
+            @Override
+            public void method() {
+                System.out.println(&quot;使用匿名内部类实现了方法1！&quot;);
+            }
+
+            @Override
+            public void method2() {
+                System.out.println(&quot;匿名内部类实现方法2&quot;);
+            }
+        };
+        obj.method();
+        obj.method2();
+
+        &#x2F;&#x2F; 使用了匿名内部类，而且省略了对象名称，也是匿名对象
+        new MyInterface(){
+
+            @Override
+            public void method() {
+                System.out.println(&quot;使用匿名对象方式，该内部类方法只能调用一次&quot;);
+            }
+
+            @Override
+            public void method2() {
+
+            }
+        }.method(); &#x2F;&#x2F; 因为匿名对象无法调用第二次方法，所以需要再创建一个匿名内部类的匿名对象才能二次调用。
+    }
+}
+</code></pre>
+<h2 id="4-引用类型用法总结"><a href="#4-引用类型用法总结" class="headerlink" title="4. 引用类型用法总结"></a>4. 引用类型用法总结</h2><p>实际开发中，引用类型的使用非常重要且普遍。基本类型可以作为成员变量、作为方法的参数、作为方法的返回值，那么引用类型也是可以的。</p>
+<h3 id="4-1-class作为成员变量"><a href="#4-1-class作为成员变量" class="headerlink" title="4.1 class作为成员变量"></a>4.1 class作为成员变量</h3><p>具体代码示例如下：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 定义一个英雄类
+public class Hero {
+    private String name; &#x2F;&#x2F; 名称
+    private int blood;  &#x2F;&#x2F; 生命值
+    private Weapon weapon; &#x2F;&#x2F; 添加武器属性
+
+    public Hero() {
+    }
+
+    public Hero(String name, int blood, Weapon weapon) {
+        this.name = name;
+        this.blood = blood;
+        this.weapon = weapon;
+    }
+
+    public void attack(){
+        System.out.println(name+&quot;使用了&quot;+weapon.getName()+&quot;攻击敌方&quot;);
+    }
+
+	... 省略get&#x2F;set方法
+}
+&#x2F;&#x2F; 定义一个武器类
+public class Weapon {
+    private String name; &#x2F;&#x2F; 武器名称
+
+    public Weapon(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+&#x2F;&#x2F; 测试类
+public class DemoMain {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 创建英雄对象
+        Hero hero = new Hero();
+        &#x2F;&#x2F; 创建武器对象
+        Weapon wp = new Weapon(&quot;霜之哀伤&quot;);
+        hero.setName(&quot;伊利丹&quot;); &#x2F;&#x2F; 设置英雄名字
+        hero.setWeapon(wp); &#x2F;&#x2F; 将武器交给英雄
+        hero.attack(); &#x2F;&#x2F; 攻击
+    }
+}
+</code></pre></p>
+<h3 id="4-2-interface作为方法参数和返回值类型"><a href="#4-2-interface作为方法参数和返回值类型" class="headerlink" title="4.2 interface作为方法参数和返回值类型"></a>4.2 interface作为方法参数和返回值类型</h3><p>以下示意接口作为方法参数：<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 接口类
+public interface Skill {
+    void use(); &#x2F;&#x2F; 释放技能
+}
+&#x2F;&#x2F; 实现类 
+public class SkillImpl implements Skill {
+    @Override
+    public void use() {
+        System.out.println(&quot;biubiubiu&quot;);
+    }
+}
+&#x2F;&#x2F; 英雄类
+public class Hero {
+    private String name; &#x2F;&#x2F; 英雄名称
+    private Skill skill; &#x2F;&#x2F; 英雄技能
+
+    public Hero() {
+    }
+
+    public Hero(String name, Skill skill) {
+        this.name = name;
+        this.skill = skill;
+    }
+
+    public void attack(){
+        System.out.println(&quot;我叫&quot;+name+&quot;，开始释放技能：&quot;);
+        skill.use(); &#x2F;&#x2F;调用接口中的抽象方法
+        System.out.println(&quot;释放技能完成。&quot;);
+    }
+	....省略get&#x2F;set方法
+}
+&#x2F;&#x2F; 测试类
+public class DemoGame {
+    public static void main(String[] args) {
+        Hero hero = new Hero();
+        hero.setName(&quot;艾希&quot;); &#x2F;&#x2F; 设置英雄名称
+
+        &#x2F;&#x2F; 设置英雄技能
+        &#x2F;&#x2F; 使用实现类作为参数传递
+&#x2F;&#x2F;        hero.setSkill(new SkillImpl());
+&#x2F;&#x2F;        hero.attack();
+        &#x2F;&#x2F; 使用匿名内部类作为参数
+&#x2F;&#x2F;        Skill skill = new Skill() {
+&#x2F;&#x2F;            @Override
+&#x2F;&#x2F;            public void use() {
+&#x2F;&#x2F;                System.out.println(&quot;pia~~pia~~pia~~&quot;);
+&#x2F;&#x2F;            }
+&#x2F;&#x2F;        };
+        &#x2F;&#x2F; 使用匿名内部类和匿名对象
+        hero.setSkill(new Skill() {
+            @Override
+            public void use() {
+                System.out.println(&quot;da~da~da~&quot;);
+            }
+        });
+        hero.attack();
+
+    }
+}
+</code></pre></p>
+<p>以下示例接口作为方法的返回值类型<br>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class DemoInterface {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 左边是接口名称，右边是实现类名称，这就是多态写法
+        List&lt;String&gt; list = new ArrayList&lt;&gt;(); &#x2F;&#x2F; 
+
+        List&lt;String&gt; result = addNames(list);
+        for (int i = 0; i &lt; result.size(); i++) {
+            System.out.println(result.get(i));
+        }
+    }
+
+    public static List&lt;String&gt; addNumbers(List&lt;String&gt; list){
+        list.add(&quot;1&quot;);
+        list.add(&quot;2&quot;);
+        list.add(&quot;3&quot;);
+
+        return list;
+    }
+}
+&#x2F;&#x2F; 用一个接口或是自定义类作为方法的参数或者返回值都是可以的
+</code></pre></p>
+<h3 id="5-综合案例–发红包-界面版"><a href="#5-综合案例–发红包-界面版" class="headerlink" title="5. 综合案例–发红包[界面版]"></a>5. 综合案例–发红包[界面版]</h3><p>完整代码见：<a href="https://github.com/zero6996/JavaDemo/tree/master/Demo4_22/DemoRedPacket" target="_blank" rel="noopener">SendRedPacket</a></p>
+<p>手气红包算法思路解析：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/22/%E6%89%8B%E6%B0%94%E7%BA%A2%E5%8C%85%E7%AE%97%E6%B3%95%E6%80%9D%E8%B7%AF%E8%A7%A3%E6%9E%90-1555941568465.png" alt="title"></p>
+<h3 id="案例总结"><a href="#案例总结" class="headerlink" title="案例总结"></a>案例总结</h3><p>通过发红包案例，你都学到了什么？请思考如下问题：</p>
+<ol>
+<li>基础语法，你是否清晰？</li>
+<li>一些基本的类的方法，你是否能够调用</li>
+<li>案例中哪里体现了继承，继承的作用是什么？</li>
+<li>接口作为参数，如何使用？</li>
+<li>接口作为成员变量，如何使用?</li>
+<li>如何简化接口的使用方式？</li>
+</ol>
+<h2 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h2><ol>
+<li>使用final关键字修饰类、方法和变量。</li>
+<li>Java中的权限修饰符。</li>
+<li>成员内部类、局部内部类、匿名内部类、匿名对象的基本使用格式。</li>
+<li>引用类型作为参数，返回值类型的使用方式。</li>
+<li>综合案例发红包代码理解。</li>
+</ol>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/JavaBasics/final-innerClass.html" class="b-link-green">Java的final关键字及内部类</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2019-04-22T22-00-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/JavaBasics/Object-api.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Java中的Object类和常用API">
+                        
+                        <span class="card-title">Java中的Object类和常用API</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. Object类java.lang.Object类是Java语言中的根类，即所有类的父类。它中描述的所有方法子类都可以使用。在对象实例化的时候，最终找到的父类就是Object。根据JDK源码及Object类的API文档，Object类中</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/JavaBasics/polymorphic.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Java三大特性之多态">
+                        
+                        <span class="card-title">Java三大特性之多态</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 接口1.1 概述接口，是Java语言中一种引用类型，是方法的集合，如果说类的内部封装了成员变量、构造方法和成员方法，那么接口的内部主要就是封装了方法，包含抽象方法，默认方法和静态方法，私有方法。
+
+接口的定义，它与定义类方式相似，但是</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
+                                    JavaBasics
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/三大特性/" target="_blank">
+                        <span class="chip bg-color">三大特性</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">289.9k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
