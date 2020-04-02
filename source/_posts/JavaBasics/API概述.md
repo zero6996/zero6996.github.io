@@ -4,6 +4,7 @@ date: 2019-4-18 22:00
 categories: JavaBasics # 分类
 tags: [Java]
 description: Java当中API概述及基本使用
+urlname: api
 ---
 
 ## 1. 概述

@@ -4,6 +4,7 @@ date: 2019-7-6 17:30
 categories: JavaWeb
 tags: [JQuery]
 description: JQuery基础
+urlname: JQueryBasic
 ---
 
 

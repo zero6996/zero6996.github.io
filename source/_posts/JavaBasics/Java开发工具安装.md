@@ -4,6 +4,7 @@ date: 2019-4-15 17:00
 categories: JavaBasics # 分类
 tags: [IDEA]
 description: 简单的介绍了IDEA开发工具的下载与使用
+urlname: install-idea
 ---
 
 

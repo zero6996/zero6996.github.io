@@ -3,6 +3,7 @@ title: XML简单入门
 date: 2019-6-7 20:30
 categories: JavaWeb
 description: XML的简单入门
+urlname: xml
 ---
 
 

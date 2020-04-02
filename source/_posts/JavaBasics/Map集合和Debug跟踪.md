@@ -4,6 +4,7 @@ date: 2019-4-26 23:59
 categories: JavaBasics # 分类
 tags: [Java,集合]
 description: Java中Map集合的特点及使用，Debug跟踪的使用
+urlname: Map
 ---
 
 ## 1. Map集合

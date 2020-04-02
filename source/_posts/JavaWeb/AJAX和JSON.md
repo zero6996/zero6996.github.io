@@ -4,6 +4,7 @@ date: 2019-7-10 23:59
 categories: JavaWeb
 tags: [Ajax,Json]
 description: AJAX和Json基础知识
+urlname: ajax-json
 ---
 
 

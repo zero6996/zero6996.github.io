@@ -4,6 +4,7 @@ date: 2019-4-20 16:00
 categories: JavaBasics # 分类
 tags: [三大特性]
 description: Java中的继承和抽象类相关内容
+urlname: extend
 ---
 
 ## 概述

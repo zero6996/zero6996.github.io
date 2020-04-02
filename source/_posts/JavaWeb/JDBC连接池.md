@@ -4,6 +4,7 @@ date: 2019-5-25 23:59
 categories: JavaWeb
 tags: [JDBC]
 description: 数据库连接和Spring JDBC
+urlname: JDBCPool
 ---
 
 

@@ -4,6 +4,7 @@ date: 2019-5-16 23:59
 categories: JavaBasics # 分类
 tags: [Java,反射,注解]
 description: Junit单元测试的基本使用，反射概述和注解
+urlname: reflect
 ---
 
 ## 1. Junit单元测试

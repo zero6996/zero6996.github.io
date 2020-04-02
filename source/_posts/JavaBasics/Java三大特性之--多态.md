@@ -4,6 +4,7 @@ date: 2019-4-21 23:00
 categories: JavaBasics # 分类
 tags: [三大特性]
 description: Java中的多态的概念和接口
+urlname: polymorphic
 ---
 
 ## 1. 接口

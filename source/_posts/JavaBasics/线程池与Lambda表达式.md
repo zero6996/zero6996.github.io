@@ -4,6 +4,7 @@ date: 2019-5-3 23:59
 categories: JavaBasics # 分类
 tags: [线程,Lambda]
 description: Java的等待唤醒机制，线程池和Lambda表达式
+urlname: threadPool-Lambda
 ---
 
 ## 1. 等待唤醒机制

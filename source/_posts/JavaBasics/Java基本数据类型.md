@@ -4,6 +4,7 @@ date: 2019-4-11 16:00
 categories: JavaBasics # 分类
 tags: [Java]
 description: 该文章介绍了Java基本数据类型,引用数据类型,以及类型转换。
+urlname: basicType
 ---
 
 ## 前言

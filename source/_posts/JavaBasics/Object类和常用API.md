@@ -4,6 +4,7 @@ date: 2019-4-23 23:59
 categories: JavaBasics # 分类
 tags: [Java]
 description: Java当中Object类和常用API概述
+urlname: Object-api
 ---
 
 ## 1. Object类

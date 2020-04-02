@@ -4,6 +4,7 @@ date: 2019-5-28 23:30
 categories: JavaWeb
 tags: [JavaScript]
 description: JavaScript基础内容
+urlname: JavaScriptBasic
 ---
 
 

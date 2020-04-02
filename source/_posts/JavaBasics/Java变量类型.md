@@ -4,6 +4,7 @@ date: 2019-04-12 09:18:23
 categories: JavaBasics
 tags: [Java]
 description: 该文章记录了Java的基本变量类型及相关实例
+urlname: variableType
 ---
 
 ## 前言

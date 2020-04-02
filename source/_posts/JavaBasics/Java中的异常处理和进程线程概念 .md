@@ -4,6 +4,7 @@ date: 2019-4-27 23:40
 categories: JavaBasics # 分类
 tags: [Exception]
 description: Java中的异常处理方式和进程线程的概念
+urlname: Throwable
 ---
 
 ## 1. 异常

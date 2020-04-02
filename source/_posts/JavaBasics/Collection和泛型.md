@@ -1,9 +1,10 @@
 ---
-title: Collction集合和泛型
+title: Collection集合和泛型
 date: 2019-4-24 22:00
 categories: JavaBasics # 分类
 tags: [Java,集合]
-description: Java中Collction集合和泛型的概念
+description: Java中Collection集合和泛型的概念
+urlname: collection
 ---
 
 

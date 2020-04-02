@@ -4,6 +4,7 @@ date: 2019-5-24 23:59
 categories: JavaWeb
 tags: [JDBC]
 description: Java的数据库连接基本概念快速入门
+urlname: JDBC
 ---
 
 

@@ -4,6 +4,7 @@ date: 2019-6-10 23:59
 categories: JavaWeb
 tags: [HTTP]
 description: HTTP协议和Request对象的基本使用
+urlname: http-request
 ---
 
 

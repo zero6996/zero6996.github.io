@@ -4,6 +4,7 @@ date: 2019-4-19 23:00
 categories: JavaBasics # 分类
 tags: [Java]
 description: 简单介绍了几个Java中常用的工具类
+urlname: tool-classs
 ---
 
 ## 1. String类概述

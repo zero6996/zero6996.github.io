@@ -4,6 +4,7 @@ date: 2019-5-15 22:40
 categories: JavaBasics # 分类
 tags: [Stream]
 description: Java中的Stream流的使用以及各种方法引用方式
+urlname: stream
 ---
 
 

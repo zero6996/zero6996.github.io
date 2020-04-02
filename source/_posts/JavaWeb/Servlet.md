@@ -3,6 +3,7 @@ title: Servlet接口
 date: 2019-6-9 22:30
 categories: JavaWeb
 description: JavaServlet的基本使用
+urlname: servlet
 ---
 
 

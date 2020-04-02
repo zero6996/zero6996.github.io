@@ -4,6 +4,7 @@ date: 2019-4-13 14:00
 categories: JavaBasics # 分类
 tags: [Java]
 description: 该文章记录了Java的运算符操作
+urlname: operator
 ---
 
 ### 算数运算符
