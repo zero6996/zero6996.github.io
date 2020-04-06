@@ -413,14 +413,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        6.8k
+                        9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        24 分
+                        32 分
                     </div>
                     
                 
@@ -684,6 +684,45 @@
 <p>Sweep阶段的开销与所管理区域的大小形正相关，但Sweep“就地处决”的特点(原地操作)，回收的过程没有对像的移动。使其相对其它有对像移动步骤的回收算法，仍然是效率最好的。但是需要解决内存碎片问题。</p>
 <p>Compact阶段的开销与存活对像的数据成开比，如上一条所描述，对于大量对像的移动是很大开销的，做为老年代的第一选择并不合适。</p>
 <p>基于上面的考虑，老年代一般是由标记清除或者是标记清除与标记整理的混合实现。以hotspot中的CMS回收器为例，CMS是基于Mark-Sweep实现的，对于对像的回收效率很高，而对于碎片问题，CMS采用基于Mark-Compact算法的Serial Old回收器做为补偿措施：当内存回收不佳（碎片导致的Concurrent Mode Failure时），将采用Serial Old执行Full GC以达到对老年代内存的整理。    </p>
+<h3 id="4-8-垃圾收集器"><a href="#4-8-垃圾收集器" class="headerlink" title="4.8 垃圾收集器"></a>4.8 垃圾收集器</h3><p>HotSpot虚拟机所包含的所有收集器如下：</p>
+<p><img src="http://yanxuan.nosdn.127.net/cb249e5b59351271d034be26a1e9fa81.png" alt="GC收集器"></p>
+<p>新生代收集器：Serial、PraNew、Parallel Scavenge</p>
+<p>老年代收集器：Serial Old、Parallel Old、CMS</p>
+<h4 id="1-Serial收集器"><a href="#1-Serial收集器" class="headerlink" title="1. Serial收集器"></a>1. Serial收集器</h4><p>最基本、发展历史最久的收集器，这个收集器是一个采用复制算法的单线程收集器，单线程一方面意味着它只会使用一个CPU或者一条线程去完成垃圾收集工作，另一方面也意味着它进行垃圾收集时必须暂停其他线程的所有工作，直到它收集结束为止。这说明要在用户不可见的情况下把用户正常工作的线程全部停掉，这对很多应用是难以接受的。</p>
+<p>不过实际上到目前为止，Serial收集器依然是虚拟机运行在Client模式下的默认新生代收集器，因为它简单而高效。用户桌面应用场景下，分配给虚拟机管理的内存一般来说不会很大，收集几十兆或几百兆的新生代停顿时间在几十毫秒最多一百毫秒，只要不是频繁发生，这点停顿完全是可以接受的。Serial收集器运行过程如下图：</p>
+<p><img src="http://yanxuan.nosdn.127.net/15d6c3a341a0ceac1812d352514e5ac9.png" alt="Serial"></p>
+<h4 id="2-ParNew收集器"><a href="#2-ParNew收集器" class="headerlink" title="2. ParNew收集器"></a>2. ParNew收集器</h4><p>ParNew收集器其实就是Serial收集器的多线程版本，除了使用多条线程进行垃圾收集外，其余行为和Serial收集器完全一样，包括使用的算法也是复制算法。ParNew收集器除了多线程以外和Serial收集器并没有太多创新的地方，但是它却是Server模式下的虚拟机首选的新生代收集器，其中有一个很重要的和性能无关的原因是，除了Serial收集器外，目前只有它能喝CMS收集器配合工作(如图)。CMS收集器是一款几乎可以认为有划时代意义的垃圾收集器，因为它第一次实现了让垃圾收集线程与用户线程基本同时工作。ParNew收集器在单CPU环境中绝对不会比Serial收集器有更好的效果，甚至由于线程交互的开销，该收集器在两个CPU的环境中都不能百分百保证可以超越Serial收集器。当然，随着CPU数量的增加，它对于GC时系统资源的有效利用还有很有好处的。它默认开启的收集线程数与CPU数量相同，在CPU数量非常多的情况下，可以使用<code>-XX:ParallelGCThreads</code>参数来限制垃圾收集的线程数。ParNew收集器运行过程如下：</p>
+<p><img src="http://yanxuan.nosdn.127.net/731aed54eb8e6ceaffef9e5cf1c46ad7.png" alt="ParNew"></p>
+<h4 id="3-Parallel-Scavenge收集器"><a href="#3-Parallel-Scavenge收集器" class="headerlink" title="3. Parallel Scavenge收集器"></a>3. Parallel Scavenge收集器</h4><p>Parallel Scavenge收集器也是一个新生代收集器，使用的复制算法，也是并行的多线程收集器，但它的特点是它的关注点和其他收集器不同。介绍这个收集器主要还是介绍吞吐量的概念。</p>
+<p>CMS等收集器的关注点是尽可能缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收集器的目标则是达到一个可控制的吞吐量。所谓吞吐量的意思就是CPU用于运行用户代码时间与CPU总消耗时间的比值，即吞吐量=运行用户代码时间/(运行用户代码时间+垃圾收集时间)，虚拟机总运行100分钟，垃圾收集1分钟，那吞吐量就是99%。另外，Parallel Scavenge收集器是虚拟机运行在Server面模式下的默认垃圾收集器。</p>
+<p>停顿时间短适合需要与用户交互的程序，良好的响应速度能提升用户体验；高吞吐量则可以高效率利用CPU时间，尽快完成运算任务，主要适合在后台运算而不需要太多交互的任务。 </p>
+<p> 虚拟机提供了<code>-XX:MaxGCPauseMillis</code>和<code>-XX:GCTimeRatio</code>两个参数来精确控制最大垃圾收集停顿时间和吞吐量大小。不过不要以为前者越小越好，GC停顿时间的缩短是以牺牲吞吐量和新生代空间换取的。由于与吞吐量关系密切，<strong>Parallel Scavenge收集器也被称为“吞吐量优先收集器”</strong>。Parallel Scavenge收集器有一个<code>-XX:+UseAdaptiveSizePolicy</code>参数，这是一个开关参数，这个参数打开之后，就不需要手动指定新生代大小、Eden区和Survivor参数等细节参数了，虚拟机会根据当前系统的运行情况和性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量。<strong>如果对于垃圾收集器运作原理不太了解，以至于在优化比较困难的时候，使用Parallel Scavenge收集器配合自适应调节策略，把内存管理的调优任务交给虚拟机去完成将是一个不错的选择</strong>。 </p>
+<h4 id="4-Serial-Old收集器"><a href="#4-Serial-Old收集器" class="headerlink" title="4. Serial Old收集器"></a>4. Serial Old收集器</h4><p><strong>Serial收集器的老年代版本，同样是一个单线程收集器，</strong>使用”<strong>标记-整理算法</strong>“，这个收集器的主要意义也是在于给Client模式下的虚拟机使用。 </p>
+<h4 id="5-Parallel-Old收集器"><a href="#5-Parallel-Old收集器" class="headerlink" title="5. Parallel Old收集器"></a>5. Parallel Old收集器</h4><p><strong>Parallel Scavenge收集器的老年代版本，使用多线程和“标记-整理”算法</strong>。这个收集器在JDK 1.6之后的出现，“吞吐量优先收集器”终于有了比较名副其实的应用组合，在注重吞吐量以及CPU资源敏感的场合，都可以优先考虑Parallel Scavenge收集器+Parallel Old收集器的组合。运行过程如下图所示： </p>
+<p><img src="http://yanxuan.nosdn.127.net/ce3e4abdc8039eb7fb15712a0a5376f1.png" alt="Parallel Old"></p>
+<h4 id="6-CMS收集器"><a href="#6-CMS收集器" class="headerlink" title="6. CMS收集器"></a>6. CMS收集器</h4><p>CMS(Concurrent Mark Sweep)收集器是以获取最短回收停顿时间为目标的收集器。使用标记-清除算法，收集过程分如下四步：</p>
+<ol>
+<li>初始标记，标记GCRoots能直接关联到的对象，时间很短。</li>
+<li>并发标记，进行GCRoots Tracing(可达性分析)过程，时间很长。</li>
+<li>重新标记，修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，时间较长。</li>
+<li>并发清除，回收内存空间，时间很长。</li>
+</ol>
+<p>其中，并发标记和并发清除两个阶段耗时最长，但可以与用户线程并发执行。运行过程如下：</p>
+<p><img src="C:\Users\14908\AppData\Roaming\Typora\typora-user-images\image-20200406151057065.png" alt="CMS"></p>
+<p>说明：</p>
+<ol>
+<li>对CPU资源非常敏感，可能会导致应用程序变慢，吞吐率下降。</li>
+<li>无法处理浮动垃圾，因为在并发清理阶段用户线程还在运行，自然就会产生新的垃圾，而在此次收集中无法收集他们，只能留到下次收集，这部分垃圾为浮动垃圾，同时，由于用户线程并发执行，所以需要预留一部分老年代空间提供并发收集时程序运行使用。</li>
+<li>由于采用的标记 - 清除算法，会产生大量的内存碎片，不利于大对象的分配，可能会提前触发一次Full GC。虚拟机提供了<code>-XX:+UseCMSCompactAtFullCollection</code>参数来进行碎片的合并整理过程，这样会使得停顿时间变长，虚拟机还提供了一个参数配置，<code>-XX:+CMSFullGCsBeforeCompaction</code>，用于设置执行多少次不压缩的Full GC后，接着来一次带压缩的GC。 </li>
+</ol>
+<h4 id="7-G1收集器"><a href="#7-G1收集器" class="headerlink" title="7. G1收集器"></a>7. G1收集器</h4><p>G1是目前技术发展的最前沿成果之一，HotSpot开发团队赋予它的使命是未来可以替换掉JDK1.5中发布的CMS收集器。与其他GC收集器相比，G1收集器有以下特点：</p>
+<ol>
+<li>并行和并发：使用多个CPU来缩短Stop The World停顿时间，与用户线程并发执行。</li>
+<li>分代收集：独立管理整个堆，但是能够采用不同的方式去处理新创建对象和已经存活了一段时间，熬过多次GC的旧对象，以获取更好的收集效果。</li>
+<li>空间整合：基于标记-整理算法，无内存碎片产生。</li>
+<li>可预测的停顿：能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。</li>
+</ol>
+<p>在G1之前的垃圾收集器，收集的范围都是整个新生代或者老年代，而G1不再是这样。使用G1收集器时，Java堆的内存布局与其他收集器有很大差别，它将整个Java堆划分为多个大小相等的独立区域（Region），虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔离的了，它们都是一部分（可以不连续）Region的集合。 </p>
 <h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><h3 id="5-1-小结-amp-面试题"><a href="#5-1-小结-amp-面试题" class="headerlink" title="5.1 小结&amp;面试题"></a>5.1 小结&amp;面试题</h3><ol>
 <li>JVM结构<ol>
 <li>有哪几种类加载器？</li>
@@ -993,7 +1032,7 @@ MySQ</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">296.6k</span>
+                <span class="white-color">298.8k</span>
             
 
             
