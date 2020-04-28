@@ -1,6 +1,6 @@
 ---
 title: JVM基础和GC
-date: 2020-04-05 23:33
+date: 2020-04-05 23:33:00
 categories: Interview
 tags: JVM
 urlname: JVM
@@ -450,7 +450,7 @@ CMS(Concurrent Mark Sweep)收集器是以获取最短回收停顿时间为目标
 
 其中，并发标记和并发清除两个阶段耗时最长，但可以与用户线程并发执行。运行过程如下：
 
-![CMS](C:\Users\14908\AppData\Roaming\Typora\typora-user-images\image-20200406151057065.png)
+![CMS](http://yanxuan.nosdn.127.net/391007eae84e60a1e38faaf2e9683785.png)
 
 说明：
 
