@@ -1,0 +1,1275 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="二叉树, Zero的博客">
+    <meta name="description" content="1. 树结构树(tree)是n$(n≥0)$个节点的有限集；当n=0时，称为空数；在任意一个非空树中有如下特点：
+
+
+有且仅有一个特定的称为根的节点。
+当n&amp;gt;1时，其余节点可分为m(m&amp;gt;0)个互不相交的有限集，每个集合本身又是一">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>二叉树 | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        二叉树
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/binary-tree/" target="_blank">
+                                <span class="chip bg-color">binary tree</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Algorithm-trip/" class="post-category" target="_blank">
+                                Algorithm trip
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-04-29
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        16 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-树结构"><a href="#1-树结构" class="headerlink" title="1. 树结构"></a>1. 树结构</h2><p>树(tree)是n$(n≥0)$个节点的有限集；当n=0时，称为空数；在任意一个非空树中有如下特点：</p>
+<a id="more"></a>
+<ol>
+<li>有且仅有一个特定的称为根的节点。</li>
+<li>当n&gt;1时，其余节点可分为m(m&gt;0)个互不相交的有限集，每个集合本身又是一个树，并称为根的子树。</li>
+</ol>
+<p><img src="http://yanxuan.nosdn.127.net/d84672accd78f59a60e492b13f12b367.png" alt="树结构"></p>
+<p>上图就是一个标准的树结构。其中节点1是<strong>根节点(root)</strong>，节点5、6、7、8、9是树的末端，称为<strong>叶子节点(leaf)。</strong>节点4的上一级节点，是节点4的<strong>父节点(parent)</strong>；从节点4衍生出来的节点，是节点4的<strong>孩子节点(child)</strong>；与节点4同级的，由同一个父节点衍生出来的节点例如5、6是节点4的<strong>兄弟节点(sibling)。</strong>树的最大层级，被称为树的高度或深度，如上图的树高度就是4。</p>
+<h2 id="2-二叉树"><a href="#2-二叉树" class="headerlink" title="2. 二叉树"></a>2. 二叉树</h2><p>二叉树(binary tree)是树的一种特殊形式，这种树每个节点<strong>最多有2个孩子节点</strong>。二叉树节点的两个孩子节点，一个被称为<strong>左孩子(left child)</strong>，一个被称为右孩子<strong>(right child)</strong>。</p>
+<h3 id="2-1-满二叉树"><a href="#2-1-满二叉树" class="headerlink" title="2.1 满二叉树"></a>2.1 满二叉树</h3><p>一个二叉树的所有非叶子节点都存在左右孩子，且所有叶子节点都在用一层级上，那么这个树就是满二叉树。</p>
+<blockquote>
+<p>简单说就是满二叉树的每一个分支都是满的。</p>
+</blockquote>
+<h3 id="2-2-完全二叉树"><a href="#2-2-完全二叉树" class="headerlink" title="2.2 完全二叉树"></a>2.2 完全二叉树</h3><p>对一个有n个节点的二叉树，按层级顺序编号，则所有节点的编号为从1到n。如果这个树所有节点和同样深度的满二叉树的编号从1到n的节点位置相同，则这个二叉树为完全二叉树。</p>
+<blockquote>
+<p>就是保证1到n之间的节点齐全。</p>
+</blockquote>
+<h3 id="2-3-二叉树在内存中的存储"><a href="#2-3-二叉树在内存中的存储" class="headerlink" title="2.3 二叉树在内存中的存储"></a>2.3 二叉树在内存中的存储</h3><p>二叉树属于逻辑结构，可以通过多种物理结构来表达。二叉树可以使用<strong>链式储结构和数组</strong>进行存储。</p>
+<ul>
+<li>链式存储结构</li>
+</ul>
+<p>链式存储是二叉树最直观的存储方式，一个二叉树的链表节点包含3部分：存储数据的data变量，指向左孩子的left指针，指向右孩子的right指针。</p>
+<ul>
+<li>数组</li>
+</ul>
+<p>使用数组存储时，会按照层级顺序把二叉树的节点放到数组中对应的位置。假设一个父节点的下标是<code>parent</code>，那么它的左孩子节点下标就是<code>2xparent+1</code>；右孩子节点下标是<code>2xparent+2</code>。</p>
+<p>反之，如果一个左孩子节点的下标是<code>leftChild</code>，那么它父节点下标就是<code>(leftChild-1)/2</code>；右孩子<code>rightChild</code>计算父节点下标是<code>(rightChild-2)/2</code>。</p>
+<p>假如节点5在数组中的下标是4，节点5是节点2的右孩子，故节点2的下标可以通过<code>(4-2)/2=1</code>计算得出。</p>
+<h3 id="2-4-二叉树的应用"><a href="#2-4-二叉树的应用" class="headerlink" title="2.4 二叉树的应用"></a>2.4 二叉树的应用</h3><p>二叉树包含许多特殊的形式，每种形式都有其作用；但最主要的应用还是在于进行<strong>查找操作和维持相对顺序</strong>这两方面</p>
+<h4 id="2-4-1-查找"><a href="#2-4-1-查找" class="headerlink" title="2.4.1 查找"></a>2.4.1 查找</h4><p>二叉树的树形结构使它非常适合做索引。<strong>二叉查找树(binary search tree)</strong>就是一种专门用于查找操作的二叉树。二叉查找树在二叉树的基础上增加了以下几个条件：</p>
+<ul>
+<li>如果左子树不为空，则左子树上所有节点的值均小于根节点的值</li>
+<li>如果右子树不为空，则右子树上所有节点的值均大于根节点的值</li>
+<li>左、右子树也都是二叉查找树</li>
+</ul>
+<p><img src="http://yanxuan.nosdn.127.net/73f7646b5a9928269830a1d59f772912.png" alt="binary search tree"></p>
+<p>上图就是一个标准的二叉查找树。对于一个节点分布相对均衡的二叉查找树来说，如果节点总数是n，那么搜索节点的时间复杂度就是$O(logn)$，和树的深度是一样的。</p>
+<h4 id="2-4-2-维持相对顺序"><a href="#2-4-2-维持相对顺序" class="headerlink" title="2.4.2 维持相对顺序"></a>2.4.2 维持相对顺序</h4><p>二叉查找树要求左子树小于父节点，右子树大于父节点，这样保证了二叉树的有序性。因此二叉查找树还有另一个名字，<strong>二叉排序树(binary sort tree)</strong>。</p>
+<h3 id="2-5-二叉树的遍历"><a href="#2-5-二叉树的遍历" class="headerlink" title="2.5 二叉树的遍历"></a>2.5 二叉树的遍历</h3><p>二叉树的遍历分为4种：</p>
+<ul>
+<li>前序遍历：输出顺序根节点、左子树、右子树</li>
+<li>中序遍历：输出顺序左子树，根节点、右子树</li>
+<li>后序遍历：输出顺序左子树、右子树、根节点</li>
+<li>层序遍历：输出顺序从左到右逐层输出</li>
+</ul>
+<p>宏观角度看，遍历可归结为两大类：</p>
+<ol>
+<li>深度优先遍历(前、中、后序遍历)</li>
+<li>广度优先遍历(层序遍历)</li>
+</ol>
+<h4 id="2-5-1-深度优先遍历"><a href="#2-5-1-深度优先遍历" class="headerlink" title="2.5.1 深度优先遍历"></a>2.5.1 深度优先遍历</h4><p>深度优先遍历的三种遍历方式，代码实现如下：</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class binaryTree {
+
+    &#x2F;**
+     * 构建二叉树
+     * @param inputList 输入序列
+     * @return
+     *&#x2F;
+    public static TreeNode createBinaryTree(LinkedList&lt;Integer&gt; inputList){
+        TreeNode node = null;
+        if (inputList == null || inputList.isEmpty()){
+            return null;
+        }
+        Integer data = inputList.removeFirst();
+        if (data != null){
+            node = new TreeNode(data);
+            node.leftChild = createBinaryTree(inputList);
+            node.rightChild = createBinaryTree(inputList);
+        }
+        return node;
+    }
+
+    &#x2F;**
+     * 二叉树前序遍历
+     * @param node 二叉树节点
+     *&#x2F;
+    public static void preOrderTraversal(TreeNode node){
+        if (node == null){return;}
+        System.out.println(node.data);
+        preOrderTraversal(node.leftChild);
+        preOrderTraversal(node.rightChild);
+    }
+
+    &#x2F;**
+     * 二叉树中序遍历
+     * @param node 二叉树节点
+     *&#x2F;
+    public static void inOrderTraversal(TreeNode node){
+        if (node == null){return;}
+        inOrderTraversal(node.leftChild);
+        System.out.println(node.data);
+        inOrderTraversal(node.rightChild);
+    }
+
+    &#x2F;**
+     * 后序遍历
+     * @param node 二叉树节点
+     *&#x2F;
+    public static void postOrderTraversal(TreeNode node){
+        if (node == null){return;}
+        postOrderTraversal(node.leftChild);
+        postOrderTraversal(node.rightChild);
+        System.out.println(node.data);
+    }
+
+    &#x2F;**
+     * 二叉树节点
+     *&#x2F;
+    private static class TreeNode{
+        int data;
+        TreeNode leftChild;
+        TreeNode rightChild;
+        TreeNode(int data){
+            this.data = data;
+        }
+    }
+
+    public static void main(String[] args) {
+        LinkedList&lt;Integer&gt; inputList = new LinkedList&lt;&gt;(Arrays.asList(new Integer[]{3, 2, 9, null, null, 10, null, null, 8, null, 4}));
+        TreeNode treeNode = createBinaryTree(inputList);
+        System.out.println(&quot;前序遍历：&quot;);
+        preOrderTraversal(treeNode);
+        System.out.println(&quot;中序遍历&quot;);
+        inOrderTraversal(treeNode);
+        System.out.println(&quot;后序遍历&quot;);
+        postOrderTraversal(treeNode);
+    }
+}
+</code></pre>
+<h4 id="2-5-2-广度优先遍历"><a href="#2-5-2-广度优先遍历" class="headerlink" title="2.5.2 广度优先遍历"></a>2.5.2 广度优先遍历</h4><p>广度优先的层序遍历就是按照二叉树从根节点到叶子节点的层次关系，一层一层横向遍历各个节点，需要使用到队列数据结构来实现。</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+     * 层序遍历
+     * @param root 节点
+     *&#x2F;
+public static void levelOrderTraversal(TreeNode root){
+    Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+    queue.offer(root);
+    while (!queue.isEmpty()){
+        TreeNode node = queue.poll();
+        System.out.println(node.data);
+        if (node.leftChild != null){
+            queue.offer(node.leftChild);
+        }
+        if (node.rightChild != null){
+            queue.offer(node.rightChild);
+        }
+    }
+}
+</code></pre>
+<h2 id="3-二叉堆"><a href="#3-二叉堆" class="headerlink" title="3. 二叉堆"></a>3. 二叉堆</h2><p>二叉堆本质上是一种完全二叉树，分为两个类型：最大堆和最小堆。</p>
+<ul>
+<li>最大堆：任何一个父节点的值，都大于等于其子节点值。</li>
+<li>最小堆：任何一个父节点的值，都小于等于其子节点值。</li>
+</ul>
+<p>二叉堆的根节点叫做<strong>堆顶</strong>。由它们的特点决定了：最大堆的堆顶是整个堆中的最大元素；最小堆的堆顶是整个堆中的最小元素。</p>
+<h3 id="3-1-二叉堆的自我调整"><a href="#3-1-二叉堆的自我调整" class="headerlink" title="3.1 二叉堆的自我调整"></a>3.1 二叉堆的自我调整</h3><p>二叉堆有以下几种操作：</p>
+<ol>
+<li>插入节点</li>
+<li>删除节点</li>
+<li>构建二叉堆</li>
+</ol>
+<p>上述操作都基于堆的自我调整；堆的自我调整就是把一个不符合堆性质的完全二叉树，调整成一个堆。</p>
+<p>以下以最小堆为例，看二叉堆是如何进行自我调整的。</p>
+<h4 id="3-1-1-插入节点"><a href="#3-1-1-插入节点" class="headerlink" title="3.1.1 插入节点"></a>3.1.1 插入节点</h4><p>当二叉堆插入节点时，插入位置是完全二叉树的最后一个位置，例如插入一个新节点，值为0；</p>
+<p><img src="http://yanxuan.nosdn.127.net/52ed369c9957d72a17cc62103b092cc5.png" alt="堆插入节点"></p>
+<p>此时，新节点的父节点5比0大，不符合最小堆性质，于是让新节点<strong>“上浮”</strong>，和父节点交互位置。</p>
+<p><img src="http://yanxuan.nosdn.127.net/b46f81834ef6a4e37d6a3e6aae8bb9b8.png" alt="上浮"></p>
+<p>继续用节点0和父节点3做比较，父节点3大于0，则让新节点继续<strong>“上浮”</strong>。</p>
+<p><img src="http://yanxuan.nosdn.127.net/5a1ce21c1736d7ecf5ccca243f445814.png" alt="上浮"></p>
+<p>继续比较，最终新节点0上浮到了堆顶位置。</p>
+<p><img src="http://yanxuan.nosdn.127.net/5790ad21fbff5026dea018d0882b89ca.png" alt="上浮"></p>
+<h4 id="3-1-2-删除节点"><a href="#3-1-2-删除节点" class="headerlink" title="3.1.2 删除节点"></a>3.1.2 删除节点</h4><p>二叉堆删除节点的过程首先<strong>删除的是处于堆顶的节点</strong>，例如下述栗子删除最小堆的堆顶节点1；</p>
+<p><img src="http://yanxuan.nosdn.127.net/71a3816e724e4ae8ff92978c6fc15289.png" alt="删除节点"></p>
+<p>此时，为了继续维持完全二叉树的结果，会把堆最后一个节点10临时补到原本堆顶的位置。</p>
+<p><img src="http://yanxuan.nosdn.127.net/d4e3346fb1f3972cd2e435f3f844bea9.png" alt="维护树"></p>
+<p>接下来，让暂处于堆顶位置的节点10和它的左、右孩子进行比价，找到最小的一个节点，让节点10进行<strong>“下沉”</strong>；</p>
+<p><img src="http://yanxuan.nosdn.127.net/bedd9861d36806c93a5923d45e63fc7c.png" alt="下沉"></p>
+<p>继续继续最小节点查找和<strong>下沉</strong>操作，如上最小节点是7，则让10下沉到7的位置；</p>
+<p><img src="http://yanxuan.nosdn.127.net/ae9e12e579d02ae697c8475b0b09ccf5.png" alt="下沉"></p>
+<p>如此便完成了二叉堆的调整。</p>
+<blockquote>
+<p>简言之：最小堆的自我调整就是小的上浮和大的下沉。</p>
+</blockquote>
+<h4 id="3-1-3-构建二叉堆"><a href="#3-1-3-构建二叉堆" class="headerlink" title="3.1.3 构建二叉堆"></a>3.1.3 构建二叉堆</h4><p>构建二叉堆就是把无序的完全二叉树调整为二叉堆，本质就是让所有非叶子节点依次进行多次<strong>下沉</strong>操作。</p>
+<h4 id="3-1-4-堆的时间复杂度"><a href="#3-1-4-堆的时间复杂度" class="headerlink" title="3.1.4 堆的时间复杂度"></a>3.1.4 堆的时间复杂度</h4><p>堆的插入操作是单一节点的<strong>上浮</strong>，删除操作是单一节点的<strong>下沉</strong>，这两个操作的平均交换次数都是堆高度的一半，所以时间复杂度是O(logn)；构建堆的时间复杂度是O(n)。</p>
+<h3 id="3-2-二叉堆的代码实现"><a href="#3-2-二叉堆的代码实现" class="headerlink" title="3.2 二叉堆的代码实现"></a>3.2 二叉堆的代码实现</h3><p>二叉堆虽然是一个完全二叉树，但存储方式并不是链式存储，而是顺序存储，就是所有节点都存储在数组中。</p>
+<p><img src="http://yanxuan.nosdn.127.net/bfbc4cda66adfd26cffb59323ee49ad2.png" alt="数组实现"></p>
+<p>二叉树使用数组结构来存储节点信息，那么节点计算方式就是：假设父节点下标为parent，那么它的左孩子下标就是<code>2xparent+1</code>，右孩子下标就是<code>2xparent+2</code>。如上栗子中，节点6包含9和10两个孩子节点，节点6在数组中的下标是3，那么根据公式就可计算出，左孩子节点9下标为7(<code>3x2+1</code>)，右孩子节点10下标为8(<code>3x2+2</code>)。</p>
+<ul>
+<li>最小堆代码实现如下：</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">package tree;
+
+import java.util.ArrayList;
+
+&#x2F;**
+ * @Author: zero
+ * @Description: 最小堆
+ * Date: Create in 2020&#x2F;4&#x2F;30 8:56
+ * Modified By:
+ *&#x2F;
+
+public class MinHeap&lt;T extends Comparable&lt;T&gt;&gt; {
+    public ArrayList&lt;T&gt; mHeap;
+
+    public MinHeap(){
+        this.mHeap = new ArrayList&lt;T&gt;();
+    }
+
+    &#x2F;**
+     * 上浮调整
+     * @param start
+     *&#x2F;
+    public void upAdjust(int start){
+        int current = start;
+        int father = (current - 1) &#x2F; 2;
+        T cData = this.mHeap.get(current);
+        while (current &gt; 0){
+            int cmp = this.mHeap.get(father).compareTo(cData);
+            if (cmp &lt;= 0){
+                break;
+            }else {
+                this.mHeap.set(current,this.mHeap.get(father));
+                current = father;
+                father = (father - 1) &#x2F; 2;
+            }
+        }
+        this.mHeap.set(current,cData);
+    }
+
+    &#x2F;**
+     * 下沉调整
+     * @param start
+     * @param end
+     *&#x2F;
+    public void downAdjust(int start,int end){
+        int current = start;
+        int left = (current * 2) + 1;
+        T cData = this.mHeap.get(current);
+        while (left &lt;= end){
+            int tmp = this.mHeap.get(left).compareTo(this.mHeap.get(left + 1));
+            if (left &lt; end &amp;&amp; tmp &gt; 0){
+                left++;
+            }
+            tmp = cData.compareTo(this.mHeap.get(left));
+
+            if (tmp &lt;= 0){
+                break;
+            } else {
+                this.mHeap.set(current,this.mHeap.get(left));
+                current = left;
+                left = 2 * left + 1;
+            }
+        }
+        this.mHeap.set(current,cData);
+    }
+
+    &#x2F;**
+     * 插入数据到最小堆
+     * @param data
+     *&#x2F;
+    public void insert(T data){
+        int size = this.mHeap.size();
+        this.mHeap.add(data);
+        this.upAdjust(size);
+    }
+
+    &#x2F;**
+     * 删除数据
+     * @param data
+     * @return
+     *&#x2F;
+    public int remove(T data){
+        if (this.mHeap.isEmpty() == true){
+            return -1;
+        }
+        int index = this.mHeap.indexOf(data);
+        if (index == 1){
+            return -1;
+        }
+
+        int size = this.mHeap.size();
+        this.mHeap.set(index,this.mHeap.get(size - 1));
+        this.mHeap.remove(size - 1);
+        if (this.mHeap.size() &gt; 1){
+            this.downAdjust(index,this.mHeap.size() - 1);
+        }
+        return 1;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i &lt; mHeap.size(); i++) {
+            builder.append(mHeap.get(i)+&quot; &quot;);
+        }
+        return builder.toString();
+    }
+
+
+    public static void main(String[] args) {
+        int i;
+        int a[] = {8,4,3,6,9,7,1,5,2};
+        MinHeap&lt;Integer&gt; heap = new MinHeap&lt;&gt;();
+        System.out.printf(&quot;== 依次添加:&quot;);
+        for (int j = 0; j &lt; a.length; j++) {
+            System.out.printf(&quot;%d &quot;, a[j]);
+            heap.insert(a[j]);
+        }
+        System.out.printf(&quot;\n== 最小堆:%s&quot;,heap);
+        i = 15;
+        heap.insert(i);
+        System.out.printf(&quot;\n== 添加元素：%d&quot;,i);
+        System.out.printf(&quot;\n== 最小堆：%s&quot;,heap);
+
+        i=1;
+        heap.remove(i);
+        System.out.printf(&quot;\n== 删除元素：%d&quot;,i);
+        System.out.printf(&quot;\n== 最小堆：%s&quot;,heap);
+        System.out.printf(&quot;\n&quot;);
+    }
+}
+</code></pre>
+<p><a href="https://www.cnblogs.com/skywang12345/p/3610390.html" target="_blank" rel="noopener">参考</a></p>
+<h3 id="3-3-优先队列"><a href="#3-3-优先队列" class="headerlink" title="3.3 优先队列"></a>3.3 优先队列</h3><p>队列的特点是先进先出(FIFO)，入队列新元素置于队尾，出队列队头元素先移出。</p>
+<p>优先队列不在遵循先入先出原则，而是分为两种情况：</p>
+<ul>
+<li>最大优先队列，无论入队顺序如何，都是当前最大元素优先出队</li>
+<li>最小优先队列，无论入队顺序如何，都是当前最小元素优先出队</li>
+</ul>
+<h3 id="3-4-二叉堆的优先队列实现"><a href="#3-4-二叉堆的优先队列实现" class="headerlink" title="3.4 二叉堆的优先队列实现"></a>3.4 二叉堆的优先队列实现</h3><p>回顾二叉堆：最大堆的堆顶是整个堆中的最大元素；最小堆的堆顶是整个堆的最小元素。</p>
+<p>因此可以用最大堆实现最大优先队列，最小堆实现最小优先队列。</p>
+<ul>
+<li>二叉堆实现最大优先队列</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">package tree;
+
+import java.util.Arrays;
+
+&#x2F;**
+ * @Author: zero
+ * @Description: 二叉堆实现最大优先队列
+ * Date: Create in 2020&#x2F;4&#x2F;30 10:18
+ * Modified By:
+ *&#x2F;
+
+public class PriorityQueue {
+    private int[] array;
+    private int size;
+    public PriorityQueue(){
+        &#x2F;&#x2F; 初始化队列初始长度32
+        this.array = new int[32];
+    }
+
+    &#x2F;**
+     * 入队
+     * @param key 入队元素
+     *&#x2F;
+    public void enQueue(int key){
+        if (size &gt;= array.length){
+            resize();
+        }
+        array[size++] = key;
+        upAdjust();
+    }
+
+    &#x2F;**
+     * 出队
+     * @throws Exception
+     *&#x2F;
+    public int deQueue() throws Exception{
+        if (size &lt;= 0){
+            throw new Exception(&quot;The Queue is Empty!&quot;);
+        }
+        &#x2F;&#x2F; 获取堆顶元素
+        int head = array[0];
+        &#x2F;&#x2F; 让最后一个元素移动到堆顶
+        array[0] = array[--size];
+        &#x2F;&#x2F; 进行下沉调整
+        downAdjust();
+        return head;
+    }
+
+
+
+    &#x2F;**
+     * 上浮调整
+     *&#x2F;
+    private void upAdjust() {
+        int childIndex = size - 1;
+        int parentIndex = childIndex &#x2F; 2;
+        int temp = array[childIndex];
+        while (childIndex &gt; 0 &amp;&amp; temp &gt; array[parentIndex]){
+            &#x2F;&#x2F; 无需交换，单向赋值即可
+            array[childIndex] = array[parentIndex];
+            childIndex = parentIndex;
+            parentIndex = parentIndex &#x2F; 2;
+        }
+        array[childIndex] = temp;
+    }
+
+    &#x2F;**
+     * 下沉调整
+     *&#x2F;
+    private void downAdjust() {
+        int parentIndex = 0;
+        int temp = array[parentIndex];
+        int childIndex = 1;
+        while (childIndex &lt; size){
+            &#x2F;&#x2F; 如果有右孩子，且右孩子大于左孩子值，则定位到右孩子
+            if (childIndex + 1 &lt; size &amp;&amp; array[childIndex+1] &gt; array[childIndex]){
+                childIndex++;
+            }
+            &#x2F;&#x2F; 如果父节点大于任何一个孩子的值，直接跳出
+            if (temp &gt;= array[childIndex]){
+                break;
+            }
+            &#x2F;&#x2F; 无需真正交换，单向赋值即可
+            array[parentIndex] = array[childIndex];
+            parentIndex = childIndex;
+            childIndex = 2 * childIndex + 1;
+        }
+        array[parentIndex] = temp;
+    }
+
+    &#x2F;**
+     * 扩容
+     *&#x2F;
+    private void resize(){
+        int newSize = this.size * 2;
+        this.array = Arrays.copyOf(this.array,newSize);
+    }
+
+    public static void main(String[] args) throws Exception {
+        PriorityQueue queue = new PriorityQueue();
+        queue.enQueue(3);
+        queue.enQueue(5);
+        queue.enQueue(10);
+        queue.enQueue(2);
+        queue.enQueue(7);
+        System.out.println(&quot;出队元素：&quot;+queue.deQueue());
+        System.out.println(&quot;出队元素：&quot;+queue.deQueue());
+        System.out.println(&quot;出队元素：&quot;+queue.deQueue());
+    }
+}
+</code></pre>
+<h2 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h2><ul>
+<li>什么是树：树是n个节点的有限集，有且仅有一个特定的称为根的节点。当n&gt;1时，其余节点可分为m个互不相交的有限集，每个集合本身又是一个树，称之为根的子树。</li>
+<li>什么是二叉树：二叉树是树的一种特殊形式，每个节点最多有两个孩子节点，二叉树包括满二叉树和完全二叉树两种形式。<ul>
+<li>满二叉树：一个二叉树的所有非叶子节点都存在左右孩子，且所有叶子节点都在同一层级上。</li>
+<li>完全二叉树：对一个有n个节点的二叉树，按层级顺序编号，所有节点与同样深度的满二叉树所有节点位置相同，则这个二叉树称为完全二叉树。</li>
+</ul>
+</li>
+<li>二叉树的遍历方式有几种<ul>
+<li>按遍历节点之间的关系：前序遍历，中序遍历，后序遍历，层序遍历</li>
+<li>按宏观的角度划分：深度优先遍历和广度优先遍历</li>
+</ul>
+</li>
+<li>什么是二叉堆：二叉堆是一种特殊的满二叉树，分为最大堆和最小堆<ul>
+<li>最大堆：任何一个父节点的值，都大于等于它左、右孩子节点的值</li>
+<li>最小堆：任何一个父节点的值，都小于等于它左、右孩子节点的值</li>
+</ul>
+</li>
+<li>什么是优先队列：优先队列分最大优先队列和最小优先队列<ul>
+<li>最大优先队列：无论入队顺序如何，当前最大元素都会优先出队，基于最大堆实现</li>
+<li>最小优先队列：无论入队顺序如何，当前最小元素都会优先出队，基于最小堆实现</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/Algorithm-trip/binary-tree.html" class="b-link-green">二叉树</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2020-04-29T14-00-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/Algorithm-trip/binary-tree.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="二叉树">
+                        
+                        <span class="card-title">二叉树</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 树结构树(tree)是n$(n≥0)$个节点的有限集；当n=0时，称为空数；在任意一个非空树中有如下特点：
+
+
+有且仅有一个特定的称为根的节点。
+当n&gt;1时，其余节点可分为m(m&gt;0)个互不相交的有限集，每个集合本身又是一</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Algorithm-trip/" class="post-category" target="_blank">
+                                    Algorithm trip
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/binary-tree/" target="_blank">
+                        <span class="chip bg-color">binary tree</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Other/Java-Noun.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Java工程对象名词">
+                        
+                        <span class="card-title">Java工程对象名词</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Java工程中各种O对象的概念1. POPersistent Object，持久对象。
+与数据库里表字段一一对应，映射了数据库中对应的表。PO由一些属性，以及set/get方法组成；一般情况下，一个表对应一个PO。
+2. VOVlue Ob</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Other/" class="post-category" target="_blank">
+                                    Other
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java-Noun/" target="_blank">
+                        <span class="chip bg-color">Java Noun</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">312k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
