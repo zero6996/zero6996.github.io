@@ -1,0 +1,1719 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="JUC, Zero的博客">
+    <meta name="description" content="1. JUCJUC是java.util.concurrent工具包的简称，JDK1.5开始出现的，这是一个处理线程的工具包，在此包中有很多在并发编程中很常用的工具类。
+主要由三大包构成：
+
+java.util.concurrent：并发包
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>JUC | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        JUC
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/多线程/" target="_blank">
+                                <span class="chip bg-color">多线程</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JavaAdvanced/" class="post-category" target="_blank">
+                                JavaAdvanced
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-05-11
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        6.6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        28 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-JUC"><a href="#1-JUC" class="headerlink" title="1. JUC"></a>1. JUC</h2><p>JUC是<code>java.util.concurrent</code>工具包的简称，JDK1.5开始出现的，这是一个处理线程的工具包，在此包中有很多在并发编程中很常用的工具类。</p>
+<p>主要由三大包构成：</p>
+<ol>
+<li><code>java.util.concurrent</code>：并发包</li>
+<li><code>java.util.concurrent.atomic</code>：并发原子包</li>
+<li><code>java.util.concurrent.locks</code>：并发锁包</li>
+</ol>
+<h3 id="1-1-进程线程回顾"><a href="#1-1-进程线程回顾" class="headerlink" title="1.1 进程线程回顾"></a>1.1 进程线程回顾</h3><p>在学习JUC之前，复习一些基础概念</p>
+<ol>
+<li>什么是进程/线程？<ul>
+<li>进程：windows打开任务管理器，里面运行的程序就是进程，比如idea.exe就是进程。</li>
+<li>线程：在一个进程下运行的所有程序，就是线程，比如idea中的动态代码检查，语法检查等功能就是线程。</li>
+</ul>
+</li>
+<li>并发/并行？<ul>
+<li>并发：同一时刻多个线程访问同一资源，比如春运抢票，电商的秒杀功能。</li>
+<li>并行：多个处理器同时处理多个任务，比如一个人要吃饭，手机充电这些都可以同时进行。</li>
+</ul>
+</li>
+<li>线程有哪些状态？六种状态：NEW(新建)，RUNNABLE(就绪)，BLOCKED(阻塞)，WAITING(等待)，TIMED_WAITING(计时等待)，TERMINATED(终结)。</li>
+</ol>
+<h2 id="2-Lock接口"><a href="#2-Lock接口" class="headerlink" title="2. Lock接口"></a>2. Lock接口</h2><p>Lock接口是java并发包下的；锁实现提供了比使用同步方法和语句可以获得的更广泛的锁操作，它们允许更灵活的结构，可能具有非常不同的数学，且支持多个关联的condition对象。</p>
+<h3 id="2-1-生产者消费者案例"><a href="#2-1-生产者消费者案例" class="headerlink" title="2.1 生产者消费者案例"></a>2.1 生产者消费者案例</h3><p>需求：两个线程，可以操作初始值为零的一个变量，需实现一个线程对该变量加1，一个线程对该变量减1，交替执行10轮，变量初始值为0。在高聚低合前提下，线程操作资源类。</p>
+<ul>
+<li>基础版synchronized代码如下：</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class ProdConsumeDemo {
+    public static void main(String[] args) throws Exception{
+        Aircondition aircondition = new Aircondition();
+        new Thread(()-&gt;{
+            for (int i = 0; i &lt;= 10; i++) {
+                try {
+                    Thread.sleep(200);
+                    aircondition.increment();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        },&quot;生产者A&quot;).start();
+        new Thread(()-&gt;{
+            for (int i = 0; i &lt;= 10; i++) {
+                try {
+                    Thread.sleep(300);
+                    aircondition.decrement();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        },&quot;消费者B&quot;).start();
+    }
+}
+&#x2F;&#x2F; 空调类
+class Aircondition{
+    private int number = 0;
+
+    &#x2F;&#x2F; 模拟生产者
+    public synchronized void increment() throws Exception{
+        &#x2F;&#x2F; 1. 判断
+        if (number != 0){
+            this.wait();
+        }
+        &#x2F;&#x2F; 2. 工作
+        number++;
+        System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+number);
+        &#x2F;&#x2F; 3. 通知，唤醒其他等待线程
+        this.notifyAll();
+    }
+    &#x2F;&#x2F; 模拟消费者
+    public synchronized void decrement() throws Exception{
+        &#x2F;&#x2F; 1. 判断
+        if (number == 0){
+            this.wait();
+        }
+        &#x2F;&#x2F; 2. 工作
+        number--;
+        System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+number);
+        &#x2F;&#x2F; 3. 通知
+        this.notifyAll();
+    }
+}
+</code></pre>
+<p>现在将生产者和消费者都增加一个，共计4个线程，然后执行代码会发现数据错误，这就是多线程的虚假唤醒。原因出在if的使用，多线程判断时，不能用if；使用wait时必须注意，中断和虚假唤醒是可能的，故该方法应该<strong>在循环中使用</strong>；将if改为while即可。</p>
+<ul>
+<li>改进写法，优化多线程情况下可能发生的虚假唤醒</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 将代码添加和修改如下即可
+&#x2F;&#x2F; 生产者和消费者都增加一个
+new Thread(()-&gt;{
+    for (int i = 0; i &lt;= 10; i++) {
+        try {
+            Thread.sleep(400);
+            aircondition.increment();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+},&quot;生产者C&quot;).start();
+
+new Thread(()-&gt;{
+    for (int i = 0; i &lt;= 10; i++) {
+        try {
+            Thread.sleep(500);
+            aircondition.decrement();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+},&quot;消费者D&quot;).start();
+&#x2F;&#x2F; 修改if为while
+while (number != 0){
+    this.wait();
+}
+while (number == 0){
+    this.wait();
+}
+</code></pre>
+<h3 id="2-2-为什么在wait使用if的情况下，会产生虚假唤醒？"><a href="#2-2-为什么在wait使用if的情况下，会产生虚假唤醒？" class="headerlink" title="2.2 为什么在wait使用if的情况下，会产生虚假唤醒？"></a>2.2 为什么在wait使用if的情况下，会产生虚假唤醒？</h3><p>由于cpu的调度是不可控的，所以在生产者A生产完后，下一个可能不是消费者执行，而是生产者B继续执行，如果使用if就会进行判断number!=0，进入wait状态等待，此时生产者A再次获取时间片，执行代码if判断进入wait状态；这样两个生产者同时处于wait状态了，后续如果唤醒就会使number++两次，导致值为2。同理消费者也是。<br>所以要使用while<strong>循环判断条件</strong>是否满足，才可以交替执行生产和消费。</p>
+<h3 id="2-3-新版写法"><a href="#2-3-新版写法" class="headerlink" title="2.3 新版写法"></a>2.3 新版写法</h3><p>使用了condition类的<code>condition.await();</code>进行资源的上锁，<code>condition.signalAll();</code>方法进行资源的唤醒。</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 空调类
+class Aircondition{
+    private int number = 0;
+    &#x2F;&#x2F; 新版写法
+    private Lock lock = new ReentrantLock();
+    &#x2F;&#x2F; 使用新版的通知唤醒
+    private Condition condition = lock.newCondition();
+
+    &#x2F;&#x2F; 模拟生产者
+    public void increment(){
+        lock.lock();
+        try{
+            &#x2F;&#x2F; 1. 判断
+            while (number != 0){
+                condition.await();
+            }
+            &#x2F;&#x2F; 2. 工作
+            number++;
+            System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+number);
+            &#x2F;&#x2F; 3. 通知，唤醒其他等待线程
+            condition.signalAll();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            lock.unlock();
+        }
+    }
+    &#x2F;&#x2F; 模拟生产者
+    public void decrement(){
+        lock.lock();
+        try{
+            &#x2F;&#x2F; 1. 判断
+            while (number == 0){
+                condition.await();
+            }
+            &#x2F;&#x2F; 2. 工作
+            number--;
+            System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+number);
+            &#x2F;&#x2F; 3. 通知，唤醒其他等待线程
+            condition.signalAll();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            lock.unlock();
+        }
+    }
+}
+</code></pre>
+<h3 id="2-4-生产者和消费者知识小结"><a href="#2-4-生产者和消费者知识小结" class="headerlink" title="2.4 生产者和消费者知识小结"></a>2.4 生产者和消费者知识小结</h3><ul>
+<li>多线程编程模板：线程-&gt;操作-&gt;资源类，高内聚低耦合</li>
+<li>多线程编程套路：判断-&gt;工作-&gt;通知</li>
+<li>while循环判断(防止虚假唤醒)</li>
+<li>新版写法(lock+condition)</li>
+</ul>
+<h3 id="2-5-面试题，交替打印"><a href="#2-5-面试题，交替打印" class="headerlink" title="2.5 面试题，交替打印"></a>2.5 面试题，交替打印</h3><p>需求：两个线程，一个打印1-26，一个打印A-Z，要求打印顺序为1A2B…26Z</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+ASCII码,A=65，Z=90，故A-Z=65-90
+(char)65=A
+*&#x2F;
+public class printNumberAndtheAlphabet {
+    public static void main(String[] args) {
+        printData data = new printData();
+        new Thread(()-&gt;{
+            for (int i = 1; i &lt;= 26 ; i++) {
+                data.printNumber();
+            }
+        },&quot;打印数字线程&quot;).start();
+        new Thread(()-&gt;{
+            for (int i = 1; i &lt;= 26 ; i++) {
+                data.printAlphabet();
+            }
+        },&quot;打印字母线程&quot;).start();
+    }
+}
+
+class printData{
+    int Number = 1;
+    int ASCIINumber = 65;
+    int flag = 0;
+    private Lock lock = new ReentrantLock();
+    private Condition condition = lock.newCondition();
+
+    public void printNumber(){
+        lock.lock();
+        try{
+            while (flag != 0){
+                condition.await();
+            }
+            if (Number&lt;=26) System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+Number);
+            Number++;
+            flag++;
+            condition.signalAll();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            lock.unlock();
+        }
+    }
+    public void printAlphabet(){
+        lock.lock();
+        try{
+            while (flag==0){
+                condition.await();
+            }
+            if (ASCIINumber&lt;=90) System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+(char)ASCIINumber);
+            ASCIINumber++;
+            flag--;
+            condition.signalAll();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            lock.unlock();
+        }
+    }
+}
+</code></pre>
+<h3 id="2-6-使用Condition精准唤醒，实现线程之间的顺序调度"><a href="#2-6-使用Condition精准唤醒，实现线程之间的顺序调度" class="headerlink" title="2.6 使用Condition精准唤醒，实现线程之间的顺序调度"></a>2.6 使用Condition精准唤醒，实现线程之间的顺序调度</h3><p>要求：多线程之间按顺序调用，实现A-&gt;B-&gt;C；三个线程启动，要求AA打印5次，BB打印10次，CC打印15次，接着AA打印5次，BB打印10次，CC打印15次，共计10轮。代码示例如下：</p>
+<ul>
+<li>资源类，完成打印操作和精准唤醒</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">class ShareData{
+    &#x2F;&#x2F; 1=A,2=B,3=C
+    private int number = 1;
+    private Lock lock = new ReentrantLock();
+    &#x2F;&#x2F; 精准唤醒
+    Condition c1 = lock.newCondition();
+    Condition c2 = lock.newCondition();
+    Condition c3 = lock.newCondition();
+    public void print5(){
+        lock.lock();
+        try{
+            &#x2F;&#x2F; 1. 判断
+            while (number != 1){
+                c1.await();
+            }
+            &#x2F;&#x2F; 工作
+            for (int i = 0; i &lt; 5 ; i++) {
+                System.out.println(Thread.currentThread().getName() + &quot;\t&quot; + i);
+            }
+            &#x2F;&#x2F; 通知
+            &#x2F;&#x2F; 一定要先改标志位
+            number = 2;
+            &#x2F;&#x2F; 通知下一位：精准唤醒下一个线程
+            c2.signal();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            lock.unlock();
+        }
+    }
+    public void print10(){
+        lock.lock();
+        try{
+            &#x2F;&#x2F; 1. 判断
+            while (number != 2){
+                c2.await();
+            }
+            &#x2F;&#x2F; 工作
+            for (int i = 0; i &lt; 10 ; i++) {
+                System.out.println(Thread.currentThread().getName() + &quot;\t&quot; + i);
+            }
+            &#x2F;&#x2F; 通知
+            &#x2F;&#x2F; 一定要先改标志位
+            number = 3;
+            c3.signal();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            lock.unlock();
+        }
+    }
+    public void print15(){
+        lock.lock();
+        try{
+            &#x2F;&#x2F; 1. 判断
+            while (number != 3){
+                c3.await();
+            }
+            &#x2F;&#x2F; 工作
+            for (int i = 0; i &lt; 15 ; i++) {
+                System.out.println(Thread.currentThread().getName() + &quot;\t&quot; + i);
+            }
+            &#x2F;&#x2F; 通知
+            &#x2F;&#x2F; 一定要先改标志位
+            number = 1;
+            c1.signal();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            lock.unlock();
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>主类，三个线程操作资源类，执行10轮</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class ConditionDemo {
+    public static void main(String[] args) {
+        ShareData shareData = new ShareData();
+        new Thread(()-&gt;{
+            for (int i = 1; i &lt;= 10; i++) {
+                shareData.print5();
+            }
+        },&quot;A&quot;).start();
+        new Thread(()-&gt;{
+            for (int i = 1; i &lt;= 10; i++) {
+                shareData.print10();
+            }
+        },&quot;B&quot;).start();
+        new Thread(()-&gt;{
+            for (int i = 1; i &lt;= 10; i++) {
+                shareData.print15();
+            }
+        },&quot;C&quot;).start();
+    }
+}
+</code></pre>
+<h2 id="3-Lambda表达式"><a href="#3-Lambda表达式" class="headerlink" title="3. Lambda表达式"></a>3. Lambda表达式</h2><p>复习lambda表达式</p>
+<ul>
+<li>传统写法</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class LambdaExpressDemo {
+    public static void main(String[] args) {
+		Foo foo = new Foo(){
+            @Override
+            public void sayHello(){
+                System.out.println(&quot;hello world&quot;);
+            }
+        }
+        foo.sayHello();
+    }
+}
+interface Foo{
+    public void sayHello();
+}
+</code></pre>
+<ul>
+<li>lambda写法</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">Foo foo = (()-&gt;{System.out.println(&quot;hello world&quot;)};);
+</code></pre>
+<h3 id="3-1-lambda小口诀"><a href="#3-1-lambda小口诀" class="headerlink" title="3.1 lambda小口诀"></a>3.1 lambda小口诀</h3><p>拷贝中括号(就是你要实现的方法的参数列表)，写死右箭头，落地大括号</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">()-&gt;{}
+</code></pre>
+<h3 id="3-2-函数式接口"><a href="#3-2-函数式接口" class="headerlink" title="3.2 函数式接口"></a>3.2 函数式接口</h3><p><code>@FunctionalInterface</code>注解用于标识该接口是函数式接口，如果该接口中只有一个抽象方法(不包括默认方法和静态方法)，可以不写这个注解，底层会默认加上。</p>
+<h3 id="3-3-default方法"><a href="#3-3-default方法" class="headerlink" title="3.3 default方法"></a>3.3 default方法</h3><p>面试题：接口中是否允许有方法的实现？：Java8以后接口支持默认方法，可以让方法有对应的实现。</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@FunctionalInterface
+interface Foo{
+    public int add(int x,int y);
+    public default int mul(int x,int y){
+        return x * y;
+}
+Foo foo = (int x,int y)-&gt; {
+    System.out.println(&quot;come in add method&quot;);
+    return x + y;
+};
+System.out.println(foo.mul(3,5));
+</code></pre>
+<p>函数式接口中允许有多个默认方法。</p>
+<h3 id="3-4-static方法"><a href="#3-4-static方法" class="headerlink" title="3.4 static方法"></a>3.4 static方法</h3><p>函数式接口中允许static方法的声明和实现。</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">@FunctionalInterface
+interface Foo{
+    public int add(int x,int y);
+    public static int diy(int x,int y){
+        return x&#x2F;y;
+    }
+}
+System.out.println(Foo.diy(6,3));
+</code></pre>
+<h2 id="4-多线程锁"><a href="#4-多线程锁" class="headerlink" title="4. 多线程锁"></a>4. 多线程锁</h2><h3 id="4-1-八锁"><a href="#4-1-八锁" class="headerlink" title="4.1 八锁"></a>4.1 八锁</h3><p>简单代码举例八锁，基础代码如下，后续案例均修改部分代码即可</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class Locks8Demo {
+    public static void main(String[] args) throws Exception {
+        Phone phone = new Phone();
+        Phone phone2 = new Phone();
+        new Thread(()-&gt;{
+            try {
+                phone.sendEmail();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        },&quot;A&quot;).start();
+        Thread.sleep(100);
+        new Thread(()-&gt;{
+            try {
+                &#x2F;&#x2F;                phone.sendSMS();
+                &#x2F;&#x2F;                phone.sayHello();
+                phone2.sendSMS();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        },&quot;B&quot;).start();
+
+    }
+}
+class Phone{
+    public  static synchronized void sendEmail() throws Exception{
+        TimeUnit.SECONDS.sleep(2);
+        System.out.println(&quot;-----&gt;sendEmail&lt;&quot;);
+    }
+    public synchronized void sendSMS() throws Exception{
+        System.out.println(&quot;-----&gt;sendSMS&lt;&quot;);
+    }
+    public void sayHello(){
+        System.out.println(&quot;-----&gt;sayHello&quot;);
+    }
+}
+</code></pre>
+<ol>
+<li>标准访问，先打印邮件还是短信？</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public synchronized void sendEmail() throws Exception{
+    System.out.println(&quot;-----&gt;sendEmail&lt;&quot;);
+}
+public synchronized void sendSMS() throws Exception{
+    System.out.println(&quot;-----&gt;sendSMS&lt;&quot;);
+}
+Phone phone = new Phone();
+phone.sendEmail();
+phone.sendSMS();
+&#x2F;&#x2F; 邮件&gt;短信
+</code></pre>
+<ol start="2">
+<li>在邮件方法中暂停2秒，先打印邮件还是短信？</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public synchronized void sendEmail() throws Exception{
+    TimeUnit.SECONDS.sleep(2);
+    System.out.println(&quot;-----&gt;sendEmail&lt;&quot;);
+}
+phone.sendEmail();
+phone.sendSMS();
+&#x2F;&#x2F; 邮件&gt;短信
+</code></pre>
+<p>1、2小结：</p>
+<p>同一实例对象里面如果有多个synchronized方法，某一时刻内，只要一个线程去调用其中的一个synchronized方法，其他线程都只能等待，换言之，某一时刻内只能有唯一一个线程去访问这些synchronized方法， “<strong>锁的是当前实例对象this</strong>，被锁定后，其他线程都不能进入到当前对象的其他synchronized方法”。</p>
+<ol start="3">
+<li>新增普通sayHello方法，先打印邮件还是hello？</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public void sayHello(){
+    System.out.println(&quot;-----&gt;sayHello&quot;);
+}
+phone.sendEmail();
+phone.sayHello();
+&#x2F;&#x2F; hello&gt;邮件
+</code></pre>
+<p>3小结：普通方法与同步锁无关，不会竞争资源</p>
+<ol start="4">
+<li>两部手机，先邮件还是短信？</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">Phone phone = new Phone();
+Phone phone2 = new Phone();
+phone.sendEmail();
+phone2.sendSMS();
+&#x2F;&#x2F; 短信&gt;邮件
+</code></pre>
+<p>4小结：不同实例对象不是同一把锁，故不会竞争资源。</p>
+<ol start="5">
+<li>两个静态同步方法，同一部手机，请问先打印邮件还是短信？</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public static synchronized void sendEmail() throws Exception{
+    TimeUnit.SECONDS.sleep(2);
+    System.out.println(&quot;-----&gt;sendEmail&lt;&quot;);
+}
+public static synchronized void sendSMS() throws Exception{
+    System.out.println(&quot;-----&gt;sendSMS&lt;&quot;);
+}
+phone.sendEmail();
+phone.sendSMS();
+&#x2F;&#x2F; 邮件&gt;短信
+</code></pre>
+<ol start="6">
+<li>两个静态同步方法，两部手机，请问先打印邮件还是短信？</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">phone.sendEmail();
+phone2.sendSMS();
+&#x2F;&#x2F;  邮件&gt;短信
+</code></pre>
+<p>5和6小结：<strong>静态同步锁=全局锁</strong><br>synchronized实现同步的基础：Java中的每一个对象都可以作为锁，具体表现为以下3种形式：<br>一、对于普通同步方法，锁是当前实例对象(this)<br>二、对于同步方法块，锁的是synchronized括号里配置的对象<br>三、对于静态同步方法，锁的是当前类的Class对象(全局锁)</p>
+<p>因为5和6都是静态同步锁也就是全局锁，实际上他们属于同一个类对象，故会竞争资源。</p>
+<ol start="7">
+<li>1个静态同步方法，1个普通同步方法，同一部手机，请问先打印邮件还是短信？</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public  static   synchronized void sendEmail() throws Exception{
+    TimeUnit.SECONDS.sleep(2);
+    System.out.println(&quot;-----&gt;sendEmail&lt;&quot;);
+}
+public  synchronized void sendSMS() throws Exception{
+    System.out.println(&quot;-----&gt;sendSMS&lt;&quot;);
+}
+phone.sendEmail();
+phone.sendSMS();
+&#x2F;&#x2F; 短信&gt;邮件
+</code></pre>
+<p>7小结：静态同步方法和非静态同步方法不是同一把锁，故不冲突。</p>
+<ol start="8">
+<li>1个静态同步方法，1个普通同步方法，两部手机，请问先打印邮件还是短信？同上。</li>
+</ol>
+<h3 id="4-2-八锁小结"><a href="#4-2-八锁小结" class="headerlink" title="4.2 八锁小结"></a>4.2 八锁小结</h3><p>一个对象里面如果有多个synchronized方法，某一个时刻内，只要一个线程去调用其中的一个synchronized方法了，其它的线程都只能等待，换句话说，某一个时刻内，只能有唯一一个线程去访问这些synchronized方法<br>锁的是当前对象this，被锁定后，其它的线程都不能进入到当前对象的其它的synchronized方法。</p>
+<p>synchronized实现同步的基础：Java中的每一个对象都可以作为锁。<br>具体表现为以下3种形式。</p>
+<ul>
+<li>对于普通同步方法，锁是当前实例对象。</li>
+<li>对于静态同步方法，锁是当前类的Class对象。</li>
+<li>对于同步方法块，锁是Synchonized括号里配置的对象</li>
+</ul>
+<p>当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。</p>
+<ul>
+<li>非静态同步方法：</li>
+</ul>
+<p>当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。<br>也就是说如果一个实例对象的非静态同步方法获取锁后，该实例对象的其他非静态同步方法必须等待锁释放后才能获取锁，其他实例对象的非静态同步方法因为跟该实例对象的非静态同步方法用的是不同锁，所以无需等待该实例对象已获取锁的非静态同步方法释放锁就可以获取他们自己的锁。</p>
+<blockquote>
+<p>简言之：非静态同步锁当前对象，其他非静态锁访问同实例变量的锁会产生竞争。</p>
+</blockquote>
+<ul>
+<li>静态同步方法(全局锁)：</li>
+</ul>
+<p>所有的静态同步方法用的是同一把锁—<strong>类对象本身(Class)</strong>；这静态同步锁和非静态同步锁两把锁是锁的两个不同的对象，所以<strong>静态同步方法与非静态同步方法之间是不会有竞态条件的。</strong><br>但是一旦一个静态同步方法获取锁后，其他的当前类对象的所有静态同步方法都必须等待该方法释放锁后才能获取锁，不管是同一个实例对象还是不同实例对象，只要它们是同一个类的实例对象，那么它们的静态同步方法就是同一把锁。</p>
+<blockquote>
+<p>简言之：静态同步锁类对象本身，故称之为全局锁，其他静态同步锁访问同类对象的锁会产生竞争，非静态锁的不同对象故不会产生竞争。</p>
+</blockquote>
+<h2 id="6-线程不安全案例"><a href="#6-线程不安全案例" class="headerlink" title="6. 线程不安全案例"></a>6. 线程不安全案例</h2><h3 id="6-1-ArrayList线程不安全的原因详解"><a href="#6-1-ArrayList线程不安全的原因详解" class="headerlink" title="6.1 ArrayList线程不安全的原因详解"></a>6.1 ArrayList线程不安全的原因详解</h3><p>从以下4个维度解释ArrayList线程不安全的原因</p>
+<h4 id="6-1-1-故障现象"><a href="#6-1-1-故障现象" class="headerlink" title="6.1.1 故障现象"></a>6.1.1 故障现象</h4><p>报<code>java.util.ConcurrentModificationException</code>错误，ArrayList在迭代时如果同时对其进行修改就会抛出并发修改异常。</p>
+<h4 id="6-1-2-导致原因"><a href="#6-1-2-导致原因" class="headerlink" title="6.1.2  导致原因"></a>6.1.2  导致原因</h4><p>多线程情况下同时争抢一个资源类且没有加锁</p>
+<h4 id="6-1-3-解决方法"><a href="#6-1-3-解决方法" class="headerlink" title="6.1.3 解决方法"></a>6.1.3 解决方法</h4><ol>
+<li>使用java自带的<code>new Vector()</code>，代码底层加了synchronized锁保证线程安全；</li>
+<li>使用Collections工具类的<code>synchronizedList(new ArrayList&lt;&gt;())</code></li>
+<li>使用juc包下的<code>new CopyOnWriteArrayList&lt;&gt;();</code>写时复制技术</li>
+</ol>
+<h4 id="6-1-4-代码示例"><a href="#6-1-4-代码示例" class="headerlink" title="6.1.4 代码示例"></a>6.1.4 代码示例</h4>
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class arrayListNotSafe {
+    public static void main(String[] args) {
+        mapNotSafe();
+    }
+
+    private static void mapNotSafe() {
+        Map&lt;String,String&gt; map = new ConcurrentHashMap();&#x2F;&#x2F;new HashMap&lt;&gt;();
+        for (int i = 1; i &lt;= 100; i++) {
+            new Thread(()-&gt;{
+                map.put(Thread.currentThread().getName(), UUID.randomUUID().toString().substring(0,8));
+                System.out.println(map);
+            },String.valueOf(i)).start();
+        }
+    }
+
+    private static void setNotSafe() {
+        Set&lt;String&gt; set = new CopyOnWriteArraySet&lt;&gt;(new HashSet&lt;&gt;());&#x2F;&#x2F;new HashSet&lt;&gt;();
+        for (int i = 1; i &lt;= 100; i++) {
+            new Thread(()-&gt;{
+                set.add(UUID.randomUUID().toString().substring(0,8));
+                System.out.println(set);
+            },String.valueOf(i)).start();
+        }
+    }
+
+    private static void listNotSafe() {
+        &#x2F;&#x2F; 分别使用ArrayList、Vector、synchronizedList、CopyOnWriteArrayList进行测试
+        List&lt;String&gt; list = new CopyOnWriteArrayList&lt;&gt;();&#x2F;&#x2F; Collections.synchronizedList(new ArrayList&lt;&gt;());&#x2F;&#x2F;new Vector&lt;&gt;();&#x2F;&#x2F;new ArrayList&lt;&gt;();
+        for (int i = 1; i &lt;= 100; i++) {
+            new Thread(()-&gt;{
+                list.add(UUID.randomUUID().toString().substring(0,8));
+                System.out.println(list);
+            },String.valueOf(i)).start();
+        }
+    }
+}
+</code></pre>
+<h3 id="6-2-写时复制技术"><a href="#6-2-写时复制技术" class="headerlink" title="6.2 写时复制技术"></a>6.2 写时复制技术</h3><p>CopyOnWrite容器即写时复制的容器。往一个容器添加元素时，不直接往当前容器Object[]添加，而是先将当前容器进行Copy，复制出一个新的容器Object[] newElements，然后在新容器中添加元素，添加元素之后，将原容器的引用指向新容器setArray(newElements);</p>
+<p>这样做的好处是可以对CopyOnWrite容器进行并发的读而无需加锁，因为当前容器不会添加任何元素，所以CopyOnWrite容器也是一种<strong>读写分离的思想</strong>，读和写不同的容器。</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public boolean add(E e) {
+    final ReentrantLock lock = this.lock;
+    lock.lock();
+    try {
+        Object[] elements = getArray();
+        int len = elements.length;
+        Object[] newElements = Arrays.copyOf(elements, len + 1);
+        newElements[len] = e;
+        setArray(newElements);
+        return true;
+    } finally {
+        lock.unlock();
+    }
+}
+</code></pre>
+<h2 id="7-Callable接口"><a href="#7-Callable接口" class="headerlink" title="7. Callable接口"></a>7. Callable接口</h2><p>Callable类似于Runnable接口，实现Callable接口的类和实现Runnable的类都是可被其它线程执行的任务，Callable接口可以获取任务执行的返回值，通过与Future结合，可以实现异步计算；Callable经常和java线程池一起使用，同时它也是一个函数式接口。</p>
+<h3 id="7-1-获取多线程的几种方法"><a href="#7-1-获取多线程的几种方法" class="headerlink" title="7.1 获取多线程的几种方法"></a>7.1 获取多线程的几种方法</h3><p>传统的是继承thread类和实现runnable接口，java5之后又可以实现callable接口和java的线程池获取。</p>
+<h3 id="7-2-Callable和Runnable的区别"><a href="#7-2-Callable和Runnable的区别" class="headerlink" title="7.2 Callable和Runnable的区别"></a>7.2 Callable和Runnable的区别</h3><p>主要有两点区别：</p>
+<ol>
+<li>方法不同，一个call()一个run()；</li>
+<li>run方法没有返回值；call方法可以返回执行结果；</li>
+<li>run方法异常只能内部消化，不能往外抛；call方法允许抛出异常。</li>
+</ol>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F;Callable 接口
+public interface Callable&lt;V&gt; {
+    V call() throws Exception;
+}
+&#x2F;&#x2F; Runnable 接口
+public interface Runnable {
+    public abstract void run();
+}
+</code></pre>
+<h3 id="7-3-FutureTask"><a href="#7-3-FutureTask" class="headerlink" title="7.3 FutureTask"></a>7.3 FutureTask</h3><p>由于Thread类不能直接使用Callable接口，故需要使用到FutureTask做“中间人”， FutureTask类实现RunnableFuture接口，而RunnnableFuture接口继承了Runnable和Future接口，所以说FutureTask是一个提供异步计算的结果的任务。 </p>
+<p>可以使用FutureTask来包装Callable或者Runnable对象，然后交给Thread或线程池做执行，Callable有以下两种执行方式：</p>
+<ul>
+<li>Callable借助FutureTask执行：</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 定义实现Callable接口的实现类
+class MyThread implements Callable&lt;Integer&gt;{
+    @Override
+    public Integer call() throws Exception {
+        System.out.println(&quot;come in call Callable()&quot;);
+        return 1024;
+    }
+}
+
+public class CallableDemo{
+    public static void main(String[] args) throws Exception{
+        &#x2F;&#x2F; 创建FutureTask对象并将callable对象放入
+        FutureTask&lt;Integer&gt; task = new FutureTask(new MyThread());
+        &#x2F;&#x2F; 开启线程
+        new Thread(task,&quot;A&quot;).start();
+        &#x2F;&#x2F; 获取执行结果
+        System.out.println(task.get());
+        System.out.println(Thread.currentThread().getName()+&quot;计算完成&quot;);
+    }
+}
+</code></pre>
+<ul>
+<li>借助线程池来运行</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 创建一个线程池
+ExecutorService pool = Executors.newCachedThreadPool();
+&#x2F;&#x2F; 提交一个任务
+Future&lt;Integer&gt; future = pool.submit(new MyThread());
+&#x2F;&#x2F; 获取执行结果
+System.out.println(future.get());
+&#x2F;&#x2F; 关闭线程池
+pool.shutdown();
+</code></pre>
+<h2 id="8-JUC常用辅助类"><a href="#8-JUC常用辅助类" class="headerlink" title="8. JUC常用辅助类"></a>8. JUC常用辅助类</h2><h3 id="8-1-CountDownLatch减法计数器"><a href="#8-1-CountDownLatch减法计数器" class="headerlink" title="8.1 CountDownLatch减法计数器"></a>8.1 <code>CountDownLatch</code>减法计数器</h3><p>案例：下课教室走人场景，有6位同学要走但走的顺序不一定，班长必须等待所有同学走完才允许关门走人。</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">public class CountDownLatchDemo {
+    public static void main(String[] args) throws InterruptedException {
+        &#x2F;&#x2F; 使用CountDownLatch计数器来控制线程顺序，定义一个值为6的计数器。
+        CountDownLatch countDownLatch = new CountDownLatch(6);
+        for (int i = 0; i &lt; 6; i++) {
+            new Thread(() -&gt; {
+                System.out.println(Thread.currentThread().getName() + &quot;\t离开教室&quot;);
+                countDownLatch.countDown();
+            }, String.valueOf(i)).start();
+        }
+        countDownLatch.await();
+        System.out.println(Thread.currentThread().getName() + &quot;\t班长关门走人&quot;);
+    }
+
+}
+</code></pre>
+<p>CountDownLatch主要有两个方法，当一个或多个线程调用await方法时，这些线程会阻塞。其他线程调用countDown方法会将计数器减1(调用countDown方法的线程不会阻塞)，当计数器的值为0时，被await方法阻塞的线程会被唤醒，继续执行。</p>
+<h3 id="8-2-CyclicBarrier循环屏障"><a href="#8-2-CyclicBarrier循环屏障" class="headerlink" title="8.2 CyclicBarrier循环屏障"></a>8.2 <code>CyclicBarrier</code>循环屏障</h3><p>CyclicBarrier字面意思是可循环的(Cyclic)使用的屏障(Barrier)；主要可以做到让一组线程到达一个屏障(也可叫同步点)时被阻塞，直到最后一个线程到达屏障时，屏障才会开门让所有被屏障拦截的线程继续工作。</p>
+<ul>
+<li>线程进入屏障使用CyclicBarrier的<code>await()</code>方法，代码案例如下：</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 案例：只有集齐7颗龙珠，才能召唤神龙
+public class CyclicBarrierDemo {
+    public static void main(String[] args) {
+        CyclicBarrier barrier = new CyclicBarrier(7,()-&gt; System.out.println(&quot;&gt;&gt;&gt;7龙珠召唤神龙&lt;&lt;&lt;&quot;));
+        for (int i = 1; i &lt;= 7; i++) {
+            final int finalI = i;
+            new Thread(()-&gt;{
+                System.out.println(Thread.currentThread().getName()+&quot;\t收集到第：&quot;+ finalI +&quot;颗龙珠&quot;);
+                try {
+                    barrier.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                }
+            },String.valueOf(i)).start();
+        }
+    }
+}
+</code></pre>
+<h3 id="8-3-Semaphore信号灯"><a href="#8-3-Semaphore信号灯" class="headerlink" title="8.3 Semaphore信号灯"></a>8.3 <code>Semaphore</code>信号灯</h3><p>在信号量上定义两种操作：</p>
+<ul>
+<li><strong>acquire(获取)</strong>：当一个线程调用acquire操作时，它要么成功通过，获取信号量(信号量减1)，要么一直等待下去，直到有线程释放信号量或超时。</li>
+<li><strong>release(释放)</strong>：实际上会将信号量的值加1，然后唤醒等待的线程。</li>
+</ul>
+<blockquote>
+<p><strong>信号量主要用于多个共享资源的互斥使用和对并发线程数的控制。</strong></p>
+</blockquote>
+<p>案例代码如下：</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 模拟抢车位案例
+public class SemaphoreDemo {
+    public static void main(String[] args) {
+        &#x2F;&#x2F; 模拟资源类，有3个空车位
+        Semaphore semaphore = new Semaphore(3);
+        for (int i = 1; i &lt;= 6; i++) {
+            new Thread(()-&gt;{
+                try {
+                    &#x2F;&#x2F; 占用
+                    semaphore.acquire();
+                    System.out.println(Thread.currentThread().getName()+&quot;\t抢到了车位&quot;);
+                    TimeUnit.SECONDS.sleep(3);
+                    &#x2F;&#x2F; 释放
+                    System.out.println(Thread.currentThread().getName()+&quot;\t离开了车位&quot;);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    semaphore.release();
+                }
+            },String.valueOf(i)).start();
+        }
+    }
+}
+</code></pre>
+<h2 id="9-可重入读写锁ReentrantReadWriteLock"><a href="#9-可重入读写锁ReentrantReadWriteLock" class="headerlink" title="9. 可重入读写锁ReentrantReadWriteLock"></a>9. 可重入读写锁<code>ReentrantReadWriteLock</code></h2><p>当多个线程同时读取一个资源类没有任何问题，所以为了满足并发量，读取共享资源应该可以同时进行；但是，如果有一个线程想去写共享资源时，为了保证数据的一致性，就不应该有其他线程可以同时对该资源进行读写操作了。</p>
+<ul>
+<li>代码案例，使用ReentrantReadWriteLock读写锁对不同的读写资源操作上不同的锁。</li>
+</ul>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 自定义模拟一个缓存类
+class MyCache{
+    private volatile Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
+    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    
+    public void put(String key,Object value){
+        readWriteLock.writeLock().lock();
+        try{
+            System.out.println(Thread.currentThread().getName()+&quot;\t&gt;&gt;&gt;开始写入&quot;+key);
+            &#x2F;&#x2F; 暂停一定毫秒时间
+            try { TimeUnit.MILLISECONDS.sleep(300); } catch (InterruptedException e) { e.printStackTrace(); }
+            map.put(key,value);
+            System.out.println(Thread.currentThread().getName()+&quot;\t&gt;&gt;&gt;写入成功&quot;+key);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            readWriteLock.writeLock().unlock();
+        }
+    }
+    public void get(String key){
+        readWriteLock.readLock().lock();
+        try{
+            System.out.println(Thread.currentThread().getName()+&quot;\t&gt;&gt;&gt;开始获取数据&quot;+key);
+            &#x2F;&#x2F; 暂停一定时间
+            try { TimeUnit.MILLISECONDS.sleep(300); } catch (InterruptedException e) { e.printStackTrace(); }
+            Object o = map.get(key);
+            System.out.println(Thread.currentThread().getName()+&quot;\t&gt;&gt;&gt;成功获取数据&quot;+o);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            readWriteLock.readLock().unlock();
+        }
+    }
+}
+public class ReadWriteLockDemo {
+    public static void main(String[] args) {
+        MyCache cache = new MyCache();
+        &#x2F;&#x2F; 模拟并发情况下5个线程写入
+        for (int i = 1; i &lt;= 5; i++) {
+            final int finalI = i;
+            new Thread(()-&gt;{
+                cache.put(finalI +&quot;&quot;, finalI +&quot;&quot;);
+            },String.valueOf(i)).start();
+        }
+        &#x2F;&#x2F; 模拟并发情况下5个线程读取
+        for (int i = 1; i &lt;= 5; i++) {
+            final int finalI = i;
+            new Thread(()-&gt;{
+                cache.get(finalI +&quot;&quot;);
+            },String.valueOf(i)).start();
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p>读取资源应该共享读，写操作时应该排他写；以此保证数据的一致性。</p>
+</blockquote>
+<h2 id="10-阻塞队列"><a href="#10-阻塞队列" class="headerlink" title="10. 阻塞队列"></a>10. 阻塞队列</h2><p>阻塞队列<code>BlockingQueue</code>是一个队列，数据结构如下：</p>
+<p><img src="http://yanxuan.nosdn.127.net/9d12e170ba9bc52fa7cfbb7d6bed2d10.png" alt="阻塞队列"></p>
+<p>阻塞队列主要具有这两点特性：</p>
+<ul>
+<li>当队列为空时，从队列中<strong>获取</strong>元素的操作将会被阻塞</li>
+<li>当队列为满时，从队列中<strong>添加</strong>元素的操作将会被阻塞</li>
+</ul>
+<p>试图从空的队列中获取元素的线程将会被阻塞，直到其他线程往空的队列插入新的元素；试图向已满的队列中添加新元素的线程将会被阻塞，直到其他线程从队列中移除一个或多个元素或者完全清空，使队列变得空闲起来并后续新增。</p>
+<blockquote>
+<p>简言之：<font color="red">空时不能消费，满时不能增加</font></p>
+</blockquote>
+<p>阻塞队列的用处：在多线程领域，所谓阻塞，就是在某些情况下会<strong>挂起</strong>线程(即阻塞)，一旦条件满足，被挂起的线程又会被自动<strong>唤醒</strong>。</p>
+<p>concurrent包发布以前，在多线程环境下，我们都必须自己去控制很多细节，尤其还要兼顾效率和线程安全，这对编码带来不小的复杂度；阻塞队列<code>BlockingQueue</code>就可以帮我们很好的解决这些问题，让我们无需关心什么时候需要阻塞线程，什么时候需要唤醒线程。</p>
+<h3 id="10-1-架构介绍"><a href="#10-1-架构介绍" class="headerlink" title="10.1 架构介绍"></a>10.1 架构介绍</h3><p>阻塞队列所有已知实现类架构图如下：</p>
+<p><img src="http://yanxuan.nosdn.127.net/fe2c909a5fdc12c30fe20081a75075af.png" alt="阻塞队列实现类"></p>
+<p>各种实现类分析：</p>
+<ol>
+<li><code>ArrayBlockingQueue</code>：<strong>由数据结构组成的有界阻塞队列</strong></li>
+<li><code>LinkedBlockingQueue</code>：<strong>由链表结构组成的有界阻塞队列(但大小默认值为<code>integer.MAX_VALUE</code>)</strong></li>
+<li><code>PriorityBlockingQueue</code>：支持优先级排序的无界阻塞队列</li>
+<li><code>DelayQueue</code>：使用优先级队列实现的延迟无界阻塞队列</li>
+<li><code>SynchronousQueue</code>：<strong>不存储元素的阻塞队列，也即单元素队列</strong></li>
+<li><code>LinkedTransferQueue</code>：由链表组成的无界阻塞队列</li>
+<li><code>LinkedBlockingDeque</code>：由链表组成的双向阻塞队列</li>
+</ol>
+<h3 id="10-2-核心方法"><a href="#10-2-核心方法" class="headerlink" title="10.2 核心方法"></a>10.2 核心方法</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">方法类型</th>
+<th style="text-align:center">抛出异常</th>
+<th style="text-align:center">特殊值</th>
+<th style="text-align:center">阻塞</th>
+<th style="text-align:center">超时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">插入</td>
+<td style="text-align:center">add(e)</td>
+<td style="text-align:center">offer(e)</td>
+<td style="text-align:center">put(e)</td>
+<td style="text-align:center">offer(e,time,unit)</td>
+</tr>
+<tr>
+<td style="text-align:center">移除</td>
+<td style="text-align:center">remove()</td>
+<td style="text-align:center">poll()</td>
+<td style="text-align:center">take()</td>
+<td style="text-align:center">poll(time,unit)</td>
+</tr>
+<tr>
+<td style="text-align:center">检查</td>
+<td style="text-align:center">element()</td>
+<td style="text-align:center">peek()</td>
+<td style="text-align:center">不可用</td>
+<td style="text-align:center">不可用</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>抛出异常<ul>
+<li>当阻塞队列满时，再往队列中add插入元素会抛出<code>illegalStateException:Queue full</code>异常；</li>
+<li>当阻塞队列空时，再往队列里remove移除元素会抛出<code>NoSuchElementException</code>异常。</li>
+</ul>
+</li>
+<li>特殊值<ul>
+<li>插入方法，成功true失败false</li>
+<li>移除方法，成功返回出队元素，无出队元素返回null</li>
+</ul>
+</li>
+<li>一直阻塞<ul>
+<li>阻塞队列满时，生产者线程继续put元素，队列会一直阻塞生产者线程直到put成功或响应中断退出；</li>
+<li>阻塞队列空时，消费者线程继续take元素，队列会一直阻塞消费者线程直到队列可用。</li>
+</ul>
+</li>
+<li>超时退出<ul>
+<li>当阻塞队列满时，队列会阻塞生产者线程一定时间，超过限时后生产者线程会退出。</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/JavaAdvanced/JUC.html" class="b-link-green">JUC</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2020-05-11T20-00-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/JavaAdvanced/JUC.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="JUC">
+                        
+                        <span class="card-title">JUC</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. JUCJUC是java.util.concurrent工具包的简称，JDK1.5开始出现的，这是一个处理线程的工具包，在此包中有很多在并发编程中很常用的工具类。
+主要由三大包构成：
+
+java.util.concurrent：并发包
+</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JavaAdvanced/" class="post-category" target="_blank">
+                                    JavaAdvanced
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/多线程/" target="_blank">
+                        <span class="chip bg-color">多线程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Algorithm-trip/binary-tree.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="二叉树">
+                        
+                        <span class="card-title">二叉树</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 树结构树(tree)是n$(n≥0)$个节点的有限集；当n=0时，称为空数；在任意一个非空树中有如下特点：
+
+
+有且仅有一个特定的称为根的节点。
+当n&gt;1时，其余节点可分为m(m&gt;0)个互不相交的有限集，每个集合本身又是一</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Algorithm-trip/" class="post-category" target="_blank">
+                                    Algorithm trip
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/binary-tree/" target="_blank">
+                        <span class="chip bg-color">binary tree</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">320.3k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
