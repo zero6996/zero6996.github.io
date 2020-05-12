@@ -613,7 +613,7 @@ public class TestNonBlockingNIO {
 
 ## 11. DatagramChannel
 
-lJava NIO中的DatagramChannel是一个能收发UDP包的通道。
+Java NIO中的DatagramChannel是一个能收发UDP包的通道。
 
 ### 11.1 简单案例
 
