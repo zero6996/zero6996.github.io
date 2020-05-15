@@ -1012,15 +1012,15 @@ phone.sendSMS();
 <blockquote>
 <p>简言之：静态同步锁类对象本身，故称之为全局锁，其他静态同步锁访问同类对象的锁会产生竞争，非静态锁的不同对象故不会产生竞争。</p>
 </blockquote>
-<h2 id="6-线程不安全案例"><a href="#6-线程不安全案例" class="headerlink" title="6. 线程不安全案例"></a>6. 线程不安全案例</h2><h3 id="6-1-ArrayList线程不安全的原因详解"><a href="#6-1-ArrayList线程不安全的原因详解" class="headerlink" title="6.1 ArrayList线程不安全的原因详解"></a>6.1 ArrayList线程不安全的原因详解</h3><p>从以下4个维度解释ArrayList线程不安全的原因</p>
-<h4 id="6-1-1-故障现象"><a href="#6-1-1-故障现象" class="headerlink" title="6.1.1 故障现象"></a>6.1.1 故障现象</h4><p>报<code>java.util.ConcurrentModificationException</code>错误，ArrayList在迭代时如果同时对其进行修改就会抛出并发修改异常。</p>
-<h4 id="6-1-2-导致原因"><a href="#6-1-2-导致原因" class="headerlink" title="6.1.2  导致原因"></a>6.1.2  导致原因</h4><p>多线程情况下同时争抢一个资源类且没有加锁</p>
-<h4 id="6-1-3-解决方法"><a href="#6-1-3-解决方法" class="headerlink" title="6.1.3 解决方法"></a>6.1.3 解决方法</h4><ol>
+<h2 id="5-线程不安全案例"><a href="#5-线程不安全案例" class="headerlink" title="5. 线程不安全案例"></a>5. 线程不安全案例</h2><h3 id="5-1-ArrayList线程不安全的原因详解"><a href="#5-1-ArrayList线程不安全的原因详解" class="headerlink" title="5.1 ArrayList线程不安全的原因详解"></a>5.1 ArrayList线程不安全的原因详解</h3><p>从以下4个维度解释ArrayList线程不安全的原因</p>
+<h4 id="5-1-1-故障现象"><a href="#5-1-1-故障现象" class="headerlink" title="5.1.1 故障现象"></a>5.1.1 故障现象</h4><p>报<code>java.util.ConcurrentModificationException</code>错误，ArrayList在迭代时如果同时对其进行修改就会抛出并发修改异常。</p>
+<h4 id="5-1-2-导致原因"><a href="#5-1-2-导致原因" class="headerlink" title="5.1.2  导致原因"></a>5.1.2  导致原因</h4><p>多线程情况下同时争抢一个资源类且没有加锁</p>
+<h4 id="5-1-3-解决方法"><a href="#5-1-3-解决方法" class="headerlink" title="5.1.3 解决方法"></a>5.1.3 解决方法</h4><ol>
 <li>使用java自带的<code>new Vector()</code>，代码底层加了synchronized锁保证线程安全；</li>
 <li>使用Collections工具类的<code>synchronizedList(new ArrayList&lt;&gt;())</code></li>
 <li>使用juc包下的<code>new CopyOnWriteArrayList&lt;&gt;();</code>写时复制技术</li>
 </ol>
-<h4 id="6-1-4-代码示例"><a href="#6-1-4-代码示例" class="headerlink" title="6.1.4 代码示例"></a>6.1.4 代码示例</h4>
+<h4 id="5-1-4-代码示例"><a href="#5-1-4-代码示例" class="headerlink" title="5.1.4 代码示例"></a>5.1.4 代码示例</h4>
 <!-- Has Prism -->
 <pre class="line-numbers" style=""><code class="language-java">public class arrayListNotSafe {
     public static void main(String[] args) {
@@ -1059,7 +1059,7 @@ phone.sendSMS();
     }
 }
 </code></pre>
-<h3 id="6-2-写时复制技术"><a href="#6-2-写时复制技术" class="headerlink" title="6.2 写时复制技术"></a>6.2 写时复制技术</h3><p>CopyOnWrite容器即写时复制的容器。往一个容器添加元素时，不直接往当前容器Object[]添加，而是先将当前容器进行Copy，复制出一个新的容器Object[] newElements，然后在新容器中添加元素，添加元素之后，将原容器的引用指向新容器setArray(newElements);</p>
+<h3 id="5-2-写时复制技术"><a href="#5-2-写时复制技术" class="headerlink" title="5.2 写时复制技术"></a>5.2 写时复制技术</h3><p>CopyOnWrite容器即写时复制的容器。往一个容器添加元素时，不直接往当前容器Object[]添加，而是先将当前容器进行Copy，复制出一个新的容器Object[] newElements，然后在新容器中添加元素，添加元素之后，将原容器的引用指向新容器setArray(newElements);</p>
 <p>这样做的好处是可以对CopyOnWrite容器进行并发的读而无需加锁，因为当前容器不会添加任何元素，所以CopyOnWrite容器也是一种<strong>读写分离的思想</strong>，读和写不同的容器。</p>
 
 <!-- Has Prism -->
@@ -1078,9 +1078,9 @@ phone.sendSMS();
     }
 }
 </code></pre>
-<h2 id="7-Callable接口"><a href="#7-Callable接口" class="headerlink" title="7. Callable接口"></a>7. Callable接口</h2><p>Callable类似于Runnable接口，实现Callable接口的类和实现Runnable的类都是可被其它线程执行的任务，Callable接口可以获取任务执行的返回值，通过与Future结合，可以实现异步计算；Callable经常和java线程池一起使用，同时它也是一个函数式接口。</p>
-<h3 id="7-1-获取多线程的几种方法"><a href="#7-1-获取多线程的几种方法" class="headerlink" title="7.1 获取多线程的几种方法"></a>7.1 获取多线程的几种方法</h3><p>传统的是继承thread类和实现runnable接口，java5之后又可以实现callable接口和java的线程池获取。</p>
-<h3 id="7-2-Callable和Runnable的区别"><a href="#7-2-Callable和Runnable的区别" class="headerlink" title="7.2 Callable和Runnable的区别"></a>7.2 Callable和Runnable的区别</h3><p>主要有两点区别：</p>
+<h2 id="6-Callable接口"><a href="#6-Callable接口" class="headerlink" title="6. Callable接口"></a>6. Callable接口</h2><p>Callable类似于Runnable接口，实现Callable接口的类和实现Runnable的类都是可被其它线程执行的任务，Callable接口可以获取任务执行的返回值，通过与Future结合，可以实现异步计算；Callable经常和java线程池一起使用，同时它也是一个函数式接口。</p>
+<h3 id="6-1-获取多线程的几种方法"><a href="#6-1-获取多线程的几种方法" class="headerlink" title="6.1 获取多线程的几种方法"></a>6.1 获取多线程的几种方法</h3><p>传统的是继承thread类和实现runnable接口，java5之后又可以实现callable接口和java的线程池获取。</p>
+<h3 id="6-2-Callable和Runnable的区别"><a href="#6-2-Callable和Runnable的区别" class="headerlink" title="6.2 Callable和Runnable的区别"></a>6.2 Callable和Runnable的区别</h3><p>主要有两点区别：</p>
 <ol>
 <li>方法不同，一个call()一个run()；</li>
 <li>run方法没有返回值；call方法可以返回执行结果；</li>
@@ -1097,7 +1097,7 @@ public interface Runnable {
     public abstract void run();
 }
 </code></pre>
-<h3 id="7-3-FutureTask"><a href="#7-3-FutureTask" class="headerlink" title="7.3 FutureTask"></a>7.3 FutureTask</h3><p>由于Thread类不能直接使用Callable接口，故需要使用到FutureTask做“中间人”， FutureTask类实现RunnableFuture接口，而RunnnableFuture接口继承了Runnable和Future接口，所以说FutureTask是一个提供异步计算的结果的任务。 </p>
+<h3 id="6-3-FutureTask"><a href="#6-3-FutureTask" class="headerlink" title="6.3 FutureTask"></a>6.3 FutureTask</h3><p>由于Thread类不能直接使用Callable接口，故需要使用到FutureTask做“中间人”， FutureTask类实现RunnableFuture接口，而RunnnableFuture接口继承了Runnable和Future接口，所以说FutureTask是一个提供异步计算的结果的任务。 </p>
 <p>可以使用FutureTask来包装Callable或者Runnable对象，然后交给Thread或线程池做执行，Callable有以下两种执行方式：</p>
 <ul>
 <li>Callable借助FutureTask执行：</li>
@@ -1139,7 +1139,7 @@ System.out.println(future.get());
 &#x2F;&#x2F; 关闭线程池
 pool.shutdown();
 </code></pre>
-<h2 id="8-JUC常用辅助类"><a href="#8-JUC常用辅助类" class="headerlink" title="8. JUC常用辅助类"></a>8. JUC常用辅助类</h2><h3 id="8-1-CountDownLatch减法计数器"><a href="#8-1-CountDownLatch减法计数器" class="headerlink" title="8.1 CountDownLatch减法计数器"></a>8.1 <code>CountDownLatch</code>减法计数器</h3><p>案例：下课教室走人场景，有6位同学要走但走的顺序不一定，班长必须等待所有同学走完才允许关门走人。</p>
+<h2 id="7-JUC常用辅助类"><a href="#7-JUC常用辅助类" class="headerlink" title="7. JUC常用辅助类"></a>7. JUC常用辅助类</h2><h3 id="7-1-CountDownLatch减法计数器"><a href="#7-1-CountDownLatch减法计数器" class="headerlink" title="7.1 CountDownLatch减法计数器"></a>7.1 <code>CountDownLatch</code>减法计数器</h3><p>案例：下课教室走人场景，有6位同学要走但走的顺序不一定，班长必须等待所有同学走完才允许关门走人。</p>
 
 <!-- Has Prism -->
 <pre class="line-numbers" style=""><code class="language-java">public class CountDownLatchDemo {
@@ -1159,7 +1159,7 @@ pool.shutdown();
 }
 </code></pre>
 <p>CountDownLatch主要有两个方法，当一个或多个线程调用await方法时，这些线程会阻塞。其他线程调用countDown方法会将计数器减1(调用countDown方法的线程不会阻塞)，当计数器的值为0时，被await方法阻塞的线程会被唤醒，继续执行。</p>
-<h3 id="8-2-CyclicBarrier循环屏障"><a href="#8-2-CyclicBarrier循环屏障" class="headerlink" title="8.2 CyclicBarrier循环屏障"></a>8.2 <code>CyclicBarrier</code>循环屏障</h3><p>CyclicBarrier字面意思是可循环的(Cyclic)使用的屏障(Barrier)；主要可以做到让一组线程到达一个屏障(也可叫同步点)时被阻塞，直到最后一个线程到达屏障时，屏障才会开门让所有被屏障拦截的线程继续工作。</p>
+<h3 id="7-2-CyclicBarrier循环屏障"><a href="#7-2-CyclicBarrier循环屏障" class="headerlink" title="7.2 CyclicBarrier循环屏障"></a>7.2 <code>CyclicBarrier</code>循环屏障</h3><p>CyclicBarrier字面意思是可循环的(Cyclic)使用的屏障(Barrier)；主要可以做到让一组线程到达一个屏障(也可叫同步点)时被阻塞，直到最后一个线程到达屏障时，屏障才会开门让所有被屏障拦截的线程继续工作。</p>
 <ul>
 <li>线程进入屏障使用CyclicBarrier的<code>await()</code>方法，代码案例如下：</li>
 </ul>
@@ -1185,7 +1185,7 @@ public class CyclicBarrierDemo {
     }
 }
 </code></pre>
-<h3 id="8-3-Semaphore信号灯"><a href="#8-3-Semaphore信号灯" class="headerlink" title="8.3 Semaphore信号灯"></a>8.3 <code>Semaphore</code>信号灯</h3><p>在信号量上定义两种操作：</p>
+<h3 id="7-3-Semaphore信号灯"><a href="#7-3-Semaphore信号灯" class="headerlink" title="7.3 Semaphore信号灯"></a>7.3 <code>Semaphore</code>信号灯</h3><p>在信号量上定义两种操作：</p>
 <ul>
 <li><strong>acquire(获取)</strong>：当一个线程调用acquire操作时，它要么成功通过，获取信号量(信号量减1)，要么一直等待下去，直到有线程释放信号量或超时。</li>
 <li><strong>release(释放)</strong>：实际上会将信号量的值加1，然后唤醒等待的线程。</li>
@@ -1220,7 +1220,7 @@ public class SemaphoreDemo {
     }
 }
 </code></pre>
-<h2 id="9-可重入读写锁ReentrantReadWriteLock"><a href="#9-可重入读写锁ReentrantReadWriteLock" class="headerlink" title="9. 可重入读写锁ReentrantReadWriteLock"></a>9. 可重入读写锁<code>ReentrantReadWriteLock</code></h2><p>当多个线程同时读取一个资源类没有任何问题，所以为了满足并发量，读取共享资源应该可以同时进行；但是，如果有一个线程想去写共享资源时，为了保证数据的一致性，就不应该有其他线程可以同时对该资源进行读写操作了。</p>
+<h2 id="8-可重入读写锁ReentrantReadWriteLock"><a href="#8-可重入读写锁ReentrantReadWriteLock" class="headerlink" title="8. 可重入读写锁ReentrantReadWriteLock"></a>8. 可重入读写锁<code>ReentrantReadWriteLock</code></h2><p>当多个线程同时读取一个资源类没有任何问题，所以为了满足并发量，读取共享资源应该可以同时进行；但是，如果有一个线程想去写共享资源时，为了保证数据的一致性，就不应该有其他线程可以同时对该资源进行读写操作了。</p>
 <ul>
 <li>代码案例，使用ReentrantReadWriteLock读写锁对不同的读写资源操作上不同的锁。</li>
 </ul>
@@ -1283,7 +1283,7 @@ public class ReadWriteLockDemo {
 <blockquote>
 <p>读取资源应该共享读，写操作时应该排他写；以此保证数据的一致性。</p>
 </blockquote>
-<h2 id="10-阻塞队列"><a href="#10-阻塞队列" class="headerlink" title="10. 阻塞队列"></a>10. 阻塞队列</h2><p>阻塞队列<code>BlockingQueue</code>是一个队列，数据结构如下：</p>
+<h2 id="9-阻塞队列"><a href="#9-阻塞队列" class="headerlink" title="9. 阻塞队列"></a>9. 阻塞队列</h2><p>阻塞队列<code>BlockingQueue</code>是一个队列，数据结构如下：</p>
 <p><img src="http://yanxuan.nosdn.127.net/9d12e170ba9bc52fa7cfbb7d6bed2d10.png" alt="阻塞队列"></p>
 <p>阻塞队列主要具有这两点特性：</p>
 <ul>
@@ -1296,7 +1296,7 @@ public class ReadWriteLockDemo {
 </blockquote>
 <p>阻塞队列的用处：在多线程领域，所谓阻塞，就是在某些情况下会<strong>挂起</strong>线程(即阻塞)，一旦条件满足，被挂起的线程又会被自动<strong>唤醒</strong>。</p>
 <p>concurrent包发布以前，在多线程环境下，我们都必须自己去控制很多细节，尤其还要兼顾效率和线程安全，这对编码带来不小的复杂度；阻塞队列<code>BlockingQueue</code>就可以帮我们很好的解决这些问题，让我们无需关心什么时候需要阻塞线程，什么时候需要唤醒线程。</p>
-<h3 id="10-1-架构介绍"><a href="#10-1-架构介绍" class="headerlink" title="10.1 架构介绍"></a>10.1 架构介绍</h3><p>阻塞队列所有已知实现类架构图如下：</p>
+<h3 id="9-1-架构介绍"><a href="#9-1-架构介绍" class="headerlink" title="9.1 架构介绍"></a>9.1 架构介绍</h3><p>阻塞队列所有已知实现类架构图如下：</p>
 <p><img src="http://yanxuan.nosdn.127.net/fe2c909a5fdc12c30fe20081a75075af.png" alt="阻塞队列实现类"></p>
 <p>各种实现类分析：</p>
 <ol>
@@ -1308,7 +1308,7 @@ public class ReadWriteLockDemo {
 <li><code>LinkedTransferQueue</code>：由链表组成的无界阻塞队列</li>
 <li><code>LinkedBlockingDeque</code>：由链表组成的双向阻塞队列</li>
 </ol>
-<h3 id="10-2-核心方法"><a href="#10-2-核心方法" class="headerlink" title="10.2 核心方法"></a>10.2 核心方法</h3><table>
+<h3 id="9-2-核心方法"><a href="#9-2-核心方法" class="headerlink" title="9.2 核心方法"></a>9.2 核心方法</h3><table>
 <thead>
 <tr>
 <th style="text-align:center">方法类型</th>
