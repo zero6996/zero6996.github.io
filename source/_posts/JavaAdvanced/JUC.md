@@ -637,27 +637,27 @@ synchronized实现同步的基础：Java中的每一个对象都可以作为锁�
 
 
 
-## 6. 线程不安全案例
+## 5. 线程不安全案例
 
-### 6.1 ArrayList线程不安全的原因详解
+### 5.1 ArrayList线程不安全的原因详解
 
 从以下4个维度解释ArrayList线程不安全的原因
 
-#### 6.1.1 故障现象
+#### 5.1.1 故障现象
 
 报`java.util.ConcurrentModificationException`错误，ArrayList在迭代时如果同时对其进行修改就会抛出并发修改异常。
 
-#### 6.1.2  导致原因
+#### 5.1.2  导致原因
 
 多线程情况下同时争抢一个资源类且没有加锁
 
-#### 6.1.3 解决方法
+#### 5.1.3 解决方法
 
 1. 使用java自带的`new Vector()`，代码底层加了synchronized锁保证线程安全；
 2. 使用Collections工具类的`synchronizedList(new ArrayList<>())`
 3. 使用juc包下的`new CopyOnWriteArrayList<>(); `写时复制技术
 
-#### 6.1.4 代码示例
+#### 5.1.4 代码示例
 
 ```java
 public class arrayListNotSafe {
@@ -698,7 +698,7 @@ public class arrayListNotSafe {
 }
 ```
 
-### 6.2 写时复制技术
+### 5.2 写时复制技术
 
 CopyOnWrite容器即写时复制的容器。往一个容器添加元素时，不直接往当前容器Object[]添加，而是先将当前容器进行Copy，复制出一个新的容器Object[] newElements，然后在新容器中添加元素，添加元素之后，将原容器的引用指向新容器setArray(newElements);
 
@@ -721,15 +721,15 @@ public boolean add(E e) {
 }
 ```
 
-##  7. Callable接口
+##  6. Callable接口
 
 Callable类似于Runnable接口，实现Callable接口的类和实现Runnable的类都是可被其它线程执行的任务，Callable接口可以获取任务执行的返回值，通过与Future结合，可以实现异步计算；Callable经常和java线程池一起使用，同时它也是一个函数式接口。
 
-### 7.1 获取多线程的几种方法
+### 6.1 获取多线程的几种方法
 
 传统的是继承thread类和实现runnable接口，java5之后又可以实现callable接口和java的线程池获取。
 
-### 7.2 Callable和Runnable的区别
+### 6.2 Callable和Runnable的区别
 
 主要有两点区别：
 
@@ -748,7 +748,7 @@ public interface Runnable {
 }
 ```
 
-### 7.3 FutureTask
+### 6.3 FutureTask
 
 由于Thread类不能直接使用Callable接口，故需要使用到FutureTask做“中间人”， FutureTask类实现RunnableFuture接口，而RunnnableFuture接口继承了Runnable和Future接口，所以说FutureTask是一个提供异步计算的结果的任务。 
 
@@ -792,9 +792,9 @@ System.out.println(future.get());
 pool.shutdown();
 ```
 
-## 8. JUC常用辅助类
+## 7. JUC常用辅助类
 
-### 8.1 `CountDownLatch`减法计数器
+### 7.1 `CountDownLatch`减法计数器
 
 案例：下课教室走人场景，有6位同学要走但走的顺序不一定，班长必须等待所有同学走完才允许关门走人。
 
@@ -818,7 +818,7 @@ public class CountDownLatchDemo {
 
 CountDownLatch主要有两个方法，当一个或多个线程调用await方法时，这些线程会阻塞。其他线程调用countDown方法会将计数器减1(调用countDown方法的线程不会阻塞)，当计数器的值为0时，被await方法阻塞的线程会被唤醒，继续执行。
 
-### 8.2 `CyclicBarrier`循环屏障
+### 7.2 `CyclicBarrier`循环屏障
 
 CyclicBarrier字面意思是可循环的(Cyclic)使用的屏障(Barrier)；主要可以做到让一组线程到达一个屏障(也可叫同步点)时被阻塞，直到最后一个线程到达屏障时，屏障才会开门让所有被屏障拦截的线程继续工作。
 
@@ -846,7 +846,7 @@ public class CyclicBarrierDemo {
 }
 ```
 
-### 8.3 `Semaphore`信号灯
+### 7.3 `Semaphore`信号灯
 
 在信号量上定义两种操作：
 
@@ -883,7 +883,7 @@ public class SemaphoreDemo {
 }
 ```
 
-## 9. 可重入读写锁`ReentrantReadWriteLock`
+## 8. 可重入读写锁`ReentrantReadWriteLock`
 
 当多个线程同时读取一个资源类没有任何问题，所以为了满足并发量，读取共享资源应该可以同时进行；但是，如果有一个线程想去写共享资源时，为了保证数据的一致性，就不应该有其他线程可以同时对该资源进行读写操作了。
 
@@ -947,7 +947,7 @@ public class ReadWriteLockDemo {
 
 > 读取资源应该共享读，写操作时应该排他写；以此保证数据的一致性。
 
-## 10. 阻塞队列
+## 9. 阻塞队列
 
 阻塞队列`BlockingQueue`是一个队列，数据结构如下：
 
@@ -966,7 +966,7 @@ public class ReadWriteLockDemo {
 
 concurrent包发布以前，在多线程环境下，我们都必须自己去控制很多细节，尤其还要兼顾效率和线程安全，这对编码带来不小的复杂度；阻塞队列`BlockingQueue`就可以帮我们很好的解决这些问题，让我们无需关心什么时候需要阻塞线程，什么时候需要唤醒线程。
 
-### 10.1 架构介绍
+### 9.1 架构介绍
 
 阻塞队列所有已知实现类架构图如下：
 
@@ -982,7 +982,7 @@ concurrent包发布以前，在多线程环境下，我们都必须自己去控�
 6. `LinkedTransferQueue`：由链表组成的无界阻塞队列
 7. `LinkedBlockingDeque`：由链表组成的双向阻塞队列
 
-### 10.2 核心方法
+### 9.2 核心方法
 
 | 方法类型 | 抛出异常  |  特殊值  |  阻塞  |        超时        |
 | :------: | :-------: | :------: | :----: | :----------------: |
