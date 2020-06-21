@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="JVM基础和GC, Zero的博客">
+    <meta name="keywords" content="JVM基础, Zero的博客">
     <meta name="description" content="1. JVM体系结构概述JVM是运行在操作系统之上的，它与硬件没有直接的交互，下图示JVM体系结构图：
 
 
@@ -16,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JVM基础和GC | Zero的博客</title>
+    <title>JVM基础 | Zero的博客</title>
     <link rel="icon" type="image/jpeg" href="/wlop.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -284,13 +284,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        JVM基础和GC
+                        JVM基础
                     </div>
                 </div>
             </div>
@@ -413,14 +413,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        10.6k
+                        12.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        38 分
+                        43 分
                     </div>
                     
                 
@@ -449,13 +449,13 @@
 </ul>
 </li>
 <li>用户自定义加载器<ul>
-<li>Java.lang.ClassLoader的子类，用户可以定制类的加载方式</li>
+<li><code>Java.lang.ClassLoader</code>的子类，用户可以定制类的加载方式</li>
 </ul>
 </li>
 </ul>
 <h4 id="1-2-双亲委派机制"><a href="#1-2-双亲委派机制" class="headerlink" title="1.2 双亲委派机制"></a>1.2 双亲委派机制</h4><p>当一个类收到了类加载请求，它首先不会去尝试自己去加载这个类，而是把这个请求委派给父类去完成，每一层次类加载器都是如此，因此所有的加载请求都应该传递到启动类加载器中，只有当父类加载器反馈自己无法完成这个请求时(它自己的加载路径下无法找到所需的类)，子类加载器才会尝试自己去加载。</p>
 <ul>
-<li>好处：采用双亲委派的一个好处就是比如加载位于rt.jar包中的类<code>java.lang.Object</code>，不管是哪个加载器加载这个类，最终都是委托给顶层的启动类加载器进行加载，这样就保证了使用不同的类加载器最终得到的都是同一个Object对象。</li>
+<li>好处：采用双亲委派的一个好处就是比如加载位于<code>rt.jar</code>包中的类<code>java.lang.Object</code>，不管是哪个加载器加载这个类，最终都是委托给顶层的启动类加载器进行加载，这样就保证了使用不同的类加载器最终得到的都是同一个Object对象。</li>
 </ul>
 <blockquote>
 <p>双亲委派机制保证了沙箱安全</p>
@@ -473,7 +473,17 @@
 <li>程序计数器占用内存非常小，在进行JVM内存计算时，可以忽略不计；</li>
 <li>程序计数器在Java虚拟机规范中没有规定任何OOMError区域，故不会发生内存溢出(OutOfMemory=OOM)错误。</li>
 </ol>
-<h3 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5. 方法区"></a>5. 方法区</h3><p>供各<strong>线程共享</strong>的运行时内存区域。<font color="red">它存储了每个类的结构信息，就是模板</font>；例如运行时常量池(Runtime Constant Pool)、字段和方法数据、构造函数和普通方法的字节码内容。上面讲的<strong>是规范</strong>，具体实现不同虚拟机是不同的，最典型的就是永久代(PermGen Space)和元空间(Mate Space)。</p>
+<h3 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5. 方法区"></a>5. 方法区</h3><p>供各<strong>线程共享</strong>的运行时内存区域。<font color="red">它存储了每个类的结构信息，就是模板</font>；例如运行时常量池、常量、静态变量、类型信息（方法数据、构造函数和普通方法的字节码内容）等。上面讲的<strong>是规范</strong>，具体实现不同虚拟机是不同的，最典型的就是永久代(PermGen Space)和元空间(Mate Space)。</p>
+<h4 id="5-1-方法区的发展历程"><a href="#5-1-方法区的发展历程" class="headerlink" title="5.1 方法区的发展历程"></a>5.1 方法区的发展历程</h4><ol>
+<li>JDK6：开发者团队开始准备放弃永久代，逐步改为采用本地内存来实现方法区；</li>
+<li>JDK7：将放在永久代里的字符串常量池、静态变量等移出；</li>
+<li>JDK8：完全废除永久代概念，改用本地内存实现元空间，永久代中剩余内容全部移至元空间。</li>
+</ol>
+<h4 id="5-2-Java中几种常量池的区分"><a href="#5-2-Java中几种常量池的区分" class="headerlink" title="5.2 Java中几种常量池的区分"></a>5.2 Java中几种常量池的区分</h4><ol>
+<li>全局字符串池：就是我们常说的字符串常量池，存放的内容是类加载完成后在堆中生成字符串<strong>对象实例的引用值</strong>。</li>
+<li>class文件常量池：class文件除了包含类的模板信息，还包含类常量池，用于存放编译器生成的各种常量和符号引用（描述引用目标）。</li>
+<li>运行时常量池：当类加载到内存中运行时，JVM就会将class常量池中的内容存放到运行时常量池中，运行时常量池每个类都有一个。</li>
+</ol>
 <h3 id="6-Java栈"><a href="#6-Java栈" class="headerlink" title="6. Java栈"></a>6. Java栈</h3><p>栈也叫栈内存，主管Java程序的运行，是在线程创建时创建，它的生命周期是跟随线程的生命周期，线程结束栈内存也就释放，<strong>对于栈来说不存在垃圾回收问题</strong>，只要线程一结束该栈就Over，生命周期和线程一致，是线程私有的。<font color="red">8种基本类型的变量+对象引用的变量+实例方法都是在函数的栈内存中分配的。</font></p>
 <h4 id="6-1-栈存储"><a href="#6-1-栈存储" class="headerlink" title="6.1 栈存储"></a>6.1 栈存储</h4><p>栈帧中主要保存3类数据：</p>
 <ul>
@@ -607,75 +617,108 @@
 <li>FGC模板</li>
 </ul>
 <p><img src="http://yanxuan.nosdn.127.net/88e855c3f353edd0ca601221e6332448.png" alt="FGC"></p>
-<h2 id="4-GC垃圾回收"><a href="#4-GC垃圾回收" class="headerlink" title="4. GC垃圾回收"></a>4. GC垃圾回收</h2><h3 id="4-1-GC是什么-分代收集算法"><a href="#4-1-GC是什么-分代收集算法" class="headerlink" title="4.1 GC是什么(分代收集算法)"></a>4.1 GC是什么(分代收集算法)</h3><p>GC是Java的垃圾回收机制，主要可以概括为以下几点：</p>
-<ul>
-<li>次数上频繁收集Young区</li>
-<li>次数上较少收集Old区</li>
-<li>基本不动元空间</li>
-</ul>
+<h2 id="4-垃圾回收算法"><a href="#4-垃圾回收算法" class="headerlink" title="4. 垃圾回收算法"></a>4. 垃圾回收算法</h2><h3 id="4-1-GC是什么-分代收集算法"><a href="#4-1-GC是什么-分代收集算法" class="headerlink" title="4.1 GC是什么(分代收集算法)"></a>4.1 GC是什么(分代收集算法)</h3><p>GC是Java的垃圾回收机制，主要可划分为“引用计数式垃圾收集”和“追踪式垃圾收集”。</p>
+<p>现在主流的商业虚拟机的垃圾收集器，遵循了<strong>“分代收集”的理论</strong>进行设计，建立在两个分代假说之上：</p>
+<ol>
+<li>弱分代假说：绝大多数对象都是朝生夕死的。</li>
+<li>强分代假说：熬过越多次垃圾收集的对象就越难以消亡。</li>
+</ol>
+<p>基于这两个假说奠定了多款常用垃圾收集器的一致设计原则：收集器应该将Java堆划分出不同的区域，然后将回收对象依据年龄分配到不同的区域中存储。</p>
+<p>在Java堆划分出不同的区域之后，垃圾收集器才可根据情况只回收其中部分区域，因此才有了“Minor GC”、“Major GC”、“Full GC”这样的回收类型划分；才能根据不同区域的对象存亡特征选择其合适的垃圾收集器，诸如“标记-复制算法”、“标记-清除算法”、“标记-压缩算法”等。</p>
 <h3 id="4-2-GC算法概述"><a href="#4-2-GC算法概述" class="headerlink" title="4.2 GC算法概述"></a>4.2 GC算法概述</h3><p><img src="http://yanxuan.nosdn.127.net/91c8be58bd03e0baf762d77d33c40890.png" alt="GC概述"></p>
 <p>JVM在进行GC时，并非每次都对上面三个内存区域一起回收，大部分时候回收的都是新生代。因此GC按照回收区域又分了两种类型，一种是普通GC(Minor GC)，一种是全局GC(Major GC or Full GC)。</p>
-<h4 id="4-2-1-Minor-GC和Full-GC的区别"><a href="#4-2-1-Minor-GC和Full-GC的区别" class="headerlink" title="4.2.1 Minor GC和Full GC的区别"></a>4.2.1 Minor GC和Full GC的区别</h4><ul>
-<li>普通GC：只针对新生代区域的GC，指发生在新生代的垃圾收集动作，因为大多数Java对象存活率都不高，所有Minor GC非常频繁，一般回收速度也比较快。</li>
-<li>全局GC：指发生在老年代的垃圾收集动作，出现了Major GC，经常会伴随至少一次的Minor GC(并非绝对的)；Major GC的速度一般要比Minor GC慢上10倍以上。</li>
+<h4 id="4-2-1-回收类型划分"><a href="#4-2-1-回收类型划分" class="headerlink" title="4.2.1 回收类型划分"></a>4.2.1 回收类型划分</h4><ul>
+<li>部分收集（Partial GC）：指目标不是完整收集整个Java堆的垃圾收集，其中细分如下：<ul>
+<li>新生代收集（Minor GC/Young GC）：指目标仅是新生代的垃圾收集；</li>
+<li>老年代收集（Major GC/Old GC）：指目标仅是老年代的垃圾收集，目前只有CMS收集器会有单独收集老年代的行为。</li>
+<li>混合收集（Mixed GC）：指目标是收集整个新生代以及部分老年代的垃圾收集，目前只有G1收集器会有这种行为。</li>
 </ul>
-<h3 id="4-3-四大算法之：引用计数法"><a href="#4-3-四大算法之：引用计数法" class="headerlink" title="4.3 四大算法之：引用计数法"></a>4.3 四大算法之：引用计数法</h3><p><img src="http://yanxuan.nosdn.127.net/8f44594f7894884b1d47abce7b59461a.png" alt="引用计数法"></p>
-<h3 id="4-4-四大算法之：复制算法-Copying"><a href="#4-4-四大算法之：复制算法-Copying" class="headerlink" title="4.4 四大算法之：复制算法(Copying)"></a>4.4 四大算法之：复制算法(Copying)</h3><p><strong>年轻代</strong>中使用的是Minor GC，这种GC算法采用的就是复制算法。</p>
-<h4 id="4-4-1-Minor-GC原理"><a href="#4-4-1-Minor-GC原理" class="headerlink" title="4.4.1 Minor GC原理"></a>4.4.1 Minor GC原理</h4><p><img src="http://yanxuan.nosdn.127.net/bf44ebec2b2413603977993ed5683d9b.png" alt="堆结构图"></p>
+</li>
+<li>整堆收集（Full GC）：收集整个Java堆和方法区的垃圾收集。</li>
+</ul>
+<h4 id="4-2-2-Minor-GC原理"><a href="#4-2-2-Minor-GC原理" class="headerlink" title="4.2.2 Minor GC原理"></a>4.2.2 Minor GC原理</h4><p><img src="http://yanxuan.nosdn.127.net/bf44ebec2b2413603977993ed5683d9b.png" alt="堆结构图"></p>
 <p>Minor GC会把Eden中的所有活的对象都移到Survivor区域中，如果Survivor区中放不下，那么剩下的存活对象就被移到Old代中，也即一旦收集后，Eden区就变成空的了。当对象在Eden(包括一个Survivor 区域，假设是From区域)出生后，经过一次Minor GC后，如果对象还存活，且能够被另外一块Survivor区域所容纳(上面假设是from区，那么这里就是to区，即to区域有足够的内存空间来存储Eden和from区中存活的对象)，则使用复制算法将这些仍然存活的对象复制到另外一块Survivor区(即to区)中，然后清理所使用过的Eden区以及Survivor区(即from区)， 并且将这些对象的年龄设置为1，以后对象在 Survivor 区每熬过一次 Minor GC，就将对象的年龄 + 1，当对象的年龄达到某个值时 ( 默认是 15 岁，通过<code>-XX:MaxTenuringThreshold</code>来设定参数)，这些对象就会成为老年代。</p>
 <ul>
 <li><code>-XX:MaxTenuringThreshold</code> ：设置对象在新生代中存活的次数    </li>
 </ul>
-<h4 id="4-4-2-复制算法详细运行步骤"><a href="#4-4-2-复制算法详细运行步骤" class="headerlink" title="4.4.2 复制算法详细运行步骤"></a>4.4.2 复制算法详细运行步骤</h4><p><strong>HotSpot JVM</strong>将年轻带分为了三部分：<strong>1个Eden区和2个Survivor区</strong>(分别叫from和to)。默认比例为<strong>8:1:1</strong>，一般情况下，<strong>新</strong>创建的对象都会被分配到<strong>Eden区</strong>(一些大对象会特殊处理)，这些对象经过第一次Minor GC后，如果仍然存活，将会被移到<strong>Survivor区</strong>。</p>
-<p>对象在Survivor区中每熬过一次Minor GC，年龄就会<strong>增加一岁</strong>，当它的年龄到一定程度后，就会被移动到老年代。因为年轻代中的对象基本都是朝生夕死(90%以上)，所以在<strong>年轻代的垃圾回收算法使用的是复制算法</strong>，复制算法的基本思想就是将内存分为两块，每次只用其中一块，当这一块内存用完，就将还活着的对象复制到另外一块上面。<strong>复制算法是不会产生内存碎片的。</strong></p>
+<h3 id="4-3-判断对象是否存活"><a href="#4-3-判断对象是否存活" class="headerlink" title="4.3 判断对象是否存活"></a>4.3 判断对象是否存活</h3><p>主要有两种方式，引用计数法和根搜索算法。</p>
+<h4 id="4-3-1-引用计数法"><a href="#4-3-1-引用计数法" class="headerlink" title="4.3.1 引用计数法"></a>4.3.1 引用计数法</h4><p><img src="http://yanxuan.nosdn.127.net/8f44594f7894884b1d47abce7b59461a.png" alt="引用计数法"></p>
+<p>该算法给对象添加了一个引用计数器，被引用时，计数器值+1，引用失效时，计数器值-1。</p>
+<p>JVM不使用它的原因是很难解决对象之间的循环引用问题。</p>
+<h4 id="4-3-2-可达性分析算法"><a href="#4-3-2-可达性分析算法" class="headerlink" title="4.3.2 可达性分析算法"></a>4.3.2 可达性分析算法</h4><p>该算法用于判定对象是否存活。这个算法的基本思路就是通过一些的名为“GC Roots”的对象作为起始节点集合，从这些节点开始根据<strong>引用关系</strong>向下搜索，搜索所走过的路径称为<strong>引用链</strong>，如果某个对象到GC Roots间<strong>没有任何引用链相连</strong>时，就是从GC Roots到这个<strong>对象不可达</strong>，则证明此对象是<strong>不可用的</strong>。</p>
+<p>在Java语言中，可作为GC Roots的对象包括以下几种：</p>
+<ol>
+<li>虚拟机栈中引用的对象，如线程调用的方法堆栈中使用到的参数，局部变量，临时变量等；</li>
+<li>方法区中的类静态属性引用的对象</li>
+<li>方法区中的常量引用的对象，如字符串常量池里的引用；</li>
+<li>本地方法栈中JNI引用的对象。</li>
+</ol>
+<h4 id="4-3-3-Java四大引用"><a href="#4-3-3-Java四大引用" class="headerlink" title="4.3.3 Java四大引用"></a>4.3.3 Java四大引用</h4><p>JDK1.2版本后，Java对引用的概念进行了扩充，将引用分为强引用、软引用、弱引用、虚引用4种，引用强度依次递增。</p>
+<ol>
+<li>强引用：最传统的引用定义，就是<code>Object obj = new Object()</code>这样在代码中普遍存在的引用赋值，只要强引用关系存在，被引用对象就不会被GC。</li>
+<li>软引用：用于描述一些还有用，但不必要的对象。在系统将要发生OOM异常前，会将这些对象列入回收范围进行二次回收。JDK提供了<code>SoftReference</code>类来实现软引用。</li>
+<li>弱引用：用于描述一些非必须对象，强度比软引用更弱一点；弱引用关联的对象只能生存到下一次GC发生为止，当GC收集器工作时，弱引用关联的对象都会被回收掉。JDK提供<code>WeakRefererence</code>来实现弱引用。</li>
+<li>虚引用：最弱的一种引用关系，对象是否有虚引用不会产生任何影响，设置虚引用的唯一目的就是为了在该对象被GC时收到一个系统通知。JDK提供了<code>PhantomReference</code>来实现虚引用。</li>
+</ol>
+<blockquote>
+<p>简言之：</p>
+<ul>
+<li>强引用对象引用关系存在，不会被回收</li>
+<li>软引用对象系统内存不足时会被GC</li>
+<li>弱引用对象发生GC时必然被回收</li>
+<li>虚引用用于对象被GC时发送系统通知</li>
+</ul>
+</blockquote>
+<h3 id="4-4-三大算法之：复制算法-Copying"><a href="#4-4-三大算法之：复制算法-Copying" class="headerlink" title="4.4 三大算法之：复制算法(Copying)"></a>4.4 三大算法之：复制算法(Copying)</h3><p>复制算法是一种适用于年轻代的GC算法</p>
+<h4 id="4-4-1-复制算法详细运行步骤"><a href="#4-4-1-复制算法详细运行步骤" class="headerlink" title="4.4.1 复制算法详细运行步骤"></a>4.4.1 复制算法详细运行步骤</h4><p><strong>HotSpot JVM</strong>将年轻代分为了三部分：<strong>1个Eden区和2个Survivor区</strong>(分别叫from和to)。默认比例为<strong>8:1:1</strong>（一种更优化的半区复制分代策略，现称为Appel式回收），一般情况下，新创建的对象都会被分配到<strong>Eden区</strong>(大对象会直接移到老年代中)，这些对象经过第一次Minor GC后，如果仍然存活，将会被移到<strong>Survivor区</strong>。</p>
+<p>对象在Survivor区中每熬过一次Minor GC，年龄就会<strong>增加一岁</strong>，当它的年龄到一定程度后，就会被移动到老年代。因为年轻代中的对象基本都是朝生夕死（根据IBM的研究表明，新生代98%以上对象熬不过第一轮收集），所以在<strong>年轻代的垃圾回收算法使用的是复制算法</strong>，复制算法的基本思想就是将内存分为两块，每次只用其中一块，当这一块内存用完，就将还活着的对象复制到另外一块上面，因此<strong>复制算法是不会产生内存碎片的。</strong></p>
 <p><img src="http://yanxuan.nosdn.127.net/1941abf352c68e64f498523fecac9094.png" alt="复制算法"></p>
 <p>在GC开始时，对象只会存在于Eden区和名为”From”的Survivor区，Survivor区的”To”是空的。紧接着进行GC，Eden区中所有存活的对象都会被复制到”To”，而在”From”区中，仍存活的对象会根据他们的年龄值来决定去向。年龄达到一定值的对象会被移到到年老代中，没有达到阈值的对象会被复制到”To”区域。</p>
 <p>经过这次GC后，Eden区和From区已经被清空。这时，”From”和”To”会<strong>交换他们的角色</strong>，也就是新的”To”就是上次GC前的”From”，新的”From”就是上次GC前的”To”。</p>
-<p>不管怎样，都会保证名为To的Survivor区域是空的。Minor GC会一直重复这样的过程，直到”To”区被填满。当大量对象在Minor GC后仍然存活的情况下导致”To”区被填满，就需要老年代进行<strong>分配担保</strong>，会将Survivor无法容纳的对象直接进入老年代。</p>
+<p>不管怎样，都会保证名为To的Survivor区域是空的。Minor GC会一直重复这样的过程，直到”To”区被填满。当大量对象在Minor GC后仍然存活的情况下导致”To”区被填满，就需要老年代进行<strong>分配担保</strong>，将Survivor无法容纳的对象直接进入老年代。</p>
+<blockquote>
+<p>分配担保机制：在发生Minor GC之前，JVM会检查老年代最大可用连续空间是否大于新生代所有对象总空间，如果大于那么就可以确保这次Minor GC是安全的；如果小于新生代对象总空间，则JVM会查看<code>-XX:HandlerPromotionFailure</code>参数是否允许担保失败；如果允许就会检查老年代剩余可用空间是否大于历次晋升到老年代对象的平均大小，如果大于则说明老年代可能还是放的下年轻代过来的对象，可能可以继续担保，会尝试进行一次Minor GC，尽管是有风险的；如果小于或者参数设置不允许冒险担保，那么就会改为进行一次Full GC，让老年代腾出空间。</p>
+</blockquote>
 <p><img src="http://yanxuan.nosdn.127.net/cfc8f3ea53603eda81f723d6632cda1c.png" alt="复制算法图示"></p>
+<blockquote>
+<p>上图：绿色是空闲空间，红色是存活对象，黄色是不可用对象。</p>
+</blockquote>
 <p>因为Eden区对象一般存活率较低，通常使用两块10%的内存作为空闲和活动区间，另外80%的内存用于给新建对象分配内存的。</p>
 <p>一旦发生GC，将10%的from活动区间与另外80%中<strong>存活的</strong>Eden对象转移到10%的to空闲区间，接下来，将之前90%的内存全部释放，依次类推。</p>
-<h4 id="4-4-3-复制算法的劣势"><a href="#4-4-3-复制算法的劣势" class="headerlink" title="4.4.3 复制算法的劣势"></a>4.4.3 复制算法的劣势</h4><ol>
+<h4 id="4-4-2-复制算法的劣势"><a href="#4-4-2-复制算法的劣势" class="headerlink" title="4.4.2 复制算法的劣势"></a>4.4.2 复制算法的劣势</h4><ol>
 <li>它会浪费了一半内存；</li>
-<li>如果对象的存活率过高，假设是100%，那么需要将所有对象都复制一遍，并将所有引用地址重置一遍。复制这一工作所花费的时间，在对象存活率达到一定程度时，将会变得不可忽视。所以从以上描述不难看出，复制算法想要使用，最起码对象的存活率要非常低才行，而且最重要的是，必须克服50%内存的浪费。</li>
+<li>如果对象的存活率过高，假设是100%，那么需要将所有对象都复制一遍，并将所有引用地址重置一遍。复制这一工作所花费的时间，在对象存活率达到一定程度时，将会变得不可忽视。</li>
 </ol>
 <blockquote>
-<p>简言之：复制算法优点速度快，缺点耗内存，<strong>空间换时间。</strong></p>
+<p>简言之：复制算法优点速度快无内存碎片，缺点耗内存，<strong>空间换时间。</strong></p>
 </blockquote>
-<h3 id="4-5-四大算法之：标记清除-Mark-Sweep"><a href="#4-5-四大算法之：标记清除-Mark-Sweep" class="headerlink" title="4.5 四大算法之：标记清除(Mark-Sweep)"></a>4.5 四大算法之：标记清除(Mark-Sweep)</h3><p><strong>老年代</strong>一般是由标记清除或者是标记清除与标记整理的混合实现。</p>
+<h3 id="4-5-三大算法之：标记清除-Mark-Sweep"><a href="#4-5-三大算法之：标记清除-Mark-Sweep" class="headerlink" title="4.5 三大算法之：标记清除(Mark-Sweep)"></a>4.5 三大算法之：标记清除(Mark-Sweep)</h3><p><strong>老年代</strong>一般是由标记清除或者是标记清除+标记整理的混合实现。</p>
+<p>标清+标整就是让JVM平时采用标清，暂时容忍内存碎片的存在，当内存碎片的碎片化程度大到影响对象分配时，再采用标整算法收集一次，以获得规整的内存空间。CMS收集器就是使用的这种。</p>
 <h4 id="4-5-1-原理"><a href="#4-5-1-原理" class="headerlink" title="4.5.1 原理"></a>4.5.1 原理</h4><p>算法分成<strong>标记和清除</strong>两个阶段，先标记出要回收的对象，然后统一回收这些对象</p>
 <p><img src="http://yanxuan.nosdn.127.net/08ef0f765737522efedbe254227093eb.png" alt="标记清除"></p>
-<p>用通俗的话解释一下标记清除算法，就是当程序运行期间，若可以使用的内存被耗尽的时候，GC线程就会被触发并将<strong>程序暂停</strong>，随后将要回收的对象标记一遍，最终统一回收这些对象，完成标记清理工作接下来便让应用程序恢复运行。 </p>
+<p>用通俗的话解释一下标记清除算法，就是当程序运行期间，若可以使用的内存被耗尽的时候，GC线程就会被触发并将<strong>程序暂停</strong>（stop the world），随后将要回收的对象标记一遍，最终统一回收这些对象，完成标记清理工作接下来便让应用程序恢复运行。 </p>
 <p>主要进行两项工作，第一项则是标记，第二项则是清除。</p>
 <ul>
-<li>标记：从引用根节点开始标记遍历所有的GC Roots， 先标记出要回收的对象。</li>
+<li>标记：从引用根节点开始遍历所有的GC Roots， 先标记出要回收的对象。</li>
 <li>清除：遍历整个堆，把标记的对象清除。 </li>
 </ul>
-<h4 id="4-5-2-GC-Roots"><a href="#4-5-2-GC-Roots" class="headerlink" title="4.5.2 GC Roots"></a>4.5.2 GC Roots</h4><p><strong>根搜索算法(GC Roots Tracing)</strong>用于判定对象是否存活。这个算法的基本思路就是通过一系列的名为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链相连的时(就是从GC Roots到这个对象不可达，故也称之为<strong>可达性分析算法</strong>)，则证明此对象是不可用的。</p>
-<p>在Java语言中，可作为GC Roots的对象包括以下几种：</p>
-<ol>
-<li>虚拟机栈(栈帧中的本地变量表)中引用的对象</li>
-<li>方法区中的类静态属性引用的对象</li>
-<li>方法区中的常量引用的对象</li>
-<li>本地方法栈中JNI引用的对象。</li>
-</ol>
-<h4 id="4-5-3-标记清除的优缺点"><a href="#4-5-3-标记清除的优缺点" class="headerlink" title="4.5.3 标记清除的优缺点"></a>4.5.3 标记清除的优缺点</h4><ul>
+<h4 id="4-5-2-标记清除的优缺点"><a href="#4-5-2-标记清除的优缺点" class="headerlink" title="4.5.2 标记清除的优缺点"></a>4.5.2 标记清除的优缺点</h4><ul>
 <li>优点：不需要额外的空间，节省内存</li>
 <li>缺点：<ul>
-<li>首先，它的缺点就是<strong>效率比较低</strong>（递归与全堆对象遍历），而且在进行GC的时候，需要<strong>停止应用程序</strong>，这会导致用户体验非常差劲；</li>
-<li>其次，主要的缺点则是这种方式清理出来的<strong>空闲内存是不连续</strong>的，这点不难理解，我们的死亡对象都是随即的出现在内存的各个角落的，现在把它们清除之后，内存的布局自然会乱七八糟。而为了应付这一点，JVM就不得不维持一个内存的空闲列表，这又是一种开销。而且在分配数组对象的时候，寻找连续的内存空间会不太好找。   </li>
+<li>首先，它的缺点就是<strong>执行效率不稳定</strong>（递归与全堆对象遍历），标记和清除的执行效率会随着对象数量增长而降低；而且在进行GC的时候，需要<strong>停止应用程序</strong>，这会导致用户体验非常差劲。</li>
+<li>其次，主要的缺点则是这种方式清理出来的<strong>空闲内存是不连续</strong>的，死亡对象都是随机的出现在内存的各个角落的，现在把它们清除之后，内存的布局会变得乱七八糟。而为了应付这一点，JVM就不得不维持一个内存的空闲列表，这又是一种开销。而在分配数组对象的时候，连续的内存空间寻找会非常麻烦。</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<p>简言之：标记清除算法优点节省内存，缺点两次扫描耗时严重且会产生内存碎片；<strong>时间换空间</strong>。</p>
+<p>简言之：标记清除算法优点节省内存，缺点效率不稳定且会产生内存碎片；<strong>时间换空间</strong>。</p>
 </blockquote>
-<h3 id="4-6-四大算法之：标记压缩-Mark-Compact"><a href="#4-6-四大算法之：标记压缩-Mark-Compact" class="headerlink" title="4.6 四大算法之：标记压缩(Mark-Compact)"></a>4.6 四大算法之：标记压缩(Mark-Compact)</h3><p><strong>老年代</strong>一般是由标记清除或者是标记清除与标记整理的混合实现。</p>
+<h3 id="4-6-三大算法之：标记压缩-Mark-Compact"><a href="#4-6-三大算法之：标记压缩-Mark-Compact" class="headerlink" title="4.6 三大算法之：标记压缩(Mark-Compact)"></a>4.6 三大算法之：标记压缩(Mark-Compact)</h3><p>又称为标记整理算法，适合老年代的垃圾回收算法，与标清类似。</p>
 <h4 id="4-6-1-原理"><a href="#4-6-1-原理" class="headerlink" title="4.6.1 原理"></a>4.6.1 原理</h4><p><img src="http://yanxuan.nosdn.127.net/9e17861745a6a56bc4599b6eb73b3d20.png" alt="标记压缩"></p>
 <p>在整理压缩阶段，不再对标记的对象做回收，而是通过所有存活对象都向一端移动，然后直接清除边界以外的内存。可以看到，标记的存活对象将会被整理，按照内存地址依次排列，而未被标记的内存会被清理掉。如此一来，当我们需要给新对象分配内存时，JVM只需要持有一个内存的起始地址即可，这比维护一个空闲列表显然少了许多开销。</p>
-<p>标记/整理算法不仅可以弥补标记/清除算法当中，内存区域分散的缺点，也消除了复制算法当中，内存减半的高额代价；当然并非没有缺点。</p>
+<p>标记-整理算法不仅可以弥补标记-清除算法当中，内存区域分散的缺点，也消除了复制算法当中，内存减半的高额代价；当然并非没有缺点。</p>
 <h4 id="4-6-2-劣势"><a href="#4-6-2-劣势" class="headerlink" title="4.6.2 劣势"></a>4.6.2 劣势</h4><p>标记/整理算法唯一的缺点就是<strong>效率也不高</strong>，不仅要标记所有存活对象，还要整理所有存活对象的引用地址。从效率上来说，标记/整理算法要低于复制算法。 </p>
-<h3 id="4-7-小结"><a href="#4-7-小结" class="headerlink" title="4.7 小结"></a>4.7 小结</h3><p>GC算法对比：</p>
+<h3 id="4-7-GC小结"><a href="#4-7-GC小结" class="headerlink" title="4.7 GC小结"></a>4.7 GC小结</h3><p>GC算法对比：</p>
 <ul>
 <li>内存效率：复制算法&gt;标记清除算法&gt;标记整理算法(只是简单的对比时间复杂度，实际情况不一定)</li>
 <li>内存整齐度：复制算法=标记整理算法&gt;标记清除算法</li>
@@ -695,26 +738,26 @@
 <p>Sweep阶段的开销与所管理区域的大小形正相关，但Sweep“就地处决”的特点(原地操作)，回收的过程没有对像的移动。使其相对其它有对像移动步骤的回收算法，仍然是效率最好的。但是需要解决内存碎片问题。</p>
 <p>Compact阶段的开销与存活对像的数据成开比，如上一条所描述，对于大量对像的移动是很大开销的，做为老年代的第一选择并不合适。</p>
 <p>基于上面的考虑，老年代一般是由标记清除或者是标记清除与标记整理的混合实现。以hotspot中的CMS回收器为例，CMS是基于Mark-Sweep实现的，对于对像的回收效率很高，而对于碎片问题，CMS采用基于Mark-Compact算法的Serial Old回收器做为补偿措施：当内存回收不佳（碎片导致的Concurrent Mode Failure时），将采用Serial Old执行Full GC以达到对老年代内存的整理。    </p>
-<h3 id="4-8-垃圾收集器"><a href="#4-8-垃圾收集器" class="headerlink" title="4.8 垃圾收集器"></a>4.8 垃圾收集器</h3><p>如果收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的就具体实现。</p>
+<h2 id="5-垃圾收集器"><a href="#5-垃圾收集器" class="headerlink" title="5.  垃圾收集器"></a>5.  垃圾收集器</h2><p>如果收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的就具体实现。</p>
 <p><code>HotSpot</code>虚拟机所包含的所有收集器如下：</p>
 <p><img src="http://yanxuan.nosdn.127.net/cb249e5b59351271d034be26a1e9fa81.png" alt="HotSpotJVM1.6的GC收集器"></p>
 <p>上图展示了7种作用不同的分代收集器，如果两个收集器之间存在连线，说明可以搭配使用。</p>
 <p>新生代收集器：Serial、PraNew、Parallel Scavenge</p>
 <p>老年代收集器：Serial Old、Parallel Old、CMS</p>
-<h4 id="1-Serial收集器"><a href="#1-Serial收集器" class="headerlink" title="1. Serial收集器"></a>1. Serial收集器</h4><p>最基本、发展历史最久的收集器，这个收集器是一个采用复制算法的单线程收集器，单线程一方面意味着它只会使用一个CPU或者一条线程去完成垃圾收集工作，另一方面也意味着它进行垃圾收集时必须暂停其他线程的所有工作，直到它收集结束为止。这说明要在用户不可见的情况下把用户正常工作的线程全部停掉，这对很多应用是难以接受的。</p>
+<h4 id="5-1-Serial收集器"><a href="#5-1-Serial收集器" class="headerlink" title="5.1. Serial收集器"></a>5.1. Serial收集器</h4><p>最基本、发展历史最久的收集器，这个收集器是一个采用复制算法的单线程收集器，单线程一方面意味着它只会使用一个CPU或者一条线程去完成垃圾收集工作，另一方面也意味着它进行垃圾收集时必须暂停其他线程的所有工作，直到它收集结束为止。这说明要在用户不可见的情况下把用户正常工作的线程全部停掉，这对很多应用是难以接受的。</p>
 <p>不过实际上到目前为止，Serial收集器依然是虚拟机运行在Client模式下的默认新生代收集器，因为它简单而高效。用户桌面应用场景下，分配给虚拟机管理的内存一般来说不会很大，收集几十兆或几百兆的新生代停顿时间在几十毫秒最多一百毫秒，只要不是频繁发生，这点停顿完全是可以接受的。Serial收集器运行过程如下图：</p>
 <p><img src="http://yanxuan.nosdn.127.net/15d6c3a341a0ceac1812d352514e5ac9.png" alt="Serial"></p>
 <blockquote>
 <p>简言之：Serial是一个采用复制算法的单线程收集器，会产生Stop the World暂停用户线程进行GC操作；是Client模式下默认的新生代收集器，简单而高效。</p>
 </blockquote>
-<h4 id="2-ParNew收集器"><a href="#2-ParNew收集器" class="headerlink" title="2. ParNew收集器"></a>2. ParNew收集器</h4><p>ParNew收集器其实就是Serial收集器的多线程版本，除了使用多条线程进行垃圾收集外，其余行为和Serial收集器完全一样，包括使用的算法也是复制算法。</p>
+<h4 id="5-2-ParNew收集器"><a href="#5-2-ParNew收集器" class="headerlink" title="5.2. ParNew收集器"></a>5.2. ParNew收集器</h4><p>ParNew收集器其实就是Serial收集器的多线程版本，除了使用多条线程进行垃圾收集外，其余行为和Serial收集器完全一样，包括使用的算法也是复制算法。</p>
 <p>ParNew收集器除了多线程以外和Serial收集器并没有太多创新的地方，但是它却是Server模式下的虚拟机首选的新生代收集器，其中有一个很重要的和性能无关的原因是，除了Serial收集器外，目前只有它能和CMS收集器配合工作(如图)。</p>
 <p>CMS收集器是一款几乎可以认为有划时代意义的垃圾收集器，因为它第一次实现了让垃圾收集线程与用户线程基本同时工作。ParNew收集器在单CPU环境中绝对不会比Serial收集器有更好的效果，甚至由于线程交互的开销，该收集器在两个CPU的环境中都不能百分百保证可以超越Serial收集器。当然，随着CPU数量的增加，它对于GC时系统资源的有效利用还有很有好处的。它默认开启的收集线程数与CPU数量相同，在CPU数量非常多的情况下，可以使用<code>-XX:ParallelGCThreads</code>参数来限制垃圾收集的线程数。ParNew收集器运行过程如下：</p>
 <p><img src="http://yanxuan.nosdn.127.net/731aed54eb8e6ceaffef9e5cf1c46ad7.png" alt="ParNew"></p>
 <blockquote>
 <p>简言之：ParNew是Serial收集器的多线程版本，会暂停所有用户线程执行GC操作；Server模式下首选的新生代收集器，在CPU核心更多的环境下会有更好的性能表现。</p>
 </blockquote>
-<h4 id="3-Parallel-Scavenge收集器"><a href="#3-Parallel-Scavenge收集器" class="headerlink" title="3. Parallel Scavenge收集器"></a>3. Parallel Scavenge收集器</h4><p>Parallel Scavenge收集器也是一个新生代收集器，使用的复制算法，也是并行的多线程收集器，但它的特点是它的关注点和其他收集器不同。这个收集器主要引入了一个吞吐量的概念。</p>
+<h4 id="5-3-Parallel-Scavenge收集器"><a href="#5-3-Parallel-Scavenge收集器" class="headerlink" title="5.3. Parallel Scavenge收集器"></a>5.3. Parallel Scavenge收集器</h4><p>Parallel Scavenge收集器也是一个新生代收集器，使用的复制算法，也是并行的多线程收集器，但它的特点是它的关注点和其他收集器不同。这个收集器主要引入了一个吞吐量的概念。</p>
 <p>CMS等收集器的关注点是尽可能缩短垃圾收集时用户线程的停顿时间，<strong>而Parallel Scavenge收集器的目标则是达到一个可控制的吞吐量</strong>。所谓吞吐量的意思就是CPU用于运行用户代码时间与CPU总消耗时间的比值，即吞吐量=运行用户代码时间/(运行用户代码时间+垃圾收集时间)，虚拟机总运行100分钟，垃圾收集1分钟，那吞吐量就是99%。另外，Parallel Scavenge收集器是虚拟机运行在Server面模式下的默认垃圾收集器。</p>
 <p>停顿时间短适合需要与用户交互的程序，良好的响应速度能提升用户体验；高吞吐量则可以高效率利用CPU时间，尽快完成运算任务，主要适合在后台运算而不需要太多交互的任务。 </p>
 <p> 虚拟机提供了<code>-XX:MaxGCPauseMillis</code>和<code>-XX:GCTimeRatio</code>两个参数来精确控制最大垃圾收集停顿时间和吞吐量大小。不过不要以为前者越小越好，GC停顿时间的缩短是以牺牲吞吐量和新生代空间换取的。由于与吞吐量关系密切，<strong>Parallel Scavenge收集器也被称为“吞吐量优先收集器”</strong>。Parallel Scavenge收集器有一个<code>-XX:+UseAdaptiveSizePolicy</code>参数，这是一个开关参数，这个参数打开之后，就不需要手动指定新生代大小、Eden区和Survivor参数等细节参数了，虚拟机会根据当前系统的运行情况和性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量。<strong>如果对于垃圾收集器运作原理不太了解，以至于在优化比较困难的时候，使用Parallel Scavenge收集器配合自适应调节策略，把内存管理的调优任务交给虚拟机去完成将是一个不错的选择</strong>。 </p>
@@ -724,13 +767,13 @@
 <p>吞吐量：吞吐量就是CPU用于运行用户代码的时间与CPU总消耗时间的比值，越高越好。</p>
 </blockquote>
 </blockquote>
-<h4 id="4-Serial-Old收集器"><a href="#4-Serial-Old收集器" class="headerlink" title="4. Serial Old收集器"></a>4. Serial Old收集器</h4><p><strong>Serial收集器的老年代版本，同样是一个单线程收集器，</strong>使用”<strong>标记-整理算法</strong>“，这个收集器的主要意义也是在于给Client模式下的虚拟机使用。 </p>
-<h4 id="5-Parallel-Old收集器"><a href="#5-Parallel-Old收集器" class="headerlink" title="5. Parallel Old收集器"></a>5. Parallel Old收集器</h4><p><strong>Parallel Scavenge收集器的老年代版本，使用多线程和“标记-整理”算法</strong>。这个收集器在JDK 1.6之后的出现，“吞吐量优先收集器”终于有了比较名副其实的应用组合，在注重吞吐量以及CPU资源敏感的场合，都可以优先考虑Parallel Scavenge收集器+Parallel Old收集器的组合。运行过程如下图所示： </p>
+<h4 id="5-4-Serial-Old收集器"><a href="#5-4-Serial-Old收集器" class="headerlink" title="5.4. Serial Old收集器"></a>5.4. Serial Old收集器</h4><p><strong>Serial收集器的老年代版本，同样是一个单线程收集器，</strong>使用”<strong>标记-整理算法</strong>“，这个收集器的主要意义也是在于给Client模式下的虚拟机使用。 </p>
+<h4 id="5-5-Parallel-Old收集器"><a href="#5-5-Parallel-Old收集器" class="headerlink" title="5.5. Parallel Old收集器"></a>5.5. Parallel Old收集器</h4><p><strong>Parallel Scavenge收集器的老年代版本，使用多线程和“标记-整理”算法</strong>。这个收集器在JDK 1.6之后的出现，“吞吐量优先收集器”终于有了比较名副其实的应用组合，在注重吞吐量以及CPU资源敏感的场合，都可以优先考虑Parallel Scavenge收集器+Parallel Old收集器的组合。运行过程如下图所示： </p>
 <p><img src="http://yanxuan.nosdn.127.net/ce3e4abdc8039eb7fb15712a0a5376f1.png" alt="Parallel Old"></p>
 <blockquote>
 <p>简言之：Parallel Old是Parallel Scavenge收集器的老年代版本，使用标记整理算法的多线程收集器；适用于吞吐量及CPU资源敏感的场合下与Parallel Scavenge收集器进行组合应用。</p>
 </blockquote>
-<h4 id="6-CMS收集器"><a href="#6-CMS收集器" class="headerlink" title="6. CMS收集器"></a>6. CMS收集器</h4><p>CMS(Concurrent Mark Sweep)收集器是一种以获取最短回收停顿时间为目标的收集器。使用标记-清除算法，收集过程分如下四步：</p>
+<h4 id="5-6-CMS收集器"><a href="#5-6-CMS收集器" class="headerlink" title="5.6. CMS收集器"></a>5.6. CMS收集器</h4><p>CMS(Concurrent Mark Sweep)收集器是一种以获取最短回收停顿时间为目标的收集器。使用标记-清除算法，收集过程分如下四步：</p>
 <ol>
 <li><strong>初始标记</strong>，标记GCRoots能直接关联到的对象，时间很短。</li>
 <li><strong>并发标记</strong>，进行GCRoots Tracing(可达性分析)过程，时间很长。</li>
@@ -745,7 +788,7 @@
 <li>无法处理浮动垃圾，因为在并发清理阶段用户线程还在运行，自然就会产生新的垃圾，而在此次收集中无法收集他们，只能留到下次收集，这部分垃圾为浮动垃圾，同时，由于用户线程并发执行，所以需要预留一部分老年代空间提供并发收集时程序运行使用。</li>
 <li>由于采用的标记 - 清除算法，会产生大量的内存碎片，不利于大对象的分配，可能会提前触发一次Full GC。虚拟机提供了<code>-XX:+UseCMSCompactAtFullCollection</code>参数来进行碎片的合并整理过程，这样会使得停顿时间变长，虚拟机还提供了一个参数配置，<code>-XX:+CMSFullGCsBeforeCompaction</code>，用于设置执行多少次不压缩的Full GC后，接着来一次带压缩的GC。 </li>
 </ol>
-<h4 id="7-G1收集器"><a href="#7-G1收集器" class="headerlink" title="7. G1收集器"></a>7. G1收集器</h4><p>G1是目前收集器技术发展的最前沿成果之一，HotSpot开发团队赋予它的使命是未来可以替换掉JDK1.5中发布的CMS收集器。与其他GC收集器相比，G1收集器有以下特点：</p>
+<h4 id="5-7-G1收集器"><a href="#5-7-G1收集器" class="headerlink" title="5.7. G1收集器"></a>5.7. G1收集器</h4><p>G1是目前收集器技术发展的最前沿成果之一，HotSpot开发团队赋予它的使命是未来可以替换掉JDK1.5中发布的CMS收集器。与其他GC收集器相比，G1收集器有以下特点：</p>
 <ol>
 <li>并行和并发：使用多个CPU来缩短Stop The World停顿时间，与用户线程并发执行。</li>
 <li>分代收集：独立管理整个堆，但是能够采用不同的方式去处理新创建对象和已经存活了一段时间，熬过多次GC的旧对象，以获取更好的收集效果。</li>
@@ -753,7 +796,7 @@
 <li>可预测的停顿：能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。</li>
 </ol>
 <p>在G1之前的垃圾收集器，收集的范围都是整个新生代或者老年代，而G1不再是这样。使用G1收集器时，Java堆的内存布局与其他收集器有很大差别，它将整个Java堆划分为多个大小相等的独立区域（Region），虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔离的了，它们都是一部分（可以不连续）Region的集合。 </p>
-<h2 id="5-JVM总结"><a href="#5-JVM总结" class="headerlink" title="5. JVM总结"></a>5. JVM总结</h2><h3 id="5-1-小结-amp-面试题"><a href="#5-1-小结-amp-面试题" class="headerlink" title="5.1 小结&amp;面试题"></a>5.1 小结&amp;面试题</h3><ol>
+<h2 id="6-JVM小结"><a href="#6-JVM小结" class="headerlink" title="6. JVM小结"></a>6. JVM小结</h2><h3 id="6-1-小结-amp-面试题"><a href="#6-1-小结-amp-面试题" class="headerlink" title="6.1 小结&amp;面试题"></a>6.1 小结&amp;面试题</h3><ol>
 <li>JVM结构<ol>
 <li>有哪几种类加载器？</li>
 <li>双亲委派机制</li>
@@ -790,26 +833,33 @@
 </li>
 <li>GC<ol>
 <li>GC是什么？</li>
-<li>Minor GC和Full GC的区别？什么时候会发生？</li>
+<li>Minor GC和Full GC的区别？</li>
+<li>Minor GC的工作原理？</li>
 <li>GC有哪些算法？</li>
+<li>垃圾收集器</li>
 <li>GC使用哪个算法最好？</li>
 </ol>
 </li>
 </ol>
-<h2 id="6-JMM"><a href="#6-JMM" class="headerlink" title="6. JMM"></a>6. JMM</h2><p>JMM(Java内存模型Java Memory Model)，是一种抽象的概念<strong>并不真实存在</strong>，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量的访问方式(包括实例字段、静态字段和构成数组对象的元素)。</p>
+<h2 id="7-JMM"><a href="#7-JMM" class="headerlink" title="7. JMM"></a>7. JMM</h2><p>JMM(Java内存模型Java Memory Model)，是一种抽象的概念<strong>并不真实存在</strong>，它描述的是一组规则或规范，通过这组规范定义了Java虚拟机在计算机内存中的工作方式。JVM是整个计算机虚拟模型，所以JMM隶属于JVM。抽象角度来看，JMM定义了线程和主内存之间的抽象关系：线程之间共享变量存储在主内存中，每个线程都有自己私有的本地内存，本地内存中存储了该线程读写共享变量的副本。</p>
 <p>JMM关于同步规范规定：</p>
 <ol>
 <li>线程解锁前，必须把共享变量的值刷新回主内存</li>
 <li>线程加锁前，必须读取主内存的最新值到自己的工作内存</li>
 <li>加锁解锁是同一把锁</li>
 </ol>
-<p>由于JVM运行程序的实体是线程，而每个线程创建时JVM都会为其创建一个工作内存(或称之为栈空间)，工作内存是每个线程的私有数据区域。Java内存模型中规定所有变量都存储在<strong>主内存</strong>，主内存是共享内存区域，所有线程都可以访问。<strong>但线程对变量的操作(读取赋值等)必须在工作内存中进行，首先要将变量从主内存拷贝到自己的工作空间，然后对变量进行操作，操作完毕后将变量写回主内存。</strong>不能直接操作主内存中的变量，各个线程中的工作内存中储存着从主内存中变量的副本拷贝，因此不同的线程无法访问对方的工作内存，线程间的通讯(传值)必须通过主内存来完成，其简要访问过程如下图：</p>
+<blockquote>
+<p>Java的并发采用的是共享内存模型</p>
+</blockquote>
+<p>由于JVM运行程序的实体是线程，而每个线程创建时JVM都会为其创建一个工作内存(或称之为栈空间)，工作内存是每个线程的<strong>私有数据区域</strong>。Java内存模型中规定所有变量都存储在主内存，<strong>主内存是共享内存区域</strong>，所有线程都可以访问。<strong>但线程对变量的操作(读取赋值等)必须在工作内存中进行，首先要将变量从主内存拷贝到自己的工作空间，然后对变量进行操作，操作完毕后将变量写回主内存。</strong>不能直接操作主内存中的变量，各个线程中的工作内存中储存着从主内存中变量的副本拷贝，因此不同的线程无法访问对方的工作内存，线程间的通讯(传值)必须通过主内存来完成，其简要访问过程如下图：</p>
 <p><img src="http://yanxuan.nosdn.127.net/84363e8d1797ba915c2b93f7637b360d.png" alt="JMM"></p>
 <h3 id="6-1-JMM的可见性问题"><a href="#6-1-JMM的可见性问题" class="headerlink" title="6.1 JMM的可见性问题"></a>6.1 JMM的可见性问题</h3><p>示例代码如下：</p>
 
 <!-- Has Prism -->
 <pre class="line-numbers" style=""><code class="language-java">class myNumber{
-    int number = 10;
+    &#x2F;&#x2F; int number = 10;
+    &#x2F;&#x2F; 使用volatile关键字解决共享对象可见性问题
+    volatile int number = 10;
     public void addNumber(){
         this.number = 2020;
     }
@@ -840,10 +890,14 @@ public class JMMDemo {
 </code></pre>
 <p>上述代码中有两个线程，AAA线程和main线程，AAA线程会在自己的工作内存中操作number变量，修改其值为2020，main线程会一直循环判断number的值是否修改过，修改过则退出循环。执行代码会发现，AAA线程修改完number的值并写回主内存后，main线程的while一直处于死循环状态，这就是<strong>JMM的可见性问题</strong>。</p>
 <p>解决这个问题很简单，使用<code>volatile</code>修饰number变量，让其保证可见性；这样AAA线程修改完毕后，主内存会通知main线程number变量值已经被修改过了，需更新变量副本为最新值，此时main线程就会去主内存重新获取最新的变量值，这样while就会结束死循环。</p>
-<h2 id="7-参考"><a href="#7-参考" class="headerlink" title="7. 参考"></a>7. 参考</h2><ol>
+<h2 id="参考与鸣谢"><a href="#参考与鸣谢" class="headerlink" title="参考与鸣谢"></a>参考与鸣谢</h2><p>本文参考了以下文章来帮助学习和了解，特此感谢！</p>
+<ol>
 <li>尚硅谷周阳JVM课程，感谢阳哥！</li>
-<li><a href="https://www.cnblogs.com/xiaoxi/p/6486852.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiaoxi/p/6486852.html</a></li>
-<li><a href="https://www.cnblogs.com/manayi/p/9290490.html" target="_blank" rel="noopener">https://www.cnblogs.com/manayi/p/9290490.html</a> </li>
+<li>《深入理解Java虚拟机》—周志明著</li>
+<li><a href="http://tangxman.github.io/2015/07/27/the-difference-of-java-string-pool/" target="_blank" rel="noopener">Java中几种常量池区分</a></li>
+<li><a href="https://www.jianshu.com/p/8a58d8335270" target="_blank" rel="noopener">JMM和底层实现原理</a></li>
+<li><a href="https://www.cnblogs.com/xiaoxi/p/6486852.html" target="_blank" rel="noopener">Java垃圾回收机制详解</a></li>
+<li><a href="https://www.cnblogs.com/manayi/p/9290490.html" target="_blank" rel="noopener">程序计数器</a></li>
 </ol>
 
             </div>
@@ -868,7 +922,7 @@ public class JMMDemo {
                     </span>
                     <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/JavaAdvanced/JVM.html" class="b-link-green">JVM基础和GC</a>
+                    <a href="/JavaAdvanced/JVM.html" class="b-link-green">JVM基础</a>
                 </p>
             </div>
         </div>
@@ -1107,7 +1161,7 @@ MySQ</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">323.3k</span>
+                <span class="white-color">339k</span>
             
 
             

@@ -418,7 +418,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.3k
+                        4.4k
                     </div>
                     
 
@@ -457,7 +457,7 @@
 </li>
 <li><p>什么是时间复杂度？</p>
 <ul>
-<li>时间复杂度是对一个算法运行时间长短的量度，用大O表示，记作$T(n)=O(f(n))$。</li>
+<li>时间复杂度是对一个算法运行时间长短的量度，用大O表示法，记作$T(n)=O(f(n))$。</li>
 <li>常见的时间复杂度按照从低到高的顺序，包括$O(1),O(logn),O(n),O(nlogn),O(n^2)$等。</li>
 </ul>
 </li>
@@ -575,6 +575,11 @@ public class MyStack {
         this.array = new int[capacity];
     }
 
+    &#x2F;**
+     * 压栈
+     * @param element 入栈元素
+     * @throws Exception
+     *&#x2F;
     public void push(int element) throws Exception {
         if (top &gt; array.length){
             throw new Exception(&quot;StackOverflowError&quot;);
@@ -582,25 +587,33 @@ public class MyStack {
         array[top++] = element;
     }
 
+    &#x2F;**
+     * 弹栈
+     * @throws Exception
+     *&#x2F;
     public void pop() throws Exception {
-        if (top==0){
+        if (top == 0){
             throw new Exception(&quot;No ElementError&quot;);
         }
-        delete(top-1, array);
+        delete(top - 1, array);
         top--;
     }
 
     &#x2F;**
-     * 数组的删除操作，就是覆盖前一位
-     * @param index 栈顶位置
-     * @param array 当前栈
+     * 栈元素的删除操作
+     * @param index 出栈元素索引
+     * @param array 操作数组
      *&#x2F;
     public void delete(int index, int[] array) {
+        &#x2F;&#x2F; 新建一个数组为原数组-1
         int[] arrNew = new int[array.length - 1];
+        &#x2F;&#x2F; 打印出栈元素
         System.out.println(array[index]);
-        for (int i = index; i &lt; array.length - 1; i++) {
-            array[i] = array[i + 1];
-        }
+        &#x2F;&#x2F; 数组元素转移，也可以直接调用api
+        &#x2F;&#x2F; for (int i = 0; i &lt; array.length - 1; i++) {
+        &#x2F;&#x2F;     arrNew[i] = array[i];
+        &#x2F;&#x2F; }
+        &#x2F;&#x2F; 调用api实现数组元素转移
         System.arraycopy(array, 0, arrNew, 0, arrNew.length);
         this.array = arrNew;
     }
@@ -643,7 +656,7 @@ public class MyStack {
 <ul>
 <li>什么是循环队列</li>
 </ul>
-<p>你可以把它理解为一个首尾相连的圆环，其中有两个指针：队头指针和队尾指针。这两个指针始终按照同一个方向前进，两个指针互相追赶着对方；入队操作时队尾指针(队尾指针会占据一个空闲空间)一直前进，直到遇到队头指针便代表空间用完了，停止入队；出队操作就是标记释放空间(数组内实际没有删除元素)，队头指针一直前进，直到遇到队尾指针便代表空间释放完了，停止出队。下面就是循环队列的简单示意图：</p>
+<p>你可以把它理解为一个首尾相连的圆环，其中有两个指针：队头指针和队尾指针。这两个指针始终按照同一个方向前进，两个指针互相追赶着对方；入队操作时队尾指针（队尾指针会占据一个空闲空间）一直前进，直到遇到队头指针便代表空间用完了，停止入队；出队操作就是标记释放空间（数组内实际没有删除元素），队头指针一直前进，直到遇到队尾指针便代表空间释放完了，停止出队。下面就是循环队列的简单示意图：</p>
 <p><img src="http://yanxuan.nosdn.127.net/75ecbfb3ab31063c07762696916e3e2f.png" alt="循环队列"></p>
 <ul>
 <li>循环队列如何实现</li>
@@ -1066,7 +1079,7 @@ create table article(
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">323.3k</span>
+                <span class="white-color">339k</span>
             
 
             

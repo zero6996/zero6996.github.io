@@ -1,0 +1,1405 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Redis入门, Zero的博客">
+    <meta name="description" content="1. Redis入门概述1.1 是什么？Redis全称Remote Dictionary Server（远程字典服务器），是一款完全开源的用C语言编写的遵守BSD协议的高性能分布式内存数据库。基于内存运行，并支持持久化的NoSQL数据库，是">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Redis入门 | Zero的博客</title>
+    <link rel="icon" type="image/jpeg" href="/wlop.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Zero的博客</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zero的博客</div>
+        <div class="logo-desc">
+            
+            欢迎来到我的博客！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/zero6996" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Follow Me 秋梨膏~
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/zero6996" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Follow Me 秋梨膏~" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Redis入门
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Redis/" target="_blank">
+                                <span class="chip bg-color">Redis</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/DataBase/" class="post-category" target="_blank">
+                                DataBase
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-06-16
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        13 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-Redis入门概述"><a href="#1-Redis入门概述" class="headerlink" title="1. Redis入门概述"></a>1. Redis入门概述</h2><h3 id="1-1-是什么？"><a href="#1-1-是什么？" class="headerlink" title="1.1 是什么？"></a>1.1 是什么？</h3><p>Redis全称<code>Remote Dictionary Server</code>（远程字典服务器），是一款<strong>完全开源的用C语言编写的遵守BSD协议的高性能分布式内存数据库</strong>。基于内存运行，并支持持久化的NoSQL数据库，是当前最热门的NoSQL数据库之一，也被人们称为数据结构服务器。</p>
+<p>Redis主要有以下三个特点：</p>
+<ol>
+<li>Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启时可以再次加载进行使用；</li>
+<li>Redis支持丰富的数据类型，不仅支持k-v类型数据，还提供list，set，zset，hash等数据结构的存储；</li>
+<li>Redis支持数据的备份，即master-slave模式的数据备份。</li>
+</ol>
+<h3 id="1-2-能干嘛？"><a href="#1-2-能干嘛？" class="headerlink" title="1.2 能干嘛？"></a>1.2 能干嘛？</h3><ol>
+<li>内存存储和持久化：Redis支持异步将内存中的数据写到硬盘中，同时不影响继续服务；</li>
+<li>取最新数据：例如可以将最新的10条评论的ID放在Redis的List集合中；</li>
+<li>模拟类似于HttpSession这种需要设定过期时间的功能；</li>
+<li>发布、订阅消息系统；</li>
+<li>定时器、计数器</li>
+</ol>
+<h3 id="1-3-怎么下？"><a href="#1-3-怎么下？" class="headerlink" title="1.3 怎么下？"></a>1.3 怎么下？</h3><p>中文官网<a href="http://www.redis.cn/download.html" target="_blank" rel="noopener">下载地址</a></p>
+<h3 id="1-4-怎么用？"><a href="#1-4-怎么用？" class="headerlink" title="1.4 怎么用？"></a>1.4 怎么用？</h3><p>主要使用如下功能：</p>
+<ul>
+<li>数据类型、基本操作和配置</li>
+<li>持久化和复制，RDB/AOF</li>
+<li>事务的控制</li>
+<li>主从复制</li>
+<li>… …</li>
+</ul>
+<h3 id="1-5-Linux版安装"><a href="#1-5-Linux版安装" class="headerlink" title="1.5 Linux版安装"></a>1.5 Linux版安装</h3><ol>
+<li><p>进入<code>/opt</code>目录，该目录是用户软件的安装目录。</p>
+</li>
+<li><p>获取Redis资源</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">   wget http:&#x2F;&#x2F;download.redis.io&#x2F;redis-stable.tar.gz
+</code></pre>
+</li>
+</ol>
+<ol start="3">
+<li><p>解压</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">   tar -xzvf redis-stable.tar.gz
+</code></pre>
+</li>
+</ol>
+<ol start="4">
+<li><p>进入解压后的文件夹</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">   cd redis-stable
+</code></pre>
+</li>
+</ol>
+<ol start="5">
+<li><p>安装，正常步骤</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">   make
+   cd src
+   make install 
+</code></pre>
+</li>
+</ol>
+<ol start="6">
+<li><p>异常步骤：如果没有安装gcc环境，是无法使用<code>make</code>命令编译的，需安装gcc环境</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">   Ubuntu安装gcc
+   sudo apt install build-essential
+   CentOS安装gcc
+   yum install gcc-c++
+   验证gcc安装
+   gcc -v
+   make #再次make时如果提示没有那个文件或目录，运行make distclean清理一下文件夹
+   cd src
+   make install
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>安装参考<a href="https://www.cnblogs.com/john-xiong/p/12098827.html" target="_blank" rel="noopener">文章</a></p>
+</blockquote>
+<ol start="7">
+<li><p>将配置文件备份</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">   cd &#x2F;opt&#x2F;redis-stable
+   mkdir &#x2F;usr&#x2F;local&#x2F;redis&#x2F;etc # 配置文件存放位置
+   cp redis.conf &#x2F;usr&#x2F;local&#x2F;redis&#x2F;etc # 复制到该文件夹中
+</code></pre>
+</li>
+</ol>
+<ol start="8">
+<li><p>配置redis后台启动</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">   vi &#x2F;usr&#x2F;local&#x2F;redis&#x2F;etc&#x2F;redis.conf
+   输入i进入编辑模式
+   找到daemonize no
+   将其改为daemonize yes
+   输入ESC
+   组合键Shift和:
+   然后输入wq 回车
+</code></pre>
+</li>
+</ol>
+<ol start="9">
+<li><p>开启远程访问：打开配置文件，注释70行的bind，将90行的<code>protected-mode</code>改为<code>no</code></p>
+</li>
+<li><p>重启redis</p>
+
+<!-- Has Prism -->
+<pre class="line-numbers" style=""><code class="language-bash">    # 查询redis的运行状态，找到pid
+    ps -ef|grep redis
+    root      5557     1  0 17:42 ?        00:00:00 redis-server 127.0.0.1:6380
+    # 将其kill掉，然后重启
+    kill 5557
+    redis-server &#x2F;usr&#x2F;local&#x2F;redis&#x2F;etc&#x2F;redis.conf
+    # 连接,我自定义了端口6380，默认6379
+    redis-cli -p 6380
+</code></pre>
+</li>
+</ol>
+<h3 id="1-6-其他知识点"><a href="#1-6-其他知识点" class="headerlink" title="1.6 其他知识点"></a>1.6 其他知识点</h3><ul>
+<li>Redis是单进程的，默认端口号6379；</li>
+<li>Redis索引默认都是从0开始；</li>
+<li><p>默认有16个数据库，初始使用0号库；</p>
+</li>
+<li><p><code>select</code>：切换数据库，例如<code>select 2</code>切换到3号库；</p>
+</li>
+<li><code>dbsize</code>：查看当前数据库的key数量；</li>
+<li><code>flushdb</code>：清空当前数据库；</li>
+<li><code>flushall</code>：清空全部数据库；</li>
+</ul>
+<h2 id="2-Redis数据类型"><a href="#2-Redis数据类型" class="headerlink" title="2. Redis数据类型"></a>2. Redis数据类型</h2><h3 id="2-1-Redis五大数据类型简介"><a href="#2-1-Redis五大数据类型简介" class="headerlink" title="2.1 Redis五大数据类型简介"></a>2.1 Redis五大数据类型简介</h3><h4 id="2-1-1-String（字符串）"><a href="#2-1-1-String（字符串）" class="headerlink" title="2.1.1 String（字符串）"></a>2.1.1 String（字符串）</h4><p>String是Redis最基本的类型，可以理解为与Memcached一模一样的类型，一个key对应一个value；String类型是二进制安全的，意思该类型可以包含任何数据，例如jpg图片或者序列化的对象；一个Redis中字符串value最大是512MB。</p>
+<h4 id="2-1-2-Hash（哈希）"><a href="#2-1-2-Hash（哈希）" class="headerlink" title="2.1.2 Hash（哈希）"></a>2.1.2 Hash（哈希）</h4><p>哈希，类似Java中的<code>Map&lt;String,Object&gt;</code>；Redis中的hash是一个键值对集合，是String类型的field和value的映射表，特别适合用于存储对象。</p>
+<h4 id="2-1-3-List（列表）"><a href="#2-1-3-List（列表）" class="headerlink" title="2.1.3 List（列表）"></a>2.1.3 List（列表）</h4><p>Redis列表时简单的字符串列表，按照插入顺序排序，可以添加一个元素到列表的头部或者尾部，底层其实是个链表。</p>
+<h4 id="2-1-4-Set（集合）"><a href="#2-1-4-Set（集合）" class="headerlink" title="2.1.4 Set（集合）"></a>2.1.4 Set（集合）</h4><p>Redis的Set是String类型的无序集合，它是通过HashTable实现的，不允许重复。</p>
+<h4 id="2-1-5-Zset（Sorted-Set有序集合）"><a href="#2-1-5-Zset（Sorted-Set有序集合）" class="headerlink" title="2.1.5 Zset（Sorted Set有序集合）"></a>2.1.5 Zset（Sorted Set有序集合）</h4><p>Redis的zset和set一样也是String类型元素的集合，且不允许重复；它与set不同的是每个元素都会关联一个double类型的分数，通过分数来为集合中的成员从小到大进行排序；zset的成员是唯一的，但分数却可以重复。</p>
+<h4 id="2-1-6-Redis命令参考"><a href="#2-1-6-Redis命令参考" class="headerlink" title="2.1.6 Redis命令参考"></a>2.1.6 Redis命令参考</h4><p><a href="http://redisdoc.com/" target="_blank" rel="noopener">命令参考文档</a></p>
+<h3 id="2-2-Redis键（key）"><a href="#2-2-Redis键（key）" class="headerlink" title="2.2 Redis键（key）"></a>2.2 Redis键（key）</h3><p>命令表，常用加粗：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DEL key</td>
+<td style="text-align:center">当key存在时删除key</td>
+</tr>
+<tr>
+<td style="text-align:left">DUMP key</td>
+<td style="text-align:center">序列化给定key，并返回被序列化的值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>EXISTS key</strong></td>
+<td style="text-align:center">检查给定key是否存在</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>EXPIPE key seconds</strong></td>
+<td style="text-align:center">为给定key设置过期时间，单位秒</td>
+</tr>
+<tr>
+<td style="text-align:left">EXPIREAT key timestamp</td>
+<td style="text-align:center">为給定key设置过期时间，单位UNIX时间戳</td>
+</tr>
+<tr>
+<td style="text-align:left">PEXPRRE key milliseconds</td>
+<td style="text-align:center">设置key过期时间，单位毫秒</td>
+</tr>
+<tr>
+<td style="text-align:left">PEXPIREAT key milliseconds-timestamp</td>
+<td style="text-align:center">设置key过期时间的时间戳以毫秒计算</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>KEYS pattern</strong></td>
+<td style="text-align:center">查找所有符合给定模式（pattern）的key</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>MOVE key db</strong></td>
+<td style="text-align:center">将当前数据库的key移动到给定数据库db中</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>PERSIST key</strong></td>
+<td style="text-align:center">移除key的过期时间，key将持久保持</td>
+</tr>
+<tr>
+<td style="text-align:left">PTTL key</td>
+<td style="text-align:center">以毫秒为单位返回key的剩余过期时间</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>TTL key</strong></td>
+<td style="text-align:center">秒为单位返回key剩余过期时间，-1永不过期，-2已过期</td>
+</tr>
+<tr>
+<td style="text-align:left">RANDOMKEY</td>
+<td style="text-align:center">从当前数据库随机返回一个key</td>
+</tr>
+<tr>
+<td style="text-align:left">RENAME key newkey</td>
+<td style="text-align:center">修改key的名称</td>
+</tr>
+<tr>
+<td style="text-align:left">RENAMENX key newkey</td>
+<td style="text-align:center">仅当newkey不存在时，才会将key改名为newkey</td>
+</tr>
+<tr>
+<td style="text-align:left">SCAN cursor [MATCH pattern] [COUNT count]</td>
+<td style="text-align:center">迭代数据库中的数据库键</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>TYPE key</strong></td>
+<td style="text-align:center">返回key所存储的值的类型</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.runoob.com/redis/redis-keys.html" target="_blank" rel="noopener">Redis key常用命令表详见</a></p>
+<h3 id="2-3-Redis字符串（String）"><a href="#2-3-Redis字符串（String）" class="headerlink" title="2.3 Redis字符串（String）"></a>2.3 Redis字符串（String）</h3><p>非常常用的一种数据类型，单值对应单value，命令表如下，常用加粗：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>SET key value</strong></td>
+<td style="text-align:center">设置指定key的值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>GET key</strong></td>
+<td style="text-align:center">获取指定key的值</td>
+</tr>
+<tr>
+<td style="text-align:left">GETRANGE key start end</td>
+<td style="text-align:center">返回key中字符串值的子字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>GETSET key value</strong></td>
+<td style="text-align:center">将给定key的值设为value，并返回key的旧值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>MGET key1 [key2… …]</strong></td>
+<td style="text-align:center">获取一个或多个给定key的值</td>
+</tr>
+<tr>
+<td style="text-align:left">SETBIT key offset value</td>
+<td style="text-align:center">对key所存储的字符串值，设置或清除指定偏移量上的位</td>
+</tr>
+<tr>
+<td style="text-align:left">GETBIT key offset</td>
+<td style="text-align:center">对key所存储的字符串值，获取指定偏移量上的位</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SETEX key seconds value</strong></td>
+<td style="text-align:center">将值 value 关联到 key ，并设置key的过期时间，单位秒</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SETNX key value</strong></td>
+<td style="text-align:center">仅当key不存在时设置key的值</td>
+</tr>
+<tr>
+<td style="text-align:left">SETRANGE key offset value</td>
+<td style="text-align:center">从偏移量offset开始，用value参数覆写给定key存储的字符串值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>STRLEN key</strong></td>
+<td style="text-align:center">返回key字符串值的长度</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>MSET key value [key value …]</strong></td>
+<td style="text-align:center">同时设置一个或多个k-v键值对</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>MSETNX key value [key value …]</strong></td>
+<td style="text-align:center">仅当key不存在时，创建多个k-v对</td>
+</tr>
+<tr>
+<td style="text-align:left">PSETEX key milliseconds value</td>
+<td style="text-align:center">创建k-v对，并设置key过期时间，单位毫秒</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>INCR key</strong></td>
+<td style="text-align:center">将key中存储的数字值+1</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>INCRBY key increment</strong></td>
+<td style="text-align:center">将key中存储的值加上给定增量值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>INCRBYFLOAT key increment</strong></td>
+<td style="text-align:center">将key中存储的值加上给定浮点增量值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>DECR key</strong></td>
+<td style="text-align:center">将key中存储的数值减一</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>DECRBY key decrement</strong></td>
+<td style="text-align:center">将key中存储的值减去给定减量值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>APPEND key value</strong></td>
+<td style="text-align:center">如果key存在且是字符串，将指定value追加到key值末尾</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.runoob.com/redis/redis-strings.html" target="_blank" rel="noopener">命令表详见</a></p>
+<h3 id="2-4-Redis列表（List）"><a href="#2-4-Redis列表（List）" class="headerlink" title="2.4 Redis列表（List）"></a>2.4 Redis列表（List）</h3><p>Redis列表是简单的字符串列表，单值对应多value，按照插入顺序排序；你可以添加一个元素到列表的头部（左边）或者尾部（右边）；一个列表最多可以包含 2^32 - 1 个元素 (4294967295, 每个列表超过40亿个元素)。常用命令表如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>LPUSH key value1 [value2]</strong></td>
+<td style="text-align:center">从列表左侧将一个或多个值插入</td>
+</tr>
+<tr>
+<td style="text-align:left">LPUSHX key value</td>
+<td style="text-align:center">将一个值插入到已存在的列表头部</td>
+</tr>
+<tr>
+<td style="text-align:left">BLPOP key1 [key2] timeout</td>
+<td style="text-align:center">移出列表第一个元素并返回，如果列表为空则阻塞等待到超时或可弹出元素为止</td>
+</tr>
+<tr>
+<td style="text-align:left">BRPOP key1 [key2] timeout</td>
+<td style="text-align:center">移出列表最后一个元素并返回，如果没有元素会阻塞等待到超时或发现可弹出元素为止</td>
+</tr>
+<tr>
+<td style="text-align:left">BRPOPLPUSH source destination timeout</td>
+<td style="text-align:center">从列表弹出一个值，将弹出的元素插入到另一列表中并返回它，没有元素会阻塞超时或发现有元素可弹出为止</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>LINDEX key index</strong></td>
+<td style="text-align:center">返回指定索引位置的元素，从列表头部开始索引为0</td>
+</tr>
+<tr>
+<td style="text-align:left">[LINSERT key BEFORE\</td>
+<td style="text-align:center">AFTER pivot value](<a href="https://www.runoob.com/redis/lists-linsert.html" target="_blank" rel="noopener">https://www.runoob.com/redis/lists-linsert.html</a>)</td>
+<td>在列表的元素前或后插入元素</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>LLEN key</strong></td>
+<td style="text-align:center">获取列表长度</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>LPOP key</strong></td>
+<td style="text-align:center">移出并获取列表的第一个元素</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>LRANGE key start end</strong></td>
+<td style="text-align:center">获取列表指定范围的元素</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>LREM key count vlaue</strong></td>
+<td style="text-align:center">移除列表元素</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>LSET key index value</strong></td>
+<td style="text-align:center">通过索引设置列表元素的值</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://www.runoob.com/redis/lists-ltrim.html" target="_blank" rel="noopener">LTRIM key start stop</a></td>
+<td style="text-align:center">对一个列表进行修剪（trim），就是让列表只<strong>保留指定区间内</strong>的元素，不在区间内的都删除</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>RPOP key</strong></td>
+<td style="text-align:center">移除列表最后一个元素并返回</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>RPOPLPUSH source destination</strong></td>
+<td style="text-align:center">移除列表最后一个元素，将其添加到另一个列表中并返回</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>RPUSH key value1 [value2]</strong></td>
+<td style="text-align:center">从右侧向列表中添加一个或多个值</td>
+</tr>
+<tr>
+<td style="text-align:left">RPUSHX key value</td>
+<td style="text-align:center">从右侧添加值</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.runoob.com/redis/redis-lists.html" target="_blank" rel="noopener">命令表详见</a></p>
+<h3 id="2-5-Redis集合（Set）"><a href="#2-5-Redis集合（Set）" class="headerlink" title="2.5 Redis集合（Set）"></a>2.5 Redis集合（Set）</h3><p>Redis的Set是String类型的无序集合，不允许重复数据；集合是通过哈希表实现的，所以效率非常好，常用命令表如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>SADD key member1 [member2 …]</strong></td>
+<td style="text-align:center">向集合添加一个或多个成员</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SCARD key</strong></td>
+<td style="text-align:center">返回集合成员数量</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SDIFF key1 [key2]</strong></td>
+<td style="text-align:center">返回差集</td>
+</tr>
+<tr>
+<td style="text-align:left">SDIFFSTORE destination key1 [key2]</td>
+<td style="text-align:center">将给定集合的差集存储到目的地中</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SINTER key1 [key2]</strong></td>
+<td style="text-align:center">返回交集</td>
+</tr>
+<tr>
+<td style="text-align:left">SINTERSTORE destination key1 [key2]</td>
+<td style="text-align:center">将给定集合的交集存储到目的地中</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SISMEMBER key member</strong></td>
+<td style="text-align:center">判断member是否是集合key的成员</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SMEMBERS key</strong></td>
+<td style="text-align:center">返回集合中所有成员</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SMOVE source destination member</strong></td>
+<td style="text-align:center">将member元素从source集合移到目的地集合</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SPOP key</strong></td>
+<td style="text-align:center">随机移除一个元素并返回</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SRANDMEMBER key [count]</strong></td>
+<td style="text-align:center">返回几个随机元素</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SREM key member1 [member2]</strong></td>
+<td style="text-align:center">移除集合中一个或多个成员</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SUNION key1 [key2]</strong></td>
+<td style="text-align:center">返回并集</td>
+</tr>
+<tr>
+<td style="text-align:left">SUNIONSTORE destionation key1 [key2]</td>
+<td style="text-align:center">返回并集放到目的地集合中</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://www.runoob.com/redis/sets-sscan.html" target="_blank" rel="noopener">SSCAN key cursor [MATCH pattern]  [COUNT count]</a></td>
+<td style="text-align:center">迭代集合中的元素</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.runoob.com/redis/redis-sets.html" target="_blank" rel="noopener">命令表详见</a></p>
+<h3 id="2-6-Redis哈希（Hash）"><a href="#2-6-Redis哈希（Hash）" class="headerlink" title="2.6 Redis哈希（Hash）"></a>2.6 Redis哈希（Hash）</h3><p>Redis hash是一个string类型的field和value的映射表，特别适合用于存储对象，常见命令如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>HSET key field value</strong></td>
+<td style="text-align:center">将哈希表key中的字段field的值设为value</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HMSET key field1 value1 [field2 value2]</strong></td>
+<td style="text-align:center">同时设置多个field-value到哈希表key中</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HDEL key field1 [field2]</strong></td>
+<td style="text-align:center">删除一个或多个字段</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HEXISTS key field</strong></td>
+<td style="text-align:center">查看指定字段是否存在于哈希表中</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HGET key field</strong></td>
+<td style="text-align:center">获取存储在哈希表中指定字段的值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HGETALL key</strong></td>
+<td style="text-align:center">获取哈希表中所有字段和值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HINCRBY key field increment</strong></td>
+<td style="text-align:center">为指定字段的值加上指定整数增量值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HINCRBYFLOAT key field increment</strong></td>
+<td style="text-align:center">为指定字段的值加上指定浮点增量值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HKEYS key</strong></td>
+<td style="text-align:center">获取哈希表中所有字段</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HLEN key</strong></td>
+<td style="text-align:center">获取哈希表中字段的数量</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HMGET key field [field2]</strong></td>
+<td style="text-align:center">获取所有给定字段的值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HSETNX key field value</strong></td>
+<td style="text-align:center">仅当字段field不存在时，设置字段的值</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>HVALS key</strong></td>
+<td style="text-align:center">获取哈希表中所有值</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://www.runoob.com/redis/hashes-hscan.html" target="_blank" rel="noopener">HSCAN key cursor [MATCH pattern] [COUNT count]</a></td>
+<td style="text-align:center">迭代哈希表中的键值对</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.runoob.com/redis/redis-hashes.html" target="_blank" rel="noopener">命令表详见</a></p>
+<h3 id="2-7-Redis有序集合Zset（sorted-set）"><a href="#2-7-Redis有序集合Zset（sorted-set）" class="headerlink" title="2.7 Redis有序集合Zset（sorted set）"></a>2.7 Redis有序集合Zset（sorted set）</h3><p>Redis 有序集合和集合一样也是string类型元素的集合,且不允许重复的成员。不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序；有序集合的成员是唯一的,但分数(score)却可以重复；常用命令如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>ZADD key score1 member1 [score2 member2]</strong></td>
+<td style="text-align:center">添加一个或多个成员，或更新已存在成员的分数</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZCARD key</strong></td>
+<td style="text-align:center">获取有序集合的成员数</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZCOUNT key min max</strong></td>
+<td style="text-align:center">计算集合中指定区间分数的成员数量</td>
+</tr>
+<tr>
+<td style="text-align:left">ZINCRBY key increment member</td>
+<td style="text-align:center">对集合中指定成员的分数加上增量值</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://www.runoob.com/redis/sorted-sets-zinterstore.html" target="_blank" rel="noopener">ZINTERSTORE destination numkeys key [key …]</a></td>
+<td style="text-align:center">计算多个集合的交集并将结果存储到新集合中</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://www.runoob.com/redis/sorted-sets-zlexcount.html" target="_blank" rel="noopener">ZLEXCOUNT key min max</a></td>
+<td style="text-align:center">返回指定字典区间内的成员数量</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZRANGE key start stop [WITHSCORES]</strong></td>
+<td style="text-align:center">返回指定索引区间内的成员</td>
+</tr>
+<tr>
+<td style="text-align:left">ZRANGEBYLEX key min max [LIMIT offset count]</td>
+<td style="text-align:center">返回指定字典区间内的成员</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT]</strong></td>
+<td style="text-align:center">返回指定分数区间内的成员</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZRANK key member</strong></td>
+<td style="text-align:center">返回集合中指定成员的索引</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZREM key member [member …]</strong></td>
+<td style="text-align:center">移除集合中一个或多个成员</td>
+</tr>
+<tr>
+<td style="text-align:left">ZREMRANGEBYLEX key min max</td>
+<td style="text-align:center">移除指定<strong>字典区间</strong>的所有成员</td>
+</tr>
+<tr>
+<td style="text-align:left">ZREMRANGEBYRANK key start stop</td>
+<td style="text-align:center">移除指定<strong>索引区间</strong>的所有成员</td>
+</tr>
+<tr>
+<td style="text-align:left">ZREMRANGEBYSCORE key min max</td>
+<td style="text-align:center">移除指定<strong>分数区间</strong>的所有成员</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZREVRANGE key start stop [WITHSCORES]</strong></td>
+<td style="text-align:center">返回集合中指定<strong>索引区间</strong>内的成员，分数降序</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZREVRANGEBYSCORE key max min [WITHSCORES]</strong></td>
+<td style="text-align:center">返回集合中指定<strong>分数区间</strong>内的成员，分数降序</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZREVRANK key member</strong></td>
+<td style="text-align:center">按照分数降序排序，返回集合中指定成员的索引</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ZSCORE key member</strong></td>
+<td style="text-align:center">返回指定成员的分数值</td>
+</tr>
+<tr>
+<td style="text-align:left">ZUNIONSTORE destination numbers key [key …]</td>
+<td style="text-align:center">计算并集，存储在新集合中</td>
+</tr>
+<tr>
+<td style="text-align:left">ZSCAN key cursor [MATCH pattern] [COUNT count]</td>
+<td style="text-align:center">迭代有序集合中的元素，包括分数</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.runoob.com/redis/redis-sorted-sets.html" target="_blank" rel="noopener">命令表详见</a></p>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://zero024.cn" class="b-link-green">Zero的博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/DataBase/Redis-Introduction.html" class="b-link-green">Redis入门</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '232778317d016c12944b',
+        clientSecret: 'eff34508ca3902812960cd0c524ad0300bae98d8',
+        repo: 'blog-comments',
+        owner: 'zero6996',
+        admin: "zero6996",
+        id: '2020-06-16T23-59-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/DataBase/Redis-Persistence.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Redis持久化">
+                        
+                        <span class="card-title">Redis持久化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. Redis配置文件解析1.1 Units单位
+Redis配置文件中，开头定义了一些基本的度量单位，只支持bytes，不支持bit，且对大小写不敏感。
+1.2 INCLUDES包含
+可以将当前配置文件作为主配置，用于包含其他配置文件。
+</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-06-19
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/DataBase/" class="post-category" target="_blank">
+                                    DataBase
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Redis/" target="_blank">
+                        <span class="chip bg-color">Redis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/DataBase/NoSQL-sum.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="NoSQL概述">
+                        
+                        <span class="card-title">NoSQL概述</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. NoSQL入门概述1.1 NoSQL数据库的发展历程互联网时代背景下，也并非直接出现NoSQL数据库的，而是经过了一些演变过程，随着数据量的不断增大，诞生了许多的技术。
+1.1.1 单机MySQL的时代90年代，大部分网站访问量都不大</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-06-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/DataBase/" class="post-category" target="_blank">
+                                    DataBase
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Redis/" target="_blank">
+                        <span class="chip bg-color">Redis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Zero的博客<br />'
+            + '作者: Zero<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">339k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zero6996" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1490829140@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1490829140" class="tooltipped" data-tooltip="QQ联系我: 1490829140" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
