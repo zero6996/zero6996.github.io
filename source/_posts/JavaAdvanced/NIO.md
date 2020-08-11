@@ -1,9 +1,9 @@
 ---
 title: NIO
-date: 2020-4-9 21:00
-categories: JavaBasics
+date: 2020-04-09 21:00
+categories: JavaAdvanced
 tags: [NIO]
-description: NIO基础，相关APIdemo
+description: NIO基础，相关API及demo
 urlname: NIO
 ---
 
@@ -18,8 +18,6 @@ urlname: NIO
 Java NIO(New IO)是从Java1.4 版本开始引入的一个新的IO API，可以代替标准的Java IO API。
 
 NIO与原来的IO有同样的作用和目的，但是使用方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件读写操作。
-
-<!--more-->
 
 ### 1.1 Java NIO与IO的主要区别
 
@@ -527,10 +525,6 @@ public class TestBlockingNIO {
 
 ## 10. 非阻塞式
 
-
-
-
-
 - Java NIO Demo如下：
 
 ```java
@@ -613,7 +607,7 @@ public class TestNonBlockingNIO {
 
 ## 11. DatagramChannel
 
-Java NIO中的DatagramChannel是一个能收发UDP包的通道。
+lJava NIO中的DatagramChannel是一个能收发UDP包的通道。
 
 ### 11.1 简单案例
 
