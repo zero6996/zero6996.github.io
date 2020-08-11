@@ -413,14 +413,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        12.1k
+                        12.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        43 分
+                        44 分
                     </div>
                     
                 
@@ -473,11 +473,11 @@
 <li>程序计数器占用内存非常小，在进行JVM内存计算时，可以忽略不计；</li>
 <li>程序计数器在Java虚拟机规范中没有规定任何OOMError区域，故不会发生内存溢出(OutOfMemory=OOM)错误。</li>
 </ol>
-<h3 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5. 方法区"></a>5. 方法区</h3><p>供各<strong>线程共享</strong>的运行时内存区域。<font color="red">它存储了每个类的结构信息，就是模板</font>；例如运行时常量池、常量、静态变量、类型信息（方法数据、构造函数和普通方法的字节码内容）等。上面讲的<strong>是规范</strong>，具体实现不同虚拟机是不同的，最典型的就是永久代(PermGen Space)和元空间(Mate Space)。</p>
+<h3 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5. 方法区"></a>5. 方法区</h3><p>供各<strong>线程共享</strong>的运行时内存区域。<font color="red">它存储了每个类的结构信息，就是模板</font>；方法区中存储了例如运行时常量池、类型常量池、类变量、类型信息（方法数据、构造函数和普通方法的字节码内容）等。上面讲的<strong>是规范</strong>，具体实现不同虚拟机是不同的，最典型的就是永久代(PermGen Space)和元空间(Mate Space)。</p>
 <h4 id="5-1-方法区的发展历程"><a href="#5-1-方法区的发展历程" class="headerlink" title="5.1 方法区的发展历程"></a>5.1 方法区的发展历程</h4><ol>
 <li>JDK6：开发者团队开始准备放弃永久代，逐步改为采用本地内存来实现方法区；</li>
 <li>JDK7：将放在永久代里的字符串常量池、静态变量等移出；</li>
-<li>JDK8：完全废除永久代概念，改用本地内存实现元空间，永久代中剩余内容全部移至元空间。</li>
+<li>JDK8：完全废除永久代概念，改用本地内存实现元空间，永久代中剩余内容（如运行时常量池）全部移至元空间。</li>
 </ol>
 <h4 id="5-2-Java中几种常量池的区分"><a href="#5-2-Java中几种常量池的区分" class="headerlink" title="5.2 Java中几种常量池的区分"></a>5.2 Java中几种常量池的区分</h4><ol>
 <li>全局字符串池：就是我们常说的字符串常量池，存放的内容是类加载完成后在堆中生成字符串<strong>对象实例的引用值</strong>。</li>
@@ -485,7 +485,7 @@
 <li>运行时常量池：当类加载到内存中运行时，JVM就会将class常量池中的内容存放到运行时常量池中，运行时常量池每个类都有一个。</li>
 </ol>
 <h3 id="6-Java栈"><a href="#6-Java栈" class="headerlink" title="6. Java栈"></a>6. Java栈</h3><p>栈也叫栈内存，主管Java程序的运行，是在线程创建时创建，它的生命周期是跟随线程的生命周期，线程结束栈内存也就释放，<strong>对于栈来说不存在垃圾回收问题</strong>，只要线程一结束该栈就Over，生命周期和线程一致，是线程私有的。<font color="red">8种基本类型的变量+对象引用的变量+实例方法都是在函数的栈内存中分配的。</font></p>
-<h4 id="6-1-栈存储"><a href="#6-1-栈存储" class="headerlink" title="6.1 栈存储"></a>6.1 栈存储</h4><p>栈帧中主要保存3类数据：</p>
+<h4 id="6-1-栈帧"><a href="#6-1-栈帧" class="headerlink" title="6.1 栈帧"></a>6.1 栈帧</h4><p>栈帧中主要保存3类数据：</p>
 <ul>
 <li>本地变量(Local Variables)：输入参数和输出参数以及方法内的变量；</li>
 <li>栈操作(Operand Stack)：记录出栈、入栈的操作；</li>
@@ -509,10 +509,15 @@
 <h4 id="6-4-堆-栈-方法区的交互关系"><a href="#6-4-堆-栈-方法区的交互关系" class="headerlink" title="6.4 堆+栈+方法区的交互关系"></a>6.4 堆+栈+方法区的交互关系</h4><p><img src="http://yanxuan.nosdn.127.net/d126ec1984e33cd7d4271157e1754e86.png" alt="堆栈方法区"></p>
 <p>HotSpot是使用指针的方式来访问对象的：Java堆中会存放访问类元数据(就是访问方法区的模板)的地址，reference存储的就直接是对象的地址(堆中存放的都是new的实际对象数据)。</p>
 <blockquote>
-<p>栈管运行，堆管存储</p>
-<p>HotSpot是Java目前使用范围最广的Java虚拟机。</p>
+<ul>
+<li><p>栈管运行，堆管存储</p>
+</li>
+<li><p>HotSpot是Java目前使用范围最广的Java虚拟机。</p>
+</li>
+</ul>
 </blockquote>
-<h2 id="2-堆体系结构概述"><a href="#2-堆体系结构概述" class="headerlink" title="2. 堆体系结构概述"></a>2. 堆体系结构概述</h2><h3 id="2-1-Heap堆结构简介"><a href="#2-1-Heap堆结构简介" class="headerlink" title="2.1 Heap堆结构简介"></a>2.1 Heap堆结构简介</h3><p>一个JVM实例只存在一个堆内存，堆内存的大小是可调节的。类加载器读取了类文件后，需要把类、方法、常变量放到堆内存中，保存所有引用类型的真实信息，以方便执行器执行，堆内存分为三部分：</p>
+<h2 id="2-堆体系结构概述"><a href="#2-堆体系结构概述" class="headerlink" title="2. 堆体系结构概述"></a>2. 堆体系结构概述</h2><p>Java堆是垃圾收集器管理的内存区域，从回收内存的角度看，由于现代垃圾收集器大部分都是基于分代收集理论设计的，因此Java堆中常会出现“新生代”“老年代”这些名词。要注意的是这种区域划分仅仅是部分垃圾收集器的共同特性或者是设计风格而已，而非某个JVM具体实现的固有内存布局。<strong>将Java堆细分的目的只是为了更好的回收内存，或者更快的分配内存。</strong></p>
+<h3 id="2-1-Heap堆结构简介"><a href="#2-1-Heap堆结构简介" class="headerlink" title="2.1 Heap堆结构简介"></a>2.1 Heap堆结构简介</h3><p>一个JVM实例只存在一个堆内存，堆内存的大小是可调节的。类加载器读取了类文件后，需要把类、方法、常变量放到堆内存中，保存所有引用类型的真实信息，以方便执行器执行，堆内存分为三部分：</p>
 <ul>
 <li>Young Generation Space(新生区)，简称<strong>Young/New</strong></li>
 <li>Tenure Generation Space(养老区)，简称<strong>Old/Tenure</strong></li>
@@ -559,7 +564,8 @@
 </ul>
 <p>最后，SurvivorTo和SurvivorFrom身份互换，即<strong>复制之后有交换，谁空谁是To</strong>，原SurvivorTo成为下一次GC时的SurvivorFrom区。部分对象会在From和To区域中来回复制，增加年龄；如此交换15次(由JVM参数<code>MaxTenuringThreshold</code>决定，该参数默认15)，最终还存活的，就会进入老年代。</p>
 <h4 id="2-4-2-HotSpot内存管理"><a href="#2-4-2-HotSpot内存管理" class="headerlink" title="2.4.2 HotSpot内存管理"></a>2.4.2 HotSpot内存管理</h4><p><img src="http://yanxuan.nosdn.127.net/e6fbcbfc76ae8c09b5de10d95a6f9c28.png" alt="分代管理"></p>
-<p>物理上堆实际只有新生代和老年代，Java中98%的对象是临时对象，在Eden生Eden死，只有极少数才能到老年代。</p>
+<p>物理</p>
+<p>上堆实际只有新生代和老年代，Java中98%的对象是临时对象，在Eden生Eden死，只有极少数才能到老年代。</p>
 <h3 id="2-5-永久代-元空间"><a href="#2-5-永久代-元空间" class="headerlink" title="2.5 永久代(元空间)"></a>2.5 永久代(元空间)</h3><p>方法区(Method Area)和堆一样，是各个线程共享的内存区域，它用于存储虚拟机加载的：类信息+普通常量+静态常量+编译器编译后的代码等等，<font color="red">虽然JVM规范将方法区描述为堆的一个逻辑部分，但它却还有一个别名叫做Non-Heap(非堆)，目的就是要和堆分开。</font></p>
 <p>对于HotSpot虚拟机，很多开发者习惯将方法区称之为“永久代(Parmanent Gen)”，但严格本质上说两者不同，或者说是使用永久代实现方法区而已，<strong>永久代是方法区的一个实现(相当于方法区是一个接口规范，而永久代就是接口实现)</strong>，JDK7的版本中，已经将原本放在永久代的字符串常量池移走，移动到堆中了。</p>
 <h4 id="2-5-1-永久区-Java7之前"><a href="#2-5-1-永久区-Java7之前" class="headerlink" title="2.5.1 永久区(Java7之前)"></a>2.5.1 永久区(Java7之前)</h4><p>永久存储区是一个常驻内存区域，用于存放JDK自身所携带的Class，Interface的元数据(比如rt.jar包内容、Spring框架必须jar包等等)，也就是说它存储的是运行环境必须的类信息，被装载进此区域的数据是不会被垃圾回收器回收掉的，关闭JVM才会释放此区域所占有的内存。</p>
@@ -718,6 +724,9 @@
 <p>在整理压缩阶段，不再对标记的对象做回收，而是通过所有存活对象都向一端移动，然后直接清除边界以外的内存。可以看到，标记的存活对象将会被整理，按照内存地址依次排列，而未被标记的内存会被清理掉。如此一来，当我们需要给新对象分配内存时，JVM只需要持有一个内存的起始地址即可，这比维护一个空闲列表显然少了许多开销。</p>
 <p>标记-整理算法不仅可以弥补标记-清除算法当中，内存区域分散的缺点，也消除了复制算法当中，内存减半的高额代价；当然并非没有缺点。</p>
 <h4 id="4-6-2-劣势"><a href="#4-6-2-劣势" class="headerlink" title="4.6.2 劣势"></a>4.6.2 劣势</h4><p>标记/整理算法唯一的缺点就是<strong>效率也不高</strong>，不仅要标记所有存活对象，还要整理所有存活对象的引用地址。从效率上来说，标记/整理算法要低于复制算法。 </p>
+<blockquote>
+<p>简言之：优点不会产生内存碎片，内存使用率高，缺点效率不高。</p>
+</blockquote>
 <h3 id="4-7-GC小结"><a href="#4-7-GC小结" class="headerlink" title="4.7 GC小结"></a>4.7 GC小结</h3><p>GC算法对比：</p>
 <ul>
 <li>内存效率：复制算法&gt;标记清除算法&gt;标记整理算法(只是简单的对比时间复杂度，实际情况不一定)</li>
@@ -788,14 +797,26 @@
 <li>无法处理浮动垃圾，因为在并发清理阶段用户线程还在运行，自然就会产生新的垃圾，而在此次收集中无法收集他们，只能留到下次收集，这部分垃圾为浮动垃圾，同时，由于用户线程并发执行，所以需要预留一部分老年代空间提供并发收集时程序运行使用。</li>
 <li>由于采用的标记 - 清除算法，会产生大量的内存碎片，不利于大对象的分配，可能会提前触发一次Full GC。虚拟机提供了<code>-XX:+UseCMSCompactAtFullCollection</code>参数来进行碎片的合并整理过程，这样会使得停顿时间变长，虚拟机还提供了一个参数配置，<code>-XX:+CMSFullGCsBeforeCompaction</code>，用于设置执行多少次不压缩的Full GC后，接着来一次带压缩的GC。 </li>
 </ol>
-<h4 id="5-7-G1收集器"><a href="#5-7-G1收集器" class="headerlink" title="5.7. G1收集器"></a>5.7. G1收集器</h4><p>G1是目前收集器技术发展的最前沿成果之一，HotSpot开发团队赋予它的使命是未来可以替换掉JDK1.5中发布的CMS收集器。与其他GC收集器相比，G1收集器有以下特点：</p>
+<h4 id="5-7-G1-Garbage-First-收集器"><a href="#5-7-G1-Garbage-First-收集器" class="headerlink" title="5.7. G1(Garbage-First)收集器"></a>5.7. G1(Garbage-First)收集器</h4><p>G1是目前收集器技术发展的最前沿成果之一，HotSpot开发团队赋予它的使命是未来可以替换掉JDK1.5中发布的CMS收集器；G1是一款面向服务器的垃圾收集器，主要针对配备多颗处理器及大容量内存的机器，以极高概率满足GC停顿时间要求的同时，还具备高吞吐量性能。</p>
+<p>与其他GC收集器相比，G1收集器有以下特点：</p>
 <ol>
-<li>并行和并发：使用多个CPU来缩短Stop The World停顿时间，与用户线程并发执行。</li>
-<li>分代收集：独立管理整个堆，但是能够采用不同的方式去处理新创建对象和已经存活了一段时间，熬过多次GC的旧对象，以获取更好的收集效果。</li>
-<li>空间整合：基于标记-整理算法，无内存碎片产生。</li>
-<li>可预测的停顿：能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。</li>
+<li><strong>并行和并发</strong>：G1能充分利用CPU多核环境下的硬件优势，使用多个CPU来缩短Stop The World停顿时间，与用户线程并发执行。</li>
+<li><strong>分代收集</strong>：虽然可以独立管理整个GC堆，但是仍然保留了分代的概念，能够采用不同的方式去处理新创建对象和已经存活了一段时间，熬过多次GC的旧对象，以获取更好的收集效果。</li>
+<li><strong>空间整合</strong>：整体来看基于标记-整理算法实现的收集器；从局部来看是基于复制算法实现的，故无内存碎片产生。</li>
+<li><strong>可预测的停顿</strong>：能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。</li>
 </ol>
 <p>在G1之前的垃圾收集器，收集的范围都是整个新生代或者老年代，而G1不再是这样。使用G1收集器时，Java堆的内存布局与其他收集器有很大差别，它将整个Java堆划分为多个大小相等的独立区域（Region），虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔离的了，它们都是一部分（可以不连续）Region的集合。 </p>
+<p>G1收集器运行大致步骤：</p>
+<ul>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>最终标记</li>
+<li>筛选回收</li>
+</ul>
+<p>G1收集器在后台维护了一个优先列表，每次根据允许的收集时间，优先选择回收价值最大的Region。这种使用Region划分内存空间以及有优先级的区域回收方式，保证了GF收集器在有限时间内可以尽可能高的收集效率。</p>
+<blockquote>
+<p>使用<code>java -XX:+PrintCommandLineFlags -version</code>命令可以查看当前Java使用的垃圾收集器。</p>
+</blockquote>
 <h2 id="6-JVM小结"><a href="#6-JVM小结" class="headerlink" title="6. JVM小结"></a>6. JVM小结</h2><h3 id="6-1-小结-amp-面试题"><a href="#6-1-小结-amp-面试题" class="headerlink" title="6.1 小结&amp;面试题"></a>6.1 小结&amp;面试题</h3><ol>
 <li>JVM结构<ol>
 <li>有哪几种类加载器？</li>
@@ -969,7 +990,7 @@ public class JMMDemo {
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/JavaBasics/NIO.html">
+                <a href="/JavaAdvanced/NIO.html">
                     <div class="card-image">
                         
                         
@@ -989,8 +1010,8 @@ NIO与原来的IO有同样的作用和目的，但是使用方式完全不同，
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JavaBasics/" class="post-category" target="_blank">
-                                    JavaBasics
+                            <a href="/categories/JavaAdvanced/" class="post-category" target="_blank">
+                                    JavaAdvanced
                                 </a>
                             
                             
@@ -1161,7 +1182,7 @@ MySQ</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">356.9k</span>
+                <span class="white-color">357k</span>
             
 
             
