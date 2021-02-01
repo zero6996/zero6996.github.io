@@ -7,12 +7,10 @@
     <meta name="keywords" content="MySQL查询优化, Zero的博客">
     <meta name="description" content="查询优化
 1. 小表驱动大表小表驱动大表，就是小的数据集驱动大的数据集。
-
-
 select * from A where id in (select id from B);
 等价于：
 for select id from B
-for sel">
+for selec">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -442,9 +440,7 @@ for sel">
             <div id="articleContent">
                 <h1 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h1><a id="more"></a>
 <h2 id="1-小表驱动大表"><a href="#1-小表驱动大表" class="headerlink" title="1. 小表驱动大表"></a>1. 小表驱动大表</h2><p>小表驱动大表，就是小的数据集驱动大的数据集。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">select * from A where id in (select id from B);
+<pre><code class="sql">select * from A where id in (select id from B);
 等价于：
 for select id from B
 for select * from A where A.id = B.id
@@ -452,9 +448,7 @@ for select * from A where A.id = B.id
 <ul>
 <li>当B表的数据集小于A表的数据集时，用in优于exists。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">select * from A where exists (select 1 from B where B.id = A.id)
+<pre><code class="sql">select * from A where exists (select 1 from B where B.id = A.id)
 等价于
 for select * from A 
 for select * from B where B.id = A.id
@@ -468,9 +462,7 @@ for select * from B where B.id = A.id
 <ul>
 <li>EXISTS</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">SELECT xxx FROM table WHERE EXISTS(subQuery);
+<pre><code class="sql">SELECT xxx FROM table WHERE EXISTS(subQuery);
 </code></pre>
 <p>该语法可以理解为：将主查询的数据，放到子查询中做条件验证，根据验证结果(TRUE或FALSE)来决定主查询的数据结果是否得以保留。</p>
 <blockquote>
@@ -481,9 +473,7 @@ for select * from B where B.id = A.id
 <h2 id="2-ORDER-BY优化"><a href="#2-ORDER-BY优化" class="headerlink" title="2. ORDER BY优化"></a>2. ORDER BY优化</h2><h3 id="2-1-ORDER-BY子句尽量使用Index方式排序"><a href="#2-1-ORDER-BY子句尽量使用Index方式排序" class="headerlink" title="2.1 ORDER BY子句尽量使用Index方式排序"></a>2.1 ORDER BY子句尽量使用Index方式排序</h3><ul>
 <li>建表插数据建索引</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CREATE TABLE tbA(
+<pre><code class="sql">CREATE TABLE tbA(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     age INT,
     birth TIMESTAMP NOT NULL
@@ -499,9 +489,7 @@ CREATE INDEX idx_tbA_ageBirth ON tbA(age,birth);
 <ul>
 <li>case1：分析下列sql是否产生了filesort，Y代表产生了，N表示未产生。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM tbA WHERE age&gt;20 ORDER BY age; # N
+<pre><code class="sql">EXPLAIN SELECT * FROM tbA WHERE age&gt;20 ORDER BY age; # N
 EXPLAIN SELECT * FROM tbA WHERE age&gt;20 ORDER BY age,birth; # N
 EXPLAIN SELECT * FROM tbA WHERE age&gt;20 ORDER BY birth; # Y
 EXPLAIN SELECT * FROM tbA WHERE age&gt;20 ORDER BY birth,age; # Y
@@ -509,9 +497,7 @@ EXPLAIN SELECT * FROM tbA WHERE age&gt;20 ORDER BY birth,age; # Y
 <ul>
 <li>case2：分析下列sql是否产生了filesort。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM tbA ORDER BY birth; # Y
+<pre><code class="sql">EXPLAIN SELECT * FROM tbA ORDER BY birth; # Y
 EXPLAIN SELECT * FROM tbA WHERE birth &gt; &#39;2019-09-28 00:00:00&#39; ORDER BY birth;#Y
 EXPLAIN SELECT * FROM tbA WHERE birth &gt; &#39;2019-09-28 00:00:00&#39; ORDER BY age; # N
 EXPLAIN SELECT * FROM tbA ORDER BY age ASC, birth DESC; # Y,因为默认排序是ASC，手动指定了DESC必定会产生filesort。
@@ -561,33 +547,27 @@ EXPLAIN SELECT * FROM tbA ORDER BY age ASC, birth DESC; # Y,因为默认排序�
 <li><p>order by的使用尽量遵循索引最左前缀原则</p>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">create index idx_abc on table(a,b,c);
+<pre><code class="sql">create index idx_abc on table(a,b,c);
 xxx order by a
 xxx order by a,b
 xxx order by a,b,c
-xxx order by a desc,b desc,c desc; &#x2F;*必须使用同一种排序方式，否则会产生filesort*&#x2F;
+xxx order by a desc,b desc,c desc; /*必须使用同一种排序方式，否则会产生filesort*/
 </code></pre>
 <ul>
 <li>如果where使用到了索引的最左前缀定义为常量，则order by能使用到索引</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">xxx where a = const order by b,c
+<pre><code class="sql">xxx where a = const order by b,c
 xxx where a = const and b = const order by c
 xxx where a = const and b &gt; const order by b,c
 </code></pre>
 <ul>
 <li>不要使用索引进行排序</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">xxx order by a asc,b desc, c desc &#x2F;* 排序不一致*&#x2F;
-xxx where g = const order by b,c  &#x2F;* 丢失a索引 *&#x2F;
-xxx where a = const order by c    &#x2F;* 丢失b索引 *&#x2F;
-xxx where a = const order by a,d  &#x2F;* d非索引列*&#x2F;
-xxx where a in(...) order by b,c  &#x2F;* 范围查询后面索引失效*&#x2F;
+<pre><code class="sql">xxx order by a asc,b desc, c desc /* 排序不一致*/
+xxx where g = const order by b,c  /* 丢失a索引 */
+xxx where a = const order by c    /* 丢失b索引 */
+xxx where a = const order by a,d  /* d非索引列*/
+xxx where a in(...) order by b,c  /* 范围查询后面索引失效*/
 </code></pre>
 <h2 id="3-GROUP-BY-优化"><a href="#3-GROUP-BY-优化" class="headerlink" title="3. GROUP BY 优化"></a>3. GROUP BY 优化</h2><p>group by优化跟order by优化大致相同</p>
 <ul>
@@ -726,11 +706,9 @@ long_query_time的</div>
 1.1 单表优化
 创建表插入数据
 
-
-
 create table article(
     id int(10) unsigned not null primary key auto_increment,
-    autho</div>
+    author_</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2020-03-25
@@ -862,7 +840,7 @@ create table article(
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

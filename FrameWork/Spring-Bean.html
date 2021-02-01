@@ -412,14 +412,14 @@ ApplicationContext工厂在加载">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.8k
+                        4.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        23 分
+                        21 分
                     </div>
                     
                 
@@ -447,32 +447,27 @@ ApplicationContext工厂在加载">
 <h2 id="2-Spring的Bean管理-XML方式"><a href="#2-Spring的Bean管理-XML方式" class="headerlink" title="2. Spring的Bean管理(XML方式)"></a>2. Spring的Bean管理(XML方式)</h2><h3 id="2-1-使用类构造器实例化-默认无参数"><a href="#2-1-使用类构造器实例化-默认无参数" class="headerlink" title="2.1 使用类构造器实例化(默认无参数)"></a>2.1 使用类构造器实例化(默认无参数)</h3><ul>
 <li>编写Bean1类：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * Bean的实例化的三种方式：采用无参数的构造方法的方式
- *&#x2F;
+ */
 public class Bean1 {
     public Bean1(){
         System.out.println(&quot;Bean1被实例化了...&quot;);
     }
 }
+
 </code></pre>
 <ul>
 <li>在xml中配置如下内容：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--    Bean的实例化的三种方式--&gt;
+<pre><code class="xml">&lt;!--    Bean的实例化的三种方式--&gt;
 &lt;!--    第一种：无参构造器的方式--&gt;
-&lt;bean id=&quot;bean1&quot; class=&quot;com.zero.ioc.demo1.Bean1&quot;&gt;&lt;&#x2F;bean&gt;
+&lt;bean id=&quot;bean1&quot; class=&quot;com.zero.ioc.demo1.Bean1&quot;&gt;&lt;/bean&gt;
 </code></pre>
 <ul>
 <li>在测试方法中加载对象，并完成实例化</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test1(){
     ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
     Bean1 bean1 = (Bean1) context.getBean(&quot;bean1&quot;);
@@ -481,20 +476,16 @@ public void test1(){
 <h3 id="2-2-使用静态工厂方法实例化-简单工厂模式"><a href="#2-2-使用静态工厂方法实例化-简单工厂模式" class="headerlink" title="2.2 使用静态工厂方法实例化(简单工厂模式)"></a>2.2 使用静态工厂方法实例化(简单工厂模式)</h3><ul>
 <li>编写Bean2类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * Bean的实例化的三种方式：使用静态工厂方法实例化
- *&#x2F;
+ */
 public class Bean2 {
 }
 </code></pre>
 <ul>
 <li>编写静态工厂类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; Bean2的静态工厂
+<pre><code class="java">// Bean2的静态工厂
 public class Bean2Factory {
 
     public static Bean2 createBean2(){
@@ -506,17 +497,13 @@ public class Bean2Factory {
 <ul>
 <li>配置xml</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--    第二种：静态工厂的方式--&gt;
-&lt;bean id=&quot;bean2&quot; class=&quot;com.zero.ioc.demo1.Bean2Factory&quot; factory-method=&quot;createBean2&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;!--    第二种：静态工厂的方式--&gt;
+&lt;bean id=&quot;bean2&quot; class=&quot;com.zero.ioc.demo1.Bean2Factory&quot; factory-method=&quot;createBean2&quot;/&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test2(){
     ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
     Bean2 bean2 = (Bean2) context.getBean(&quot;bean2&quot;);
@@ -528,20 +515,16 @@ public void test2(){
 <h3 id="2-3-使用实例工厂方法实例化-工厂方法模式"><a href="#2-3-使用实例工厂方法实例化-工厂方法模式" class="headerlink" title="2.3 使用实例工厂方法实例化(工厂方法模式)"></a>2.3 使用实例工厂方法实例化(工厂方法模式)</h3><ul>
 <li>编写Bean3类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * Bean的实例化三种方式：实例工厂实例化
- *&#x2F;
+ */
 public class Bean3 {
 }
 </code></pre>
 <ul>
 <li>编写实例工厂类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Bean3Factory {
+<pre><code class="java">public class Bean3Factory {
     public Bean3 createBean3(){
         System.out.println(&quot;Bean3Factory执行了...&quot;);
         return new Bean3();
@@ -551,18 +534,14 @@ public class Bean3 {
 <ul>
 <li>配置xml</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--    第三种：实例工厂的方式--&gt;
-&lt;bean id=&quot;bean3Factory&quot; class=&quot;com.zero.ioc.demo1.Bean3Factory&quot;&#x2F;&gt;
-&lt;bean id=&quot;bean3&quot; factory-bean=&quot;bean3Factory&quot; factory-method=&quot;createBean3&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;!--    第三种：实例工厂的方式--&gt;
+&lt;bean id=&quot;bean3Factory&quot; class=&quot;com.zero.ioc.demo1.Bean3Factory&quot;/&gt;
+&lt;bean id=&quot;bean3&quot; factory-bean=&quot;bean3Factory&quot; factory-method=&quot;createBean3&quot;/&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test3(){
     ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
     Bean3 bean3 = (Bean3) context.getBean(&quot;bean3&quot;);
@@ -609,20 +588,16 @@ public void test3(){
 <ul>
 <li>在xml中配置</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--    Bean的作用范围--&gt;
+<pre><code class="xml">&lt;!--    Bean的作用范围--&gt;
 &lt;!--仅存在一个Bean实例，单实例--&gt;
-&lt;bean id=&quot;person&quot; class=&quot;com.zero.ioc.demo2.Person&quot; scope=&quot;singleton&quot;&#x2F;&gt;
+&lt;bean id=&quot;person&quot; class=&quot;com.zero.ioc.demo2.Person&quot; scope=&quot;singleton&quot;/&gt;
 &lt;!--每次调用getBean()都会返回一个新实例--&gt;
-&lt;bean id=&quot;person&quot; class=&quot;com.zero.ioc.demo2.Person&quot; scope=&quot;prototype&quot;&#x2F;&gt;
+&lt;bean id=&quot;person&quot; class=&quot;com.zero.ioc.demo2.Person&quot; scope=&quot;prototype&quot;/&gt;
 </code></pre>
 <h3 id="2-6-Spring容器中Bean的生命周期"><a href="#2-6-Spring容器中Bean的生命周期" class="headerlink" title="2.6 Spring容器中Bean的生命周期"></a>2.6 Spring容器中Bean的生命周期</h3><p>Spring初始化bean或销毁bean时，有时需要作一些处理工作，因此spring可以在创建和拆卸bean时调用bean的两个生命周期方法。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;bean id=&quot;xxx&quot; class=&quot;xxx&quot;
+<pre><code class="xml">&lt;bean id=&quot;xxx&quot; class=&quot;xxx&quot;
       init-method=&quot;init&quot;
-      destroy-method=&quot;destroy&quot;&#x2F;&gt;
+      destroy-method=&quot;destroy&quot;/&gt;
 
 &lt;!--
 当bean被载入到容器时调用init
@@ -635,9 +610,7 @@ public void test3(){
 <ul>
 <li>示例，创建一个man类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Man {
+<pre><code class="java">public class Man {
     public Man(){
         System.out.println(&quot;Man被实例化了&quot;);
     }
@@ -653,16 +626,12 @@ public void test3(){
 <ul>
 <li>配置xml</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;bean id=&quot;man&quot; class=&quot;com.zero.ioc.demo2.Man&quot; init-method=&quot;setup&quot; destroy-method=&quot;myDestroy&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;bean id=&quot;man&quot; class=&quot;com.zero.ioc.demo2.Man&quot; init-method=&quot;setup&quot; destroy-method=&quot;myDestroy&quot;/&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java"> @Test
+<pre><code class="java"> @Test
 public void test2(){
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
     Man man = (Man) context.getBean(&quot;man&quot;);
@@ -688,9 +657,7 @@ public void test2(){
 <ul>
 <li>编写man类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Man implements BeanNameAware, ApplicationContextAware, InitializingBean, DisposableBean {
+<pre><code class="java">public class Man implements BeanNameAware, ApplicationContextAware, InitializingBean, DisposableBean {
     private String name;
 
     public String getName() {
@@ -715,7 +682,7 @@ public void test2(){
 
     @Override
     public void setBeanName(String s) {
-        System.out.println(&quot;第三步：设置Bean的名称&quot;+s); &#x2F;&#x2F; 就是xml中配置的id的值
+        System.out.println(&quot;第三步：设置Bean的名称&quot;+s); // 就是xml中配置的id的值
     }
 
     @Override
@@ -739,9 +706,7 @@ public void test2(){
 <ul>
 <li>编写<code>MyBeanPostProcessor</code>类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class MyBeanPostProcessor implements BeanPostProcessor {
+<pre><code class="java">public class MyBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
@@ -759,19 +724,15 @@ public void test2(){
 <ul>
 <li>配置xml</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;bean id=&quot;man&quot; class=&quot;com.zero.ioc.demo2.Man&quot; init-method=&quot;setup&quot; destroy-method=&quot;myDestroy&quot;&gt;
-    &lt;property name=&quot;name&quot; value=&quot;张三&quot;&gt;&lt;&#x2F;property&gt;
-&lt;&#x2F;bean&gt;
-&lt;bean class=&quot;com.zero.ioc.demo2.MyBeanPostProcessor&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;bean id=&quot;man&quot; class=&quot;com.zero.ioc.demo2.Man&quot; init-method=&quot;setup&quot; destroy-method=&quot;myDestroy&quot;&gt;
+    &lt;property name=&quot;name&quot; value=&quot;张三&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;
+&lt;bean class=&quot;com.zero.ioc.demo2.MyBeanPostProcessor&quot;/&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test2(){
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
     Man man = (Man) context.getBean(&quot;man&quot;);
@@ -779,7 +740,7 @@ public void test2(){
     context.close();
 }
 
-&#x2F;** 
+/** 
 输出结果:
     第一步：实例化。。。
     第二步：设置属性
@@ -794,7 +755,7 @@ public void test2(){
     信息: Closing org.springframework.context.support.ClassPathXmlApplicationContext@7823a2f9: startup date [Tue Aug 06 19:48:41 CST 2019]; root of context hierarchy
     第十步：执行Spring的销毁方法
     第十一步：执行自己定义的销毁方法
-*&#x2F;
+*/
 </code></pre>
 <h2 id="3-Spring的属性注入-XML方式"><a href="#3-Spring的属性注入-XML方式" class="headerlink" title="3. Spring的属性注入(XML方式)"></a>3. Spring的属性注入(XML方式)</h2><p>对于类成员变量，注入方式有三种：构造函数注入、属性setter方法注入、接口注入</p>
 <blockquote>
@@ -809,52 +770,44 @@ public void test2(){
 <ul>
 <li>创建user类</li>
 </ul>
+<pre><code class="java">public class User {
+    private String name;
+    private Integer age;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  public class User {
-      private String name;
-      private Integer age;
-  
-      public User(String name, Integer age){
-          this.name = name;
-          this.age = age;
-      }
-  
-      @Override
-      public String toString() {
-          return &quot;User{&quot; +
-                  &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
-                  &quot;, age=&quot; + age +
-                  &#39;}&#39;;
-      }
-  }
+    public User(String name, Integer age){
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User{&quot; +
+                &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
+                &quot;, age=&quot; + age +
+                &#39;}&#39;;
+    }
+}
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>配置xml</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;!--    Spring属性注入-通过构造方法注入--&gt;
-  &lt;bean id=&quot;user&quot; class=&quot;com.zero.ioc.demo3.User&quot;&gt;
-      &lt;constructor-arg name=&quot;name&quot; value=&quot;张三&quot;&#x2F;&gt;
-      &lt;constructor-arg name=&quot;age&quot; value=&quot;22&quot;&#x2F;&gt;
-  &lt;&#x2F;bean&gt;
+<li>配置xml</li>
+</ul>
+<pre><code class="xml">&lt;!--    Spring属性注入-通过构造方法注入--&gt;
+&lt;bean id=&quot;user&quot; class=&quot;com.zero.ioc.demo3.User&quot;&gt;
+    &lt;constructor-arg name=&quot;name&quot; value=&quot;张三&quot;/&gt;
+    &lt;constructor-arg name=&quot;age&quot; value=&quot;22&quot;/&gt;
+&lt;/bean&gt;
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>测试</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  public class demo3Test {
-      @Test
-      public void test1(){
-          ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
-          User user = (User) context.getBean(&quot;user&quot;);
-          System.out.println(user);
-      }
-  }
+<li>测试</li>
+</ul>
+<pre><code class="java">public class demo3Test {
+    @Test
+    public void test1(){
+        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
+        User user = (User) context.getBean(&quot;user&quot;);
+        System.out.println(user);
+    }
+}
 </code></pre>
 </li>
 </ul>
@@ -865,72 +818,62 @@ public void test2(){
 <ul>
 <li>创建person类</li>
 </ul>
+<pre><code class="java">public class Person {
+    private String name;
+    private Integer age;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  public class Person {
-      private String name;
-      private Integer age;
-  
-      private Cat cat;
-  
-      &#x2F;&#x2F; 省略get&#x2F;set方法
-      @Override
-      public String toString() {
-          return &quot;Person{&quot; +
-                  &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
-                  &quot;, age=&quot; + age +
-                  &quot;, cat=&quot; + cat +
-                  &#39;}&#39;;
-      }
-  }
+    private Cat cat;
+
+    // 省略get/set方法
+    @Override
+    public String toString() {
+        return &quot;Person{&quot; +
+                &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
+                &quot;, age=&quot; + age +
+                &quot;, cat=&quot; + cat +
+                &#39;}&#39;;
+    }
+}
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>创建cat类</p>
+<li>创建cat类</li>
+</ul>
+<pre><code class="java">public class Cat {
+    private String name;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  public class Cat {
-      private String name;
-  
-      @Override
-      public String toString() {
-          return &quot;Cat{&quot; +
-                  &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
-                  &#39;}&#39;;
-      }
-  	&#x2F;&#x2F; 省略get&#x2F;set方法
-  }
+    @Override
+    public String toString() {
+        return &quot;Cat{&quot; +
+                &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
+                &#39;}&#39;;
+    }
+    // 省略get/set方法
+}
+
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>配置xml</p>
+<li>配置xml</li>
+</ul>
+<pre><code class="xml">&lt;!--    Spring属性注入-通过set方法注入--&gt;
+&lt;bean id=&quot;person&quot; class=&quot;com.zero.ioc.demo3.Person&quot;&gt;
+    &lt;property name=&quot;name&quot; value=&quot;李四&quot;/&gt;
+  &lt;property name=&quot;age&quot; value=&quot;25&quot;/&gt;
+    &lt;!--        ref可以引入其他bean的id或name--&gt;
+  &lt;property name=&quot;cat&quot; ref=&quot;cat&quot;/&gt;
+&lt;/bean&gt;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;!--    Spring属性注入-通过set方法注入--&gt;
-  &lt;bean id=&quot;person&quot; class=&quot;com.zero.ioc.demo3.Person&quot;&gt;
-      &lt;property name=&quot;name&quot; value=&quot;李四&quot;&#x2F;&gt;
-    &lt;property name=&quot;age&quot; value=&quot;25&quot;&#x2F;&gt;
-      &lt;!--        ref可以引入其他bean的id或name--&gt;
-    &lt;property name=&quot;cat&quot; ref=&quot;cat&quot;&#x2F;&gt;
-  &lt;&#x2F;bean&gt;
-  
-  &lt;bean id=&quot;cat&quot; class=&quot;com.zero.ioc.demo3.Cat&quot;&gt;
-      &lt;property name=&quot;name&quot; value=&quot;ketty&quot;&#x2F;&gt;
-  &lt;&#x2F;bean&gt;
+&lt;bean id=&quot;cat&quot; class=&quot;com.zero.ioc.demo3.Cat&quot;&gt;
+    &lt;property name=&quot;name&quot; value=&quot;ketty&quot;/&gt;
+&lt;/bean&gt;
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>测试</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @Test
-  public void test2(){
-      ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
-    Person person = (Person) context.getBean(&quot;person&quot;);
-      System.out.println(person); &#x2F;&#x2F; Person{name=&#39;李四&#39;, age=25, cat=Cat{name=&#39;ketty&#39;}}
+<li>测试</li>
+</ul>
+<pre><code class="java">@Test
+public void test2(){
+    ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
+  Person person = (Person) context.getBean(&quot;person&quot;);
+    System.out.println(person); // Person{name=&#39;李四&#39;, age=25, cat=Cat{name=&#39;ketty&#39;}}
 }
 </code></pre>
 </li>
@@ -943,35 +886,29 @@ public void test2(){
 <ul>
 <li>示例，配置xml，</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--先在beans中添加:xmlns:p=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;p&quot;，引入p命名空间--&gt;
+<pre><code class="xml">&lt;!--先在beans中添加:xmlns:p=&quot;http://www.springframework.org/schema/p&quot;，引入p命名空间--&gt;
 
 &lt;!--    Spring属性注入-通过p名称空间注入--&gt;
 &lt;!--修改原有的person配置如下，即可实现通过p名称空间注入--&gt;
-&lt;bean id=&quot;person&quot; class=&quot;com.zero.ioc.demo3.Person&quot; p:name=&quot;赵钱&quot; p:age=&quot;26&quot; p:cat-ref=&quot;cat&quot;&#x2F;&gt;
+&lt;bean id=&quot;person&quot; class=&quot;com.zero.ioc.demo3.Person&quot; p:name=&quot;赵钱&quot; p:age=&quot;26&quot; p:cat-ref=&quot;cat&quot;/&gt;
 
-&lt;bean id=&quot;cat&quot; class=&quot;com.zero.ioc.demo3.Cat&quot; p:name=&quot;小黑&quot;&#x2F;&gt;
+&lt;bean id=&quot;cat&quot; class=&quot;com.zero.ioc.demo3.Cat&quot; p:name=&quot;小黑&quot;/&gt;
 </code></pre>
 <h3 id="3-4-属性注入-SpEL注入"><a href="#3-4-属性注入-SpEL注入" class="headerlink" title="3.4 属性注入-SpEL注入"></a>3.4 属性注入-SpEL注入</h3><ul>
 <li><code>SpEL</code>：<code>spring expression language</code>，Spring表达式语言，对依赖注入进行简化</li>
 <li>语法：<code>#{表达式}</code>，<code>&lt;bean id=&quot;&quot; value=&quot;#{表达式}&quot;/&gt;</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-shell">Spel表达式语法：
+<pre><code class="shell">Spel表达式语法：
 基本语法：#{}
-		#{&#39;hello&#39;}:使用字符串
-		#{beanId}:使用另一个bean
-		#{beanId.method()}:指定bean和对应方法，并执行方法
-		#{T(java.lang.Math).PI}:使用静态字段或方法
+        #{&#39;hello&#39;}:使用字符串
+        #{beanId}:使用另一个bean
+        #{beanId.method()}:指定bean和对应方法，并执行方法
+        #{T(java.lang.Math).PI}:使用静态字段或方法
 </code></pre>
 <ul>
 <li>示例如下，创建Product和Category类用于测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Product {
+<pre><code class="java">public class Product {
     private String name;
     private Double price;
 
@@ -986,7 +923,7 @@ public void test2(){
                 &#39;}&#39;;
     }
 
-    &#x2F;&#x2F; 省略get&#x2F;set方法
+    // 省略get/set方法
 }
 
 
@@ -999,15 +936,13 @@ public class Category {
                 &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
                 &#39;}&#39;;
     }
-   &#x2F;&#x2F; 省略get&#x2F;set方法
+   // 省略get/set方法
 }
 </code></pre>
 <ul>
 <li>创建简单的计算类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ProductInfo {
+<pre><code class="java">public class ProductInfo {
     public Double addPrice(){
         return Math.random() * 20;
     }
@@ -1016,27 +951,24 @@ public class Category {
 <ul>
 <li>配置xml</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--    Spring属性注入-通过SpEL注入--&gt;
+<pre><code class="xml">&lt;!--    Spring属性注入-通过SpEL注入--&gt;
 &lt;bean id=&quot;category&quot; class=&quot;com.zero.ioc.demo3.Category&quot;&gt;
-    &lt;property name=&quot;name&quot; value=&quot;#{&#39;水果&#39;}&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+    &lt;property name=&quot;name&quot; value=&quot;#{&#39;水果&#39;}&quot;/&gt;
+&lt;/bean&gt;
 
-&lt;bean id=&quot;productInfo&quot; class=&quot;com.zero.ioc.demo3.ProductInfo&quot;&#x2F;&gt;
+&lt;bean id=&quot;productInfo&quot; class=&quot;com.zero.ioc.demo3.ProductInfo&quot;/&gt;
 
 &lt;bean id=&quot;product&quot; class=&quot;com.zero.ioc.demo3.Product&quot;&gt;
-    &lt;property name=&quot;name&quot; value=&quot;#{&#39;西瓜&#39;}&quot;&#x2F;&gt;
-    &lt;property name=&quot;price&quot; value=&quot;#{productInfo.addPrice()}&quot;&#x2F;&gt;
-    &lt;property name=&quot;category&quot; value=&quot;#{category}&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+    &lt;property name=&quot;name&quot; value=&quot;#{&#39;西瓜&#39;}&quot;/&gt;
+    &lt;property name=&quot;price&quot; value=&quot;#{productInfo.addPrice()}&quot;/&gt;
+    &lt;property name=&quot;category&quot; value=&quot;#{category}&quot;/&gt;
+&lt;/bean&gt;
+
 </code></pre>
 <ul>
 <li>测试 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java"> @Test
+<pre><code class="java"> @Test
     public void test3(){
         ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
         Product product = (Product) context.getBean(&quot;product&quot;);
@@ -1054,90 +986,81 @@ public class Category {
 <ul>
 <li>创建集合类CollectionBean</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  public class CollectionBean {
-      private String[] arrs; &#x2F;&#x2F; 数组类型
-      private List&lt;String&gt; list; &#x2F;&#x2F; List集合类型
-      private Set&lt;String&gt; set; &#x2F;&#x2F; Set集合类型
-      private Map&lt;String,Integer&gt; map; &#x2F;&#x2F; Map集合类型
-      private Properties properties; &#x2F;&#x2F; 属性类型
-  
-  
-      @Override
-      public String toString() {
-          return &quot;CollectionBean{&quot; +
-                  &quot;arrs=&quot; + Arrays.toString(arrs) +
-                  &quot;, list=&quot; + list +
-                  &quot;, set=&quot; + set +
-                  &quot;, map=&quot; + map +
-                  &quot;, properties=&quot; + properties +
-                  &#39;}&#39;;
-      }
-   	&#x2F;&#x2F; 省略get&#x2F;set方法   
-  }
-</code></pre>
-</li>
+<p><code>`</code>java<br>public class CollectionBean {</p>
+<pre><code>private String[] arrs; // 数组类型
+private List&lt;String&gt; list; // List集合类型
+private Set&lt;String&gt; set; // Set集合类型
+private Map&lt;String,Integer&gt; map; // Map集合类型
+private Properties properties; // 属性类型
+</code></pre></li>
 </ul>
-<ul>
-<li><p>配置xml，添加如下内容</p>
+<pre><code>  @Override
+  public String toString() {
+      return &quot;CollectionBean{&quot; +
+              &quot;arrs=&quot; + Arrays.toString(arrs) +
+              &quot;, list=&quot; + list +
+              &quot;, set=&quot; + set +
+              &quot;, map=&quot; + map +
+              &quot;, properties=&quot; + properties +
+              &#39;}&#39;;
+  }
+   // 省略get/set方法   
+</code></pre><p>  }</p>
+<pre><code>
+  - 配置xml，添加如下内容
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;!--    复杂类型的属性注入--&gt;
+  ```xml
+  &lt;!--    复杂类型的属性注入--&gt;
   &lt;bean id=&quot;collectionBean&quot; class=&quot;com.zero.ioc.demo4.CollectionBean&quot;&gt;
       &lt;!--        数组类型的属性注入--&gt;
       &lt;property name=&quot;arrs&quot;&gt;
           &lt;list&gt;
-              &lt;value&gt;aaa&lt;&#x2F;value&gt;
-              &lt;value&gt;bbb&lt;&#x2F;value&gt;
-              &lt;value&gt;ccc&lt;&#x2F;value&gt;
-          &lt;&#x2F;list&gt;
-      &lt;&#x2F;property&gt;
+              &lt;value&gt;aaa&lt;/value&gt;
+              &lt;value&gt;bbb&lt;/value&gt;
+              &lt;value&gt;ccc&lt;/value&gt;
+          &lt;/list&gt;
+      &lt;/property&gt;
       &lt;!--        List集合类型的属性注入--&gt;
       &lt;property name=&quot;list&quot;&gt;
           &lt;list&gt;
-              &lt;value&gt;111&lt;&#x2F;value&gt;
-              &lt;value&gt;222&lt;&#x2F;value&gt;
-              &lt;value&gt;333&lt;&#x2F;value&gt;
-          &lt;&#x2F;list&gt;
-      &lt;&#x2F;property&gt;
+              &lt;value&gt;111&lt;/value&gt;
+              &lt;value&gt;222&lt;/value&gt;
+              &lt;value&gt;333&lt;/value&gt;
+          &lt;/list&gt;
+      &lt;/property&gt;
       &lt;!--        set集合类型的属性注入--&gt;
       &lt;property name=&quot;set&quot;&gt;
           &lt;set&gt;
-              &lt;value&gt;ddd&lt;&#x2F;value&gt;
-              &lt;value&gt;eee&lt;&#x2F;value&gt;
-              &lt;value&gt;fff&lt;&#x2F;value&gt;
-          &lt;&#x2F;set&gt;
-      &lt;&#x2F;property&gt;
+              &lt;value&gt;ddd&lt;/value&gt;
+              &lt;value&gt;eee&lt;/value&gt;
+              &lt;value&gt;fff&lt;/value&gt;
+          &lt;/set&gt;
+      &lt;/property&gt;
       &lt;!--        map集合类型的属性注入--&gt;
       &lt;property name=&quot;map&quot;&gt;
           &lt;map&gt;
-              &lt;entry key=&quot;aaa&quot; value=&quot;111&quot;&#x2F;&gt;
-              &lt;entry key=&quot;bbb&quot; value=&quot;222&quot;&#x2F;&gt;
-              &lt;entry key=&quot;ccc&quot; value=&quot;333&quot;&#x2F;&gt;
-          &lt;&#x2F;map&gt;
-      &lt;&#x2F;property&gt;
+              &lt;entry key=&quot;aaa&quot; value=&quot;111&quot;/&gt;
+              &lt;entry key=&quot;bbb&quot; value=&quot;222&quot;/&gt;
+              &lt;entry key=&quot;ccc&quot; value=&quot;333&quot;/&gt;
+          &lt;/map&gt;
+      &lt;/property&gt;
       &lt;!--        Properties类型的属性注入--&gt;
       &lt;property name=&quot;properties&quot;&gt;
           &lt;props&gt;
-              &lt;prop key=&quot;username&quot;&gt;root&lt;&#x2F;prop&gt;
-              &lt;prop key=&quot;password&quot;&gt;123456&lt;&#x2F;prop&gt;
-          &lt;&#x2F;props&gt;
-      &lt;&#x2F;property&gt;
-  &lt;&#x2F;bean&gt;
-</code></pre>
-</li>
-</ul>
-<ul>
-<li><p>测试</p>
+              &lt;prop key=&quot;username&quot;&gt;root&lt;/prop&gt;
+              &lt;prop key=&quot;password&quot;&gt;123456&lt;/prop&gt;
+          &lt;/props&gt;
+      &lt;/property&gt;
+  &lt;/bean&gt;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @Test
-  public void test1(){
-      ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
-      CollectionBean collectionBean = (CollectionBean) context.getBean(&quot;collectionBean&quot;);
-      System.out.println(collectionBean);
-  }
+</code></pre><ul>
+<li><p>测试</p>
+<pre><code class="java">@Test
+public void test1(){
+  ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
+  CollectionBean collectionBean = (CollectionBean) context.getBean(&quot;collectionBean&quot;);
+  System.out.println(collectionBean);
+}
 </code></pre>
 </li>
 </ul>
@@ -1158,57 +1081,43 @@ public class Category {
 <ul>
 <li>创建<code>UserService</code>类</li>
 </ul>
+<pre><code class="java">/**
+ * Spring的Bean管理的注解方式：
+ *      传统方式：需要去XML中配置&lt;bean id=&quot;&quot; class=&quot;&quot;&gt;&lt;/bean&gt;
+ *
+ */
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  &#x2F;**
-   * Spring的Bean管理的注解方式：
-   *      传统方式：需要去XML中配置&lt;bean id=&quot;&quot; class=&quot;&quot;&gt;&lt;&#x2F;bean&gt;
-   *
-   *&#x2F;
-  
-  @Service(&quot;userService&quot;)
-  public class UserService {
-      public String hello(String name){
-          return &quot;Hello&quot; + name;
-      }
-  }
+@Service(&quot;userService&quot;)
+public class UserService {
+    public String hello(String name){
+        return &quot;Hello&quot; + name;
+    }
+}
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>配置xml，开启扫描</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-  &lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-         xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
-         xmlns:context=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;
-         xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd&quot;&gt;
-  
-      &lt;!-- 开启注解扫描 --&gt;
-      &lt;context:component-scan base-package=&quot;com.zero.demo1&quot;&#x2F;&gt;
-  
-  
-  &lt;&#x2F;beans&gt;
-</code></pre>
-</li>
+<li>配置xml，开启扫描</li>
 </ul>
-<ul>
-<li><p>测试</p>
+<p><code>`</code>xml<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @Test
+<pre><code>&lt;!-- 开启注解扫描 --&gt;
+&lt;context:component-scan base-package=&quot;com.zero.demo1&quot;/&gt;
+</code></pre></beans></li>
+</ul>
+<p>  </p>
+<pre><code>
+  - 测试
+
+  ```java
+  @Test
   public void demo1(){
       ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
       UserService userService = (UserService) context.getBean(&quot;userService&quot;);
-  
+
       String hello = userService.hello(&quot;小明&quot;);
       System.out.println(hello);
   }
-</code></pre>
-</li>
-</ul>
-<h2 id="5-Spring的属性注入-注解方式"><a href="#5-Spring的属性注入-注解方式" class="headerlink" title="5. Spring的属性注入(注解方式)"></a>5. Spring的属性注入(注解方式)</h2><ul>
+</code></pre><h2 id="5-Spring的属性注入-注解方式"><a href="#5-Spring的属性注入-注解方式" class="headerlink" title="5. Spring的属性注入(注解方式)"></a>5. Spring的属性注入(注解方式)</h2><ul>
 <li>使用<code>@Autowired</code>进行自动注入</li>
 <li><code>@Autowired</code>默认按照类型进行注入<ul>
 <li>如果存在两个相同Bean类型相同，则按照名称注入</li>
@@ -1223,59 +1132,51 @@ public class Category {
 <ul>
 <li>创建一个dao</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @Repository(&quot;userDao&quot;)
-  public class UserDao {
-      public void save(){
-          System.out.println(&quot;Dao中保存用户。。。&quot;);
-      }
-  }
+<pre><code class="java">@Repository(&quot;userDao&quot;)
+public class UserDao {
+    public void save(){
+        System.out.println(&quot;Dao中保存用户。。。&quot;);
+    }
+}
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>修改UserService</p>
+<li>修改UserService</li>
+</ul>
+<pre><code class="java">@Service(&quot;userService&quot;)
+public class UserService {
+    //使用value直接对属性值进行注入
+    @Value(&quot;苹果&quot;)
+    private String something;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @Service(&quot;userService&quot;)
-  public class UserService {
-      &#x2F;&#x2F;使用value直接对属性值进行注入
-      @Value(&quot;苹果&quot;)
-      private String something;
-  
-      &#x2F;&#x2F; 自动注入
-      @Autowired
-      @Qualifier(&quot;userDao&quot;) &#x2F;&#x2F; 指定注解的Bean名称必须相同‘
-      @Resource(name=&quot;userDao&quot;) &#x2F;&#x2F; 可以使用@Resource，指定Bean名称
-      private UserDao dao;
-  
-      public String hello(String name){
-          return &quot;Hello&quot; + name;
-      }
-  
-      public void eat(){
-          System.out.println(&quot;eat:&quot;+something);
-      }
-  
-      public void save(){
-          System.out.println(&quot;Service中保存用户。。。&quot;);
-          dao.save();
-      }
-  }
+    // 自动注入
+    @Autowired
+    @Qualifier(&quot;userDao&quot;) // 指定注解的Bean名称必须相同‘
+    @Resource(name=&quot;userDao&quot;) // 可以使用@Resource，指定Bean名称
+    private UserDao dao;
+
+    public String hello(String name){
+        return &quot;Hello&quot; + name;
+    }
+
+    public void eat(){
+        System.out.println(&quot;eat:&quot;+something);
+    }
+
+    public void save(){
+        System.out.println(&quot;Service中保存用户。。。&quot;);
+        dao.save();
+    }
+}
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>测试</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @Test
-  public void demo2(){
-      ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
-      UserService userService = (UserService) context.getBean(&quot;userService&quot;);
-      userService.save();
-  }
+<li>测试</li>
+</ul>
+<pre><code class="java">@Test
+public void demo2(){
+    ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+    UserService userService = (UserService) context.getBean(&quot;userService&quot;);
+    userService.save();
+}
 </code></pre>
 </li>
 </ul>
@@ -1287,11 +1188,9 @@ public class Category {
 </ul>
 </blockquote>
 <h3 id="5-1-Spring的其他注解"><a href="#5-1-Spring的其他注解" class="headerlink" title="5.1 Spring的其他注解"></a>5.1 Spring的其他注解</h3><p>Spring初始化Bean或销毁bean时，有时需要作一些处理工作，因此spring可以在创建和拆卸bean时调用bean的两个生命周期方法。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;bean id=&quot;xxx&quot; class=&quot;xxx&quot;
+<pre><code class="xml">&lt;bean id=&quot;xxx&quot; class=&quot;xxx&quot;
       init-method=&quot;setup&quot;
-      destroy-method=&quot;teardown&quot;&#x2F;&gt;
+      destroy-method=&quot;teardown&quot;/&gt;
 
 &lt;!--
 当bean被载入到容器时调用setup,注解方式：@PostConstruct,初始化
@@ -1302,12 +1201,10 @@ public class Category {
 <ul>
 <li>代码示例，创建bean1类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Component(&quot;bean1&quot;)
+<pre><code class="java">@Component(&quot;bean1&quot;)
 public class Bean1 {
-    
-    &#x2F;&#x2F; 生命周期注解，初始化
+
+    // 生命周期注解，初始化
     @PostConstruct
     public void init(){
         System.out.println(&quot;initBean...&quot;);
@@ -1318,7 +1215,7 @@ public class Bean1 {
         System.out.println(&quot;say...&quot;);
     }
 
-	&#x2F;&#x2F; 生命周期注解，销毁
+    // 生命周期注解，销毁
     @PreDestroy
     public void destroy(){
         System.out.println(&quot;destroyBean...&quot;);
@@ -1328,17 +1225,13 @@ public class Bean1 {
 <ul>
 <li>配置xml</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 开启注解扫描 --&gt;
-&lt;context:component-scan base-package=&quot;com.zero&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;!-- 开启注解扫描 --&gt;
+&lt;context:component-scan base-package=&quot;com.zero&quot;/&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test1(){
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
     Bean1 bean1 = (Bean1) context.getBean(&quot;bean1&quot;);
@@ -1354,28 +1247,24 @@ public void test1(){
 <ul>
 <li>创建bean2类，设置其作用范围</li>
 </ul>
+<pre><code class="java">@Component(&quot;bean2&quot;)
+@Scope(&quot;prototype&quot;) // 设置作用范围，使用多例创建对象
+public class Bean2 {
+}
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @Component(&quot;bean2&quot;)
-  @Scope(&quot;prototype&quot;) &#x2F;&#x2F; 设置作用范围，使用多例创建对象
-  public class Bean2 {
-  }
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>测试</p>
+<li>测试</li>
+</ul>
+<pre><code class="java"> @Test
+public void test2(){
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+    Bean2 bean1 = (Bean2) context.getBean(&quot;bean2&quot;);
+    Bean2 bean2 = (Bean2) context.getBean(&quot;bean2&quot;);
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   @Test
-  public void test2(){
-      ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
-      Bean2 bean1 = (Bean2) context.getBean(&quot;bean2&quot;);
-      Bean2 bean2 = (Bean2) context.getBean(&quot;bean2&quot;);
-  
-      System.out.println(bean1 == bean2);
-  
-  }
+    System.out.println(bean1 == bean2);
+
+}
 </code></pre>
 </li>
 </ul>
@@ -1398,68 +1287,45 @@ public void test1(){
 <ul>
 <li>创建<code>ProductService，ProductDao，CategoryDao</code>，均创建简单的save方法。</li>
 </ul>
+<p><code>`</code>java<br>public class ProductService {</p>
+<pre><code>// 使用注解
+@Resource(name = &quot;categoryDao&quot;)
+private CategoryDao categoryDao;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  public class ProductService {
-      &#x2F;&#x2F; 使用注解
-      @Resource(name = &quot;categoryDao&quot;)
-      private CategoryDao categoryDao;
-  
-      @Resource(name = &quot;productDao&quot;)
-      private ProductDao productDao;
-  
-  &#x2F;&#x2F;    public void setCategoryDao(CategoryDao categoryDao) {
-  &#x2F;&#x2F;        this.categoryDao = categoryDao;
-  &#x2F;&#x2F;    }
-  &#x2F;&#x2F;
-  &#x2F;&#x2F;    public void setProductDao(ProductDao productDao) {
-  &#x2F;&#x2F;        this.productDao = productDao;
-  &#x2F;&#x2F;    }
-  
-      public void save(){
-          System.out.println(&quot;ProductService中的save方法执行了...&quot;);
-          categoryDao.save();
-          productDao.save();
-      }
-  }
-  
-  public class ProductDao {
-      public void save(){
-          System.out.println(&quot;ProductDao中的save方法执行了...&quot;);
-      }
-  }
-  
-  
-  public class CategoryDao {
-      public void save(){
-          System.out.println(&quot;CategoryDao中的save方法执行了...&quot;);
-      }
-  }
-</code></pre>
+@Resource(name = &quot;productDao&quot;)
+private ProductDao productDao;
+</code></pre><p>//    public void setCategoryDao(CategoryDao categoryDao) {<br>//        this.categoryDao = categoryDao;<br>//    }<br>//<br>//    public void setProductDao(ProductDao productDao) {<br>//        this.productDao = productDao;<br>//    }</p>
+<pre><code>public void save(){
+    System.out.println(&quot;ProductService中的save方法执行了...&quot;);
+    categoryDao.save();
+    productDao.save();
+}
+</code></pre><p>}</p>
+<p>public class ProductDao {</p>
+<pre><code>public void save(){
+    System.out.println(&quot;ProductDao中的save方法执行了...&quot;);
+}
+</code></pre><p>}</p>
 </li>
 </ul>
-<ul>
-<li><p>配置xml</p>
+<p>  public class CategoryDao {<br>      public void save(){<br>          System.out.println(“CategoryDao中的save方法执行了…”);<br>      }<br>  }</p>
+<pre><code>
+  - 配置xml
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;!--单独开启注解功能--&gt;
-  &lt;context:annotation-config&#x2F;&gt;
-  
+  ```xml
+  &lt;!--单独开启注解功能--&gt;
+  &lt;context:annotation-config/&gt;
+
   &lt;bean id=&quot;productService&quot; class=&quot;com.zero.demo3.ProductService&quot;&gt;
-      &lt;!--        &lt;property name=&quot;productDao&quot; ref=&quot;productDao&quot;&#x2F;&gt;--&gt;
-      &lt;!--        &lt;property name=&quot;categoryDao&quot; ref=&quot;categoryDao&quot;&#x2F;&gt;--&gt;
-  &lt;&#x2F;bean&gt;
-  &lt;bean id=&quot;productDao&quot; class=&quot;com.zero.demo3.ProductDao&quot;&#x2F;&gt;
-  &lt;bean id=&quot;categoryDao&quot; class=&quot;com.zero.demo3.CategoryDao&quot;&#x2F;&gt;
-</code></pre>
-</li>
-</ul>
-<ul>
+      &lt;!--        &lt;property name=&quot;productDao&quot; ref=&quot;productDao&quot;/&gt;--&gt;
+      &lt;!--        &lt;property name=&quot;categoryDao&quot; ref=&quot;categoryDao&quot;/&gt;--&gt;
+  &lt;/bean&gt;
+  &lt;bean id=&quot;productDao&quot; class=&quot;com.zero.demo3.ProductDao&quot;/&gt;
+  &lt;bean id=&quot;categoryDao&quot; class=&quot;com.zero.demo3.CategoryDao&quot;/&gt;
+</code></pre><ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test1() {
     ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
     ProductService productService = (ProductService) context.getBean(&quot;productService&quot;);
@@ -1725,7 +1591,7 @@ public void test1() {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

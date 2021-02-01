@@ -441,9 +441,7 @@
 <li>继承GenericServlet类</li>
 <li>继承HttpServlet方法</li>
 </ol>
-<h4 id="1-1-1-实现Servlet接口"><a href="#1-1-1-实现Servlet接口" class="headerlink" title="1.1.1 实现Servlet接口"></a>1.1.1 实现Servlet接口</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;*
+<h4 id="1-1-1-实现Servlet接口"><a href="#1-1-1-实现Servlet接口" class="headerlink" title="1.1.1 实现Servlet接口"></a>1.1.1 实现Servlet接口</h4><pre><code class="java">/*
 Servlet的生命周期：从Servlet被创建到Servlet被销毁的过程。
 一次创建，到处服务
 一个Servlet只会有一个对象，服务所有的请求
@@ -452,25 +450,25 @@ Servlet的生命周期：从Servlet被创建到Servlet被销毁的过程。
 2. 初始化 执行init方法
 3. 服务 执行service方法
 4. 销毁 执行destroy方法
-*&#x2F;
-@WebServlet(&quot;&#x2F;demo1&quot;) &#x2F;&#x2F; 添加注解，设置虚拟访问路径
-public class ServletDemo1 implements Servlet{ &#x2F;&#x2F; 实现Servlet接口，重写其全部方法
-    &#x2F;&#x2F; 生命周期方法：当Servlet第一次被创建对象时执行该方法，该方法在整个生命周期中只执行一次
+*/
+@WebServlet(&quot;/demo1&quot;) // 添加注解，设置虚拟访问路径
+public class ServletDemo1 implements Servlet{ // 实现Servlet接口，重写其全部方法
+    // 生命周期方法：当Servlet第一次被创建对象时执行该方法，该方法在整个生命周期中只执行一次
     @Override
     public void init(ServletConfig servletConfig) throws ServletException{
         System.out.println(&quot;====Servlet初始化了====&quot;);
     }
-    &#x2F;&#x2F; 生命周期方法：对客户端响应的方法，该方法会被多次执行，每次请求该servlet都会执行该方法
+    // 生命周期方法：对客户端响应的方法，该方法会被多次执行，每次请求该servlet都会执行该方法
     @Override
     public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException{
         System.out.println(&quot;====Servlet服务中====&quot;);
     }
-    &#x2F;&#x2F; 生命周期方法： 当Servlet被销毁时执行该方法
+    // 生命周期方法： 当Servlet被销毁时执行该方法
     @Override
     public void destroy(){
         System.out.println(&quot;====Servlet销毁了====&quot;);
     }
-    &#x2F;&#x2F; 当停止Tomcat时也就会销毁的Servlet
+    // 当停止Tomcat时也就会销毁的Servlet
     @Override
     public ServletConfig getServletConfig(){
         return null;
@@ -482,9 +480,7 @@ public class ServletDemo1 implements Servlet{ &#x2F;&#x2F; 实现Servlet接口�
 }
 </code></pre>
 <h4 id="1-1-2-继承GenericServlet类"><a href="#1-1-2-继承GenericServlet类" class="headerlink" title="1.1.2 继承GenericServlet类"></a>1.1.2 继承GenericServlet类</h4><p><code>GenericServlet</code>类默认将Servlet接口中其他方法做了默认空实现，只将<code>service()</code>方法作为抽象方法，在定义Servlet类时，可以继承<code>GenericeSerlvet</code>类，实现<code>service()</code>方法即可。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ServletDemo2 extends GenericServlet{
+<pre><code class="java">public class ServletDemo2 extends GenericServlet{
     @Override
     public void service(ServletRequest arg0, ServletResponse arg1) throws ServletException,IOException{
         System.out.println(&quot;创建方法2&quot;)
@@ -496,9 +492,7 @@ public class ServletDemo1 implements Servlet{ &#x2F;&#x2F; 实现Servlet接口�
 <li>定义类继承HttpServlet</li>
 <li>复写doGet/doPost方法</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ServletDemo3 extends HttpServlet{
+<pre><code class="java">public class ServletDemo3 extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         System.out.println(&quot;get方法执行&quot;);
@@ -510,17 +504,15 @@ public class ServletDemo1 implements Servlet{ &#x2F;&#x2F; 实现Servlet接口�
 }
 </code></pre>
 <h4 id="1-1-4-配置Servlet"><a href="#1-1-4-配置Servlet" class="headerlink" title="1.1.4 配置Servlet"></a>1.1.4 配置Servlet</h4><p>在web.xml中配置</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--配置servlet--&gt;
+<pre><code class="xml">&lt;!--配置servlet--&gt;
 &lt;servlet&gt;
-	&lt;servlet-name&gt;demo1&lt;&#x2F;servlet-name&gt;
-    &lt;servlet-class&gt;servlet.ServletDemo1&lt;&#x2F;servlet-class&gt; &lt;!--全类名--&gt;
-&lt;&#x2F;servlet&gt;
+    &lt;servlet-name&gt;demo1&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;servlet.ServletDemo1&lt;/servlet-class&gt; &lt;!--全类名--&gt;
+&lt;/servlet&gt;
 &lt;servlet-mapping&gt;
-	&lt;servlet-name&gt;demo1&lt;&#x2F;servlet-name&gt;
-    &lt;url-pattern&gt;&#x2F;demo1&lt;&#x2F;url-pattern&gt; &lt;!--servlet访问路径--&gt;
-&lt;&#x2F;servlet-mapping&gt;
+    &lt;servlet-name&gt;demo1&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/demo1&lt;/url-pattern&gt; &lt;!--servlet访问路径--&gt;
+&lt;/servlet-mapping&gt;
 </code></pre>
 <p><code>urlpartten</code>：Servlet访问路径</p>
 <ol>
@@ -824,7 +816,7 @@ Web服务器软件：接收用户的请求，处理请求，做出响应。在we
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

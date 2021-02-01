@@ -406,14 +406,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.5k
+                        2.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        10 分
+                        9 分
                     </div>
                     
                 
@@ -437,9 +437,7 @@
 <li>复写方法</li>
 <li>配置拦截路径。使用web.xml和注解配置。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@WebFilter(&quot;&#x2F;*&quot;) &#x2F;&#x2F; 访问所有资源之前，都会执行该过滤器
+<pre><code class="java">@WebFilter(&quot;/*&quot;) // 访问所有资源之前，都会执行该过滤器
 public class FilterDemo1 implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -447,7 +445,7 @@ public class FilterDemo1 implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         System.out.println(&quot;FilterDemo1执行了...&quot;);
-        &#x2F;&#x2F; 放行
+        // 放行
         filterChain.doFilter(servletRequest,servletResponse);
     }
     @Override
@@ -455,16 +453,14 @@ public class FilterDemo1 implements Filter {
     }
 }
 </code></pre>
-<h3 id="1-3-过滤器细节"><a href="#1-3-过滤器细节" class="headerlink" title="1.3 过滤器细节"></a>1.3 过滤器细节</h3><h4 id="1-3-1-web-xml配置方法"><a href="#1-3-1-web-xml配置方法" class="headerlink" title="1.3.1 web.xml配置方法"></a>1.3.1 web.xml配置方法</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;filter&gt;
-    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;
-    &lt;filter-class&gt;cn.zero.web.filter.FilterDemo1&lt;&#x2F;filter-class&gt;
-&lt;&#x2F;filter&gt;
+<h3 id="1-3-过滤器细节"><a href="#1-3-过滤器细节" class="headerlink" title="1.3 过滤器细节"></a>1.3 过滤器细节</h3><h4 id="1-3-1-web-xml配置方法"><a href="#1-3-1-web-xml配置方法" class="headerlink" title="1.3.1 web.xml配置方法"></a>1.3.1 web.xml配置方法</h4><pre><code class="xml">&lt;filter&gt;
+    &lt;filter-name&gt;demo1&lt;/filter-name&gt;
+    &lt;filter-class&gt;cn.zero.web.filter.FilterDemo1&lt;/filter-class&gt;
+&lt;/filter&gt;
 &lt;filter-mapping&gt;
-    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;
-    &lt;url-pattern&gt;&#x2F;*&lt;&#x2F;url-pattern&gt; 
-&lt;&#x2F;filter-mapping&gt;
+    &lt;filter-name&gt;demo1&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt; 
+&lt;/filter-mapping&gt;
 </code></pre>
 <h4 id="1-3-2-过滤器执行流程"><a href="#1-3-2-过滤器执行流程" class="headerlink" title="1.3.2 过滤器执行流程"></a>1.3.2 过滤器执行流程</h4><ol>
 <li>执行过滤器</li>
@@ -491,11 +487,9 @@ public class FilterDemo1 implements Filter {
 <li>ERROR：错误跳转资源</li>
 <li>ASYNC：异步访问资源</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  &#x2F;&#x2F;@WebFilter(value = &quot;&#x2F;index.jsp&quot;,dispatcherTypes = DispatcherType.REQUEST) &#x2F;&#x2F; 浏览器直接请求index.jsp资源时，该过滤器会被执行
-  &#x2F;&#x2F;@WebFilter(value = &quot;&#x2F;index.jsp&quot;,dispatcherTypes = DispatcherType.FORWARD) &#x2F;&#x2F; 转发访问index.jsp资源时，该过滤器会被执行
-  @WebFilter(value = &quot;&#x2F;index.jsp&quot;,dispatcherTypes = {DispatcherType.FORWARD,DispatcherType.REQUEST}) &#x2F;&#x2F; 直接访问或转发访问index.jsp资源时，该过滤器会被执行
+<pre><code class="java">//@WebFilter(value = &quot;/index.jsp&quot;,dispatcherTypes = DispatcherType.REQUEST) // 浏览器直接请求index.jsp资源时，该过滤器会被执行
+//@WebFilter(value = &quot;/index.jsp&quot;,dispatcherTypes = DispatcherType.FORWARD) // 转发访问index.jsp资源时，该过滤器会被执行
+@WebFilter(value = &quot;/index.jsp&quot;,dispatcherTypes = {DispatcherType.FORWARD,DispatcherType.REQUEST}) // 直接访问或转发访问index.jsp资源时，该过滤器会被执行
 </code></pre>
 </li>
 </ul>
@@ -519,38 +513,36 @@ public class FilterDemo1 implements Filter {
 <li>web.xml配置：<code>&lt;filter-mapping&gt;</code> 谁定义在上边，谁先执行。</li>
 </ol>
 <h3 id="1-4-案例"><a href="#1-4-案例" class="headerlink" title="1.4 案例"></a>1.4 案例</h3><h4 id="1-登录验证"><a href="#1-登录验证" class="headerlink" title="1. 登录验证"></a>1. 登录验证</h4><p>将以前做的用户信息管理系统加上访问权限控制。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * 登录过滤器,访问除了登录资源以外的所有资源，都必须先登录
- *&#x2F;
-@WebFilter(&quot;&#x2F;*&quot;)
+ */
+@WebFilter(&quot;/*&quot;)
 public class LoginFilter implements Filter {
     public void destroy() {
     }
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        &#x2F;&#x2F; 0. 强制转换
+        // 0. 强制转换
         HttpServletRequest request = (HttpServletRequest) req;
-        &#x2F;&#x2F; 1. 获取资源请求路径
+        // 1. 获取资源请求路径
         String uri = request.getRequestURI();
-        &#x2F;&#x2F; 2. 判断是否是登录相关的资源,要注意排除掉css&#x2F;js&#x2F;图片&#x2F;验证码等资源
-        if (uri.contains(&quot;&#x2F;login.jsp&quot;) || uri.contains(&quot;loginServlet&quot;) || uri.contains(&quot;checkCodeServlet&quot;) || uri.contains(&quot;&#x2F;css&#x2F;&quot;) || uri.contains(&quot;&#x2F;js&#x2F;&quot;) || uri.contains(&quot;&#x2F;fonts&#x2F;&quot;)){
-            &#x2F;&#x2F; 是， 说明用户就是想登录，放行
+        // 2. 判断是否是登录相关的资源,要注意排除掉css/js/图片/验证码等资源
+        if (uri.contains(&quot;/login.jsp&quot;) || uri.contains(&quot;loginServlet&quot;) || uri.contains(&quot;checkCodeServlet&quot;) || uri.contains(&quot;/css/&quot;) || uri.contains(&quot;/js/&quot;) || uri.contains(&quot;/fonts/&quot;)){
+            // 是， 说明用户就是想登录，放行
             chain.doFilter(req,resp);
         }else {
-            &#x2F;&#x2F; 不是登录相关资源，需验证用户是否登录才能放行
-            &#x2F;&#x2F; 3. 从session中获取loginUser
+            // 不是登录相关资源，需验证用户是否登录才能放行
+            // 3. 从session中获取loginUser
             Object loginUser = request.getSession().getAttribute(&quot;loginUser&quot;);
             if(loginUser != null){
-                &#x2F;&#x2F; 登录过了，放行
+                // 登录过了，放行
                 chain.doFilter(req,resp);
             }else {
-                &#x2F;&#x2F; 没有登录，跳转到登录页面
+                // 没有登录，跳转到登录页面
                 request.setAttribute(&quot;login_msg&quot;,&quot;你尚未登录，请登录&quot;);
-                request.getRequestDispatcher(&quot;&#x2F;login.jsp&quot;).forward(request,resp);
+                request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,resp);
             }
         }
-        &#x2F;&#x2F; 2. 判断当前用户是否登录，通过session值是否有user来判断
+        // 2. 判断当前用户是否登录，通过session值是否有user来判断
     }
     public void init(FilterConfig config) throws ServletException {
     }
@@ -590,47 +582,45 @@ public class LoginFilter implements Filter {
 <li>增强返回值类型</li>
 <li>增强方法体执行逻辑</li>
 </ol>
-<h5 id="代码示例：敏感词汇过滤器"><a href="#代码示例：敏感词汇过滤器" class="headerlink" title="代码示例：敏感词汇过滤器"></a>代码示例：敏感词汇过滤器</h5>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class SensitiveWordsFilter implements Filter {
+<h5 id="代码示例：敏感词汇过滤器"><a href="#代码示例：敏感词汇过滤器" class="headerlink" title="代码示例：敏感词汇过滤器"></a>代码示例：敏感词汇过滤器</h5><pre><code class="java">public class SensitiveWordsFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        &#x2F;&#x2F; 1. 创建代理对象，增强getParameter方法
+        // 1. 创建代理对象，增强getParameter方法
         ServletRequest proxy_req = (ServletRequest) Proxy.newProxyInstance(req.getClass().getClassLoader(), req.getClass().getInterfaces(), new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                &#x2F;&#x2F; 增强getParameter方法
+                // 增强getParameter方法
 
-                &#x2F;&#x2F; 判断是否是getParameter方法
+                // 判断是否是getParameter方法
                 if (method.getName().equals(&quot;getParameter&quot;)){
-                    &#x2F;&#x2F; 增强返回值
-                    &#x2F;&#x2F; 1. 获取返回值
+                    // 增强返回值
+                    // 1. 获取返回值
                     String value = (String) method.invoke(req, args);
-                    &#x2F;&#x2F; 2. 判断不为空
+                    // 2. 判断不为空
                     if (value != null){
-                        &#x2F;&#x2F; 3. 遍历敏感词汇数组,判断返回值是否有敏感词
+                        // 3. 遍历敏感词汇数组,判断返回值是否有敏感词
                         for (String str: list){
                             if (value.contains(str)){
-                                &#x2F;&#x2F; 有，则替换为***
+                                // 有，则替换为***
                                 value = value.replaceAll(str, &quot;***&quot;);
                             }
                         }
                     }
                     return value;
                 }
-            	return method.invoke(req,args);
+                return method.invoke(req,args);
             });
-            &#x2F;&#x2F; 放行
+            // 放行
             chain.doFilter(proxy_req,resp);
         }
-        private List&lt;String&gt; list = new ArrayList&lt;&gt;(); &#x2F;&#x2F; 敏感词汇集合
+        private List&lt;String&gt; list = new ArrayList&lt;&gt;(); // 敏感词汇集合
     public void init(FilterConfig config) throws ServletException {
         try{
-            &#x2F;&#x2F; 1. 获取文件真实路径
+            // 1. 获取文件真实路径
             ServletContext servletContext = config.getServletContext();
-            String realPath = servletContext.getRealPath(&quot;&#x2F;WEB-INF&#x2F;classes&#x2F;SensitiveWords.txt&quot;);
-            &#x2F;&#x2F; 2. 读取文件
+            String realPath = servletContext.getRealPath(&quot;/WEB-INF/classes/SensitiveWords.txt&quot;);
+            // 2. 读取文件
             BufferedReader br = new BufferedReader(new FileReader(realPath));
-            &#x2F;&#x2F; 3. 将文件的每一行数据添加到list中
+            // 3. 将文件的每一行数据添加到list中
             String line = null;
             while((line = br.readLine()) != null){
                 list.add(line);
@@ -668,40 +658,35 @@ public class LoginFilter implements Filter {
 <li><p>配置</p>
 <ul>
 <li><p>web.xml配置</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">     &lt;listener&gt;
-         &lt;listener-class&gt;cn.zero.listener.ContextLoaderListener&lt;&#x2F;listener-class&gt;
-     &lt;&#x2F;listener&gt;
+<pre><code class="xml">&lt;listener&gt;
+    &lt;listener-class&gt;cn.zero.listener.ContextLoaderListener&lt;/listener-class&gt;
+&lt;/listener&gt;
 </code></pre>
+</li>
+<li><p>注解配置：<code>@WebListener</code></p>
 </li>
 </ul>
 </li>
 </ol>
-<ul>
-<li>注解配置：<code>@WebListener</code></li>
-</ul>
-<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@WebListener
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre><code class="java">@WebListener
 public class ContextLoaderListener implements ServletContextListener {
 
-    &#x2F;**
+    /**
      * 监听ServletContext对象创建的。ServletContext对象服务器启动后自动创建。
      *
      * 在服务器启动后自动调用
      * @param servletContextEvent
-     *&#x2F;
+     */
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        &#x2F;&#x2F; 加载资源文件
-        &#x2F;&#x2F; 1. 获取ServletContext对象
+        // 加载资源文件
+        // 1. 获取ServletContext对象
         ServletContext servletContext = servletContextEvent.getServletContext();
-        &#x2F;&#x2F; 2. 加载资源文件
+        // 2. 加载资源文件
         String contextConfigLocation = servletContext.getInitParameter(&quot;contextConfigLocation&quot;);
-        &#x2F;&#x2F; 3. 获取真实路径
+        // 3. 获取真实路径
         String realPath = servletContext.getRealPath(contextConfigLocation);
-        &#x2F;&#x2F; 4. 加载进内存
+        // 4. 加载进内存
         try {
             FileInputStream fis = new FileInputStream(realPath);
             System.out.println(fis);
@@ -711,12 +696,12 @@ public class ContextLoaderListener implements ServletContextListener {
         System.out.println(&quot;ServletContext对象被创建了....&quot;);
     }
 
-    &#x2F;**
+    /**
      * 在服务器关闭后，ServletContext对象被销毁。
      *
      * 当服务器正常关闭后该方法被调用。
      * @param servletContextEvent
-     *&#x2F;
+     */
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         System.out.println(&quot;ServletContext对象被销毁了....&quot;);
@@ -984,7 +969,7 @@ public class ContextLoaderListener implements ServletContextListener {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

@@ -410,14 +410,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.5k
+                        4.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        23 分
+                        21 分
                     </div>
                     
                 
@@ -472,42 +472,38 @@
 <h4 id="2-1-1-示例"><a href="#2-1-1-示例" class="headerlink" title="2.1.1 示例"></a>2.1.1 示例</h4><ul>
 <li>使用maven创建一个简单的web项目，修改pom包导入相关jar包</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;dependencies&gt;
+<pre><code class="xml">&lt;dependencies&gt;
     &lt;dependency&gt;
-        &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;
-        &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;
-        &lt;version&gt;4.12&lt;&#x2F;version&gt;
-        &lt;scope&gt;test&lt;&#x2F;scope&gt;
-    &lt;&#x2F;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.12&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
     &lt;!--导入SpringMVC所需jar包--&gt;
     &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-        &lt;artifactId&gt;spring-webmvc&lt;&#x2F;artifactId&gt;
-        &lt;version&gt;4.3.1.RELEASE&lt;&#x2F;version&gt;
-    &lt;&#x2F;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+        &lt;version&gt;4.3.1.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
     &lt;!--导入servlet相关jar包--&gt;
     &lt;dependency&gt;
-        &lt;groupId&gt;javax.servlet&lt;&#x2F;groupId&gt;
-        &lt;artifactId&gt;javax.servlet-api&lt;&#x2F;artifactId&gt;
-        &lt;version&gt;3.1.0&lt;&#x2F;version&gt;
-    &lt;&#x2F;dependency&gt;
-&lt;&#x2F;dependencies&gt;
+        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
 </code></pre>
 <ul>
 <li>创建MyHandler控制器，完成具体业务逻辑</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class MyHandler implements Controller {
+<pre><code class="java">public class MyHandler implements Controller {
     @Override
     public ModelAndView handleRequest(javax.servlet.http.HttpServletRequest httpServletRequest, javax.servlet.http.HttpServletResponse httpServletResponse) throws Exception {
-        &#x2F;&#x2F; 装载模型数据和逻辑视图
+        // 装载模型数据和逻辑视图
         ModelAndView modelAndView = new ModelAndView();
-        &#x2F;&#x2F; 添加模型数据
+        // 添加模型数据
         modelAndView.addObject(&quot;name&quot;,&quot;Tom&quot;);
-        &#x2F;&#x2F; 添加逻辑视图
+        // 添加逻辑视图
         modelAndView.setViewName(&quot;show&quot;);
 
         return modelAndView;
@@ -517,81 +513,75 @@
 <ul>
 <li>创建show.jsp，做前端显示</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+<pre><code class="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
 &lt;%@page isELIgnored=&quot;false&quot; %&gt;
 &lt;html&gt;
 &lt;head&gt;
-    &lt;title&gt;Title&lt;&#x2F;title&gt;
-&lt;&#x2F;head&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
 &lt;body&gt;
     ${name}
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <ul>
 <li>资源文件夹resources下创建springmvc.xml的配置文件</li>
 </ul>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-       xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
-       xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd&quot;&gt;
-	
     &lt;!--
-		URL处理映射的方式有三种：
-		1. BeanNameUrlHandlerMapping：通过url名字，找到对应的bean的name的控制器
-		2. 在SimpleUrlHandlerMapping中配置：通过key找到bean
-		3. ControllerClassNameHandlerMapping：通过类名
-	--&gt;
+        URL处理映射的方式有三种：
+        1. BeanNameUrlHandlerMapping：通过url名字，找到对应的bean的name的控制器
+        2. 在SimpleUrlHandlerMapping中配置：通过key找到bean
+        3. ControllerClassNameHandlerMapping：通过类名
+    --&gt;
     &lt;!--1. 配置HandlerMapping，将url请求映射到Handler--&gt;
     &lt;bean id=&quot;handlerMapping&quot; class=&quot;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&quot;&gt;
         &lt;!--配置简单url映射--&gt;
         &lt;property name=&quot;mappings&quot;&gt;
             &lt;props&gt;
                 &lt;!--2. 配置test请求对应的handler--&gt;
-                &lt;prop key=&quot;&#x2F;test&quot;&gt;testHandler&lt;&#x2F;prop&gt;
-            &lt;&#x2F;props&gt;
-        &lt;&#x2F;property&gt;
-    &lt;&#x2F;bean&gt;
+                &lt;prop key=&quot;/test&quot;&gt;testHandler&lt;/prop&gt;
+            &lt;/props&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
 
     &lt;!--3. 配置控制器--&gt;
-    &lt;bean id=&quot;testHandler&quot; class=&quot;com.zero.handler.MyHandler&quot;&#x2F;&gt;
+    &lt;bean id=&quot;testHandler&quot; class=&quot;com.zero.handler.MyHandler&quot;/&gt;
 
     &lt;!--4. 配置视图解析器--&gt;
     &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
         &lt;!--配置前缀--&gt;
-        &lt;property name=&quot;prefix&quot; value=&quot;&#x2F;&quot;&#x2F;&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;/&quot;/&gt;
         &lt;!--配置后缀--&gt;
-        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;&#x2F;&gt;
-    &lt;&#x2F;bean&gt;
-&lt;&#x2F;beans&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
 </code></pre>
 <ul>
 <li>在web.xml下配置DispatcherServlet</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app xmlns=&quot;http:&#x2F;&#x2F;xmlns.jcp.org&#x2F;xml&#x2F;ns&#x2F;javaee&quot;
-         xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http:&#x2F;&#x2F;xmlns.jcp.org&#x2F;xml&#x2F;ns&#x2F;javaee http:&#x2F;&#x2F;xmlns.jcp.org&#x2F;xml&#x2F;ns&#x2F;javaee&#x2F;web-app_3_1.xsd&quot;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
          version=&quot;3.1&quot;&gt;
 
   &lt;!-- 配置：所有请求由SpringMVC管理 --&gt;
   &lt;servlet&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;&#x2F;servlet-name&gt;
-    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;&#x2F;servlet-class&gt;
-    &lt;load-on-startup&gt;1&lt;&#x2F;load-on-startup&gt;
-  &lt;&#x2F;servlet&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
 
   &lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;&#x2F;servlet-name&gt;
-    &lt;url-pattern&gt;*.do&lt;&#x2F;url-pattern&gt;
-  &lt;&#x2F;servlet-mapping&gt;
-&lt;&#x2F;web-app&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
 </code></pre>
 <ul>
 <li>启动服务器，访问/test.do路径资源，查看是否显示姓名。</li>
@@ -604,46 +594,44 @@
 <h4 id="2-2-1-示例"><a href="#2-2-1-示例" class="headerlink" title="2.2.1 示例"></a>2.2.1 示例</h4><ul>
 <li>其余配置不变，新建一个控制器类，使用注解声明</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 基于注解实现映射
+<pre><code class="java">// 基于注解实现映射
 @Controller
 public class AnnotationHandler {
 
-    &#x2F;**
+    /**
      * 业务方法1：ModelAndView完成数据的传递，视图的解析
-     *&#x2F;
-    @RequestMapping(&quot;&#x2F;modelAndViewTest&quot;)
+     */
+    @RequestMapping(&quot;/modelAndViewTest&quot;)
     public ModelAndView modelAndViewTest(){
-        &#x2F;&#x2F; 创建ModelAndView对象
+        // 创建ModelAndView对象
         ModelAndView modelAndView = new ModelAndView();
-        &#x2F;&#x2F; 填充模型数据
+        // 填充模型数据
         modelAndView.addObject(&quot;name&quot;,&quot;Tom&quot;);
-        &#x2F;&#x2F; 设置逻辑视图
+        // 设置逻辑视图
         modelAndView.setViewName(&quot;show&quot;);
         return modelAndView;
     }
 
-    &#x2F;**
+    /**
      * 业务方法2：Model传值，String进行视图解析
      * @return
-     *&#x2F;
-    @RequestMapping(&quot;&#x2F;modelTest&quot;)
+     */
+    @RequestMapping(&quot;/modelTest&quot;)
     public String ModelTest(Model model){
-        &#x2F;&#x2F; 填充模型数据
+        // 填充模型数据
         model.addAttribute(&quot;name&quot;,&quot;Jerry&quot;);
-        &#x2F;&#x2F; 设置逻辑视图
+        // 设置逻辑视图
         return &quot;show&quot;;
     }
 
-    &#x2F;**
+    /**
      * 业务方法3：Map传值，String进行视图解析
-     *&#x2F;
-    @RequestMapping(&quot;&#x2F;mapTest&quot;)
+     */
+    @RequestMapping(&quot;/mapTest&quot;)
     public String MapTest(Map&lt;String,String&gt; map){
-        &#x2F;&#x2F; 填充模型数据
+        // 填充模型数据
         map.put(&quot;name&quot;,&quot;Cat&quot;);
-        &#x2F;&#x2F; 设置逻辑视图
+        // 设置逻辑视图
         return &quot;show&quot;;
     }
 }
@@ -651,10 +639,8 @@ public class AnnotationHandler {
 <ul>
 <li>mvc配置文件中，开启自动扫描，并删除前面配置的两个bean对象即可</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--1. 配置自动扫描包--&gt;
-&lt;context:component-scan base-package=&quot;com.zero.backoffice.web.controller&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;!--1. 配置自动扫描包--&gt;
+&lt;context:component-scan base-package=&quot;com.zero.backoffice.web.controller&quot;/&gt;
 </code></pre>
 <ul>
 <li>重启服务器，访问<code>/modelAndViewTest</code>等资源路径，测试是否成功。</li>
@@ -664,43 +650,33 @@ public class AnnotationHandler {
 <ul>
 <li>功能：寻找controller，根据url请求去匹配bean的name属性，找到对应的控制器。</li>
 </ul>
+<pre><code class="xml">&lt;!-- 1. 配置处理器映射，mvc默认的处理器映射器
+     BeanNameUrlHandlerMapping:根据bean的name属性的url去找Controller --&gt;
+    &lt;bean class=&quot;org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping&quot;/&gt;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;!-- 1. 配置处理器映射，mvc默认的处理器映射器
-       BeanNameUrlHandlerMapping:根据bean的name属性的url去找Controller --&gt;
-      &lt;bean class=&quot;org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping&quot;&#x2F;&gt;
-  
-  &lt;bean name=&quot;&#x2F;user.do&quot; class=&quot;com.zero.backoffice.web.controller.UserController&quot;&#x2F;&gt;
+&lt;bean name=&quot;/user.do&quot; class=&quot;com.zero.backoffice.web.controller.UserController&quot;/&gt;
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>SimpleUrlHandlerMapping</p>
 <ul>
 <li>功能：寻找controller，根据浏览器url匹配简单url的key，key就是通过controller的id找到对应的Controller</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;bean class=&quot;org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter&quot;&gt;
-      &lt;property name=&quot;mappings&quot;&gt;
-      	&lt;props&gt;
-          	&lt;prop key=&quot;&#x2F;user1.do&quot;&gt;userController&lt;&#x2F;prop&gt;
-          &lt;&#x2F;props&gt;
-      &lt;&#x2F;property&gt;
-  &lt;&#x2F;bean&gt;
-  &lt;bean id=&quot;userController&quot; name=&quot;&#x2F;user.do&quot; class=&quot;com.zero.web.controller.UserController&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;bean class=&quot;org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter&quot;&gt;
+    &lt;property name=&quot;mappings&quot;&gt;
+        &lt;props&gt;
+            &lt;prop key=&quot;/user1.do&quot;&gt;userController&lt;/prop&gt;
+        &lt;/props&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+&lt;bean id=&quot;userController&quot; name=&quot;/user.do&quot; class=&quot;com.zero.web.controller.UserController&quot;/&gt;
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>ControllerClassNameHandlerMapping</p>
 <ul>
 <li>功能：寻找controller，根据类名.do来访问，类名首字母小写。如下访问路径就是<code>userController.do</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;bean class=&quot;org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping&quot;&#x2F;&gt;
-  &lt;bean class=&quot;com.zero.backoffice.web.controller.UserController&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;bean class=&quot;org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping&quot;/&gt;
+&lt;bean class=&quot;com.zero.backoffice.web.controller.UserController&quot;/&gt;
 </code></pre>
 </li>
 </ul>
@@ -709,13 +685,9 @@ public class AnnotationHandler {
 <ul>
 <li>功能：执行controller，调用controller里面的方法，返回ModelAndView</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;bean class=&quot;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;bean class=&quot;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&quot;/&gt;
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>HttpRequestHandlerAdapter</p>
 <ul>
 <li>执行控制器：负责调用实现HttpRequestHandler接口的控制器</li>
@@ -725,21 +697,19 @@ public class AnnotationHandler {
 <h3 id="2-5-乱码问题"><a href="#2-5-乱码问题" class="headerlink" title="2.5 乱码问题"></a>2.5 乱码问题</h3><ul>
 <li>POST请求乱码，需在web.xml中配置编码过滤器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 配置编码过滤器  --&gt;
+<pre><code class="xml">&lt;!-- 配置编码过滤器  --&gt;
 &lt;filter&gt;
-    &lt;filter-name&gt;EncodingFilter&lt;&#x2F;filter-name&gt;
-    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;&#x2F;filter-class&gt;
+    &lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
     &lt;init-param&gt;
-        &lt;param-name&gt;encoding&lt;&#x2F;param-name&gt;
-        &lt;param-value&gt;UTF-8&lt;&#x2F;param-value&gt;
-    &lt;&#x2F;init-param&gt;
-&lt;&#x2F;filter&gt;
+        &lt;param-name&gt;encoding&lt;/param-name&gt;
+        &lt;param-value&gt;UTF-8&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
 
 &lt;filter-mapping&gt;
-    &lt;filter-name&gt;EncodingFilter&lt;&#x2F;filter-name&gt;
-&lt;&#x2F;filter-mapping&gt;
+    &lt;filter-name&gt;EncodingFilter&lt;/filter-name&gt;
+&lt;/filter-mapping&gt;
 </code></pre>
 <ul>
 <li>GET请求乱码：Tomcat8默认进行了url编码，故get请求不会乱码，tomcat7会乱码。</li>
@@ -758,10 +728,8 @@ public class AnnotationHandler {
 <h3 id="3-2-接收基本数据类型"><a href="#3-2-接收基本数据类型" class="headerlink" title="3.2 接收基本数据类型"></a>3.2 接收基本数据类型</h3><ul>
 <li>编写一个注册类register.jsp</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;body&gt;
-    &lt;form action=&quot;${pageContext.request.contextPath}&#x2F;user&#x2F;register.do&quot; method=&quot;post&quot;&gt;
+<pre><code class="jsp">&lt;body&gt;
+    &lt;form action=&quot;${pageContext.request.contextPath}/user/register.do&quot; method=&quot;post&quot;&gt;
         用户名:&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&gt;
         密码:&lt;input type=&quot;text&quot; name=&quot;password&quot;&gt;&lt;br&gt;
         性别:&lt;input type=&quot;text&quot; name=&quot;gender&quot;&gt;&lt;br&gt;
@@ -771,42 +739,38 @@ public class AnnotationHandler {
              &lt;input type=&quot;checkbox&quot; name=&quot;hobbyIds&quot; value=&quot;2&quot;&gt;看书
              &lt;input type=&quot;checkbox&quot; name=&quot;hobbyIds&quot; value=&quot;3&quot;&gt;玩游戏&lt;br&gt;
         &lt;input type=&quot;submit&quot;&gt;
-    &lt;&#x2F;form&gt;
-&lt;&#x2F;body&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
 </code></pre>
 <ul>
 <li>控制器中新增注册方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Controller
+<pre><code class="java">@Controller
 @RequestMapping(&quot;user&quot;)
 public class UserController{
-    @RequestMapping(&quot;&#x2F;toRegister&quot;)
+    @RequestMapping(&quot;/toRegister&quot;)
     public String toRegister(){
-        return &quot;user&#x2F;register&quot;;
+        return &quot;user/register&quot;;
     }
-    &#x2F;**
+    /**
      * 第一种接收表单参数的方式：
      *      直接在形参列表写要接受的参数
-     *      默认日期格式： MM&#x2F;DD&#x2F;YYYY
+     *      默认日期格式： MM/DD/YYYY
      * @return
-     *&#x2F;
-    @RequestMapping(&quot;&#x2F;register&quot;)
+     */
+    @RequestMapping(&quot;/register&quot;)
     public String register(String username, String password,
                            int age, String gender, Date birthday,
                            String[] hobbyIds){
         System.out.println(username);
-        return &quot;user&#x2F;info&quot;;
+        return &quot;user/info&quot;;
     }
 }
 </code></pre>
 <h3 id="3-3-接收POJO类型"><a href="#3-3-接收POJO类型" class="headerlink" title="3.3 接收POJO类型"></a>3.3 接收POJO类型</h3><ul>
 <li>模型类User新增对应属性</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class User {
+<pre><code class="java">public class User {
     private String username;
     private String password;
     private String gender;
@@ -818,17 +782,15 @@ public class UserController{
 <ul>
 <li>控制器中新增方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * 第二种接收表单参数的方式：
      *     使用POJO对象接收
      * @return
-     *&#x2F;
-@RequestMapping(&quot;&#x2F;register2&quot;)
+     */
+@RequestMapping(&quot;/register2&quot;)
 public String register2(User user){
     System.out.println(user);
-    return &quot;user&#x2F;info&quot;;
+    return &quot;user/info&quot;;
 }
 </code></pre>
 <ul>
@@ -837,24 +799,20 @@ public String register2(User user){
 <li><p>info.jsp做数据展示</p>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;body&gt;
-&lt;h4&gt;用户信息&lt;&#x2F;h4&gt;
+<pre><code class="jsp">&lt;body&gt;
+&lt;h4&gt;用户信息&lt;/h4&gt;
 用户名:${user.username}&lt;br&gt;
 密码:${user.password}&lt;br&gt;
 性别:${user.gender}&lt;br&gt;
 年龄:${user.age}&lt;br&gt;
 生日:${user.birthday}&lt;br&gt;
 爱好:${user.hobbyIds}&lt;br&gt;
-&lt;&#x2F;body&gt;
+&lt;/body&gt;
 </code></pre>
 <h3 id="3-4-接收包装类型参数"><a href="#3-4-接收包装类型参数" class="headerlink" title="3.4 接收包装类型参数"></a>3.4 接收包装类型参数</h3><ul>
 <li>创建UserExt类，把User写成一个类的属性，模型里面有模型</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserExt {
+<pre><code class="java">public class UserExt {
     private User user;
 
     @Override
@@ -872,30 +830,27 @@ public String register2(User user){
         this.user = user;
     }
 }
+
 </code></pre>
 <ul>
 <li>控制器添加注册方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * 第三种接收表单参数的方式：接收包装类型参数
      *     使用包装类，相当于模型里面有模型
      * @return
-     *&#x2F;
-@RequestMapping(&quot;&#x2F;register3&quot;)
+     */
+@RequestMapping(&quot;/register3&quot;)
 public String register3(UserExt user){
     System.out.println(user);
-    return &quot;user&#x2F;info&quot;;
+    return &quot;user/info&quot;;
 }
 </code></pre>
 <ul>
 <li>修改form表单</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;body&gt;
-    &lt;form action=&quot;${pageContext.request.contextPath}&#x2F;user&#x2F;register3.do&quot; method=&quot;post&quot;&gt;
+<pre><code class="jsp">&lt;body&gt;
+    &lt;form action=&quot;${pageContext.request.contextPath}/user/register3.do&quot; method=&quot;post&quot;&gt;
         用户名:&lt;input type=&quot;text&quot; name=&quot;user.username&quot;&gt;&lt;br&gt;
         密码:&lt;input type=&quot;text&quot; name=&quot;user.password&quot;&gt;&lt;br&gt;
         性别:&lt;input type=&quot;text&quot; name=&quot;user.gender&quot;&gt;&lt;br&gt;
@@ -905,15 +860,13 @@ public String register3(UserExt user){
              &lt;input type=&quot;checkbox&quot; name=&quot;user.hobbyIds&quot; value=&quot;2&quot;&gt;看书
              &lt;input type=&quot;checkbox&quot; name=&quot;user.hobbyIds&quot; value=&quot;3&quot;&gt;玩游戏&lt;br&gt;
         &lt;input type=&quot;submit&quot;&gt;
-    &lt;&#x2F;form&gt;
-&lt;&#x2F;body&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
 </code></pre>
 <h3 id="3-5-接收List集合类型参数"><a href="#3-5-接收List集合类型参数" class="headerlink" title="3.5 接收List集合类型参数"></a>3.5 接收List集合类型参数</h3><ul>
 <li>修改UserExt类，添加list集合属性</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserExt {
+<pre><code class="java">public class UserExt {
     private User user;
 
     private List&lt;User&gt; users = new ArrayList&lt;&gt;();
@@ -946,210 +899,186 @@ public String register3(UserExt user){
 <ul>
 <li>register.jsp中新增一个测试form表单</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;h4&gt;接收集合类型的参数&lt;&#x2F;h4&gt;
-&lt;form action=&quot;${pageContext.request.contextPath}&#x2F;user&#x2F;register4.do&quot; method=&quot;post&quot;&gt;
+<pre><code class="jsp">&lt;h4&gt;接收集合类型的参数&lt;/h4&gt;
+&lt;form action=&quot;${pageContext.request.contextPath}/user/register4.do&quot; method=&quot;post&quot;&gt;
     用户名1:&lt;input type=&quot;text&quot; name=&quot;users[0].username&quot;&gt;&lt;br&gt;
     密码1:&lt;input type=&quot;text&quot; name=&quot;users[0].password&quot;&gt;&lt;br&gt;
     &lt;hr&gt;
     用户名2:&lt;input type=&quot;text&quot; name=&quot;users[1].username&quot;&gt;&lt;br&gt;
     密码2:&lt;input type=&quot;text&quot; name=&quot;users[1].password&quot;&gt;&lt;br&gt;
     &lt;input type=&quot;submit&quot; value=&quot;保存&quot;&gt;
-&lt;&#x2F;form&gt;
+&lt;/form&gt;
 </code></pre>
 <ul>
 <li>添加注册方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * 第四种接收表单参数的方式：接收List集合类型参数
      * @return
-     *&#x2F;
-@RequestMapping(&quot;&#x2F;register4&quot;)
+     */
+@RequestMapping(&quot;/register4&quot;)
 public String register4(UserExt user){
     System.out.println(user.getUsers());
-    return &quot;user&#x2F;info&quot;;
+    return &quot;user/info&quot;;
 }
 </code></pre>
 <h3 id="3-6-接收Map集合类型参数"><a href="#3-6-接收Map集合类型参数" class="headerlink" title="3.6 接收Map集合类型参数"></a>3.6 接收Map集合类型参数</h3><ul>
 <li>UserExt添加一个map集合属性</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserExt {
+<pre><code class="java">public class UserExt {
     private User user;
 
     private List&lt;User&gt; users = new ArrayList&lt;&gt;();
 
-    private Map&lt;String,Object&gt; infos = new HashMap&lt;String,Object&gt;(); &#x2F;&#x2F; 使用map来接收参数
+    private Map&lt;String,Object&gt; infos = new HashMap&lt;String,Object&gt;(); // 使用map来接收参数
 }
 </code></pre>
 <ul>
 <li>添加注册方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * 第五种接收表单参数的方式：接收Map集合类型参数
      * @return
-     *&#x2F;
-@RequestMapping(&quot;&#x2F;register5&quot;)
+     */
+@RequestMapping(&quot;/register5&quot;)
 public String register5(UserExt user){
     System.out.println(user.getInfos());
-    return &quot;user&#x2F;info&quot;;
+    return &quot;user/info&quot;;
 }
 </code></pre>
 <ul>
 <li>修改表单</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;h4&gt;
+<pre><code class="jsp">&lt;h4&gt;
     表单数据用map接收
-&lt;&#x2F;h4&gt;
-&lt;form action=&quot;${pageContext.request.contextPath}&#x2F;user&#x2F;register5.do&quot; method=&quot;post&quot;&gt;
+&lt;/h4&gt;
+&lt;form action=&quot;${pageContext.request.contextPath}/user/register5.do&quot; method=&quot;post&quot;&gt;
         用户名:&lt;input type=&quot;text&quot; name=&quot;infos[&#39;username&#39;]&quot;&gt;&lt;br&gt;
         密码:&lt;input type=&quot;text&quot; name=&quot;infos[&#39;password&#39;]&quot;&gt;&lt;br&gt;
         性别:&lt;input type=&quot;text&quot; name=&quot;infos[&#39;gender&#39;]&quot;&gt;&lt;br&gt;
         年龄:&lt;input type=&quot;text&quot; name=&quot;infos[&#39;age&#39;]&quot;&gt;&lt;br&gt;
         &lt;input type=&quot;submit&quot;&gt;
-&lt;&#x2F;form&gt;
+&lt;/form&gt;
 </code></pre>
 <h2 id="4-页面回显"><a href="#4-页面回显" class="headerlink" title="4. 页面回显"></a>4. 页面回显</h2><ul>
 <li>控制器配置一个列表方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@RequestMapping(&quot;&#x2F;list&quot;)
+<pre><code class="java">@RequestMapping(&quot;/list&quot;)
     public String userlist(Model model){
-        &#x2F;&#x2F; 1. 模拟一个数据库中的数据
+        // 1. 模拟一个数据库中的数据
         List&lt;User&gt; users = new ArrayList&lt;&gt;();
         users.add(new User(&quot;小明&quot;,&quot;male&quot;,22,&quot;2018&quot;));
         users.add(new User(&quot;小李&quot;,&quot;male&quot;,12,&quot;2019&quot;));
         users.add(new User(&quot;小哈&quot;,&quot;male&quot;,32,&quot;2014&quot;));
-        &#x2F;&#x2F; 将数据存储到model中
+        // 将数据存储到model中
         model.addAttribute(&quot;userList&quot;,users);
-        return &quot;user&#x2F;userList&quot;;
+        return &quot;user/userList&quot;;
     }
 </code></pre>
 <ul>
 <li>前端jsp展示数据</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
-&lt;%@taglib prefix=&quot;c&quot; uri=&quot;http:&#x2F;&#x2F;java.sun.com&#x2F;jsp&#x2F;jstl&#x2F;core&quot;%&gt;
+<pre><code class="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;%@taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
 &lt;html&gt;
 &lt;head&gt;
-    &lt;title&gt;UserList&lt;&#x2F;title&gt;
-&lt;&#x2F;head&gt;
+    &lt;title&gt;UserList&lt;/title&gt;
+&lt;/head&gt;
 &lt;body&gt;
 用户列表:
 &lt;table border=&quot;1&quot;&gt;
     &lt;tr&gt;
-        &lt;td&gt;姓名：&lt;&#x2F;td&gt;
-        &lt;td&gt;年龄&lt;&#x2F;td&gt;
-        &lt;td&gt;性别&lt;&#x2F;td&gt;
-        &lt;td&gt;生日&lt;&#x2F;td&gt;
-    &lt;&#x2F;tr&gt;
+        &lt;td&gt;姓名：&lt;/td&gt;
+        &lt;td&gt;年龄&lt;/td&gt;
+        &lt;td&gt;性别&lt;/td&gt;
+        &lt;td&gt;生日&lt;/td&gt;
+    &lt;/tr&gt;
     &lt;c:forEach items=&quot;${userList}&quot; var=&quot;user&quot;&gt;
         &lt;tr&gt;
-            &lt;td&gt;${user.username}&lt;&#x2F;td&gt;
-            &lt;td&gt;${user.age}&lt;&#x2F;td&gt;
-            &lt;td&gt;${user.gender}&lt;&#x2F;td&gt;
-            &lt;td&gt;${user.birthday}&lt;&#x2F;td&gt;
-        &lt;&#x2F;tr&gt;
-    &lt;&#x2F;c:forEach&gt;
-&lt;&#x2F;table&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+            &lt;td&gt;${user.username}&lt;/td&gt;
+            &lt;td&gt;${user.age}&lt;/td&gt;
+            &lt;td&gt;${user.gender}&lt;/td&gt;
+            &lt;td&gt;${user.birthday}&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/c:forEach&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <ul>
 <li>修改用户方法示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 编辑页面
-@RequestMapping(&quot;&#x2F;edit&quot;)
+<pre><code class="java">// 编辑页面
+@RequestMapping(&quot;/edit&quot;)
 public String edit(Integer id, Model model){
-    &#x2F;&#x2F; 模拟通过id在数据库中查询数据,返回一个user对象，再将user对象存入model
+    // 模拟通过id在数据库中查询数据,返回一个user对象，再将user对象存入model
     System.out.println(&quot;修改的用户id:&quot;+id);
     User user = new User(id, &quot;小明&quot;, &quot;male&quot;, 22, &quot;2018&quot;);
     model.addAttribute(&quot;user&quot;,user);
-    return &quot;user&#x2F;userEdit&quot;;
+    return &quot;user/userEdit&quot;;
 }
 
-&#x2F;&#x2F; 修改用户信息
-@RequestMapping(&quot;&#x2F;update&quot;)
+// 修改用户信息
+@RequestMapping(&quot;/update&quot;)
 public String update(Integer id,Model model){
     System.out.println(&quot;修改的用户id:&quot;+id);
-    return &quot;user&#x2F;userList&quot;;
+    return &quot;user/userList&quot;;
 }
 </code></pre>
 <ul>
 <li>编辑jsp界面</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+<pre><code class="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
 &lt;html&gt;
 &lt;head&gt;
-    &lt;title&gt;Edit&lt;&#x2F;title&gt;
-&lt;&#x2F;head&gt;
+    &lt;title&gt;Edit&lt;/title&gt;
+&lt;/head&gt;
 &lt;body&gt;
-&lt;form action=&quot;${pageContext.request.contextPath}&#x2F;user&#x2F;update.do?id=${user.id}&quot; method=&quot;post&quot;&gt;
+&lt;form action=&quot;${pageContext.request.contextPath}/user/update.do?id=${user.id}&quot; method=&quot;post&quot;&gt;
     用户名：&lt;input type=&quot;text&quot; name=&quot;username&quot; value=&quot;${user.username}&quot;&gt;&lt;br&gt;
     年龄：&lt;input type=&quot;text&quot; name=&quot;age&quot; value=&quot;${user.age}&quot;&gt;&lt;br&gt;
     性别：&lt;input type=&quot;text&quot; name=&quot;gender&quot; value=&quot;${user.gender}&quot;&gt;&lt;br&gt;
     生日：&lt;input type=&quot;text&quot; name=&quot;birthday&quot; value=&quot;${user.birthday}&quot;&gt;&lt;br&gt;
 
-    &lt;button type=&quot;submit&quot; value=&quot;提交修改&quot;&#x2F;&gt;
-&lt;&#x2F;form&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+    &lt;button type=&quot;submit&quot; value=&quot;提交修改&quot;/&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <h2 id="5-URL模板映射"><a href="#5-URL模板映射" class="headerlink" title="5. URL模板映射"></a>5. URL模板映射</h2><p>模板映射可以RESTful软件架构风格。</p>
 <ul>
 <li>修改url格式，体验RESTful</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;a href=&quot;${pageContext.request.contextPath}&#x2F;user&#x2F;edit1&#x2F;${user.id}.do&quot;&gt;RESTful修改&lt;&#x2F;a&gt;
+<pre><code class="jsp">&lt;a href=&quot;${pageContext.request.contextPath}/user/edit1/${user.id}.do&quot;&gt;RESTful修改&lt;/a&gt;
 &lt;!--配置接收url模板映射：
-	{}：匹配接收页面url路径参数--&gt;
+    {}：匹配接收页面url路径参数--&gt;
 </code></pre>
 <ul>
 <li>控制器中添加方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 编辑页面,使用RESTful风格。{id}里面参数通过@PathVariable注入到后面参数Integer id中去
-@RequestMapping(&quot;&#x2F;edit1&#x2F;{id}&quot;)
+<pre><code class="java">// 编辑页面,使用RESTful风格。{id}里面参数通过@PathVariable注入到后面参数Integer id中去
+@RequestMapping(&quot;/edit1/{id}&quot;)
 public String edit1(@PathVariable Integer id, Model model){
-    &#x2F;&#x2F; 模拟通过id在数据库中查询数据,返回一个user对象，再将user对象存入model
+    // 模拟通过id在数据库中查询数据,返回一个user对象，再将user对象存入model
     System.out.println(&quot;修改的用户id:&quot;+id);
     User user = new User(id, &quot;小明&quot;, &quot;male&quot;, 22, &quot;2018&quot;);
     model.addAttribute(&quot;user&quot;,user);
-    return &quot;user&#x2F;userEdit&quot;;
+    return &quot;user/userEdit&quot;;
 }
 </code></pre>
 <ul>
 <li>需在web.xml中配置rest路径</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;&#x2F;servlet-name&gt;
-    &lt;url-pattern&gt;*.do&lt;&#x2F;url-pattern&gt;
-&lt;&#x2F;servlet-mapping&gt;
+<pre><code class="xml">&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
 
 &lt;!--RESTful风格--&gt;
 &lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;&#x2F;servlet-name&gt;
-    &lt;url-pattern&gt;&#x2F;rest&#x2F;*&lt;&#x2F;url-pattern&gt;
-&lt;&#x2F;servlet-mapping&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/rest/*&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
 </code></pre>
 <ul>
 <li>测试页面，<code>http://localhost/rest/user/edit1/1</code></li>
@@ -1157,10 +1086,8 @@ public String edit1(@PathVariable Integer id, Model model){
 <h2 id="6-转发和重定向"><a href="#6-转发和重定向" class="headerlink" title="6. 转发和重定向"></a>6. 转发和重定向</h2><ul>
 <li>转发到同一个控制器的方法：<code>forward</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 示例转发到list.do。同一个控制器中转发
-@RequestMapping(&quot;&#x2F;test1&quot;)
+<pre><code class="java">// 示例转发到list.do。同一个控制器中转发
+@RequestMapping(&quot;/test1&quot;)
 public String test1(){
     return &quot;forward:list.do&quot;;
 }
@@ -1168,30 +1095,26 @@ public String test1(){
 <ul>
 <li>转发到不同的控制器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Controller
+<pre><code class="java">@Controller
 @RequestMapping(&quot;stu&quot;)
 public class StudentController {
-    &#x2F;&#x2F; 示例转发到list.do。不同控制器中转发,加上域名&#x2F;user即可
-    @RequestMapping(&quot;&#x2F;test1&quot;)
+    // 示例转发到list.do。不同控制器中转发,加上域名/user即可
+    @RequestMapping(&quot;/test1&quot;)
     public String test1(){
-        return &quot;forward:&#x2F;user&#x2F;list.do&quot;;
+        return &quot;forward:/user/list.do&quot;;
     }
 }
 </code></pre>
 <ul>
 <li>重定向，只需改成<code>redirect</code>即可</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Controller
+<pre><code class="java">@Controller
 @RequestMapping(&quot;stu&quot;)
 public class StudentController {
-    &#x2F;&#x2F; 示例重定向到list.do。不同控制器中转发
-    @RequestMapping(&quot;&#x2F;test1&quot;)
+    // 示例重定向到list.do。不同控制器中转发
+    @RequestMapping(&quot;/test1&quot;)
     public String test1(){
-        return &quot;redirect:&#x2F;user&#x2F;list.do&quot;;
+        return &quot;redirect:/user/list.do&quot;;
     }
 
 }
@@ -1207,16 +1130,14 @@ public class StudentController {
 <ul>
 <li>示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Controller
+<pre><code class="java">@Controller
 @RequestMapping(&quot;stu&quot;)
 public class StudentController {
-    &#x2F;&#x2F; 示例注解请求参数配置
-    @RequestMapping(&quot;&#x2F;test1&quot;)
+    // 示例注解请求参数配置
+    @RequestMapping(&quot;/test1&quot;)
     public String test1(@RequestParam(value = &quot;uid&quot;,required = true,defaultValue = &quot;1&quot;)Integer uid){
         System.out.println(uid);
-        return &quot;redirect:&#x2F;user&#x2F;list.do&quot;;
+        return &quot;redirect:/user/list.do&quot;;
     }
 }
 </code></pre>
@@ -1490,7 +1411,7 @@ orders和or</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

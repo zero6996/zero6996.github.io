@@ -418,7 +418,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.4k
+                        4.3k
                     </div>
                     
 
@@ -491,9 +491,7 @@
 <p>数组适合的是读操作多、写操作少的场景。</p>
 </blockquote>
 <h4 id="2-1-3-链表"><a href="#2-1-3-链表" class="headerlink" title="2.1.3  链表"></a>2.1.3  链表</h4><p>链表是一种在物理上非连续、非顺序的数据结构，由若干节点(node)所组成。单向链表的每个节点细分为两部分，一部分是存放数据的变量data，另一部分是指向下一个节点的指针next。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">private static class Node{
+<pre><code class="java">private static class Node{
     int data;
     Node next;
 }
@@ -558,14 +556,12 @@
 <ul>
 <li>代码实现如下</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * @Author: zero
  * @Description: 使用数组实现栈的基本操作
- * Date: Create in 2020&#x2F;3&#x2F;21 8:40
+ * Date: Create in 2020/3/21 8:40
  * Modified By:
- *&#x2F;
+ */
 
 public class MyStack {
     private int[] array;
@@ -575,11 +571,11 @@ public class MyStack {
         this.array = new int[capacity];
     }
 
-    &#x2F;**
+    /**
      * 压栈
      * @param element 入栈元素
      * @throws Exception
-     *&#x2F;
+     */
     public void push(int element) throws Exception {
         if (top &gt; array.length){
             throw new Exception(&quot;StackOverflowError&quot;);
@@ -587,10 +583,10 @@ public class MyStack {
         array[top++] = element;
     }
 
-    &#x2F;**
+    /**
      * 弹栈
      * @throws Exception
-     *&#x2F;
+     */
     public void pop() throws Exception {
         if (top == 0){
             throw new Exception(&quot;No ElementError&quot;);
@@ -599,21 +595,21 @@ public class MyStack {
         top--;
     }
 
-    &#x2F;**
+    /**
      * 栈元素的删除操作
      * @param index 出栈元素索引
      * @param array 操作数组
-     *&#x2F;
+     */
     public void delete(int index, int[] array) {
-        &#x2F;&#x2F; 新建一个数组为原数组-1
+        // 新建一个数组为原数组-1
         int[] arrNew = new int[array.length - 1];
-        &#x2F;&#x2F; 打印出栈元素
+        // 打印出栈元素
         System.out.println(array[index]);
-        &#x2F;&#x2F; 数组元素转移，也可以直接调用api
-        &#x2F;&#x2F; for (int i = 0; i &lt; array.length - 1; i++) {
-        &#x2F;&#x2F;     arrNew[i] = array[i];
-        &#x2F;&#x2F; }
-        &#x2F;&#x2F; 调用api实现数组元素转移
+        // 数组元素转移，也可以直接调用api
+        // for (int i = 0; i &lt; array.length - 1; i++) {
+        //     arrNew[i] = array[i];
+        // }
+        // 调用api实现数组元素转移
         System.arraycopy(array, 0, arrNew, 0, arrNew.length);
         this.array = arrNew;
     }
@@ -673,31 +669,29 @@ public class MyStack {
 <li><p>代码实现</p>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * @Author: zero
  * @Description: 使用数组实现循环队列
- * Date: Create in 2020&#x2F;3&#x2F;23 10:20
+ * Date: Create in 2020/3/23 10:20
  * Modified By:
- *&#x2F;
+ */
 
 public class MyQueue {
     private int[] array;
-    &#x2F;&#x2F; 队头
+    // 队头
     private int front;
-    &#x2F;&#x2F; 队尾
+    // 队尾
     private int rear;
 
     public MyQueue(int capacity){
-        &#x2F;&#x2F; 因为队尾始终要占一个空间，故这里把空间补上
+        // 因为队尾始终要占一个空间，故这里把空间补上
         this.array = new int[capacity + 1];
     }
 
-    &#x2F;**
+    /**
      * 入队操作
      * @param element 入队的元素
-     *&#x2F;
+     */
     public void enQueue(int element) throws Exception{
         if ((rear + 1) % array.length == front){
             throw new Exception(&quot;The Queue is Full!&quot;);
@@ -706,11 +700,11 @@ public class MyQueue {
         rear = (rear + 1) % array.length;
     }
 
-    &#x2F;**
+    /**
      * 出队操作
      * @return
      * @throws Exception
-     *&#x2F;
+     */
     public int deQueue() throws Exception{
         if (rear == front){
             throw new Exception(&quot;The Queue is Empty!&quot;);
@@ -720,9 +714,9 @@ public class MyQueue {
         return deQueueElement;
     }
 
-    &#x2F;**
+    /**
      * 输出队列
-     *&#x2F;
+     */
     public void output(){
         for (int i = front; i!=rear ; i=(i+1)%array.length) {
             System.out.println(array[i]);
@@ -891,11 +885,9 @@ public class MyQueue {
 1.1 单表优化
 创建表插入数据
 
-
-
 create table article(
     id int(10) unsigned not null primary key auto_increment,
-    autho</div>
+    author_</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2020-03-25
@@ -1079,7 +1071,7 @@ create table article(
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

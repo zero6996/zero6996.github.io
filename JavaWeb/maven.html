@@ -507,26 +507,23 @@
 <ul>
 <li>如：项目依赖<code>junit4.9</code>，通过在<code>pom.xml</code>中定义<code>junit4.9</code>的依赖即使用<code>junit4.9</code>，如下所示<code>junit4.9</code>的依赖定义：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;dependencies&gt;
-      &lt;!-- 此项目运行使用junit，所以此项目依赖junit --&gt;
-      &lt;dependency&gt;
-          &lt;!-- junit的项目名称 --&gt;
-          &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;
-          &lt;!-- junit的模块名称 --&gt;
-          &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;
-          &lt;!-- junit版本 --&gt;
-          &lt;version&gt;4.9&lt;&#x2F;version&gt;
-          &lt;!-- 依赖范围：单元测试时使用junit --&gt;
-          &lt;scope&gt;test&lt;&#x2F;scope&gt;
-      &lt;&#x2F;dependency&gt;
-  &lt;&#x2F;dependencies&gt;
+<pre><code class="xml">&lt;dependencies&gt;
+    &lt;!-- 此项目运行使用junit，所以此项目依赖junit --&gt;
+    &lt;dependency&gt;
+        &lt;!-- junit的项目名称 --&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;!-- junit的模块名称 --&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;!-- junit版本 --&gt;
+        &lt;version&gt;4.9&lt;/version&gt;
+        &lt;!-- 依赖范围：单元测试时使用junit --&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
 </code></pre>
 </li>
-</ul>
-<ul>
-<li>一个项目生命周期：使用maven完成项目的构建，项目构建包括：清理、编译、测试、部署等过程。maven将这些过程规范为一个生命周期，如下所示：</li>
+<li><p>一个项目生命周期：使用maven完成项目的构建，项目构建包括：清理、编译、测试、部署等过程。maven将这些过程规范为一个生命周期，如下所示：</p>
+</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/lifecycle-1563321277883.png" alt="title"></p>
 <ul>
@@ -544,9 +541,7 @@
 <p>再点击<code>Next</code>选择项目所在目录，最后点击<code>Finish</code>，等待项目构建。显示如下信息则构建成功。</p>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/17/create_project04-1563321374779.png" alt="title"></p>
 <p>最终目录结构并不完整，需手动补齐。手动添加<code>src/main/java</code>目录，将<code>java</code>目录设置为<code>Sources Root</code>。</p>
-<h4 id="4-2-1-创建一个Servlet"><a href="#4-2-1-创建一个Servlet" class="headerlink" title="4.2.1 创建一个Servlet"></a>4.2.1 创建一个Servlet</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package com.zero.servlet;
+<h4 id="4-2-1-创建一个Servlet"><a href="#4-2-1-创建一个Servlet" class="headerlink" title="4.2.1 创建一个Servlet"></a>4.2.1 创建一个Servlet</h4><pre><code class="java">package com.zero.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -555,10 +550,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(&quot;&#x2F;testServlet&quot;)
+@WebServlet(&quot;/testServlet&quot;)
 public class TestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher(&quot;&#x2F;hello.jsp&quot;).forward(request,response);
+        request.getRequestDispatcher(&quot;/hello.jsp&quot;).forward(request,response);
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doPost(request, response);
@@ -566,37 +561,35 @@ public class TestServlet extends HttpServlet {
 }
 </code></pre>
 <h4 id="4-2-2-配置pom-xml"><a href="#4-2-2-配置pom-xml" class="headerlink" title="4.2.2  配置pom.xml"></a>4.2.2  配置<code>pom.xml</code></h4><p>此时编译器会提示servlet相关包不存在，需要在<code>pom.xml</code>中添加坐标。添加jar包坐标时，还可指定该jar包的作用范围。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;dependencies&gt;
+<pre><code class="xml">&lt;dependencies&gt;
 &lt;!--    放置项目运行所依赖的jar包--&gt;
     &lt;dependency&gt;
-        &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;
-        &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;
-        &lt;version&gt;4.11&lt;&#x2F;version&gt;
-        &lt;scope&gt;test&lt;&#x2F;scope&gt;
-    &lt;&#x2F;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.11&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
 
     &lt;dependency&gt;
-        &lt;groupId&gt;javax.servlet&lt;&#x2F;groupId&gt;
-        &lt;artifactId&gt;servlet-api&lt;&#x2F;artifactId&gt;
-        &lt;version&gt;2.5&lt;&#x2F;version&gt;
-        &lt;scope&gt;provided&lt;&#x2F;scope&gt;
-    &lt;&#x2F;dependency&gt;
+        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;2.5&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
 
     &lt;dependency&gt;
-        &lt;groupId&gt;javax.servlet.jsp&lt;&#x2F;groupId&gt;
-        &lt;artifactId&gt;jsp-api&lt;&#x2F;artifactId&gt;
-        &lt;version&gt;2.0&lt;&#x2F;version&gt;
-        &lt;scope&gt;provided&lt;&#x2F;scope&gt;
-    &lt;&#x2F;dependency&gt;
+        &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
+        &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+        &lt;version&gt;2.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
     &lt;dependency&gt;
-        &lt;groupId&gt;javax.servlet&lt;&#x2F;groupId&gt;
-        &lt;artifactId&gt;javax.servlet-api&lt;&#x2F;artifactId&gt;
-        &lt;version&gt;3.1.0&lt;&#x2F;version&gt;
-        &lt;scope&gt;provided&lt;&#x2F;scope&gt;
-    &lt;&#x2F;dependency&gt;
-&lt;&#x2F;dependencies&gt;
+        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
 </code></pre>
 <p>依赖范围表：</p>
 <table>
@@ -673,35 +666,31 @@ public class TestServlet extends HttpServlet {
 <li><code>install</code>：安装</li>
 </ul>
 <h3 id="5-3-坐标定义"><a href="#5-3-坐标定义" class="headerlink" title="5.3 坐标定义"></a>5.3 坐标定义</h3><p>在<code>pom.xml</code>中定义坐标，内容包括：<code>groupId、artifactld、version</code>，示例如下：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--项目名称，定义为组织名+项目名，类似包名--&gt;
-&lt;groupId&gt;com.zero.maven&lt;&#x2F;groupId&gt;
+<pre><code class="xml">&lt;!--项目名称，定义为组织名+项目名，类似包名--&gt;
+&lt;groupId&gt;com.zero.maven&lt;/groupId&gt;
 &lt;!--模块名称--&gt;
-&lt;artifactId&gt;maven-first&lt;&#x2F;artifactId&gt;
+&lt;artifactId&gt;maven-first&lt;/artifactId&gt;
 &lt;!--当前项目版本号，snapshot为快照版本即非正式版本，release为正式发布版本--&gt;
-&lt;version&gt;1.0-SNAPSHOT&lt;&#x2F;version&gt;
+&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
 &lt;!--打包类型--&gt;
-&lt;packaging&gt;war&lt;&#x2F;packaging&gt;
-	&lt;!--
-		jar:执行package会打包成jar包
- 		war：执行package会打包成war包
-		pom：用于maven工程的继承，通常父工程设置为pom
-	--&gt;
+&lt;packaging&gt;war&lt;/packaging&gt;
+    &lt;!--
+        jar:执行package会打包成jar包
+         war：执行package会打包成war包
+        pom：用于maven工程的继承，通常父工程设置为pom
+    --&gt;
 </code></pre>
 <h3 id="5-4-pom基本配置"><a href="#5-4-pom基本配置" class="headerlink" title="5.4 pom基本配置"></a>5.4 <code>pom</code>基本配置</h3><p><code>pom.xml</code>是<code>Maven</code>项目的核心配置文件，位于每个工程的根目录，基本配置如下：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;project&gt;文件的根节点&lt;&#x2F;project&gt;
-&lt;modelversion&gt;pom.xml使用的对象模型版本&lt;&#x2F;modelversion&gt;
-&lt;groupId&gt;项目名称，一般写项目的域名&lt;&#x2F;groupId&gt;
-&lt;artifactld&gt;模块名称或子项目名&lt;&#x2F;artifactld&gt;
-&lt;version&gt;产品的版本号&lt;&#x2F;version&gt;
-&lt;packaging&gt;打包类型，有jar、war、pom等&lt;&#x2F;packaging&gt;
-&lt;name&gt;项目的显示名，常用于Maven生成的文档&lt;&#x2F;name&gt;
-&lt;description&gt;项目描述，常用于Maven生成的文档&lt;&#x2F;description&gt;
-&lt;dependencies&gt;项目依赖构件配置，配置项目依赖构件的坐标&lt;&#x2F;dependencies&gt;
-&lt;build&gt;项目构建配置，配置编译、运行插件等&lt;&#x2F;build&gt;
+<pre><code class="xml">&lt;project&gt;文件的根节点&lt;/project&gt;
+&lt;modelversion&gt;pom.xml使用的对象模型版本&lt;/modelversion&gt;
+&lt;groupId&gt;项目名称，一般写项目的域名&lt;/groupId&gt;
+&lt;artifactld&gt;模块名称或子项目名&lt;/artifactld&gt;
+&lt;version&gt;产品的版本号&lt;/version&gt;
+&lt;packaging&gt;打包类型，有jar、war、pom等&lt;/packaging&gt;
+&lt;name&gt;项目的显示名，常用于Maven生成的文档&lt;/name&gt;
+&lt;description&gt;项目描述，常用于Maven生成的文档&lt;/description&gt;
+&lt;dependencies&gt;项目依赖构件配置，配置项目依赖构件的坐标&lt;/dependencies&gt;
+&lt;build&gt;项目构建配置，配置编译、运行插件等&lt;/build&gt;
 </code></pre>
 
             </div>
@@ -970,7 +959,7 @@ Jac</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

@@ -418,14 +418,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.4k
+                        3.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        14 分
+                        13 分
                     </div>
                     
                 
@@ -497,70 +497,68 @@
 </ul>
 </li>
 </ol>
-<h4 id="2-5-3-代码实现"><a href="#2-5-3-代码实现" class="headerlink" title="2.5.3 代码实现"></a>2.5.3 代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@WebServlet(&quot;&#x2F;CookieExercise&quot;)
+<h4 id="2-5-3-代码实现"><a href="#2-5-3-代码实现" class="headerlink" title="2.5.3 代码实现"></a>2.5.3 代码实现</h4><pre><code class="java">@WebServlet(&quot;/CookieExercise&quot;)
 public class CookieExercise extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 设置响应的消息体的数据格式以及编码
-        response.setContentType(&quot;text&#x2F;html;charset=utf-8&quot;);
-        &#x2F;&#x2F; 1. 获取所有cookie
+        // 设置响应的消息体的数据格式以及编码
+        response.setContentType(&quot;text/html;charset=utf-8&quot;);
+        // 1. 获取所有cookie
         Cookie[] cookies = request.getCookies();
-        boolean flag = false; &#x2F;&#x2F; 默认cookie没有lastTime
-        &#x2F;&#x2F; 如果有cookie，则进行遍历
+        boolean flag = false; // 默认cookie没有lastTime
+        // 如果有cookie，则进行遍历
         if (cookies != null &amp;&amp; cookies.length &gt; 0){
-            &#x2F;&#x2F; 2. 遍历cookie数据
+            // 2. 遍历cookie数据
             for (Cookie cookie : cookies) {
-                &#x2F;&#x2F; 3. 获取cookie的名称
+                // 3. 获取cookie的名称
                 String name = cookie.getName();
-                &#x2F;&#x2F; 4. 判断名称是否是：lastTime
+                // 4. 判断名称是否是：lastTime
                 if (&quot;lastTime&quot;.equals(name)){
-                    &#x2F;&#x2F; 有，则代表不是第一次访问
-                    flag = true; &#x2F;&#x2F; 代表有lastTime
-                    &#x2F;&#x2F; 设置cookie的value
-                    &#x2F;&#x2F; 获取当前时间的字符串，重新设置cookie的值，然后发送
+                    // 有，则代表不是第一次访问
+                    flag = true; // 代表有lastTime
+                    // 设置cookie的value
+                    // 获取当前时间的字符串，重新设置cookie的值，然后发送
                     Date date = new Date();
                     SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);
                     String str_date = sdf.format(date);
                     System.out.println(&quot;编码前：&quot;+str_date);
-                    &#x2F;&#x2F; url编码
+                    // url编码
                     str_date = URLEncoder.encode(str_date,&quot;utf-8&quot;);
                     System.out.println(&quot;编码后：&quot;+str_date);
-                    &#x2F;&#x2F; 设置cookie的存活时间一个月
+                    // 设置cookie的存活时间一个月
                     cookie.setMaxAge(60 * 60 * 24 * 30);
-                    response.addCookie(cookie); &#x2F;&#x2F; 将cookie值添加
-                    &#x2F;&#x2F; 5. 响应数据
-                    &#x2F;&#x2F; 获取cookie的value值
+                    response.addCookie(cookie); // 将cookie值添加
+                    // 5. 响应数据
+                    // 获取cookie的value值
                     String value = cookie.getValue();
                     System.out.println(&quot;解码前：&quot;+value);
-                    &#x2F;&#x2F; url解码
+                    // url解码
                     value = URLDecoder.decode(value,&quot;utf-8&quot;);
                     System.out.println(&quot;解码后：&quot;+value);
-                    &#x2F;&#x2F; 将数据响应
-                    response.getWriter().write(&quot;&lt;h3&gt;欢迎回来,你的上次访问时是&quot;+value+&quot;&lt;&#x2F;h3&gt;&quot;);
+                    // 将数据响应
+                    response.getWriter().write(&quot;&lt;h3&gt;欢迎回来,你的上次访问时是&quot;+value+&quot;&lt;/h3&gt;&quot;);
                     break;
                 }
             }
         }
-        &#x2F;&#x2F; 如果没有cookie信息或者没有lastTime
+        // 如果没有cookie信息或者没有lastTime
         if (cookies == null || cookies.length == 0 || flag == false){
-            &#x2F;&#x2F; 没有，代表是第一次访问
-            &#x2F;&#x2F; 获取当前时间字符串，设置cookie值发送
+            // 没有，代表是第一次访问
+            // 获取当前时间字符串，设置cookie值发送
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);
             String str_date = sdf.format(date);
             System.out.println(&quot;编码前：&quot;+str_date);
-            &#x2F;&#x2F; url编码
+            // url编码
             str_date = URLEncoder.encode(str_date,&quot;utf-8&quot;);
             System.out.println(&quot;编码后：&quot;+str_date);
-            &#x2F;&#x2F; 新建cookie对象，设置lastTime
+            // 新建cookie对象，设置lastTime
             Cookie cookie = new Cookie(&quot;lastTime&quot;, str_date);
-            &#x2F;&#x2F; 设置cookie存活时间
+            // 设置cookie存活时间
             cookie.setMaxAge(60 * 60 * 24 * 30);
-            &#x2F;&#x2F; 发送cookie
+            // 发送cookie
             response.addCookie(cookie);
-            &#x2F;&#x2F; 响应数据
-            response.getWriter().write(&quot;&lt;h3&gt;你好，欢迎首次访问&lt;&#x2F;h3&gt;&quot;);
+            // 响应数据
+            response.getWriter().write(&quot;&lt;h3&gt;你好，欢迎首次访问&lt;/h3&gt;&quot;);
         }
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -608,14 +606,12 @@ public class CookieExercise extends HttpServlet {
 <li><p>默认情况下，不是</p>
 </li>
 <li><p>如果需要两次相同，可以创建Cookie，键为JSESSIONID，并设置cookie存活时间。在服务器不关闭的情况下，在存活时间内，只要是同一个cookie访问，两次获取的session对象就是同一个。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  &#x2F;&#x2F; 1. 获取session
-  HttpSession session = request.getSession();
-  &#x2F;&#x2F; 2. 期望客户端关闭后，session也相同
-  Cookie c = new Cookie(&quot;JSESSIONID&quot;, session.getId()); &#x2F;&#x2F; 手动设置sessionid为当前的session对象id
-  c.setMaxAge(60 * 60); &#x2F;&#x2F; 设置cookie最大存活时间
-  response.addCookie(c); &#x2F;&#x2F; 发送cookie
+<pre><code class="java">// 1. 获取session
+HttpSession session = request.getSession();
+// 2. 期望客户端关闭后，session也相同
+Cookie c = new Cookie(&quot;JSESSIONID&quot;, session.getId()); // 手动设置sessionid为当前的session对象id
+c.setMaxAge(60 * 60); // 设置cookie最大存活时间
+response.addCookie(c); // 发送cookie
 </code></pre>
 </li>
 </ul>
@@ -651,15 +647,13 @@ public class CookieExercise extends HttpServlet {
 <h3 id="5-3-代码实现"><a href="#5-3-代码实现" class="headerlink" title="5.3 代码实现"></a>5.3 代码实现</h3><ol>
 <li>登陆的Servlet</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@WebServlet(&quot;&#x2F;loginServlet&quot;)
+<pre><code class="java">@WebServlet(&quot;/loginServlet&quot;)
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 1. 设置request编码
+        // 1. 设置request编码
         request.setCharacterEncoding(&quot;utf-8&quot;);
-        &#x2F;&#x2F; 2. 获取参数
-        &#x2F;&#x2F; todo：改进，获取参数Map,封装进User对象
+        // 2. 获取参数
+        // todo：改进，获取参数Map,封装进User对象
         Map&lt;String, String[]&gt; map = request.getParameterMap();
         User loginUser = new User();
         try {
@@ -669,39 +663,39 @@ public class LoginServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        &#x2F;&#x2F; 获取用户输入的验证码
+        // 获取用户输入的验证码
         String checkCode = request.getParameter(&quot;checkCode&quot;);
-        &#x2F;&#x2F; 3. 获取生成的验证码
+        // 3. 获取生成的验证码
         HttpSession session = request.getSession();
         String checkCode_session = (String) session.getAttribute(&quot;checkCode_session&quot;);
-        &#x2F;&#x2F; 3.1 删除session中存储的验证码
+        // 3.1 删除session中存储的验证码
         session.removeAttribute(&quot;checkCode_session&quot;);
-        &#x2F;&#x2F; 4. 判断验证码是否正确
-        if (checkCode_session != null &amp;&amp; checkCode_session.equalsIgnoreCase(checkCode)){&#x2F;&#x2F; 忽略大小写比较
-            &#x2F;&#x2F; 验证码正确，调用UserDao的login方法进行登陆操作
+        // 4. 判断验证码是否正确
+        if (checkCode_session != null &amp;&amp; checkCode_session.equalsIgnoreCase(checkCode)){// 忽略大小写比较
+            // 验证码正确，调用UserDao的login方法进行登陆操作
             UserDao dao = new UserDao();
             User user = dao.login(loginUser);
-            &#x2F;&#x2F; 判断用户名是否成功登陆
-            if (user != null ){ &#x2F;&#x2F; todo: 需要调用UserDao查询数据库，进行数据对比
-                &#x2F;&#x2F; 登陆成功
-                &#x2F;&#x2F; 存储用户信息
+            // 判断用户名是否成功登陆
+            if (user != null ){ // todo: 需要调用UserDao查询数据库，进行数据对比
+                // 登陆成功
+                // 存储用户信息
                 session.setAttribute(&quot;User&quot;,user.getUsername());
-                &#x2F;&#x2F; 重定向到success.jsp
-                response.sendRedirect(request.getContextPath() + &quot;&#x2F;success.jsp&quot;);
+                // 重定向到success.jsp
+                response.sendRedirect(request.getContextPath() + &quot;/success.jsp&quot;);
             }else {
-                &#x2F;&#x2F; 登陆失败
-                &#x2F;&#x2F; 存储信息到request
+                // 登陆失败
+                // 存储信息到request
                 request.setAttribute(&quot;login_error&quot;,&quot;用户名或密码错误！&quot;);
-                &#x2F;&#x2F; 转发到登陆页面
-                request.getRequestDispatcher(&quot;&#x2F;login.jsp&quot;).forward(request,response);
+                // 转发到登陆页面
+                request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);
             }
 
         }else {
-            &#x2F;&#x2F; 验证码不一致
-            &#x2F;&#x2F; 存储信息到request
+            // 验证码不一致
+            // 存储信息到request
             request.setAttribute(&quot;cc_error&quot;,&quot;验证码错误！&quot;);
-            &#x2F;&#x2F; 转发到登陆页面
-            request.getRequestDispatcher(&quot;&#x2F;login.jsp&quot;).forward(request,response);
+            // 转发到登陆页面
+            request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);
         }
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -712,64 +706,60 @@ public class LoginServlet extends HttpServlet {
 <ol start="2">
 <li>登陆的前端页面</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+<pre><code class="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
 &lt;html&gt;
 &lt;head&gt;
-    &lt;title&gt;Login&lt;&#x2F;title&gt;
+    &lt;title&gt;Login&lt;/title&gt;
     &lt;script&gt;
         window.onload = function () {
             document.getElementById(&quot;img&quot;).onclick = function () {
-                this.src = &quot;&#x2F;Demo6_14&#x2F;checkCodeServlet?time=&quot; + new Date().getTime();
+                this.src = &quot;/Demo6_14/checkCodeServlet?time=&quot; + new Date().getTime();
             }
         }
-    &lt;&#x2F;script&gt;
+    &lt;/script&gt;
     &lt;style&gt;
         div{
             color: red;
         }
-    &lt;&#x2F;style&gt;
-&lt;&#x2F;head&gt;
+    &lt;/style&gt;
+&lt;/head&gt;
 &lt;body&gt;
-&lt;form action=&quot;&#x2F;Demo6_14&#x2F;loginServlet&quot; method=&quot;post&quot;&gt;
+&lt;form action=&quot;/Demo6_14/loginServlet&quot; method=&quot;post&quot;&gt;
     &lt;table&gt;
         &lt;tr&gt;
-            &lt;td&gt;用户名&lt;&#x2F;td&gt;
-            &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;&#x2F;td&gt;
-        &lt;&#x2F;tr&gt;
+            &lt;td&gt;用户名&lt;/td&gt;
+            &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
         &lt;tr&gt;
-            &lt;td&gt;密码&lt;&#x2F;td&gt;
-            &lt;td&gt;&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;&#x2F;td&gt;
-        &lt;&#x2F;tr&gt;
+            &lt;td&gt;密码&lt;/td&gt;
+            &lt;td&gt;&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
         &lt;tr&gt;
-            &lt;td&gt;验证码&lt;&#x2F;td&gt;
-            &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;checkCode&quot;&gt;&lt;&#x2F;td&gt;
-        &lt;&#x2F;tr&gt;
+            &lt;td&gt;验证码&lt;/td&gt;
+            &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;checkCode&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
         &lt;tr&gt;
-            &lt;td colspan=&quot;2&quot;&gt;&lt;img src=&quot;&#x2F;Demo6_14&#x2F;checkCodeServlet&quot; id=&quot;img&quot;&gt;&lt;&#x2F;td&gt;
-        &lt;&#x2F;tr&gt;
+            &lt;td colspan=&quot;2&quot;&gt;&lt;img src=&quot;/Demo6_14/checkCodeServlet&quot; id=&quot;img&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
         &lt;tr&gt;
-            &lt;td colspan=&quot;2&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;登陆&quot;&gt;&lt;&#x2F;td&gt;
-        &lt;&#x2F;tr&gt;
-    &lt;&#x2F;table&gt;
-&lt;&#x2F;form&gt;
-    &lt;div&gt;&lt;%= request.getAttribute(&quot;cc_error&quot;) == null ? &quot;&quot; : request.getAttribute(&quot;cc_error&quot;) %&gt;&lt;&#x2F;div&gt;
-    &lt;div&gt;&lt;%= request.getAttribute(&quot;login_error&quot;) == null ? &quot;&quot; : request.getAttribute(&quot;login_error&quot;) %&gt;&lt;&#x2F;div&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+            &lt;td colspan=&quot;2&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;登陆&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/form&gt;
+    &lt;div&gt;&lt;%= request.getAttribute(&quot;cc_error&quot;) == null ? &quot;&quot; : request.getAttribute(&quot;cc_error&quot;) %&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;%= request.getAttribute(&quot;login_error&quot;) == null ? &quot;&quot; : request.getAttribute(&quot;login_error&quot;) %&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <ol start="3">
 <li>Dao类</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 操作数据库中User表的类，主要查询数据
+<pre><code class="java">// 操作数据库中User表的类，主要查询数据
 public class UserDao {
-    &#x2F;&#x2F; 声明JDBCTemplate对象共用
+    // 声明JDBCTemplate对象共用
     private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
-    &#x2F;&#x2F; 登陆方法
+    // 登陆方法
     public User login(User loginUser){
         try{
             String sql = &quot;select * from user where username = ? and password = ?&quot;;
@@ -778,7 +768,7 @@ public class UserDao {
                     loginUser.getUsername(), loginUser.getPassword());
             return user;
         }catch (DataAccessException e){
-            &#x2F;&#x2F; 登陆失败，打印异常，返回null
+            // 登陆失败，打印异常，返回null
             e.printStackTrace();
             return null;
         }
@@ -1035,7 +1025,7 @@ public class UserDao {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

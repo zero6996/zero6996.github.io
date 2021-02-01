@@ -496,14 +496,12 @@ MySQL基本操作">
 <li>使用数据库：<code>use 数据库名称;</code></li>
 </ul>
 <p><strong>操作表：CRUD</strong></p>
-<h5 id="1-C-Create-：创建"><a href="#1-C-Create-：创建" class="headerlink" title="1. C(Create)：创建"></a>1. C(Create)：创建</h5>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">create table 表名(
-	列名1 数据类型1,
+<h5 id="1-C-Create-：创建"><a href="#1-C-Create-：创建" class="headerlink" title="1. C(Create)：创建"></a>1. C(Create)：创建</h5><pre><code class="sql">create table 表名(
+    列名1 数据类型1,
     列名2 数据类型2,
     ... ...
     列名n 数据类型n); # 注意：最后一列，不需要加逗号&#39;,&#39;
-&#x2F;*
+/*
     常用数据库类型:
     1. int：整数类型。例：`age int`
     2. double：小数类型。例：`score double(5,2)`
@@ -511,7 +509,7 @@ MySQL基本操作">
     4. datetime：日期(年月日时分秒)。例：`date yyyy-MM-dd HH:mm:ss`
     5. timestamp：时间戳类型(年月日时分秒)。如不赋值，则默认使用当前系统时间，来自动赋值。
     6. varchar：字符串类型。例：`name`
-*&#x2F;
+*/
 </code></pre>
 <blockquote>
 <p>Tips: 如果想复制一张表，可以使用<code>create table 表名 like 被复制表名;</code></p>
@@ -567,11 +565,9 @@ MySQL基本操作">
 <p>注意：参与运算的必须是数值类型</p>
 </blockquote>
 <p>SQL语句示例：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">&#x2F;*
-	给student表添加数学、英语成绩列，给每条记录添加对应的数学和英语成绩，查询时将数学和英语的成绩相加显示。
-*&#x2F;
+<pre><code class="sql">/*
+    给student表添加数学、英语成绩列，给每条记录添加对应的数学和英语成绩，查询时将数学和英语的成绩相加显示。
+*/
 SELECT * FROM student;
 ALTER TABLE student ADD math INT; # 添加数学列
 ALTER TABLE student ADD english INT; # 添加英语列
@@ -590,18 +586,16 @@ SELECT *,(math+english) AS 总成绩 FROM student;
 <ul>
 <li>SQL语句示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 创建一个学生表，包含如下列：
+<pre><code class="sql">-- 创建一个学生表，包含如下列：
 CREATE TABLE student2(
-	id INT, -- 编号
-	NAME VARCHAR(20), # 姓名
-	age INT, -- 年龄
-	sex VARCHAR(5), # 性别
-	address VARCHAR(100), -- 地址
-	math INT, # 数学
-	english INT -- 英语
-	);
+    id INT, -- 编号
+    NAME VARCHAR(20), # 姓名
+    age INT, -- 年龄
+    sex VARCHAR(5), # 性别
+    address VARCHAR(100), -- 地址
+    math INT, # 数学
+    english INT -- 英语
+    );
 
 INSERT INTO student2(id,NAME,age,sex,address,math,english) VALUES(1,&#39;马云&#39;,55,&#39;男&#39;,&#39;
 杭州&#39;,66,78),(2,&#39;马化腾&#39;,45,&#39;女&#39;,&#39;深圳&#39;,98,87),(3,&#39;马景涛&#39;,55,&#39;男&#39;,&#39;香港&#39;,56,77),(4,&#39;柳岩
@@ -644,9 +638,7 @@ INSERT INTO student2(id,NAME,age,sex,address,math,english) VALUES(1,&#39;马云&
 <ul>
 <li>操作示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 查询math分数大于80分的学生
+<pre><code class="sql"># 查询math分数大于80分的学生
 SELECT * FROM student2 WHERE math&gt;80;
 # 查询english分数小于或等于80分的学生
 SELECT * FROM student2 WHERE english &lt;=80;
@@ -687,9 +679,7 @@ SELECT * FROM student2 WHERE age!=20;
 <ul>
 <li>操作示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 查询age大于35且性别为男的学生
+<pre><code class="sql"># 查询age大于35且性别为男的学生
 SELECT * FROM student2 WHERE age&gt;35 AND sex=&#39;男&#39;;
 # 查询age大于35或性别为男的学生
 SELECT * FROM student2 WHERE age&gt;35 OR sex=&#39;男&#39;;
@@ -701,9 +691,7 @@ SELECT * FROM student2 WHERE id=1 OR id=3 OR id=5;
 <p>in里面的每个数据都会作为一次条件，只要满足条件就会显示：<code>select 字段名 from 表名 where 字段 in(数据1，数据2,...);</code></p>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 查询id是1或3或5的学生，使用in
+<pre><code class="sql"># 查询id是1或3或5的学生，使用in
 SELECT * FROM student2 WHERE id IN(1,3,5);
 # 查询id不是1或3或5的学生
 SELECT * FROM student2 WHERE id NOT IN(1,3,5);
@@ -712,9 +700,7 @@ SELECT * FROM student2 WHERE id NOT IN(1,3,5);
 <li>范围查询</li>
 </ul>
 <p>表示从值1到值2范围，全部包含：<code>between 值1 and 值2</code></p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 查询english成绩大于等于75，且小于等于90的学生
+<pre><code class="sql"># 查询english成绩大于等于75，且小于等于90的学生
 SELECT * FROM student2 WHERE english BETWEEN 75 AND 90;
 </code></pre>
 <ul>
@@ -722,9 +708,7 @@ SELECT * FROM student2 WHERE english BETWEEN 75 AND 90;
 </ul>
 <p>表示模糊查询:<code>select * from 表名 where 字段名 like &#39;通配符字符串;&#39;</code></p>
 <p>通配符：<code>%,匹配任意多个字符串</code>; <code>_,匹配单个字符</code></p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 查询姓马的学生
+<pre><code class="sql"># 查询姓马的学生
 SELECT * FROM student2 WHERE NAME LIKE &#39;马%&#39;;
 # 查询姓名中包含&#39;德&#39;字的学生
 SELECT * FROM student2 WHERE NAME LIKE &#39;%德%&#39;;
@@ -816,9 +800,8 @@ SELECT * FROM student2 WHERE NAME LIKE &#39;马_&#39;;
 排序方式：ASC(升序,默认值)；DESC(降序)。
 
 
-
-
-# 单列排</div>
+# 单列排序
+</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-19
@@ -1010,7 +993,7 @@ Junit使用步骤
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

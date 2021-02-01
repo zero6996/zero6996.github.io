@@ -411,14 +411,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.1k
+                        5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        21 分
+                        20 分
                     </div>
                     
                 
@@ -441,90 +441,78 @@
 <p>注：“<strong>语法糖</strong>“是指使用更加方便，但是原理不变的代码语法。例如在遍历集合时使用的for-each语法，其实底层的实现原理仍然是迭代器，这便是“语法糖”。从应用层面来讲，Java中的Lambda可以被当做是匿名内部类的“语法糖”，但是二者在原理上是不同的。</p>
 </blockquote>
 <h3 id="1-1-格式"><a href="#1-1-格式" class="headerlink" title="1.1 格式"></a>1.1 格式</h3><p>​    只要确保接口中有且仅有一个抽象方法即可：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">修饰符 interface 接口名称{
+<pre><code class="java">修饰符 interface 接口名称{
     public abstract 返回值类型 方法名称(可选参数信息);
-    &#x2F;&#x2F; 其他非抽象方法内容
+    // 其他非抽象方法内容
 }
 </code></pre>
 <p>​    由于接口当中抽象方法的<code>public abstract</code>是可以省略的，所以定义一个函数式接口很简单：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface MyFun{
+<pre><code class="java">public interface MyFun{
     void MyMethod();
 }
 </code></pre>
 <h3 id="1-2-FunctionalInterface注解"><a href="#1-2-FunctionalInterface注解" class="headerlink" title="1.2 @FunctionalInterface注解"></a>1.2 @FunctionalInterface注解</h3><p>​    与<code>@Override</code>注解的作用类似，Java 8中专门为函数式接口引入了一个新的注解：<code>@FunctionalInterface</code>。该注解可用于一个接口的定义上：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@FunctionalInterface
+<pre><code class="java">@FunctionalInterface
 public interface MyFun{
     void MyMethod();
 }
 </code></pre>
 <p>​    一旦使用该注解来定义接口，编译器将会强制检查该接口是否确定有且仅有一个抽象方法，否则将会报错。</p>
 <h3 id="1-3-自定义函数式接口"><a href="#1-3-自定义函数式接口" class="headerlink" title="1.3 自定义函数式接口"></a>1.3 自定义函数式接口</h3><p>对于刚刚定义好的<code>MyFun</code>函数式接口，典型使用场景就是作为方法的参数：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoFunInterface {
+<pre><code class="java">public class DemoFunInterface {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 使用lambda调用函数式接口中的方法
+        // 使用lambda调用函数式接口中的方法
         doSomething(()-&gt; System.out.println(&quot;Lambda执行了！&quot;));
     }
-    &#x2F;&#x2F; 使用自定义的函数式接口作为方法参数
+    // 使用自定义的函数式接口作为方法参数
     private static void doSomething(MyFun inter){
-        inter.MyMethod(); &#x2F;&#x2F; 调用自定义的函数式接口方法
+        inter.MyMethod(); // 调用自定义的函数式接口方法
     }
 }
 </code></pre>
 <h2 id="2-函数式编程"><a href="#2-函数式编程" class="headerlink" title="2. 函数式编程"></a>2. 函数式编程</h2><p>在兼顾面向对象特性的基础上，Java语言通过Lambda表达式与方法引用等，打开了函数式编程的大门。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 函数式接口的使用：一般可以作为方法的参数和返回值类型
+<pre><code class="java">// 函数式接口的使用：一般可以作为方法的参数和返回值类型
 public class Demo {
-    &#x2F;&#x2F; 定义一个方法，参数使用函数式接口MyFun
+    // 定义一个方法，参数使用函数式接口MyFun
     public static void show(MyFun myFun){
         myFun.MyMethod();
     }
     public static void main(String[] args) {
-        &#x2F;&#x2F; 调用show方法，方法的参数是一个接口，所以可以传递接口的实现类对象
+        // 调用show方法，方法的参数是一个接口，所以可以传递接口的实现类对象
         show(new MyFunImpl());
-        &#x2F;&#x2F; 调用show方法，方法的参数是一个接口,所以我们可以传递接口的匿名内部类
+        // 调用show方法，方法的参数是一个接口,所以我们可以传递接口的匿名内部类
         show(new MyFun() {
             @Override
             public void MyMethod() {
                 System.out.println(&quot;使用匿名内部类重写接口中的抽象方法&quot;);
             }
         });
-        &#x2F;&#x2F; 调用show方法，方法的参数是一个函数式接口,所以我们可以传递lambda表达式
+        // 调用show方法，方法的参数是一个函数式接口,所以我们可以传递lambda表达式
         show(()-&gt; System.out.println(&quot;使用Lambda表达式重写接口中的抽象方法&quot;));
     }
 }
-&#x2F;&#x2F; result:
-&#x2F;*
+// result:
+/*
 使用实现类重写MyFun接口抽象方法
 使用匿名内部类重写接口中的抽象方法
 使用Lambda表达式重写接口中的抽象方法
-*&#x2F;
+*/
 </code></pre>
 <h3 id="2-1-Lambda的延迟执行"><a href="#2-1-Lambda的延迟执行" class="headerlink" title="2.1 Lambda的延迟执行"></a>2.1 Lambda的延迟执行</h3><p>有些场景的代码执行后，结果不一定会被使用，从而造成性能浪费。而Lambda表达式是延迟执行的，这正好可以作为解决方案，提升性能。</p>
 <h4 id="性能浪费的日志"><a href="#性能浪费的日志" class="headerlink" title="性能浪费的日志"></a>性能浪费的日志</h4><p>注：日志可以帮助我们快速的定位问题，记录程序运行过程中的情况，以便项目的监控和优化。</p>
 <p>一种典型场景就是对参数进行有条件使用，例如对日志消息进行拼接后，在满足条件情况下进行打印输出：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo02Logger {
+<pre><code class="java">public class Demo02Logger {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 定义三个日志信息
+        // 定义三个日志信息
         String msg1 = &quot;hello&quot;;
         String msg2 = &quot;world&quot;;
         String msg3 = &quot;java&quot;;
-        &#x2F;&#x2F; 调用方法，传递日志级别和日志信息
+        // 调用方法，传递日志级别和日志信息
         log(1,msg1+msg2+msg3);
     }
-    &#x2F;&#x2F; 定义一个根据日志的级别，显示日志信息的方法
+    // 定义一个根据日志的级别，显示日志信息的方法
     private static void log(int level, String msg){
-        &#x2F;&#x2F; 对日志等级进行判断，如果是1级别，那么输出日志信息
+        // 对日志等级进行判断，如果是1级别，那么输出日志信息
         if (level == 1){
             System.out.println(msg);
         }
@@ -536,17 +524,13 @@ public class Demo {
 <p>备注：SLF4J是应用非常广泛的日志框架，它在记录日志时为了解决这种性能浪费的问题，并不推荐首先进行字符串的拼接，而是将字符串的若干部分作为可变参数传入方法中，仅在日志级别满足要求的情况下才会进行字符串拼接。例如：<code>LOGGER.debug(&quot;变量{}的取值为{}。&quot;, &quot;os&quot;, &quot;macOS&quot;)</code>，其中的大括号<code>{}</code>为占位符。如果满足日志级别要求，则会将“os”和“macOS”两个字符串依次拼接到大括号的位置；否则不会进行字符串拼接。这也是一种可行解决方案，但Lambda可以做到更好。</p>
 </blockquote>
 <h4 id="Lambda优化写法"><a href="#Lambda优化写法" class="headerlink" title="Lambda优化写法"></a>Lambda优化写法</h4><p>使用Lambda必然需要一个函数式接口：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@FunctionalInterface
+<pre><code class="java">@FunctionalInterface
 public interface MessageInter {
     String Message();
 }
 </code></pre>
 <p>对<code>log</code>方法进行改造：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoLogLambda {
+<pre><code class="java">public class DemoLogLambda {
     public static void main(String[] args) {
         String msg1 = &quot;hello&quot;;
         String msg2 = &quot;world&quot;;
@@ -555,15 +539,13 @@ public interface MessageInter {
     }
     private static void log(int level,MessageInter msg){
         if (level == 1){
-            System.out.println(msg.Message()); &#x2F;&#x2F; 只有当条件满足时，才会去调用字符串拼接方法，不满足不会拼接
+            System.out.println(msg.Message()); // 只有当条件满足时，才会去调用字符串拼接方法，不满足不会拼接
         }
     }
 }
 </code></pre>
 <p>如此，只有当级别满足要求时，才会进行三个字符串拼接，不会造成性能浪费。</p>
-<h4 id="证明Lambda的延迟"><a href="#证明Lambda的延迟" class="headerlink" title="证明Lambda的延迟"></a>证明Lambda的延迟</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoLoggerDelay {
+<h4 id="证明Lambda的延迟"><a href="#证明Lambda的延迟" class="headerlink" title="证明Lambda的延迟"></a>证明Lambda的延迟</h4><pre><code class="java">public class DemoLoggerDelay {
     private static void log(int level,MessageInter msg){
         if (level == 1){
             System.out.println(msg.Message());
@@ -587,50 +569,46 @@ public interface MessageInter {
 </blockquote>
 <h3 id="2-2-使用Lambda作为参数和返回值"><a href="#2-2-使用Lambda作为参数和返回值" class="headerlink" title="2.2 使用Lambda作为参数和返回值"></a>2.2 使用Lambda作为参数和返回值</h3><p>抛开实现原理不说，Java中的Lambda表达式可以被看做是匿名内部类的替代品。如果方法的参数是一个<strong>函数式接口类型</strong>，那么就可以使用Lambda表达式进行替代。使用Lambda表达式作为方法参数，其实就是使用函数式接口作为方法参数。</p>
 <p>例如<code>java.lang.Runnable</code>接口就是一个函数式接口，假设有一个<code>startThread</code>方法使用该接口作为参数，那么就可以使用Lambda进行传参。这种情况其实和<code>Thread</code>类的构造方法参数为<code>Runnable</code>没有本质区别。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 使用lambda作为方法参数
+<pre><code class="java">// 使用lambda作为方法参数
 public class DemoRunnable {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 调用方法，参数是接口，我们可以传递匿名内部类，实现类接口lambda等。
+        // 调用方法，参数是接口，我们可以传递匿名内部类，实现类接口lambda等。
         startThread(new Runnable() {
             @Override
             public void run() {
                 System.out.println(Thread.currentThread().getName() + &quot;--&gt;&quot; + &quot;线程启动了&quot;);
             }
         });
-        &#x2F;&#x2F; 调用方法，参数是一个函数式接口，我们可以传递lambda
+        // 调用方法，参数是一个函数式接口，我们可以传递lambda
         startThread(() -&gt; System.out.println(Thread.currentThread().getName() + &quot;--&gt;&quot; + &quot;线程启动了&quot;));
     }
-    &#x2F;&#x2F; 定义一个方法，方法参数使用函数式接口Runnable
+    // 定义一个方法，方法参数使用函数式接口Runnable
     public static void startThread(Runnable run){
-        &#x2F;&#x2F; 开启多线程
+        // 开启多线程
         new Thread(run).start();
     }
 }
 </code></pre>
 <p>类似地，如果一个方法的返回值类型是一个函数式接口，那么就可以直接返回一个Lambda表达式。当需要通过一个方法来获取一个<code>java.util.Comparator</code>接口类型的对象作为排序器时，就可以调用该方法获取。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 使用Lambda作为返回值类型
+<pre><code class="java">// 使用Lambda作为返回值类型
 public class DemoComparator {
-    &#x2F;&#x2F; 定义一个方法，方法返回值类型使用函数式接口Comparator
+    // 定义一个方法，方法返回值类型使用函数式接口Comparator
     public static Comparator&lt;String&gt; getComparator(){
-        &#x2F;&#x2F; 方法的返回值类型是一个接口，那么我们可以返回这个接口的匿名内部类
-&#x2F;&#x2F;        return new Comparator&lt;String&gt;() {
-&#x2F;&#x2F;            @Override
-&#x2F;&#x2F;            public int compare(String o1, String o2) {
-&#x2F;&#x2F;                return o2.length() - o1.length();
-&#x2F;&#x2F;            }
-&#x2F;&#x2F;        };
-        &#x2F;&#x2F; 方法的返回值类型是一个函数式接口，所以我们可以返回一个Lambda表达式
+        // 方法的返回值类型是一个接口，那么我们可以返回这个接口的匿名内部类
+//        return new Comparator&lt;String&gt;() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                return o2.length() - o1.length();
+//            }
+//        };
+        // 方法的返回值类型是一个函数式接口，所以我们可以返回一个Lambda表达式
         return (String o1,String o2) -&gt; o2.length() - o1.length();
     }
     public static void main(String[] args) {
-        &#x2F;&#x2F; 创建一个字符串数组
+        // 创建一个字符串数组
         String[] arr = {&quot;aaa&quot;,&quot;b&quot;,&quot;cccc&quot;,&quot;dddddd&quot;};
         System.out.println(Arrays.toString(arr));
-        &#x2F;&#x2F; 调用Arrays中的sort方法，对字符串数组进行排序
+        // 调用Arrays中的sort方法，对字符串数组进行排序
         Arrays.sort(arr,getComparator());
         System.out.println(Arrays.toString(arr));
     }
@@ -638,26 +616,22 @@ public class DemoComparator {
 </code></pre>
 <h2 id="3-常用函数式接口"><a href="#3-常用函数式接口" class="headerlink" title="3. 常用函数式接口"></a>3. 常用函数式接口</h2><p>JDK提供了大量常用的函数式接口以丰富Lambda的典型使用场景，它们主要在<code>java.util.function</code>包中被提供。</p>
 <h3 id="3-1-Supplier接口"><a href="#3-1-Supplier接口" class="headerlink" title="3.1 Supplier接口"></a>3.1 Supplier接口</h3><p><code>java.util.funtion.Supplier&lt;T&gt;</code>接口仅包含一个无参的方法：<code>T get()</code>。用来获取一个泛型参数指定类型的对象数据。由于这是一个函数式接口，也就意味着对应的Lambda表达式需要”<strong>对外提供</strong>“一个符合泛型类型的对象数据。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoSupplier {
-    &#x2F;&#x2F; 定义一个方法，方法的参数传递Supplier&lt;T&gt;接口，泛型执行get方法就会返回一个String
+<pre><code class="java">public class DemoSupplier {
+    // 定义一个方法，方法的参数传递Supplier&lt;T&gt;接口，泛型执行get方法就会返回一个String
     public static String getString(Supplier&lt;String&gt; sup){
         return sup.get();
     }
     public static void main(String[] args) {
-        &#x2F;&#x2F; 调用getString方法，方法的参数Supplier是一个函数式接口，所以可以传递Lambda表达式
+        // 调用getString方法，方法的参数Supplier是一个函数式接口，所以可以传递Lambda表达式
         String s = getString(() -&gt; &quot;你好呀&quot;);
         System.out.println(s);
     }
 }
-&#x2F;&#x2F; Supplier&lt;T&gt;接口被称之为生成型接口，指定接口的泛型是什么类型，那么接口中的get方法就会生产什么类型数据
+// Supplier&lt;T&gt;接口被称之为生成型接口，指定接口的泛型是什么类型，那么接口中的get方法就会生产什么类型数据
 </code></pre>
 <h3 id="3-2-练习：求数组元素最大值"><a href="#3-2-练习：求数组元素最大值" class="headerlink" title="3.2 练习：求数组元素最大值"></a>3.2 练习：求数组元素最大值</h3><p>使用<code>Supplier</code>接口作为方法参数类型，通过Lambda表达式求出int数组中的最大值。</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoMaxArray {
-    &#x2F;&#x2F; 定义一个方法，用于获取int类型数组中元素的最大值，方法的参数传递Supplier接口，泛型使用Integer
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="java">public class DemoMaxArray {
+    // 定义一个方法，用于获取int类型数组中元素的最大值，方法的参数传递Supplier接口，泛型使用Integer
     public static int getMax(Supplier&lt;Integer&gt; sup){
         return sup.get();
     }
@@ -677,38 +651,34 @@ public class DemoComparator {
 </code></pre>
 <h3 id="3-3-Consumer接口"><a href="#3-3-Consumer接口" class="headerlink" title="3.3 Consumer接口"></a>3.3 Consumer接口</h3><p><code>java.util.function.Consumer&lt;T&gt;</code>接口则正好与Supplier接口相反，它不是生产一个数据，而是消费一个数据，其数据类型由泛型决定。</p>
 <h4 id="抽象方法：accept"><a href="#抽象方法：accept" class="headerlink" title="抽象方法：accept"></a>抽象方法：accept</h4><p><code>Consumer</code>接口中包含抽象方法<code>void accept(T t)</code>,意为消费一个指定泛型的数据。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoConsumer {
-    &#x2F;*
+<pre><code class="java">public class DemoConsumer {
+    /*
         定义一个方法
         方法的参数传递一个字符串的姓名
         方法的参数传递Consumer接口，泛型使用String
         可以使用Consumer接口消费字符串的姓名
-     *&#x2F;
+     */
     public static void method(String name,Consumer&lt;String&gt; con){
         con.accept(name);
     }
     public static void main(String[] args) {
-        &#x2F;&#x2F; 调用method方法，传递字符串姓名，方法的另一个参数是Consumer接口，是一个函数式接口，可以使用Lambda表达式
+        // 调用method方法，传递字符串姓名，方法的另一个参数是Consumer接口，是一个函数式接口，可以使用Lambda表达式
         method(&quot;上海&quot;,(String name)-&gt;{
-            &#x2F;&#x2F; 对传递的字符串进行消费
-            &#x2F;&#x2F; 消费方式：直接输出字符串
+            // 对传递的字符串进行消费
+            // 消费方式：直接输出字符串
             System.out.println(name);
-            &#x2F;&#x2F; 消费方式：对字符串进行反转输出
+            // 消费方式：对字符串进行反转输出
             String reName = new StringBuffer(name).reverse().toString();
             System.out.println(reName);
         });
     }
 }
-&#x2F;&#x2F; result:
+// result:
 上海
 海上
 </code></pre>
 <h4 id="默认方法-andThen"><a href="#默认方法-andThen" class="headerlink" title="默认方法: andThen"></a>默认方法: andThen</h4><p>如果一个方法的参数和返回值全都是<code>Consumer</code>类型，那么就可以实现效果：消费数据的时候，先做一个操作，然后在做另一个操作，实现组合。而这个方法就是<code>Consumer</code>接口中的default方法<code>andThen</code>。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;*
+<pre><code class="java">/*
     Consumer接口的默认方法andThen
     作用：需要两个Consumer接口，可以把两个Consumer接口组合到一起，在对数据进行消费
 
@@ -720,16 +690,16 @@ public class DemoComparator {
       con2.accept(s);
       连接两个Consumer接口，再进行消费
       con1.andThen(con2).accept(s); 谁写前面谁先消费
- *&#x2F;
+ */
 public class DemoAndThen {
     private static void consumerString(String s,Consumer&lt;String&gt; one,Consumer&lt;String&gt; two){
-&#x2F;&#x2F;        one.accept(s);
-&#x2F;&#x2F;        two.accept(s);
-        &#x2F;&#x2F; 使用andThen方法，把两个Consumer接口连接到一起消费数据,等效于上面
+//        one.accept(s);
+//        two.accept(s);
+        // 使用andThen方法，把两个Consumer接口连接到一起消费数据,等效于上面
         one.andThen(two).accept(s);
     }
     public static void main(String[] args) {
-        &#x2F;&#x2F; 因为有两个Consumer接口，所以要传递两个Lambda进去
+        // 因为有两个Consumer接口，所以要传递两个Lambda进去
         consumerString(&quot;Hello&quot;,
                 s -&gt; System.out.println(s.toUpperCase()),
                 s -&gt; System.out.println(s.toLowerCase()));
@@ -737,71 +707,61 @@ public class DemoAndThen {
 }
 </code></pre>
 <h3 id="3-4-练习：格式化打印信息"><a href="#3-4-练习：格式化打印信息" class="headerlink" title="3.4 练习：格式化打印信息"></a>3.4 练习：格式化打印信息</h3><p>将下面字符串数组中的信息，按照格式<code>姓名：xxx，性别：x。</code>的格式将信息打印出来。要求将打印姓名的动作作为第一个<code>Consumer</code>接口的Lambda实例，将打印性别作为第二个<code>Consumer</code>接口的Lambda实例，将两个<code>Consumer</code>接口按照顺序拼接到一起。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 字符串数组
+<pre><code class="java">// 字符串数组
 String[] arr = { &quot;迪丽热巴,女&quot;, &quot;古力娜扎,女&quot;, &quot;马尔扎哈,男&quot;};
 </code></pre>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ConsumerExercise {
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="java">public class ConsumerExercise {
     public static void main(String[] args) {
         String[] arr = { &quot;迪丽热巴,女&quot;, &quot;古力娜扎,女&quot;, &quot;马尔扎哈,男&quot;};
-        printInfo(arr,s -&gt; System.out.print(&quot;姓名：&quot;+s.split(&quot;,&quot;)[0]), &#x2F;&#x2F; 消费方式：对info进行切割，读取姓名，按照指定格式输出
-                  s -&gt; System.out.println(&quot;,性别：&quot;+s.split(&quot;,&quot;)[1]+&quot;。&quot;)); &#x2F;&#x2F; 对info进行切割，读取年龄，按照指定格式输出
+        printInfo(arr,s -&gt; System.out.print(&quot;姓名：&quot;+s.split(&quot;,&quot;)[0]), // 消费方式：对info进行切割，读取姓名，按照指定格式输出
+                  s -&gt; System.out.println(&quot;,性别：&quot;+s.split(&quot;,&quot;)[1]+&quot;。&quot;)); // 对info进行切割，读取年龄，按照指定格式输出
     }
     private static void printInfo(String[] arr, Consumer&lt;String&gt; one, Consumer&lt;String&gt; two){
         for (String info:arr)
             one.andThen(two).accept(info);
     }
 }
-&#x2F;* result：
+/* result：
 姓名：迪丽热巴,性别：女。
 姓名：古力娜扎,性别：女。
 姓名：马尔扎哈,性别：男。
- *&#x2F;
+ */
 </code></pre>
 <h3 id="3-5-Predicate接口"><a href="#3-5-Predicate接口" class="headerlink" title="3.5 Predicate接口"></a>3.5 Predicate接口</h3><p>有时我们需要对某种类型的数据进行判断，从而得到一个boolean值结果。这时可以使用<code>java.util.function.Predicate&lt;T&gt;</code>接口。</p>
 <h4 id="抽象方法：test"><a href="#抽象方法：test" class="headerlink" title="抽象方法：test"></a>抽象方法：test</h4><p><code>Predicate</code>接口中包含一个抽象方法：<code>boolean test(T t)</code>。用于条件判断场景：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoPredicate {
+<pre><code class="java">public class DemoPredicate {
     public static boolean checkString(String s,Predicate&lt;String&gt; pre){
        return pre.test(s);
     }
     public static void main(String[] args) {
         String s = &quot;helloworld&quot;;
-        boolean b = checkString(s, str -&gt; str.length() &gt; 5);&#x2F;&#x2F; 对参数传递的字符串进行判断，判断字符串长度是否大于5，并把判断的结果返回
+        boolean b = checkString(s, str -&gt; str.length() &gt; 5);// 对参数传递的字符串进行判断，判断字符串长度是否大于5，并把判断的结果返回
         System.out.println(b);
     }
 }
 </code></pre>
 <h4 id="默认方法：and"><a href="#默认方法：and" class="headerlink" title="默认方法：and"></a>默认方法：and</h4><p>既然是条件判断，就会存在与、或、非三种常见的逻辑关系。其中将两个<code>Predicate</code>条件使用“与”逻辑连接起来实现“<strong>并且</strong>”的效果时，可以使用default方法<code>and</code>。</p>
 <p>​    如果要判断一个字符串既包含大写”H”，又要包含大写”W”，示例代码如下：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoPredicateAnd {
+<pre><code class="java">public class DemoPredicateAnd {
     public static void method(String s, Predicate&lt;String&gt; one, Predicate&lt;String&gt; two){
         boolean isValid = one.and(two).test(s);
         System.out.println(&quot;字符串符合要求吗：&quot; + isValid);
     }
-    &#x2F;*
+    /*
         contains(String str)
             当且仅当该字符串包含str时，返回true，反之返回false
-     *&#x2F;
+     */
     public static void main(String[] args) {
         method(&quot;Helloworld&quot;,s-&gt;s.contains(&quot;H&quot;),s-&gt;s.contains(&quot;W&quot;));
     }
 }
-&#x2F;&#x2F; result:false
+// result:false
 </code></pre>
 <h4 id="默认方法：or"><a href="#默认方法：or" class="headerlink" title="默认方法：or"></a>默认方法：or</h4><p>与<code>and</code>类似的，默认方法<code>or</code>实现逻辑关系中的”<strong>或</strong>“。</p>
 <p>如果希望实现逻辑”字符串包含大写H或者大写W”，那么只需要将上个例子代码<code>and</code>修改为<code>or</code>即可实现。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoPredicateAnd {
+<pre><code class="java">public class DemoPredicateAnd {
     public static void method(String s, Predicate&lt;String&gt; one, Predicate&lt;String&gt; two){
-        &#x2F;&#x2F; 只需修改and--&gt;or即可
+        // 只需修改and--&gt;or即可
         boolean isValid = one.or(two).test(s);
         System.out.println(&quot;字符串符合要求吗：&quot; + isValid);
     }
@@ -811,29 +771,23 @@ String[] arr = { &quot;迪丽热巴,女&quot;, &quot;古力娜扎,女&quot;, &qu
 }
 </code></pre>
 <h4 id="默认方法：negate"><a href="#默认方法：negate" class="headerlink" title="默认方法：negate"></a>默认方法：negate</h4><p>“非”(取反)。源码中只是对结果boolean值进行”!”取反而已。调用方法跟<code>and</code>和<code>or</code>一样。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoPredicateNegate {
+<pre><code class="java">public class DemoPredicateNegate {
     public static void method(Predicate&lt;String&gt; pre){
         boolean isLong = pre.negate().test(&quot;helloworld&quot;);
         System.out.println(&quot;字符串很长吗：&quot;+isLong);
     }
     public static void main(String[] args) {
-        method(s-&gt;s.length()&lt;5); &#x2F;&#x2F; true
+        method(s-&gt;s.length()&lt;5); // true
     }
 }
 </code></pre>
 <h3 id="3-6-练习：集合信息筛选"><a href="#3-6-练习：集合信息筛选" class="headerlink" title="3.6 练习：集合信息筛选"></a>3.6 练习：集合信息筛选</h3><p>数组当中有多条”姓名+性别”格式的信息，通过<code>Predicate</code>接口的方法将符合要求的字符串筛选到集合<code>ArrayList</code>中，需同时满足以下两个条件：</p>
 <pre><code>1. 必须为女生
  2. 姓名必须是4个字
-</code></pre>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F;数组
+</code></pre><pre><code class="java">//数组
 String[] array = { &quot;迪丽热巴,女&quot;, &quot;古力娜扎,女&quot;, &quot;马尔扎哈,男&quot;, &quot;赵丽颖,女&quot; };
 </code></pre>
-<h4 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ExercisePredicate {
+<h4 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h4><pre><code class="java">public class ExercisePredicate {
     public static boolean FilterArray(String s, Predicate&lt;String&gt; one,Predicate&lt;String&gt; two){
         return one.and(two).test(s);
     }
@@ -852,17 +806,15 @@ String[] array = { &quot;迪丽热巴,女&quot;, &quot;古力娜扎,女&quot;, &
 <h3 id="3-7-Function接口"><a href="#3-7-Function接口" class="headerlink" title="3.7 Function接口"></a>3.7 Function接口</h3><p><code>java.util.function.Function&lt;T,R&gt;</code>接口用来根据一个类型的数据得到另一个类型的数据，前者称为前置条件，后者称为后置条件。</p>
 <h4 id="抽象方法：apply"><a href="#抽象方法：apply" class="headerlink" title="抽象方法：apply"></a>抽象方法：apply</h4><p>Function接口中最主要的抽象方法为：<code>R apply(T t)</code>，根据类型T的参数获取类型R的结果。</p>
 <p>​    使用的场景例如：将<code>String</code>类型转换为<code>Integer</code>类型。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoFunctionApply {
-    &#x2F;*
+<pre><code class="java">public class DemoFunctionApply {
+    /*
         定义一个方法
         方法的参数传递 一个字符串类型的整数
         方法的参数传递以Function接口，泛型使用&lt;String,Integer&gt;
         使用Function接口中的方法apply，把字符串类型的整数，转换为Integer类型的整数
-     *&#x2F;
+     */
     public static void change(String s, Function&lt;String,Integer&gt; fun){
-        int in = fun.apply(s); &#x2F;&#x2F; 自动拆箱，Integer-&gt;int
+        int in = fun.apply(s); // 自动拆箱，Integer-&gt;int
         System.out.println(in);
     }
     public static void main(String[] args) {
@@ -872,10 +824,8 @@ String[] array = { &quot;迪丽热巴,女&quot;, &quot;古力娜扎,女&quot;, &
 </code></pre>
 <h4 id="默认方法：andThen"><a href="#默认方法：andThen" class="headerlink" title="默认方法：andThen"></a>默认方法：andThen</h4><p><code>Function</code>接口中有一个默认的andThen方法，用来进行组合操作。</p>
 <p>​    该方法同样用于“先做什么，再做什么”的场景，和<code>Consumer</code>中的<code>andThen</code>差不多</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;*
-	分析：
+<pre><code class="java">/*
+    分析：
         转换了两次
         第一次是把String类型转换为了Integer类型
             所以我们可以使用Function&lt;String,Integer&gt; fun1
@@ -887,15 +837,15 @@ String[] array = { &quot;迪丽热巴,女&quot;, &quot;古力娜扎,女&quot;, &
             String s = fun1.andThen(fun2).apply(&quot;123&quot;);
             fun1先调用apply方法，把字符串转换为Integer
             fun2再调用apply方法，把Integer转换为字符串
-*&#x2F;
+*/
 public class DemoFunctionAndThen {
     public static void MySwitch(String s, Function&lt;String,Integer&gt; fun1,Function&lt;Integer,String&gt; fun2){
         String str = fun1.andThen(fun2).apply(s);
-        System.out.println(str); &#x2F;&#x2F; 133
+        System.out.println(str); // 133
     }
     public static void main(String[] args) {
         String s = &quot;123&quot;;
-        MySwitch(s,str-&gt;Integer.parseInt(str)+10,i-&gt;i+&quot;&quot;);&#x2F;&#x2F; 字符串转换为整数并+10，然后再转换回字符串
+        MySwitch(s,str-&gt;Integer.parseInt(str)+10,i-&gt;i+&quot;&quot;);// 字符串转换为整数并+10，然后再转换回字符串
     }
 }
 </code></pre>
@@ -903,16 +853,14 @@ public class DemoFunctionAndThen {
 <pre><code>1. 将字符串截取数字年龄部分，得到字符串
  2. 将年龄字符串转换为int类型的数字
  3. 将int数字累加100，得到结果int数字
-</code></pre><h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ExerciseFunction {
+</code></pre><h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="java">public class ExerciseFunction {
     public static int change(String s, Function&lt;String,String&gt; one,Function&lt;String,Integer&gt; two,Function&lt;Integer,Integer&gt; three){
         return one.andThen(two).andThen(three).apply(s);
     }
     public static void main(String[] args) {
         String str = &quot;赵丽颖,20&quot;;
         int n = change(str, s -&gt; s.split(&quot;,&quot;)[1], s -&gt; Integer.parseInt(s), i -&gt; i += 100);
-        System.out.println(n); &#x2F;&#x2F; 120
+        System.out.println(n); // 120
     }
 }
 </code></pre>
@@ -1189,7 +1137,7 @@ B/S结构：全称为Brower/Server结构，是指浏览器和服务器结构。�
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

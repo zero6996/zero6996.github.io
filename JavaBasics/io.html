@@ -417,14 +417,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.7k
+                        5.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        22 分
+                        21 分
                     </div>
                     
                 
@@ -455,17 +455,15 @@
 <ol>
 <li>基本流代码</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class BufferedDemo01 {
+<pre><code class="java">public class BufferedDemo01 {
     public static void main(String[] args) {
-        long start = System.currentTimeMillis(); &#x2F;&#x2F; 记录开始时间
-        &#x2F;&#x2F; 创建流对象
+        long start = System.currentTimeMillis(); // 记录开始时间
+        // 创建流对象
         try(
             FileInputStream fis = new FileInputStream(&quot;D:\\chrome\\IdeaInstall.exe&quot;);
             FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\copy.exe&quot;);
         ){
-            &#x2F;&#x2F;读写数据
+            //读写数据
             int b;
             while ((b = fis.read())!=-1){
                 fos.write(b);
@@ -473,25 +471,23 @@
         }catch (IOException e) {
             e.printStackTrace();
         }
-        long end = System.currentTimeMillis();&#x2F;&#x2F; 记录结束时间
+        long end = System.currentTimeMillis();// 记录结束时间
         System.out.println(&quot;普通流复制560MB所需时间：&quot;+(end-start)+&quot;毫秒&quot;);
     }
 }
-&#x2F;&#x2F; result: long long time
+// result: long long time
 </code></pre>
 <ol start="2">
 <li>缓冲流代码</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ButteredDemo02 {
+<pre><code class="java">public class ButteredDemo02 {
     public static void main(String[] args) {
-        long start = System.currentTimeMillis(); &#x2F;&#x2F; 记录开始时间
-        try(&#x2F;&#x2F; 创建缓冲流对象
+        long start = System.currentTimeMillis(); // 记录开始时间
+        try(// 创建缓冲流对象
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(&quot;D:\\chrome\\IdeaInstall.exe&quot;));
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\copy2.exe&quot;))
         ){
-            &#x2F;&#x2F;读写数据
+            //读写数据
             int b;
             while ((b = bis.read())!=-1){
                 bos.write(b);
@@ -499,38 +495,36 @@
         } catch (IOException e) {
             e.printStackTrace();
         }
-        long end = System.currentTimeMillis(); &#x2F;&#x2F; 记录结束时间
+        long end = System.currentTimeMillis(); // 记录结束时间
         System.out.println(&quot;缓冲流复制560MB所需时间：&quot;+(end-start)+&quot;毫秒&quot;);
     }
 }
-&#x2F;&#x2F; result：缓冲流复制560MB所需时间：40171毫秒
+// result：缓冲流复制560MB所需时间：40171毫秒
 </code></pre>
 <ol start="3">
 <li>使用数组优化</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ButteredDemo02 {
+<pre><code class="java">public class ButteredDemo02 {
     public static void main(String[] args) {
-        long start = System.currentTimeMillis(); &#x2F;&#x2F; 记录开始时间
-        try(&#x2F;&#x2F; 创建缓冲流对象
+        long start = System.currentTimeMillis(); // 记录开始时间
+        try(// 创建缓冲流对象
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(&quot;D:\\chrome\\IdeaInstall.exe&quot;));
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\copy2.exe&quot;))
         ){
-            &#x2F;&#x2F;读写数据
+            //读写数据
             int len;
-            byte[] bytes = new byte[8*1024]; &#x2F;&#x2F; 使用数组对象优化
+            byte[] bytes = new byte[8*1024]; // 使用数组对象优化
             while ((len = bis.read(bytes))!=-1){
-                bos.write(bytes,0,len);  &#x2F;&#x2F; 只写入有效字节数据
+                bos.write(bytes,0,len);  // 只写入有效字节数据
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        long end = System.currentTimeMillis(); &#x2F;&#x2F; 记录结束时间
+        long end = System.currentTimeMillis(); // 记录结束时间
         System.out.println(&quot;缓冲流使用数组复制560MB所需时间：&quot;+(end-start)+&quot;毫秒&quot;);
     }
 }
-&#x2F;&#x2F; result:	缓冲流使用数组复制560MB所需时间：2847毫秒
+// result:    缓冲流使用数组复制560MB所需时间：2847毫秒
 </code></pre>
 <h3 id="1-2-字符缓冲流"><a href="#1-2-字符缓冲流" class="headerlink" title="1.2 字符缓冲流"></a>1.2 字符缓冲流</h3><h4 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
 <li><code>public BufferedReader(Reader in)</code> ：创建一个新的字符缓冲输入流。 </li>
@@ -542,45 +536,39 @@
 <li>BufferedWriter：<code>public void newLine()</code>: 写一行行分隔符,由系统属性定义符号。 </li>
 </ul>
 <p><code>readLine</code>方法演示：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class BufferedReaderDemo01 {
+<pre><code class="java">public class BufferedReaderDemo01 {
     public static void main(String[] args) throws IOException {
-        &#x2F;&#x2F; 创建流对象
+        // 创建流对象
         BufferedReader br = new BufferedReader(new FileReader(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\read.txt&quot;));
-        &#x2F;&#x2F; 定义字符串，保存读取的一行文字
+        // 定义字符串，保存读取的一行文字
         String line;
-        &#x2F;&#x2F; 循环读取，直到读取到null
+        // 循环读取，直到读取到null
         while ((line = br.readLine())!=null){
             System.out.print(line);
             System.out.println(&quot;，&quot;);
         }
-        br.close(); &#x2F;&#x2F; 释放资源
+        br.close(); // 释放资源
     }
 }
 </code></pre>
 <p><code>newLine</code>方法演示：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class BufferedWriterDemo02 {
+<pre><code class="java">public class BufferedWriterDemo02 {
     public static void main(String[] args) throws IOException {
-        &#x2F;&#x2F; 创建流对象
+        // 创建流对象
         BufferedWriter bw = new BufferedWriter(new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\out.txt&quot;));
-        &#x2F;&#x2F; 写出数据
+        // 写出数据
         bw.write(&quot;你好&quot;);
-        bw.newLine(); &#x2F;&#x2F; 写出换行
+        bw.newLine(); // 写出换行
         bw.write(&quot;世界&quot;);
         bw.newLine();
         bw.close();
     }
 }
-&#x2F;&#x2F; result:
+// result:
 你好
 世界
 </code></pre>
-<h3 id="1-3-练习：文本排序"><a href="#1-3-练习：文本排序" class="headerlink" title="1.3 练习：文本排序"></a>1.3 练习：文本排序</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-clike">3.侍中、侍郎郭攸之、费祎、董允等，此皆良实，志虑忠纯，是以先帝简拔以遗陛下。愚以为宫中之事，事无大小，悉以咨之，然后施行，必得裨补阙漏，有所广益。
+<h3 id="1-3-练习：文本排序"><a href="#1-3-练习：文本排序" class="headerlink" title="1.3 练习：文本排序"></a>1.3 练习：文本排序</h3><pre><code>3.侍中、侍郎郭攸之、费祎、董允等，此皆良实，志虑忠纯，是以先帝简拔以遗陛下。愚以为宫中之事，事无大小，悉以咨之，然后施行，必得裨补阙漏，有所广益。
 8.愿陛下托臣以讨贼兴复之效，不效，则治臣之罪，以告先帝之灵。若无兴德之言，则责攸之、祎、允等之慢，以彰其咎；陛下亦宜自谋，以咨诹善道，察纳雅言，深追先帝遗诏，臣不胜受恩感激。
 4.将军向宠，性行淑均，晓畅军事，试用之于昔日，先帝称之曰能，是以众议举宠为督。愚以为营中之事，悉以咨之，必能使行阵和睦，优劣得所。
 2.宫中府中，俱为一体，陟罚臧否，不宜异同。若有作奸犯科及为忠善者，宜付有司论其刑赏，以昭陛下平明之理，不宜偏私，使内外异法也。
@@ -589,38 +577,35 @@
 6.臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以臣卑鄙，猥自枉屈，三顾臣于草庐之中，咨臣以当世之事，由是感激，遂许先帝以驱驰。后值倾覆，受任于败军之际，奉命于危难之间，尔来二十有一年矣。
 7.先帝知臣谨慎，故临崩寄臣以大事也。受命以来，夙夜忧叹，恐付托不效，以伤先帝之明，故五月渡泸，深入不毛。今南方已定，兵甲已足，当奖率三军，北定中原，庶竭驽钝，攘除奸凶，兴复汉室，还于旧都。此臣所以报先帝而忠陛下之职分也。至于斟酌损益，进尽忠言，则攸之、祎、允之任也。
 5.亲贤臣，远小人，此先汉所以兴隆也；亲小人，远贤臣，此后汉所以倾颓也。先帝在时，每与臣论此事，未尝不叹息痛恨于桓、灵也。侍中、尚书、长史、参军，此悉贞良死节之臣，愿陛下亲之信之，则汉室之隆，可计日而待也。
-</code></pre>
-<h4 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h4><ol>
+</code></pre><h4 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h4><ol>
 <li>逐行读取文本信息。</li>
 <li>解析文本信息到集合中。</li>
 <li>遍历集合，按顺序，写出文本信息。</li>
 </ol>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class BufferedExercise {
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="java">public class BufferedExercise {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 创建map集合，保存文本数据，键为序号，值为文字
+        // 创建map集合，保存文本数据，键为序号，值为文字
         HashMap&lt;String,String&gt; lineMap = new HashMap&lt;&gt;();
-        &#x2F;&#x2F; 创建流对象
+        // 创建流对象
         try(
                 BufferedReader br = new BufferedReader(new FileReader(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\出师表.txt&quot;));
                 BufferedWriter bw = new BufferedWriter(new FileWriter(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\sort.txt&quot;))
         ){
-            &#x2F;&#x2F; 循环读取数据，解析存入map中
+            // 循环读取数据，解析存入map中
             String line;
             while((line = br.readLine())!=null){
-                &#x2F;&#x2F; 解析文本
-                String[] split = line.split(&quot;\\.&quot;); &#x2F;&#x2F; 以&quot;.&quot;作为分隔符，将一行分为序号和文字两部分
-                lineMap.put(split[0],split[1]);&#x2F;&#x2F; 序号为键，文字为值，存入集合中
+                // 解析文本
+                String[] split = line.split(&quot;\\.&quot;); // 以&quot;.&quot;作为分隔符，将一行分为序号和文字两部分
+                lineMap.put(split[0],split[1]);// 序号为键，文字为值，存入集合中
             }
-            &#x2F;&#x2F; 遍历map集合
+            // 遍历map集合
             for (int i = 1; i &lt;= lineMap.size(); i++) {
-                String key = String.valueOf(i); &#x2F;&#x2F; 获取键名为i的键
-                &#x2F;&#x2F; 获取map中的文本
-                String value = lineMap.get(key); &#x2F;&#x2F; 获取键名为key的对应值
-                &#x2F;&#x2F; 拼接字符串，并写出
+                String key = String.valueOf(i); // 获取键名为i的键
+                // 获取map中的文本
+                String value = lineMap.get(key); // 获取键名为key的对应值
+                // 拼接字符串，并写出
                 bw.write(key + &quot;.&quot; + value);
-                bw.newLine(); &#x2F;&#x2F; 写出换行
+                bw.newLine(); // 写出换行
             }
         }catch (IOException e){
             e.printStackTrace();
@@ -678,26 +663,24 @@
 <li><code>InputStreamReader(InputStream in)</code>: 创建一个使用默认字符集的字符流。 </li>
 <li><code>InputStreamReader(InputStream in, String charsetName)</code>: 创建一个指定字符集的字符流。`</li>
 </ul>
-<h4 id="指定编码读取Demo"><a href="#指定编码读取Demo" class="headerlink" title="指定编码读取Demo"></a>指定编码读取Demo</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ReaderDemo {
+<h4 id="指定编码读取Demo"><a href="#指定编码读取Demo" class="headerlink" title="指定编码读取Demo"></a>指定编码读取Demo</h4><pre><code class="java">public class ReaderDemo {
     public static void main(String[] args) throws IOException {
-        &#x2F;&#x2F; 定义文件路径
+        // 定义文件路径
         String FilePath = &quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\file_gbk.txt&quot;;
-        &#x2F;&#x2F; 创建流对象，默认UTF8编码
+        // 创建流对象，默认UTF8编码
         InputStreamReader isr = new InputStreamReader(new FileInputStream(FilePath));
-        &#x2F;&#x2F; 创建流对象，指定GBK编码
+        // 创建流对象，指定GBK编码
         InputStreamReader isr2 = new InputStreamReader(new FileInputStream(FilePath),&quot;GBK&quot;);
-        &#x2F;&#x2F; 定义变量，保存字符
+        // 定义变量，保存字符
         int read;
-        &#x2F;&#x2F; 使用默认编码字符流读取，乱码
+        // 使用默认编码字符流读取，乱码
         while ((read = isr.read())!=-1){
-            System.out.print((char)read); &#x2F;&#x2F; ��Һ�
+            System.out.print((char)read); // ��Һ�
         }
         isr.close();
-        &#x2F;&#x2F; 使用指定GBK编码字符流读取
+        // 使用指定GBK编码字符流读取
         while ((read = isr2.read())!=-1){
-            System.out.println((char)read); &#x2F;&#x2F; 大家好
+            System.out.println((char)read); // 大家好
         }
         isr2.close();
     }
@@ -708,20 +691,18 @@
 <li><code>OutputStreamWriter(OutputStream in)</code>: 创建一个使用默认字符集的字符流。 </li>
 <li><code>OutputStreamWriter(OutputStream in, String charsetName)</code>: 创建一个指定字符集的字符流。</li>
 </ul>
-<h4 id="指定编码写出Demo"><a href="#指定编码写出Demo" class="headerlink" title="指定编码写出Demo"></a>指定编码写出Demo</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class OutPutDemo {
+<h4 id="指定编码写出Demo"><a href="#指定编码写出Demo" class="headerlink" title="指定编码写出Demo"></a>指定编码写出Demo</h4><pre><code class="java">public class OutPutDemo {
     public static void main(String[] args) throws IOException {
         String FilePath = &quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\&quot;;
-        &#x2F;&#x2F; 创建流对象，默认UTF8编码
+        // 创建流对象，默认UTF8编码
         OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(FilePath + &quot;out2.txt&quot;));
-        &#x2F;&#x2F; 写出数据
-        osw.write(&quot;你好&quot;); &#x2F;&#x2F; 保存为6个字节
+        // 写出数据
+        osw.write(&quot;你好&quot;); // 保存为6个字节
         osw.close();
-        &#x2F;&#x2F; 创建流对象，指定GBK编码
+        // 创建流对象，指定GBK编码
         OutputStreamWriter osw2 = new OutputStreamWriter(new FileOutputStream(FilePath + &quot;out3.txt&quot;),&quot;GBK&quot;);
-        &#x2F;&#x2F; 写出数据
-        osw2.write(&quot;你好&quot;); &#x2F;&#x2F; 保存为4个字节
+        // 写出数据
+        osw2.write(&quot;你好&quot;); // 保存为4个字节
         osw2.close();
     }
 }
@@ -733,19 +714,17 @@
 <li>指定GBK编码的转换流，读取文本文件。</li>
 <li>使用UTF-8编码的转换流，写出文本文件。</li>
 </ol>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class CodeSwitchDemo {
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="java">public class CodeSwitchDemo {
     public static void main(String[] args) {
-        try( &#x2F;&#x2F; 1. 指定GBK编码的转换流，读取文本文件。
+        try( // 1. 指定GBK编码的转换流，读取文本文件。
              InputStreamReader isr = new InputStreamReader(new FileInputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\file_gbk.txt&quot;),&quot;GBK&quot;);
-             OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\codeswitch.txt&quot;)) &#x2F;&#x2F; 默认就是utf8
+             OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\codeswitch.txt&quot;)) // 默认就是utf8
         ){
-            &#x2F;&#x2F; 读取文件
-            char[] chars = new char[1024]; &#x2F;&#x2F; 定义字符数组
+            // 读取文件
+            char[] chars = new char[1024]; // 定义字符数组
             int len;
-            while ((len = isr.read(chars))!=-1){ &#x2F;&#x2F; 使用字符数组优化读取
-                osw.write(chars,0,len); &#x2F;&#x2F; 写出
+            while ((len = isr.read(chars))!=-1){ // 使用字符数组优化读取
+                osw.write(chars,0,len); // 写出
             }
         }catch (IOException e){
             e.printStackTrace();
@@ -767,14 +746,12 @@
 <li>该类必须实现<code>java.io.Serializable</code> 接口，<code>Serializable</code> 是一个标记接口，不实现此接口的类将不会使任何状态序列化或反序列化，会抛出<code>NotSerializableException</code> 。</li>
 <li>该类的所有属性必须是可序列化的。如果有一个属性不需要可序列化的，则该属性必须注明是瞬态的，使用<code>transient</code> 关键字修饰。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Employee implements java.io.Serializable {
+<pre><code class="java">public class Employee implements java.io.Serializable {
     public String name;
     public String address;
-    public transient int age; &#x2F;&#x2F; transient瞬态修饰成员,不会被序列化
+    public transient int age; // transient瞬态修饰成员,不会被序列化
     public void addressCheck() {
-      	System.out.println(&quot;Address  check : &quot; + name + &quot; -- &quot; + address);
+          System.out.println(&quot;Address  check : &quot; + name + &quot; -- &quot; + address);
     }
 }
 </code></pre>
@@ -784,10 +761,8 @@
 <ul>
 <li><code>public final void writeObject (Object obj)</code> : 将指定的对象写出。</li>
 </ul>
-<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 测试类
-&#x2F;*
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre><code class="java">// 测试类
+/*
 java.io.ObjectOutputStream extends OutputStream
     ObjectOutputStream: 对象序列化流
     作用：把对象以流的方式写入到文件中保存
@@ -797,19 +772,19 @@ java.io.ObjectOutputStream extends OutputStream
         参数：OutputStream out：字节输出流
     特有成员方法：
         void writeObject(Object obj):将指定对象写入ObjectOutputStream
-*&#x2F;
+*/
 public class Demo01ObjectOutputStream {
     public static void main(String[] args) throws IOException {
-        &#x2F;&#x2F; 1. 创建ObjectOutputStream，构造方法中传递字节输出流
+        // 1. 创建ObjectOutputStream，构造方法中传递字节输出流
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\person.txt&quot;));
-        &#x2F;&#x2F; 2. 使用ObjectOutputStream对象中的方法writeObject()，把对象写入到文件中
+        // 2. 使用ObjectOutputStream对象中的方法writeObject()，把对象写入到文件中
         oos.writeObject(new Person(&quot;小张&quot;,11));
-        &#x2F;&#x2F; 3. 释放资源
+        // 3. 释放资源
         oos.close();
     }
 }
-&#x2F;&#x2F; Person类
-&#x2F;*
+// Person类
+/*
     序列化和反序列化时，会抛出NotSerializableException(没有序列化异常)
     类通过实现 Java.io.Serializable 接口以启用其序列化功能。未实现此接口的类将无法使其进行任何状态序列化或反序列化。
     Serializable接口也叫标记型接口
@@ -817,14 +792,14 @@ public class Demo01ObjectOutputStream {
         当我们进行序列化和反序列化时，就会检测该类是否有这个标记
             有：就可以进行序列化和反序列化操作
             无：就会抛出NotSerializableException异常
- *&#x2F;
+ */
 public class Person implements Serializable {
     private String name;
     private int age;
 
     public Person() {
     }
-    &#x2F;&#x2F; 省略get&#x2F;set等方法
+    // 省略get/set等方法
 }
 </code></pre>
 <h3 id="3-2-ObjectInputStream类"><a href="#3-2-ObjectInputStream类" class="headerlink" title="3.2 ObjectInputStream类"></a>3.2 ObjectInputStream类</h3><p><code>ObjectInputStream</code>反序列化流，将之前使用<code>ObjectOutputStream</code>序列化的原始数据恢复为对象。 </p>
@@ -835,9 +810,7 @@ public class Person implements Serializable {
 <ul>
 <li><code>public final Object readObject ()</code> : 读取一个对象。</li>
 </ul>
-<h4 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;*
+<h4 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h4><pre><code class="java">/*
 java.io.ObjectInputStream extends InputStream
     ObjectInputStream:对象的反序列化流
     作用：把文件中保存的对象，以流的方式读取出来使用
@@ -847,24 +820,24 @@ java.io.ObjectInputStream extends InputStream
         参数：InputStream in：字节输入流
     特有成员方法：
         Object readObject(): 从ObjectInputStream 读取对象
-*&#x2F;
+*/
 public class Demo01InputStream {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        &#x2F;&#x2F; 1. 创建ObjectInputStream对象，构造方法中传递字节输入流
+        // 1. 创建ObjectInputStream对象，构造方法中传递字节输入流
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\person.txt&quot;));
-        &#x2F;&#x2F; 2. 使用ObjectInputStream对象的方法readObject() 读取保存对象的文件
+        // 2. 使用ObjectInputStream对象的方法readObject() 读取保存对象的文件
         Object obj = ois.readObject();
-       	&#x2F;*
-       		readObject()方法声明抛出了ClassNotFoundException(class文件找不到异常)
+           /*
+               readObject()方法声明抛出了ClassNotFoundException(class文件找不到异常)
             当不存在对象的class文件时抛出此异常
             反序列化前提：
                 1. 类必须实现Serializable
                 2. 必须存在类对应的class文件
-       	*&#x2F;
-        &#x2F;&#x2F; 3. 释放资源
+           */
+        // 3. 释放资源
         ois.close();
-        &#x2F;&#x2F; 4. 使用读取出来的对象
-        System.out.println(obj); &#x2F;&#x2F; Person{name=&#39;小张&#39;, age=11}
+        // 4. 使用读取出来的对象
+        System.out.println(obj); // Person{name=&#39;小张&#39;, age=11}
     }
 }
 </code></pre>
@@ -879,13 +852,11 @@ public class Demo01InputStream {
 </ul>
 <p><code>Serializable</code> 接口给需要序列化的类，提供了一个序列版本号。</p>
 <p><code>serialVersionUID</code> 该版本号的目的在于验证序列化的对象和对应类是否版本匹配。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Person implements Serializable {
-    private static final long serialVersionUID = 1L; &#x2F;&#x2F; 加入固定序列版本号
+<pre><code class="java">public class Person implements Serializable {
+    private static final long serialVersionUID = 1L; // 加入固定序列版本号
     private String name;
-    public int age;	
-    &#x2F;&#x2F; 省略构造方法，get&#x2F;set等
+    public int age;    
+    // 省略构造方法，get/set等
 }
 </code></pre>
 <h3 id="3-3-练习：序列化集合"><a href="#3-3-练习：序列化集合" class="headerlink" title="3.3 练习：序列化集合"></a>3.3 练习：序列化集合</h3><ol>
@@ -898,9 +869,7 @@ public class Demo01InputStream {
 <li>反序列化读取时，只需要读取一次，转换为集合类型。</li>
 <li>遍历集合，可以打印所有的学生信息</li>
 </ol>
-<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 序列化操作
+<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="java">// 序列化操作
 public class StudentSerializableDemo {
     public static void main(String[] args) throws IOException {
     ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\students.txt&quot;));
@@ -912,13 +881,13 @@ public class StudentSerializableDemo {
     oos.close();
 }
 }
-&#x2F;&#x2F; 反序列化操作
+// 反序列化操作
 public class StudentDemo2 {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\students.txt&quot;));
-        &#x2F;&#x2F; 读取，强转为ArrayList类型
+        // 读取，强转为ArrayList类型
         ArrayList&lt;Person&gt; stuobj = (ArrayList&lt;Person&gt;) ois.readObject();
-        &#x2F;&#x2F; 遍历打印
+        // 遍历打印
         for (Person p:stuobj){
             System.out.println(p);
         }
@@ -931,16 +900,14 @@ public class StudentDemo2 {
 <li><code>public PrintStream(String fileName)</code>： 使用指定的文件名创建一个新的打印流。</li>
 </ul>
 <h4 id="改变打印流向"><a href="#改变打印流向" class="headerlink" title="改变打印流向"></a>改变打印流向</h4><p><code>System.out</code>就是<code>PrintStream</code>类型的，只不过它的流向是系统规定的，打印在控制台上。不过，既然是流对象，我们就可以改变它的流向。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class PrintDemo {
+<pre><code class="java">public class PrintDemo {
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println(97);
-        &#x2F;&#x2F; 创建打印流，指定文件名称
+        // 创建打印流，指定文件名称
         PrintStream ps = new PrintStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_10\\print.txt&quot;);
-        &#x2F;&#x2F; 设置系统的打印流向，输出到print.txt中
+        // 设置系统的打印流向，输出到print.txt中
         System.setOut(ps);
-        &#x2F;&#x2F; 调用系统打印里，就会在print.txt中输出97
+        // 调用系统打印里，就会在print.txt中输出97
         System.out.println(97);
     }
 }
@@ -1221,7 +1188,7 @@ Java中I/O操作主要是指使用java.io包下的内容，进行输入、输</d
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

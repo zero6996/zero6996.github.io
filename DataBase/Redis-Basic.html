@@ -412,7 +412,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.4k
+                        4.3k
                     </div>
                     
 
@@ -553,9 +553,7 @@
 <li>获取：<code>get key</code></li>
 <li>删除：<code>del key</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-powershell">127.0.0.1:6379&gt; set ts teststring
+<pre><code class="powershell">127.0.0.1:6379&gt; set ts teststring
 OK
 127.0.0.1:6379&gt; get ts
 &quot;teststring&quot;
@@ -571,9 +569,7 @@ OK
 </li>
 <li>删除：<code>hdel key field</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-powershell">127.0.0.1:6379&gt; hset myhash username shangsan
+<pre><code class="powershell">127.0.0.1:6379&gt; hset myhash username shangsan
 (integer) 1
 127.0.0.1:6379&gt; hset myhash password 123
 (integer) 1
@@ -603,9 +599,7 @@ OK
 </ul>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-powershell">127.0.0.1:6379&gt; lpush mylist c
+<pre><code class="powershell">127.0.0.1:6379&gt; lpush mylist c
 (integer) 9998
 127.0.0.1:6379&gt; lpush mylist b
 (integer) 9999
@@ -628,9 +622,7 @@ OK
 <li>获取：<code>smembers key</code>，获取集合中所有元素</li>
 <li>删除：<code>srem key value</code>，删除集合中的某个元素</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-powershell">127.0.0.1:6379&gt; sadd myset a
+<pre><code class="powershell">127.0.0.1:6379&gt; sadd myset a
 (integer) 1
 127.0.0.1:6379&gt; sadd myset a
 (integer) 0
@@ -645,9 +637,7 @@ OK
 <li>获取：<code>zrange key start end [withscores]</code>，withscores可以在获取时同时获取分数。</li>
 <li>删除：<code>zrem key value</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-powershell">127.0.0.1:6379&gt; zadd mysort 50 zhangsan
+<pre><code class="powershell">127.0.0.1:6379&gt; zadd mysort 50 zhangsan
 (integer) 1
 127.0.0.1:6379&gt; zadd mysort 36 lisi
 (integer) 1
@@ -668,9 +658,7 @@ OK
 <li><code>type key</code>：获取键对应的<code>value</code>类型</li>
 <li><code>del key</code>：删除指定的<code>key valu</code></li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-powershell">127.0.0.1:6379&gt; keys *
+<pre><code class="powershell">127.0.0.1:6379&gt; keys *
 1) &quot;counter:__rand_int__&quot;
 2) &quot;mylist&quot;
 3) &quot;key:__rand_int__&quot;
@@ -687,145 +675,127 @@ zset
 <li><p>RDB：默认方式，不需要进行配置。在一定的间隔时间中，检测key的变化情况，然后持久化数据。</p>
 <ul>
 <li><p>编辑<code>redis.windows.conf</code>文件</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-properties">    #   after 900 sec (15 min) if at least 1 key changed
-    save 900 1
-    #   after 300 sec (5 min) if at least 10 keys changed
-    save 300 10
-    #   after 60 sec if at least 10000 keys changed
-    save 60 10000
+<pre><code class="properties">#   after 900 sec (15 min) if at least 1 key changed
+save 900 1
+#   after 300 sec (5 min) if at least 10 keys changed
+save 300 10
+#   after 60 sec if at least 10000 keys changed
+save 60 10000
 </code></pre>
 </li>
-</ul>
+<li><p>重启redis服务器，并指定配置文件名称：<code>redis-server.exe redis.windows.conf</code></p>
 </li>
 </ul>
-<ul>
-<li>重启redis服务器，并指定配置文件名称：<code>redis-server.exe redis.windows.conf</code></li>
-</ul>
-<ul>
+</li>
 <li><p>AOF：日志记录的方式，可以记录每一条命令的操作。可以每一次命令操作后，持久化数据。</p>
 <ul>
 <li><p>编辑<code>redis.windows.conf</code>文件</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-properties">    # 开启AOF
-    appendonly yes
-    # 三种同步方式:
-    # 1. 每一次操作都进行持久化
-    # appendfsync always 
-    # 2. 每隔一秒进行一次持久化，缺省值
-    appendfsync everysec
-    # 3. 不进行持久化
-    # appendfsync no
+<pre><code class="properties"># 开启AOF
+appendonly yes
+# 三种同步方式:
+# 1. 每一次操作都进行持久化
+# appendfsync always 
+# 2. 每隔一秒进行一次持久化，缺省值
+appendfsync everysec
+# 3. 不进行持久化
+# appendfsync no
 </code></pre>
 </li>
+<li><p>重启服务器，指定配置文件。</p>
+</li>
 </ul>
 </li>
 </ul>
-<ul>
-<li>重启服务器，指定配置文件。</li>
-</ul>
 <h2 id="5-Java客户端：Jedis"><a href="#5-Java客户端：Jedis" class="headerlink" title="5. Java客户端：Jedis"></a>5. Java客户端：<code>Jedis</code></h2><p><code>Jedis</code>是一款java操作redis数据库的工具。</p>
-<h3 id="5-1Jedis操作各种Redis中的数据结构"><a href="#5-1Jedis操作各种Redis中的数据结构" class="headerlink" title="5.1Jedis操作各种Redis中的数据结构"></a>5.1<code>Jedis</code>操作各种<code>Redis</code>中的数据结构</h3><h4 id="5-1-1-字符串类型："><a href="#5-1-1-字符串类型：" class="headerlink" title="5.1.1 字符串类型："></a>5.1.1 字符串类型：</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<h3 id="5-1Jedis操作各种Redis中的数据结构"><a href="#5-1Jedis操作各种Redis中的数据结构" class="headerlink" title="5.1Jedis操作各种Redis中的数据结构"></a>5.1<code>Jedis</code>操作各种<code>Redis</code>中的数据结构</h3><h4 id="5-1-1-字符串类型："><a href="#5-1-1-字符串类型：" class="headerlink" title="5.1.1 字符串类型："></a>5.1.1 字符串类型：</h4><pre><code class="java">@Test
 public void test2(){
-    &#x2F;&#x2F; 1. 获取连接
-    Jedis jedis = new Jedis(); &#x2F;&#x2F; 如果使用空参构造，默认值&#39;localhost&#39;,6379
-    &#x2F;&#x2F; 2. 操作
-    &#x2F;&#x2F; 存储
+    // 1. 获取连接
+    Jedis jedis = new Jedis(); // 如果使用空参构造，默认值&#39;localhost&#39;,6379
+    // 2. 操作
+    // 存储
     jedis.set(&quot;username&quot;,&quot;wangwu&quot;);
-    &#x2F;&#x2F; 获取
+    // 获取
     String username = jedis.get(&quot;username&quot;);
     System.out.println(username);
 
-    &#x2F;&#x2F; 可以使用setex()方法存储指定过期时间的 key value
-    jedis.setex(&quot;activecode&quot;,20,&quot;gj8a&quot;); &#x2F;&#x2F;将activecode：gj8a键值对存入redis，并且20秒后自动删除该键值对
+    // 可以使用setex()方法存储指定过期时间的 key value
+    jedis.setex(&quot;activecode&quot;,20,&quot;gj8a&quot;); //将activecode：gj8a键值对存入redis，并且20秒后自动删除该键值对
 
-    &#x2F;&#x2F; 3. 关闭连接
+    // 3. 关闭连接
     jedis.close();
 }
 </code></pre>
-<h4 id="5-1-2-哈希类型："><a href="#5-1-2-哈希类型：" class="headerlink" title="5.1.2 哈希类型："></a>5.1.2 哈希类型：</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<h4 id="5-1-2-哈希类型："><a href="#5-1-2-哈希类型：" class="headerlink" title="5.1.2 哈希类型："></a>5.1.2 哈希类型：</h4><pre><code class="java">@Test
 public void test3(){
-    &#x2F;&#x2F; 1. 获取连接
+    // 1. 获取连接
     Jedis jedis = new Jedis();
-    &#x2F;&#x2F; 2. 操作
-    &#x2F;&#x2F; 存储hash
+    // 2. 操作
+    // 存储hash
     jedis.hset(&quot;user&quot;,&quot;name&quot;,&quot;lisi&quot;);
     jedis.hset(&quot;user&quot;,&quot;age&quot;,&quot;23&quot;);
     jedis.hset(&quot;user&quot;,&quot;gender&quot;,&quot;female&quot;);
-    &#x2F;&#x2F; 获取hash
+    // 获取hash
     String name = jedis.hget(&quot;user&quot;, &quot;name&quot;);
     System.out.println(name);
-    &#x2F;&#x2F; 获取hash的所有map中的数据
+    // 获取hash的所有map中的数据
     Map&lt;String, String&gt; user = jedis.hgetAll(&quot;user&quot;);
     Set&lt;String&gt; keySet = user.keySet();
     for (String key:keySet) {
         String value = user.get(key);
         System.out.println(key+&quot;:&quot;+value);
     }
-    &#x2F;&#x2F; 3. 关闭连接
+    // 3. 关闭连接
     jedis.close();
 }
 </code></pre>
-<h4 id="5-1-3-列表类型："><a href="#5-1-3-列表类型：" class="headerlink" title="5.1.3 列表类型："></a>5.1.3 列表类型：</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<h4 id="5-1-3-列表类型："><a href="#5-1-3-列表类型：" class="headerlink" title="5.1.3 列表类型："></a>5.1.3 列表类型：</h4><pre><code class="java">@Test
 public void test4() {
-    &#x2F;&#x2F; 1. 获取连接
+    // 1. 获取连接
     Jedis jedis = new Jedis();
-    &#x2F;&#x2F; 2. 操作
+    // 2. 操作
     jedis.del(&quot;mylist&quot;);
-    &#x2F;&#x2F; list存储
-    jedis.lpush(&quot;mylist&quot;,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;); &#x2F;&#x2F; 从左边存
-    jedis.rpush(&quot;mylist&quot;,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;); &#x2F;&#x2F; 从右边存
-    &#x2F;&#x2F; 获取
+    // list存储
+    jedis.lpush(&quot;mylist&quot;,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;); // 从左边存
+    jedis.rpush(&quot;mylist&quot;,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;); // 从右边存
+    // 获取
     List&lt;String&gt; mylist = jedis.lrange(&quot;mylist&quot;, 0, -1);
-    System.out.println(mylist); &#x2F;&#x2F; [c, b, a, a, b, c]
-    &#x2F;&#x2F; 弹出
+    System.out.println(mylist); // [c, b, a, a, b, c]
+    // 弹出
     String element1 = jedis.lpop(&quot;mylist&quot;);
     System.out.println(element1);
     String element2 = jedis.rpop(&quot;mylist&quot;);
     System.out.println(element2);
     List&lt;String&gt; mylist２ = jedis.lrange(&quot;mylist&quot;, 0, -1);
     System.out.println(mylist２);
-    &#x2F;&#x2F; 3.关闭连接
+    // 3.关闭连接
     jedis.close();
 }
 </code></pre>
-<h4 id="5-1-4-集合类型："><a href="#5-1-4-集合类型：" class="headerlink" title="5.1.4 集合类型："></a>5.1.4 集合类型：</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<h4 id="5-1-4-集合类型："><a href="#5-1-4-集合类型：" class="headerlink" title="5.1.4 集合类型："></a>5.1.4 集合类型：</h4><pre><code class="java">@Test
 public void test5() {
-    &#x2F;&#x2F; 1. 获取连接
+    // 1. 获取连接
     Jedis jedis = new Jedis();
-    &#x2F;&#x2F; 2. 操作
-    &#x2F;&#x2F; 存储
+    // 2. 操作
+    // 存储
     jedis.sadd(&quot;myset&quot;,&quot;java&quot;,&quot;php&quot;,&quot;c&quot;);
-    &#x2F;&#x2F; 获取
+    // 获取
     Set&lt;String&gt; myset = jedis.smembers(&quot;myset&quot;);
     System.out.println(myset);
     jedis.close();
 }
 </code></pre>
-<h4 id="5-1-5-有序集合类型："><a href="#5-1-5-有序集合类型：" class="headerlink" title="5.1.5 有序集合类型："></a>5.1.5 有序集合类型：</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<h4 id="5-1-5-有序集合类型："><a href="#5-1-5-有序集合类型：" class="headerlink" title="5.1.5 有序集合类型："></a>5.1.5 有序集合类型：</h4><pre><code class="java">@Test
 public void test6() {
-    &#x2F;&#x2F; 1. 获取连接
+    // 1. 获取连接
     Jedis jedis = new Jedis();
-    &#x2F;&#x2F; 2. 操作
-    &#x2F;&#x2F; 存储
+    // 2. 操作
+    // 存储
     jedis.zadd(&quot;mysortedset&quot;,8,&quot;亚索&quot;);
     jedis.zadd(&quot;mysortedset&quot;,6,&quot;剑圣&quot;);
     jedis.zadd(&quot;mysortedset&quot;,3,&quot;vn&quot;);
-    &#x2F;&#x2F; 获取
+    // 获取
     Set&lt;String&gt; mysortedset = jedis.zrange(&quot;mysortedset&quot;, 0, -1);
-    System.out.println(mysortedset); &#x2F;&#x2F; [vn, 剑圣, 亚索]
+    System.out.println(mysortedset); // [vn, 剑圣, 亚索]
     jedis.close();
 }
 </code></pre>
@@ -836,9 +806,7 @@ public void test6() {
 </ul>
 </li>
 </ul>
-<h4 id="5-2-1-jedis详细配置"><a href="#5-2-1-jedis详细配置" class="headerlink" title="5.2.1 jedis详细配置"></a>5.2.1 <code>jedis</code>详细配置</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-properties">#最大活动对象数     
+<h4 id="5-2-1-jedis详细配置"><a href="#5-2-1-jedis详细配置" class="headerlink" title="5.2.1 jedis详细配置"></a>5.2.1 <code>jedis</code>详细配置</h4><pre><code class="properties">#最大活动对象数     
 redis.pool.maxTotal=1000    
 #最大能够保持idel状态的对象数      
 redis.pool.maxIdle=100  
@@ -861,9 +829,7 @@ redis.ip=xxxxxx
 #redis服务器的Port    
 redis1.port=6379   
 </code></pre>
-<h4 id="5-2-2-自定义jedis工具类"><a href="#5-2-2-自定义jedis工具类" class="headerlink" title="5.2.2 自定义jedis工具类"></a>5.2.2 自定义<code>jedis</code>工具类</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.zero.jedis.util;
+<h4 id="5-2-2-自定义jedis工具类"><a href="#5-2-2-自定义jedis工具类" class="headerlink" title="5.2.2 自定义jedis工具类"></a>5.2.2 自定义<code>jedis</code>工具类</h4><pre><code class="java">package cn.zero.jedis.util;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -873,37 +839,37 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-&#x2F;**
+/**
  * JedisPool工具类
  *  加载配置文件，配置连接池参数
  *  提供获取连接的方法
- *&#x2F;
+ */
 public class JedisPoolUtils {
     private static JedisPool jedisPool;
     static {
-        &#x2F;&#x2F; 读取配置文件
+        // 读取配置文件
         InputStream is = JedisPoolUtils.class.getClassLoader().getResourceAsStream(&quot;jedis.properties&quot;);
-        &#x2F;&#x2F; 创建Properties对象
+        // 创建Properties对象
         Properties pro = new Properties();
-        &#x2F;&#x2F; 关联文件
+        // 关联文件
         try {
             pro.load(is);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        &#x2F;&#x2F; 获取数据，设置到JedisPoolConfig中
+        // 获取数据，设置到JedisPoolConfig中
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(Integer.parseInt(pro.getProperty(&quot;maxTotal&quot;)));
         config.setMaxIdle(Integer.parseInt(pro.getProperty(&quot;maxIdle&quot;)));
 
-        &#x2F;&#x2F; 初始化JedisPool
+        // 初始化JedisPool
         jedisPool = new JedisPool(config, pro.getProperty(&quot;host&quot;), Integer.parseInt(pro.getProperty(&quot;port&quot;)));
     }
-    
-    &#x2F;**
+
+    /**
      * 获取连接方法
      * @return
-     *&#x2F;
+     */
     public static Jedis getJedis(){
         return jedisPool.getResource();
     }
@@ -925,35 +891,33 @@ public class JedisPoolUtils {
 </li>
 </ul>
 <h3 id="6-2-代码实现"><a href="#6-2-代码实现" class="headerlink" title="6.2 代码实现"></a>6.2 代码实现</h3><p>后端service实现类核心代码：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">	&#x2F;**
+<pre><code class="java">    /**
      * 使用redis缓存
      * @return
-     *&#x2F;
+     */
     @Override
     public String findAllJson() {
-        &#x2F;&#x2F; 1. 先从redis中查询数据
-        &#x2F;&#x2F; 1.1 获取redis客户端连接对象
+        // 1. 先从redis中查询数据
+        // 1.1 获取redis客户端连接对象
         Jedis jedis = JedisPoolUtils.getJedis();
-        &#x2F;&#x2F; 1.2 查询数据
+        // 1.2 查询数据
         String province_json = jedis.get(&quot;province&quot;);
-        &#x2F;&#x2F; 2. 判断province_json 是否为null
+        // 2. 判断province_json 是否为null
         if (province_json == null || province_json.length() == 0){
-            &#x2F;&#x2F; redis中无数据
+            // redis中无数据
             System.out.println(&quot;redis中无数据，查询数据库...&quot;);
-            &#x2F;&#x2F; 2.1 从数据库中查询
+            // 2.1 从数据库中查询
             List&lt;Province&gt; ps = dao.findAll();
-            &#x2F;&#x2F; 2.2 将list序列化为json
+            // 2.2 将list序列化为json
             ObjectMapper mapper = new ObjectMapper();
             try {
                 province_json = mapper.writeValueAsString(ps);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-            &#x2F;&#x2F; 2.3 将json数据存入redis中
+            // 2.3 将json数据存入redis中
             jedis.set(&quot;province&quot;,province_json);
-            &#x2F;&#x2F; 归还连接
+            // 归还连接
             jedis.close();
         }else {
             System.out.println(&quot;redis中有数据，查询缓存...&quot;);
@@ -963,9 +927,7 @@ public class JedisPoolUtils {
     }
 </code></pre>
 <p>后端servlet代码：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.zero.web.servlet;
+<pre><code class="java">package cn.zero.web.servlet;
 
 import cn.zero.domain.Province;
 import cn.zero.service.impl.ProvinceServiceImpl;
@@ -975,21 +937,21 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(&quot;&#x2F;provinceServlet&quot;)
+@WebServlet(&quot;/provinceServlet&quot;)
 public class ProvinceServlet extends javax.servlet.http.HttpServlet {
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-&#x2F;&#x2F;        &#x2F;&#x2F; 1. 调用service查询
-&#x2F;&#x2F;        ProvinceServiceImpl service = new ProvinceServiceImpl();
-&#x2F;&#x2F;        List&lt;Province&gt; list = service.findAll();
-&#x2F;&#x2F;        &#x2F;&#x2F; 2. 序列化list为json
-&#x2F;&#x2F;        ObjectMapper mapper = new ObjectMapper();
-&#x2F;&#x2F;        String json = mapper.writeValueAsString(list);
+//        // 1. 调用service查询
+//        ProvinceServiceImpl service = new ProvinceServiceImpl();
+//        List&lt;Province&gt; list = service.findAll();
+//        // 2. 序列化list为json
+//        ObjectMapper mapper = new ObjectMapper();
+//        String json = mapper.writeValueAsString(list);
 
         ProvinceServiceImpl service = new ProvinceServiceImpl();
         String json = service.findAllJson();
         System.out.println(json);
-        &#x2F;&#x2F; 3. 响应结果
-        response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+        // 3. 响应结果
+        response.setContentType(&quot;application/json;charset=utf-8&quot;);
         response.getWriter().write(json);
 
     }
@@ -1000,38 +962,36 @@ public class ProvinceServlet extends javax.servlet.http.HttpServlet {
 }
 </code></pre>
 <p>前端代码：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Province&lt;&#x2F;title&gt;
-    &lt;script src=&quot;js&#x2F;jquery-3.3.1.min.js&quot;&gt;&lt;&#x2F;script&gt;
+    &lt;title&gt;Province&lt;/title&gt;
+    &lt;script src=&quot;js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
     &lt;script&gt;
         $(function () {
-            &#x2F;&#x2F; 发送ajax请求，加载所有省份数据
+            // 发送ajax请求，加载所有省份数据
             $.get(&quot;provinceServlet&quot;,{},function (data) {
-                &#x2F;&#x2F; data = [{&quot;id&quot;:1,&quot;name&quot;:&quot;北京&quot;},{&quot;id&quot;:2,&quot;name&quot;:&quot;上海&quot;},{&quot;id&quot;:3,&quot;name&quot;:&quot;广州&quot;},{&quot;id&quot;:4,&quot;name&quot;:&quot;深圳&quot;}]
-                &#x2F;&#x2F; 1. 获取select
+                // data = [{&quot;id&quot;:1,&quot;name&quot;:&quot;北京&quot;},{&quot;id&quot;:2,&quot;name&quot;:&quot;上海&quot;},{&quot;id&quot;:3,&quot;name&quot;:&quot;广州&quot;},{&quot;id&quot;:4,&quot;name&quot;:&quot;深圳&quot;}]
+                // 1. 获取select
                 var province = $(&quot;#province&quot;);
-                &#x2F;&#x2F; 2. 遍历json数组
+                // 2. 遍历json数组
                 $(data).each(function () {
-                    &#x2F;&#x2F; 3. 创建&lt;option&gt;
-                    var option = &quot;&lt;option name=&#39;&quot;+this.id+&quot;&#39;&gt;&quot;+this.name+&quot;&lt;&#x2F;option&gt;&quot;
-                    &#x2F;&#x2F; 4. 调用select的append追加option
+                    // 3. 创建&lt;option&gt;
+                    var option = &quot;&lt;option name=&#39;&quot;+this.id+&quot;&#39;&gt;&quot;+this.name+&quot;&lt;/option&gt;&quot;
+                    // 4. 调用select的append追加option
                     province.append(option);
                 });
             });
         });
-    &lt;&#x2F;script&gt;
-&lt;&#x2F;head&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
 &lt;body&gt;
     &lt;select name=&quot;&quot; id=&quot;province&quot;&gt;
-        &lt;option value=&quot;&quot;&gt;--请选择省份--&lt;&#x2F;option&gt;
-    &lt;&#x2F;select&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+        &lt;option value=&quot;&quot;&gt;--请选择省份--&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
             </div>
@@ -1290,7 +1250,7 @@ public class ProvinceServlet extends javax.servlet.http.HttpServlet {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

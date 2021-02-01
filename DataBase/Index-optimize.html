@@ -9,11 +9,9 @@
 1.1 单表优化
 创建表插入数据
 
-
-
 create table article(
     id int(10) unsigned not null primary key auto_increment,
-    autho">
+    author_">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -445,9 +443,7 @@ create table article(
 <h3 id="1-1-单表优化"><a href="#1-1-单表优化" class="headerlink" title="1.1 单表优化"></a>1.1 单表优化</h3><ul>
 <li>创建表插入数据</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">create table article(
+<pre><code class="sql">create table article(
     id int(10) unsigned not null primary key auto_increment,
     author_id int(10) unsigned not null,
     category_id int(10) unsigned not null,
@@ -465,52 +461,38 @@ insert into article(author_id,category_id,views,comments,title,content) values
 <ul>
 <li>查询category_id为1且comments大于1的情况下，views最多的article_id</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">select id,author_id from article where category_id = 1 and comments &gt; 1 order by views desc limit 1
+<pre><code class="sql">select id,author_id from article where category_id = 1 and comments &gt; 1 order by views desc limit 1
 </code></pre>
 <ul>
 <li>查看执行计划，sql分析：type是all表示全表扫描，Extra还出现了filesort，产生了文件内排序，且未使用到索引；必须优化。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">explain select id,author_id from article where category_id = 1 and comments &gt; 1 order by views desc limit 1
+<pre><code class="sql">explain select id,author_id from article where category_id = 1 and comments &gt; 1 order by views desc limit 1
 </code></pre>
 <ul>
 <li>开始优化，创建复合索引</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CREATE INDEX idx_article_ccv ON article(category_id,comments,views);
+<pre><code class="sql">CREATE INDEX idx_article_ccv ON article(category_id,comments,views);
 </code></pre>
 <ul>
 <li>再次查看执行计划，sql分析：type变为了range表示范围内索引，且使用到了建立的复合索引，但还是产生了文件内排序。 但是按照Btree索引的工作原理，先排序category_id,再排序commnets，因为comments字段大于1是一个范围值，导致无法利用索引对后面的views进行检索，索引部分失效了</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments &gt; 1 ORDER BY views DESC LIMIT 1
+<pre><code class="sql">EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments &gt; 1 ORDER BY views DESC LIMIT 1
 </code></pre>
 <ul>
 <li>优化2，删除非最优索引，绕过comments创建复合索引</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">drop index idx_article_ccv on article;
+<pre><code class="sql">drop index idx_article_ccv on article;
 create index idx_article_cv on article(category_id,views); 
 </code></pre>
 <ul>
 <li>查看执行计划，sql分析：type为ref级别，using filesort也没了，非常理想的优化结果。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments &gt; 1 ORDER BY views DESC LIMIT 1
+<pre><code class="sql">EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments &gt; 1 ORDER BY views DESC LIMIT 1
 </code></pre>
 <h3 id="1-2-两表优化"><a href="#1-2-两表优化" class="headerlink" title="1.2 两表优化"></a>1.2 两表优化</h3><ul>
 <li>创建表插数据</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">create table class(
+<pre><code class="sql">create table class(
     id int(10) unsigned not null auto_increment,
     card int(10) unsigned not null,
     primary key(id)
@@ -530,68 +512,50 @@ insert into book(card) values
 <ul>
 <li>开始explain分析, sql分析：type是all，全表扫描</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM class LEFT JOIN book ON class.`card` = book.`card`;
+<pre><code class="sql">EXPLAIN SELECT * FROM class LEFT JOIN book ON class.`card` = book.`card`;
 </code></pre>
 <ul>
 <li>添加索引尝试优化</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">ALTER TABLE book ADD INDEX idx_y(card);
+<pre><code class="sql">ALTER TABLE book ADD INDEX idx_y(card);
 </code></pre>
 <ul>
 <li>查看计划，sql分析：book表type优化到了ref级别</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">explain select * from class left join book on class.`card` = book.`card`;
+<pre><code class="sql">explain select * from class left join book on class.`card` = book.`card`;
 </code></pre>
 <ul>
 <li>继续尝试优化</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">DROP INDEX idx_y ON book;
+<pre><code class="sql">DROP INDEX idx_y ON book;
 ALTER TABLE class ADD INDEX idx_y(card); # 给class表加索引
 </code></pre>
 <ul>
 <li>查看计划，sql分析：class表type仅优化为了index级别，全索引扫描</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM class LEFT JOIN book ON class.`card` = book.`card`;
+<pre><code class="sql">EXPLAIN SELECT * FROM class LEFT JOIN book ON class.`card` = book.`card`;
 </code></pre>
 <ul>
 <li>小结：由于左连接的特性，决定了左边内容一定都是有的，left join 条件用于确定如何从右表搜索行；所以left join一定要给右表建立索引。</li>
 <li>修改回最优索引</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">DROP INDEX idx_y ON class;
+<pre><code class="sql">DROP INDEX idx_y ON class;
 ALTER TABLE book ADD INDEX idx_y(card);
 </code></pre>
 <ul>
 <li>那么当right join时呢?</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">explain select * from class right join book on class.`card` = book.`card`;
+<pre><code class="sql">explain select * from class right join book on class.`card` = book.`card`;
 </code></pre>
 <ul>
 <li>跟左连接相反，右连接给左表建立索引即可</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">ALTER TABLE class ADD INDEX idx_x(card);
+<pre><code class="sql">ALTER TABLE class ADD INDEX idx_x(card);
 </code></pre>
 <ul>
 <li>查看计划，sql分析：可以看到class表优化为了ref级别</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">explain select * from class right join book on class.`card` = book.`card`;
+<pre><code class="sql">explain select * from class right join book on class.`card` = book.`card`;
 </code></pre>
 <ul>
 <li>总结：<strong>左连接给右表建索引，右连接给左边建索引。</strong></li>
@@ -599,9 +563,7 @@ ALTER TABLE book ADD INDEX idx_y(card);
 <h3 id="1-3-三表优化"><a href="#1-3-三表优化" class="headerlink" title="1.3 三表优化"></a>1.3 三表优化</h3><ul>
 <li>沿用上两张表的情况下，加入一张表</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CREATE TABLE phone(
+<pre><code class="sql">CREATE TABLE phone(
     phone_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     card INT(10) UNSIGNED NOT NULL,
     PRIMARY KEY(phone_id)
@@ -613,32 +575,24 @@ INSERT INTO phone(card) VALUES
 <ul>
 <li>清除上一个case建立的全部索引</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">drop index idx_y on book;
+<pre><code class="sql">drop index idx_y on book;
 drop index idx_x on class;
 </code></pre>
 <ul>
 <li>三表查询计划, sql分析：type均为all，必须优化。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">explain select * from class left join book on class.`card`=book.`card` left join phone on book.`card`=phone.`card`;
+<pre><code class="sql">explain select * from class left join book on class.`card`=book.`card` left join phone on book.`card`=phone.`card`;
 </code></pre>
 <ul>
 <li>根据左连接查询给右表建索引原则，给右边的phone表和book表建立索引</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">alter table phone add index z(card);
+<pre><code class="sql">alter table phone add index z(card);
 ALTER TABLE book ADD INDEX Y(card);
 </code></pre>
 <ul>
 <li>查看计划，sql分析：book和phone表都优化到了red级别，优化很好，因此索引最好设置在需要经常查询的字段中。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">explain select * from class left join book on class.`card`=book.`card` left join phone on book.`card`=phone.`card`;
+<pre><code class="sql">explain select * from class left join book on class.`card`=book.`card` left join phone on book.`card`=phone.`card`;
 </code></pre>
 <ul>
 <li>Join语句优化<ul>
@@ -649,9 +603,7 @@ ALTER TABLE book ADD INDEX Y(card);
 </ul>
 </li>
 </ul>
-<h2 id="2-索引失效"><a href="#2-索引失效" class="headerlink" title="2. 索引失效"></a>2. 索引失效</h2><h3 id="2-1-建表"><a href="#2-1-建表" class="headerlink" title="2.1 建表"></a>2.1 建表</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">create table staffs(
+<h2 id="2-索引失效"><a href="#2-索引失效" class="headerlink" title="2. 索引失效"></a>2. 索引失效</h2><h3 id="2-1-建表"><a href="#2-1-建表" class="headerlink" title="2.1 建表"></a>2.1 建表</h3><pre><code class="sql">create table staffs(
     id int primary key auto_increment,
     name varchar(24) not null default &quot;&quot; comment &#39;姓名&#39;,
     age int not null default 0 comment &#39;年龄&#39;,
@@ -678,9 +630,7 @@ show index from staffs;
 <h4 id="2-2-3-不在索引列上做任何操作-计算、函数、自动or手动类型转换-，会导致索引失效而转向全表扫描"><a href="#2-2-3-不在索引列上做任何操作-计算、函数、自动or手动类型转换-，会导致索引失效而转向全表扫描" class="headerlink" title="2.2.3 不在索引列上做任何操作(计算、函数、自动or手动类型转换)，会导致索引失效而转向全表扫描"></a>2.2.3 不在索引列上做任何操作(计算、函数、自动or手动类型转换)，会导致索引失效而转向全表扫描</h4><ul>
 <li>举例如下</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 没在索引列进行函数相关操作，使用到了索引且type为ref级别
+<pre><code class="sql"># 没在索引列进行函数相关操作，使用到了索引且type为ref级别
 EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;July&#39;;
 # 在索引列进行了函数操作，会导致索引失效，type为all全表扫描
 EXPLAIN SELECT * FROM staffs WHERE LEFT(NAME,4) = &#39;July&#39;;
@@ -691,9 +641,7 @@ EXPLAIN SELECT * FROM staffs WHERE LEFT(NAME,4) = &#39;July&#39;;
 <h4 id="2-2-4-存储引擎不能使用索引中范围条件右边的列"><a href="#2-2-4-存储引擎不能使用索引中范围条件右边的列" class="headerlink" title="2.2.4 存储引擎不能使用索引中范围条件右边的列"></a>2.2.4 存储引擎不能使用索引中范围条件右边的列</h4><ul>
 <li>举例如下操作会让范围后面的pos索引失效，type降低为range类型。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 4.存储引擎不能使用索引中范围条件右边的列
+<pre><code class="sql"># 4.存储引擎不能使用索引中范围条件右边的列
 EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;July&#39; AND age &gt; 25 AND pos=&#39;manager&#39;
 </code></pre>
 <blockquote>
@@ -702,9 +650,7 @@ EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;July&#39; AND age &gt; 25 AND pos
 <h4 id="2-2-5-尽量使用覆盖索引-索引列和查询列一致-，减少select"><a href="#2-2-5-尽量使用覆盖索引-索引列和查询列一致-，减少select" class="headerlink" title="2.2.5 尽量使用覆盖索引(索引列和查询列一致)，减少select *"></a>2.2.5 尽量使用覆盖索引(索引列和查询列一致)，减少select *</h4><ul>
 <li>这样可以Using index，性能不错</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT NAME,age,pos FROM staffs WHERE NAME = &#39;July&#39; AND age  = 25 AND pos=&#39;dev&#39;;
+<pre><code class="sql">EXPLAIN SELECT NAME,age,pos FROM staffs WHERE NAME = &#39;July&#39; AND age  = 25 AND pos=&#39;dev&#39;;
 </code></pre>
 <blockquote>
 <p>覆盖索引不写星</p>
@@ -712,9 +658,7 @@ EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;July&#39; AND age &gt; 25 AND pos
 <h4 id="2-2-6-mysql在使用不等于-或者-lt-gt-时无法使用索引会导致全表扫描"><a href="#2-2-6-mysql在使用不等于-或者-lt-gt-时无法使用索引会导致全表扫描" class="headerlink" title="2.2.6 mysql在使用不等于(!=或者&lt;&gt;)时无法使用索引会导致全表扫描"></a>2.2.6 mysql在使用不等于(!=或者&lt;&gt;)时无法使用索引会导致全表扫描</h4><ul>
 <li>使用不等也会导致索引失效全表扫描</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME != &#39;July&#39;;
+<pre><code class="sql">EXPLAIN SELECT * FROM staffs WHERE NAME != &#39;July&#39;;
 EXPLAIN SELECT * FROM staffs WHERE NAME &lt;&gt; &#39;July&#39;;
 </code></pre>
 <blockquote>
@@ -723,9 +667,7 @@ EXPLAIN SELECT * FROM staffs WHERE NAME &lt;&gt; &#39;July&#39;;
 <h4 id="2-2-7-is-null-is-not-null也无法使用索引"><a href="#2-2-7-is-null-is-not-null也无法使用索引" class="headerlink" title="2.2.7 is null,is not null也无法使用索引"></a>2.2.7 is null,is not null也无法使用索引</h4><ul>
 <li>is null 会出现Impossible WHERE情况；is not null会导致索引失效全表扫描</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME IS NULL;
+<pre><code class="sql">EXPLAIN SELECT * FROM staffs WHERE NAME IS NULL;
 EXPLAIN SELECT * FROM staffs WHERE NAME is not null;
 </code></pre>
 <blockquote>
@@ -734,9 +676,7 @@ EXPLAIN SELECT * FROM staffs WHERE NAME is not null;
 <h4 id="2-2-8-like以通配符开头-‘-abc…’-也会导致索引失效变成全表扫描。"><a href="#2-2-8-like以通配符开头-‘-abc…’-也会导致索引失效变成全表扫描。" class="headerlink" title="2.2.8 like以通配符开头(‘%abc…’)也会导致索引失效变成全表扫描。"></a>2.2.8 like以通配符开头(‘%abc…’)也会导致索引失效变成全表扫描。</h4><ul>
 <li>百分号尽量写右边，不然会导致索引失效全表扫描，使用覆盖索引关键列可优化到index级别。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME like &#39;%July%&#39;; # 全表扫描
+<pre><code class="sql">EXPLAIN SELECT * FROM staffs WHERE NAME like &#39;%July%&#39;; # 全表扫描
 EXPLAIN SELECT * FROM staffs WHERE NAME LIKE &#39;%July&#39;; # 全表扫描
 EXPLAIN SELECT * FROM staffs WHERE NAME LIKE &#39;July%&#39;; # range范围扫描
 </code></pre>
@@ -746,9 +686,7 @@ EXPLAIN SELECT * FROM staffs WHERE NAME LIKE &#39;July%&#39;; # range范围扫�
 <h4 id="2-2-9-字符串不加单引号索引失效"><a href="#2-2-9-字符串不加单引号索引失效" class="headerlink" title="2.2.9 字符串不加单引号索引失效"></a>2.2.9 字符串不加单引号索引失效</h4><ul>
 <li>varchar类型字符串不加引号也会导致索引失效全表扫描</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME = 2000; #因为name是varchar类型，mysql做了自动类型转换，导致索引失效
+<pre><code class="sql">EXPLAIN SELECT * FROM staffs WHERE NAME = 2000; #因为name是varchar类型，mysql做了自动类型转换，导致索引失效
 EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;2000&#39;; # 不会失效
 </code></pre>
 <blockquote>
@@ -757,9 +695,7 @@ EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;2000&#39;; # 不会失效
 <h4 id="2-2-10-少用or，用它连接时会索引失效"><a href="#2-2-10-少用or，用它连接时会索引失效" class="headerlink" title="2.2.10 少用or，用它连接时会索引失效"></a>2.2.10 少用or，用它连接时会索引失效</h4><ul>
 <li>or也会导致索引失效</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM staffs WHERE NAME=&#39;July&#39; OR NAME = &#39;z3&#39;;
+<pre><code class="sql">EXPLAIN SELECT * FROM staffs WHERE NAME=&#39;July&#39; OR NAME = &#39;z3&#39;;
 </code></pre>
 <blockquote>
 <p>不等空值还有or，索引失效要少用</p>
@@ -767,9 +703,7 @@ EXPLAIN SELECT * FROM staffs WHERE NAME = &#39;2000&#39;; # 不会失效
 <h3 id="2-3-索引优化分析题"><a href="#2-3-索引优化分析题" class="headerlink" title="2.3 索引优化分析题"></a>2.3 索引优化分析题</h3><h4 id="2-3-1-准备工作"><a href="#2-3-1-准备工作" class="headerlink" title="2.3.1 准备工作"></a>2.3.1 准备工作</h4><ul>
 <li>建立表插数据</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CREATE TABLE ex01(
+<pre><code class="sql">CREATE TABLE ex01(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     c1 CHAR(10),
     c2 CHAR(10),
@@ -788,103 +722,75 @@ INSERT INTO ex01(c1,c2,c3,c4,c5) VALUES
 <ul>
 <li>建立索引</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CREATE INDEX idx_ex01_c1234 ON ex01(c1,c2,c3,c4);
+<pre><code class="sql">CREATE INDEX idx_ex01_c1234 ON ex01(c1,c2,c3,c4);
 SHOW INDEX FROM ex01;
 </code></pre>
 <h4 id="2-3-2-根据以下SQL分析索引的使用情况"><a href="#2-3-2-根据以下SQL分析索引的使用情况" class="headerlink" title="2.3.2 根据以下SQL分析索引的使用情况"></a>2.3.2 根据以下SQL分析索引的使用情况</h4><ul>
 <li>全索引使用，全值匹配，ref级别；顺序改变mysql会自动优化，故以下SQL性能一致。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c3 = &#39;a3&#39; AND c4 = &#39;a4&#39;;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c3 = &#39;a3&#39; AND c4 = &#39;a4&#39;;
 EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c4 = &#39;a4&#39; AND c3 = &#39;a3&#39;;
 EXPLAIN SELECT * FROM ex01 WHERE c4 = &#39;a4&#39; AND c3 = &#39;a3&#39; AND c2 = &#39;a2&#39; AND c1 = &#39;a1&#39;;
 </code></pre>
 <ul>
 <li>三索引使用，范围匹配，range级别；范围之后全失效。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c3 &gt; &#39;a3&#39; AND c4 = &#39;a4&#39;;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c3 &gt; &#39;a3&#39; AND c4 = &#39;a4&#39;;
 </code></pre>
 <ul>
 <li>全索引使用，范围匹配，range级别。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c4 &gt; &#39;a4&#39; AND c3 = &#39;a3&#39;;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c4 &gt; &#39;a4&#39; AND c3 = &#39;a3&#39;;
 </code></pre>
 <ul>
 <li>两索引使用，c3作用在排序而不是查找</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c4 = &#39;a4&#39; ORDER BY c3;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c4 = &#39;a4&#39; ORDER BY c3;
 </code></pre>
 <ul>
 <li>两索引使用，c3在排序用不到索引查找</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">explain SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; ORDER BY c3;
+<pre><code class="sql">explain SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; ORDER BY c3;
 </code></pre>
 <ul>
 <li>两索引使用，因为跳过了c3导致c4无法用到排好序的索引，只能自己排序，从而出现了<code>Using filesort</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; ORDER BY c4;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; ORDER BY c4;
 </code></pre>
 <ul>
 <li>单索引使用，c2、c3在排序</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c5 = &#39;a5&#39; ORDER BY c2,c3;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c5 = &#39;a5&#39; ORDER BY c2,c3;
 </code></pre>
 <ul>
 <li>单索引使用，因为c3跳过了c2,导致索引没使用到从而自己排序，出现<code>Using filesort</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c5 = &#39;a5&#39; ORDER BY c3,c2;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c5 = &#39;a5&#39; ORDER BY c3,c2;
 </code></pre>
 <ul>
 <li>两索引使用</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">explain SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; ORDER BY c2,c3;
+<pre><code class="sql">explain SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; ORDER BY c2,c3;
 </code></pre>
 <ul>
 <li>两索引使用，c2、c3用于排序</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c5 = &#39;a5&#39; ORDER BY c2,c3;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c5 = &#39;a5&#39; ORDER BY c2,c3;
 </code></pre>
 <ul>
 <li>两索引使用，c1、c2用到了索引，所以c2变成了一个常量，在order by那边常量不用排序，故没有产生文件内排序</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c5 = &#39;a5&#39; ORDER BY c3,c2;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1 = &#39;a1&#39; AND c2 = &#39;a2&#39; AND c5 = &#39;a5&#39; ORDER BY c3,c2;
 </code></pre>
 <ul>
 <li>单索引使用，c2、c3在排序，c4用不到</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1=&#39;a1&#39; AND c4=&#39;a4&#39; GROUP BY c2,c3;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1=&#39;a1&#39; AND c4=&#39;a4&#39; GROUP BY c2,c3;
 </code></pre>
 <ul>
 <li>单索引使用，c3跳过了c2产生文件内排序，group by还用到了临时表<code>Using temporary</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">EXPLAIN SELECT * FROM ex01 WHERE c1=&#39;a1&#39; AND c4=&#39;a4&#39; GROUP BY c3,c2;
+<pre><code class="sql">EXPLAIN SELECT * FROM ex01 WHERE c1=&#39;a1&#39; AND c4=&#39;a4&#39; GROUP BY c3,c2;
 </code></pre>
 <ul>
 <li><strong>小结</strong>：定值、范围还是排序，一般order by是给范围排序；group by基本上都会进行排序，会产生临时表，<strong>分组之前必定会排序</strong>。</li>
@@ -991,12 +897,10 @@ EXPLAIN SELECT * FROM ex01 WHERE c4 = &#39;a4&#39; AND c3 = &#39;a3&#39; AND c2 
                 <div class="card-content article-content">
                     <div class="summary">查询优化
 1. 小表驱动大表小表驱动大表，就是小的数据集驱动大的数据集。
-
-
 select * from A where id in (select id from B);
 等价于：
 for select id from B
-for sel</div>
+for selec</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2020-03-26
@@ -1181,7 +1085,7 @@ for sel</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

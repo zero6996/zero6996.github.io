@@ -415,7 +415,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.7k
+                        2.5k
                     </div>
                     
 
@@ -461,36 +461,30 @@
 </ul>
 <h4 id="1-2-3-请求空行"><a href="#1-2-3-请求空行" class="headerlink" title="1.2.3 请求空行"></a>1.2.3 请求空行</h4><p>空行，就是用于分隔POST请求的请求头和请求体的</p>
 <h4 id="1-2-4-请求体-正文"><a href="#1-2-4-请求体-正文" class="headerlink" title="1.2.4 请求体(正文)"></a>1.2.4 请求体(正文)</h4><p>封装POST请求消息的请求参数的</p>
-<h4 id="请求消息字符串格式："><a href="#请求消息字符串格式：" class="headerlink" title="请求消息字符串格式："></a>请求消息字符串格式：</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-clike">POST &#x2F;login.html  HTTP&#x2F;1.1
+<h4 id="请求消息字符串格式："><a href="#请求消息字符串格式：" class="headerlink" title="请求消息字符串格式："></a>请求消息字符串格式：</h4><pre><code>POST /login.html  HTTP/1.1
 Host: 192.168.1.6
-User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko&#x2F;20100101 Firefox&#x2F;66.0
-Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q=0.9,*&#x2F;*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
 Accept-Encoding: gzip, deflate
-Referer: http:&#x2F;&#x2F;192.168.1.6&#x2F;login.html
-Content-Type: application&#x2F;x-www-form-urlencoded
+Referer: http://192.168.1.6/login.html
+Content-Type: application/x-www-form-urlencoded
 Content-Length: 10
 Connection: keep-alive
 Upgrade-Insecure-Requests: 1
 
 uname=aaaa
-</code></pre>
-<h2 id="2-Request"><a href="#2-Request" class="headerlink" title="2. Request"></a>2. Request</h2><h3 id="2-1-request对象和response对象的原理"><a href="#2-1-request对象和response对象的原理" class="headerlink" title="2.1 request对象和response对象的原理"></a>2.1 request对象和response对象的原理</h3><ul>
+</code></pre><h2 id="2-Request"><a href="#2-Request" class="headerlink" title="2. Request"></a>2. Request</h2><h3 id="2-1-request对象和response对象的原理"><a href="#2-1-request对象和response对象的原理" class="headerlink" title="2.1 request对象和response对象的原理"></a>2.1 request对象和response对象的原理</h3><ul>
 <li>request和response对象是由服务器创建的，我们来使用它们。</li>
 <li>request对象是来获取请求消息的，response对象是来设置响应消息的。</li>
 </ul>
 <p>插入原理图解</p>
-<h3 id="2-2-request对象继承体系结构"><a href="#2-2-request对象继承体系结构" class="headerlink" title="2.2 request对象继承体系结构"></a>2.2 request对象继承体系结构</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-clike">ServletRequest  -- 接口
-	|	继承
+<h3 id="2-2-request对象继承体系结构"><a href="#2-2-request对象继承体系结构" class="headerlink" title="2.2 request对象继承体系结构"></a>2.2 request对象继承体系结构</h3><pre><code>ServletRequest  -- 接口
+    |    继承
 HttpServletRequest -- 接口
-	|	实现
+    |    实现
 org.apache.catalina.connector.RequestFacade 类(Tomcat实现的类)
-</code></pre>
-<h3 id="2-3-request的功能"><a href="#2-3-request的功能" class="headerlink" title="2.3 request的功能"></a>2.3 request的功能</h3><h4 id="2-3-1-获取请求消息数据"><a href="#2-3-1-获取请求消息数据" class="headerlink" title="2.3.1 获取请求消息数据"></a>2.3.1 获取请求消息数据</h4><h4 id="2-3-1-1-获取请求行数据"><a href="#2-3-1-1-获取请求行数据" class="headerlink" title="2.3.1.1 获取请求行数据"></a>2.3.1.1 获取请求行数据</h4><ul>
+</code></pre><h3 id="2-3-request的功能"><a href="#2-3-request的功能" class="headerlink" title="2.3 request的功能"></a>2.3 request的功能</h3><h4 id="2-3-1-获取请求消息数据"><a href="#2-3-1-获取请求消息数据" class="headerlink" title="2.3.1 获取请求消息数据"></a>2.3.1 获取请求消息数据</h4><h4 id="2-3-1-1-获取请求行数据"><a href="#2-3-1-1-获取请求行数据" class="headerlink" title="2.3.1.1 获取请求行数据"></a>2.3.1.1 获取请求行数据</h4><ul>
 <li>请求行：<code>GET /reqdemo/demo1?name=zero  HTTP/1.1</code></li>
 <li>方法：<ul>
 <li>获取请求方式(GET)：<code>String getMethod()</code></li>
@@ -568,178 +562,156 @@ org.apache.catalina.connector.RequestFacade 类(Tomcat实现的类)
 <li><p>创建数据库环境，创建user表</p>
 </li>
 <li><p>创建包domain，创建类User</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   &#x2F;&#x2F; 用户实体类
-   public class User{
-       private int id;
-       private String username;
-       private String password;
-       &#x2F;&#x2F; 生成get&#x2F;set方法
-       ...
-   	&#x2F;&#x2F; 生成toString方法
-       ...
-   }
+<pre><code class="java">// 用户实体类
+public class User{
+    private int id;
+    private String username;
+    private String password;
+    // 生成get/set方法
+    ...
+    // 生成toString方法
+    ...
+}
 </code></pre>
 </li>
-</ol>
-<ol start="4">
 <li><p>创建util包，编写工具类JDBCUtils</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   &#x2F;&#x2F; JDBC工具类，使用Druid连接池
-   public class JDBCUtils{
-       private static DataSource ds = null;
-       static{ &#x2F;&#x2F; 使用静态代码块来加载配置文件等内容
-           try{
-               &#x2F;&#x2F; 1. 加载配置文件
-               Properties pro = new Properties();
-               &#x2F;&#x2F; 1.1 使用ClassLoader加载配置文件，获取字节输入流
-               InputStream is = JDBCUtils.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;);
-               pro.load(is);
-               &#x2F;&#x2F; 2. 使用Druid连接池技术，初始化连接池对象
-               ds = DruidDataSourceFactory.createDataSource(pro);
-           }catch(IOException e){
-               e.printStackTrace();
-           }catch(Exception e){
-               e.printStackTrace();
-           }
-       }
-       &#x2F;&#x2F; 获取连接池对象
-       public static DataSource getDataSource(){
-           return ds;
-       }
-       &#x2F;&#x2F; 获取连接Connection对象
-       public static Connection getConnection() throws SQLException{
-           return ds.getConnection();
-       }
-   }
+<pre><code class="java">// JDBC工具类，使用Druid连接池
+public class JDBCUtils{
+    private static DataSource ds = null;
+    static{ // 使用静态代码块来加载配置文件等内容
+        try{
+            // 1. 加载配置文件
+            Properties pro = new Properties();
+            // 1.1 使用ClassLoader加载配置文件，获取字节输入流
+            InputStream is = JDBCUtils.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;);
+            pro.load(is);
+            // 2. 使用Druid连接池技术，初始化连接池对象
+            ds = DruidDataSourceFactory.createDataSource(pro);
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    // 获取连接池对象
+    public static DataSource getDataSource(){
+        return ds;
+    }
+    // 获取连接Connection对象
+    public static Connection getConnection() throws SQLException{
+        return ds.getConnection();
+    }
+}
 </code></pre>
 </li>
-</ol>
-<ol start="5">
 <li><p>创建dao包，创建类UserDao，提供login方法</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   &#x2F;&#x2F; 操作数据库中User表的类
-   public class UserDao{
-       &#x2F;&#x2F; 声明JDBCTemplate对象共用
-       private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
-       &#x2F;&#x2F; 定义登录方法
-       public User login(User loginUser){
-           try{
-               &#x2F;&#x2F; 1. 编写sql
-               String sql = &quot;select * form user where username = ? and password = ?&quot;;
-               &#x2F;&#x2F; 2. 调用query方法,查询数据
-               User user = template.queryForObject(sql,
-                        new BeanPropertyRowMaper&lt;User&gt;(User.class),
-                        loginUser.getUsername(),loginUser.getPassword());
-               return user; &#x2F;&#x2F; 返回查询到的数据对象
-           }catch{DataAccessException e}{
-               e.printStackTrace(); &#x2F;&#x2F; 一般做记录日志文件处理
-               return null;
-           }
-       }
-   }
+<pre><code class="java">// 操作数据库中User表的类
+public class UserDao{
+    // 声明JDBCTemplate对象共用
+    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+    // 定义登录方法
+    public User login(User loginUser){
+        try{
+            // 1. 编写sql
+            String sql = &quot;select * form user where username = ? and password = ?&quot;;
+            // 2. 调用query方法,查询数据
+            User user = template.queryForObject(sql,
+                     new BeanPropertyRowMaper&lt;User&gt;(User.class),
+                     loginUser.getUsername(),loginUser.getPassword());
+            return user; // 返回查询到的数据对象
+        }catch{DataAccessException e}{
+            e.printStackTrace(); // 一般做记录日志文件处理
+            return null;
+        }
+    }
+}
 </code></pre>
 </li>
-</ol>
-<ol start="6">
 <li><p>编写Servelt.LoginServlet类</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   &#x2F;&#x2F; 主要Servlet类,负责处理登录验证操作，登录成功失败后的转发操作
-   @WebServlet(&quot;&#x2F;loginServlet&quot;) &#x2F;&#x2F; 设置资源路径
-   public class LoginServlet extends HttpServlet{
-       @Override
-       protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
-           &#x2F;&#x2F; 1. 设置编码
-           req.setCharacterEncoding(&quot;utf-8&quot;);
-           &#x2F;&#x2F; 2. 获取请求参数
-           String username = req.getParameter(&quot;username&quot;);
-           String password = req.getParameter(&quot;password&quot;);
-           &#x2F;&#x2F; 3. 将数据封装成user对象
-           User loginUser = new User();
-           loginUser.setUsername(username);
-           loginUser.setPassword(password);
-           &#x2F;&#x2F; 4. 调用UserDao的login方法
-          	UserDao dao = new UserDao();
-           User user = dao.login(loginUser); &#x2F;&#x2F; 进行用户数据验证，返回一个User对象的完整数据
-           &#x2F;&#x2F; 5. 判断是否正常登录
-           if(user == null){
-               &#x2F;&#x2F; 登录失败，转发向失败页面
-               req.getRequestDispatcher(&quot;&#x2F;failServlet&quot;).forward(req,resp);
-           }else{
-               &#x2F;&#x2F; 登录成功，跳转成功页面
-               &#x2F;&#x2F; 将user对象放入request域中
-               req.setAttribute(&quot;user&quot;,user);
-               &#x2F;&#x2F; 转发
-               req.getRequestDispatcher(&quot;&#x2F;successServlet&quot;).forward(req,resp);
-           }
-       }
-       @Override
-       protected void doPost(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
-           this.doGet(req,resp);
-       }
-   }
+<pre><code class="java">// 主要Servlet类,负责处理登录验证操作，登录成功失败后的转发操作
+@WebServlet(&quot;/loginServlet&quot;) // 设置资源路径
+public class LoginServlet extends HttpServlet{
+    @Override
+    protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
+        // 1. 设置编码
+        req.setCharacterEncoding(&quot;utf-8&quot;);
+        // 2. 获取请求参数
+        String username = req.getParameter(&quot;username&quot;);
+        String password = req.getParameter(&quot;password&quot;);
+        // 3. 将数据封装成user对象
+        User loginUser = new User();
+        loginUser.setUsername(username);
+        loginUser.setPassword(password);
+        // 4. 调用UserDao的login方法
+           UserDao dao = new UserDao();
+        User user = dao.login(loginUser); // 进行用户数据验证，返回一个User对象的完整数据
+        // 5. 判断是否正常登录
+        if(user == null){
+            // 登录失败，转发向失败页面
+            req.getRequestDispatcher(&quot;/failServlet&quot;).forward(req,resp);
+        }else{
+            // 登录成功，跳转成功页面
+            // 将user对象放入request域中
+            req.setAttribute(&quot;user&quot;,user);
+            // 转发
+            req.getRequestDispatcher(&quot;/successServlet&quot;).forward(req,resp);
+        }
+    }
+    @Override
+    protected void doPost(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
+        this.doGet(req,resp);
+    }
+}
 </code></pre>
 </li>
-</ol>
-<ol start="7">
 <li><p>编写FailServlet和SuccessServlet类</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   &#x2F;&#x2F; 失败处理页面,直接返回一句话
-   @WebServlet(&quot;&#x2F;failServlet&quot;)
-   public class FailServlet extends HttpServlet{
-       protected void doPost(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
-           &#x2F;&#x2F; 设置编码
-           resp.setContentType(&quot;text&#x2F;html;charset=utf-8&quot;);
-           &#x2F;&#x2F; 输出
-           resp.getWriter().write(&quot;登录失败，用户名或密码错误&quot;);
-       }
-       protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
-           this.doPost(req,resp);
-       }
-   }
-   &#x2F;&#x2F; 成功页面
-   @WebServlet(&quot;&#x2F;successServlet&quot;)
-   public class SuccessServlet extends HttpServlet{
-       protected void doPost(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
-           &#x2F;&#x2F; 获取request域中共享的user对象
-           User user = (User)request.getAttibute(&quot;user&quot;);
-           if(user != null){
-               &#x2F;&#x2F; 设置编码
-               resp.setContentType(&quot;text&#x2F;html;charset=utf-8&quot;);
-               &#x2F;&#x2F; 输出
-               resp.getWriter().write(&quot;登录成功！&quot;+user.getUsername()+&quot;欢迎你&quot;);
-       	}
-       }
-       protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
-           this.doPost(req,resp);
-       }
-   }
+<pre><code class="java">// 失败处理页面,直接返回一句话
+@WebServlet(&quot;/failServlet&quot;)
+public class FailServlet extends HttpServlet{
+    protected void doPost(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
+        // 设置编码
+        resp.setContentType(&quot;text/html;charset=utf-8&quot;);
+        // 输出
+        resp.getWriter().write(&quot;登录失败，用户名或密码错误&quot;);
+    }
+    protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
+        this.doPost(req,resp);
+    }
+}
+// 成功页面
+@WebServlet(&quot;/successServlet&quot;)
+public class SuccessServlet extends HttpServlet{
+    protected void doPost(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
+        // 获取request域中共享的user对象
+        User user = (User)request.getAttibute(&quot;user&quot;);
+        if(user != null){
+            // 设置编码
+            resp.setContentType(&quot;text/html;charset=utf-8&quot;);
+            // 输出
+            resp.getWriter().write(&quot;登录成功！&quot;+user.getUsername()+&quot;欢迎你&quot;);
+        }
+    }
+    protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
+        this.doPost(req,resp);
+    }
+}
 </code></pre>
 </li>
-</ol>
-<ol start="8">
 <li><p>将login.html中form表单的action路径设置为虚拟目录+Servlet的资源路径</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">   &lt;!DOCTYPE html&gt;
-   &lt;html lang=&quot;en&quot;&gt;
-   &lt;head&gt;
-   	&lt;meta charset=&quot;UTF-8&quot;&gt;
-       &lt;title&gt;登录页面&lt;&#x2F;title&gt;
-   &lt;&#x2F;head&gt;
-   &lt;body&gt;
-   	&lt;form action=&quot;&#x2F;LoginDemo&#x2F;loginServlet&quot; method=&quot;post&quot;&gt;
-           用户名：&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&gt;
-           密码：&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;br&gt;
-           &lt;input type=&quot;submit&quot; value=&quot;登录&quot;&gt;
-       &lt;&#x2F;form&gt;    
-   &lt;&#x2F;body&gt;
-   &lt;&#x2F;html&gt;
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;登录页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form action=&quot;/LoginDemo/loginServlet&quot; method=&quot;post&quot;&gt;
+        用户名：&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&gt;
+        密码：&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;br&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;登录&quot;&gt;
+    &lt;/form&gt;    
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 </li>
 </ol>
@@ -768,34 +740,32 @@ org.apache.catalina.connector.RequestFacade 类(Tomcat实现的类)
 </li>
 </ul>
 <h4 id="3-2-2-简化LoginServlet"><a href="#3-2-2-简化LoginServlet" class="headerlink" title="3.2.2 简化LoginServlet"></a>3.2.2 简化LoginServlet</h4><p>将上述例子中的LoginServlet类中<strong>获取请求参数</strong>和<strong>封装User对象</strong>步骤进行简化</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
-        &#x2F;&#x2F; 1. 设置编码
+<pre><code class="java">protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws Servlet Exception,IOException{
+        // 1. 设置编码
         req.setCharacterEncoding(&quot;utf-8&quot;);
-        &#x2F;&#x2F; 2. 获取所有请求参数
-   		Map&lt;String, String[]&gt; map = req.getParameterMap();
-        &#x2F;&#x2F; 3. 创建User对象
+        // 2. 获取所有请求参数
+           Map&lt;String, String[]&gt; map = req.getParameterMap();
+        // 3. 创建User对象
         User loginUser = new User();
-    	&#x2F;&#x2F; 3.1 使用populate方法将数据封装进loginUser对象
-    	try{
+        // 3.1 使用populate方法将数据封装进loginUser对象
+        try{
             BeanUtils.populate(loginUser,map);
         }catch(Exception e){
             e.printStackTrace();
         }
-        &#x2F;&#x2F; 4. 调用UserDao的login方法
-       	UserDao dao = new UserDao();
-        User user = dao.login(loginUser); &#x2F;&#x2F; 进行用户数据验证，返回一个User对象的完整数据
-        &#x2F;&#x2F; 5. 判断是否正常登录
+        // 4. 调用UserDao的login方法
+           UserDao dao = new UserDao();
+        User user = dao.login(loginUser); // 进行用户数据验证，返回一个User对象的完整数据
+        // 5. 判断是否正常登录
         if(user == null){
-            &#x2F;&#x2F; 登录失败，转发向失败页面
-            req.getRequestDispatcher(&quot;&#x2F;failServlet&quot;).forward(req,resp);
+            // 登录失败，转发向失败页面
+            req.getRequestDispatcher(&quot;/failServlet&quot;).forward(req,resp);
         }else{
-            &#x2F;&#x2F; 登录成功，跳转成功页面
-            &#x2F;&#x2F; 将user对象放入request域中
+            // 登录成功，跳转成功页面
+            // 将user对象放入request域中
             req.setAttribute(&quot;user&quot;,user);
-            &#x2F;&#x2F; 转发
-            req.getRequestDispatcher(&quot;&#x2F;successServlet&quot;).forward(req,resp);
+            // 转发
+            req.getRequestDispatcher(&quot;/successServlet&quot;).forward(req,resp);
         }
     }
 </code></pre>
@@ -1046,7 +1016,7 @@ org.apache.catalina.connector.RequestFacade 类(Tomcat实现的类)
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

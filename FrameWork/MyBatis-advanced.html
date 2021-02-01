@@ -419,14 +419,14 @@ orders和or">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        7.7k
+                        7.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        37 分
+                        35 分
                     </div>
                     
                 
@@ -466,23 +466,19 @@ orders和or">
 <ul>
 <li>创建订单类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Orders {
+<pre><code class="java">public class Orders {
     private int id;
     private int user_id;
     private String number;
     private Date createtime;
     private String note;
-	&#x2F;&#x2F; 省略get&#x2F;set，toString
+    // 省略get/set，toString
 }
 </code></pre>
 <ul>
 <li>创建订单类的扩展类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; Orders扩展类
+<pre><code class="java">// Orders扩展类
 public class OrdersExt extends Orders {
     private String username;
     private String address;
@@ -494,15 +490,13 @@ public class OrdersExt extends Orders {
                 &quot;, address=&#39;&quot; + address + &#39;\&#39;&#39; +
                 &#39;}&#39; + super.toString();
     }
-	&#x2F;&#x2F; 省略get&#x2F;set
+    // 省略get/set
 }
 </code></pre>
 <ul>
 <li>声明订单接口</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface OrderMapper {
+<pre><code class="java">public interface OrderMapper {
 
     public OrdersExt findOrderById(int id);
 }
@@ -510,12 +504,10 @@ public class OrdersExt extends Orders {
 <ul>
 <li>声明订单映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;!DOCTYPE mapper
-        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;
-        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
 
 &lt;!--OrderMapper接口映射文件--&gt;
 &lt;mapper namespace=&quot;com.zero.mapper.OrderMapper&quot;&gt;
@@ -527,33 +519,29 @@ public class OrdersExt extends Orders {
         where
             u.`id`=o.`user_id`
             and o.id = #{id}
-    &lt;&#x2F;select&gt;
-&lt;&#x2F;mapper&gt;
+    &lt;/select&gt;
+&lt;/mapper&gt;
 </code></pre>
 <ul>
 <li>加载映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;mappers&gt;
-	&lt;package name=&quot;com.zero.mapper&quot;&#x2F;&gt;
-&lt;&#x2F;mappers&gt;
+<pre><code class="xml">&lt;mappers&gt;
+    &lt;package name=&quot;com.zero.mapper&quot;/&gt;
+&lt;/mappers&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class OrderMapperTest {
+<pre><code class="java">public class OrderMapperTest {
 
     private SqlSession session = null;
 
     @Before
     public void before() throws IOException {
         System.out.println(&quot;before:获取session&quot;);
-        &#x2F;&#x2F;1. 读取配置文件
+        //1. 读取配置文件
         InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
-        &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+        //2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
         session = sessionFactory.openSession();
     }
@@ -561,12 +549,12 @@ public class OrdersExt extends Orders {
     @After
     public void after(){
         System.out.println(&quot;after:关闭会话&quot;);
-        &#x2F;&#x2F;5. 关闭会话。
+        //5. 关闭会话。
         session.commit();
         session.close();
     }
-	
-    &#x2F;&#x2F; 测试复杂查询一对一
+
+    // 测试复杂查询一对一
     @Test
     public void test1(){
         OrderMapper mapper = session.getMapper(OrderMapper.class);
@@ -579,17 +567,15 @@ public class OrdersExt extends Orders {
 <h3 id="1-3-一对一：resultMap实现"><a href="#1-3-一对一：resultMap实现" class="headerlink" title="1.3 一对一：resultMap实现"></a>1.3 一对一：resultMap实现</h3><ul>
 <li>Orders类中新增user属性，添加get/set方法，以存储订单所属用户</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Orders {
+<pre><code class="java">public class Orders {
     private Integer id;
     private Integer user_id;
     private String number;
     private Date createtime;
     private String note;
 
-    private User user; &#x2F;&#x2F; 订单所属用户
-    
+    private User user; // 订单所属用户
+
     public User getUser() {
         return user;
     }
@@ -597,38 +583,34 @@ public class OrdersExt extends Orders {
     public void setUser(User user) {
         this.user = user;
     }
-    &#x2F;&#x2F; 注意toString方法要添加user信息
+    // 注意toString方法要添加user信息
 }
 </code></pre>
 <ul>
 <li>mapper接口新增方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public Orders findOrderById2(int id);
+<pre><code class="java">public Orders findOrderById2(int id);
 </code></pre>
 <ul>
 <li>映射文件中添加查询，使用resultMap</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--如果模型里面有模型，使用resultMap--&gt;
+<pre><code class="xml">&lt;!--如果模型里面有模型，使用resultMap--&gt;
 &lt;resultMap id=&quot;orderRslMap&quot; type=&quot;orders&quot;&gt;
     &lt;!--往orders的模型匹配数据--&gt;
-    &lt;id property=&quot;id&quot; column=&quot;id&quot;&#x2F;&gt;
-    &lt;id property=&quot;number&quot; column=&quot;number&quot;&#x2F;&gt;
-    &lt;id property=&quot;createtime&quot; column=&quot;createtime&quot;&#x2F;&gt;
-    &lt;id property=&quot;note&quot; column=&quot;note&quot;&#x2F;&gt;
+    &lt;id property=&quot;id&quot; column=&quot;id&quot;/&gt;
+    &lt;id property=&quot;number&quot; column=&quot;number&quot;/&gt;
+    &lt;id property=&quot;createtime&quot; column=&quot;createtime&quot;/&gt;
+    &lt;id property=&quot;note&quot; column=&quot;note&quot;/&gt;
 
     &lt;!--往orders中的user匹配数据
             使用association进行配置--&gt;
     &lt;association property=&quot;user&quot; javaType=&quot;user&quot;&gt;
-        &lt;id property=&quot;id&quot; column=&quot;user_id&quot;&#x2F;&gt;
-        &lt;id property=&quot;username&quot; column=&quot;username&quot;&#x2F;&gt;
-        &lt;id property=&quot;address&quot; column=&quot;address&quot;&#x2F;&gt;
-    &lt;&#x2F;association&gt;
+        &lt;id property=&quot;id&quot; column=&quot;user_id&quot;/&gt;
+        &lt;id property=&quot;username&quot; column=&quot;username&quot;/&gt;
+        &lt;id property=&quot;address&quot; column=&quot;address&quot;/&gt;
+    &lt;/association&gt;
 
-&lt;&#x2F;resultMap&gt;
+&lt;/resultMap&gt;
 &lt;select id=&quot;findOrderById2&quot; parameterType=&quot;int&quot; resultMap=&quot;orderRslMap&quot;&gt;
     select
     u.username,u.address,o.*
@@ -637,14 +619,12 @@ public class OrdersExt extends Orders {
     where
     u.`id`=o.`user_id`
     and o.id = #{id}
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 测试resultMap一对一
+<pre><code class="java">// 测试resultMap一对一
 @Test
 public void test2(){
     OrderMapper mapper = session.getMapper(OrderMapper.class);
@@ -663,9 +643,7 @@ public void test2(){
 <h3 id="1-4-一对多"><a href="#1-4-一对多" class="headerlink" title="1.4 一对多"></a>1.4 一对多</h3><ul>
 <li>需求：根据订单ID查找订单信息、用户信息和订单明细信息。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 根据订单ID查找订单信息、用户信息和订单明细信息。
+<pre><code class="sql">-- 根据订单ID查找订单信息、用户信息和订单明细信息。
 
 select 
   u.`username`,
@@ -686,45 +664,39 @@ where
 <ul>
 <li>新建OrderDetail类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 订单详情实体类
+<pre><code class="java">// 订单详情实体类
 public class OrderDetail {
-    private Integer id; &#x2F;&#x2F; 订单详情id
-    private Integer items_id; &#x2F;&#x2F; 商品id
-    private Integer items_num; &#x2F;&#x2F; 商品数量
-	&#x2F;&#x2F; 省略get&#x2F;set，toString
+    private Integer id; // 订单详情id
+    private Integer items_id; // 商品id
+    private Integer items_num; // 商品数量
+    // 省略get/set，toString
 }
 </code></pre>
 <ul>
 <li>修改Orders类，添加订单明细属性</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Orders {
+<pre><code class="java">public class Orders {
     private Integer id;
     private Integer user_id;
     private String number;
     private Date createtime;
     private String note;
 
-    private User user; &#x2F;&#x2F; 订单所属用户
+    private User user; // 订单所属用户
 
-    &#x2F;&#x2F; 一对多数据封装：订单明细
+    // 一对多数据封装：订单明细
     private List&lt;OrderDetail&gt; orderDetails;
 }
 </code></pre>
 <ul>
 <li>mapper接口</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface OrderMapper {
+<pre><code class="java">public interface OrderMapper {
 
     public OrdersExt findOrderById(int id);
     public Orders findOrderById2(int id);
 
-    &#x2F;&#x2F; 一对多关系映射配置
+    // 一对多关系映射配置
     public Orders findOrderById3(int id);
 
 }
@@ -732,31 +704,29 @@ public class OrderDetail {
 <ul>
 <li>映射文件添加查询,resultMap中有个extends属性，可继承父类配置的数据映射关系。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- =========== 一对多 ============= --&gt;
+<pre><code class="xml">&lt;!-- =========== 一对多 ============= --&gt;
 &lt;resultMap id=&quot;orderRslMap2&quot; type=&quot;orders&quot; extends=&quot;orderRslMap&quot;&gt; &lt;!--如果继承了orderRslMap 下面的orders和user模型无需再次编写。--&gt;
     &lt;!--往orders的模型匹配数据--&gt;
-    &lt;id property=&quot;id&quot; column=&quot;id&quot;&#x2F;&gt;
-    &lt;id property=&quot;number&quot; column=&quot;number&quot;&#x2F;&gt;
-    &lt;id property=&quot;createtime&quot; column=&quot;createtime&quot;&#x2F;&gt;
-    &lt;id property=&quot;note&quot; column=&quot;note&quot;&#x2F;&gt;
+    &lt;id property=&quot;id&quot; column=&quot;id&quot;/&gt;
+    &lt;id property=&quot;number&quot; column=&quot;number&quot;/&gt;
+    &lt;id property=&quot;createtime&quot; column=&quot;createtime&quot;/&gt;
+    &lt;id property=&quot;note&quot; column=&quot;note&quot;/&gt;
 
     &lt;!--往orders中的user匹配数据
             使用association进行配置--&gt;
     &lt;association property=&quot;user&quot; javaType=&quot;user&quot;&gt;
-        &lt;id property=&quot;id&quot; column=&quot;user_id&quot;&#x2F;&gt;
-        &lt;id property=&quot;username&quot; column=&quot;username&quot;&#x2F;&gt;
-        &lt;id property=&quot;address&quot; column=&quot;address&quot;&#x2F;&gt;
-    &lt;&#x2F;association&gt;
+        &lt;id property=&quot;id&quot; column=&quot;user_id&quot;/&gt;
+        &lt;id property=&quot;username&quot; column=&quot;username&quot;/&gt;
+        &lt;id property=&quot;address&quot; column=&quot;address&quot;/&gt;
+    &lt;/association&gt;
     &lt;!-- 一对多匹配：往orders中的orderDetails匹配数据
             注意：集合里类型需使用ofType，而不是javaType--&gt;
     &lt;collection property=&quot;orderDetails&quot; ofType=&quot;orderDetail&quot;&gt;
-        &lt;id property=&quot;id&quot; column=&quot;detail_id&quot;&#x2F;&gt;
-        &lt;id property=&quot;items_id&quot; column=&quot;items_id&quot;&#x2F;&gt;
-        &lt;id property=&quot;items_num&quot; column=&quot;items_num&quot;&#x2F;&gt;
-    &lt;&#x2F;collection&gt;
-&lt;&#x2F;resultMap&gt;
+        &lt;id property=&quot;id&quot; column=&quot;detail_id&quot;/&gt;
+        &lt;id property=&quot;items_id&quot; column=&quot;items_id&quot;/&gt;
+        &lt;id property=&quot;items_num&quot; column=&quot;items_num&quot;/&gt;
+    &lt;/collection&gt;
+&lt;/resultMap&gt;
 
 &lt;select id=&quot;findOrderById3&quot; parameterType=&quot;int&quot; resultMap=&quot;orderRslMap2&quot;&gt;
     select
@@ -774,14 +744,12 @@ public class OrderDetail {
         u.`id`=o.`user_id`
         and o.`id`=od.orders_id
         and o.`id` = #{id};
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 测试resultMap一对一
+<pre><code class="java">// 测试resultMap一对一
 @Test
 public void test3(){
     OrderMapper mapper = session.getMapper(OrderMapper.class);
@@ -793,9 +761,7 @@ public void test3(){
 <h3 id="1-5-多对多"><a href="#1-5-多对多" class="headerlink" title="1.5 多对多"></a>1.5 多对多</h3><ul>
 <li>需求：查询用户信息及用户购买的商品信息，要求将关系信息映射到主POJO的POJO属性中。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">SELECT 
+<pre><code class="sql">SELECT 
   u.`id`,
   u.`username`,
   u.`address`,
@@ -831,52 +797,44 @@ WHERE
 <ul>
 <li>mapper中添加方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface UserMapper {
-	&#x2F;&#x2F; 多对多查询:查询用户信息及用户购买的商品信息
+<pre><code class="java">public interface UserMapper {
+    // 多对多查询:查询用户信息及用户购买的商品信息
     public List&lt;User&gt; findUserAndOrderInfo();
 }
 </code></pre>
 <ul>
 <li>在user类中添加订单列表属性<code>List&lt;Orders&gt; orderslist</code>，将用户创建的订单映射到orderslist中。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class User implements Serializable {
+<pre><code class="java">public class User implements Serializable {
     private int id;
     private String username;
     private String sex;
     private Date birthday;
     private String address;
 
-    private List&lt;Orders&gt; orderList; &#x2F;&#x2F; 一个用户有多张订单
+    private List&lt;Orders&gt; orderList; // 一个用户有多张订单
 }
 </code></pre>
 <ul>
 <li>在Orders中添加订单明细列表属性<code>List&lt;Orderdetail&gt; detailList</code>，将订单的明细映射到detailList中。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Orders {
+<pre><code class="java">public class Orders {
     private Integer id;
     private Integer user_id;
     private String number;
     private Date createtime;
     private String note;
 
-    private User user; &#x2F;&#x2F; 订单所属用户
+    private User user; // 订单所属用户
 
-    &#x2F;&#x2F; 一对多数据封装：订单明细
+    // 一对多数据封装：订单明细
     private List&lt;OrderDetail&gt; orderDetails;
 }
 </code></pre>
 <ul>
 <li>新建items类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Items {
+<pre><code class="java">public class Items {
     private Integer id;
     private String name;
     private Float price;
@@ -886,51 +844,47 @@ WHERE
 <ul>
 <li>在Orderdetail中添加Items属性，将订单明细所对应的商品映射到Items中。</li>
 </ul>
+<pre><code class="java">public class OrderDetail {
+    private Integer id; // 订单详情id
+    private Integer items_id; // 商品id
+    private Integer items_num; // 商品数量
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class OrderDetail {
-    private Integer id; &#x2F;&#x2F; 订单详情id
-    private Integer items_id; &#x2F;&#x2F; 商品id
-    private Integer items_num; &#x2F;&#x2F; 商品数量
-
-    private Items items; &#x2F;&#x2F; 订单详情
+    private Items items; // 订单详情
 }
 </code></pre>
 <ul>
 <li>映射文件中配置映射关系，查询方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 多对多查询:查询用户信息及用户购买的商品信息 --&gt;
+<pre><code class="xml">&lt;!-- 多对多查询:查询用户信息及用户购买的商品信息 --&gt;
 &lt;resultMap id=&quot;userRslMap&quot; type=&quot;user&quot;&gt;
     &lt;!--1. 配置user属性--&gt;
-    &lt;id property=&quot;id&quot; column=&quot;id&quot;&#x2F;&gt;
-    &lt;result property=&quot;username&quot; column=&quot;username&quot;&#x2F;&gt;
-    &lt;result property=&quot;address&quot; column=&quot;address&quot;&#x2F;&gt;
+    &lt;id property=&quot;id&quot; column=&quot;id&quot;/&gt;
+    &lt;result property=&quot;username&quot; column=&quot;username&quot;/&gt;
+    &lt;result property=&quot;address&quot; column=&quot;address&quot;/&gt;
 
     &lt;!--2. 配置user的orderList--&gt;
     &lt;collection property=&quot;orderList&quot; ofType=&quot;orders&quot;&gt;
-        &lt;id property=&quot;id&quot; column=&quot;order_id&quot;&#x2F;&gt;
-        &lt;result property=&quot;number&quot; column=&quot;number&quot;&#x2F;&gt;
-        &lt;result property=&quot;createtime&quot; column=&quot;createtime&quot;&#x2F;&gt;
-        &lt;result property=&quot;note&quot; column=&quot;note&quot;&#x2F;&gt;
+        &lt;id property=&quot;id&quot; column=&quot;order_id&quot;/&gt;
+        &lt;result property=&quot;number&quot; column=&quot;number&quot;/&gt;
+        &lt;result property=&quot;createtime&quot; column=&quot;createtime&quot;/&gt;
+        &lt;result property=&quot;note&quot; column=&quot;note&quot;/&gt;
 
         &lt;!--3. 配置orders的orderDetail--&gt;
         &lt;collection property=&quot;orderDetails&quot; ofType=&quot;orderDetail&quot;&gt;
-            &lt;id property=&quot;id&quot; column=&quot;detail_id&quot;&#x2F;&gt;
-            &lt;result property=&quot;items_id&quot; column=&quot;items_id&quot;&#x2F;&gt;
-            &lt;result property=&quot;items_num&quot; column=&quot;items_num&quot;&#x2F;&gt;
+            &lt;id property=&quot;id&quot; column=&quot;detail_id&quot;/&gt;
+            &lt;result property=&quot;items_id&quot; column=&quot;items_id&quot;/&gt;
+            &lt;result property=&quot;items_num&quot; column=&quot;items_num&quot;/&gt;
 
             &lt;!--4. 匹配订单详情的商品信息：在Orderdetail中添加Items属性，将订单明细所对应的商品映射到Items中。--&gt;
             &lt;association property=&quot;items&quot; javaType=&quot;items&quot;&gt;
-                &lt;id property=&quot;id&quot; column=&quot;items_id&quot;&#x2F;&gt;
-                &lt;result property=&quot;name&quot; column=&quot;name&quot;&#x2F;&gt;
-                &lt;result property=&quot;price&quot; column=&quot;price&quot;&#x2F;&gt;
-                &lt;result property=&quot;detail&quot; column=&quot;detail&quot;&#x2F;&gt;
-            &lt;&#x2F;association&gt;
-        &lt;&#x2F;collection&gt;
-    &lt;&#x2F;collection&gt;
-&lt;&#x2F;resultMap&gt;
+                &lt;id property=&quot;id&quot; column=&quot;items_id&quot;/&gt;
+                &lt;result property=&quot;name&quot; column=&quot;name&quot;/&gt;
+                &lt;result property=&quot;price&quot; column=&quot;price&quot;/&gt;
+                &lt;result property=&quot;detail&quot; column=&quot;detail&quot;/&gt;
+            &lt;/association&gt;
+        &lt;/collection&gt;
+    &lt;/collection&gt;
+&lt;/resultMap&gt;
 
 &lt;select id=&quot;findUserAndOrderInfo&quot; resultMap=&quot;userRslMap&quot;&gt;
     SELECT
@@ -956,16 +910,14 @@ WHERE
         u.`id` = o.`user_id`
         and o.`id` = od.`orders_id`
         and od.`items_id` = it.`id`
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * 多对多查询信息：查询用户信息及用户购买的商品信息
- *&#x2F;
+ */
 @Test
 public void test2() {
     UserMapper mapper = session.getMapper(UserMapper.class);
@@ -985,9 +937,7 @@ public void test2() {
 <ul>
 <li>输出结果</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-clike">用户信息：User{id=1, username=&#39;赵六&#39;, sex=&#39;null&#39;, birthday=null, address=&#39;杭州市&#39;}
+<pre><code>用户信息：User{id=1, username=&#39;赵六&#39;, sex=&#39;null&#39;, birthday=null, address=&#39;杭州市&#39;}
 订单信息：Orders{id=3, user_id=null, number=&#39;1000010&#39;, createtime=Wed Feb 04 13:22:35 CST 2015, note=&#39;null&#39;, user=null, orderDetails=[OrderDetail{id=1, items_id=1, items_num=1, items=Items{id=1, name=&#39;台式机&#39;, price=3000.0, detail=&#39;该电脑质量非常好！！！！&#39;}}, OrderDetail{id=2, items_id=2, items_num=3, items=Items{id=2, name=&#39;笔记本&#39;, price=6000.0, detail=&#39;笔记本性能好，质量好！！！！！&#39;}}]}
 订单详情：OrderDetail{id=1, items_id=1, items_num=1, items=Items{id=1, name=&#39;台式机&#39;, price=3000.0, detail=&#39;该电脑质量非常好！！！！&#39;}}
 订单详情：OrderDetail{id=2, items_id=2, items_num=3, items=Items{id=2, name=&#39;笔记本&#39;, price=6000.0, detail=&#39;笔记本性能好，质量好！！！！！&#39;}}
@@ -996,8 +946,7 @@ public void test2() {
 订单详情：OrderDetail{id=3, items_id=3, items_num=4, items=Items{id=3, name=&#39;背包&#39;, price=200.0, detail=&#39;名牌背包，容量大质量好！！！！&#39;}}
 订单详情：OrderDetail{id=4, items_id=2, items_num=3, items=Items{id=2, name=&#39;笔记本&#39;, price=6000.0, detail=&#39;笔记本性能好，质量好！！！！！&#39;}}
 &lt;---------------------------------&gt;
-</code></pre>
-<h4 id="1-5-1-小结"><a href="#1-5-1-小结" class="headerlink" title="1.5.1 小结"></a>1.5.1 小结</h4><ul>
+</code></pre><h4 id="1-5-1-小结"><a href="#1-5-1-小结" class="headerlink" title="1.5.1 小结"></a>1.5.1 小结</h4><ul>
 <li>resultType：将查询结果安装sql列名和POJO属性名一致性映射到POJO中。</li>
 <li>resultMap：使用association和collection完成一对一和一对多高级映射（对结果有特殊的映射要求）<ul>
 <li>association：将关联查询信息映射到一个POJO对象中。</li>
@@ -1016,49 +965,43 @@ public void test2() {
 <ul>
 <li>分别在两个接口中添加方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface UserMapper {
+<pre><code class="java">public interface UserMapper {
     public User findUserById(int id);
 }
 public interface OrderMapper {
-	&#x2F;&#x2F; 懒加载订单的用户数据
-	public List&lt;Orders&gt; findOrderAndUserByLazyloading();
+    // 懒加载订单的用户数据
+    public List&lt;Orders&gt; findOrderAndUserByLazyloading();
 }
 </code></pre>
 <ul>
 <li>映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--UserMapper映射文件--&gt;
+<pre><code class="xml">&lt;!--UserMapper映射文件--&gt;
 &lt;mapper namespace=&quot;com.zero.mapper.UserMapper&quot;&gt;
-	&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot;&gt;
-		SELECT * FROM USER WHERE id = #{id}
-	&lt;&#x2F;select&gt;
-&lt;&#x2F;mapper&gt;
+    &lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot;&gt;
+        SELECT * FROM USER WHERE id = #{id}
+    &lt;/select&gt;
+&lt;/mapper&gt;
 &lt;!--OrderMapper接口映射文件--&gt;
 &lt;mapper namespace=&quot;com.zero.mapper.OrderMapper&quot;&gt;
-	&lt;!-- =========== 懒加载 ============= --&gt;
+    &lt;!-- =========== 懒加载 ============= --&gt;
     &lt;resultMap id=&quot;orderLazyloadingRslMap&quot; type=&quot;orders&quot;&gt;
-        &lt;id property=&quot;id&quot; column=&quot;id&quot;&#x2F;&gt;
-        &lt;result property=&quot;note&quot; column=&quot;note&quot;&#x2F;&gt;
-        &lt;result property=&quot;number&quot; column=&quot;number&quot;&#x2F;&gt;
-        &lt;result property=&quot;createtime&quot; column=&quot;createtime&quot;&#x2F;&gt;
+        &lt;id property=&quot;id&quot; column=&quot;id&quot;/&gt;
+        &lt;result property=&quot;note&quot; column=&quot;note&quot;/&gt;
+        &lt;result property=&quot;number&quot; column=&quot;number&quot;/&gt;
+        &lt;result property=&quot;createtime&quot; column=&quot;createtime&quot;/&gt;
         &lt;!-- 配置懒加载查询语句，column是子查询所需参数--&gt;
-        &lt;association property=&quot;user&quot; select=&quot;com.zero.mapper.UserMapper.findUserById&quot; column=&quot;user_id&quot;&#x2F;&gt;
-    &lt;&#x2F;resultMap&gt;
+        &lt;association property=&quot;user&quot; select=&quot;com.zero.mapper.UserMapper.findUserById&quot; column=&quot;user_id&quot;/&gt;
+    &lt;/resultMap&gt;
     &lt;select id=&quot;findOrderAndUserByLazyloading&quot; resultMap=&quot;orderLazyloadingRslMap&quot;&gt;
         select * from orders
-    &lt;&#x2F;select&gt;
-&lt;&#x2F;mapper&gt;
+    &lt;/select&gt;
+&lt;/mapper&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 懒加载
+<pre><code class="java">// 懒加载
 @Test
 public void test４(){
     OrderMapper mapper = session.getMapper(OrderMapper.class);
@@ -1073,14 +1016,12 @@ public void test４(){
 <ul>
 <li>全局配置文件中配置懒加载</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;configuration&gt;
+<pre><code class="xml">&lt;configuration&gt;
     &lt;!--懒加载配置--&gt;
     &lt;settings&gt;
-        &lt;setting name=&quot;lazyLoadingEnabled&quot; value=&quot;true&quot;&#x2F;&gt;
-    &lt;&#x2F;settings&gt;
-&lt;&#x2F;configuration&gt;
+        &lt;setting name=&quot;lazyLoadingEnabled&quot; value=&quot;true&quot;/&gt;
+    &lt;/settings&gt;
+&lt;/configuration&gt;
 </code></pre>
 <h2 id="3-查询缓存"><a href="#3-查询缓存" class="headerlink" title="3. 查询缓存"></a>3. 查询缓存</h2><p>Mybatis提供查询缓存，用于减轻数据压力，提高数据库抗压力。</p>
 <p>Mybatis的缓存，包括<strong>一级缓存和二级缓存</strong>，一级缓存是默认使用的。二级缓存需手动开启。</p>
@@ -1102,25 +1043,23 @@ public void test４(){
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test1() throws IOException {
-    &#x2F;&#x2F;1. 读取配置文件
+    //1. 读取配置文件
     InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
-    &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+    //2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
     SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
-    &#x2F;&#x2F; 3. 会话
+    // 3. 会话
     SqlSession session = sessionFactory.openSession();
-    &#x2F;&#x2F; 4. 通过会话获取dao接口
+    // 4. 通过会话获取dao接口
     UserMapper mapper = session.getMapper(UserMapper.class);
-    &#x2F;**
+    /**
          * 默认情况下，一级缓存也就是session级别缓存是开启的
          * 保存、删除、更新操作，一级缓存数据会自动清空
-         *&#x2F;
+         */
     User user1 = mapper.findUserById(1);
     System.out.println(&quot;user1&quot;+user1);
-    &#x2F;&#x2F; 保存用户,测试缓存是否清空
+    // 保存用户,测试缓存是否清空
     mapper.save(new User(&quot;小花&quot;,&quot;1&quot;,null,&quot;杭州&quot;));
     session.commit();
     User user2 = mapper.findUserById(1);
@@ -1140,60 +1079,52 @@ public void test1() throws IOException {
 <h4 id="3-2-1-代码示例"><a href="#3-2-1-代码示例" class="headerlink" title="3.2.1 代码示例"></a>3.2.1 代码示例</h4><ul>
 <li>开启二级缓存总开关</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;settings&gt;
+<pre><code class="xml">&lt;settings&gt;
     &lt;!--懒加载配置--&gt;
-    &lt;setting name=&quot;lazyLoadingEnabled&quot; value=&quot;true&quot;&#x2F;&gt;
+    &lt;setting name=&quot;lazyLoadingEnabled&quot; value=&quot;true&quot;/&gt;
     &lt;!--开启二级缓存--&gt;
-    &lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;&#x2F;&gt;
-&lt;&#x2F;settings&gt;
+    &lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;/&gt;
+&lt;/settings&gt;
 </code></pre>
 <ul>
 <li>在UserMapper中配置二级缓存</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;mapper namespace=&quot;com.zero.mapper.UserMapper&quot;&gt;
+<pre><code class="xml">&lt;mapper namespace=&quot;com.zero.mapper.UserMapper&quot;&gt;
     &lt;!-- 配置缓存：该类下所有查询方法都使用二级缓存
         type不写，默认使用的是mybatis自带的缓存技术：perpetualCache --&gt;
-    &lt;cache&gt;&lt;&#x2F;cache&gt;
-&lt;&#x2F;mapper&gt;
+    &lt;cache&gt;&lt;/cache&gt;
+&lt;/mapper&gt;
 </code></pre>
 <ul>
 <li>User类序列化</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class User implements Serializable {}
+<pre><code class="java">public class User implements Serializable {}
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 二级缓存
+<pre><code class="java">// 二级缓存
 @Test
 public void test2() throws IOException {
-    &#x2F;&#x2F;1. 读取配置文件
+    //1. 读取配置文件
     InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
-    &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+    //2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
     SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
-    &#x2F;&#x2F; 3. 会话
+    // 3. 会话
     SqlSession session1 = sessionFactory.openSession();
     SqlSession session2 = sessionFactory.openSession();
     SqlSession session3 = sessionFactory.openSession();
-    &#x2F;&#x2F; 4. 通过会话获取dao接口
+    // 4. 通过会话获取dao接口
     UserMapper mapper1 = session1.getMapper(UserMapper.class);
     UserMapper mapper2 = session2.getMapper(UserMapper.class);
     UserMapper mapper3 = session3.getMapper(UserMapper.class);
 
     User user1 = mapper1.findUserById(1);
     System.out.println(&quot;user1&quot;+user1);
-    &#x2F;&#x2F; session关闭后才会写入二级缓存
+    // session关闭后才会写入二级缓存
     session1.close();
 
-    &#x2F;&#x2F; 执行修改更新删除等操作，提交后，会清空二级缓存
+    // 执行修改更新删除等操作，提交后，会清空二级缓存
     mapper3.save(user1);
     session3.commit();
 
@@ -1203,22 +1134,19 @@ public void test2() throws IOException {
     session3.close();
 
 }
+
 </code></pre>
 <ul>
 <li>关于禁用指定方法二级缓存</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot; useCache=&quot;false&quot;&gt;
+<pre><code class="xml">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot; useCache=&quot;false&quot;&gt;
      SELECT * FROM USER WHERE id = #{id}
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <ul>
 <li>关于刷新缓存</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--
+<pre><code class="xml">&lt;!--
         默认情况下，插入、更新、删除会清空二级缓存
         默认flushCache=&quot;true&quot;
         如果设置为false，插入、更新、删除就不会清空二级缓存
@@ -1226,7 +1154,7 @@ public void test2() throws IOException {
 &lt;insert id=&quot;save&quot; parameterType=&quot;user&quot; flushCache=&quot;false&quot;&gt;
     INSERT into user (username,sex,birthday,address)
     values (#{username},#{sex},#{birthday},#{address})
-&lt;&#x2F;insert&gt;
+&lt;/insert&gt;
 </code></pre>
 <h3 id="3-3-整合Ehcache"><a href="#3-3-整合Ehcache" class="headerlink" title="3.3 整合Ehcache"></a>3.3 整合Ehcache</h3><p>EhCache 是一个纯Java的进程内缓存框架，具有快速、精干等特点，是一个分布式的缓存框架。</p>
 <p>Mybatis本身是一个持久层框架，它不是专门的缓存框架，所以它对缓存的实现不够好，不能支持分布式。</p>
@@ -1246,55 +1174,48 @@ public void test2() throws IOException {
 <ul>
 <li>设置映射文件中的cache标签的type值为ehcache的实现类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;mapper namespace=&quot;com.zero.mapper.UserMapper&quot;&gt;
-      &lt;!-- 配置缓存：该类下所有查询方法都使用二级缓存
-          type不写，默认使用的是mybatis自带的缓存技术：perpetualCache --&gt;
-      &lt;cache type=&quot;org.mybatis.caches.ehcache.EhcacheCache&quot;&gt;&lt;&#x2F;cache&gt;
-  &lt;&#x2F;mapper&gt;
+<pre><code class="xml">&lt;mapper namespace=&quot;com.zero.mapper.UserMapper&quot;&gt;
+    &lt;!-- 配置缓存：该类下所有查询方法都使用二级缓存
+        type不写，默认使用的是mybatis自带的缓存技术：perpetualCache --&gt;
+    &lt;cache type=&quot;org.mybatis.caches.ehcache.EhcacheCache&quot;&gt;&lt;/cache&gt;
+&lt;/mapper&gt;
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>在src下添加ehcache的配置文件</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;ehcache xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;..&#x2F;config&#x2F;ehcache.xsd&quot;&gt;
-      
-      &lt;diskStore path=&quot;java.io.tmpdir&quot;&#x2F;&gt;
-      &lt;!--
-      	maxElementsInMemory :设置基于内存的缓存中可存放的对象最大数目
-      	eternal:设置对象是否为永久的,true表示永不过期,此时将忽略
-      	timeToIdleSeconds 和 timeToLiveSeconds属性; 默认值是false
-      	timeToIdleSeconds:设置对象空闲最长时间,以秒为单位, 超过这个时间,对象过期。
-          当对象过期时,EHCache会把它从缓存中清除。如果此值为0,表示对象可以无限期地处于空闲状态。
-      	timeToLiveSeconds:设置对象生存最长时间,超过这个时间,对象过期。
-          如果此值为0,表示对象可以无限期地存在于缓存中. 该属性值必须大于或等于 timeToIdleSeconds 属性值
-      	overflowToDisk:设置基于内在的缓存中的对象数目达到上限后,是否把溢出的对象写到基于硬盘的缓存中
-      	diskPersistent 当jvm结束时是否持久化对象 true false 默认是false
-      	diskExpiryThreadIntervalSeconds 指定专门用于清除过期对象的监听线程的轮询时间
-          memoryStoreEvictionPolicy - 当内存缓存达到最大，有新的element加入的时候，
-          移除缓存中element的策略。默认是LRU（最近最少使用），可选的有LFU（最不常使用）和FIFO（先进先出）
-      --&gt;
-      &lt;defaultCache
-              maxElementsInMemory=&quot;10000&quot;
-              eternal=&quot;false&quot;
-              timeToIdleSeconds=&quot;120&quot;
-              timeToLiveSeconds=&quot;120&quot;
-              maxElementsOnDisk=&quot;10000000&quot;
-              diskExpiryThreadIntervalSeconds=&quot;120&quot;
-              memoryStoreEvictionPolicy=&quot;LRU&quot;&gt;
-          &lt;persistence strategy=&quot;localTempSwap&quot;&#x2F;&gt;
-      &lt;&#x2F;defaultCache&gt;
-  &lt;&#x2F;ehcache&gt;
-</code></pre>
-</li>
+<li>在src下添加ehcache的配置文件</li>
 </ul>
+<pre><code class="xml">&lt;ehcache xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;../config/ehcache.xsd&quot;&gt;
+
+    &lt;diskStore path=&quot;java.io.tmpdir&quot;/&gt;
+    &lt;!--
+        maxElementsInMemory :设置基于内存的缓存中可存放的对象最大数目
+        eternal:设置对象是否为永久的,true表示永不过期,此时将忽略
+        timeToIdleSeconds 和 timeToLiveSeconds属性; 默认值是false
+        timeToIdleSeconds:设置对象空闲最长时间,以秒为单位, 超过这个时间,对象过期。
+        当对象过期时,EHCache会把它从缓存中清除。如果此值为0,表示对象可以无限期地处于空闲状态。
+        timeToLiveSeconds:设置对象生存最长时间,超过这个时间,对象过期。
+        如果此值为0,表示对象可以无限期地存在于缓存中. 该属性值必须大于或等于 timeToIdleSeconds 属性值
+        overflowToDisk:设置基于内在的缓存中的对象数目达到上限后,是否把溢出的对象写到基于硬盘的缓存中
+        diskPersistent 当jvm结束时是否持久化对象 true false 默认是false
+        diskExpiryThreadIntervalSeconds 指定专门用于清除过期对象的监听线程的轮询时间
+        memoryStoreEvictionPolicy - 当内存缓存达到最大，有新的element加入的时候，
+        移除缓存中element的策略。默认是LRU（最近最少使用），可选的有LFU（最不常使用）和FIFO（先进先出）
+    --&gt;
+    &lt;defaultCache
+            maxElementsInMemory=&quot;10000&quot;
+            eternal=&quot;false&quot;
+            timeToIdleSeconds=&quot;120&quot;
+            timeToLiveSeconds=&quot;120&quot;
+            maxElementsOnDisk=&quot;10000000&quot;
+            diskExpiryThreadIntervalSeconds=&quot;120&quot;
+            memoryStoreEvictionPolicy=&quot;LRU&quot;&gt;
+        &lt;persistence strategy=&quot;localTempSwap&quot;/&gt;
+    &lt;/defaultCache&gt;
+&lt;/ehcache&gt;
+</code></pre>
 <ul>
 <li>测试：用上一个二级缓存案例即可</li>
 </ul>
-<ul>
+</li>
 <li><p>二级缓存应用场景</p>
 <ul>
 <li>对于访问响应速度要求高，但是实时性不高的查询，可以采用二级缓存技术。</li>
@@ -1320,127 +1241,111 @@ public void test2() throws IOException {
 <h3 id="4-2-配置mybatis的核心配置文件"><a href="#4-2-配置mybatis的核心配置文件" class="headerlink" title="4.2 配置mybatis的核心配置文件"></a>4.2 配置mybatis的核心配置文件</h3><ul>
 <li>创建核心配置文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;!DOCTYPE configuration
-        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;
-        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;
+        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
 &lt;configuration&gt;
     &lt;!--加载配置文件--&gt;
-&lt;!--    &lt;properties resource=&quot;db.properties&quot;&#x2F;&gt;--&gt;
+&lt;!--    &lt;properties resource=&quot;db.properties&quot;/&gt;--&gt;
     &lt;!--别名配置--&gt;
     &lt;typeAliases&gt;
         &lt;!-- 批量配置别名--&gt;
         &lt;!-- [name]：指定批量定义别名的类包，别名为类名，第一个字母小写--&gt;
-        &lt;package name=&quot;com.zero.sm.model&quot;&#x2F;&gt;
-    &lt;&#x2F;typeAliases&gt;
-    
+        &lt;package name=&quot;com.zero.sm.model&quot;/&gt;
+    &lt;/typeAliases&gt;
+
     &lt;!--加载映射文件--&gt;
     &lt;mappers&gt;
-        &lt;package name=&quot;com&#x2F;zero&#x2F;sm&#x2F;sqlmap&#x2F;User.xml&quot;&#x2F;&gt;
+        &lt;package name=&quot;com/zero/sm/sqlmap/User.xml&quot;/&gt;
         &lt;!-- 加载mapper包下所有映射文件--&gt;
-        &lt;package name=&quot;com.zero.sm.mapper&quot;&#x2F;&gt;
-    &lt;&#x2F;mappers&gt;
-&lt;&#x2F;configuration&gt;
+        &lt;package name=&quot;com.zero.sm.mapper&quot;/&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;
 </code></pre>
 <ul>
 <li>创建User模型</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class User implements Serializable {
+<pre><code class="java">public class User implements Serializable {
     private int id;
     private String username;
     private String sex;
     private Date birthday;
     private String address;
-	&#x2F;&#x2F; 省略get、set、toString
+    // 省略get、set、toString
 }
 </code></pre>
 <ul>
 <li>User映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;!DOCTYPE mapper
-        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;
-        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
 
 &lt;mapper namespace=&quot;user&quot;&gt;
     &lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot; &gt;
-		SELECT * FROM USER WHERE id = #{id}
-	&lt;&#x2F;select&gt;
-&lt;&#x2F;mapper&gt;
+        SELECT * FROM USER WHERE id = #{id}
+    &lt;/select&gt;
+&lt;/mapper&gt;
 </code></pre>
-<h3 id="4-3-配置spring数据源"><a href="#4-3-配置spring数据源" class="headerlink" title="4.3 配置spring数据源"></a>4.3 配置spring数据源</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-       xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot; xmlns:mvc=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&quot;
-       xmlns:context=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;
-       xmlns:aop=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&quot; xmlns:tx=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&quot;
-       xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans
-		http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans-3.2.xsd
-		http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc
-		http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&#x2F;spring-mvc-3.2.xsd
-		http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context
-		http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context-3.2.xsd
-		http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop
-		http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&#x2F;spring-aop-3.2.xsd
-		http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx
-		http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&#x2F;spring-tx-3.2.xsd &quot;&gt;
+<h3 id="4-3-配置spring数据源"><a href="#4-3-配置spring数据源" class="headerlink" title="4.3 配置spring数据源"></a>4.3 配置spring数据源</h3><pre><code class="xml">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot; xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd &quot;&gt;
 
 
     &lt;!-- 1.配置数据库，dbcp数据库连接池 --&gt;
     &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;&gt;
-        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;
-        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;mybatis01?useUnicode=true&amp;amp;characterEncoding=utf8&quot;&#x2F;&gt;
-        &lt;property name=&quot;username&quot; value=&quot;root&quot;&#x2F;&gt;
-		&lt;property name=&quot;password&quot; value=&quot;123456&quot;&#x2F;&gt;
-		&lt;!-- 最大连接  --&gt;
-        &lt;property name=&quot;maxActive&quot; value=&quot;10&quot;&#x2F;&gt;
+        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:///mybatis01?useUnicode=true&amp;amp;characterEncoding=utf8&quot;/&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+        &lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;
+        &lt;!-- 最大连接  --&gt;
+        &lt;property name=&quot;maxActive&quot; value=&quot;10&quot;/&gt;
         &lt;!--最大空闲数  --&gt;
-        &lt;property name=&quot;maxIdle&quot; value=&quot;5&quot;&#x2F;&gt;
-    &lt;&#x2F;bean&gt;
-&lt;&#x2F;beans&gt;
+        &lt;property name=&quot;maxIdle&quot; value=&quot;5&quot;/&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
 </code></pre>
-<h3 id="4-4-spring配置SqlSessionFactory"><a href="#4-4-spring配置SqlSessionFactory" class="headerlink" title="4.4 spring配置SqlSessionFactory"></a>4.4 spring配置SqlSessionFactory</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml"> &lt;!--2. 配置会话工厂--&gt;
+<h3 id="4-4-spring配置SqlSessionFactory"><a href="#4-4-spring配置SqlSessionFactory" class="headerlink" title="4.4 spring配置SqlSessionFactory"></a>4.4 spring配置SqlSessionFactory</h3><pre><code class="xml"> &lt;!--2. 配置会话工厂--&gt;
 &lt;bean id=&quot;sessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
     &lt;!--引用数据源--&gt;
-    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
     &lt;!--设置全局配置文件路径--&gt;
-    &lt;property name=&quot;configLocation&quot; value=&quot;classpath:SqlMapconfig.xml&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+    &lt;property name=&quot;configLocation&quot; value=&quot;classpath:SqlMapconfig.xml&quot;/&gt;
+&lt;/bean&gt;
 </code></pre>
-<h3 id="4-5-编写UserDaoImpl，省略接口"><a href="#4-5-编写UserDaoImpl，省略接口" class="headerlink" title="4.5 编写UserDaoImpl，省略接口"></a>4.5 编写UserDaoImpl，省略接口</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
+<h3 id="4-5-编写UserDaoImpl，省略接口"><a href="#4-5-编写UserDaoImpl，省略接口" class="headerlink" title="4.5 编写UserDaoImpl，省略接口"></a>4.5 编写UserDaoImpl，省略接口</h3><pre><code class="java">public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
     @Override
     public User findUserById(int id) {
-        return getSqlSession().selectOne(&quot;user.findUserById&quot;,id); &#x2F;&#x2F; 调用父类方法获取会话对象，然后执行方法
+        return getSqlSession().selectOne(&quot;user.findUserById&quot;,id); // 调用父类方法获取会话对象，然后执行方法
     }
 }
 </code></pre>
-<h3 id="4-6-spring中配置daobean"><a href="#4-6-spring中配置daobean" class="headerlink" title="4.6 spring中配置daobean"></a>4.6 spring中配置daobean</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&lt;!--3. 配置dao--&gt;
+<h3 id="4-6-spring中配置daobean"><a href="#4-6-spring中配置daobean" class="headerlink" title="4.6 spring中配置daobean"></a>4.6 spring中配置daobean</h3><pre><code class="java">&lt;!--3. 配置dao--&gt;
 &lt;bean id=&quot;userDao&quot; class=&quot;com.zero.sm.dao.Impl.UserDaoImpl&quot;&gt;
-    &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sessionFactory&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+    &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sessionFactory&quot;/&gt;
+&lt;/bean&gt;
 </code></pre>
-<h3 id="4-7-测试"><a href="#4-7-测试" class="headerlink" title="4.7 测试"></a>4.7 测试</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo01 {
+<h3 id="4-7-测试"><a href="#4-7-测试" class="headerlink" title="4.7 测试"></a>4.7 测试</h3><pre><code class="java">public class Demo01 {
     @Test
     public void test1(){
-        &#x2F;&#x2F; 1. 加载spring的配置文件
+        // 1. 加载spring的配置文件
         ApplicationContext context = new ClassPathXmlApplicationContext(&quot;springConfig.xml&quot;);
-        &#x2F;&#x2F; 2. 获取dao的bean
+        // 2. 获取dao的bean
         UserDao userDao = (UserDao) context.getBean(&quot;userDao&quot;);
-        &#x2F;&#x2F; 3. 调用dao方法
+        // 3. 调用dao方法
         User user = userDao.findUserById(1);
         System.out.println(user);
     }
@@ -1449,64 +1354,54 @@ public void test2() throws IOException {
 <h3 id="4-8-换成Mapper接口整合dao"><a href="#4-8-换成Mapper接口整合dao" class="headerlink" title="4.8 换成Mapper接口整合dao"></a>4.8 换成Mapper接口整合dao</h3><ul>
 <li>创建Mapper映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;!DOCTYPE mapper
-        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;
-        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
 
 &lt;mapper namespace=&quot;com.zero.sm.mapper.UserMapper&quot;&gt;
     &lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot; &gt;
-		SELECT * FROM USER WHERE id = #{id}
-	&lt;&#x2F;select&gt;
-&lt;&#x2F;mapper&gt;
+        SELECT * FROM USER WHERE id = #{id}
+    &lt;/select&gt;
+&lt;/mapper&gt;
 </code></pre>
 <ul>
 <li>加载映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;mappers&gt;
-    &lt;mapper resource=&quot;com&#x2F;zero&#x2F;sm&#x2F;sqlmap&#x2F;User.xml&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;mappers&gt;
+    &lt;mapper resource=&quot;com/zero/sm/sqlmap/User.xml&quot;/&gt;
     &lt;!-- 加载mapper包下所有映射文件--&gt;
-    &lt;package name=&quot;com.zero.sm.mapper&quot;&#x2F;&gt;
-&lt;&#x2F;mappers&gt;
+    &lt;package name=&quot;com.zero.sm.mapper&quot;/&gt;
+&lt;/mappers&gt;
 </code></pre>
 <ul>
 <li>spring配置MapperFactoryBean</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 第二种方法--&gt;
+<pre><code class="xml">&lt;!-- 第二种方法--&gt;
 &lt;!--4. 使用工厂Bean生成userMapper对象--&gt;
 &lt;bean id=&quot;userMapper&quot; class=&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;&gt;
-    &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sessionFactory&quot;&#x2F;&gt;
-    &lt;property name=&quot;mapperInterface&quot; value=&quot;com.zero.sm.mapper.UserMapper&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+    &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sessionFactory&quot;/&gt;
+    &lt;property name=&quot;mapperInterface&quot; value=&quot;com.zero.sm.mapper.UserMapper&quot;/&gt;
+&lt;/bean&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java"> @Test
+<pre><code class="java"> @Test
 public void test2() {
-    &#x2F;&#x2F; 1. 加载spring的配置文件
+    // 1. 加载spring的配置文件
     ApplicationContext context = new ClassPathXmlApplicationContext(&quot;springConfig.xml&quot;);
-    &#x2F;&#x2F; 2. 获取dao的bean
+    // 2. 获取dao的bean
     UserMapper userMapper = (UserMapper) context.getBean(&quot;userMapper&quot;);
     User us = userMapper.findUserById(1);
     System.out.println(us);
 }
 </code></pre>
 <h3 id="4-9-使用MapperScannerConfigurer批量扫描创建代理对象"><a href="#4-9-使用MapperScannerConfigurer批量扫描创建代理对象" class="headerlink" title="4.9 使用MapperScannerConfigurer批量扫描创建代理对象"></a>4.9 使用<code>MapperScannerConfigurer</code>批量扫描创建代理对象</h3><p>mapper代理开发方式批量mapper配置  ,内部会扫描指定包下的mapper，创建代理对象，bean的名字默认为mapper接口类名的首字母小写。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml"> &lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
-     &lt;property name=&quot;basePackage&quot; value=&quot;com.zero.sm.mapper&quot;&#x2F;&gt;
-     &lt;property name=&quot;sqlSessionFactoryBeanName&quot; value=&quot;sessionFactory&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+<pre><code class="xml"> &lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
+     &lt;property name=&quot;basePackage&quot; value=&quot;com.zero.sm.mapper&quot;/&gt;
+     &lt;property name=&quot;sqlSessionFactoryBeanName&quot; value=&quot;sessionFactory&quot;/&gt;
+&lt;/bean&gt;
 </code></pre>
 <p>测试方法同上案例。</p>
 <blockquote>
@@ -1525,63 +1420,59 @@ public void test2() {
 <li>在正式项目中使用逆向工程生成的代码。</li>
 </ol>
 <h3 id="5-3-案例示范"><a href="#5-3-案例示范" class="headerlink" title="5.3 案例示范"></a>5.3 案例示范</h3><h4 id="5-3-1-第一步：创建generator配置文件"><a href="#5-3-1-第一步：创建generator配置文件" class="headerlink" title="5.3.1  第一步：创建generator配置文件"></a>5.3.1  第一步：创建generator配置文件</h4><p>在src下，创建generator配置文件，文件内容可以从官方docs目录下的index.html中找到相关代码</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE generatorConfiguration
-        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD MyBatis Generator Configuration 1.0&#x2F;&#x2F;EN&quot;
-        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-generator-config_1_0.dtd&quot;&gt;
+        PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;
 
 &lt;generatorConfiguration&gt;
 
     &lt;context id=&quot;mysqlTables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;
         &lt;!--数据库配置--&gt;
         &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot;
-                        connectionURL=&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;mybatis01&quot;
+                        connectionURL=&quot;jdbc:mysql:///mybatis01&quot;
                         userId=&quot;root&quot;
                         password=&quot;123456&quot;&gt;
-        &lt;&#x2F;jdbcConnection&gt;
+        &lt;/jdbcConnection&gt;
 
         &lt;!--java类型解析--&gt;
         &lt;javaTypeResolver &gt;
-            &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; &#x2F;&gt;
-        &lt;&#x2F;javaTypeResolver&gt;
+            &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;
+        &lt;/javaTypeResolver&gt;
 
         &lt;!--模型生成包名--&gt;
         &lt;javaModelGenerator targetPackage=&quot;com.zero.sm.model&quot; targetProject=&quot;.\src&quot;&gt;
-            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; &#x2F;&gt;
-            &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; &#x2F;&gt;
-        &lt;&#x2F;javaModelGenerator&gt;
+            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;
+            &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;
+        &lt;/javaModelGenerator&gt;
 
         &lt;!--mybatis的映射 .xml--&gt;
         &lt;sqlMapGenerator targetPackage=&quot;com.zero.sm.mapper&quot;  targetProject=&quot;.\src&quot;&gt;
-            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; &#x2F;&gt;
-        &lt;&#x2F;sqlMapGenerator&gt;
+            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;
+        &lt;/sqlMapGenerator&gt;
 
         &lt;!--mybatis的mapper接口生成包路径--&gt;
         &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;com.zero.sm.mapper&quot;  targetProject=&quot;.\src&quot;&gt;
-            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; &#x2F;&gt;
-        &lt;&#x2F;javaClientGenerator&gt;
+            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;
+        &lt;/javaClientGenerator&gt;
 
         &lt;!-- 配置生成表的模型
             domainObjectName: 默认会根据表名生成，首字母自动大写
             --&gt;
-        &lt;table tableName=&quot;items&quot;&#x2F;&gt;
-        &lt;table tableName=&quot;orderdetail&quot; domainObjectName=&quot;OrderDetail&quot;&#x2F;&gt;
-        &lt;table tableName=&quot;orders&quot;&#x2F;&gt;
-        &lt;table tableName=&quot;user&quot;&#x2F;&gt;
+        &lt;table tableName=&quot;items&quot;/&gt;
+        &lt;table tableName=&quot;orderdetail&quot; domainObjectName=&quot;OrderDetail&quot;/&gt;
+        &lt;table tableName=&quot;orders&quot;/&gt;
+        &lt;table tableName=&quot;user&quot;/&gt;
 
-    &lt;&#x2F;context&gt;
-&lt;&#x2F;generatorConfiguration&gt;
+    &lt;/context&gt;
+&lt;/generatorConfiguration&gt;
 </code></pre>
 <h4 id="5-3-2-第二步：使用java类来执行逆向工程"><a href="#5-3-2-第二步：使用java类来执行逆向工程" class="headerlink" title="5.3.2  第二步：使用java类来执行逆向工程"></a>5.3.2  第二步：使用java类来执行逆向工程</h4><p>需导入mysql驱动包和mybatis的逆向工程包</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Main {
+<pre><code class="java">public class Main {
     public static void main(String[] args)  throws Exception{
         List&lt;String&gt; warnings = new ArrayList&lt;String&gt;();
         boolean overwrite = true;
-        File configFile = new File(&quot;src&#x2F;generator.xml&quot;);
+        File configFile = new File(&quot;src/generator.xml&quot;);
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);
@@ -1592,36 +1483,34 @@ public void test2() {
 }
 </code></pre>
 <h4 id="5-3-3-第三步：把生成的代码拷贝到项目中"><a href="#5-3-3-第三步：把生成的代码拷贝到项目中" class="headerlink" title="5.3.3  第三步：把生成的代码拷贝到项目中"></a>5.3.3  第三步：把生成的代码拷贝到项目中</h4><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/08/25/AutoGenerator-1566663834855.jpg" alt="AutoGenerator"></p>
-<h4 id="5-3-4-第四步：测试"><a href="#5-3-4-第四步：测试" class="headerlink" title="5.3.4  第四步：测试"></a>5.3.4  第四步：测试</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 测试基本查询
+<h4 id="5-3-4-第四步：测试"><a href="#5-3-4-第四步：测试" class="headerlink" title="5.3.4  第四步：测试"></a>5.3.4  第四步：测试</h4><pre><code class="java">// 测试基本查询
 @Test
 public void test2() {
-    &#x2F;&#x2F; 1. 加载spring的配置文件
+    // 1. 加载spring的配置文件
     ApplicationContext context = new ClassPathXmlApplicationContext(&quot;springConfig.xml&quot;);
-    &#x2F;&#x2F; 2. 获取dao的bean
+    // 2. 获取dao的bean
     UserMapper userMapper = (UserMapper) context.getBean(&quot;userMapper&quot;);
 
-    &#x2F;&#x2F; 3. 通过主键查询对象
+    // 3. 通过主键查询对象
     User user = userMapper.selectByPrimaryKey(1);
     System.out.println(user);
 
 }
 
-&#x2F;&#x2F; 测试Example
+// 测试Example
 @Test
 public void test3() {
-    &#x2F;&#x2F; 自动生成的Example是用于查询的
-    &#x2F;&#x2F; 1. 加载spring的配置文件
+    // 自动生成的Example是用于查询的
+    // 1. 加载spring的配置文件
     ApplicationContext context = new ClassPathXmlApplicationContext(&quot;springConfig.xml&quot;);
-    &#x2F;&#x2F; 2. 获取dao的bean
+    // 2. 获取dao的bean
     UserMapper userMapper = (UserMapper) context.getBean(&quot;userMapper&quot;);
 
     UserExample example = new UserExample();
-    &#x2F;&#x2F; 封装查询条件
+    // 封装查询条件
     UserExample.Criteria criteria = example.createCriteria();
-    criteria.andSexEqualTo(&quot;1&quot;); &#x2F;&#x2F; 查询男性用户
-    &#x2F;&#x2F; 通过封装后的查询条件查询
+    criteria.andSexEqualTo(&quot;1&quot;); // 查询男性用户
+    // 通过封装后的查询条件查询
     List&lt;User&gt; users = userMapper.selectByExample(example);
     System.out.println(users);
 }
@@ -1883,7 +1772,7 @@ public void test3() {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

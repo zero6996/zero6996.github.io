@@ -10,9 +10,8 @@
 1.1 表连接查询
 数据准备
 
-
-
-CREATE DATABASE IF NOT EXISTS `db5` CHARACTER SET gbk">
+CREATE DATABASE IF NOT EXISTS `db5` CHARACTER SET gbk;
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -445,9 +444,7 @@ CREATE DATABASE IF NOT EXISTS `db5` CHARACTER SET gbk">
 <h3 id="1-1-表连接查询"><a href="#1-1-表连接查询" class="headerlink" title="1.1 表连接查询"></a>1.1 表连接查询</h3><ul>
 <li>数据准备</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CREATE DATABASE IF NOT EXISTS `db5` CHARACTER SET gbk;
+<pre><code class="sql">CREATE DATABASE IF NOT EXISTS `db5` CHARACTER SET gbk;
 
 -- 创建部门表
 CREATE TABLE dept(
@@ -495,9 +492,7 @@ INSERT INTO staff(NAME,gender,salary,join_date,dept_id) VALUES
 <li>如何消除笛卡尔积现象的影响</li>
 </ul>
 <p>查询结果中不是所有的数据组合都是有用的，只有<strong>员工表.dept_id=部门表.id</strong>的数据才是有用的。所有需要通过设置条件过滤掉无用数据。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">SELECT * FROM staff,dept WHERE staff.`dept_id`=dept.`id`;
+<pre><code class="sql">SELECT * FROM staff,dept WHERE staff.`dept_id`=dept.`id`;
 -- 查询员工和部门的名字
 SELECT staff.`name`,dept.`name` FROM staff,dept WHERE staff.`dept_id`=dept.`id`;
 </code></pre>
@@ -506,9 +501,7 @@ SELECT staff.`name`,dept.`name` FROM staff,dept WHERE staff.`dept_id`=dept.`id`;
 <li>隐式内连接：不使用join关键字，条件使用where指定。</li>
 <li>语法：<code>select 字段名 from 左表,右表 where 条件;</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 查询两张表中，所有员工表外键等于部门表主键的数据
+<pre><code class="sql">-- 查询两张表中，所有员工表外键等于部门表主键的数据
 SELECT * FROM staff,dept WHERE staff.`dept_id`=dept.`id`;
 </code></pre>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/22/in-connection01-1558535127200.jpg" alt="title"></p>
@@ -516,18 +509,16 @@ SELECT * FROM staff,dept WHERE staff.`dept_id`=dept.`id`;
 <li>显式内连接：使用<strong>[inner] JOIN…ON</strong>语句, ‘[ ]’表示可省略</li>
 <li>语法：<code>select 字段名 from 左表 [inner] join 右表 on 条件;</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 查询钢铁侠的信息，显示员工id、姓名、性别、工资和所在的部门名称
+<pre><code class="sql">-- 查询钢铁侠的信息，显示员工id、姓名、性别、工资和所在的部门名称
 SELECT s.`id`,s.`name`,s.`gender`,s.`salary`,d.`name`部门名称 FROM staff s INNER JOIN dept d ON s.`dept_id`=d.`id` AND s.`name`=&#39;钢铁侠&#39;;
-&#x2F;*
+/*
 内连接查询步骤：
 1. 确定查询哪些表：员工表和部门表
 2. 确定表连接条件：员工表.dept_id = 部门表.id 的数据才是有效的，即消除笛卡尔积现象
 3. 确定查询条件：查询钢铁侠的信息，员工表.name=&#39;钢铁侠&#39;
 4. 确定显示字段：显示钢铁侠的id、姓名、性别、工资和所在的部门名称
 5. 可以使用别名进行优化，如staff as s
-*&#x2F;
+*/
 </code></pre>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/22/in-connection02-1558535144642.jpg" alt="title"></p>
 <h3 id="1-4-外连接"><a href="#1-4-外连接" class="headerlink" title="1.4 外连接"></a>1.4 外连接</h3><h4 id="1-4-1-左外连接"><a href="#1-4-1-左外连接" class="headerlink" title="1.4.1 左外连接"></a>1.4.1 左外连接</h4><p>用左边表的记录去匹配右边表的记录，如果符合条件的则显示；否则，显示 NULL</p>
@@ -535,9 +526,7 @@ SELECT s.`id`,s.`name`,s.`gender`,s.`salary`,d.`name`部门名称 FROM staff s I
 <li>语法：<code>select 字段名 fron 左表 left[outer] join 右表 on 条件;</code></li>
 </ul>
 <p>可以理解为：在内连接的基础上保证左表的数据全部显示(左表部门，右表员工情况下)</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 在部门表中增加一个销售部
+<pre><code class="sql">-- 在部门表中增加一个销售部
 INSERT INTO dept(NAME) VALUES(&#39;销售部&#39;);
 -- 使用内连接查询数据
 SELECT * FROM dept d INNER JOIN staff s ON d.`id`=s.`dept_id`;
@@ -551,9 +540,7 @@ SELECT * FROM dept d LEFT JOIN staff s ON d.`id`=s.`dept_id`;
 <li>语法：<code>select 字段名 from 左表 right[outer]join 右表 on 条件;</code></li>
 </ul>
 <p>可以理解为：在内连接的基础上保证右表的数据全部显示</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 在员工表中增加一个员工
+<pre><code class="sql">-- 在员工表中增加一个员工
 INSERT INTO staff VALUES(NULL,&#39;蜘蛛侠&#39;,&#39;男&#39;,5880,&#39;2014-4-1&#39;,NULL);
 -- 使用内连接查询
 SELECT * FROM dept d INNER JOIN staff s ON d.`id`=s.`dept_id`; -- 右表新添加的数据将查询不到，因为dept_id值为NULL。
@@ -566,9 +553,7 @@ SELECT * FROM dept d RIGHT JOIN staff s ON d.`id`=s.`dept_id`; -- 在内连接�
 <li>有查询的嵌套，内部的查询称为子查询</li>
 <li>子查询要<strong>使用括号</strong></li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 查询开发部中有哪些员工
+<pre><code class="sql">-- 查询开发部中有哪些员工
 -- 通过两条语句查询
 SELECT id FROM dept WHERE NAME=&#39;开发部&#39;; -- 先获取开发部门id，1
 SELECT * FROM staff WHERE dept_id=1; -- 通过id去查询对应员工
@@ -584,9 +569,7 @@ SELECT * FROM staff WHERE dept_id = (SELECT id FROM dept WHERE NAME=&#39;开发�
 <li>子查询结果只要是单行单列，肯定在 WHERE 后面作为条件，父查询使用：比较运算符，如：&gt; 、&lt;、&lt;&gt;、=等</li>
 <li>语法：<code>select 查询显示字段 from 表 where 字段=(子查询);</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 查询工资最高的员工
+<pre><code class="sql">-- 查询工资最高的员工
 SELECT staff.`name` FROM staff WHERE salary = (SELECT MAX(salary) FROM staff);
 -- 查询工资小于平均工资的员工有哪些？
 SELECT * FROM staff WHERE salary &lt; (SELECT AVG(salary) FROM staff);
@@ -595,9 +578,7 @@ SELECT * FROM staff WHERE salary &lt; (SELECT AVG(salary) FROM staff);
 <li>子查询结果是多行单列，结果集类似于一个数组，父查询使用IN运算符</li>
 <li>语法：<code>select 查询字段 form 表 where 字段 in (子查询);</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 查询工资大于5000的员工，来自于哪些部门的名字
+<pre><code class="sql">-- 查询工资大于5000的员工，来自于哪些部门的名字
 -- 先查询大于5000的员工所在的部门id
 SELECT dept_id FROM staff WHERE staff.`salary` &gt; 5000;
 -- 再查询这些部门id对应的部门名称,会报错
@@ -615,9 +596,7 @@ SELECT * FROM staff WHERE dept_id IN (SELECT id FROM dept WHERE NAME IN (&#39;�
 <ul>
 <li>语法：<code>select 查询字段 from (子查询) 表别名 where 条件;</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 查询出 2011 年以后入职的员工信息，包括部门名称
+<pre><code class="sql">-- 查询出 2011 年以后入职的员工信息，包括部门名称
 -- 在员工表中查询 2011-1-1 以后入职的员工
 SELECT * FROM staff WHERE join_date &gt;=&#39;2011-1-1&#39;;
 -- 查询所有的部门信息，与上面的虚拟表中的信息组合，找出所有部门 id 等于的 dept_id
@@ -634,9 +613,7 @@ SELECT * FROM staff s INNER JOIN dept d ON  s.`dept_id`=d.`id` AND join_date&gt;
 <li><strong>概念</strong>：如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败。</li>
 <li>转账操作示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 创建数据表
+<pre><code class="sql">-- 创建数据表
 CREATE TABLE account(
 id INT PRIMARY KEY AUTO_INCREMENT,
 NAME VARCHAR(30),
@@ -644,11 +621,11 @@ balance DOUBLE);
 
 -- 插入数据
 INSERT INTO account(NAME,balance) VALUES(&#39;小张&#39;,1000),(&#39;小李&#39;,1000);
-&#x2F;*
-	模拟小张给小李转500元钱，一个转账业务操作最少要执行下面两条语句：
-	小张账户-500
-	小李账户+500
-*&#x2F;
+/*
+    模拟小张给小李转500元钱，一个转账业务操作最少要执行下面两条语句：
+    小张账户-500
+    小李账户+500
+*/
 -- 小张账号-500
 UPDATE account SET balance = balance-500 WHERE NAME=&#39;小张&#39;;
 -- 小李账号+500
@@ -1009,9 +986,7 @@ UPDATE account SET balance = balance+500 WHERE NAME=&#39;小李&#39;;
 <ul>
 <li>操作示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 创建 zero 用户，只能在 localhost 这个服务器登录 mysql 服务器，密码为 123
+<pre><code class="sql">-- 创建 zero 用户，只能在 localhost 这个服务器登录 mysql 服务器，密码为 123
 create user &#39;zero&#39;@&#39;%&#39; identified by &#39;123&#39;;
 -- 创建 zero2用户可以在任何电脑上登录 mysql 服务器，密码为 123
 CREATE USER &#39;zero2&#39;@&#39;%&#39; IDENTIFIED BY &#39;123&#39;;
@@ -1053,9 +1028,7 @@ select user.`Host`,user.`User`,user.`authentication_string`PASSWORD FROM USER;
 <ul>
 <li>操作示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 给 zero 用户分配对 test 这个数据库操作的权限：创建表，修改表，插入记录，更新记录，查询
+<pre><code class="sql">-- 给 zero 用户分配对 test 这个数据库操作的权限：创建表，修改表，插入记录，更新记录，查询
 GRANT CREATE,ALTER,INSERT,UPDATE,SELECT ON db1.* TO &#39;zero&#39;@&#39;localhost&#39;;
 -- 给 zero2 用户分配所有权限，对所有数据库的所有表
 GRANT ALL ON *.* TO &#39;zero2&#39;@&#39;%&#39;;
@@ -1095,18 +1068,14 @@ GRANT ALL ON *.* TO &#39;zero2&#39;@&#39;%&#39;;
 <ul>
 <li>操作示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 撤销zero2用户对全部数据库的全部权限
+<pre><code class="sql">-- 撤销zero2用户对全部数据库的全部权限
 REVOKE ALL ON *.* FROM &#39;zero2&#39;@&#39;%&#39;;
 </code></pre>
 <h3 id="4-4-查看权限"><a href="#4-4-查看权限" class="headerlink" title="4.4 查看权限"></a>4.4 查看权限</h3><ul>
 <li>语法：<code>show grants for &#39;用户名&#39;@&#39;主机名&#39;;</code></li>
 <li>操作示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 查看zero用户的权限
+<pre><code class="sql">-- 查看zero用户的权限
 SHOW GRANTS FOR &#39;zero&#39;@&#39;localhost&#39;;
 </code></pre>
 <blockquote>
@@ -1118,9 +1087,7 @@ SHOW GRANTS FOR &#39;zero&#39;@&#39;localhost&#39;;
 <li><p>操作示例</p>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 删除zero用户
+<pre><code class="sql">-- 删除zero用户
 DROP USER &#39;zero&#39;@&#39;localhost&#39;;
 </code></pre>
 <h3 id="4-6-修改管理员密码"><a href="#4-6-修改管理员密码" class="headerlink" title="4.6 修改管理员密码"></a>4.6 修改管理员密码</h3><ul>
@@ -1405,7 +1372,7 @@ DROP USER &#39;zero&#39;@&#39;localhost&#39;;
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

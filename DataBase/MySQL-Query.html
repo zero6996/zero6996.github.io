@@ -10,9 +10,8 @@
 排序方式：ASC(升序,默认值)；DESC(降序)。
 
 
-
-
-# 单列排">
+# 单列排序
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -424,7 +423,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        22 分
+                        21 分
                     </div>
                     
                 
@@ -445,9 +444,7 @@
 <li>排序方式：ASC(升序,默认值)；DESC(降序)。</li>
 </ul>
 <a id="more"></a>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 单列排序
+<pre><code class="sql"># 单列排序
 SELECT * FROM student2 ORDER BY math; # 以math为条件升序排序，默认升序
 SELECT * FROM student2 ORDER BY math DESC; # 以math为条件进行降序排序
 # 组合排序
@@ -465,9 +462,7 @@ SELECT * FROM student2 ORDER BY math ASC,english DESC;
 <li>sum：求和</li>
 <li>avg：求平均值</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 统计学生人数
+<pre><code class="sql"># 统计学生人数
 SELECT COUNT(id) AS 总人数 FROM student2;
 # 对english列统计个数
 SELECT COUNT(english) FROM student2; -- 7
@@ -490,13 +485,11 @@ SELECT MIN(math) AS 数学最低分 FROM student2;
 </blockquote>
 <h3 id="1-3-分组"><a href="#1-3-分组" class="headerlink" title="1.3 分组"></a>1.3 分组</h3><p>分组查询是指使用<code>group by</code> 语句对查询信息进行分组，相同数据作为一组。</p>
 <p><code>select 字段1,字段2... from 表名 group by 分组字段[HAVING 条件];</code></p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 按性别进行分组，求男女生的数学平均分。
+<pre><code class="sql"># 按性别进行分组，求男女生的数学平均分。
 SELECT sex,AVG(math) FROM student2 GROUP BY sex; # 当我们使用某个字段分组，在查询时也需要将这个字段查询出来，否则看不大数据属于哪组的
-&#x2F;*
-	group by 将分组字段结果中相同内容作为一组，并且返回每组的第一条数据。单独分组没用，分组的目的就是为了统计，所以一般分组会跟聚合函数一起使用。
-*&#x2F;
+/*
+    group by 将分组字段结果中相同内容作为一组，并且返回每组的第一条数据。单独分组没用，分组的目的就是为了统计，所以一般分组会跟聚合函数一起使用。
+*/
 # 查询男女各有多少人
 SELECT sex,COUNT(*)男女各有多少人 FROM student2 GROUP BY sex; # 分组函数会先查询所有数据，按性别分组，然后统计每组人数
 # 查询年龄大于25岁的人，按照性别分组，统计每组人数
@@ -524,27 +517,21 @@ SELECT sex,COUNT(*)年龄大于25岁人数且人数大于2的 FROM student2 WHER
 </table>
 <h3 id="1-4-limit语句"><a href="#1-4-limit语句" class="headerlink" title="1.4 limit语句"></a>1.4 limit语句</h3><p>limit是限制的意思，作用就是限制查询记录的条数。</p>
 <p>语句：<code>select 字段列表 from 表名 [where子句][group by子句][limit offset(默认0),length];</code></p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 查询学生表中数据，从第三条开始，显示6条。
+<pre><code class="sql"># 查询学生表中数据，从第三条开始，显示6条。
 SELECT * FROM student2 LIMIT 2,6;
 # 使用场景：分页，一般使用在类似淘宝商品信息分页。
 </code></pre>
 <h2 id="2-数据库的备份和还原"><a href="#2-数据库的备份和还原" class="headerlink" title="2. 数据库的备份和还原"></a>2. 数据库的备份和还原</h2><h3 id="2-1-备份格式"><a href="#2-1-备份格式" class="headerlink" title="2.1 备份格式"></a>2.1 备份格式</h3><p>在DOS下，使用语句：<code>mysqldump -u用户名 -p密码 数据库&gt;文件路径</code></p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-powershell"># 备份db4数据库中数据到本地db4.sql文件中
+<pre><code class="powershell"># 备份db4数据库中数据到本地db4.sql文件中
 mysqldump -uroot -p123456 db4 &gt; C:\Java\JavaWeb\db4.sql
 </code></pre>
 <h3 id="2-2-还原格式"><a href="#2-2-还原格式" class="headerlink" title="2.2 还原格式"></a>2.2 还原格式</h3><p>mysql中的命令，登录后使用：<code>use 数据库; source 导入文件的路径;</code></p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">&#x2F;*还原步骤：
+<pre><code class="sql">/*还原步骤：
     1. 删除db4数据库中的所有表
     2. 登录mysql，选中数据库
     3. 使用source 命令还原数据
     4. 查看还原情况
-*&#x2F;
+*/
 use db4;
 source C:\Java\JavaWeb\db4.sql;
 </code></pre>
@@ -588,11 +575,9 @@ source C:\Java\JavaWeb\db4.sql;
 <li>在创建表时给字段添加主键：<code>字段名 字段类型 PRIMARY KEY;</code></li>
 <li>在已有表中添加主键：<code>alter table 表名 add primary key(字段名);</code></li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 创建表时添加
+<pre><code class="sql"># 创建表时添加
 create table student3(
-	id int primary key; # id设为主键
+    id int primary key; # id设为主键
     name varchar(20);
     age int);
 # 删除主键
@@ -605,18 +590,14 @@ alter table student3 add primary key(id);
 <ul>
 <li>创建表时指定起始值</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">create table 表名(
-	列名 int primary key auto_increment,
+<pre><code class="sql">create table 表名(
+    列名 int primary key auto_increment,
 )auto_increment=起始值;
 </code></pre>
 <ul>
 <li>创建表后修改起始值</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">alter table 表名 auto_increment=10;
+<pre><code class="sql">alter table 表名 auto_increment=10;
 </code></pre>
 <h4 id="delete和truncate对自增长的影响"><a href="#delete和truncate对自增长的影响" class="headerlink" title="delete和truncate对自增长的影响"></a>delete和truncate对自增长的影响</h4><ul>
 <li>delete：删除所有的记录后，自增长没有影响。</li>
@@ -626,12 +607,10 @@ alter table student3 add primary key(id);
 <ul>
 <li>语法：<code>字段名 字段类型 unique</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 创建学生表4，包含字段(id, name),name 这一列设置唯一约束,不能出现同名的学生
+<pre><code class="sql"># 创建学生表4，包含字段(id, name),name 这一列设置唯一约束,不能出现同名的学生
 CREATE TABLE student4(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	NAME VARCHAR(255) UNIQUE);
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(255) UNIQUE);
 
 # 添加学生
 INSERT INTO student4(NAME) VALUES(&#39;xiaohua&#39;);
@@ -641,27 +620,23 @@ INSERT INTO student4(NAME) VALUES(NULL); # 不会报错，因为null无数据
 </code></pre>
 <h3 id="3-5-非空约束"><a href="#3-5-非空约束" class="headerlink" title="3.5 非空约束"></a>3.5 非空约束</h3><p>用于约束某一列不能为null</p>
 <p>语法：<code>字段名 字段类型 not null</code></p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 创建表学生表5, 包含字段(id,name,gender)其中 name 不能为 NULL
+<pre><code class="sql">-- 创建表学生表5, 包含字段(id,name,gender)其中 name 不能为 NULL
 CREATE TABLE student5(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	NAME VARCHAR(100) NOT NULL,
-	gender CHAR(1));
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(100) NOT NULL,
+    gender CHAR(1));
 
 # 添加一条记录其中姓名不赋值
 INSERT INTO student5(NAME,gender) VALUES(NULL,&#39;man&#39;); # 错误代码： 1048 Column &#39;name&#39; cannot be null
 </code></pre>
 <h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><p>我们可以为字段指定默认值</p>
 <p>语法：<code>字段名 字段类型 default 默认值</code></p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 创建一个学生表6，包含字段(id,name,address)， 地址默认值是广州
+<pre><code class="sql">-- 创建一个学生表6，包含字段(id,name,address)， 地址默认值是广州
 CREATE TABLE student6(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	NAME VARCHAR(20),
-	address VARCHAR(50) DEFAULT &#39;杭州&#39;);
-	
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(20),
+    address VARCHAR(50) DEFAULT &#39;杭州&#39;);
+
 -- 添加一条记录,使用默认地址
 INSERT INTO student6(NAME,address) VALUES(&#39;xiaozhang&#39;,DEFAULT);
 -- 添加一条记录,不使用默认地址
@@ -675,9 +650,7 @@ INSERT INTO student6(NAME,address) VALUES(&#39;xiaohua&#39;,&#39;上海&#39;);
 </ol>
 </blockquote>
 <h3 id="3-6-外键约束"><a href="#3-6-外键约束" class="headerlink" title="3.6 外键约束"></a>3.6 外键约束</h3><p><strong>单表的缺点</strong>：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 创建一个员工表包含如下列(id, name, age, dep_name, dep_location),id 主键并自动增长,添加 5 条数据
+<pre><code class="sql"># 创建一个员工表包含如下列(id, name, age, dep_name, dep_location),id 主键并自动增长,添加 5 条数据
 CREATE TABLE emp (
     id INT PRIMARY KEY AUTO_INCREMENT,
     NAME VARCHAR(30),
@@ -697,9 +670,7 @@ INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES (&#39;小王&#39;, 18
 <ul>
 <li>上数据表的缺点: 一是数据冗余，二是后期可能出现的增删改问题。</li>
 </ul>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"># 将上述数据表分成两张表，部门表\员工表
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><pre><code class="sql"># 将上述数据表分成两张表，部门表\员工表
 -- 创建部门表(id,dep_name,dep_location)
 -- 主表，一对多
 CREATE TABLE department(
@@ -738,9 +709,7 @@ INSERT INTO employee (NAME, age, dep_id) VALUES (&#39;小王&#39;, 18, 2);
 </ul>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">DROP TABLE employee;
+<pre><code class="sql">DROP TABLE employee;
 -- 创建从表 employee 并添加外键约束 emp_depid_fk
 -- 多方，从表
 CREATE TABLE employee(
@@ -765,9 +734,7 @@ INSERT INTO employee (NAME, age, dep_id) VALUES (&#39;老板&#39;, 35, 6); # 错
 <h4 id="删除外键"><a href="#删除外键" class="headerlink" title="删除外键"></a>删除外键</h4><ul>
 <li>语法：<code>ALTER TABLE 从表 drop foreign key 外键名称;</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">-- 删除employee表的emp_depid_fk外键
+<pre><code class="sql">-- 删除employee表的emp_depid_fk外键
 ALTER TABLE employee DROP FOREIGN KEY emp_depid_fk;
 -- 在 employee 表存在的情况下添加外键
 ALTER TABLE employee ADD CONSTRAINT emp_depid_fk FOREIGN KEY(dep_id) REFERENCES department(id);
@@ -793,9 +760,7 @@ ALTER TABLE employee ADD CONSTRAINT emp_depid_fk FOREIGN KEY(dep_id) REFERENCES 
 </tr>
 </tbody>
 </table>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">--  删除 employee 表，重新创建 employee 表，添加级联更新和级联删除
+<pre><code class="sql">--  删除 employee 表，重新创建 employee 表，添加级联更新和级联删除
 DROP TABLE employee;
 
 CREATE TABLE employee(
@@ -894,25 +859,23 @@ DELETE FROM department WHERE id=2;
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/20/OneToOne-1558282085899.jpg" alt="title"></p>
 <h3 id="4-4-综合案例"><a href="#4-4-综合案例" class="headerlink" title="4.4 综合案例"></a>4.4 综合案例</h3><p>根据途牛网的旅游分类、旅游航线等信息设计数据库表结构</p>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/20/tuniu-1558320997129.jpg" alt="title"></p>
-<h4 id="SQL语句实现"><a href="#SQL语句实现" class="headerlink" title="SQL语句实现"></a>SQL语句实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">&#x2F;*
+<h4 id="SQL语句实现"><a href="#SQL语句实现" class="headerlink" title="SQL语句实现"></a>SQL语句实现</h4><pre><code class="sql">/*
 1. 创建旅游线路分类表，tab_category
 cid 主键，自增
 cname 分类名称，唯一，
-*&#x2F;
+*/
 CREATE TABLE tab_category(
 cid INT PRIMARY KEY AUTO_INCREMENT,
 cname VARCHAR(100) UNIQUE
 );
-&#x2F;*
+/*
 2. 创建航线route表
 rid ，旅游线路主键，自增
 rname 旅游线路名称，非空唯一，
 price 价格
 rdate 上架时间，
 cid 外键
-*&#x2F;
+*/
 CREATE TABLE tab_route(
 rid INT PRIMARY KEY AUTO_INCREMENT,
 rname VARCHAR(100) UNIQUE NOT NULL,
@@ -922,7 +885,7 @@ cid INT,
 FOREIGN KEY(cid) REFERENCES tab_category(cid) -- 外键指向主表主键
 );
 
-&#x2F;*
+/*
 3. 创建用户表 tab_user
 uid 用户主键，自增长
 username 用户名长度 100，唯一，非空
@@ -932,7 +895,7 @@ birthday 生日
 sex 性别，定长字符串 1
 telephone 手机号，字符串 11
 email 邮箱，字符串长度 100
-*&#x2F;
+*/
 CREATE TABLE tab_user(
 uid INT PRIMARY KEY AUTO_INCREMENT,
 username VARCHAR(100) UNIQUE NOT NULL,
@@ -944,14 +907,14 @@ telephone VARCHAR(11),
 email VARCHAR(100)
 );
 
-&#x2F;*
+/*
 4. 创建用户和航线的中间表，收藏表:
 创建收藏表 tab_favorite
 rid 旅游线路id,外键
 date 收藏时间
 uid 用户 id,外键
 rid 和 uid 不能重复,设置复合主键,同一个用户不能收藏同一个线路两次
-*&#x2F;
+*/
 CREATE TABLE tab_favorite(
 rid INT, -- 旅游线路id
 favtime DATETIME,
@@ -1437,7 +1400,7 @@ MySQL基本操作</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

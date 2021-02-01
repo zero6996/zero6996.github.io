@@ -413,14 +413,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.6k
+                        2.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        13 分
+                        12 分
                     </div>
                     
                 
@@ -444,9 +444,7 @@
 <h3 id="1-1-准备阶段"><a href="#1-1-准备阶段" class="headerlink" title="1.1 准备阶段"></a>1.1 准备阶段</h3><ul>
 <li>先创建数据库</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">drop database if exists selection_course;
+<pre><code class="sql">drop database if exists selection_course;
 
 create database selection_course;
 use selection_course;
@@ -505,25 +503,23 @@ commit;
 </ul>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--导入数据库驱动包--&gt;
+<pre><code class="xml">&lt;!--导入数据库驱动包--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;5.1.32&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;version&gt;5.1.32&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;!--导入Template相关包--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-jdbc&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;${spring.version}&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+    &lt;version&gt;${spring.version}&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-tx&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;${spring.version}&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;
+    &lt;version&gt;${spring.version}&lt;/version&gt;
+&lt;/dependency&gt;
 </code></pre>
 <ul>
 <li><p>创建<code>spring.xml</code>文件，配置如下内容</p>
@@ -531,61 +527,55 @@ commit;
 <li>数据源</li>
 <li>JDBC Template</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-  &lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-         xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
-         xmlns:context=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;
-         xmlns:aop=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&quot;
-         xmlns:tx=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&quot;
-         xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&#x2F;spring-aop.xsd
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&#x2F;spring-tx.xsd&quot;&gt;
-      &lt;!--配置数据源--&gt;
-      &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
-          &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;
-          &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;selection_cource?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;&#x2F;&gt;
-          &lt;property name=&quot;username&quot; value=&quot;root&quot;&#x2F;&gt;
-          &lt;property name=&quot;password&quot; value=&quot;123456&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-      &lt;!--配置Template--&gt;
-      &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
-          &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-  &lt;&#x2F;beans&gt;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd&quot;&gt;
+    &lt;!--配置数据源--&gt;
+    &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/selection_cource?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;/&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+        &lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;
+    &lt;/bean&gt;
+    &lt;!--配置Template--&gt;
+    &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
 </code></pre>
 </li>
 </ul>
-<h3 id="1-2-JDBC-Template基本使用"><a href="#1-2-JDBC-Template基本使用" class="headerlink" title="1.2 JDBC Template基本使用"></a>1.2 JDBC Template基本使用</h3><h4 id="1-2-1-execute方法"><a href="#1-2-1-execute方法" class="headerlink" title="1.2.1 execute方法"></a>1.2.1 execute方法</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public void testExecute(){
+<h3 id="1-2-JDBC-Template基本使用"><a href="#1-2-JDBC-Template基本使用" class="headerlink" title="1.2 JDBC Template基本使用"></a>1.2 JDBC Template基本使用</h3><h4 id="1-2-1-execute方法"><a href="#1-2-1-execute方法" class="headerlink" title="1.2.1 execute方法"></a>1.2.1 execute方法</h4><pre><code class="java">public void testExecute(){
     jdbcTemplate.execute(&quot;create table user1(id int,name varchar(20))&quot;);
 }
 </code></pre>
 <h4 id="1-2-2-update与batchUpdate方法"><a href="#1-2-2-update与batchUpdate方法" class="headerlink" title="1.2.2 update与batchUpdate方法"></a>1.2.2 update与batchUpdate方法</h4><ul>
 <li>update方法：对数据进行增删改操作</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">int update(String sql, Object[] agrs)
+<pre><code class="java">int update(String sql, Object[] agrs)
 int update(String slq, Object... args)
 
-    
-&#x2F;&#x2F; 方法示例
-&#x2F;&#x2F; int update(String sql, Object[] agrs)
+
+// 方法示例
+// int update(String sql, Object[] agrs)
 @Test
 public void testUpdate(){
     String sql = &quot;insert into student(name,sex) values(?,?)&quot;;
     jdbcTemplate.update(sql,new Object[]{&quot;小明&quot;,&quot;男&quot;});
 }
 
-&#x2F;&#x2F; int update(String slq, Object... args)
+// int update(String slq, Object... args)
 @Test
 public void testUpdate2(){
     String sql = &quot;update student set sex=? where name=?&quot;;
@@ -595,13 +585,11 @@ public void testUpdate2(){
 <ul>
 <li>batchUpdate方法：批量增删改操作</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">int[] batchUpdate(String[] sql)
+<pre><code class="java">int[] batchUpdate(String[] sql)
 int[] barchUpdate(String sql, List&lt;Object[]&gt; args)
 
-&#x2F;&#x2F; 方法示例
-&#x2F;&#x2F; int[] batchUpdate(String[] sql)
+// 方法示例
+// int[] batchUpdate(String[] sql)
 @Test
 public void testBatchUpdate(){
     String[] sqls = {
@@ -612,7 +600,7 @@ public void testBatchUpdate(){
     jdbcTemplate.batchUpdate(sqls);
 }
 
-&#x2F;&#x2F; int[] barchUpdate(String sql, List&lt;Object[]&gt; args),适用于同步sql语句执行,使用率较高。
+// int[] barchUpdate(String sql, List&lt;Object[]&gt; args),适用于同步sql语句执行,使用率较高。
 @Test
 public void testBatchUpdate2(){
     String sql = &quot;insert into selection(student,course) values(?,?)&quot;;
@@ -627,84 +615,70 @@ public void testBatchUpdate2(){
 <ul>
 <li>获取一个</li>
 </ul>
+<pre><code class="java">T queryForObject(String sql, Class&lt;T&gt; type)
+T queryForObject(String sql, Object[] args, Class&lt;T&gt; type)
+T queryForObject(String sql, Class&lt;T&gt; type,Object... arg)
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  T queryForObject(String sql, Class&lt;T&gt; type)
-  T queryForObject(String sql, Object[] args, Class&lt;T&gt; type)
-  T queryForObject(String sql, Class&lt;T&gt; type,Object... arg)
-      
-  &#x2F;&#x2F; 方法示例
-  &#x2F;&#x2F; T queryForObject(String sql, Class&lt;T&gt; type)
-  @Test
-  public void testQueryForObject(){
-      String sql = &quot;select count(*) from student&quot;;
-      int count = jdbcTemplate.queryForObject(sql, Integer.class); &#x2F;&#x2F; 第一个参数sql语句，第二个参数返回值类型
-      System.out.println(count);
-  }
+// 方法示例
+// T queryForObject(String sql, Class&lt;T&gt; type)
+@Test
+public void testQueryForObject(){
+    String sql = &quot;select count(*) from student&quot;;
+    int count = jdbcTemplate.queryForObject(sql, Integer.class); // 第一个参数sql语句，第二个参数返回值类型
+    System.out.println(count);
+}
+</code></pre>
+<ul>
+<li>获取多个</li>
+</ul>
+<pre><code class="java">T queryForList(String sql, Class&lt;T&gt; type)
+T queryForList(String sql, Object[] args, Class&lt;T&gt; type)
+T queryForList(String sql, Class&lt;T&gt; type,Object... arg)
+
+// 方法示例
+// T queryForList(String sql, Class&lt;T&gt; type)
+@Test
+public void testQueryForList(){
+    String sql = &quot;select name from student where sex=?&quot;;
+    List&lt;String&gt; names = jdbcTemplate.queryForList(sql, String.class, &quot;女&quot;);
+    System.out.println(names);
+}
 </code></pre>
 </li>
-</ul>
-<ul>
-<li><p>获取多个</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  T queryForList(String sql, Class&lt;T&gt; type)
-  T queryForList(String sql, Object[] args, Class&lt;T&gt; type)
-  T queryForList(String sql, Class&lt;T&gt; type,Object... arg)
-      
-  &#x2F;&#x2F; 方法示例
-  &#x2F;&#x2F; T queryForList(String sql, Class&lt;T&gt; type)
-  @Test
-  public void testQueryForList(){
-      String sql = &quot;select name from student where sex=?&quot;;
-      List&lt;String&gt; names = jdbcTemplate.queryForList(sql, String.class, &quot;女&quot;);
-      System.out.println(names);
-  }
-</code></pre>
-</li>
-</ul>
-<ul>
 <li><p>查询复杂对象（封装为Map）</p>
 <ul>
 <li>获取一个</li>
 </ul>
+<pre><code class="java">Map queryForMap(String sql)
+Map queryForMap(String sql,Object[] args)
+Map queryForMap(String sql,Object... arg)
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  Map queryForMap(String sql)
-  Map queryForMap(String sql,Object[] args)
-  Map queryForMap(String sql,Object... arg)
-      
-  &#x2F;&#x2F; 方法示例
-  &#x2F;&#x2F; Map queryForMap(String sql)
-  @Test
-  public void testQueryForMap(){
-      String sql = &quot;select * from student where id = ?&quot;;
-      Map&lt;String, Object&gt; map = jdbcTemplate.queryForMap(sql, 1);
-      System.out.println(map); &#x2F;&#x2F; {id=1, name=小明, sex=女, born=null}
-  }
+// 方法示例
+// Map queryForMap(String sql)
+@Test
+public void testQueryForMap(){
+    String sql = &quot;select * from student where id = ?&quot;;
+    Map&lt;String, Object&gt; map = jdbcTemplate.queryForMap(sql, 1);
+    System.out.println(map); // {id=1, name=小明, sex=女, born=null}
+}
+</code></pre>
+<ul>
+<li>获取多个</li>
+</ul>
+<pre><code class="java">List&lt;Map&lt;String,Object&gt;&gt; queryForList(String sql)
+List&lt;Map&lt;String,Object&gt;&gt; queryForList(String sql,Object[] args)
+List&lt;Map&lt;String,Object&gt;&gt; queryForList(String sql,Object... arg)
+
+// 方法示例
+// List&lt;Map&lt;String,Object&gt;&gt; queryForList(String sql)
+@Test
+public void testQueryList(){
+    String sql = &quot;select * from student&quot;;
+    List&lt;Map&lt;String, Object&gt;&gt; stus = jdbcTemplate.queryForList(sql);
+    System.out.println(stus); // [{id=1, name=小明, sex=女, born=null}, {id=2, name=小李, sex=男, born=null}, {id=3, name=小花, sex=女, born=null}]
+}
 </code></pre>
 </li>
-</ul>
-<ul>
-<li><p>获取多个</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  List&lt;Map&lt;String,Object&gt;&gt; queryForList(String sql)
-  List&lt;Map&lt;String,Object&gt;&gt; queryForList(String sql,Object[] args)
-  List&lt;Map&lt;String,Object&gt;&gt; queryForList(String sql,Object... arg)
-      
-  &#x2F;&#x2F; 方法示例
-  &#x2F;&#x2F; List&lt;Map&lt;String,Object&gt;&gt; queryForList(String sql)
-  @Test
-  public void testQueryList(){
-      String sql = &quot;select * from student&quot;;
-      List&lt;Map&lt;String, Object&gt;&gt; stus = jdbcTemplate.queryForList(sql);
-      System.out.println(stus); &#x2F;&#x2F; [{id=1, name=小明, sex=女, born=null}, {id=2, name=小李, sex=男, born=null}, {id=3, name=小花, sex=女, born=null}]
-  }
-</code></pre>
-</li>
-</ul>
-<ul>
 <li><p>查询复杂对象（封装为实体对象）</p>
 <ul>
 <li><p>RowMapper接口</p>
@@ -712,61 +686,56 @@ public void testBatchUpdate2(){
 <li><p>获取一个</p>
 </li>
 </ul>
+<pre><code class="java">T queryForObject(String sql,RowMapper&lt;T&gt; mapper)
+T queryForObject(String sql,Object[] args,RowMapper&lt;T&gt; mapper)
+T queryForObject(String sql,RowMapper&lt;T&gt; mapper,Object... arg)
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  T queryForObject(String sql,RowMapper&lt;T&gt; mapper)
-  T queryForObject(String sql,Object[] args,RowMapper&lt;T&gt; mapper)
-  T queryForObject(String sql,RowMapper&lt;T&gt; mapper,Object... arg)
-      
-  &#x2F;&#x2F; 方法示例
-  @Test
-  public void testQueryEntity1(){
-      String sql = &quot;select * from student where id = ?&quot;;
-      Student student = jdbcTemplate.queryForObject(sql, new RowMapper&lt;Student&gt;() {
-          &#x2F;&#x2F; 设置映射关系
-          public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-              Student student = new Student();
-              student.setId(rs.getInt(&quot;id&quot;));
-              student.setName(rs.getString(&quot;name&quot;));
-              student.setSex(rs.getString(&quot;sex&quot;));
-              student.setBorn(rs.getDate(&quot;born&quot;));
-              return student;
-          }
-      },1);
-      System.out.println(student); &#x2F;&#x2F; Student{id=1, name=&#39;小明&#39;, sex=&#39;女&#39;, born=null}
-      
-      &#x2F;&#x2F;        Student student = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper&lt;Student&gt;(Student.class), 1);
-      &#x2F;&#x2F;        System.out.println(student);
-  }
+// 方法示例
+@Test
+public void testQueryEntity1(){
+    String sql = &quot;select * from student where id = ?&quot;;
+    Student student = jdbcTemplate.queryForObject(sql, new RowMapper&lt;Student&gt;() {
+        // 设置映射关系
+        public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Student student = new Student();
+            student.setId(rs.getInt(&quot;id&quot;));
+            student.setName(rs.getString(&quot;name&quot;));
+            student.setSex(rs.getString(&quot;sex&quot;));
+            student.setBorn(rs.getDate(&quot;born&quot;));
+            return student;
+        }
+    },1);
+    System.out.println(student); // Student{id=1, name=&#39;小明&#39;, sex=&#39;女&#39;, born=null}
+
+    //        Student student = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper&lt;Student&gt;(Student.class), 1);
+    //        System.out.println(student);
+}
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>获取多个</p>
+<li>获取多个</li>
+</ul>
+<pre><code class="java">List&lt;T&gt; query(String sql,RowMapper&lt;T&gt; mapper)
+List&lt;T&gt; query(String sql,Object[] args,RowMapper&lt;T&gt; mapper)
+List&lt;T&gt; query(String sql,RowMapper&lt;T&gt; mapper,Object... arg)
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  List&lt;T&gt; query(String sql,RowMapper&lt;T&gt; mapper)
-  List&lt;T&gt; query(String sql,Object[] args,RowMapper&lt;T&gt; mapper)
-  List&lt;T&gt; query(String sql,RowMapper&lt;T&gt; mapper,Object... arg)
-      
-  &#x2F;&#x2F; 方法示例
-  &#x2F;&#x2F; List&lt;T&gt; query(String sql,RowMapper&lt;T&gt; mapper) 获取多条记录，封装成实体类
-  @Test
-  public void testQueryEntity2(){
-      String sql = &quot;select * from student&quot;;
-      List&lt;Student&gt; stus = jdbcTemplate.query(sql, new RowMapper&lt;Student&gt;() {
-          &#x2F;&#x2F; 设置映射关系
-          public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-              Student student = new Student();
-              student.setId(rs.getInt(&quot;id&quot;));
-              student.setName(rs.getString(&quot;name&quot;));
-              student.setSex(rs.getString(&quot;sex&quot;));
-              student.setBorn(rs.getDate(&quot;born&quot;));
-              return student;
-          }
-      });
-      System.out.println(stus);
-  }
+// 方法示例
+// List&lt;T&gt; query(String sql,RowMapper&lt;T&gt; mapper) 获取多条记录，封装成实体类
+@Test
+public void testQueryEntity2(){
+    String sql = &quot;select * from student&quot;;
+    List&lt;Student&gt; stus = jdbcTemplate.query(sql, new RowMapper&lt;Student&gt;() {
+        // 设置映射关系
+        public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Student student = new Student();
+            student.setId(rs.getInt(&quot;id&quot;));
+            student.setName(rs.getString(&quot;name&quot;));
+            student.setSex(rs.getString(&quot;sex&quot;));
+            student.setBorn(rs.getDate(&quot;born&quot;));
+            return student;
+        }
+    });
+    System.out.println(stus);
+}
 </code></pre>
 </li>
 </ul>
@@ -790,59 +759,51 @@ public void testBatchUpdate2(){
 </li>
 </ul>
 <h3 id="2-1-配置DBCP"><a href="#2-1-配置DBCP" class="headerlink" title="2.1 配置DBCP"></a>2.1 配置DBCP</h3><p>导入<code>commons-dbcp2.jar</code>、<code>commons-pool.jar</code>到工程。在spring配置文件中配置如下。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--配置DBCP数据源--&gt;
+<pre><code class="xml">&lt;!--配置DBCP数据源--&gt;
 &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp2.BasicDataSource&quot;&gt;
-    &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;
-    &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;&#x2F;&gt;
-    &lt;property name=&quot;username&quot; value=&quot;root&quot;&#x2F;&gt;
-    &lt;property name=&quot;password&quot; value=&quot;123456&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+    &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+    &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;/&gt;
+    &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+    &lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;
+&lt;/bean&gt;
 &lt;!--配置Template--&gt;
 &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
-    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+&lt;/bean&gt;
 
 &lt;!--依赖注入，注意一定要提供set方法--&gt;
 &lt;bean id=&quot;studentDao&quot; class=&quot;com.zero.jdbc_Template.dao.Impl.StudentDaoImpl&quot;&gt;
-    &lt;property name=&quot;jdbcTemplate&quot; ref=&quot;jdbcTemplate&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+    &lt;property name=&quot;jdbcTemplate&quot; ref=&quot;jdbcTemplate&quot;/&gt;
+&lt;/bean&gt;
 </code></pre>
 <h3 id="2-2-配置C3P0"><a href="#2-2-配置C3P0" class="headerlink" title="2.2 配置C3P0"></a>2.2 配置C3P0</h3><p>导入<code>c3p0-0.9.2.1.jar</code>到工程。在spring配置文件中配置如下。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;
-    &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;
-    &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;&#x2F;&gt;
-    &lt;property name=&quot;user&quot; value=&quot;root&quot;&#x2F;&gt;
-    &lt;property name=&quot;password&quot; value=&quot;123456&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+<pre><code class="xml">&lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;
+    &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+    &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://localhost:3306/selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;/&gt;
+    &lt;property name=&quot;user&quot; value=&quot;root&quot;/&gt;
+    &lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;
+&lt;/bean&gt;
 </code></pre>
 <h3 id="2-3-关于JdbcDaoSupport"><a href="#2-3-关于JdbcDaoSupport" class="headerlink" title="2.3 关于JdbcDaoSupport"></a>2.3 关于<code>JdbcDaoSupport</code></h3><p>JdbcDaoSupport是spring框架为我们提供的一个类，该类中定义了一个JdbcTemplate对象，我们可以直接获取使用，但是要想创建该对象，需要为其提供一个数据源。</p>
 <p><a href="https://blog.csdn.net/weixin_42112635/article/details/88020509" target="_blank" rel="noopener">参考文章</a></p>
 <h3 id="2-4-关于引用外部属性文件"><a href="#2-4-关于引用外部属性文件" class="headerlink" title="2.4 关于引用外部属性文件"></a>2.4 关于引用外部属性文件</h3><ul>
 <li>将数据库连接的信息配置到属性文件中：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-properties">username=root
+<pre><code class="properties">username=root
 password=123456
 driver=com.mysql.jdbc.Driver
-url=jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8
+url=jdbc:mysql://127.0.0.1:3306/selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8
 </code></pre>
 <ul>
 <li>在spring配置文件中引入外部的属性文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 引入外部属性文件： --&gt;
+<pre><code class="xml">&lt;!-- 引入外部属性文件： --&gt;
 &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;&gt;
-    &lt;property name=&quot;location&quot; value=&quot;classpath:jdbc.properties&quot;&#x2F;&gt;
-&lt;&#x2F;bean&gt;
+    &lt;property name=&quot;location&quot; value=&quot;classpath:jdbc.properties&quot;/&gt;
+&lt;/bean&gt;
 
 &lt;!--方法2--&gt;
-&lt;context:property-placeholder location=&quot;classpath:jdbc.properties&quot;&#x2F;&gt;
+&lt;context:property-placeholder location=&quot;classpath:jdbc.properties&quot;/&gt;
 </code></pre>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>持久化操作特点</li>
@@ -1121,7 +1082,7 @@ AspectJ是一个基于Java语言的AOP框架</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

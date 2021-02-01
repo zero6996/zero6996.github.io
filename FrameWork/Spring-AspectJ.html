@@ -413,14 +413,14 @@ AspectJ是一个基于Java语言的AOP框架">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.2k
+                        3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        15 分
+                        14 分
                     </div>
                     
                 
@@ -452,18 +452,16 @@ AspectJ是一个基于Java语言的AOP框架">
 </li>
 </ul>
 <h2 id="2-注解方式实现AOP"><a href="#2-注解方式实现AOP" class="headerlink" title="2. 注解方式实现AOP"></a>2. 注解方式实现AOP</h2><h3 id="2-1-注解开发：环境准备"><a href="#2-1-注解开发：环境准备" class="headerlink" title="2.1 注解开发：环境准备"></a>2.1 注解开发：环境准备</h3><p>xml配置如下：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-       xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
-       xmlns:aop=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&quot; xsi:schemaLocation=&quot;
-       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd
-       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&#x2F;spring-aop.xsd&quot;&gt;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot; xsi:schemaLocation=&quot;
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;
 
     &lt;!--开启AspectJ自动代理--&gt;
-    &lt;aop:aspectj-autoproxy&#x2F;&gt;
-&lt;&#x2F;beans&gt;
+    &lt;aop:aspectj-autoproxy/&gt;
+&lt;/beans&gt;
 </code></pre>
 <h3 id="2-2-AspectJ提供不同的通知类型"><a href="#2-2-AspectJ提供不同的通知类型" class="headerlink" title="2.2 @AspectJ提供不同的通知类型"></a>2.2 <code>@AspectJ</code>提供不同的通知类型</h3><ul>
 <li><code>@Before</code>：前置通知，相当于<code>BeforeAdvice</code></li>
@@ -489,9 +487,7 @@ AspectJ是一个基于Java语言的AOP框架">
 <h3 id="2-4-为目标类、定义切面类，实现AOP"><a href="#2-4-为目标类、定义切面类，实现AOP" class="headerlink" title="2.4 为目标类、定义切面类，实现AOP"></a>2.4 为目标类、定义切面类，实现AOP</h3><h4 id="2-4-1-使用前置通知-Before"><a href="#2-4-1-使用前置通知-Before" class="headerlink" title="2.4.1 使用前置通知@Before"></a>2.4.1 使用前置通知<code>@Before</code></h4><ul>
 <li>首先定义目标类<code>ProductDao</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ProductDao {
+<pre><code class="java">public class ProductDao {
     public void save(){ System.out.println(&quot;保存商品。。。&quot;); }
     public void delete(){
         System.out.println(&quot;删除商品。。。&quot;);
@@ -510,44 +506,38 @@ AspectJ是一个基于Java语言的AOP框架">
 <ul>
 <li>定义切面类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * 切面类，注解方式
- *&#x2F;
+ */
 
 @Aspect
 public class MyAspectAnno {
 
-    @Before(value = &quot;execution( * com.zero.aspectj.demo1.ProductDao.*(..))&quot;)  &#x2F;&#x2F; 匹配任意返回值类型的，具体目标类(com.zero.aspectj.demo1.ProductDao)下的所有任意参数的方法
+    @Before(value = &quot;execution( * com.zero.aspectj.demo1.ProductDao.*(..))&quot;)  // 匹配任意返回值类型的，具体目标类(com.zero.aspectj.demo1.ProductDao)下的所有任意参数的方法
     public void before(JoinPoint joinPoint){
-        System.out.println(&quot;前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;+joinPoint); &#x2F;&#x2F; 可以在方法中传入JoinPoint对象，用来获得切点信息，格式为：前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;execution(void com.zero.aspectj.demo1.ProductDao.save())
+        System.out.println(&quot;前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;+joinPoint); // 可以在方法中传入JoinPoint对象，用来获得切点信息，格式为：前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;execution(void com.zero.aspectj.demo1.ProductDao.save())
     }
 }
 </code></pre>
 <ul>
 <li>配置xml文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--开启AspectJ自动代理--&gt;
-&lt;aop:aspectj-autoproxy&#x2F;&gt;
+<pre><code class="xml">&lt;!--开启AspectJ自动代理--&gt;
+&lt;aop:aspectj-autoproxy/&gt;
 
 &lt;!--目标类--&gt;
-&lt;bean id=&quot;productDao&quot; class=&quot;com.zero.aspectj.demo1.ProductDao&quot;&#x2F;&gt;
+&lt;bean id=&quot;productDao&quot; class=&quot;com.zero.aspectj.demo1.ProductDao&quot;/&gt;
 &lt;!--切面类--&gt;
-&lt;bean class=&quot;com.zero.aspectj.demo1.MyAspectAnno&quot;&#x2F;&gt;
+&lt;bean class=&quot;com.zero.aspectj.demo1.MyAspectAnno&quot;/&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@RunWith(SpringJUnit4ClassRunner.class)
+<pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(&quot;classpath:applicationContext.xml&quot;)
 public class Demo1Test {
 
-    @Resource(name = &quot;productDao&quot;) &#x2F;&#x2F; 注入目标类
+    @Resource(name = &quot;productDao&quot;) // 注入目标类
     private ProductDao productDao;
 
     @Test
@@ -567,17 +557,15 @@ public class Demo1Test {
 <h4 id="2-4-2-使用后置通知-AfterReturning"><a href="#2-4-2-使用后置通知-AfterReturning" class="headerlink" title="2.4.2 使用后置通知@AfterReturning"></a>2.4.2 使用后置通知<code>@AfterReturning</code></h4><ul>
 <li>只需要在切面类中定义后置通知方法即可，如果目标方法有返回值，可以通过设置<code>returning</code>属性，来获取返回值。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 示例update有返回值，返回更新商品人员
+<pre><code class="java">// 示例update有返回值，返回更新商品人员
 public String update(){
     System.out.println(&quot;更新商品。。。&quot;);
     return &quot;某某某更新了商品&quot;;
 }
 
-&#x2F;&#x2F; 使用后置通知，定义增强方法
+// 使用后置通知，定义增强方法
 @AfterReturning(value = &quot;execution(* com.zero.aspectj.demo1.ProductDao.update(..))&quot;,returning = &quot;result&quot;)
-public void afterReturning(Object result){ &#x2F;&#x2F; 通过returning属性，可以定义方法返回值，作为参数
+public void afterReturning(Object result){ // 通过returning属性，可以定义方法返回值，作为参数
     System.out.println(&quot;后置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;+result);
 }
 </code></pre>
@@ -588,14 +576,12 @@ public void afterReturning(Object result){ &#x2F;&#x2F; 通过returning属性，
 <li><p>示例定义环绕通知方法</p>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 环绕通知
+<pre><code class="java">// 环绕通知
 @Around(value = &quot;execution(* com.zero.aspectj.demo1.ProductDao.delete(..))&quot;)
 public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-    System.out.println(&quot;环绕前通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;); &#x2F;&#x2F; 环绕前代码区
-    Object obj = joinPoint.proceed(); &#x2F;&#x2F; 执行目标方法
-    System.out.println(&quot;环绕后通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;);&#x2F;&#x2F; 环绕后代码区
+    System.out.println(&quot;环绕前通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;); // 环绕前代码区
+    Object obj = joinPoint.proceed(); // 执行目标方法
+    System.out.println(&quot;环绕后通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;);// 环绕后代码区
     return obj;
 }
 </code></pre>
@@ -605,18 +591,16 @@ public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 <h4 id="2-4-4-异常抛出通知-AfterThrowing"><a href="#2-4-4-异常抛出通知-AfterThrowing" class="headerlink" title="2.4.4 异常抛出通知@AfterThrowing"></a>2.4.4 异常抛出通知<code>@AfterThrowing</code></h4><ul>
 <li>通过设置<code>throwing</code>属性，可以设置发生异常时的处理</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 目标类
+<pre><code class="java">// 目标类
 public void findOne(){
     System.out.println(&quot;查询一个商品。。。&quot;);
-    int i = 1&#x2F;0; &#x2F;&#x2F; 手动制造一个异常，测试异常通知
+    int i = 1/0; // 手动制造一个异常，测试异常通知
 }
 
 
-&#x2F;&#x2F; 切面类中定义异常通知操作
-&#x2F;&#x2F; 异常通知
-@AfterThrowing(value = &quot;execution(* com.zero.aspectj.demo1.ProductDao.findOne(..))&quot;,throwing = &quot;error&quot;) &#x2F;&#x2F; 设置throwing，获取异常信息
+// 切面类中定义异常通知操作
+// 异常通知
+@AfterThrowing(value = &quot;execution(* com.zero.aspectj.demo1.ProductDao.findOne(..))&quot;,throwing = &quot;error&quot;) // 设置throwing，获取异常信息
 public void afterThrowing(Throwable error){
     System.out.println(&quot;某某某方法有异常抛出&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;+error.getMessage()); 
 }
@@ -624,15 +608,13 @@ public void afterThrowing(Throwable error){
 <h4 id="2-4-5-最终通知-After"><a href="#2-4-5-最终通知-After" class="headerlink" title="2.4.5 最终通知@After"></a>2.4.5 最终通知<code>@After</code></h4><ul>
 <li>无论是否出现异常，最终通知总是会被执行的</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 目标类
+<pre><code class="java">// 目标类
 public void findAll(){
     System.out.println(&quot;查询所有商品。。。&quot;);
-    int i = 1&#x2F;0; &#x2F;&#x2F; 手动制造异常，测试最终通知
+    int i = 1/0; // 手动制造异常，测试最终通知
 }
 
-&#x2F;&#x2F; 最终通知,无论增强方法是否有异常都会执行
+// 最终通知,无论增强方法是否有异常都会执行
 @After(value = &quot;execution(* com.zero.aspectj.demo1.ProductDao.findAll(..))&quot;)
 public void after(){
     System.out.println(&quot;最终通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;);
@@ -644,45 +626,43 @@ public void after(){
 <li>当通知多个切点时，可以使用||进行连接。</li>
 <li>切面类代码示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Aspect
+<pre><code class="java">@Aspect
 public class MyAspectAnno {
 
-    &#x2F;&#x2F; 前置通知
-    @Before(value = &quot;savePointcut()&quot;)  &#x2F;&#x2F; 匹配任意返回值类型的，具体目标类(com.zero.aspectj.demo1.ProductDao)下的所有任意参数的方法
+    // 前置通知
+    @Before(value = &quot;savePointcut()&quot;)  // 匹配任意返回值类型的，具体目标类(com.zero.aspectj.demo1.ProductDao)下的所有任意参数的方法
     public void before(JoinPoint joinPoint){
-        System.out.println(&quot;前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;+joinPoint); &#x2F;&#x2F; 可以在方法中传入JoinPoint对象，用来获得切点信息，格式为：前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;execution(void com.zero.aspectj.demo1.ProductDao.save())
+        System.out.println(&quot;前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;+joinPoint); // 可以在方法中传入JoinPoint对象，用来获得切点信息，格式为：前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;execution(void com.zero.aspectj.demo1.ProductDao.save())
     }
 
-    &#x2F;&#x2F; 后置通知
-    @AfterReturning(value = &quot;updatePointcut()||findOnePointcut()&quot;,returning = &quot;result&quot;) &#x2F;&#x2F; 多个切点通知，用||连接
-    public void afterReturning(Object result){ &#x2F;&#x2F; 通过returning属性，可以定义方法返回值，作为参数
+    // 后置通知
+    @AfterReturning(value = &quot;updatePointcut()||findOnePointcut()&quot;,returning = &quot;result&quot;) // 多个切点通知，用||连接
+    public void afterReturning(Object result){ // 通过returning属性，可以定义方法返回值，作为参数
         System.out.println(&quot;后置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;+result);
     }
 
-    &#x2F;&#x2F; 环绕通知
+    // 环绕通知
     @Around(value = &quot;deletePointcut()&quot;)
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         System.out.println(&quot;环绕前通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;);
-        Object obj = joinPoint.proceed(); &#x2F;&#x2F; 执行目标方法
+        Object obj = joinPoint.proceed(); // 执行目标方法
         System.out.println(&quot;环绕后通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;);
         return obj;
     }
 
-    &#x2F;&#x2F; 异常通知
-    @AfterThrowing(value = &quot;findOnePointcut()&quot;,throwing = &quot;error&quot;) &#x2F;&#x2F; 设置throwing，获取异常信息
+    // 异常通知
+    @AfterThrowing(value = &quot;findOnePointcut()&quot;,throwing = &quot;error&quot;) // 设置throwing，获取异常信息
     public void afterThrowing(Throwable error){
         System.out.println(&quot;某某某方法有异常抛出&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;+error.getMessage());
     }
 
-    &#x2F;&#x2F; 最终通知
+    // 最终通知
     @After(value = &quot;findAllPointcut()&quot;)
     public void after(){
         System.out.println(&quot;最终通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;);
     }
 
-    &#x2F;&#x2F; 使用Pointcut为所有切点命名
+    // 使用Pointcut为所有切点命名
     @Pointcut(value = &quot;execution(* com.zero.aspectj.demo1.ProductDao.save(..))&quot;)
     private void savePointcut(){}
     @Pointcut(value = &quot;execution(* com.zero.aspectj.demo1.ProductDao.delete(..))&quot;)
@@ -699,9 +679,7 @@ public class MyAspectAnno {
 <h2 id="3-XML方式实现AOP"><a href="#3-XML方式实现AOP" class="headerlink" title="3. XML方式实现AOP"></a>3. XML方式实现AOP</h2><h3 id="3-1-使用XML配置切面"><a href="#3-1-使用XML配置切面" class="headerlink" title="3.1 使用XML配置切面"></a>3.1 使用XML配置切面</h3><ul>
 <li>编写客户类及其实现类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class CustomerDaoImpl implements CustomerDao{
+<pre><code class="java">public class CustomerDaoImpl implements CustomerDao{
     public void save() {
         System.out.println(&quot;保存客户...&quot;);
     }
@@ -722,14 +700,12 @@ public class MyAspectAnno {
 <ul>
 <li>编写切面类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * 切面类，XML方式
- *&#x2F;
+ */
 public class MyAspectXml {
 
-    &#x2F;&#x2F; 前置通知
+    // 前置通知
     public void before(){
         System.out.println(&quot;XML方式的前置通知&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;);
     }
@@ -753,51 +729,45 @@ public class MyAspectXml {
 <ul>
 <li>完成切面类的配置</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--使用XML配置方式完成AOP开发--&gt;
+<pre><code class="xml">&lt;!--使用XML配置方式完成AOP开发--&gt;
 
 &lt;!--配置目标类--&gt;
-&lt;bean id=&quot;customerDao&quot; class=&quot;com.zero.aspectj.demo2.CustomerDaoImpl&quot;&#x2F;&gt;
+&lt;bean id=&quot;customerDao&quot; class=&quot;com.zero.aspectj.demo2.CustomerDaoImpl&quot;/&gt;
 
 &lt;!--配置切面类--&gt;
-&lt;bean id=&quot;myAspectXml&quot; class=&quot;com.zero.aspectj.demo2.MyAspectXml&quot;&#x2F;&gt;
+&lt;bean id=&quot;myAspectXml&quot; class=&quot;com.zero.aspectj.demo2.MyAspectXml&quot;/&gt;
 </code></pre>
 <ul>
 <li>配置AOP完成增强</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--进行AOP相关配置--&gt;
+<pre><code class="xml">&lt;!--进行AOP相关配置--&gt;
 &lt;aop:config&gt;
     &lt;!--配置切入点：哪些类的哪些方法需要增强--&gt;
-    &lt;aop:pointcut id=&quot;savePointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.save(..))&quot;&#x2F;&gt;
-    &lt;aop:pointcut id=&quot;updatePointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.update(..))&quot;&#x2F;&gt;
-    &lt;aop:pointcut id=&quot;deletePointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.delete(..))&quot;&#x2F;&gt;
-    &lt;aop:pointcut id=&quot;findOnePointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.findOne(..))&quot;&#x2F;&gt;
-    &lt;aop:pointcut id=&quot;findAllPointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.findAll(..))&quot;&#x2F;&gt;
+    &lt;aop:pointcut id=&quot;savePointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.save(..))&quot;/&gt;
+    &lt;aop:pointcut id=&quot;updatePointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.update(..))&quot;/&gt;
+    &lt;aop:pointcut id=&quot;deletePointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.delete(..))&quot;/&gt;
+    &lt;aop:pointcut id=&quot;findOnePointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.findOne(..))&quot;/&gt;
+    &lt;aop:pointcut id=&quot;findAllPointcut&quot; expression=&quot;execution(* com.zero.aspectj.demo2.CustomerDao.findAll(..))&quot;/&gt;
 
     &lt;!--配置AOP的切面--&gt;
     &lt;aop:aspect ref=&quot;myAspectXml&quot;&gt;
         &lt;!--配置前置通知--&gt;
-        &lt;aop:before method=&quot;before&quot; pointcut-ref=&quot;savePointcut&quot;&#x2F;&gt;
+        &lt;aop:before method=&quot;before&quot; pointcut-ref=&quot;savePointcut&quot;/&gt;
         &lt;!--配置后置通知--&gt;
-        &lt;aop:after-returning method=&quot;afterReturning&quot; pointcut-ref=&quot;updatePointcut&quot; returning=&quot;obj&quot;&#x2F;&gt;
+        &lt;aop:after-returning method=&quot;afterReturning&quot; pointcut-ref=&quot;updatePointcut&quot; returning=&quot;obj&quot;/&gt;
         &lt;!--配置环绕通知--&gt;
-        &lt;aop:around method=&quot;around&quot; pointcut-ref=&quot;deletePointcut&quot;&#x2F;&gt;
+        &lt;aop:around method=&quot;around&quot; pointcut-ref=&quot;deletePointcut&quot;/&gt;
         &lt;!--配置异常抛出通知--&gt;
-        &lt;aop:after-throwing method=&quot;afterThrowing&quot; pointcut-ref=&quot;findOnePointcut&quot; throwing=&quot;e&quot;&#x2F;&gt;
+        &lt;aop:after-throwing method=&quot;afterThrowing&quot; pointcut-ref=&quot;findOnePointcut&quot; throwing=&quot;e&quot;/&gt;
         &lt;!--配置最终通知--&gt;
-        &lt;aop:after method=&quot;after&quot; pointcut-ref=&quot;findAllPointcut&quot; &#x2F;&gt;
-    &lt;&#x2F;aop:aspect&gt;
-&lt;&#x2F;aop:config&gt;
+        &lt;aop:after method=&quot;after&quot; pointcut-ref=&quot;findAllPointcut&quot; /&gt;
+    &lt;/aop:aspect&gt;
+&lt;/aop:config&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@RunWith(SpringJUnit4ClassRunner.class)
+<pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(&quot;classpath:applicationContext2.xml&quot;)
 public class Demo2Test {
 
@@ -818,68 +788,66 @@ public class Demo2Test {
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>使用AspectJ完成AOP开发所需环境的配置，需要哪些jar包?</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--导入Spring基本开发包--&gt;
+<pre><code class="xml">&lt;!--导入Spring基本开发包--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-core&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-context&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-beans&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
+    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-beans&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
+    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;!--导入AOP相关包--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;aopalliance&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;aopalliance&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;1.0&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;aopalliance&lt;/groupId&gt;
+    &lt;artifactId&gt;aopalliance&lt;/artifactId&gt;
+    &lt;version&gt;1.0&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-aop&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-aop&lt;/artifactId&gt;
+    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;!--导入AspectJ相关包--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.aspectj&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;aspectjrt&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;1.8.9&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+    &lt;artifactId&gt;aspectjrt&lt;/artifactId&gt;
+    &lt;version&gt;1.8.9&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-aspects&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;
+    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;!--导入测试相关包--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;4.12&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;junit&lt;/groupId&gt;
+    &lt;artifactId&gt;junit&lt;/artifactId&gt;
+    &lt;version&gt;4.12&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-test&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;4.2.4.RELEASE&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+    &lt;version&gt;4.2.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;!--导入DI属性注入相关包,java注解类--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;javax.annotation&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;javax.annotation-api&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;1.2&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;javax.annotation&lt;/groupId&gt;
+    &lt;artifactId&gt;javax.annotation-api&lt;/artifactId&gt;
+    &lt;version&gt;1.2&lt;/version&gt;
+&lt;/dependency&gt;
 </code></pre>
 <ul>
 <li>注解方式实现AOP</li>
@@ -1147,7 +1115,7 @@ public class Demo2Test {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

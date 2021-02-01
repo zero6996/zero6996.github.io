@@ -410,14 +410,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.9k
+                        3.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        17 分
+                        16 分
                     </div>
                     
                 
@@ -445,9 +445,7 @@
 <li>public String(char[] array)：根据字符数组的内容，来创建对应的字符串。</li>
 <li>public String(byte[] array): 根据字节数组的内容，来创建对应的字符串。<h4 id="一种直接创建："><a href="#一种直接创建：" class="headerlink" title="一种直接创建："></a>一种直接创建：</h4><code>String str = &quot;Hello&quot;;</code></li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo02StringTwo {
+<pre><code class="java">public class Demo02StringTwo {
     public static void main(String[] args) {
         String str1 = &quot;abc&quot;;
         String str2 = &quot;abc&quot;;
@@ -459,34 +457,30 @@
 </code></pre>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%86%85%E5%AD%98%E5%9B%BE-1555640143003.png" alt="title"></p>
 <h3 id="1-3-常用方法"><a href="#1-3-常用方法" class="headerlink" title="1.3 常用方法"></a>1.3 常用方法</h3><h4 id="判断功能的方法"><a href="#判断功能的方法" class="headerlink" title="判断功能的方法"></a>判断功能的方法</h4><ul>
-<li><p>public boolean equals(Object Obj):参数可以是任何对象，只有参数是一个字符串且内容相同时返回true，反之false。</p>
+<li><p>public boolean equals(Object Obj):参数可以是任何对象，只有参数是一个字符串且内容相同时返回true，反之false。<br><code>`</code>java<br>public class Demo03StringEquals {<br>  public static void main(String[] args) {</p>
+<pre><code>  String str1 = &quot;Hello&quot;;
+  String str2 = &quot;Hello&quot;;
+  char[] charArray = {&#39;H&#39;,&#39;e&#39;,&#39;l&#39;,&#39;l&#39;,&#39;o&#39;};
+  String str3 = new String(charArray);
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo03StringEquals {
-    public static void main(String[] args) {
-        String str1 = &quot;Hello&quot;;
-        String str2 = &quot;Hello&quot;;
-        char[] charArray = {&#39;H&#39;,&#39;e&#39;,&#39;l&#39;,&#39;l&#39;,&#39;o&#39;};
-        String str3 = new String(charArray);
+  System.out.println(str1.equals(str2));
+  System.out.println(str2.equals(str3));
+  System.out.println(str3.equals(&quot;Hello&quot;));
+  System.out.println(&quot;Hello&quot;.equals(str3));
 
-        System.out.println(str1.equals(str2));
-        System.out.println(str2.equals(str3));
-        System.out.println(str3.equals(&quot;Hello&quot;));
-        System.out.println(&quot;Hello&quot;.equals(str3));
-
-        String str4 = null;
-        System.out.println(&quot;abc&quot;.equals(str4)); &#x2F;&#x2F; false 推荐写法
-	    System.out.println(str4.equals(&quot;abc&quot;)); &#x2F;&#x2F; 报错，NullPointerException
-    }
-}
-注意事项：
-1. 任何对象都能用Object进行接收。
-2. equals方法具有对称性，也就是a.equals(b)和b.equals(a)效果是一样的。
-3. 如果比较双方一个常量一个变量，推荐把常量字符串写在前面。&lt;br&gt;推荐：&quot;abc&quot;.equals(str),不推荐:str.equals(&quot;abc&quot;)。
-</code></pre>
+  String str4 = null;
+  System.out.println(&quot;abc&quot;.equals(str4)); // false 推荐写法
+  System.out.println(str4.equals(&quot;abc&quot;)); // 报错，NullPointerException
+</code></pre><p>  }<br>}<br>注意事项：</p>
 </li>
-<li><p>public boolean equalsIgnoreCase(String anotherString):将此字符串与指定对象进行比较，忽略大小写。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/equalsIgnoreCase-1555643567275.png" alt="title"></p>
-</li>
+</ul>
+<ol>
+<li>任何对象都能用Object进行接收。</li>
+<li>equals方法具有对称性，也就是a.equals(b)和b.equals(a)效果是一样的。</li>
+<li>如果比较双方一个常量一个变量，推荐把常量字符串写在前面。<br>推荐：”abc”.equals(str),不推荐:str.equals(“abc”)。<br><code>`</code></li>
+</ol>
+<ul>
+<li>public boolean equalsIgnoreCase(String anotherString):将此字符串与指定对象进行比较，忽略大小写。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/equalsIgnoreCase-1555643567275.png" alt="title"></li>
 </ul>
 <h4 id="String当中与获取相关的常用方法"><a href="#String当中与获取相关的常用方法" class="headerlink" title="String当中与获取相关的常用方法"></a>String当中与获取相关的常用方法</h4><ul>
 <li>public int lenght(); 获取字符串当中含有的字符个数，拿到字符串长度。</li>
@@ -494,68 +488,64 @@
 <li>public char charAt(int index); 获取指定索引位置的单个字符。</li>
 <li>public int indexOf(String str); 查找参数字符串在本字符串当中首次出现的索引位置，如果没有返回-1值。</li>
 </ul>
-<p>举例代码如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo04StringGet {
+<p>举例代码如下：</p>
+<pre><code class="java">public class Demo04StringGet {
     public static void main(String[] args) {
         int length = &quot;abcdefghijklmnobqrstuvwxyz&quot;.length();
         System.out.println(&quot;字符串长度为：&quot; + length);
 
-        &#x2F;&#x2F;拼接字符串
+        //拼接字符串
         String str1 = &quot;Hello&quot;;
         String str2 = &quot;World&quot;;
         String str3 = str1.concat(str2);
-        System.out.println(str1); &#x2F;&#x2F; Hello
-        System.out.println(str2); &#x2F;&#x2F; World
-        System.out.println(str3); &#x2F;&#x2F; HelloWorld
-        System.out.println(&quot;Hello&quot;.charAt(0)); &#x2F;&#x2F; H
+        System.out.println(str1); // Hello
+        System.out.println(str2); // World
+        System.out.println(str3); // HelloWorld
+        System.out.println(&quot;Hello&quot;.charAt(0)); // H
         String str4 = str3;
-        System.out.println(str4.indexOf(&quot;llo&quot;)); &#x2F;&#x2F;返回索引位置，即2
+        System.out.println(str4.indexOf(&quot;llo&quot;)); //返回索引位置，即2
     }
 }
-</code></pre></p>
+</code></pre>
 <ul>
 <li>public String substring(int index):截取从参数位置一直到字符串末尾，返回新字符串</li>
 <li>public String substring(int begin,int end):截取从begin开始，一直到end结束，中间的字符串。[begin,end)，包含左边，不包含右边。</li>
 </ul>
-<p>举例代码如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo05SubString {
+<p>举例代码如下：</p>
+<pre><code class="java">public class Demo05SubString {
     public static void main(String[] args) {
         String str1 = &quot;HelloWorld&quot;;
-        System.out.println(str1.substring(5)); &#x2F;&#x2F; 返回World
-        System.out.println(str1.substring(4,7)); &#x2F;&#x2F; owo , 4~6不含7
+        System.out.println(str1.substring(5)); // 返回World
+        System.out.println(str1.substring(4,7)); // owo , 4~6不含7
     }
 }
-</code></pre></p>
+</code></pre>
 <h4 id="String当中与转换相关的常用方法"><a href="#String当中与转换相关的常用方法" class="headerlink" title="String当中与转换相关的常用方法"></a>String当中与转换相关的常用方法</h4><ul>
 <li>public char[] toCharArray(); 将当前字符串拆分成为字符数组作为返回值。</li>
 <li>public byte[] getBytes(); 获取当前字符串底层的字节数组。</li>
 <li>public String replace(CharSequence oldString, CharSequence newString);将所有出现的老字符串替换为新的字符串，返回替换后的结果新字符串。</li>
 </ul>
-<p>例子：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo06StringConvert {
+<p>例子：</p>
+<pre><code class="java">public class Demo06StringConvert {
     public static void main(String[] args) {
         char[] chars = &quot;Hello&quot;.toCharArray();
-        System.out.println(chars); &#x2F;&#x2F; Hello
-        System.out.println(chars[0]); &#x2F;&#x2F; H
-        System.out.println(chars.length); &#x2F;&#x2F; 5
+        System.out.println(chars); // Hello
+        System.out.println(chars[0]); // H
+        System.out.println(chars.length); // 5
         System.out.println(&quot;=========================&quot;);
         String str = &quot;abc&quot;;
         byte[] bytes = str.getBytes();
-        System.out.println(bytes); &#x2F;&#x2F;指向内存地址中abc对应的byte值
-        System.out.println(bytes[0]); &#x2F;&#x2F; [0] = 97,[1] = 98,[2] = 99
+        System.out.println(bytes); //指向内存地址中abc对应的byte值
+        System.out.println(bytes[0]); // [0] = 97,[1] = 98,[2] = 99
         String str2 = &quot;你怎么回事小老弟，会不会玩啊，fuck&quot;;
         System.out.println(str2.replace(&quot;fuck&quot;,&quot;儒雅随和&quot;));
 
     }
 }
 Tips：CharSequence意思是说可以接受字符串类型。是一个接口，也是一种引用类型。作为参数类型，可以把String对象传递到方法中。
-</code></pre></p>
-<h4 id="String中分割字符串的方法"><a href="#String中分割字符串的方法" class="headerlink" title="String中分割字符串的方法"></a>String中分割字符串的方法</h4><p>public String[] split(String regex); 按照参数的规则，将字符串切分为若干部分。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo07StringSplit {
+</code></pre>
+<h4 id="String中分割字符串的方法"><a href="#String中分割字符串的方法" class="headerlink" title="String中分割字符串的方法"></a>String中分割字符串的方法</h4><p>public String[] split(String regex); 按照参数的规则，将字符串切分为若干部分。</p>
+<pre><code class="java">public class Demo07StringSplit {
     public static void main(String[] args) {
         String str1 = &quot;a,b,c&quot;;
         String[] array1 = str1.split(&quot;,&quot;);
@@ -568,16 +558,15 @@ Tips：CharSequence意思是说可以接受字符串类型。是一个接口，�
             System.out.println(array2[i]);
         }
         String str3 = &quot;XXX.YYY.ZZZ&quot;;
-        String[] array3 = str3.split(&quot;\\.&quot;); &#x2F;&#x2F;注意转义
+        String[] array3 = str3.split(&quot;\\.&quot;); //注意转义
         for (int i=0;i&lt;array3.length;i++){
             System.out.print(array3[i]);
         }
     }
 }
-</code></pre></p>
-<h4 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h4><p>拼接字符串练习，输入数组{1,2,3}，返回[1#2#3]。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-clike">public class Demo08StringExercise {
+</code></pre>
+<h4 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h4><p>拼接字符串练习，输入数组{1,2,3}，返回[1#2#3]。</p>
+<pre><code>public class Demo08StringExercise {
     public static void main(String[] args) {
         int[] arr = {1,2,3,4};
         System.out.println(arrayToString(arr));
@@ -595,21 +584,19 @@ Tips：CharSequence意思是说可以接受字符串类型。是一个接口，�
         return str;
     }
 }
-</code></pre></p>
-<p>统计字符个数：键盘录入一个字符，统计字符串中大小写字母及数字字符个数<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">import java.util.Scanner;
+</code></pre><p>统计字符个数：键盘录入一个字符，统计字符串中大小写字母及数字字符个数</p>
+<pre><code class="java">import java.util.Scanner;
 
-&#x2F;*
+/*
 键盘输入一个字符串，统计其中各种字符出现次数，返回次数。
 字符种类：大写字母，小写字母，数字，其他
 
- *&#x2F;
+ */
 public class Demo09StringExercise02 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println(&quot;请输入字符串：&quot;);
-        String input = sc.next(); &#x2F;&#x2F; 获取键盘输入的字符串
+        String input = sc.next(); // 获取键盘输入的字符串
         System.out.println(stringCount(input));
     }
     public static String stringCount(String input){
@@ -619,7 +606,7 @@ public class Demo09StringExercise02 {
         int countOther = 0;
         char[] chars = input.toCharArray();
         for(int i = 0;i &lt; chars.length;i++){
-            char ch = chars[i]; &#x2F;&#x2F; 单个字符，底层表示为byte[]数值
+            char ch = chars[i]; // 单个字符，底层表示为byte[]数值
             if(ch &gt;= &#39;A&#39; &amp;&amp; ch &lt;= &#39;Z&#39;){
                 countUpper++;
             }else if (ch &gt;= &#39;a&#39; &amp;&amp; ch &lt;= &#39;z&#39;){
@@ -633,21 +620,20 @@ public class Demo09StringExercise02 {
         return &quot;大写字母：&quot;+countUpper+&quot;\n小写字母：&quot;+countLower+&quot;\n数字:&quot;+countNumber+&quot;\n其他类型：&quot;+countOther;
     }
 }
-</code></pre></p>
+</code></pre>
 <h2 id="2-static关键字"><a href="#2-static关键字" class="headerlink" title="2. static关键字"></a>2. static关键字</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>关于static关键字的使用，它可以用来修饰的成员变量和成员方法，被修饰的成员是属于类的，而不是单单是属于某个对象的。也就是说，既然属于类，就不可以靠创建对象来调用了。</p>
 <h3 id="2-2定义和使用格式"><a href="#2-2定义和使用格式" class="headerlink" title="2.2定义和使用格式"></a>2.2定义和使用格式</h3><p>当static修饰成员变量时，该变量称为类变量。该类的每个对象都共享同一个类变量的值。任何对象都可以更改该类变量的值，但也可以在不创建该类对象的情况下对类变量进行操作。</p>
 <h4 id="类变量"><a href="#类变量" class="headerlink" title="类变量"></a>类变量</h4><ul>
 <li>类变量：使用static关键字修饰的成员变量。格式：static 数据类型 变量名。</li>
 </ul>
-<p>实例：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F;定义学生类
+<p>实例：</p>
+<pre><code class="java">//定义学生类
 public class Student {
-    private int sid; &#x2F;&#x2F;学号
+    private int sid; //学号
     private String name;
     private int age;
     static String room;
-    public static int idCount = 0; &#x2F;&#x2F;自动分配学号
+    public static int idCount = 0; //自动分配学号
 
     public Student() {
         this.sid = ++idCount;
@@ -658,12 +644,12 @@ public class Student {
         this.age = age;
         this.sid = ++idCount;
     }
-	
-	......省略get&#x2F;set方法
+
+    ......省略get/set方法
 }
 
 
-&#x2F;&#x2F;实例使用
+//实例使用
 public class Demo10Class {
     public static void main(String[] args) {
         Student stu = new Student(&quot;法师&quot;,11);
@@ -673,47 +659,46 @@ public class Demo10Class {
         System.out.println(&quot;姓名：&quot;+stu2.getName()+&quot;,年龄:&quot;+stu2.getAge()+&quot;岁,教室：&quot;+stu2.getRoom()+&quot;,学号：&quot;+stu2.getSid());
     }
 }
-</code></pre></p>
+</code></pre>
 <h4 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h4><p>当static修饰成员方法时，该方法称为类方法。静态方法在声明中有static，建议使用类名来调用，而不需要创建类的对象。</p>
 <ul>
 <li>类方法：使用static关键字修饰的成员方法，一般称为静态方法。<br>格式如下：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/19/%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95-1555663220471.png" alt="title"></li>
 </ul>
-<p>实例：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F;MyClass
+<p>实例：</p>
+<pre><code class="java">//MyClass
 public class MyClass {
-    int num; &#x2F;&#x2F; 成员变量
-    static int numStatic; &#x2F;&#x2F;静态变量
+    int num; // 成员变量
+    static int numStatic; //静态变量
     public void method(){
         System.out.println(&quot;这是一个成员方法！&quot;);
-        System.out.println(num); &#x2F;&#x2F;成员方法可以访问成员变量
-        System.out.println(numStatic); &#x2F;&#x2F; 成员方法可以访问静态变量
+        System.out.println(num); //成员方法可以访问成员变量
+        System.out.println(numStatic); // 成员方法可以访问静态变量
     }
     public static void methodStatic(){
         System.out.print(&quot;这是一个静态方法！&quot;);
-        System.out.println(numStatic); &#x2F;&#x2F;静态方法可以访问静态变量
-        &#x2F;&#x2F;System.out.println(num); &#x2F;&#x2F;静态方法无法访问成员变量
+        System.out.println(numStatic); //静态方法可以访问静态变量
+        //System.out.println(num); //静态方法无法访问成员变量
     }
 }
-&#x2F;&#x2F;实例类
+//实例类
 public class Demo01StaticMethod {
     public static void main(String[] args) {
-        MyClass obj = new MyClass(); &#x2F;&#x2F; 首先创建对象
-        obj.method(); &#x2F;&#x2F; 才能使用没有static关键字的内容
+        MyClass obj = new MyClass(); // 首先创建对象
+        obj.method(); // 才能使用没有static关键字的内容
 
-        &#x2F;&#x2F;对于静态方法来说，可以通过对象名进行调用，也可以直接通过类名称来调用。
-        obj.methodStatic(); &#x2F;&#x2F; 不推荐写法，编译器编译时会自动优化为下面方法。
-        MyClass.methodStatic(); &#x2F;&#x2F; 推荐写法，类名称.静态方法。
+        //对于静态方法来说，可以通过对象名进行调用，也可以直接通过类名称来调用。
+        obj.methodStatic(); // 不推荐写法，编译器编译时会自动优化为下面方法。
+        MyClass.methodStatic(); // 推荐写法，类名称.静态方法。
 
-        &#x2F;&#x2F; 对于本类当中的静态方法，可以省略名称
+        // 对于本类当中的静态方法，可以省略名称
         myMethod();
-        Demo01StaticMethod.myMethod(); &#x2F;&#x2F; 完全等效于上面
+        Demo01StaticMethod.myMethod(); // 完全等效于上面
     }
     public static void myMethod(){
         System.out.println(&quot;自己的方法!&quot;);
     }
 }
-</code></pre></p>
+</code></pre>
 <ul>
 <li>静态方法调用总结：<ul>
 <li>静态方法可以直接访问类变量和静态方法。</li>
@@ -743,38 +728,36 @@ public class Demo01StaticMethod {
 <li>public static String toString(int[] a): 返回指定数组内容的字符串表示形式。</li>
 <li>public static void sort(int[] a): 对指定的int型数组按数字升序进行排序。</li>
 </ul>
-<p>举例：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">import java.util.Arrays;
+<p>举例：</p>
+<pre><code class="java">import java.util.Arrays;
 
 public class Demo03Arrays {
     public static void main(String[] args) {
         int[] arr = {1,3,54,86,37,28};
-        System.out.println(arr); &#x2F;&#x2F; 打印数组内存地址
-        String str = Arrays.toString(arr); &#x2F;&#x2F;将指定数组内容变成字符串返回。
+        System.out.println(arr); // 打印数组内存地址
+        String str = Arrays.toString(arr); //将指定数组内容变成字符串返回。
         System.out.println(str);
         int[] arr2 = {2,5,3,8,4,9,1};
-        Arrays.sort(arr2); &#x2F;&#x2F; 升序排序
-        System.out.println(Arrays.toString(arr2)); &#x2F;&#x2F; [1, 2, 3, 4, 5, 8, 9]
+        Arrays.sort(arr2); // 升序排序
+        System.out.println(Arrays.toString(arr2)); // [1, 2, 3, 4, 5, 8, 9]
     }
 }
-</code></pre></p>
-<h4 id="小练习-1"><a href="#小练习-1" class="headerlink" title="小练习"></a>小练习</h4><p>对一个随机字符串进行升序排序，然后倒序输出<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">import java.util.Arrays;
+</code></pre>
+<h4 id="小练习-1"><a href="#小练习-1" class="headerlink" title="小练习"></a>小练习</h4><p>对一个随机字符串进行升序排序，然后倒序输出</p>
+<pre><code class="java">import java.util.Arrays;
 
 public class Demo04ArraysExercise {
     public static void main(String[] args) {
         String str = &quot;ehiaroaklcmbzhywqiem&quot;;
         char[] chars = str.toCharArray();
-        Arrays.sort(chars); &#x2F;&#x2F; 对字符串进行升序排序
+        Arrays.sort(chars); // 对字符串进行升序排序
         System.out.println(chars);
-        for (int i = chars.length - 1; i &gt;= 0; i--) { &#x2F;&#x2F;快捷键:[chars.forr] , 对chars对象进行倒序遍历; [fori],正序遍历
+        for (int i = chars.length - 1; i &gt;= 0; i--) { //快捷键:[chars.forr] , 对chars对象进行倒序遍历; [fori],正序遍历
             System.out.print(chars[i]);
         }
     }
 }
-</code></pre></p>
+</code></pre>
 <h2 id="4-Math类"><a href="#4-Math类" class="headerlink" title="4. Math类"></a>4. Math类</h2><p>java.lang.Math类包含用于执行基本数学运算的方法，如初等指数、对数、平方根和三角函数。类似这样的工具类，里面提供了大量的静态方法，完成与数学运算的操作。</p>
 <h3 id="4-1-基本运算的方法"><a href="#4-1-基本运算的方法" class="headerlink" title="4.1 基本运算的方法"></a>4.1 基本运算的方法</h3><ul>
 <li>public static double abs(double num): 返回绝对值。</li>
@@ -782,38 +765,36 @@ public class Demo04ArraysExercise {
 <li>public static double floor(double num): 向下取整。</li>
 <li>public static double round(double num): 四舍五入。</li>
 </ul>
-<p>实例：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo05Math {
+<p>实例：</p>
+<pre><code class="java">public class Demo05Math {
     public static void main(String[] args) {
         System.out.println(&quot;以下示例abs用法&quot;);
-        System.out.println(Math.abs(3.14)); &#x2F;&#x2F; 3.14
-        System.out.println(Math.abs(-2.5)); &#x2F;&#x2F; 2.5
-        System.out.println(Math.abs(0)); &#x2F;&#x2F; 0
+        System.out.println(Math.abs(3.14)); // 3.14
+        System.out.println(Math.abs(-2.5)); // 2.5
+        System.out.println(Math.abs(0)); // 0
         System.out.println(&quot;以下示例ceil用法&quot;);
-        System.out.println(Math.ceil(3.9)); &#x2F;&#x2F; 4.0
-        System.out.println(Math.ceil(3.1)); &#x2F;&#x2F; 4.0
-        System.out.println(Math.ceil(3.0)); &#x2F;&#x2F; 3.0
+        System.out.println(Math.ceil(3.9)); // 4.0
+        System.out.println(Math.ceil(3.1)); // 4.0
+        System.out.println(Math.ceil(3.0)); // 3.0
         System.out.println(&quot;以下示例floor用法&quot;);
-        System.out.println(Math.floor(30.9)); &#x2F;&#x2F; 30.0
-        System.out.println(Math.floor(30.1)); &#x2F;&#x2F; 30.0
-        System.out.println(Math.floor(31.0)); &#x2F;&#x2F; 31.0
+        System.out.println(Math.floor(30.9)); // 30.0
+        System.out.println(Math.floor(30.1)); // 30.0
+        System.out.println(Math.floor(31.0)); // 31.0
         System.out.println(&quot;以下示例round用法&quot;);
-        System.out.println(Math.round(20.4)); &#x2F;&#x2F;20
-        System.out.println(Math.round(20.5)); &#x2F;&#x2F;21
+        System.out.println(Math.round(20.4)); //20
+        System.out.println(Math.round(20.5)); //21
         System.out.println(&quot;圆周率：&quot; + Math.PI);
     }
 }
-</code></pre></p>
-<h4 id="小练习-2"><a href="#小练习-2" class="headerlink" title="小练习"></a>小练习</h4><p>请使用 Math 相关的API，计算在 -10.8 到 5.9 之间，绝对值大于 6 或者小于 2.1 的整数有多少个？<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo06mathExercise {
+</code></pre>
+<h4 id="小练习-2"><a href="#小练习-2" class="headerlink" title="小练习"></a>小练习</h4><p>请使用 Math 相关的API，计算在 -10.8 到 5.9 之间，绝对值大于 6 或者小于 2.1 的整数有多少个？</p>
+<pre><code class="java">public class Demo06mathExercise {
     public static void main(String[] args) {
         double min = -10.8;
         double max = 5.9;
         int num = 0;
         for (int i = (int)min; i &lt; max; i++) {
-            int abs = Math.abs(i); &#x2F;&#x2F; 绝对值化
+            int abs = Math.abs(i); // 绝对值化
             if(abs &gt; 6 || abs &lt;2.1){
                 num++;
             }
@@ -821,7 +802,7 @@ public class Demo04ArraysExercise {
         System.out.println(num);
     }
 }
-</code></pre></p>
+</code></pre>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="字符串类及常用方法API"><a href="#字符串类及常用方法API" class="headerlink" title="字符串类及常用方法API"></a>字符串类及常用方法API</h3><ol>
 <li>public String(): 创建一个空白字符串，不含有任何内容。</li>
 <li>public String(char[] array)：根据字符数组的内容，来创建对应的字符串。</li>
@@ -1113,7 +1094,7 @@ public class Demo04ArraysExercise {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

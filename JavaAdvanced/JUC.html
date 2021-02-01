@@ -414,14 +414,14 @@ java.util.concurrent：并发包
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        6.6k
+                        6.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        28 分
+                        27 分
                     </div>
                     
                 
@@ -463,9 +463,7 @@ java.util.concurrent：并发包
 <ul>
 <li>基础版synchronized代码如下：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ProdConsumeDemo {
+<pre><code class="java">public class ProdConsumeDemo {
     public static void main(String[] args) throws Exception{
         Aircondition aircondition = new Aircondition();
         new Thread(()-&gt;{
@@ -490,32 +488,32 @@ java.util.concurrent：并发包
         },&quot;消费者B&quot;).start();
     }
 }
-&#x2F;&#x2F; 空调类
+// 空调类
 class Aircondition{
     private int number = 0;
 
-    &#x2F;&#x2F; 模拟生产者
+    // 模拟生产者
     public synchronized void increment() throws Exception{
-        &#x2F;&#x2F; 1. 判断
+        // 1. 判断
         if (number != 0){
             this.wait();
         }
-        &#x2F;&#x2F; 2. 工作
+        // 2. 工作
         number++;
         System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+number);
-        &#x2F;&#x2F; 3. 通知，唤醒其他等待线程
+        // 3. 通知，唤醒其他等待线程
         this.notifyAll();
     }
-    &#x2F;&#x2F; 模拟消费者
+    // 模拟消费者
     public synchronized void decrement() throws Exception{
-        &#x2F;&#x2F; 1. 判断
+        // 1. 判断
         if (number == 0){
             this.wait();
         }
-        &#x2F;&#x2F; 2. 工作
+        // 2. 工作
         number--;
         System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+number);
-        &#x2F;&#x2F; 3. 通知
+        // 3. 通知
         this.notifyAll();
     }
 }
@@ -524,10 +522,8 @@ class Aircondition{
 <ul>
 <li>改进写法，优化多线程情况下可能发生的虚假唤醒</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 将代码添加和修改如下即可
-&#x2F;&#x2F; 生产者和消费者都增加一个
+<pre><code class="java">// 将代码添加和修改如下即可
+// 生产者和消费者都增加一个
 new Thread(()-&gt;{
     for (int i = 0; i &lt;= 10; i++) {
         try {
@@ -549,7 +545,7 @@ new Thread(()-&gt;{
         }
     }
 },&quot;消费者D&quot;).start();
-&#x2F;&#x2F; 修改if为while
+// 修改if为while
 while (number != 0){
     this.wait();
 }
@@ -559,28 +555,26 @@ while (number == 0){
 </code></pre>
 <h3 id="2-2-为什么在wait使用if的情况下，会产生虚假唤醒？"><a href="#2-2-为什么在wait使用if的情况下，会产生虚假唤醒？" class="headerlink" title="2.2 为什么在wait使用if的情况下，会产生虚假唤醒？"></a>2.2 为什么在wait使用if的情况下，会产生虚假唤醒？</h3><p>由于cpu的调度是不可控的，所以在生产者A生产完后，下一个可能不是消费者执行，而是生产者B继续执行，如果使用if就会进行判断number!=0，进入wait状态等待，此时生产者A再次获取时间片，执行代码if判断进入wait状态；这样两个生产者同时处于wait状态了，后续如果唤醒就会使number++两次，导致值为2。同理消费者也是。<br>所以要使用while<strong>循环判断条件</strong>是否满足，才可以交替执行生产和消费。</p>
 <h3 id="2-3-新版写法"><a href="#2-3-新版写法" class="headerlink" title="2.3 新版写法"></a>2.3 新版写法</h3><p>使用了condition类的<code>condition.await();</code>进行资源的上锁，<code>condition.signalAll();</code>方法进行资源的唤醒。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 空调类
+<pre><code class="java">// 空调类
 class Aircondition{
     private int number = 0;
-    &#x2F;&#x2F; 新版写法
+    // 新版写法
     private Lock lock = new ReentrantLock();
-    &#x2F;&#x2F; 使用新版的通知唤醒
+    // 使用新版的通知唤醒
     private Condition condition = lock.newCondition();
 
-    &#x2F;&#x2F; 模拟生产者
+    // 模拟生产者
     public void increment(){
         lock.lock();
         try{
-            &#x2F;&#x2F; 1. 判断
+            // 1. 判断
             while (number != 0){
                 condition.await();
             }
-            &#x2F;&#x2F; 2. 工作
+            // 2. 工作
             number++;
             System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+number);
-            &#x2F;&#x2F; 3. 通知，唤醒其他等待线程
+            // 3. 通知，唤醒其他等待线程
             condition.signalAll();
         }catch(Exception e){
             e.printStackTrace();
@@ -588,18 +582,18 @@ class Aircondition{
             lock.unlock();
         }
     }
-    &#x2F;&#x2F; 模拟生产者
+    // 模拟生产者
     public void decrement(){
         lock.lock();
         try{
-            &#x2F;&#x2F; 1. 判断
+            // 1. 判断
             while (number == 0){
                 condition.await();
             }
-            &#x2F;&#x2F; 2. 工作
+            // 2. 工作
             number--;
             System.out.println(Thread.currentThread().getName()+&quot;\t&quot;+number);
-            &#x2F;&#x2F; 3. 通知，唤醒其他等待线程
+            // 3. 通知，唤醒其他等待线程
             condition.signalAll();
         }catch(Exception e){
             e.printStackTrace();
@@ -616,12 +610,10 @@ class Aircondition{
 <li>新版写法(lock+condition)</li>
 </ul>
 <h3 id="2-5-面试题，交替打印"><a href="#2-5-面试题，交替打印" class="headerlink" title="2.5 面试题，交替打印"></a>2.5 面试题，交替打印</h3><p>需求：两个线程，一个打印1-26，一个打印A-Z，要求打印顺序为1A2B…26Z</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
 ASCII码,A=65，Z=90，故A-Z=65-90
 (char)65=A
-*&#x2F;
+*/
 public class printNumberAndtheAlphabet {
     public static void main(String[] args) {
         printData data = new printData();
@@ -683,31 +675,29 @@ class printData{
 <ul>
 <li>资源类，完成打印操作和精准唤醒</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">class ShareData{
-    &#x2F;&#x2F; 1=A,2=B,3=C
+<pre><code class="java">class ShareData{
+    // 1=A,2=B,3=C
     private int number = 1;
     private Lock lock = new ReentrantLock();
-    &#x2F;&#x2F; 精准唤醒
+    // 精准唤醒
     Condition c1 = lock.newCondition();
     Condition c2 = lock.newCondition();
     Condition c3 = lock.newCondition();
     public void print5(){
         lock.lock();
         try{
-            &#x2F;&#x2F; 1. 判断
+            // 1. 判断
             while (number != 1){
                 c1.await();
             }
-            &#x2F;&#x2F; 工作
+            // 工作
             for (int i = 0; i &lt; 5 ; i++) {
                 System.out.println(Thread.currentThread().getName() + &quot;\t&quot; + i);
             }
-            &#x2F;&#x2F; 通知
-            &#x2F;&#x2F; 一定要先改标志位
+            // 通知
+            // 一定要先改标志位
             number = 2;
-            &#x2F;&#x2F; 通知下一位：精准唤醒下一个线程
+            // 通知下一位：精准唤醒下一个线程
             c2.signal();
         }catch(Exception e){
             e.printStackTrace();
@@ -718,16 +708,16 @@ class printData{
     public void print10(){
         lock.lock();
         try{
-            &#x2F;&#x2F; 1. 判断
+            // 1. 判断
             while (number != 2){
                 c2.await();
             }
-            &#x2F;&#x2F; 工作
+            // 工作
             for (int i = 0; i &lt; 10 ; i++) {
                 System.out.println(Thread.currentThread().getName() + &quot;\t&quot; + i);
             }
-            &#x2F;&#x2F; 通知
-            &#x2F;&#x2F; 一定要先改标志位
+            // 通知
+            // 一定要先改标志位
             number = 3;
             c3.signal();
         }catch(Exception e){
@@ -739,16 +729,16 @@ class printData{
     public void print15(){
         lock.lock();
         try{
-            &#x2F;&#x2F; 1. 判断
+            // 1. 判断
             while (number != 3){
                 c3.await();
             }
-            &#x2F;&#x2F; 工作
+            // 工作
             for (int i = 0; i &lt; 15 ; i++) {
                 System.out.println(Thread.currentThread().getName() + &quot;\t&quot; + i);
             }
-            &#x2F;&#x2F; 通知
-            &#x2F;&#x2F; 一定要先改标志位
+            // 通知
+            // 一定要先改标志位
             number = 1;
             c1.signal();
         }catch(Exception e){
@@ -762,9 +752,7 @@ class printData{
 <ul>
 <li>主类，三个线程操作资源类，执行10轮</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ConditionDemo {
+<pre><code class="java">public class ConditionDemo {
     public static void main(String[] args) {
         ShareData shareData = new ShareData();
         new Thread(()-&gt;{
@@ -789,11 +777,9 @@ class printData{
 <ul>
 <li>传统写法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class LambdaExpressDemo {
+<pre><code class="java">public class LambdaExpressDemo {
     public static void main(String[] args) {
-		Foo foo = new Foo(){
+        Foo foo = new Foo(){
             @Override
             public void sayHello(){
                 System.out.println(&quot;hello world&quot;);
@@ -809,20 +795,14 @@ interface Foo{
 <ul>
 <li>lambda写法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">Foo foo = (()-&gt;{System.out.println(&quot;hello world&quot;)};);
+<pre><code class="java">Foo foo = (()-&gt;{System.out.println(&quot;hello world&quot;)};);
 </code></pre>
 <h3 id="3-1-lambda小口诀"><a href="#3-1-lambda小口诀" class="headerlink" title="3.1 lambda小口诀"></a>3.1 lambda小口诀</h3><p>拷贝中括号(就是你要实现的方法的参数列表)，写死右箭头，落地大括号</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">()-&gt;{}
+<pre><code class="java">()-&gt;{}
 </code></pre>
 <h3 id="3-2-函数式接口"><a href="#3-2-函数式接口" class="headerlink" title="3.2 函数式接口"></a>3.2 函数式接口</h3><p><code>@FunctionalInterface</code>注解用于标识该接口是函数式接口，如果该接口中只有一个抽象方法(不包括默认方法和静态方法)，可以不写这个注解，底层会默认加上。</p>
 <h3 id="3-3-default方法"><a href="#3-3-default方法" class="headerlink" title="3.3 default方法"></a>3.3 default方法</h3><p>面试题：接口中是否允许有方法的实现？：Java8以后接口支持默认方法，可以让方法有对应的实现。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@FunctionalInterface
+<pre><code class="java">@FunctionalInterface
 interface Foo{
     public int add(int x,int y);
     public default int mul(int x,int y){
@@ -836,21 +816,17 @@ System.out.println(foo.mul(3,5));
 </code></pre>
 <p>函数式接口中允许有多个默认方法。</p>
 <h3 id="3-4-static方法"><a href="#3-4-static方法" class="headerlink" title="3.4 static方法"></a>3.4 static方法</h3><p>函数式接口中允许static方法的声明和实现。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@FunctionalInterface
+<pre><code class="java">@FunctionalInterface
 interface Foo{
     public int add(int x,int y);
     public static int diy(int x,int y){
-        return x&#x2F;y;
+        return x/y;
     }
 }
 System.out.println(Foo.diy(6,3));
 </code></pre>
 <h2 id="4-多线程锁"><a href="#4-多线程锁" class="headerlink" title="4. 多线程锁"></a>4. 多线程锁</h2><h3 id="4-1-八锁"><a href="#4-1-八锁" class="headerlink" title="4.1 八锁"></a>4.1 八锁</h3><p>简单代码举例八锁，基础代码如下，后续案例均修改部分代码即可</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Locks8Demo {
+<pre><code class="java">public class Locks8Demo {
     public static void main(String[] args) throws Exception {
         Phone phone = new Phone();
         Phone phone2 = new Phone();
@@ -864,8 +840,8 @@ System.out.println(Foo.diy(6,3));
         Thread.sleep(100);
         new Thread(()-&gt;{
             try {
-                &#x2F;&#x2F;                phone.sendSMS();
-                &#x2F;&#x2F;                phone.sayHello();
+                //                phone.sendSMS();
+                //                phone.sayHello();
                 phone2.sendSMS();
             }catch (Exception e){
                 e.printStackTrace();
@@ -890,9 +866,7 @@ class Phone{
 <ol>
 <li>标准访问，先打印邮件还是短信？</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public synchronized void sendEmail() throws Exception{
+<pre><code class="java">public synchronized void sendEmail() throws Exception{
     System.out.println(&quot;-----&gt;sendEmail&lt;&quot;);
 }
 public synchronized void sendSMS() throws Exception{
@@ -901,54 +875,46 @@ public synchronized void sendSMS() throws Exception{
 Phone phone = new Phone();
 phone.sendEmail();
 phone.sendSMS();
-&#x2F;&#x2F; 邮件&gt;短信
+// 邮件&gt;短信
 </code></pre>
 <ol start="2">
 <li>在邮件方法中暂停2秒，先打印邮件还是短信？</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public synchronized void sendEmail() throws Exception{
+<pre><code class="java">public synchronized void sendEmail() throws Exception{
     TimeUnit.SECONDS.sleep(2);
     System.out.println(&quot;-----&gt;sendEmail&lt;&quot;);
 }
 phone.sendEmail();
 phone.sendSMS();
-&#x2F;&#x2F; 邮件&gt;短信
+// 邮件&gt;短信
 </code></pre>
 <p>1、2小结：</p>
 <p>同一实例对象里面如果有多个synchronized方法，某一时刻内，只要一个线程去调用其中的一个synchronized方法，其他线程都只能等待，换言之，某一时刻内只能有唯一一个线程去访问这些synchronized方法， “<strong>锁的是当前实例对象this</strong>，被锁定后，其他线程都不能进入到当前对象的其他synchronized方法”。</p>
 <ol start="3">
 <li>新增普通sayHello方法，先打印邮件还是hello？</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public void sayHello(){
+<pre><code class="java">public void sayHello(){
     System.out.println(&quot;-----&gt;sayHello&quot;);
 }
 phone.sendEmail();
 phone.sayHello();
-&#x2F;&#x2F; hello&gt;邮件
+// hello&gt;邮件
 </code></pre>
 <p>3小结：普通方法与同步锁无关，不会竞争资源</p>
 <ol start="4">
 <li>两部手机，先邮件还是短信？</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">Phone phone = new Phone();
+<pre><code class="java">Phone phone = new Phone();
 Phone phone2 = new Phone();
 phone.sendEmail();
 phone2.sendSMS();
-&#x2F;&#x2F; 短信&gt;邮件
+// 短信&gt;邮件
 </code></pre>
 <p>4小结：不同实例对象不是同一把锁，故不会竞争资源。</p>
 <ol start="5">
 <li>两个静态同步方法，同一部手机，请问先打印邮件还是短信？</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public static synchronized void sendEmail() throws Exception{
+<pre><code class="java">public static synchronized void sendEmail() throws Exception{
     TimeUnit.SECONDS.sleep(2);
     System.out.println(&quot;-----&gt;sendEmail&lt;&quot;);
 }
@@ -957,25 +923,21 @@ public static synchronized void sendSMS() throws Exception{
 }
 phone.sendEmail();
 phone.sendSMS();
-&#x2F;&#x2F; 邮件&gt;短信
+// 邮件&gt;短信
 </code></pre>
 <ol start="6">
 <li>两个静态同步方法，两部手机，请问先打印邮件还是短信？</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">phone.sendEmail();
+<pre><code class="java">phone.sendEmail();
 phone2.sendSMS();
-&#x2F;&#x2F;  邮件&gt;短信
+//  邮件&gt;短信
 </code></pre>
 <p>5和6小结：<strong>静态同步锁=全局锁</strong><br>synchronized实现同步的基础：Java中的每一个对象都可以作为锁，具体表现为以下3种形式：<br>一、对于普通同步方法，锁是当前实例对象(this)<br>二、对于同步方法块，锁的是synchronized括号里配置的对象<br>三、对于静态同步方法，锁的是当前类的Class对象(全局锁)</p>
 <p>因为5和6都是静态同步锁也就是全局锁，实际上他们属于同一个类对象，故会竞争资源。</p>
 <ol start="7">
 <li>1个静态同步方法，1个普通同步方法，同一部手机，请问先打印邮件还是短信？</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public  static   synchronized void sendEmail() throws Exception{
+<pre><code class="java">public  static   synchronized void sendEmail() throws Exception{
     TimeUnit.SECONDS.sleep(2);
     System.out.println(&quot;-----&gt;sendEmail&lt;&quot;);
 }
@@ -984,7 +946,7 @@ public  synchronized void sendSMS() throws Exception{
 }
 phone.sendEmail();
 phone.sendSMS();
-&#x2F;&#x2F; 短信&gt;邮件
+// 短信&gt;邮件
 </code></pre>
 <p>7小结：静态同步方法和非静态同步方法不是同一把锁，故不冲突。</p>
 <ol start="8">
@@ -1020,15 +982,13 @@ phone.sendSMS();
 <li>使用Collections工具类的<code>synchronizedList(new ArrayList&lt;&gt;())</code></li>
 <li>使用juc包下的<code>new CopyOnWriteArrayList&lt;&gt;();</code>写时复制技术</li>
 </ol>
-<h4 id="5-1-4-代码示例"><a href="#5-1-4-代码示例" class="headerlink" title="5.1.4 代码示例"></a>5.1.4 代码示例</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class arrayListNotSafe {
+<h4 id="5-1-4-代码示例"><a href="#5-1-4-代码示例" class="headerlink" title="5.1.4 代码示例"></a>5.1.4 代码示例</h4><pre><code class="java">public class arrayListNotSafe {
     public static void main(String[] args) {
         mapNotSafe();
     }
 
     private static void mapNotSafe() {
-        Map&lt;String,String&gt; map = new ConcurrentHashMap();&#x2F;&#x2F;new HashMap&lt;&gt;();
+        Map&lt;String,String&gt; map = new ConcurrentHashMap();//new HashMap&lt;&gt;();
         for (int i = 1; i &lt;= 100; i++) {
             new Thread(()-&gt;{
                 map.put(Thread.currentThread().getName(), UUID.randomUUID().toString().substring(0,8));
@@ -1038,7 +998,7 @@ phone.sendSMS();
     }
 
     private static void setNotSafe() {
-        Set&lt;String&gt; set = new CopyOnWriteArraySet&lt;&gt;(new HashSet&lt;&gt;());&#x2F;&#x2F;new HashSet&lt;&gt;();
+        Set&lt;String&gt; set = new CopyOnWriteArraySet&lt;&gt;(new HashSet&lt;&gt;());//new HashSet&lt;&gt;();
         for (int i = 1; i &lt;= 100; i++) {
             new Thread(()-&gt;{
                 set.add(UUID.randomUUID().toString().substring(0,8));
@@ -1048,8 +1008,8 @@ phone.sendSMS();
     }
 
     private static void listNotSafe() {
-        &#x2F;&#x2F; 分别使用ArrayList、Vector、synchronizedList、CopyOnWriteArrayList进行测试
-        List&lt;String&gt; list = new CopyOnWriteArrayList&lt;&gt;();&#x2F;&#x2F; Collections.synchronizedList(new ArrayList&lt;&gt;());&#x2F;&#x2F;new Vector&lt;&gt;();&#x2F;&#x2F;new ArrayList&lt;&gt;();
+        // 分别使用ArrayList、Vector、synchronizedList、CopyOnWriteArrayList进行测试
+        List&lt;String&gt; list = new CopyOnWriteArrayList&lt;&gt;();// Collections.synchronizedList(new ArrayList&lt;&gt;());//new Vector&lt;&gt;();//new ArrayList&lt;&gt;();
         for (int i = 1; i &lt;= 100; i++) {
             new Thread(()-&gt;{
                 list.add(UUID.randomUUID().toString().substring(0,8));
@@ -1061,9 +1021,7 @@ phone.sendSMS();
 </code></pre>
 <h3 id="5-2-写时复制技术"><a href="#5-2-写时复制技术" class="headerlink" title="5.2 写时复制技术"></a>5.2 写时复制技术</h3><p>CopyOnWrite容器即写时复制的容器。往一个容器添加元素时，不直接往当前容器Object[]添加，而是先将当前容器进行Copy，复制出一个新的容器Object[] newElements，然后在新容器中添加元素，添加元素之后，将原容器的引用指向新容器setArray(newElements);</p>
 <p>这样做的好处是可以对CopyOnWrite容器进行并发的读而无需加锁，因为当前容器不会添加任何元素，所以CopyOnWrite容器也是一种<strong>读写分离的思想</strong>，读和写不同的容器。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public boolean add(E e) {
+<pre><code class="java">public boolean add(E e) {
     final ReentrantLock lock = this.lock;
     lock.lock();
     try {
@@ -1086,13 +1044,11 @@ phone.sendSMS();
 <li>run方法没有返回值；call方法可以返回执行结果；</li>
 <li>run方法异常只能内部消化，不能往外抛；call方法允许抛出异常。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F;Callable 接口
+<pre><code class="java">//Callable 接口
 public interface Callable&lt;V&gt; {
     V call() throws Exception;
 }
-&#x2F;&#x2F; Runnable 接口
+// Runnable 接口
 public interface Runnable {
     public abstract void run();
 }
@@ -1102,9 +1058,7 @@ public interface Runnable {
 <ul>
 <li>Callable借助FutureTask执行：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 定义实现Callable接口的实现类
+<pre><code class="java">// 定义实现Callable接口的实现类
 class MyThread implements Callable&lt;Integer&gt;{
     @Override
     public Integer call() throws Exception {
@@ -1115,11 +1069,11 @@ class MyThread implements Callable&lt;Integer&gt;{
 
 public class CallableDemo{
     public static void main(String[] args) throws Exception{
-        &#x2F;&#x2F; 创建FutureTask对象并将callable对象放入
+        // 创建FutureTask对象并将callable对象放入
         FutureTask&lt;Integer&gt; task = new FutureTask(new MyThread());
-        &#x2F;&#x2F; 开启线程
+        // 开启线程
         new Thread(task,&quot;A&quot;).start();
-        &#x2F;&#x2F; 获取执行结果
+        // 获取执行结果
         System.out.println(task.get());
         System.out.println(Thread.currentThread().getName()+&quot;计算完成&quot;);
     }
@@ -1128,23 +1082,19 @@ public class CallableDemo{
 <ul>
 <li>借助线程池来运行</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 创建一个线程池
+<pre><code class="java">// 创建一个线程池
 ExecutorService pool = Executors.newCachedThreadPool();
-&#x2F;&#x2F; 提交一个任务
+// 提交一个任务
 Future&lt;Integer&gt; future = pool.submit(new MyThread());
-&#x2F;&#x2F; 获取执行结果
+// 获取执行结果
 System.out.println(future.get());
-&#x2F;&#x2F; 关闭线程池
+// 关闭线程池
 pool.shutdown();
 </code></pre>
 <h2 id="7-JUC常用辅助类"><a href="#7-JUC常用辅助类" class="headerlink" title="7. JUC常用辅助类"></a>7. JUC常用辅助类</h2><h3 id="7-1-CountDownLatch减法计数器"><a href="#7-1-CountDownLatch减法计数器" class="headerlink" title="7.1 CountDownLatch减法计数器"></a>7.1 <code>CountDownLatch</code>减法计数器</h3><p>案例：下课教室走人场景，有6位同学要走但走的顺序不一定，班长必须等待所有同学走完才允许关门走人。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class CountDownLatchDemo {
+<pre><code class="java">public class CountDownLatchDemo {
     public static void main(String[] args) throws InterruptedException {
-        &#x2F;&#x2F; 使用CountDownLatch计数器来控制线程顺序，定义一个值为6的计数器。
+        // 使用CountDownLatch计数器来控制线程顺序，定义一个值为6的计数器。
         CountDownLatch countDownLatch = new CountDownLatch(6);
         for (int i = 0; i &lt; 6; i++) {
             new Thread(() -&gt; {
@@ -1163,9 +1113,7 @@ pool.shutdown();
 <ul>
 <li>线程进入屏障使用CyclicBarrier的<code>await()</code>方法，代码案例如下：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 案例：只有集齐7颗龙珠，才能召唤神龙
+<pre><code class="java">// 案例：只有集齐7颗龙珠，才能召唤神龙
 public class CyclicBarrierDemo {
     public static void main(String[] args) {
         CyclicBarrier barrier = new CyclicBarrier(7,()-&gt; System.out.println(&quot;&gt;&gt;&gt;7龙珠召唤神龙&lt;&lt;&lt;&quot;));
@@ -1194,21 +1142,19 @@ public class CyclicBarrierDemo {
 <p><strong>信号量主要用于多个共享资源的互斥使用和对并发线程数的控制。</strong></p>
 </blockquote>
 <p>案例代码如下：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 模拟抢车位案例
+<pre><code class="java">// 模拟抢车位案例
 public class SemaphoreDemo {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 模拟资源类，有3个空车位
+        // 模拟资源类，有3个空车位
         Semaphore semaphore = new Semaphore(3);
         for (int i = 1; i &lt;= 6; i++) {
             new Thread(()-&gt;{
                 try {
-                    &#x2F;&#x2F; 占用
+                    // 占用
                     semaphore.acquire();
                     System.out.println(Thread.currentThread().getName()+&quot;\t抢到了车位&quot;);
                     TimeUnit.SECONDS.sleep(3);
-                    &#x2F;&#x2F; 释放
+                    // 释放
                     System.out.println(Thread.currentThread().getName()+&quot;\t离开了车位&quot;);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -1224,18 +1170,16 @@ public class SemaphoreDemo {
 <ul>
 <li>代码案例，使用ReentrantReadWriteLock读写锁对不同的读写资源操作上不同的锁。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 自定义模拟一个缓存类
+<pre><code class="java">// 自定义模拟一个缓存类
 class MyCache{
     private volatile Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
     private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-    
+
     public void put(String key,Object value){
         readWriteLock.writeLock().lock();
         try{
             System.out.println(Thread.currentThread().getName()+&quot;\t&gt;&gt;&gt;开始写入&quot;+key);
-            &#x2F;&#x2F; 暂停一定毫秒时间
+            // 暂停一定毫秒时间
             try { TimeUnit.MILLISECONDS.sleep(300); } catch (InterruptedException e) { e.printStackTrace(); }
             map.put(key,value);
             System.out.println(Thread.currentThread().getName()+&quot;\t&gt;&gt;&gt;写入成功&quot;+key);
@@ -1249,7 +1193,7 @@ class MyCache{
         readWriteLock.readLock().lock();
         try{
             System.out.println(Thread.currentThread().getName()+&quot;\t&gt;&gt;&gt;开始获取数据&quot;+key);
-            &#x2F;&#x2F; 暂停一定时间
+            // 暂停一定时间
             try { TimeUnit.MILLISECONDS.sleep(300); } catch (InterruptedException e) { e.printStackTrace(); }
             Object o = map.get(key);
             System.out.println(Thread.currentThread().getName()+&quot;\t&gt;&gt;&gt;成功获取数据&quot;+o);
@@ -1263,14 +1207,14 @@ class MyCache{
 public class ReadWriteLockDemo {
     public static void main(String[] args) {
         MyCache cache = new MyCache();
-        &#x2F;&#x2F; 模拟并发情况下5个线程写入
+        // 模拟并发情况下5个线程写入
         for (int i = 1; i &lt;= 5; i++) {
             final int finalI = i;
             new Thread(()-&gt;{
                 cache.put(finalI +&quot;&quot;, finalI +&quot;&quot;);
             },String.valueOf(i)).start();
         }
-        &#x2F;&#x2F; 模拟并发情况下5个线程读取
+        // 模拟并发情况下5个线程读取
         for (int i = 1; i &lt;= 5; i++) {
             final int finalI = i;
             new Thread(()-&gt;{
@@ -1626,7 +1570,7 @@ public class ReadWriteLockDemo {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

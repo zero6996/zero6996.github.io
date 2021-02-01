@@ -7,10 +7,8 @@
     <meta name="keywords" content="阿里云Linux指令入门笔记, Zero的博客">
     <meta name="description" content="一、Linux指令入门-文件与权限1. 文件目录管理命令1.1 tree命令描述：tree命令用于以树状图列出目录的内容。
 tree命令没有内置在系统中，使用tree命令需要执行以下命令来安装：
-
-
 # Ubuntu
-apt-get ins">
+apt-get insta">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -422,7 +420,7 @@ apt-get ins">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        34 分
+                        33 分
                     </div>
                     
                 
@@ -440,9 +438,7 @@ apt-get ins">
             <div id="articleContent">
                 <h1 id="一、Linux指令入门-文件与权限"><a href="#一、Linux指令入门-文件与权限" class="headerlink" title="一、Linux指令入门-文件与权限"></a>一、Linux指令入门-文件与权限</h1><h2 id="1-文件目录管理命令"><a href="#1-文件目录管理命令" class="headerlink" title="1. 文件目录管理命令"></a>1. 文件目录管理命令</h2><h3 id="1-1-tree"><a href="#1-1-tree" class="headerlink" title="1.1 tree"></a>1.1 tree</h3><p>命令描述：tree命令用于以树状图列出目录的内容。</p>
 <p>tree命令没有内置在系统中，使用tree命令需要执行以下命令来安装：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash"># Ubuntu
+<pre><code class="bash"># Ubuntu
 apt-get install tree
 # CentOS
 yum install -y tree
@@ -674,45 +670,34 @@ yum install -y tree
 <ol>
 <li>新建名为<code>hello.sh</code>的Shell脚本，该脚本将会输出<code>Hello World</code>。用<code>ll</code>命令可以看到新建的脚本没有执行权限，其权限用八进制表示为644。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">echo &quot;echo &#39;Hello World&#39;&quot; &gt; hello.sh
+<pre><code class="bash">echo &quot;echo &#39;Hello World&#39;&quot; &gt; hello.sh
 ll
 </code></pre>
 <p><img src="https://img.alicdn.com/tfs/TB1XPRcHNv1gK0jSZFFXXb0sXXa-520-111.png" alt="echo file"></p>
 <ol start="2">
 <li>将hello.sh文件增加属主的执行权限。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">chmod u+x hello.sh
+<pre><code class="bash">chmod u+x hello.sh
 ll
 </code></pre>
 <p><img src="https://img.alicdn.com/tfs/TB1RX7nXSRLWu4jSZKPXXb6BpXa-469-110.png" alt="chmod u+x"></p>
 <ol start="3">
 <li>将hello.sh文件撤销属主的执行权限。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-clike">chmod u-x hello.sh
+<pre><code>chmod u-x hello.sh
 ll
-</code></pre>
-<p><img src="https://img.alicdn.com/tfs/TB1.q8XHFP7gK0jSZFjXXc5aXXa-458-108.png" alt="chmod u-x"></p>
+</code></pre><p><img src="https://img.alicdn.com/tfs/TB1.q8XHFP7gK0jSZFjXXc5aXXa-458-108.png" alt="chmod u-x"></p>
 <ol start="4">
 <li>将hello.sh文件权限修改为八进制表示的744权限。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">chmod 744 hello.sh
+<pre><code class="bash">chmod 744 hello.sh
 ll
 </code></pre>
 <p><img src="https://img.alicdn.com/tfs/TB1cq..HpT7gK0jSZFpXXaTkpXa-445-110.png" alt="chmod 744"></p>
 <ol start="5">
 <li>使用bash命令解释器执行hello.sh脚本文件。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">&#x2F;bin&#x2F;bash hello.sh
+<pre><code class="bash">/bin/bash hello.sh
 </code></pre>
 <p>​                                           <img src="https://img.alicdn.com/tfs/TB1mIFeHQT2gK0jSZFkXXcIQFXa-448-67.png" alt="execute"> </p>
 <h3 id="2-3-chown"><a href="#2-3-chown" class="headerlink" title="2.3 chown"></a>2.3 chown</h3><p>chown命令修改文件的属主和属组；<code>-R</code>参数以递归方式对子目录和文件进行修改；<code>ls -l</code>命令显示的第三列和第四列就是文件的属主和属组信息。</p>
@@ -720,9 +705,7 @@ ll
 <ol>
 <li>新建一个文本文件test.txt，用<code>ll</code>命令可以看到该文件的属主和属组是root。<code>whoami</code>命令可以查看当前Shell环境登录的用户名。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">whoami
+<pre><code class="bash">whoami
 touch test.txt
 ll
 </code></pre>
@@ -730,35 +713,27 @@ ll
 <ol start="2">
 <li>创建两个用户。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">useradd test
+<pre><code class="bash">useradd test
 useradd admin
 </code></pre>
 <ol start="3">
 <li>修改test.txt文件的属主用户为test。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">chown test test.txt
+<pre><code class="bash">chown test test.txt
 ll
 </code></pre>
 <p><img src="https://img.alicdn.com/tfs/TB1IHVfHHj1gK0jSZFuXXcrHpXa-477-106.png" alt="chown1"></p>
 <ol start="4">
 <li>修改test.txt文件的属主和属组为admin。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">chown admin:admin test.txt
+<pre><code class="bash">chown admin:admin test.txt
 ll
 </code></pre>
 <p><img src="https://img.alicdn.com/tfs/TB1KbVfHHj1gK0jSZFuXXcrHpXa-471-108.png" alt="chown2"></p>
 <h3 id="2-4-chgrp"><a href="#2-4-chgrp" class="headerlink" title="2.4 chgrp"></a>2.4 chgrp</h3><p>chgrp命令用于修改文件的属组。</p>
 <p>命令使用示例：</p>
 <p>将test.txt文件的属组改为root。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">chgrp root test.txt
+<pre><code class="bash">chgrp root test.txt
 ll
 </code></pre>
 <p><img src="https://img.alicdn.com/tfs/TB1uLg.HxD1gK0jSZFsXXbldVXa-522-108.png" alt="chgrp"></p>
@@ -1065,9 +1040,7 @@ ll
 <ol>
 <li>将一个自增序列写入<code>test.txt</code>文件中。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">for i in $(seq 1 10); do echo $i &gt;&gt; test.txt ; done
+<pre><code class="bash">for i in $(seq 1 10); do echo $i &gt;&gt; test.txt ; done
 </code></pre>
 <ol start="2">
 <li>查看文件内容：<code>cat test.txt</code></li>
@@ -1119,9 +1092,7 @@ ll
 </tbody>
 </table>
 <p>命令使用示例：从第20行开始分页查看系统日志文件/var/log/messages。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">more +20 &#x2F;var&#x2F;log&#x2F;messages
+<pre><code class="bash">more +20 /var/log/messages
 </code></pre>
 <p>命令输出结果：</p>
 <p><img src="https://img.alicdn.com/tfs/TB1xcXGHHr1gK0jSZFDXXb9yVXa-1408-937.png" alt="more 20"></p>
@@ -1343,9 +1314,7 @@ ll
 <ol>
 <li>构造两个相似的文件</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">echo -e &#39;第一行\n第二行\n我是log1第3行\n第四行\n第五行\n第六行&#39; &gt; 1.log
+<pre><code class="bash">echo -e &#39;第一行\n第二行\n我是log1第3行\n第四行\n第五行\n第六行&#39; &gt; 1.log
 echo -e &#39;第一行\n第二行\n我是log2第3行\n第四行&#39; &gt; 2.log
 </code></pre>
 <ol start="2">
@@ -1423,17 +1392,13 @@ echo -e &#39;第一行\n第二行\n我是log2第3行\n第四行&#39; &gt; 2.log
 </ul>
 <ul>
 <li><p>反向查找，不显示符合条件的行。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">  # 查询sshd进程
-  ps -ef | grep sshd
-  # 排除grep进程，在上一结果集中继续查询sshd
-  ps -ef | grep -v grep | grep sshd
+<pre><code class="bash"># 查询sshd进程
+ps -ef | grep sshd
+# 排除grep进程，在上一结果集中继续查询sshd
+ps -ef | grep -v grep | grep sshd
 </code></pre>
+<p> 命令输出结果：<img src="https://img.alicdn.com/tfs/TB1GVNGHUT1gK0jSZFrXXcNCXXa-668-149.png" alt="ps -ef"></p>
 </li>
-</ul>
-<p>   命令输出结果：<img src="https://img.alicdn.com/tfs/TB1GVNGHUT1gK0jSZFrXXcNCXXa-668-149.png" alt="ps -ef"></p>
-<ul>
 <li><p>以递归的方式查找目录下含有关键字的文件：<code>grep -r *.sh /etc</code></p>
 <p>命令输出结果：<img src="https://img.alicdn.com/tfs/TB17WBFHNz1gK0jSZSgXXavwpXa-912-134.png" alt="grep -r"></p>
 </li>
@@ -1728,31 +1693,22 @@ echo -e &#39;第一行\n第二行\n我是log2第3行\n第四行&#39; &gt; 2.log
 </li>
 <li><p>显示结果定向至文件</p>
 <p>以下命令会将文本<code>This is a test text.</code>输出重定向到文件test.txt中，如果文件已存在，将会覆盖文件内容，如果不存在则创建。其中<code>&gt;</code>符号表示输出重定向。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">  echo &quot;This is a test text.&quot; &gt; test.txt
+<pre><code class="bash">echo &quot;This is a test text.&quot; &gt; test.txt
 </code></pre>
+<p>如果您希望将文本追加到文件内容最后，而不是覆盖它，请使用<code>&gt;&gt;</code>输出追加重定向符号。</p>
 </li>
-</ul>
-<p>  如果您希望将文本追加到文件内容最后，而不是覆盖它，请使用<code>&gt;&gt;</code>输出追加重定向符号。</p>
-<ul>
 <li><p>显示命令执行结果</p>
 <ul>
 <li>以下命令将会在终端显示当前的工作路径。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">  echo `pwd`
+<pre><code class="bash">echo `pwd`
 </code></pre>
+<p>注意：pwd命令是用一对反引号（<code></code>）包裹，而不是一对单引号（’’）。</p>
+<p>使用<code>$(command)</code>形式可以达到相同效果。</p>
+<pre><code>echo $(pwd)
+</code></pre><p>输出结果：</p>
 </li>
 </ul>
-<p>  注意：pwd命令是用一对反引号（<code></code>）包裹，而不是一对单引号（’’）。</p>
-<p>  使用<code>$(command)</code>形式可以达到相同效果。</p>
-  
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-clike">  echo $(pwd)
-</code></pre>
-<p>  输出结果：</p>
 <p><img src="https://img.alicdn.com/tfs/TB1ntFMHNv1gK0jSZFFXXb0sXXa-513-154.png" alt="echo $(command)"></p>
 <h3 id="1-2-date"><a href="#1-2-date" class="headerlink" title="1.2 date"></a>1.2 date</h3><p>命令描述：date命令用于显示和设置系统的时间和日期。</p>
 <p>命令格式：<code>date [选项] [+格式]</code>。</p>
@@ -1909,9 +1865,7 @@ echo -e &#39;第一行\n第二行\n我是log2第3行\n第四行&#39; &gt; 2.log
 </table>
 <p>命令使用示例：</p>
 <p>下载一张图片到路径<code>/root/static/img/</code>中，<code>-p</code>参数默认值为当前路径，如果指定路径不存在会自动创建。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">wget -P &#x2F;root&#x2F;static&#x2F;img&#x2F; http:&#x2F;&#x2F;img.alicdn.com&#x2F;tfs&#x2F;TB1.R._t7L0gK0jSZFxXXXWHVXa-2666-1500.png
+<pre><code class="bash">wget -P /root/static/img/ http://img.alicdn.com/tfs/TB1.R._t7L0gK0jSZFxXXXWHVXa-2666-1500.png
 </code></pre>
 <p>输出结果：</p>
 <p><img src="https://img.alicdn.com/tfs/TB1vQxHHFT7gK0jSZFpXXaTkpXa-1740-257.png" alt="wget -p"></p>
@@ -2468,7 +2422,7 @@ echo -e &#39;第一行\n第二行\n我是log2第3行\n第四行&#39; &gt; 2.log
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

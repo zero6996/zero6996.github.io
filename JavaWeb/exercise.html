@@ -484,45 +484,43 @@
 </ol>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/5.%E4%BF%AE%E6%94%B9%E5%8A%9F%E8%83%BD-1561276609416.bmp" alt="title"></p>
 <h3 id="1-2-复杂功能"><a href="#1-2-复杂功能" class="headerlink" title="1.2 复杂功能"></a>1.2 复杂功能</h3><h4 id="1-删除选中"><a href="#1-删除选中" class="headerlink" title="1. 删除选中"></a>1. 删除选中</h4><p>点击删除选中按钮，主要问题就是要先获取选中的用户条目，在将这些选中条目的ID提交到后台进行批量删除操作。</p>
-<h5 id="1-1-获取选中条目的ID-通过form表单提交到后台。"><a href="#1-1-获取选中条目的ID-通过form表单提交到后台。" class="headerlink" title="1.1 获取选中条目的ID,通过form表单提交到后台。"></a>1.1 获取选中条目的ID,通过form表单提交到后台。</h5>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&#x2F;*
+<h5 id="1-1-获取选中条目的ID-通过form表单提交到后台。"><a href="#1-1-获取选中条目的ID-通过form表单提交到后台。" class="headerlink" title="1.1 获取选中条目的ID,通过form表单提交到后台。"></a>1.1 获取选中条目的ID,通过form表单提交到后台。</h5><pre><code class="javascript">/*
 为删除选中按钮绑定单击事件，提交每个条目复选框的值(该值就是条目的ID)
 1. 给每一个条目添加checkbox,值是条目对应的ID
 2. 获取当前页面的所有复选框标签，然后遍历，判断其是否有checked属性，有则允许提交表单
 3. 提交form表单
-*&#x2F;
+*/
 window.onload = function () {
-    &#x2F;&#x2F; 为删除选中绑定单击事件
+    // 为删除选中绑定单击事件
     document.getElementById(&quot;delSelected&quot;).onclick = function () {
         if (confirm(&quot;确定要删除所有选中的信息么?&quot;)){
             var flag = false;
-            &#x2F;&#x2F; 判断是否有选中信息
+            // 判断是否有选中信息
             var cbs = document.getElementsByName(&quot;uid&quot;);
             for (var i = 0; i &lt; cbs.length; i++) {
-                if(cbs[i].checked){ &#x2F;&#x2F; 如果有任何一个信息被选中(checkbox.checked返回布尔值，表示是否被选中)
-                    flag = true; &#x2F;&#x2F; 允许提交
+                if(cbs[i].checked){ // 如果有任何一个信息被选中(checkbox.checked返回布尔值，表示是否被选中)
+                    flag = true; // 允许提交
                     break;
                 }
             }
-            if (flag)&#x2F;&#x2F;判断是否允许提交
-                &#x2F;&#x2F; 使用提交方法提交信息到后台
+            if (flag)//判断是否允许提交
+                // 使用提交方法提交信息到后台
                 document.getElementById(&quot;form&quot;).submit();
         }
     }
 }
-&#x2F;*
-全选&#x2F;全不选功能JS代码
+/*
+全选/全不选功能JS代码
 1. 在表头单元格添加一个复选框
 2. 获取该复选框标签对象
 3. 为该对象绑定单击事件，点击就获取所有的复选框对象，然后遍历，设置这些复选框的checked=this.checked。(this:就是当前复选框对象,即&#39;firstCB&#39;)
-*&#x2F;
+*/
 document.getElementById(&quot;firstCB&quot;).onclick = function () {
-    &#x2F;&#x2F; 获取列表所有的cb
+    // 获取列表所有的cb
     var cbs = document.getElementsByName(&quot;uid&quot;);
-    &#x2F;&#x2F; 遍历
+    // 遍历
     for (var i = 0; i &lt; cbs.length; i++) {
-        &#x2F;&#x2F; 设置这些cbs[i]的checked状态等于firstCB.checked
+        // 设置这些cbs[i]的checked状态等于firstCB.checked
         cbs[i].checked = this.checked;
     }
 }
@@ -543,17 +541,15 @@ document.getElementById(&quot;firstCB&quot;).onclick = function () {
 <li>每页显示条数<code>rows</code>：自定义的条数。</li>
 </ol>
 <p>当第一次访问<code>findUserByPageServlet</code>时，后台会做两次SQL查询，查询总记录数和当前分页数据，然后全部封装进<code>PageBean</code>对象，存入request返回。前端接受到这个对象，会在分页查询功能区遍历该对象，进行当前页码计算，以确定有多少分页。当用户点击不同分页时，会将当前页码返回给<code>findUserByPageServlet</code>做进一步的查询操作。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;%--分页查询部分代码,遍历生成li,有多少页就会生成多少li--%&gt;
+<pre><code class="jsp">&lt;%--分页查询部分代码,遍历生成li,有多少页就会生成多少li--%&gt;
 &lt;c:forEach begin=&quot;1&quot; end=&quot;${userPage.totalPage}&quot; var=&quot;i&quot;&gt;
     &lt;c:if test=&quot;${userPage.currentPage == i}&quot;&gt; &lt;%--如果服务器返回的页码等于当前页码，则将按钮激活--%&gt;
-        &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;${pageContext.request.contextPath}&#x2F;findUserByPageServlet?currentPage=${i}&amp;name=${condition.name[0]}&amp;address=${condition.address[0]}&amp;email=${condition.email[0]}&quot;&gt;${i}&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-    &lt;&#x2F;c:if&gt;
+        &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&amp;name=${condition.name[0]}&amp;address=${condition.address[0]}&amp;email=${condition.email[0]}&quot;&gt;${i}&lt;/a&gt;&lt;/li&gt;
+    &lt;/c:if&gt;
     &lt;c:if test=&quot;${userPage.currentPage != i}&quot;&gt; &lt;%--如果服务器返回的页码不等于当前页码，则正常显示--%&gt;
-        &lt;li&gt;&lt;a href=&quot;${pageContext.request.contextPath}&#x2F;findUserByPageServlet?currentPage=${i}&amp;name=${condition.name[0]}&amp;address=${condition.address[0]}&amp;email=${condition.email[0]}&quot;&gt;${i}&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-    &lt;&#x2F;c:if&gt;
-&lt;&#x2F;c:forEach&gt;
+        &lt;li&gt;&lt;a href=&quot;${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&amp;name=${condition.name[0]}&amp;address=${condition.address[0]}&amp;email=${condition.email[0]}&quot;&gt;${i}&lt;/a&gt;&lt;/li&gt;
+    &lt;/c:if&gt;
+&lt;/c:forEach&gt;
 </code></pre>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/23/7.%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD-1561276688555.bmp" alt="title"><br><code>findUserByPageServlet</code>主要操作：</p>
 <ol>
@@ -847,7 +843,7 @@ document.getElementById(&quot;firstCB&quot;).onclick = function () {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

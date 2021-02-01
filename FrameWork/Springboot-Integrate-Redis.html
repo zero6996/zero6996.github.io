@@ -423,7 +423,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.8k
+                        2.7k
                     </div>
                     
 
@@ -470,13 +470,11 @@
 </table>
 <br>下面开始整合redis。</p>
 <h3 id="1-整合Redis步骤"><a href="#1-整合Redis步骤" class="headerlink" title="1. 整合Redis步骤"></a>1. 整合Redis步骤</h3><h4 id="1-1-引入依赖"><a href="#1-1-引入依赖" class="headerlink" title="1.1 引入依赖"></a>1.1 引入依赖</h4><p>在<code>pom.xml</code>文件中引入redis依赖</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- redis的支持--&gt;
+<pre><code class="xml">&lt;!-- redis的支持--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;&#x2F;artifactId&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
+&lt;/dependency&gt;
 </code></pre>
 <blockquote>
 <p>1.5版本默认采用的客户端是jedis, 2.x版本默认是lettuce</p>
@@ -486,9 +484,7 @@
 </ul>
 </blockquote>
 <h4 id="1-2-配置文件中配置redis"><a href="#1-2-配置文件中配置redis" class="headerlink" title="1.2 配置文件中配置redis"></a>1.2 配置文件中配置redis</h4><p>在项目的<code>application.properties</code>配置文件中配置redis，配置如下</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-properties">########redis配置##############
+<pre><code class="properties">########redis配置##############
 # Redis数据库索引(默认为0)
 spring.redis.database=0
 #服务器地址
@@ -514,37 +510,35 @@ server.servlet.session.timeout=10
 # 显示hibernate的sql语句,方便查看是否成功缓存
 spring.jpa.show-sql=true
 </code></pre>
-<h4 id="1-3-创建一个Redis缓存配置类"><a href="#1-3-创建一个Redis缓存配置类" class="headerlink" title="1.3 创建一个Redis缓存配置类"></a>1.3 创建一个Redis缓存配置类</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Configuration
+<h4 id="1-3-创建一个Redis缓存配置类"><a href="#1-3-创建一个Redis缓存配置类" class="headerlink" title="1.3 创建一个Redis缓存配置类"></a>1.3 创建一个Redis缓存配置类</h4><pre><code class="java">@Configuration
 @EnableCaching
 public class RedisConfig {
-    &#x2F;*
+    /*
         SpringBoot2.x的ReidsCacheManager自定义配置方法
         缓存之后,key会多一个前缀,默认是将CacheName作为key的前缀
-     *&#x2F;
+     */
     @Bean
     public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
         RedisSerializer&lt;String&gt; redisSerializer = new StringRedisSerializer();
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
 
-        &#x2F;&#x2F;解决查询缓存转换异常的问题
+        //解决查询缓存转换异常的问题
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(om);
 
-        &#x2F;&#x2F; 配置序列化（可解决Redis中非中文的问题，但会导致反序列化异常，原因是PageImpl没有空参构造器导致的，如果只是做缓存
-        &#x2F;&#x2F; 可以选择不自定义value的序列化规则，因为jackson2的序列化器反序列化时需要序列化类有空参构造，如果没有就会报错
-        &#x2F;&#x2F; 且不自定义value的序列化规则，不影响其反序列化出来的内容，只是redis中显示非中文，或者使用JDK默认的序列化器）
+        // 配置序列化（可解决Redis中非中文的问题，但会导致反序列化异常，原因是PageImpl没有空参构造器导致的，如果只是做缓存
+        // 可以选择不自定义value的序列化规则，因为jackson2的序列化器反序列化时需要序列化类有空参构造，如果没有就会报错
+        // 且不自定义value的序列化规则，不影响其反序列化出来的内容，只是redis中显示非中文，或者使用JDK默认的序列化器）
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                &#x2F;&#x2F; 缓存有效期60s
+                // 缓存有效期60s
                 .entryTtl(Duration.ofSeconds(60))
-&#x2F;&#x2F;                &#x2F;&#x2F; 设置key序列化
+//                // 设置key序列化
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
-&#x2F;&#x2F;                 &#x2F;&#x2F; 设置value序列化
+//                 // 设置value序列化
 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
-                &#x2F;&#x2F;不缓存null值
+                //不缓存null值
                 .disableCachingNullValues();
 
         RedisCacheManager cacheManager = RedisCacheManager.builder(connectionFactory)
@@ -561,17 +555,15 @@ public class RedisConfig {
 <h4 id="1-4-在适当的地方加入缓存"><a href="#1-4-在适当的地方加入缓存" class="headerlink" title="1.4 在适当的地方加入缓存"></a>1.4 在适当的地方加入缓存</h4><ul>
 <li>User类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Entity &#x2F;&#x2F; 表示这是个实体类
-@Table(name = &quot;user_&quot;) &#x2F;&#x2F; 表示该类对应的表名是user
-@SuppressWarnings(&quot;all&quot;) &#x2F;&#x2F; 压制所有警告
+<pre><code class="java">@Entity // 表示这是个实体类
+@Table(name = &quot;user_&quot;) // 表示该类对应的表名是user
+@SuppressWarnings(&quot;all&quot;) // 压制所有警告
 @JsonIgnoreProperties({&quot;handler&quot;,&quot;hibernateLazyInitianlizer&quot;})
-public class User implements Serializable{ &#x2F;&#x2F;注意需实现序列化接口
+public class User implements Serializable{ //注意需实现序列化接口
     private static final long serialVersionUID = -6373343588870458520L;
-    @Id &#x2F;&#x2F; 表明主键
-    @GeneratedValue(strategy = GenerationType.IDENTITY) &#x2F;&#x2F; 表明自增长方式
-    @Column(name = &quot;id&quot;) &#x2F;&#x2F; 表名对应的数据库字段名
+    @Id // 表明主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 表明自增长方式
+    @Column(name = &quot;id&quot;) // 表名对应的数据库字段名
     private int id;
     @Column(name = &quot;name&quot;)
     private String name;
@@ -607,17 +599,13 @@ public class User implements Serializable{ &#x2F;&#x2F;注意需实现序列化�
 <ul>
 <li>UserDao</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface UserDao extends JpaRepository&lt;User,Integer&gt; {
+<pre><code class="java">public interface UserDao extends JpaRepository&lt;User,Integer&gt; {
 }
 </code></pre>
 <ul>
 <li>UserService</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface UserService {
+<pre><code class="java">public interface UserService {
     public Page4Navigator&lt;User&gt; getList(Pageable pageable);
     public void save(User user);
     public void delete(User user);
@@ -627,26 +615,24 @@ public class User implements Serializable{ &#x2F;&#x2F;注意需实现序列化�
 <ul>
 <li>UserServiceImpl</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Service
-&#x2F;&#x2F; 设置缓存名称
+<pre><code class="java">@Service
+// 设置缓存名称
 @CacheConfig(cacheNames = &quot;user&quot;)
 public class UserServiceImpl implements UserService {
     @Autowired UserDao userDao;
 
 
     @Override
-    &#x2F;&#x2F; 开启缓存
+    // 开启缓存
     @Cacheable(key = &quot;&#39;user&#39;+#p0.offset+&#39;-&#39;+#p0.pageSize &quot;)
     public Page4Navigator&lt;User&gt; getList(Pageable pageable) {
         Page&lt;User&gt; pageFromJPA = userDao.findAll(pageable);
         Page4Navigator&lt;User&gt; page = new Page4Navigator&lt;&gt;(pageFromJPA, 5);
         return page;
     }
-    
-	@Override
-    &#x2F;&#x2F; 该方法调用后立即清除缓存
+
+    @Override
+    // 该方法调用后立即清除缓存
     @CacheEvict(allEntries = true)
     public void save(User user) {
         userDao.save(user);
@@ -659,7 +645,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    &#x2F;&#x2F; 将查询结果缓存到redis中， user+#p0指定传入的第一个参数+user做为redis的key
+    // 将查询结果缓存到redis中， user+#p0指定传入的第一个参数+user做为redis的key
     @Cacheable(key = &quot;&#39;user &#39;+ #p0&quot;)
     public User get(int id) {
         return userDao.findById(id).get();
@@ -687,9 +673,7 @@ public class UserServiceImpl implements UserService {
 <ul>
 <li>分页工具类Page</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Page4Navigator&lt;T&gt; implements Serializable{
+<pre><code class="java">public class Page4Navigator&lt;T&gt; implements Serializable{
     private static final long serialVersionUID = -4042369404722051112L;
     Page&lt;T&gt; page4jpa;
     int navigatePages;
@@ -730,31 +714,31 @@ public class UserServiceImpl implements UserService {
         int navigatepageNums[];
         int totalPages = getTotalPages();
         int num = getNumber();
-        &#x2F;&#x2F;当总页数小于或等于导航页码数时
+        //当总页数小于或等于导航页码数时
         if (totalPages &lt;= navigatePages) {
             navigatepageNums = new int[totalPages];
             for (int i = 0; i &lt; totalPages; i++) {
                 navigatepageNums[i] = i + 1;
             }
-        } else { &#x2F;&#x2F;当总页数大于导航页码数时
+        } else { //当总页数大于导航页码数时
             navigatepageNums = new int[navigatePages];
-            int startNum = num - navigatePages &#x2F; 2;
-            int endNum = num + navigatePages &#x2F; 2;
+            int startNum = num - navigatePages / 2;
+            int endNum = num + navigatePages / 2;
 
             if (startNum &lt; 1) {
                 startNum = 1;
-                &#x2F;&#x2F;(最前navigatePages页
+                //(最前navigatePages页
                 for (int i = 0; i &lt; navigatePages; i++) {
                     navigatepageNums[i] = startNum++;
                 }
             } else if (endNum &gt; totalPages) {
                 endNum = totalPages;
-                &#x2F;&#x2F;最后navigatePages页
+                //最后navigatePages页
                 for (int i = navigatePages - 1; i &gt;= 0; i--) {
                     navigatepageNums[i] = endNum--;
                 }
             } else {
-                &#x2F;&#x2F;所有中间页
+                //所有中间页
                 for (int i = 0; i &lt; navigatePages; i++) {
                     navigatepageNums[i] = startNum++;
                 }
@@ -763,44 +747,43 @@ public class UserServiceImpl implements UserService {
         this.navigatepageNums = navigatepageNums;
     }
 
-    &#x2F;&#x2F;省略get&#x2F;set方法
+    //省略get/set方法
     ... ... 
 }
+
 </code></pre>
 <ul>
 <li>控制器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@RestController
+<pre><code class="java">@RestController
 public class UserController_Json {
     @Autowired UserService userService;
 
-    &#x2F;**
+    /**
      * 获取全部user对象
      * @return
      * @throws Exception
-     *&#x2F;
-    @GetMapping(&quot;&#x2F;user&quot;)
+     */
+    @GetMapping(&quot;/user&quot;)
     public List&lt;User&gt; listUser(@RequestParam(value = &quot;start&quot;,defaultValue = &quot;0&quot;) int start,
                                @RequestParam(value = &quot;size&quot;,defaultValue = &quot;5&quot;) int size) throws Exception{
         start = start &lt; 0?0:start;
         new Sort.Order(Sort.Direction.DESC,&quot;id&quot;);
         Sort orders = Sort.by(&quot;id&quot;);
-        &#x2F;&#x2F; 根据start、size和sort创建分页对象
+        // 根据start、size和sort创建分页对象
         PageRequest pageable = PageRequest.of(start,size,orders);
-        &#x2F;&#x2F; DAO根据这个分页对象获取结果page,这个page对象里，不仅包含了分页信息，还包含了数据信息,类转换异常？
+        // DAO根据这个分页对象获取结果page,这个page对象里，不仅包含了分页信息，还包含了数据信息,类转换异常？
         Page4Navigator&lt;User&gt; list = userService.getList(pageable);
         return list.getContent();
     }
 
-    &#x2F;**
+    /**
      * 获取单个user对象
      * @param id
      * @return
      * @throws Exception
-     *&#x2F;
-    @GetMapping(&quot;&#x2F;user&#x2F;{id}&quot;)
+     */
+    @GetMapping(&quot;/user/{id}&quot;)
     @ResponseBody
     public User getUser(@PathVariable(&quot;id&quot;) int id,
                         HttpServletResponse response) throws Exception{
@@ -809,12 +792,12 @@ public class UserController_Json {
         return user;
     }
 
-    &#x2F;**
+    /**
      * 添加用户
      * @param user
      * @throws Exception
-     *&#x2F;
-    @PutMapping(&quot;&#x2F;user&quot;)
+     */
+    @PutMapping(&quot;/user&quot;)
     public void addUser(@RequestBody User user) throws Exception{
         System.out.println(&quot;SpringBoot接受到浏览器以JSON格式提交的数据：&quot;+user);
         userService.save(user);
@@ -831,9 +814,7 @@ public class UserController_Json {
 <li>不设置<code>RedisConfig</code>配置类中自定义的value序列化规则，因为使用<code>jackson2JsonRedisSerializer</code>设置value的序列化值就会报错，不设置就不会；不设置的弊端就是，Redis数据库中存储的数据是HEX格式的，也就是16进制数据，不方便查阅。</li>
 <li>可以使用另一个Page类，替换我原本的page类，暂时没有深入研究这两个类的区别，有兴趣的同学可以研究下。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class MyPage&lt;T&gt; implements Iterable&lt;T&gt;, Serializable {
+<pre><code class="java">public class MyPage&lt;T&gt; implements Iterable&lt;T&gt;, Serializable {
     private static final long serialVersionUID = -3720998571176536865L;
     private List&lt;T&gt; content = new ArrayList&lt;&gt;();
     private long totalElements;
@@ -848,7 +829,7 @@ public class UserController_Json {
     public MyPage() {
     }
 
-    
+
     public MyPage(Page&lt;T&gt; page) {
         this.content = page.getContent();
         this.totalElements = page.getTotalElements();
@@ -856,11 +837,11 @@ public class UserController_Json {
         this.pageSize = page.getPageable().getPageSize();
         this.numberOfElements = page.getNumberOfElements();
     }
-    
-    &#x2F;&#x2F; 省略get&#x2F;set方法
+
+    // 省略get/set方法
     ... ...
-    
-   &#x2F;&#x2F;迭代器
+
+   //迭代器
     @Override
     public Iterator&lt;T&gt; iterator() {
         return getContent().iterator();
@@ -869,32 +850,29 @@ public class UserController_Json {
 </code></pre>
 <h4 id="2-2-java-util-LinkedHashMap-cannot-be-cast-to-XXX"><a href="#2-2-java-util-LinkedHashMap-cannot-be-cast-to-XXX" class="headerlink" title="2.2 java.util.LinkedHashMap cannot be cast to XXX"></a>2.2 java.util.LinkedHashMap cannot be cast to XXX</h4><p>发生在读取redis缓存的时候报错，<code>java.lang.ClassCastException: java.util.LinkedHashMap cannot be cast to XXX</code>，但是我个人代码中并没有定义和使用到<code>LinkedHashMap</code>，查资料后发现原因是<code>Jackson2JsonRedisSerializer</code>，该序列化器中默认使用的<code>ObjectMapper</code>是直接<code>new ObjectMapper()</code>创建的，这样<code>ObjectMapper</code>会将redis中的字符串反序列化为<code>LinkedHashMap</code>类型，导致后续类型转换错误。</p>
 <p>解决方法，配置<code>objectMapper</code>的默认类型：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">Jackson2JsonRedisSerializer&lt;Object&gt; jackson2JsonRedisSerializer =
+<pre><code class="java">Jackson2JsonRedisSerializer&lt;Object&gt; jackson2JsonRedisSerializer =
     new Jackson2JsonRedisSerializer&lt;&gt;(Object.class);
 ObjectMapper objectMapper = new ObjectMapper();
 objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
 objectMapper.configure(MapperFeature.USE_ANNOTATIONS, false);
 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-&#x2F;&#x2F; 配置如下，解决LinkedHashMap转换异常
+// 配置如下，解决LinkedHashMap转换异常
 objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
 objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 </code></pre>
 <h4 id="2-3-redis数据非中文"><a href="#2-3-redis数据非中文" class="headerlink" title="2.3 redis数据非中文"></a>2.3 redis数据非中文</h4><p>只需在<code>redisCacheManager</code>方法中进行redis的缓存配置，设置value序列化。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-    &#x2F;&#x2F; 缓存有效期60s
+<pre><code class="java">RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+    // 缓存有效期60s
     .entryTtl(Duration.ofSeconds(60))
-    &#x2F;&#x2F; 设置key序列化
+    // 设置key序列化
     .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
-    &#x2F;&#x2F; 设置value序列化
+    // 设置value序列化
     .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
-    &#x2F;&#x2F;不缓存null值
+    //不缓存null值
     .disableCachingNullValues();
+
 </code></pre>
 <h4 id="2-4-相同类转换异常"><a href="#2-4-相同类转换异常" class="headerlink" title="2.4 相同类转换异常"></a>2.4 相同类转换异常</h4><p>关闭IDEA的热部署即可，原因和JVM的双亲委派有关，感兴趣的自查。</p>
 
@@ -1157,7 +1135,7 @@ jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

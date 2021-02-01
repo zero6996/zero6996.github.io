@@ -421,14 +421,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        6.3k
+                        5.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        29 分
+                        26 分
                     </div>
                     
                 
@@ -644,26 +644,22 @@
 <li>控制事务在回滚或提交时需要应用对应的事务状态；</li>
 <li>Spring事务接口：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  &#x2F;&#x2F; Spring事务状态接口：
-  &#x2F;&#x2F; 通过调用PlatformTransactionManager的getTransaction()
-  &#x2F;&#x2F; 获取事务状态实例
-  public interface TransactionStatus{
-      boolean isNewTransaction(); &#x2F;&#x2F; 是否是新的事务
-      boolean hasSavepoint(); &#x2F;&#x2F; 是否有恢复点
-      void setRollbackOnly(); &#x2F;&#x2F; 设置为只回滚
-      boolean isRollBackOnly(); &#x2F;&#x2F; 是否为只回滚
-      boolean isCompleted; &#x2F;&#x2F; 是否已完成
-  }
+<pre><code class="java">// Spring事务状态接口：
+// 通过调用PlatformTransactionManager的getTransaction()
+// 获取事务状态实例
+public interface TransactionStatus{
+    boolean isNewTransaction(); // 是否是新的事务
+    boolean hasSavepoint(); // 是否有恢复点
+    void setRollbackOnly(); // 设置为只回滚
+    boolean isRollBackOnly(); // 是否为只回滚
+    boolean isCompleted; // 是否已完成
+}
 </code></pre>
 </li>
 </ul>
 <h3 id="2-8-转账案例"><a href="#2-8-转账案例" class="headerlink" title="2.8 转账案例"></a>2.8 转账案例</h3><p>通过代理工厂实现事务</p>
 <h4 id="2-8-1-环境搭建"><a href="#2-8-1-环境搭建" class="headerlink" title="2.8.1 环境搭建"></a>2.8.1 环境搭建</h4><p>创建用户数据库表</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">create table account(
+<pre><code class="sql">create table account(
 id int primary key auto_increment,
 username varchar(50),
 money int);
@@ -678,17 +674,15 @@ insert into account(username,money) values(&#39;rose&#39;,10000);
 <li>驱动：mysql</li>
 <li>连接池：dbcp</li>
 </ul>
-<h4 id="2-8-3-创建Dao层"><a href="#2-8-3-创建Dao层" class="headerlink" title="2.8.3 创建Dao层"></a>2.8.3 创建Dao层</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class AccountDaoImpl extends JdbcDaoSupport implements AccountDao { 
-    &#x2F;&#x2F; JdbcDaoSupport，在xml中配置数据源即可使用
-    &#x2F;&#x2F; 转出
+<h4 id="2-8-3-创建Dao层"><a href="#2-8-3-创建Dao层" class="headerlink" title="2.8.3 创建Dao层"></a>2.8.3 创建Dao层</h4><pre><code class="java">public class AccountDaoImpl extends JdbcDaoSupport implements AccountDao { 
+    // JdbcDaoSupport，在xml中配置数据源即可使用
+    // 转出
     @Override
     public void out(String outer, Integer money) {
         String sql = &quot;update account set money = money - ? where username = ?&quot;;
         getJdbcTemplate().update(sql,money,outer);
     }
-    &#x2F;&#x2F; 进账
+    // 进账
     @Override
     public void in(String inner, Integer money) {
         String sql = &quot;update account set money = money + ? where username = ?&quot;;
@@ -696,12 +690,10 @@ insert into account(username,money) values(&#39;rose&#39;,10000);
     }
 }
 </code></pre>
-<h4 id="2-8-4-创建Service层"><a href="#2-8-4-创建Service层" class="headerlink" title="2.8.4 创建Service层"></a>2.8.4 创建Service层</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class AccountServiceImpl implements AccountService {
+<h4 id="2-8-4-创建Service层"><a href="#2-8-4-创建Service层" class="headerlink" title="2.8.4 创建Service层"></a>2.8.4 创建Service层</h4><pre><code class="java">public class AccountServiceImpl implements AccountService {
 
     private AccountDao accountDao;
-    &#x2F;&#x2F; 提供set方法，让spring注入属性
+    // 提供set方法，让spring注入属性
     public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
@@ -709,95 +701,91 @@ insert into account(username,money) values(&#39;rose&#39;,10000);
     @Override
     public void transfer(String outer, String inner, Integer money) {
         this.accountDao.out(outer,money);
-        int i = 1&#x2F;0; &#x2F;&#x2F; 手动制造异常，测试事务是否其效果
+        int i = 1/0; // 手动制造异常，测试事务是否其效果
         this.accountDao.in(inner,money);
     }
 }
 </code></pre>
-<h4 id="2-8-5-配置文件"><a href="#2-8-5-配置文件" class="headerlink" title="2.8.5 配置文件"></a>2.8.5 配置文件</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-       xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
-       xmlns:context=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;
-       xmlns:aop=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&quot;
-       xmlns:tx=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&quot;
-       xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans
-    http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd
-    http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context
-    http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd
-    http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop
-    http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&#x2F;spring-aop.xsd
-    http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx
-    http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&#x2F;spring-tx.xsd&quot;&gt;
+<h4 id="2-8-5-配置文件"><a href="#2-8-5-配置文件" class="headerlink" title="2.8.5 配置文件"></a>2.8.5 配置文件</h4><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd&quot;&gt;
 
     &lt;!--配置DBCP数据源--&gt;
     &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp2.BasicDataSource&quot;&gt;
-        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;
-        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;&#x2F;&gt;
-        &lt;property name=&quot;username&quot; value=&quot;root&quot;&#x2F;&gt;
-        &lt;property name=&quot;password&quot; value=&quot;123456&quot;&#x2F;&gt;
-    &lt;&#x2F;bean&gt;
+        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;/&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+        &lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;
+    &lt;/bean&gt;
 
     &lt;!--配置Template--&gt;
     &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
-        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-    &lt;&#x2F;bean&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
 
     &lt;!--配置Dao--&gt;
     &lt;bean id=&quot;accountDao&quot; class=&quot;com.zero.transaction.dao.Impl.AccountDaoImpl&quot;&gt;
-        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-    &lt;&#x2F;bean&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
 
     &lt;!--配置事务管理器--&gt;
     &lt;bean id=&quot;txManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
-        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-    &lt;&#x2F;bean&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
     &lt;!--配置service--&gt;
     &lt;bean id=&quot;accountService&quot; class=&quot;com.zero.transaction.service.Impl.AccountServiceImpl&quot;&gt;
-       	&lt;!--添加属性accountDao--&gt;
-        &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&#x2F;&gt;
-    &lt;&#x2F;bean&gt;
+           &lt;!--添加属性accountDao--&gt;
+        &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;/&gt;
+    &lt;/bean&gt;
 
     &lt;!--配置代理工厂--&gt;
     &lt;bean id=&quot;proxyService&quot; class=&quot;org.springframework.transaction.interceptor.TransactionProxyFactoryBean&quot;&gt;
         &lt;!--接口，注意配置全类名--&gt;
-        &lt;property name=&quot;proxyInterfaces&quot; value=&quot;com.zero.transaction.service.AccountService&quot;&#x2F;&gt; 
+        &lt;property name=&quot;proxyInterfaces&quot; value=&quot;com.zero.transaction.service.AccountService&quot;/&gt; 
         &lt;!--目标对象--&gt;
-        &lt;property name=&quot;target&quot; ref=&quot;accountService&quot;&#x2F;&gt;
+        &lt;property name=&quot;target&quot; ref=&quot;accountService&quot;/&gt;
         &lt;!--切面对象，SPring做了，就不用写了--&gt;
         &lt;!--事务管理器--&gt;
-        &lt;property name=&quot;transactionManager&quot; ref=&quot;txManager&quot;&#x2F;&gt;
+        &lt;property name=&quot;transactionManager&quot; ref=&quot;txManager&quot;/&gt;
         &lt;!--
-            事务属性&#x2F;详情配置
+            事务属性/详情配置
             prop.key ：确定哪些方法使用当前事务配置
             prop.text:用于配置事务详情
             格式：PROPAGATION,ISOLATION,readOnly,-Exception,+Exception
-            传播行为		 隔离级别	      是否只读	异常回滚	      异常提交
+            传播行为         隔离级别          是否只读    异常回滚          异常提交
         --&gt;
         &lt;property name=&quot;transactionAttributes&quot;&gt;
             &lt;props&gt;
                 &lt;!--可以配置隔离级别--&gt;
-                &lt;prop key=&quot;transfer&quot;&gt;PROPAGATION_REQUIRED,ISOLATION_DEFAULT&lt;&#x2F;prop&gt;
-            &lt;&#x2F;props&gt;
-        &lt;&#x2F;property&gt;
-    &lt;&#x2F;bean&gt;
-&lt;&#x2F;beans&gt;
+                &lt;prop key=&quot;transfer&quot;&gt;PROPAGATION_REQUIRED,ISOLATION_DEFAULT&lt;/prop&gt;
+            &lt;/props&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
 </code></pre>
-<h4 id="2-8-6-测试"><a href="#2-8-6-测试" class="headerlink" title="2.8.6 测试"></a>2.8.6 测试</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@RunWith(SpringJUnit4ClassRunner.class)
+<h4 id="2-8-6-测试"><a href="#2-8-6-测试" class="headerlink" title="2.8.6 测试"></a>2.8.6 测试</h4><pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(&quot;classpath:transfer.xml&quot;)
 public class transferTest {
 
-&#x2F;&#x2F;    @Autowired
+//    @Autowired
     @Resource(name = &quot;proxyService&quot;)
     private AccountService accountService;
 
-    &#x2F;&#x2F; 转账测试
+    // 转账测试
     @Test
     public void test1(){
-        &#x2F;&#x2F; 获取service
+        // 获取service
         accountService.transfer(&quot;jack&quot;,&quot;rose&quot;,100);
     }
 }
@@ -827,16 +815,14 @@ public class transferTest {
 </li>
 <li>数据库工具类DButil</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DBUtil {
+<pre><code class="java">public class DBUtil {
     static  final String dbDriver = &quot;com.mysql.jdbc.Driver&quot; ;
-    static final String dbUrl = &quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;selection_course?useUnicode=true&amp;characterEncoding=utf-8&quot; ;&#x2F;&#x2F;
+    static final String dbUrl = &quot;jdbc:mysql://localhost:3306/selection_course?useUnicode=true&amp;characterEncoding=utf-8&quot; ;//
     static final String userName = &quot;root&quot; ;
     static final String password = &quot;123456&quot; ;
 
     static {
-        try{&#x2F;&#x2F;加载MySql的驱动类
+        try{//加载MySql的驱动类
             Class.forName(dbDriver) ;
         }catch(ClassNotFoundException e){
             System.out.println(&quot;找不到驱动程序类 ，加载驱动失败！&quot;);
@@ -856,94 +842,91 @@ public class transferTest {
 <ul>
 <li>数据库工具类<code>TemplateUtils</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * Spring数据库操作工具类
- *&#x2F;
+ */
 public class TemplateUtils {
-	private final static  String dbDriver = &quot;com.mysql.jdbc.Driver&quot; ;
-	private final static  String dbUrl = &quot;jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;selection_course?useUnicode=true&amp;characterEncoding=utf-8&quot; ;&#x2F;&#x2F;
-	private final static  String dbUser = &quot;root&quot;;
-	private final static  String dbPwd = &quot;123456&quot;;
-	
-	private static BasicDataSource dataSource ;
-	&#x2F;&#x2F;静态初识：创建连接数据源
-	static {
-	&#x2F;&#x2F;创建DBCP简单数据源并初始化相关数据源属性
-	&#x2F;&#x2F;private void createSimpleDataSource(){
-		dataSource = new   BasicDataSource() ;
-		dataSource.setDriverClassName(dbDriver);
-		dataSource.setUrl(dbUrl);
-		dataSource.setUsername(dbUser);
-		dataSource.setPassword(dbPwd);
-&#x2F;&#x2F;		&#x2F;&#x2F;指定数据库连接池初始连接数
-&#x2F;&#x2F;		dataSource.setInitialSize(10);
-&#x2F;&#x2F;		&#x2F;&#x2F;设定同时向数据库申请的最大连接数
-&#x2F;&#x2F;		dataSource.setMaxTotal(50);
-&#x2F;&#x2F;		&#x2F;&#x2F;设置连接池中保持的最少连接数量
-&#x2F;&#x2F;		dataSource.setMinIdle(5);
-	&#x2F;&#x2F;}
-	}
-	public static TransactionTemplate getTransactionTemplate() {  
+    private final static  String dbDriver = &quot;com.mysql.jdbc.Driver&quot; ;
+    private final static  String dbUrl = &quot;jdbc:mysql://127.0.0.1:3306/selection_course?useUnicode=true&amp;characterEncoding=utf-8&quot; ;//
+    private final static  String dbUser = &quot;root&quot;;
+    private final static  String dbPwd = &quot;123456&quot;;
+
+    private static BasicDataSource dataSource ;
+    //静态初识：创建连接数据源
+    static {
+    //创建DBCP简单数据源并初始化相关数据源属性
+    //private void createSimpleDataSource(){
+        dataSource = new   BasicDataSource() ;
+        dataSource.setDriverClassName(dbDriver);
+        dataSource.setUrl(dbUrl);
+        dataSource.setUsername(dbUser);
+        dataSource.setPassword(dbPwd);
+//        //指定数据库连接池初始连接数
+//        dataSource.setInitialSize(10);
+//        //设定同时向数据库申请的最大连接数
+//        dataSource.setMaxTotal(50);
+//        //设置连接池中保持的最少连接数量
+//        dataSource.setMinIdle(5);
+    //}
+    }
+    public static TransactionTemplate getTransactionTemplate() {  
         PlatformTransactionManager txManager = new DataSourceTransactionManager(  
                 dataSource);  
         return new TransactionTemplate(txManager);  
     }  
-  
+
     public static JdbcTemplate getJdbcTemplate() {  
         return new JdbcTemplate(dataSource);  
     }  
-  
+
     public static NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {  
         return new NamedParameterJdbcTemplate(dataSource);  
     }  
-  
+
     public static SimpleJdbcInsert getSimpleJdbcTemplate() {  
         return new SimpleJdbcInsert(dataSource);  
     }  
-    
-    &#x2F;**
-     * &#x2F;&#x2F;获取事务管理器：TransactionManager
+
+    /**
+     * //获取事务管理器：TransactionManager
      * 根据需要，可以是如JDBC、Hibernate,这里定义JDBC事务管理其
      * @return DataSourceTransactionManager
-     *&#x2F;
+     */
     public static DataSourceTransactionManager getDataSourceTransactionManager(){
-    	 DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-    	 &#x2F;&#x2F; 设置数据源:此事务数据源须和正式事务管理器的数据源一致
-    	 dataSourceTransactionManager.setDataSource(dataSource);
-    	 return dataSourceTransactionManager;
+         DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+         // 设置数据源:此事务数据源须和正式事务管理器的数据源一致
+         dataSourceTransactionManager.setDataSource(dataSource);
+         return dataSourceTransactionManager;
     }
 }
+
 </code></pre>
 <ul>
 <li>事务管理器示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  *  事务管理器方式案例
- *&#x2F;
+ */
 public class ProTransExample {
 
-    &#x2F;&#x2F; 事务模板：第二种事务编程模式
-    &#x2F;&#x2F; private TransactionTemplate transactionTemplate ;
+    // 事务模板：第二种事务编程模式
+    // private TransactionTemplate transactionTemplate ;
 
-    &#x2F;&#x2F; 数据持久化操作
+    // 数据持久化操作
     public void addBook(final Book book) {
-        &#x2F;&#x2F; 获取事务模板对象
+        // 获取事务模板对象
         TransactionTemplate tt = TemplateUtils.getTransactionTemplate();
-        &#x2F;&#x2F; 可设置事务属性，如隔离级别、超时时间等,如：
-        &#x2F;&#x2F; tt.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
-        &#x2F;&#x2F; 内部类
+        // 可设置事务属性，如隔离级别、超时时间等,如：
+        // tt.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
+        // 内部类
         tt.execute(new TransactionCallbackWithoutResult() {
             protected void doInTransactionWithoutResult(TransactionStatus s) {
                 try {
-                    &#x2F;&#x2F; 数据库操作1
-                    &#x2F;&#x2F; JdbcTemplate jdbcTemplate
-                    &#x2F;&#x2F; =TemplateUtils.getJdbcTemplate();
-                    &#x2F;&#x2F; jdbcTemplate.execute(sql);
-                    &#x2F;&#x2F; 简单模板化新增数据
+                    // 数据库操作1
+                    // JdbcTemplate jdbcTemplate
+                    // =TemplateUtils.getJdbcTemplate();
+                    // jdbcTemplate.execute(sql);
+                    // 简单模板化新增数据
                     SimpleJdbcInsert simpleInsert = TemplateUtils.getSimpleJdbcTemplate();
                     simpleInsert.withTableName(&quot;books&quot;).usingColumns(&quot;isbn&quot;, &quot;name&quot;, &quot;price&quot;, &quot;pubdate&quot;);
                     Map&lt;String, Object&gt; parameters = new HashMap&lt;String, Object&gt;();
@@ -953,8 +936,8 @@ public class ProTransExample {
                     parameters.put(&quot;pubdate&quot;, book.getPubdate());
                     simpleInsert.execute(parameters);
                     System.out.println(&quot;新增数据成功！&quot;);
-                    &#x2F;&#x2F; 或者DAO数据操作模式：
-                    &#x2F;&#x2F; BookDAO.save(book);
+                    // 或者DAO数据操作模式：
+                    // BookDAO.save(book);
                 } catch (Exception e) {
                     s.setRollbackOnly();
                     e.printStackTrace();
@@ -973,7 +956,7 @@ public class ProTransExample {
                 return jdbcTemplate.queryForList(&quot;select isbn,name,price,pubdate from books where isbn =&#39;&quot; + isbn + &quot;&#39;&quot;);
             }
         });
-        if (books.size() != 0) {&#x2F;&#x2F; 封装获取的数据
+        if (books.size() != 0) {// 封装获取的数据
             Map&lt;String, Object&gt; m = (Map) books.get(0);
             book = new Book();
             book.setIsbn(m.get(&quot;isbn&quot;).toString());
@@ -984,29 +967,29 @@ public class ProTransExample {
         return book;
     }
 
-    &#x2F;&#x2F; 1、编程式事务管理：事务管理器PlatformTransactionManager方式实现
+    // 1、编程式事务管理：事务管理器PlatformTransactionManager方式实现
     public void updateBookByIsbn(Book book) {
-        &#x2F;&#x2F;第一步：获取JDBC事务管理器
+        //第一步：获取JDBC事务管理器
         DataSourceTransactionManager dtm = TemplateUtils.getDataSourceTransactionManager();
-        &#x2F;&#x2F; 第二步：创建事务管理器属性对象
-        DefaultTransactionDefinition transDef = new DefaultTransactionDefinition(); &#x2F;&#x2F; 定义事务属性
-        &#x2F;&#x2F; 根据需要，设置事务管理器的相关属性
-        &#x2F;&#x2F; 设置传播行为属性
+        // 第二步：创建事务管理器属性对象
+        DefaultTransactionDefinition transDef = new DefaultTransactionDefinition(); // 定义事务属性
+        // 根据需要，设置事务管理器的相关属性
+        // 设置传播行为属性
         transDef.setPropagationBehavior(DefaultTransactionDefinition.PROPAGATION_REQUIRED);
-        &#x2F;&#x2F; 第三步：获得事务状态对象
+        // 第三步：获得事务状态对象
         TransactionStatus ts = dtm.getTransaction(transDef);
-        &#x2F;&#x2F; 第四步：基于当前事务管理器,获取数据源，创建操作数据库的JDBC模板对象
+        // 第四步：基于当前事务管理器,获取数据源，创建操作数据库的JDBC模板对象
         JdbcTemplate jt = new JdbcTemplate(dtm.getDataSource());
         try {
-            &#x2F;&#x2F;第五步：业务操作
+            //第五步：业务操作
             jt.update(&quot;update books set price=&quot;+book.getPrice()+&quot;,name=&#39;&quot;+book.getName()
                     +&quot;&#39;  where isbn=&#39;&quot;+book.getIsbn()+&quot;&#39; &quot;);
-            &#x2F;&#x2F; 其它数据操作如增删
-            &#x2F;&#x2F;第六步：提交事务
-            dtm.commit(ts); &#x2F;&#x2F; 如果不commit，则更新无效果
+            // 其它数据操作如增删
+            //第六步：提交事务
+            dtm.commit(ts); // 如果不commit，则更新无效果
             System.out.println(&quot;修改成功&quot;);
         } catch (Exception e) {
-            &#x2F;&#x2F; 报错直接回滚事务
+            // 报错直接回滚事务
             dtm.rollback(ts);
             e.printStackTrace();
         }
@@ -1014,13 +997,13 @@ public class ProTransExample {
 
     public static void main(String[] args) {
         ProTransExample pte = new ProTransExample();
-        Book book = pte.findBookByIsbn(&quot;128-166-890-China&quot;); &#x2F;&#x2F; 查询数据
-        if (book != null){ &#x2F;&#x2F; 如果查询到就更新数据
+        Book book = pte.findBookByIsbn(&quot;128-166-890-China&quot;); // 查询数据
+        if (book != null){ // 如果查询到就更新数据
             book.setName(&quot;华夏龙图腾&quot;);
             book.setPrice(125.5f);
             pte.updateBookByIsbn(book);
         }else {
-            &#x2F;&#x2F; 如果没有则添加数据
+            // 如果没有则添加数据
             Book addbook = new Book();
             addbook.setIsbn(&quot;128-166-890-China&quot;);
             addbook.setName(&quot;华夏龙图腾&quot;);
@@ -1030,17 +1013,17 @@ public class ProTransExample {
 
 
 
-        &#x2F;*
+        /*
          *1-新增书籍
          * Date pd = new Date(System.currentTimeMillis()); Book book = new
          * Book(); book.setIsbn(&quot;120-166-990-China&quot;); book.setName(&quot;人性的弱点&quot;);
          * book.setPrice(65.6f); book.setPubdate(pd);
-         *&#x2F;
-        &#x2F;&#x2F; pte.addBook(book);
-        &#x2F;&#x2F;2-查找书籍
-		&#x2F;*Book bk = pte.findBookByIsbn(&quot;120-166-890-China&quot;);
-		System.out.println(&quot;书籍名称：&quot; + bk.getName());*&#x2F;
-        &#x2F;&#x2F;3-更新书籍名称和价格
+         */
+        // pte.addBook(book);
+        //2-查找书籍
+        /*Book bk = pte.findBookByIsbn(&quot;120-166-890-China&quot;);
+        System.out.println(&quot;书籍名称：&quot; + bk.getName());*/
+        //3-更新书籍名称和价格
 
     }
 
@@ -1073,100 +1056,96 @@ public class ProTransExample {
 <ul>
 <li>基本代码不变，修改xml配置文件如下</li>
 </ul>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd&quot;&gt;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-  &lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-         xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
-         xmlns:context=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;
-         xmlns:aop=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&quot;
-         xmlns:tx=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&quot;
-         xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&#x2F;spring-aop.xsd
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&#x2F;spring-tx.xsd&quot;&gt;
-  
-      &lt;!--开启自动扫描--&gt;
-      &lt;context:component-scan base-package=&quot;com.zero.jdbc_Template&quot;&#x2F;&gt;
-  
-      &lt;!--配置DBCP数据源--&gt;
-      &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp2.BasicDataSource&quot;&gt;
-          &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;
-          &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;&#x2F;&gt;
-          &lt;property name=&quot;username&quot; value=&quot;root&quot;&#x2F;&gt;
-          &lt;property name=&quot;password&quot; value=&quot;123456&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-  
-      &lt;!--配置Template--&gt;
-      &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
-          &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-  
-      &lt;!--配置Dao--&gt;
-      &lt;bean id=&quot;accountDao&quot; class=&quot;com.zero.transaction.dao.Impl.AccountDaoImpl&quot;&gt;
-          &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-  
-      &lt;!--配置事务管理器--&gt;
-      &lt;bean id=&quot;txManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
-          &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-      &lt;!--配置service--&gt;
-      &lt;bean id=&quot;accountService&quot; class=&quot;com.zero.transaction.service.Impl.AccountServiceImpl&quot;&gt;
-          &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-  
-      &lt;!--使用spring的aop来配置事务--&gt;
-  
-      &lt;!--1. 配置通知事务管理器--&gt;
-      &lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;txManager&quot;&gt;
-          &lt;!--事务详情：传播行为，隔离级别--&gt;
-          &lt;tx:attributes&gt;
-              &lt;tx:method name=&quot;transfer&quot; propagation=&quot;REQUIRED&quot; isolation=&quot;DEFAULT&quot;&#x2F;&gt;
-          &lt;&#x2F;tx:attributes&gt;
-      &lt;&#x2F;tx:advice&gt;
-      &lt;!--2. 事务通知与切入点关联--&gt;
-      &lt;aop:config&gt;
-  &lt;!--        &lt;aop:pointcut id=&quot;myPoinycut&quot; expression=&quot;execution(* com.zero.transaction.service..*.*(..))&quot;&#x2F;&gt;--&gt;
-  &lt;!--        &lt;aop:advisor advice-ref=&quot;&quot; pointcut-ref=&quot;myPoinycut&quot;&#x2F;&gt;--&gt;
-          &lt;!--事务与连接点关联--&gt;
-          &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut=&quot;execution(* com.zero.transaction.service..*.*(..))&quot;&#x2F;&gt;
-      &lt;&#x2F;aop:config&gt;
-  
-  &lt;&#x2F;beans&gt;
+    &lt;!--开启自动扫描--&gt;
+    &lt;context:component-scan base-package=&quot;com.zero.jdbc_Template&quot;/&gt;
+
+    &lt;!--配置DBCP数据源--&gt;
+    &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp2.BasicDataSource&quot;&gt;
+        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;/&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+        &lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置Template--&gt;
+    &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置Dao--&gt;
+    &lt;bean id=&quot;accountDao&quot; class=&quot;com.zero.transaction.dao.Impl.AccountDaoImpl&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置事务管理器--&gt;
+    &lt;bean id=&quot;txManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
+    &lt;!--配置service--&gt;
+    &lt;bean id=&quot;accountService&quot; class=&quot;com.zero.transaction.service.Impl.AccountServiceImpl&quot;&gt;
+        &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--使用spring的aop来配置事务--&gt;
+
+    &lt;!--1. 配置通知事务管理器--&gt;
+    &lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;txManager&quot;&gt;
+        &lt;!--事务详情：传播行为，隔离级别--&gt;
+        &lt;tx:attributes&gt;
+            &lt;tx:method name=&quot;transfer&quot; propagation=&quot;REQUIRED&quot; isolation=&quot;DEFAULT&quot;/&gt;
+        &lt;/tx:attributes&gt;
+    &lt;/tx:advice&gt;
+    &lt;!--2. 事务通知与切入点关联--&gt;
+    &lt;aop:config&gt;
+&lt;!--        &lt;aop:pointcut id=&quot;myPoinycut&quot; expression=&quot;execution(* com.zero.transaction.service..*.*(..))&quot;/&gt;--&gt;
+&lt;!--        &lt;aop:advisor advice-ref=&quot;&quot; pointcut-ref=&quot;myPoinycut&quot;/&gt;--&gt;
+        &lt;!--事务与连接点关联--&gt;
+        &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut=&quot;execution(* com.zero.transaction.service..*.*(..))&quot;/&gt;
+    &lt;/aop:config&gt;
+
+&lt;/beans&gt;
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>测试</p>
+<li>测试</li>
+</ul>
+<pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(&quot;classpath:transfer_aop.xml&quot;)
+public class transferTest {
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @RunWith(SpringJUnit4ClassRunner.class)
-  @ContextConfiguration(&quot;classpath:transfer_aop.xml&quot;)
-  public class transferTest {
-  
-      @Autowired &#x2F;&#x2F; 使用自动注入
-  &#x2F;&#x2F;    @Resource(name = &quot;proxyService&quot;)
-      private AccountService accountService;
-  
-      &#x2F;&#x2F; 转账测试
-      @Test
-      public void test1(){
-          &#x2F;&#x2F; 获取service
-          accountService.transfer(&quot;jack&quot;,&quot;rose&quot;,100);
-      }
-  
-      &#x2F;&#x2F; 使用aop配置事务
-      @Test
-      public void test2(){
-          accountService.transfer(&quot;jack&quot;,&quot;rose&quot;,100);
-  
-      }
-  }
+    @Autowired // 使用自动注入
+//    @Resource(name = &quot;proxyService&quot;)
+    private AccountService accountService;
+
+    // 转账测试
+    @Test
+    public void test1(){
+        // 获取service
+        accountService.transfer(&quot;jack&quot;,&quot;rose&quot;,100);
+    }
+
+    // 使用aop配置事务
+    @Test
+    public void test2(){
+        accountService.transfer(&quot;jack&quot;,&quot;rose&quot;,100);
+
+    }
+}
+
 </code></pre>
 </li>
 </ul>
@@ -1175,104 +1154,96 @@ public class ProTransExample {
 <ul>
 <li>基本代码不变，修改xml如下</li>
 </ul>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd&quot;&gt;
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-  &lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-         xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
-         xmlns:context=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;
-         xmlns:aop=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&quot;
-         xmlns:tx=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&quot;
-         xsi:schemaLocation=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;aop&#x2F;spring-aop.xsd
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx
-      http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;tx&#x2F;spring-tx.xsd&quot;&gt;
-  
-      &lt;!--开启自动扫描--&gt;
-      &lt;context:component-scan base-package=&quot;com.zero.jdbc_Template&quot;&#x2F;&gt;
-  
-      &lt;!--配置DBCP数据源--&gt;
-      &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp2.BasicDataSource&quot;&gt;
-          &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;
-          &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;&#x2F;&gt;
-          &lt;property name=&quot;username&quot; value=&quot;root&quot;&#x2F;&gt;
-          &lt;property name=&quot;password&quot; value=&quot;123456&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-  
-      &lt;!--配置Template--&gt;
-      &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
-          &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-  
-      &lt;!--配置Dao--&gt;
-      &lt;bean id=&quot;accountDao&quot; class=&quot;com.zero.transaction.dao.Impl.AccountDaoImpl&quot;&gt;
-          &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-  
-      &lt;!--配置service--&gt;
-      &lt;bean id=&quot;accountService&quot; class=&quot;com.zero.transaction.service.Impl.AccountServiceImpl&quot;&gt;
-          &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-  
-      &lt;!--使用spring的注解来实现事务--&gt;
-  
-      &lt;!--1. 配置事务管理器--&gt;
-      &lt;bean id=&quot;txManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
-          &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&#x2F;&gt;
-      &lt;&#x2F;bean&gt;
-      &lt;!--2. 开启事务注解驱动--&gt;
-      &lt;tx:annotation-driven transaction-manager=&quot;txManager&quot;&#x2F;&gt;
-  
-  &lt;&#x2F;beans&gt;
+    &lt;!--开启自动扫描--&gt;
+    &lt;context:component-scan base-package=&quot;com.zero.jdbc_Template&quot;/&gt;
+
+    &lt;!--配置DBCP数据源--&gt;
+    &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp2.BasicDataSource&quot;&gt;
+        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/selection_course?useUnicode=true&amp;amp;characterEncoding=utf-8&quot;/&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+        &lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置Template--&gt;
+    &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置Dao--&gt;
+    &lt;bean id=&quot;accountDao&quot; class=&quot;com.zero.transaction.dao.Impl.AccountDaoImpl&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置service--&gt;
+    &lt;bean id=&quot;accountService&quot; class=&quot;com.zero.transaction.service.Impl.AccountServiceImpl&quot;&gt;
+        &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--使用spring的注解来实现事务--&gt;
+
+    &lt;!--1. 配置事务管理器--&gt;
+    &lt;bean id=&quot;txManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
+    &lt;!--2. 开启事务注解驱动--&gt;
+    &lt;tx:annotation-driven transaction-manager=&quot;txManager&quot;/&gt;
+
+&lt;/beans&gt;
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>在需要开启事务的实现类上添加注解信息</p>
+<li>在需要开启事务的实现类上添加注解信息</li>
+</ul>
+<pre><code class="java">@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT)
+public class AccountServiceImpl implements AccountService {
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT)
-  public class AccountServiceImpl implements AccountService {
-  
-      private AccountDao accountDao;
-      &#x2F;&#x2F; 提供set方法，让spring注入属性
-      public void setAccountDao(AccountDao accountDao) {
-          this.accountDao = accountDao;
-      }
-  
-      @Override
-      public void transfer(String outer, String inner, Integer money) {
-          this.accountDao.out(outer,money);
-  &#x2F;&#x2F;        int i = 1&#x2F;0;
-          this.accountDao.in(inner,money);
-      }
-  }
+    private AccountDao accountDao;
+    // 提供set方法，让spring注入属性
+    public void setAccountDao(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
+    @Override
+    public void transfer(String outer, String inner, Integer money) {
+        this.accountDao.out(outer,money);
+//        int i = 1/0;
+        this.accountDao.in(inner,money);
+    }
+}
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>测试</p>
+<li>测试</li>
+</ul>
+<pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(&quot;classpath:transfer_anno.xml&quot;) // 修改为注解配置的xml即可
+public class transferTest {
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @RunWith(SpringJUnit4ClassRunner.class)
-  @ContextConfiguration(&quot;classpath:transfer_anno.xml&quot;) &#x2F;&#x2F; 修改为注解配置的xml即可
-  public class transferTest {
-  
-      @Autowired
-  &#x2F;&#x2F;    @Resource(name = &quot;proxyService&quot;)
-      private AccountService accountService;
-  
-      &#x2F;&#x2F; 使用aop配置事务
-      @Test
-      public void test2(){
-          accountService.transfer(&quot;jack&quot;,&quot;rose&quot;,100);
-  
-      }
-  }
+    @Autowired
+//    @Resource(name = &quot;proxyService&quot;)
+    private AccountService accountService;
+
+    // 使用aop配置事务
+    @Test
+    public void test2(){
+        accountService.transfer(&quot;jack&quot;,&quot;rose&quot;,100);
+
+    }
+}
 </code></pre>
 </li>
 </ul>
@@ -1567,7 +1538,7 @@ public class ProTransExample {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

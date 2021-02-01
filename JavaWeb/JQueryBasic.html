@@ -410,14 +410,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        6.1k
+                        5.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        31 分
+                        28 分
                     </div>
                     
                 
@@ -449,13 +449,11 @@
 <li><code>jquery-xxx.min.js</code>：生成版本。程序中使用，没有缩进。体积小巧，程序加载更快。</li>
 </ol>
 </blockquote>
-<h3 id="2-2-导入JQuery的js文件：导入min-js文件"><a href="#2-2-导入JQuery的js文件：导入min-js文件" class="headerlink" title="2.2. 导入JQuery的js文件：导入min.js文件"></a>2.2. 导入<code>JQuery</code>的js文件：导入<code>min.js</code>文件</h3><h3 id="2-3-使用"><a href="#2-3-使用" class="headerlink" title="2.3. 使用"></a>2.3. 使用</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script src=&quot;js&#x2F;jquery-3.3.1.min.js&quot;&gt;&lt;&#x2F;script&gt;
+<h3 id="2-2-导入JQuery的js文件：导入min-js文件"><a href="#2-2-导入JQuery的js文件：导入min-js文件" class="headerlink" title="2.2. 导入JQuery的js文件：导入min.js文件"></a>2.2. 导入<code>JQuery</code>的js文件：导入<code>min.js</code>文件</h3><h3 id="2-3-使用"><a href="#2-3-使用" class="headerlink" title="2.3. 使用"></a>2.3. 使用</h3><pre><code class="javascript">&lt;script src=&quot;js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
     var div1 = $(&quot;#div1&quot;);
-	alert(div1.html());
-&lt;&#x2F;script&gt;
+    alert(div1.html());
+&lt;/script&gt;
 </code></pre>
 <h2 id="3-JQuery对象和JS对象区别和转换"><a href="#3-JQuery对象和JS对象区别和转换" class="headerlink" title="3. JQuery对象和JS对象区别和转换"></a>3. <code>JQuery</code>对象和JS对象区别和转换</h2><ol>
 <li><code>JQuery</code>对象在操作时，更加方便。</li>
@@ -466,47 +464,39 @@
 </ul>
 </li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
-    &#x2F;&#x2F; 1. 通过js方式来获取元素对象
+<pre><code class="javascript">&lt;script&gt;
+    // 1. 通过js方式来获取元素对象
     var divs = document.getElementsByTagName(&quot;div&quot;);
-    alert(divs.length); &#x2F;&#x2F; 可以将其当做数组来使用
-    &#x2F;&#x2F; 将divs中的所有div标签体内容修改为&quot;aaa&quot;
+    alert(divs.length); // 可以将其当做数组来使用
+    // 将divs中的所有div标签体内容修改为&quot;aaa&quot;
     for(var i = 0;i &lt; divs.length; i++){
-        &#x2F;&#x2F; divs[i].innerHTML = &quot;aaa&quot;;
-        $(divs[i]).html(&quot;ccc&quot;); &#x2F;&#x2F; 将js对象转换为JQuery对象
+        // divs[i].innerHTML = &quot;aaa&quot;;
+        $(divs[i]).html(&quot;ccc&quot;); // 将js对象转换为JQuery对象
     }
-    &#x2F;&#x2F; 2. 通过Jquery方式来获取元素对象
+    // 2. 通过Jquery方式来获取元素对象
     var $divs = $(&quot;div&quot;);
     alert($divs);
-    &#x2F;&#x2F; 将$divs中的所有div标签体内容修改为&quot;bbb&quot;
-    &#x2F;&#x2F; $divs.html(&quot;bbb&quot;);
-    &#x2F;&#x2F; 将JQuery对象转换为js对象
+    // 将$divs中的所有div标签体内容修改为&quot;bbb&quot;
+    // $divs.html(&quot;bbb&quot;);
+    // 将JQuery对象转换为js对象
     $divs[0].innerHTML = &quot;ddd&quot;;
     $divs[1].innerHTML = &quot;ddd&quot;;
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
-<h2 id="4-选择器：筛选具有相似特征的元素-标签"><a href="#4-选择器：筛选具有相似特征的元素-标签" class="headerlink" title="4. 选择器：筛选具有相似特征的元素(标签)"></a>4. 选择器：筛选具有相似特征的元素(标签)</h2><h3 id="4-1-基本操作学习"><a href="#4-1-基本操作学习" class="headerlink" title="4.1 基本操作学习"></a>4.1 基本操作学习</h3><h4 id="1-事件绑定"><a href="#1-事件绑定" class="headerlink" title="1. 事件绑定"></a>1. 事件绑定</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">$(&quot;#b1&quot;).click(function () {
+<h2 id="4-选择器：筛选具有相似特征的元素-标签"><a href="#4-选择器：筛选具有相似特征的元素-标签" class="headerlink" title="4. 选择器：筛选具有相似特征的元素(标签)"></a>4. 选择器：筛选具有相似特征的元素(标签)</h2><h3 id="4-1-基本操作学习"><a href="#4-1-基本操作学习" class="headerlink" title="4.1 基本操作学习"></a>4.1 基本操作学习</h3><h4 id="1-事件绑定"><a href="#1-事件绑定" class="headerlink" title="1. 事件绑定"></a>1. 事件绑定</h4><pre><code class="javascript">$(&quot;#b1&quot;).click(function () {
     alert(&quot;abc&quot;);
 })
 </code></pre>
-<h4 id="2-入口函数"><a href="#2-入口函数" class="headerlink" title="2. 入口函数"></a>2. 入口函数</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">$(function () {
+<h4 id="2-入口函数"><a href="#2-入口函数" class="headerlink" title="2. 入口函数"></a>2. 入口函数</h4><pre><code class="javascript">$(function () {
 
 });
-&#x2F;*
+/*
    window.onload 和 $(function)的区别
        1. window.onload只能定义一次，如定义多次，后边的会将前边的覆盖掉
        2. $(function)可以定义多次
-*&#x2F;
+*/
 </code></pre>
-<h4 id="3-样式控制：CSS方法"><a href="#3-样式控制：CSS方法" class="headerlink" title="3. 样式控制：CSS方法"></a>3. 样式控制：CSS方法</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">$(function () {
+<h4 id="3-样式控制：CSS方法"><a href="#3-样式控制：CSS方法" class="headerlink" title="3. 样式控制：CSS方法"></a>3. 样式控制：CSS方法</h4><pre><code class="javascript">$(function () {
     $(&quot;#div1&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
 })
 </code></pre>
@@ -532,29 +522,27 @@
 </tr>
 </tbody>
 </table>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot;改变 id 为 one 的元素的背景色为 红色&quot;  id=&quot;b1&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot;改变 id 为 one 的元素的背景色为 红色&quot;  id=&quot;b1&quot;/&gt;
         $(&quot;#b1&quot;).click(function () {
             $(&quot;#one&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变元素名为 &lt;div&gt; 的所有元素的背景色为 红色&quot;  id=&quot;b2&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变元素名为 &lt;div&gt; 的所有元素的背景色为 红色&quot;  id=&quot;b2&quot;/&gt;
         $(&quot;#b2&quot;).click(function () {
             $(&quot;div&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变 class 为 mini 的所有元素的背景色为 红色&quot;  id=&quot;b3&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变 class 为 mini 的所有元素的背景色为 红色&quot;  id=&quot;b3&quot;/&gt;
         $(&quot;#b3&quot;).click(function () {
             $(&quot;.mini&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变所有的&lt;span&gt;元素和 id 为 two 的元素的背景色为红色&quot;  id=&quot;b4&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变所有的&lt;span&gt;元素和 id 为 two 的元素的背景色为红色&quot;  id=&quot;b4&quot;/&gt;
         $(&quot;#b4&quot;).click(function () {
             $(&quot;span&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
             $(&quot;#two&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
 });
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <h4 id="2-层级选择器"><a href="#2-层级选择器" class="headerlink" title="2. 层级选择器"></a>2. 层级选择器</h4><table>
 <thead>
@@ -574,20 +562,18 @@
 </tr>
 </tbody>
 </table>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变 &lt;body&gt; 内所有 &lt;div&gt; 的背景色为红色&quot;  id=&quot;b1&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变 &lt;body&gt; 内所有 &lt;div&gt; 的背景色为红色&quot;  id=&quot;b1&quot;/&gt;
         $(&quot;#b1&quot;).click(function () {
             $(&quot;body div&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变 &lt;body&gt; 内子 &lt;div&gt; 的背景色为 红色&quot;  id=&quot;b2&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变 &lt;body&gt; 内子 &lt;div&gt; 的背景色为 红色&quot;  id=&quot;b2&quot;/&gt;
         $(&quot;#b2&quot;).click(function () {
             $(&quot;body &gt; div&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-	})
-&lt;&#x2F;script&gt;
+    })
+&lt;/script&gt;
 </code></pre>
 <h4 id="3-属性选择器"><a href="#3-属性选择器" class="headerlink" title="3. 属性选择器"></a>3. 属性选择器</h4><table>
 <thead>
@@ -611,40 +597,38 @@
 </tr>
 </tbody>
 </table>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 含有属性title 的div元素背景色为红色&quot;  id=&quot;b1&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 含有属性title 的div元素背景色为红色&quot;  id=&quot;b1&quot;/&gt;
         $(&quot;#b1&quot;).click(function () {
             $(&quot;div[title]&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 属性title值等于test的div元素背景色为红色&quot;  id=&quot;b2&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 属性title值等于test的div元素背景色为红色&quot;  id=&quot;b2&quot;/&gt;
         $(&quot;#b2&quot;).click(function () {
             $(&quot;div[title=&#39;test&#39;]&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 属性title值不等于test的div元素(没有属性title的也将被选中)背景色为红色&quot;  id=&quot;b3&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 属性title值不等于test的div元素(没有属性title的也将被选中)背景色为红色&quot;  id=&quot;b3&quot;/&gt;
         $(&quot;#b3&quot;).click(function () {
             $(&quot;div[title != &#39;test&#39;]&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 属性title值 以te开始 的div元素背景色为红色&quot;  id=&quot;b4&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 属性title值 以te开始 的div元素背景色为红色&quot;  id=&quot;b4&quot;/&gt;
         $(&quot;#b4&quot;).click(function () {
             $(&quot;div[title ^= &#39;te&#39;]&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 属性title值 以est结束 的div元素背景色为红色&quot;  id=&quot;b5&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 属性title值 以est结束 的div元素背景色为红色&quot;  id=&quot;b5&quot;/&gt;
         $(&quot;#b5&quot;).click(function () {
             $(&quot;div[title $= &#39;est&#39;]&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot;属性title值 含有es的div元素背景色为红色&quot;  id=&quot;b6&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot;属性title值 含有es的div元素背景色为红色&quot;  id=&quot;b6&quot;/&gt;
         $(&quot;#b6&quot;).click(function () {
             $(&quot;div[title*=&#39;es&#39;]&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot;选取有属性id的div元素，然后在结果中选取属性title值含有“es”的 div 元素背景色为红色&quot;  id=&quot;b7&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot;选取有属性id的div元素，然后在结果中选取属性title值含有“es”的 div 元素背景色为红色&quot;  id=&quot;b7&quot;/&gt;
         $(&quot;#b7&quot;).click(function () {
             $(&quot;div[id][title*=&#39;es&#39;]&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-	})
-&lt;&#x2F;script&gt;
+    })
+&lt;/script&gt;
 </code></pre>
 <h4 id="4-过滤选择器"><a href="#4-过滤选择器" class="headerlink" title="4. 过滤选择器"></a>4. 过滤选择器</h4><table>
 <thead>
@@ -692,48 +676,46 @@
 </tr>
 </tbody>
 </table>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变第一个 div 元素的背景色为 红色&quot;  id=&quot;b1&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变第一个 div 元素的背景色为 红色&quot;  id=&quot;b1&quot;/&gt;
         $(&quot;#b1&quot;).click(function () {
             $(&quot;div:first&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变最后一个 div 元素的背景色为 红色&quot;  id=&quot;b2&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变最后一个 div 元素的背景色为 红色&quot;  id=&quot;b2&quot;/&gt;
         $(&quot;#b2&quot;).click(function () {
             $(&quot;div:last&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变class不为 one 的所有 div 元素的背景色为 红色&quot;  id=&quot;b3&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变class不为 one 的所有 div 元素的背景色为 红色&quot;  id=&quot;b3&quot;/&gt;
         $(&quot;#b3&quot;).click(function () {
             $(&quot;div:not(.one)&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变索引值为偶数的 div 元素的背景色为 红色&quot;  id=&quot;b4&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变索引值为偶数的 div 元素的背景色为 红色&quot;  id=&quot;b4&quot;/&gt;
         $(&quot;#b4&quot;).click(function () {
             $(&quot;div:even&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变索引值为奇数的 div 元素的背景色为 红色&quot;  id=&quot;b5&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变索引值为奇数的 div 元素的背景色为 红色&quot;  id=&quot;b5&quot;/&gt;
         $(&quot;#b5&quot;).click(function () {
             $(&quot;div:odd&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变索引值为大于 3 的 div 元素的背景色为 红色&quot;  id=&quot;b6&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变索引值为大于 3 的 div 元素的背景色为 红色&quot;  id=&quot;b6&quot;/&gt;
         $(&quot;#b6&quot;).click(function () {
             $(&quot;div:gt(3)&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变索引值为等于 3 的 div 元素的背景色为 红色&quot;  id=&quot;b7&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变索引值为等于 3 的 div 元素的背景色为 红色&quot;  id=&quot;b7&quot;/&gt;
         $(&quot;#b7&quot;).click(function () {
             $(&quot;div:eq(3)&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变索引值为小于 3 的 div 元素的背景色为 红色&quot;  id=&quot;b8&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变索引值为小于 3 的 div 元素的背景色为 红色&quot;  id=&quot;b8&quot;/&gt;
         $(&quot;#b8&quot;).click(function () {
             $(&quot;div:lt(3)&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 改变所有的标题元素的背景色为 红色&quot;  id=&quot;b9&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 改变所有的标题元素的背景色为 红色&quot;  id=&quot;b9&quot;/&gt;
         $(&quot;#b9&quot;).click(function () {
             $(&quot;:header&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
         });
-	})
-&lt;&#x2F;script&gt;
+    })
+&lt;/script&gt;
 </code></pre>
 <h4 id="5-表单过滤选择器"><a href="#5-表单过滤选择器" class="headerlink" title="5. 表单过滤选择器"></a>5. 表单过滤选择器</h4><table>
 <thead>
@@ -761,53 +743,49 @@
 </tr>
 </tbody>
 </table>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 利用 jQuery 对象的 val() 方法改变表单内可用 &lt;input&gt; 元素的值&quot;  id=&quot;b1&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 利用 jQuery 对象的 val() 方法改变表单内可用 &lt;input&gt; 元素的值&quot;  id=&quot;b1&quot;/&gt;
         $(&quot;#b1&quot;).click(function () {
             $(&quot;input[type=&#39;text&#39;]:enabled&quot;).val(&quot;可用元素&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 利用 jQuery 对象的 val() 方法改变表单内不可用 &lt;input&gt; 元素的值&quot;  id=&quot;b2&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 利用 jQuery 对象的 val() 方法改变表单内不可用 &lt;input&gt; 元素的值&quot;  id=&quot;b2&quot;/&gt;
         $(&quot;#b2&quot;).click(function () {
             $(&quot;input[type=&#39;text&#39;]:disabled&quot;).val(&quot;不可用元素&quot;);
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 利用 jQuery 对象的 length 属性获取复选框选中的个数&quot;  id=&quot;b3&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 利用 jQuery 对象的 length 属性获取复选框选中的个数&quot;  id=&quot;b3&quot;/&gt;
         $(&quot;#b3&quot;).click(function () {
             var result = $(&quot;input[type=&#39;checkbox&#39;]:checked&quot;).length;
             alert(result)
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot; 利用 jQuery 对象的 length 属性获取下拉框选中的个数&quot;  id=&quot;b4&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot; 利用 jQuery 对象的 length 属性获取下拉框选中的个数&quot;  id=&quot;b4&quot;/&gt;
         $(&quot;#b4&quot;).click(function () {
             alert($(&quot;#job &gt; option:selected&quot;).length);
         });
-	})
-&lt;&#x2F;script&gt;
+    })
+&lt;/script&gt;
 </code></pre>
 <h2 id="5-DOM操作"><a href="#5-DOM操作" class="headerlink" title="5. DOM操作"></a>5. DOM操作</h2><h3 id="5-1-内容操作"><a href="#5-1-内容操作" class="headerlink" title="5.1 内容操作"></a>5.1 内容操作</h3><ol>
 <li><code>html()</code>：获取/设置元素的标签体内容</li>
 <li><code>text()</code>：获取/设置元素的标签体纯文本内容</li>
 <li><code>val()</code>：获取/设置元素的value属性值</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
+<pre><code class="javascript">&lt;script&gt;
     $(function () {
-        &#x2F;&#x2F; 获取myinput 的value值
+        // 获取myinput 的value值
         alert($(&quot;#myinput&quot;).val());
-        &#x2F;&#x2F; 设置值
+        // 设置值
         alert($(&quot;#myinput&quot;).val(&quot;李四&quot;));
-        &#x2F;&#x2F; 获取mydiv的标签体内容
+        // 获取mydiv的标签体内容
         alert($(&quot;#mydiv&quot;).html());
-        &#x2F;&#x2F; 设置值
-        alert($(&quot;#mydiv&quot;).html(&quot;&lt;h4&gt;hello&lt;&#x2F;h4&gt;&quot;));
-        &#x2F;&#x2F; 获取mydiv纯文本内容
+        // 设置值
+        alert($(&quot;#mydiv&quot;).html(&quot;&lt;h4&gt;hello&lt;/h4&gt;&quot;));
+        // 获取mydiv纯文本内容
         alert($(&quot;#mydiv&quot;).text());
-        &#x2F;&#x2F; 设置值
+        // 设置值
         alert($(&quot;#mydiv&quot;).text(&quot;aaa&quot;));
-	})
-&lt;&#x2F;script&gt;
+    })
+&lt;/script&gt;
 </code></pre>
 <h3 id="5-2-属性操作"><a href="#5-2-属性操作" class="headerlink" title="5.2 属性操作"></a>5.2 属性操作</h3><h4 id="1-通用属性操作"><a href="#1-通用属性操作" class="headerlink" title="1. 通用属性操作"></a>1. 通用属性操作</h4><ol>
 <li><code>attr()</code>：获取/设置元素的属性</li>
@@ -815,22 +793,20 @@
 <li><code>prop()</code>：获取/设置元素的属性</li>
 <li><code>removeProp()</code>：删除属性</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-        &#x2F;&#x2F;获取北京节点的name属性值
+        //获取北京节点的name属性值
         alert($(&quot;#bj&quot;).attr(&quot;name&quot;));
-        &#x2F;&#x2F;设置北京节点的name属性的值为dabeijing
+        //设置北京节点的name属性的值为dabeijing
         $(&quot;#bj&quot;).attr(&quot;name&quot;,&quot;dabeijing&quot;);
-        &#x2F;&#x2F;新增北京节点的discription属性 属性值是didu
+        //新增北京节点的discription属性 属性值是didu
         $(&quot;#bj&quot;).attr(&quot;discription&quot;,&quot;didu&quot;);
-        &#x2F;&#x2F;删除北京节点的name属性并检验name属性是否存在
+        //删除北京节点的name属性并检验name属性是否存在
         $(&quot;#bj&quot;).removeAttr(&quot;name&quot;);
-        &#x2F;&#x2F;获得hobby的的选中状态
+        //获得hobby的的选中状态
         alert($(&quot;#hobby&quot;).prop(&quot;checked&quot;));
-	})
-&lt;&#x2F;script&gt;
+    })
+&lt;/script&gt;
 </code></pre>
 <blockquote>
 <p><code>attr</code>和<code>prop</code>区别？</p>
@@ -845,36 +821,34 @@
 <li><code>toggleClass()</code>：切换class属性值</li>
 <li><code>css()</code>：操作元素css样式</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-        &#x2F;&#x2F;&lt;input type=&quot;button&quot; value=&quot;采用属性增加样式(改变id=one的样式)&quot;  id=&quot;b1&quot;&#x2F;&gt;
+        //&lt;input type=&quot;button&quot; value=&quot;采用属性增加样式(改变id=one的样式)&quot;  id=&quot;b1&quot;/&gt;
         $(&quot;#b1&quot;).click(function () {
             $(&quot;#one&quot;).prop(&quot;class&quot;,&quot;second&quot;);
         });
-        &#x2F;&#x2F;&lt;input type=&quot;button&quot; value=&quot; addClass&quot;  id=&quot;b2&quot;&#x2F;&gt;
+        //&lt;input type=&quot;button&quot; value=&quot; addClass&quot;  id=&quot;b2&quot;/&gt;
         $(&quot;#b2&quot;).click(function () {
             $(&quot;#one&quot;).addClass(&quot;second&quot;);
         });
-        &#x2F;&#x2F;&lt;input type=&quot;button&quot; value=&quot;removeClass&quot;  id=&quot;b3&quot;&#x2F;&gt;
+        //&lt;input type=&quot;button&quot; value=&quot;removeClass&quot;  id=&quot;b3&quot;/&gt;
         $(&quot;#b3&quot;).click(function () {
             $(&quot;#one&quot;).removeClass(&quot;second&quot;);
         });
-        &#x2F;&#x2F;&lt;input type=&quot;button&quot; value=&quot; 切换样式&quot;  id=&quot;b4&quot;&#x2F;&gt;
+        //&lt;input type=&quot;button&quot; value=&quot; 切换样式&quot;  id=&quot;b4&quot;/&gt;
         $(&quot;#b4&quot;).click(function () {
             $(&quot;#one&quot;).toggleClass(&quot;second&quot;);
         });
-        &#x2F;&#x2F;&lt;input type=&quot;button&quot; value=&quot; 通过css()获得id为one背景颜色&quot;  id=&quot;b5&quot;&#x2F;&gt;
+        //&lt;input type=&quot;button&quot; value=&quot; 通过css()获得id为one背景颜色&quot;  id=&quot;b5&quot;/&gt;
         $(&quot;#b5&quot;).click(function () {
             alert($(&quot;#one&quot;).css(&quot;backgroundColor&quot;));
         });
-        &#x2F;&#x2F;&lt;input type=&quot;button&quot; value=&quot; 通过css()设置id为one背景颜色为绿色&quot;  id=&quot;b6&quot;&#x2F;&gt;
+        //&lt;input type=&quot;button&quot; value=&quot; 通过css()设置id为one背景颜色为绿色&quot;  id=&quot;b6&quot;/&gt;
         $(&quot;#b6&quot;).click(function () {
             $(&quot;#one&quot;).css(&quot;backgroundColor&quot;,&quot;blue&quot;);
         });
-	})
-&lt;&#x2F;script&gt;
+    })
+&lt;/script&gt;
 </code></pre>
 <h3 id="5-3-CRUD操作"><a href="#5-3-CRUD操作" class="headerlink" title="5.3 CRUD操作"></a>5.3 CRUD操作</h3><table>
 <thead>
@@ -937,276 +911,266 @@
 </tr>
 </tbody>
 </table>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot;将反恐放置到city的后面&quot;  id=&quot;b1&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot;将反恐放置到city的后面&quot;  id=&quot;b1&quot;/&gt;
         $(&quot;#b1&quot;).click(function () {
-            &#x2F;&#x2F; append
-            &#x2F;&#x2F; $(&quot;#city&quot;).append($(&quot;#fk&quot;));
-            &#x2F;&#x2F; appendTo
+            // append
+            // $(&quot;#city&quot;).append($(&quot;#fk&quot;));
+            // appendTo
             $(&quot;#fk&quot;).appendTo($(&quot;#city&quot;));
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot;将反恐放置到city的最前面&quot;  id=&quot;b2&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot;将反恐放置到city的最前面&quot;  id=&quot;b2&quot;/&gt;
         $(&quot;#b2&quot;).click(function () {
-            &#x2F;&#x2F; prepend
+            // prepend
             $(&quot;#fk&quot;).prependTo($(&quot;#city&quot;));
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot;将反恐插入到天津后面&quot;  id=&quot;b3&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot;将反恐插入到天津后面&quot;  id=&quot;b3&quot;/&gt;
         $(&quot;#b3&quot;).click(function () {
-            &#x2F;&#x2F; after
-            &#x2F;&#x2F; $(&quot;#tj&quot;).after($(&quot;#fk&quot;));
-            &#x2F;&#x2F; insertAfter
+            // after
+            // $(&quot;#tj&quot;).after($(&quot;#fk&quot;));
+            // insertAfter
             $(&quot;#fk&quot;).insertAfter($(&quot;#tj&quot;));
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot;将反恐插入到天津前面&quot;  id=&quot;b4&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot;将反恐插入到天津前面&quot;  id=&quot;b4&quot;/&gt;
         $(&quot;#b4&quot;).click(function () {
             $(&quot;#fk&quot;).insertBefore($(&quot;#tj&quot;));
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot;删除&lt;li id=&#39;bj&#39; name=&#39;beijing&#39;&gt;北京&lt;&#x2F;li&gt;&quot;  id=&quot;b1&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot;删除&lt;li id=&#39;bj&#39; name=&#39;beijing&#39;&gt;北京&lt;/li&gt;&quot;  id=&quot;b1&quot;/&gt;
         $(&quot;#b1&quot;).click(function () {
             $(&quot;#bj&quot;).remove();
         });
-        &#x2F;&#x2F; &lt;input type=&quot;button&quot; value=&quot;删除city所有的li节点   清空元素中的所有后代节点(不包含属性节点)&quot;  id=&quot;b2&quot;&#x2F;&gt;
+        // &lt;input type=&quot;button&quot; value=&quot;删除city所有的li节点   清空元素中的所有后代节点(不包含属性节点)&quot;  id=&quot;b2&quot;/&gt;
         $(&quot;#b2&quot;).click(function () {
             $(&quot;#city&quot;).empty();
         });
-	})
-&lt;&#x2F;script&gt;
+    })
+&lt;/script&gt;
 </code></pre>
-<h2 id="小案例"><a href="#小案例" class="headerlink" title="小案例"></a>小案例</h2><h3 id="1-隔行换色"><a href="#1-隔行换色" class="headerlink" title="1. 隔行换色"></a>1. 隔行换色</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<h2 id="小案例"><a href="#小案例" class="headerlink" title="小案例"></a>小案例</h2><h3 id="1-隔行换色"><a href="#1-隔行换色" class="headerlink" title="1. 隔行换色"></a>1. 隔行换色</h3><pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-	&lt;head&gt;
-		&lt;meta charset=&quot;UTF-8&quot;&gt;
-		&lt;title&gt;&lt;&#x2F;title&gt;
-		&lt;script  src=&quot;..&#x2F;..&#x2F;js&#x2F;jquery-3.3.1.min.js&quot;&gt;&lt;&#x2F;script&gt;
-		
-		&lt;script&gt;
-			&#x2F;&#x2F;需求：将数据行的奇数行背景色设置为 pink，偶数行背景色设置为 yellow
-			$(function () {
-				&#x2F;&#x2F; 1. 获取数据行的奇数行的tr，设置背景色为pink
-				$(&quot;tr:gt(1):odd&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;)
-				&#x2F;&#x2F; 2. 获取数据行的偶数行的tr，设置背景色为yellow
-				$(&quot;tr:gt(1):even&quot;).css(&quot;backgroundColor&quot;,&quot;yellow&quot;)
-			});
-		&lt;&#x2F;script&gt;
-	&lt;&#x2F;head&gt;
-	&lt;body&gt;
-		&lt;table id=&quot;tab1&quot; border=&quot;1&quot; width=&quot;800&quot; align=&quot;center&quot; &gt;
-			&lt;tr&gt;
-				&lt;td colspan=&quot;5&quot;&gt;&lt;input type=&quot;button&quot; value=&quot;删除&quot;&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr style=&quot;background-color: #999999;&quot;&gt;
-				&lt;th&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;&#x2F;th&gt;
-				&lt;th&gt;分类ID&lt;&#x2F;th&gt;
-				&lt;th&gt;分类名称&lt;&#x2F;th&gt;
-				&lt;th&gt;分类描述&lt;&#x2F;th&gt;
-				&lt;th&gt;操作&lt;&#x2F;th&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;&#x2F;td&gt;
-				&lt;td&gt;0&lt;&#x2F;td&gt;
-				&lt;td&gt;手机数码&lt;&#x2F;td&gt;
-				&lt;td&gt;手机数码类商品&lt;&#x2F;td&gt;
-				&lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;&#x2F;a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;&#x2F;td&gt;
-				&lt;td&gt;1&lt;&#x2F;td&gt;
-				&lt;td&gt;电脑办公&lt;&#x2F;td&gt;
-				&lt;td&gt;电脑办公类商品&lt;&#x2F;td&gt;
-				&lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;&#x2F;a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;&#x2F;td&gt;
-				&lt;td&gt;2&lt;&#x2F;td&gt;
-				&lt;td&gt;鞋靴箱包&lt;&#x2F;td&gt;
-				&lt;td&gt;鞋靴箱包类商品&lt;&#x2F;td&gt;
-				&lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;&#x2F;a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;&#x2F;td&gt;
-				&lt;td&gt;3&lt;&#x2F;td&gt;
-				&lt;td&gt;家居饰品&lt;&#x2F;td&gt;
-				&lt;td&gt;家居饰品类商品&lt;&#x2F;td&gt;
-				&lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;&#x2F;a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-		&lt;&#x2F;table&gt;
-	&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;script  src=&quot;../../js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
+
+        &lt;script&gt;
+            //需求：将数据行的奇数行背景色设置为 pink，偶数行背景色设置为 yellow
+            $(function () {
+                // 1. 获取数据行的奇数行的tr，设置背景色为pink
+                $(&quot;tr:gt(1):odd&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;)
+                // 2. 获取数据行的偶数行的tr，设置背景色为yellow
+                $(&quot;tr:gt(1):even&quot;).css(&quot;backgroundColor&quot;,&quot;yellow&quot;)
+            });
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;table id=&quot;tab1&quot; border=&quot;1&quot; width=&quot;800&quot; align=&quot;center&quot; &gt;
+            &lt;tr&gt;
+                &lt;td colspan=&quot;5&quot;&gt;&lt;input type=&quot;button&quot; value=&quot;删除&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr style=&quot;background-color: #999999;&quot;&gt;
+                &lt;th&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;/th&gt;
+                &lt;th&gt;分类ID&lt;/th&gt;
+                &lt;th&gt;分类名称&lt;/th&gt;
+                &lt;th&gt;分类描述&lt;/th&gt;
+                &lt;th&gt;操作&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;0&lt;/td&gt;
+                &lt;td&gt;手机数码&lt;/td&gt;
+                &lt;td&gt;手机数码类商品&lt;/td&gt;
+                &lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;/a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;1&lt;/td&gt;
+                &lt;td&gt;电脑办公&lt;/td&gt;
+                &lt;td&gt;电脑办公类商品&lt;/td&gt;
+                &lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;/a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;2&lt;/td&gt;
+                &lt;td&gt;鞋靴箱包&lt;/td&gt;
+                &lt;td&gt;鞋靴箱包类商品&lt;/td&gt;
+                &lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;/a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;3&lt;/td&gt;
+                &lt;td&gt;家居饰品&lt;/td&gt;
+                &lt;td&gt;家居饰品类商品&lt;/td&gt;
+                &lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;/a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
-<h3 id="2-全选-全不选"><a href="#2-全选-全不选" class="headerlink" title="2. 全选/全不选"></a>2. 全选/全不选</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<h3 id="2-全选-全不选"><a href="#2-全选-全不选" class="headerlink" title="2. 全选/全不选"></a>2. 全选/全不选</h3><pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-	&lt;head&gt;
-		&lt;meta charset=&quot;UTF-8&quot;&gt;
-		&lt;title&gt;&lt;&#x2F;title&gt;
-		&lt;script  src=&quot;..&#x2F;..&#x2F;js&#x2F;jquery-3.3.1.min.js&quot;&gt;&lt;&#x2F;script&gt;
-		&lt;script&gt;
-			&#x2F;&#x2F; 需要保证下边的选中状态和第一个复选框的状态一致即可。
-			function selectAll(obj) {
-				&#x2F;&#x2F; 获取下边的所有复选框
-				$(&quot;.itemSelect&quot;).prop(&quot;checked&quot;,obj.checked);
-			}
-		&lt;&#x2F;script&gt;
-	&lt;&#x2F;head&gt;
-	&lt;body&gt;
-		&lt;table id=&quot;tab1&quot; border=&quot;1&quot; width=&quot;800&quot; align=&quot;center&quot; &gt;
-			&lt;tr&gt;
-				&lt;td colspan=&quot;5&quot;&gt;&lt;input type=&quot;button&quot; value=&quot;删除&quot;&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr&gt;
-				&lt;th&gt;&lt;input type=&quot;checkbox&quot; onclick=&quot;selectAll(this)&quot; &gt;&lt;&#x2F;th&gt;
-				&lt;th&gt;分类ID&lt;&#x2F;th&gt;
-				&lt;th&gt;分类名称&lt;&#x2F;th&gt;
-				&lt;th&gt;分类描述&lt;&#x2F;th&gt;
-				&lt;th&gt;操作&lt;&#x2F;th&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;&lt;input type=&quot;checkbox&quot; class=&quot;itemSelect&quot;&gt;&lt;&#x2F;td&gt;
-				&lt;td&gt;1&lt;&#x2F;td&gt;
-				&lt;td&gt;手机数码&lt;&#x2F;td&gt;
-				&lt;td&gt;手机数码类商品&lt;&#x2F;td&gt;
-				&lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;&#x2F;a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;&lt;input type=&quot;checkbox&quot; class=&quot;itemSelect&quot;&gt;&lt;&#x2F;td&gt;
-				&lt;td&gt;2&lt;&#x2F;td&gt;
-				&lt;td&gt;电脑办公&lt;&#x2F;td&gt;
-				&lt;td&gt;电脑办公类商品&lt;&#x2F;td&gt;
-				&lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;&#x2F;a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;&lt;input type=&quot;checkbox&quot; class=&quot;itemSelect&quot;&gt;&lt;&#x2F;td&gt;
-				&lt;td&gt;3&lt;&#x2F;td&gt;
-				&lt;td&gt;鞋靴箱包&lt;&#x2F;td&gt;
-				&lt;td&gt;鞋靴箱包类商品&lt;&#x2F;td&gt;
-				&lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;&#x2F;a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;&lt;input type=&quot;checkbox&quot; class=&quot;itemSelect&quot;&gt;&lt;&#x2F;td&gt;
-				&lt;td&gt;4&lt;&#x2F;td&gt;
-				&lt;td&gt;家居饰品&lt;&#x2F;td&gt;
-				&lt;td&gt;家居饰品类商品&lt;&#x2F;td&gt;
-				&lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;&#x2F;a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;&#x2F;a&gt;&lt;&#x2F;td&gt;
-			&lt;&#x2F;tr&gt;
-		&lt;&#x2F;table&gt;
-	&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;script  src=&quot;../../js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script&gt;
+            // 需要保证下边的选中状态和第一个复选框的状态一致即可。
+            function selectAll(obj) {
+                // 获取下边的所有复选框
+                $(&quot;.itemSelect&quot;).prop(&quot;checked&quot;,obj.checked);
+            }
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;table id=&quot;tab1&quot; border=&quot;1&quot; width=&quot;800&quot; align=&quot;center&quot; &gt;
+            &lt;tr&gt;
+                &lt;td colspan=&quot;5&quot;&gt;&lt;input type=&quot;button&quot; value=&quot;删除&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th&gt;&lt;input type=&quot;checkbox&quot; onclick=&quot;selectAll(this)&quot; &gt;&lt;/th&gt;
+                &lt;th&gt;分类ID&lt;/th&gt;
+                &lt;th&gt;分类名称&lt;/th&gt;
+                &lt;th&gt;分类描述&lt;/th&gt;
+                &lt;th&gt;操作&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;input type=&quot;checkbox&quot; class=&quot;itemSelect&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;1&lt;/td&gt;
+                &lt;td&gt;手机数码&lt;/td&gt;
+                &lt;td&gt;手机数码类商品&lt;/td&gt;
+                &lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;/a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;input type=&quot;checkbox&quot; class=&quot;itemSelect&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;2&lt;/td&gt;
+                &lt;td&gt;电脑办公&lt;/td&gt;
+                &lt;td&gt;电脑办公类商品&lt;/td&gt;
+                &lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;/a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;input type=&quot;checkbox&quot; class=&quot;itemSelect&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;3&lt;/td&gt;
+                &lt;td&gt;鞋靴箱包&lt;/td&gt;
+                &lt;td&gt;鞋靴箱包类商品&lt;/td&gt;
+                &lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;/a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;input type=&quot;checkbox&quot; class=&quot;itemSelect&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;4&lt;/td&gt;
+                &lt;td&gt;家居饰品&lt;/td&gt;
+                &lt;td&gt;家居饰品类商品&lt;/td&gt;
+                &lt;td&gt;&lt;a href=&quot;&quot;&gt;修改&lt;/a&gt;|&lt;a href=&quot;&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
-<h3 id="3-qq表情选择"><a href="#3-qq表情选择" class="headerlink" title="3. qq表情选择"></a>3. qq表情选择</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<h3 id="3-qq表情选择"><a href="#3-qq表情选择" class="headerlink" title="3. qq表情选择"></a>3. qq表情选择</h3><pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot; &#x2F;&gt;
-    &lt;title&gt;QQ表情选择&lt;&#x2F;title&gt;
-	 &lt;script  src=&quot;..&#x2F;..&#x2F;js&#x2F;jquery-3.3.1.min.js&quot;&gt;&lt;&#x2F;script&gt;
-    &lt;style type=&quot;text&#x2F;css&quot;&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;title&gt;QQ表情选择&lt;/title&gt;
+     &lt;script  src=&quot;../../js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
     *{margin: 0;padding: 0;list-style: none;}
 
     .emoji{margin:50px;}
     ul{overflow: hidden;}
     li{float: left;width: 48px;height: 48px;cursor: pointer;}
     .emoji img{ cursor: pointer; }
-    &lt;&#x2F;style&gt;
-	&lt;script&gt;
-        &#x2F;&#x2F;需求：点击qq表情，将其追加到发言框中
+    &lt;/style&gt;
+    &lt;script&gt;
+        //需求：点击qq表情，将其追加到发言框中
         $(function () {
-            &#x2F;&#x2F; 1. 给img图片添加onclick事件
+            // 1. 给img图片添加onclick事件
             $(&quot;ul img&quot;).click(function () {
-                &#x2F;&#x2F; 2. 追加到p标签中即可,$(this)：将js对象转换为JQuery对象
+                // 2. 追加到p标签中即可,$(this)：将js对象转换为JQuery对象
                 $(&quot;.word&quot;).append($(this).clone());
             });
 
         });
-    &lt;&#x2F;script&gt;
-	
-&lt;&#x2F;head&gt;
+    &lt;/script&gt;
+
+&lt;/head&gt;
 &lt;body&gt;
     &lt;div class=&quot;emoji&quot;&gt;
         &lt;ul&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;01.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;02.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;03.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;04.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;05.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;06.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;07.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;08.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;09.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;10.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;11.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-            &lt;li&gt;&lt;img src=&quot;img&#x2F;12.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;li&gt;
-        &lt;&#x2F;ul&gt;
+            &lt;li&gt;&lt;img src=&quot;img/01.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/02.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/03.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/04.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/05.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/06.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/07.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/08.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/09.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/10.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/11.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img src=&quot;img/12.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;/ul&gt;
         &lt;p class=&quot;word&quot;&gt;
-            &lt;strong&gt;请发言：&lt;&#x2F;strong&gt;
-            &lt;img src=&quot;img&#x2F;12.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; &#x2F;&gt;
-        &lt;&#x2F;p&gt;
-    &lt;&#x2F;div&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+            &lt;strong&gt;请发言：&lt;/strong&gt;
+            &lt;img src=&quot;img/12.gif&quot; height=&quot;22&quot; width=&quot;22&quot; alt=&quot;&quot; /&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
-<h3 id="4-多选下拉列表左右移动"><a href="#4-多选下拉列表左右移动" class="headerlink" title="4. 多选下拉列表左右移动"></a>4. 多选下拉列表左右移动</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<h3 id="4-多选下拉列表左右移动"><a href="#4-多选下拉列表左右移动" class="headerlink" title="4. 多选下拉列表左右移动"></a>4. 多选下拉列表左右移动</h3><pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-	&lt;head&gt;
-		&lt;meta charset=&quot;UTF-8&quot;&gt;
-		&lt;title&gt;&lt;&#x2F;title&gt;
-		&lt;script  src=&quot;..&#x2F;..&#x2F;js&#x2F;jquery-3.3.1.min.js&quot;&gt;&lt;&#x2F;script&gt;
-		&lt;style&gt;
-			#leftName , #btn,#rightName{
-				float: left;
-				width: 100px;
-				height: 300px;
-			}
-			#toRight,#toLeft{
-				margin-top:100px ;
-				margin-left:30px;
-				width: 50px;
-			}
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;script  src=&quot;../../js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
+        &lt;style&gt;
+            #leftName , #btn,#rightName{
+                float: left;
+                width: 100px;
+                height: 300px;
+            }
+            #toRight,#toLeft{
+                margin-top:100px ;
+                margin-left:30px;
+                width: 50px;
+            }
 
-			.border{
-				height: 500px;
-				padding: 100px;
-			}
-		&lt;&#x2F;style&gt;
-		&lt;script&gt;
-			&#x2F;&#x2F;需求：实现下拉列表选择条目左右选择功能
-			$(function () {
-				$(&quot;#toRight&quot;).click(function () {
-					&#x2F;&#x2F; 获取右边的下拉列表对象，append(左边下拉列表选中的option)
-					$(&quot;#rightName&quot;).append($(&quot;#leftName &gt; option:selected&quot;));
-				});
-				$(&quot;#toLeft&quot;).click(function () {
-					$(&quot;#leftName&quot;).append($(&quot;#rightName &gt; option:selected&quot;));
-				});
-			});
-		&lt;&#x2F;script&gt;
-	&lt;&#x2F;head&gt;
-	&lt;body&gt;
-		&lt;div class=&quot;border&quot;&gt;
-			&lt;select id=&quot;leftName&quot; multiple=&quot;multiple&quot;&gt;
-				&lt;option&gt;张三&lt;&#x2F;option&gt;
-				&lt;option&gt;李四&lt;&#x2F;option&gt;
-				&lt;option&gt;王五&lt;&#x2F;option&gt;
-				&lt;option&gt;赵六&lt;&#x2F;option&gt;
-			&lt;&#x2F;select&gt;
-			&lt;div id=&quot;btn&quot;&gt;
-				&lt;input type=&quot;button&quot; id=&quot;toRight&quot; value=&quot;--&gt;&quot;&gt;&lt;br&gt;
-				&lt;input type=&quot;button&quot; id=&quot;toLeft&quot; value=&quot;&lt;--&quot;&gt;
-			&lt;&#x2F;div&gt;
-			&lt;select id=&quot;rightName&quot; multiple=&quot;multiple&quot;&gt;
-				&lt;option&gt;钱七&lt;&#x2F;option&gt;
-			&lt;&#x2F;select&gt;
-		&lt;&#x2F;div&gt;
-	&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+            .border{
+                height: 500px;
+                padding: 100px;
+            }
+        &lt;/style&gt;
+        &lt;script&gt;
+            //需求：实现下拉列表选择条目左右选择功能
+            $(function () {
+                $(&quot;#toRight&quot;).click(function () {
+                    // 获取右边的下拉列表对象，append(左边下拉列表选中的option)
+                    $(&quot;#rightName&quot;).append($(&quot;#leftName &gt; option:selected&quot;));
+                });
+                $(&quot;#toLeft&quot;).click(function () {
+                    $(&quot;#leftName&quot;).append($(&quot;#rightName &gt; option:selected&quot;));
+                });
+            });
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;border&quot;&gt;
+            &lt;select id=&quot;leftName&quot; multiple=&quot;multiple&quot;&gt;
+                &lt;option&gt;张三&lt;/option&gt;
+                &lt;option&gt;李四&lt;/option&gt;
+                &lt;option&gt;王五&lt;/option&gt;
+                &lt;option&gt;赵六&lt;/option&gt;
+            &lt;/select&gt;
+            &lt;div id=&quot;btn&quot;&gt;
+                &lt;input type=&quot;button&quot; id=&quot;toRight&quot; value=&quot;--&gt;&quot;&gt;&lt;br&gt;
+                &lt;input type=&quot;button&quot; id=&quot;toLeft&quot; value=&quot;&lt;--&quot;&gt;
+            &lt;/div&gt;
+            &lt;select id=&quot;rightName&quot; multiple=&quot;multiple&quot;&gt;
+                &lt;option&gt;钱七&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
             </div>
@@ -1462,7 +1426,7 @@ hide([</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

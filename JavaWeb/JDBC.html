@@ -412,14 +412,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.6k
+                        4.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        21 分
+                        20 分
                     </div>
                     
                 
@@ -570,27 +570,25 @@
 </ul>
 <p>如果数据库出现乱码，可以指定参数：<code>?characterEncoding=utf8</code>，表示让数据库以UTF-8编码来处理数据。</p>
 <h3 id="2-2-快速入门"><a href="#2-2-快速入门" class="headerlink" title="2.2 快速入门"></a>2.2 快速入门</h3><ol>
-<li>使用用户名、密码、URL来得到连接对象
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo01JDBC {
-    public static void main(String[] args) throws Exception{
-        &#x2F;&#x2F; 1. 导入jar驱动包
-        &#x2F;&#x2F; 2.注册驱动
-        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;); &#x2F;&#x2F; com.mysql.jdbc.Driver已弃用，且该语句jdbc3后可省略
-        &#x2F;&#x2F; 3. 使用用户名密码来获取数据库连接对象
-        Connection conn = DriverManager.getConnection(&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;db1?serverTimezone=UTC&quot;, &quot;root&quot;, &quot;123456&quot;);
-        &#x2F;&#x2F; 4. 定义sql语句
-        String sql = &quot;update account set balance=1000 where id=1&quot;;
-        &#x2F;&#x2F; 5. 获取执行sql语句的对象
-        Statement stat = conn.createStatement();
-        &#x2F;&#x2F; 6. 执行sql语句
-        int count = stat.executeUpdate(sql);
-        &#x2F;&#x2F; 7. 处理结果
-        System.out.println(count);
-        &#x2F;&#x2F; 8. 释放资源
-        stat.close();
-        conn.close();
-    }
+<li>使用用户名、密码、URL来得到连接对象<pre><code class="java">public class Demo01JDBC {
+ public static void main(String[] args) throws Exception{
+     // 1. 导入jar驱动包
+     // 2.注册驱动
+     Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;); // com.mysql.jdbc.Driver已弃用，且该语句jdbc3后可省略
+     // 3. 使用用户名密码来获取数据库连接对象
+     Connection conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/db1?serverTimezone=UTC&quot;, &quot;root&quot;, &quot;123456&quot;);
+     // 4. 定义sql语句
+     String sql = &quot;update account set balance=1000 where id=1&quot;;
+     // 5. 获取执行sql语句的对象
+     Statement stat = conn.createStatement();
+     // 6. 执行sql语句
+     int count = stat.executeUpdate(sql);
+     // 7. 处理结果
+     System.out.println(count);
+     // 8. 释放资源
+     stat.close();
+     conn.close();
+ }
 }
 </code></pre>
 </li>
@@ -599,63 +597,66 @@
 <p>从JDBC3开始，弃用了驱动类“com.mysql.jdbc.Driver”，新的驱动程序类是“com.mysql.cj.jdbc.Driver”。驱动程序是通过SPI自动注册的，通常不需要手动加载驱动程序类。</p>
 </blockquote>
 <ol start="2">
-<li>使用属性文件和URL得到连接对象
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo02JDBC {
-    public static void main(String[] args) throws SQLException {
-        &#x2F;&#x2F; 1. 定义URL连接字符串
-        String url = &quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;db1?serverTimezone=UTC&quot;; &#x2F;&#x2F; 本地服务器且端口号3306.故省略
-        &#x2F;&#x2F; 2. 创建属性对象
-        Properties info = new Properties();
-        &#x2F;&#x2F; 3. 将用户名和密码放入info对象中
-        info.setProperty(&quot;user&quot;,&quot;root&quot;);
-        info.setProperty(&quot;password&quot;,&quot;123456&quot;);
-        &#x2F;&#x2F; 4. 通过属性文件来获取数据库连接对象
-        Connection conn = DriverManager.getConnection(url, info);
-        System.out.println(conn); &#x2F;&#x2F; com.mysql.cj.jdbc.ConnectionImpl@51cdd8a：获取的是连接对象的内存地址值
-    }
-}
-</code></pre>
-</li>
+<li>使用属性文件和URL得到连接对象<br><code>`</code>java<br>public class Demo02JDBC {<br> public static void main(String[] args) throws SQLException {<pre><code> // 1. 定义URL连接字符串
+ String url = &quot;jdbc:mysql:///db1?serverTimezone=UTC&quot;; // 本地服务器且端口号3306.故省略
+ // 2. 创建属性对象
+ Properties info = new Properties();
+ // 3. 将用户名和密码放入info对象中
+ info.setProperty(&quot;user&quot;,&quot;root&quot;);
+ info.setProperty(&quot;password&quot;,&quot;123456&quot;);
+ // 4. 通过属性文件来获取数据库连接对象
+ Connection conn = DriverManager.getConnection(url, info);
+ System.out.println(conn); // com.mysql.cj.jdbc.ConnectionImpl@51cdd8a：获取的是连接对象的内存地址值
+</code></pre> }<br>}</li>
 </ol>
-<h2 id="3-Connection接口"><a href="#3-Connection接口" class="headerlink" title="3. Connection接口"></a>3. Connection接口</h2><p>Connection 接口，具体的实现类由数据库的厂商实现，代表一个连接对象。</p>
-<h3 id="3-1-主要方法"><a href="#3-1-主要方法" class="headerlink" title="3.1 主要方法"></a>3.1 主要方法</h3><ul>
-<li>获取执行sql的对象：<ul>
-<li><code>Statement createStatement(String sql)</code></li>
-<li><code>PreparedStatement preparedStatement(String sql)</code></li>
-</ul>
-</li>
-<li>管理事务：<ul>
-<li>开启事务：<code>setAutoCommit(boolean autoCommit)</code>:调用该方法设置参数为fasle，即开启事务</li>
-<li>提交事务：<code>commit()</code></li>
-<li>回滚事务：<code>rollback()</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="4-Statement接口"><a href="#4-Statement接口" class="headerlink" title="4. Statement接口"></a>4. Statement接口</h2><p>用于执行静态SQL语句并返回其生成的结果对象</p>
-<h3 id="4-1-主要方法"><a href="#4-1-主要方法" class="headerlink" title="4.1 主要方法"></a>4.1 主要方法</h3><ol>
-<li><code>boolean execute(String sql)</code>：可以执行任意的sql</li>
-<li><code>int executeUpdate(String sql)</code>：执行DML(insert、update、delete)语句、DDL(create、alter、drop)语句。返回值：<strong>影响的行数</strong>，可以通过判断行数来确定语句是否执行成功。</li>
-<li><code>ResultSet executeQuery(String sql)</code>：执行DQL(select)语句。返回结果集对象</li>
-</ol>
-<h3 id="4-2-演示案例"><a href="#4-2-演示案例" class="headerlink" title="4.2 演示案例"></a>4.2 演示案例</h3><ol>
-<li>account表中添加一条记录，使用insert语句
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo03JDBC {
+<pre><code>
+
+
+## 3. Connection接口
+
+Connection 接口，具体的实现类由数据库的厂商实现，代表一个连接对象。
+
+### 3.1 主要方法
+
+- 获取执行sql的对象：
+  - `Statement createStatement(String sql)`
+  - `PreparedStatement preparedStatement(String sql)`
+- 管理事务：
+  - 开启事务：`setAutoCommit(boolean autoCommit)`:调用该方法设置参数为fasle，即开启事务
+  - 提交事务：`commit()`
+  - 回滚事务：`rollback()`
+
+
+
+## 4. Statement接口
+
+用于执行静态SQL语句并返回其生成的结果对象
+
+### 4.1 主要方法
+
+1. `boolean execute(String sql)`：可以执行任意的sql
+2. `int executeUpdate(String sql)`：执行DML(insert、update、delete)语句、DDL(create、alter、drop)语句。返回值：**影响的行数**，可以通过判断行数来确定语句是否执行成功。
+3. `ResultSet executeQuery(String sql)`：执行DQL(select)语句。返回结果集对象
+
+### 4.2 演示案例
+
+1. account表中添加一条记录，使用insert语句
+```java
+public class Demo03JDBC {
     public static void main(String[] args) {
         Statement stmt = null;
         Connection conn = null;
         try {
-            &#x2F;&#x2F; 1. 注册驱动
+            // 1. 注册驱动
             Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-            &#x2F;&#x2F; 2. 定义sql
+            // 2. 定义sql
             String sql = &quot;insert into account values(null,&#39;小王&#39;,3000)&quot;;
-            &#x2F;&#x2F; 3. 获取连接数据库对象
-            conn = DriverManager.getConnection(&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;db1?serverTimezone=UTC&amp;characterEncoding=gbk&quot;, &quot;root&quot;, &quot;123456&quot;);
-            &#x2F;&#x2F; 4. 获取执行sql的对象 Statement，并传入sql语句执行
+            // 3. 获取连接数据库对象
+            conn = DriverManager.getConnection(&quot;jdbc:mysql:///db1?serverTimezone=UTC&amp;characterEncoding=gbk&quot;, &quot;root&quot;, &quot;123456&quot;);
+            // 4. 获取执行sql的对象 Statement，并传入sql语句执行
             stmt = conn.createStatement();
-            int count = stmt.executeUpdate(sql); &#x2F;&#x2F; 返回值影响的行数
-            &#x2F;&#x2F; 5. 处理结果
+            int count = stmt.executeUpdate(sql); // 返回值影响的行数
+            // 5. 处理结果
             if (count&gt;0)
                 System.out.println(&quot;添加成功&quot;);
             else
@@ -663,8 +664,8 @@
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
-            &#x2F;&#x2F;stmt.close();
-            &#x2F;&#x2F; 避免空指针异常
+            //stmt.close();
+            // 避免空指针异常
             if(stmt!=null &amp;&amp; conn!=null){
                 try {
                     stmt.close();
@@ -676,54 +677,47 @@
         }
     }
 }
-</code></pre>
-</li>
-</ol>
-<ol start="2">
-<li>修改一条表记录
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 只需在上述代码基础上改动sql语句即可
+</code></pre><ol start="2">
+<li><p>修改一条表记录</p>
+<pre><code class="java">// 只需在上述代码基础上改动sql语句即可
 String sql = &quot;update account set balance=2000 where name=&#39;小王&#39;&quot;;     
-conn = DriverManager.getConnection(&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;db1?serverTimezone=UTC&amp;characterEncoding=gbk&quot;, &quot;root&quot;, &quot;123456&quot;);
+conn = DriverManager.getConnection(&quot;jdbc:mysql:///db1?serverTimezone=UTC&amp;characterEncoding=gbk&quot;, &quot;root&quot;, &quot;123456&quot;);
 stmt = conn.createStatement();
-int count = stmt.executeUpdate(sql); &#x2F;&#x2F; 返回值影响的行数
+int count = stmt.executeUpdate(sql); // 返回值影响的行数
 if (count&gt;0)
-    System.out.println(&quot;修改成功&quot;);
+ System.out.println(&quot;修改成功&quot;);
 else
-    System.out.println(&quot;修改失败&quot;);
+ System.out.println(&quot;修改失败&quot;);
 </code></pre>
 </li>
-</ol>
-<ol start="3">
-<li>删除一条表记录
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 改动sql语句即可
+<li><p>删除一条表记录</p>
+<pre><code class="java">// 改动sql语句即可
 public class DelJDBC {
-    public static void main(String[] args) {
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-            conn = DriverManager.getConnection(&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;db1?serverTimezone=UTC&quot;,&quot;root&quot;,&quot;123456&quot;);
-            stmt = conn.createStatement();
-            int count = stmt.executeUpdate(&quot;delete from account where id=3&quot;);
-            if (count&gt;0)
-                System.out.println(&quot;delete success!&quot;);
-            else
-                System.out.println(&quot;delete failed!&quot;);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            if (stmt!=null &amp;&amp; conn!=null) {
-                try {
-                    stmt.close();
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+ public static void main(String[] args) {
+     Connection conn = null;
+     Statement stmt = null;
+     try {
+         Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+         conn = DriverManager.getConnection(&quot;jdbc:mysql:///db1?serverTimezone=UTC&quot;,&quot;root&quot;,&quot;123456&quot;);
+         stmt = conn.createStatement();
+         int count = stmt.executeUpdate(&quot;delete from account where id=3&quot;);
+         if (count&gt;0)
+             System.out.println(&quot;delete success!&quot;);
+         else
+             System.out.println(&quot;delete failed!&quot;);
+     } catch (Exception e) {
+         e.printStackTrace();
+     }finally {
+         if (stmt!=null &amp;&amp; conn!=null) {
+             try {
+                 stmt.close();
+                 conn.close();
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
+ }
 }
 </code></pre>
 </li>
@@ -749,23 +743,21 @@ public class DelJDBC {
 </table>
 <p><strong>常用数据类型转换表</strong></p>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/25/jdbc_sql-1558754667060.jpg" alt="jdbc_sql"></p>
-<h3 id="5-2-方法演示"><a href="#5-2-方法演示" class="headerlink" title="5.2 方法演示"></a>5.2 方法演示</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DQLJDBC {
+<h3 id="5-2-方法演示"><a href="#5-2-方法演示" class="headerlink" title="5.2 方法演示"></a>5.2 方法演示</h3><pre><code class="java">public class DQLJDBC {
     public static void main(String[] args) {
         ResultSet rs = null;
         Connection conn = null;
         Statement stmt = null;
         try {
             Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-            conn = DriverManager.getConnection(&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;db1?serverTimezone=UTC&quot;,&quot;root&quot;,&quot;123456&quot;);
+            conn = DriverManager.getConnection(&quot;jdbc:mysql:///db1?serverTimezone=UTC&quot;,&quot;root&quot;,&quot;123456&quot;);
             stmt = conn.createStatement();
             rs = stmt.executeQuery(&quot;select * from account&quot;);
-            &#x2F;&#x2F; 处理结果
-            while (rs.next()){ &#x2F;&#x2F; 循环判断游标是否是最后一行末尾
-                int id = rs.getInt(1); &#x2F;&#x2F; 通过列编号获取数据
-                String name = rs.getString(&quot;name&quot;); &#x2F;&#x2F; 通过列名获取
-                double balance = rs.getDouble(3); &#x2F;&#x2F; 通过列编号获取
+            // 处理结果
+            while (rs.next()){ // 循环判断游标是否是最后一行末尾
+                int id = rs.getInt(1); // 通过列编号获取数据
+                String name = rs.getString(&quot;name&quot;); // 通过列名获取
+                double balance = rs.getDouble(3); // 通过列编号获取
                 System.out.println(id+&quot;,&quot;+name+&quot;,&quot;+balance);
             }
         } catch (Exception e) {
@@ -798,59 +790,57 @@ public class DelJDBC {
 <h3 id="5-3-练习"><a href="#5-3-练习" class="headerlink" title="5.3 练习"></a>5.3 练习</h3><ul>
 <li>定义一个方法：查询users表的数据将其封装为对象，然后装载集合，返回。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 定义存储数据的类
+<pre><code class="java">// 定义存储数据的类
 public class Users {
     private int id;
     private String name;
     private int age;
     private String site;
-    &#x2F;&#x2F; 省略构造方法等
+    // 省略构造方法等
 }
-&#x2F;&#x2F; 定义方法类，实现方法
+// 定义方法类，实现方法
 public class Demo5JDBC {
     public static void main(String[] args) {
         List&lt;Users&gt; list = new Demo5JDBC().findAll();
         System.out.println(list);
     }
-    &#x2F;&#x2F; 创建方法，查询所有users对象，返回一个list
+    // 创建方法，查询所有users对象，返回一个list
     public List&lt;Users&gt; findAll(){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
         List&lt;Users&gt; list = null;
         try {
-            &#x2F;&#x2F; 1. 注册驱动
+            // 1. 注册驱动
             Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-            &#x2F;&#x2F; 2. 获取连接
-            conn = DriverManager.getConnection(&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;db5?serverTimezone=UTC&quot;, &quot;root&quot;, &quot;123456&quot;);
-            &#x2F;&#x2F; 3. 获取执行sql对象
+            // 2. 获取连接
+            conn = DriverManager.getConnection(&quot;jdbc:mysql:///db5?serverTimezone=UTC&quot;, &quot;root&quot;, &quot;123456&quot;);
+            // 3. 获取执行sql对象
             stmt = conn.createStatement();
-            &#x2F;&#x2F; 4. 执行sql
+            // 4. 执行sql
             rs = stmt.executeQuery(&quot;select * from users&quot;);
-            &#x2F;&#x2F; 5. 遍历结果集，封装对象，装载集合
+            // 5. 遍历结果集，封装对象，装载集合
             Users us = null;
             list = new ArrayList&lt;&gt;();
             while (rs.next()){
-                &#x2F;&#x2F; 获取数据
+                // 获取数据
                 int id = rs.getInt(&quot;id&quot;);
                 String name = rs.getString(&quot;name&quot;);
                 int age = rs.getInt(&quot;age&quot;);
                 String site = rs.getString(4);
-                &#x2F;&#x2F; 创建users对象,并赋值
+                // 创建users对象,并赋值
                 us = new Users();
                 us.setId(id);
                 us.setName(name);
                 us.setAge(age);
                 us.setSite(site);
-                &#x2F;&#x2F; 装载集合
+                // 装载集合
                 list.add(us);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
-            &#x2F;&#x2F; 释放资源，rs，stmt和conn
+            // 释放资源，rs，stmt和conn
             if (rs!=null){
                 try {
                     rs.close();
@@ -858,7 +848,7 @@ public class Demo5JDBC {
                     e.printStackTrace();
                 }
             }
-            &#x2F;&#x2F; 省略其他两个，与上方法一样
+            // 省略其他两个，与上方法一样
         }
         return list;
     }
@@ -871,154 +861,134 @@ public class Demo5JDBC {
 <li>关闭所有打开的资源：<code>close(Connection conn,Statement stmt,ResultSet rs)</code> 和<code>close(ResultSet rs,Statement stmt, Connection conn)</code></li>
 </ol>
 <h4 id="6-2-使用工具类将上一个练习优化"><a href="#6-2-使用工具类将上一个练习优化" class="headerlink" title="6.2 使用工具类将上一个练习优化"></a>6.2 使用工具类将上一个练习优化</h4><ol>
-<li><p>定义工具类<br>在项目目录下新建一个<code>util</code>文件夹，然后新建<code>JDBCUtils.java</code>文件，编写如下内容。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; JDBC工具类
-public class JDBCUtils {
-    private static String url;
-    private static String user;
-    private static String password;
-    private static String driver;
-
-    &#x2F;&#x2F; 文件的读取，只需读取一次即可拿到这些值：使用静态代码块
-    static {
-        &#x2F;&#x2F; 读取资源文件，获取配置值
-        try {
-            &#x2F;&#x2F; 1. 创建Properties集合类
-            Properties pro = new Properties();
-            &#x2F;&#x2F; 获取src路径下的文件的方式--&gt;ClassLoader 类加载器,如此就可以动态的获取src的绝对路径
-            ClassLoader classLoader = JDBCUtils.class.getClassLoader();
-            URL resource = classLoader.getResource(&quot;jdbc.properties&quot;);
-            String path = resource.getPath();
-            System.out.println(path);
-            &#x2F;&#x2F; 2. 加载文件
-&#x2F;&#x2F;            pro.load(new FileReader(&quot;src&#x2F;jdbc.properties&quot;));
-            pro.load(new FileReader(path));
-            &#x2F;&#x2F; 3. 获取属性，赋值
-            url = pro.getProperty(&quot;url&quot;);
-            user = pro.getProperty(&quot;user&quot;);
-            password = pro.getProperty(&quot;password&quot;);
-            driver = pro.getProperty(&quot;driver&quot;);
-            &#x2F;&#x2F; 4. 注册驱动
-            Class.forName(driver);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-    &#x2F;&#x2F; 获取连接
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url,user,password);
-    }
-    &#x2F;&#x2F; 释放资源
-    public static void close(Statement stmt, Connection conn){
-        if (stmt!=null){
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (conn!=null){
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    &#x2F;&#x2F; 释放资源重载
-    public static void close(ResultSet rs,Statement stmt, Connection conn){
-        if (rs!=null){
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (stmt!=null){
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (conn!=null){
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
-</code></pre>
-</li>
-<li><p>定义配置文件<br>在项目源文件src下新建<code>jdbc.properties</code>文件。</p>
+<li><p>定义工具类<br>在项目目录下新建一个<code>util</code>文件夹，然后新建<code>JDBCUtils.java</code>文件，编写如下内容。<br><code>`</code>java<br>// JDBC工具类<br>public class JDBCUtils {<br> private static String url;<br> private static String user;<br> private static String password;<br> private static String driver;</p>
+<p> // 文件的读取，只需读取一次即可拿到这些值：使用静态代码块<br> static {</p>
+<pre><code> // 读取资源文件，获取配置值
+ try {
+     // 1. 创建Properties集合类
+     Properties pro = new Properties();
+     // 获取src路径下的文件的方式--&gt;ClassLoader 类加载器,如此就可以动态的获取src的绝对路径
+     ClassLoader classLoader = JDBCUtils.class.getClassLoader();
+     URL resource = classLoader.getResource(&quot;jdbc.properties&quot;);
+     String path = resource.getPath();
+     System.out.println(path);
+     // 2. 加载文件
+</code></pre><p>//            pro.load(new FileReader(“src/jdbc.properties”));</p>
+<pre><code>     pro.load(new FileReader(path));
+     // 3. 获取属性，赋值
+     url = pro.getProperty(&quot;url&quot;);
+     user = pro.getProperty(&quot;user&quot;);
+     password = pro.getProperty(&quot;password&quot;);
+     driver = pro.getProperty(&quot;driver&quot;);
+     // 4. 注册驱动
+     Class.forName(driver);
+ } catch (IOException e) {
+     e.printStackTrace();
+ } catch (ClassNotFoundException e) {
+     e.printStackTrace();
+ }
+</code></pre><p> }<br> // 获取连接<br> public static Connection getConnection() throws SQLException {</p>
+<pre><code> return DriverManager.getConnection(url,user,password);
+</code></pre><p> }<br> // 释放资源<br> public static void close(Statement stmt, Connection conn){</p>
+<pre><code> if (stmt!=null){
+     try {
+         stmt.close();
+     } catch (SQLException e) {
+         e.printStackTrace();
+     }
+ }
+ if (conn!=null){
+     try {
+         conn.close();
+     } catch (SQLException e) {
+         e.printStackTrace();
+     }
+ }
+</code></pre><p> }<br> // 释放资源重载<br> public static void close(ResultSet rs,Statement stmt, Connection conn){</p>
+<pre><code> if (rs!=null){
+     try {
+         rs.close();
+     } catch (SQLException e) {
+         e.printStackTrace();
+     }
+ }
+ if (stmt!=null){
+     try {
+         stmt.close();
+     } catch (SQLException e) {
+         e.printStackTrace();
+     }
+ }
+ if (conn!=null){
+     try {
+         conn.close();
+     } catch (SQLException e) {
+         e.printStackTrace();
+     }
+ }
+</code></pre><p> }<br>}</p>
 </li>
 </ol>
+<pre><code>2. 定义配置文件
+在项目源文件src下新建`jdbc.properties`文件。
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-properties">url=jdbc:mysql:&#x2F;&#x2F;&#x2F;db5?serverTimezone=UTC&amp;characterEncoding=gbk
+```properties
+url=jdbc:mysql:///db5?serverTimezone=UTC&amp;characterEncoding=gbk
 user=root
 password=123456
 driver=com.mysql.cj.jdbc.Driver
-</code></pre>
-<ol start="3">
-<li>演示用法
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo6JDBCUtil {
-    public static void main(String[] args) {
-        List&lt;Users&gt; list = new Demo6JDBCUtil().findAll2();
-        System.out.println(list);
-    }
+</code></pre><ol start="3">
+<li><p>演示用法</p>
+<pre><code class="java">public class Demo6JDBCUtil {
+ public static void main(String[] args) {
+     List&lt;Users&gt; list = new Demo6JDBCUtil().findAll2();
+     System.out.println(list);
+ }
 
-    &#x2F;**
-     * 演示JDBC工具类
-     * @return
-     *&#x2F;
-    public List&lt;Users&gt; findAll2(){
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        List&lt;Users&gt; list = null;
-        try {
-&#x2F;&#x2F;            &#x2F;&#x2F; 1. 注册驱动
-&#x2F;&#x2F;            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-&#x2F;&#x2F;            &#x2F;&#x2F; 2. 获取连接
-&#x2F;&#x2F;            conn = DriverManager.getConnection(&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;db5?serverTimezone=UTC&quot;, &quot;root&quot;, &quot;123456&quot;);
-            conn = JDBCUtils.getConnection();
-            &#x2F;&#x2F; 3. 获取执行sql对象
-            stmt = conn.createStatement();
-            &#x2F;&#x2F; 4. 执行sql
-            rs = stmt.executeQuery(&quot;select * from users&quot;);
-            &#x2F;&#x2F; 5. 遍历结果集，封装对象，装载集合
-            Users us = null;
-            list = new ArrayList&lt;&gt;();
-            while (rs.next()){
-                &#x2F;&#x2F; 获取数据
-                int id = rs.getInt(&quot;id&quot;);
-                String name = rs.getString(&quot;name&quot;);
-                int age = rs.getInt(&quot;age&quot;);
-                String site = rs.getString(4);
-                &#x2F;&#x2F; 创建users对象,并赋值
-                us = new Users();
-                us.setId(id);
-                us.setName(name);
-                us.setAge(age);
-                us.setSite(site);
-                &#x2F;&#x2F; 装载集合
-                list.add(us);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            JDBCUtils.close(rs,stmt,conn); &#x2F;&#x2F; 直接调用方法就可以释放资源
-        }
-        return list;
-    }
+ /**
+  * 演示JDBC工具类
+  * @return
+  */
+ public List&lt;Users&gt; findAll2(){
+     Connection conn = null;
+     Statement stmt = null;
+     ResultSet rs = null;
+     List&lt;Users&gt; list = null;
+     try {
+//            // 1. 注册驱动
+//            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+//            // 2. 获取连接
+//            conn = DriverManager.getConnection(&quot;jdbc:mysql:///db5?serverTimezone=UTC&quot;, &quot;root&quot;, &quot;123456&quot;);
+         conn = JDBCUtils.getConnection();
+         // 3. 获取执行sql对象
+         stmt = conn.createStatement();
+         // 4. 执行sql
+         rs = stmt.executeQuery(&quot;select * from users&quot;);
+         // 5. 遍历结果集，封装对象，装载集合
+         Users us = null;
+         list = new ArrayList&lt;&gt;();
+         while (rs.next()){
+             // 获取数据
+             int id = rs.getInt(&quot;id&quot;);
+             String name = rs.getString(&quot;name&quot;);
+             int age = rs.getInt(&quot;age&quot;);
+             String site = rs.getString(4);
+             // 创建users对象,并赋值
+             us = new Users();
+             us.setId(id);
+             us.setName(name);
+             us.setAge(age);
+             us.setSite(site);
+             // 装载集合
+             list.add(us);
+         }
+     } catch (Exception e) {
+         e.printStackTrace();
+     }finally {
+         JDBCUtils.close(rs,stmt,conn); // 直接调用方法就可以释放资源
+     }
+     return list;
+ }
 }
 </code></pre>
 </li>
@@ -1029,11 +999,9 @@ driver=com.mysql.cj.jdbc.Driver
 <li>查询数据库，与数据库中数据进行匹配</li>
 <li>返回结果</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class LoginExercise {
+<pre><code class="java">public class LoginExercise {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 获取用户输入
+        // 获取用户输入
         Scanner sc = new Scanner(System.in);
         System.out.print(&quot;请输入用户名：&quot;);
         String name = sc.nextLine();
@@ -1049,11 +1017,11 @@ driver=com.mysql.cj.jdbc.Driver
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            &#x2F;&#x2F; 连接数据库，判断是否存在数据
+            // 连接数据库，判断是否存在数据
             conn = JDBCUtils.getConnection();
             stmt = conn.createStatement();
             rs = stmt.executeQuery(&quot;select * from users where name=&#39;&quot;+name+&quot;&#39; and pwd=&#39;&quot;+pwd+&quot;&#39;&quot;);
-            if (rs.next()) &#x2F;&#x2F; 返回布尔值，true则存在，false则不存在
+            if (rs.next()) // 返回布尔值，true则存在，false则不存在
                 System.out.println(&quot;登录成功&quot;);
             else
                 System.out.println(&quot;用户名或密码错误！&quot;);
@@ -1064,6 +1032,7 @@ driver=com.mysql.cj.jdbc.Driver
         }
     }
 }
+
 </code></pre>
 <h2 id="7-PreparedStatement接口"><a href="#7-PreparedStatement接口" class="headerlink" title="7. PreparedStatement接口"></a>7. PreparedStatement接口</h2><p>表示预编译的 SQL 语句的对象。 SQL 语句被预编译并存储在 <code>PreparedStatement</code> 对象中。然后可以使用此对象多次高效地执行该语句。  </p>
 <h3 id="7-1-SQL注入问题"><a href="#7-1-SQL注入问题" class="headerlink" title="7.1 SQL注入问题"></a>7.1 SQL注入问题</h3><p>在拼接sql时，如果有一些sql的特殊关键字参与字符串的拼接，会造成安全性问题。</p>
@@ -1081,12 +1050,10 @@ driver=com.mysql.cj.jdbc.Driver
 <li>预编译的SQL：参数使用?作为占位符,例：<code>select * from users where name = ? and pwd = ?</code></li>
 <li>给？赋值方法：<code>setXxx(?的位置编号(1开始),?的值)</code></li>
 </ul>
-<h4 id="7-2-1-方法演示"><a href="#7-2-1-方法演示" class="headerlink" title="7.2.1 方法演示"></a>7.2.1 方法演示</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 使用prepardStatement对象解决sql注入问题
+<h4 id="7-2-1-方法演示"><a href="#7-2-1-方法演示" class="headerlink" title="7.2.1 方法演示"></a>7.2.1 方法演示</h4><pre><code class="java">// 使用prepardStatement对象解决sql注入问题
 public class LoginExercise2 {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 获取用户输入
+        // 获取用户输入
         Scanner sc = new Scanner(System.in);
         System.out.print(&quot;请输入用户名：&quot;);
         String name = sc.nextLine();
@@ -1097,25 +1064,25 @@ public class LoginExercise2 {
         login(name,pwd);
         sc.close();
     }
-    &#x2F;*
+    /*
         登录方法，使用PreparedStatement实现
-     *&#x2F;
+     */
     public static void login(String name,String pwd){
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            &#x2F;&#x2F; 连接数据库，判断是否存在数据
+            // 连接数据库，判断是否存在数据
             conn = JDBCUtils.getConnection();
-            &#x2F;&#x2F; 定义sql语句
+            // 定义sql语句
             String sql = &quot;select * from users where name = ? and pwd = ?&quot;;
-            &#x2F;&#x2F; 获取执行sql对象
-            ps = conn.prepareStatement(sql); &#x2F;&#x2F; 将sql传入，进行预编译
-            &#x2F;&#x2F; 给？赋值
+            // 获取执行sql对象
+            ps = conn.prepareStatement(sql); // 将sql传入，进行预编译
+            // 给？赋值
             ps.setString(1,name);
             ps.setString(2,pwd);
             rs = ps.executeQuery();
-            if (rs.next()) &#x2F;&#x2F; 返回布尔值，true则存在，false则不存在
+            if (rs.next()) // 返回布尔值，true则存在，false则不存在
                 System.out.println(&quot;登录成功&quot;);
             else
                 System.out.println(&quot;用户名或密码错误！&quot;);
@@ -1155,39 +1122,37 @@ public class LoginExercise2 {
 <li>出现异常回滚事务</li>
 <li>释放资源</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class EFT {
+<pre><code class="java">public class EFT {
     public static void main(String[] args) {
         Connection conn = null;
         PreparedStatement ps1 = null;
         PreparedStatement ps2 = null;
         try {
-            &#x2F;&#x2F; 1. 获取连接
+            // 1. 获取连接
             conn = JDBCUtils.getConnection();
-            conn.setAutoCommit(false); &#x2F;&#x2F; 将自动提交关闭，即开启事务
-            &#x2F;&#x2F;  定义sql，小张-500
+            conn.setAutoCommit(false); // 将自动提交关闭，即开启事务
+            //  定义sql，小张-500
             String sql1 = &quot;update account set balance = balance - ? where name = ?&quot;;
-            &#x2F;&#x2F; 小李+500
+            // 小李+500
             String sql2 = &quot;update account set balance = balance + ? where name = ?&quot;;
-            &#x2F;&#x2F; 获取执行sql对象
+            // 获取执行sql对象
             ps1 = conn.prepareStatement(sql1);
             ps2 = conn.prepareStatement(sql2);
-            &#x2F;&#x2F; 给?赋值,小张-500
+            // 给?赋值,小张-500
             ps1.setDouble(1,500);
             ps1.setString(2,&quot;小张&quot;);
-            ps1.executeUpdate(); &#x2F;&#x2F; 执行更新语句
-            &#x2F;&#x2F; 给?赋值,小李+500
+            ps1.executeUpdate(); // 执行更新语句
+            // 给?赋值,小李+500
             ps2.setDouble(1,500);
             ps2.setString(2,&quot;小李&quot;);
-            ps2.executeUpdate(); &#x2F;&#x2F; 执行更新语句
-            &#x2F;&#x2F; 手动制造一个异常
-            int i = 3&#x2F;0;
-            &#x2F;&#x2F; 提交事务
+            ps2.executeUpdate(); // 执行更新语句
+            // 手动制造一个异常
+            int i = 3/0;
+            // 提交事务
             conn.commit();
             System.out.println(&quot;事务执行完毕&quot;);
         } catch (Exception e) {
-            &#x2F;&#x2F; 事务的回滚
+            // 事务的回滚
             try {
                 if (conn != null)
                     System.out.println(&quot;事务异常！回滚中....&quot;);
@@ -1197,7 +1162,7 @@ public class LoginExercise2 {
             }
             e.printStackTrace();
         }finally {
-            &#x2F;&#x2F; 释放资源
+            // 释放资源
             JDBCUtils.close(ps1,conn);
             if (ps2!=null){
                 try {
@@ -1355,9 +1320,8 @@ public class LoginExercise2 {
 1.1 表连接查询
 数据准备
 
-
-
-CREATE DATABASE IF NOT EXISTS `db5` CHARACTER SET gbk</div>
+CREATE DATABASE IF NOT EXISTS `db5` CHARACTER SET gbk;
+</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-23
@@ -1489,7 +1453,7 @@ CREATE DATABASE IF NOT EXISTS `db5` CHARACTER SET gbk</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

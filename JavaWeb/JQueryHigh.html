@@ -415,14 +415,14 @@ hide([">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.8k
+                        2.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        14 分
+                        12 分
                     </div>
                     
                 
@@ -462,37 +462,35 @@ hide([">
 <li><code>fadeOut([speed,[easing],[fn]])</code></li>
 <li><code>fadeToggle([speed,[easing],[fn]])</code></li>
 </ol>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
-    &#x2F;&#x2F; 隐藏div
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code class="javascript">&lt;script&gt;
+    // 隐藏div
     function hideFn() {
-    &#x2F;&#x2F; 默认方式
-    &#x2F;&#x2F; $(&quot;#showDiv&quot;).hide(5000,&quot;swing&quot;);
-    &#x2F;&#x2F; 滑动方式
-    &#x2F;&#x2F; $(&quot;#showDiv&quot;).slideUp(&quot;slow&quot;);
-    &#x2F;&#x2F; 淡入淡出方式
+    // 默认方式
+    // $(&quot;#showDiv&quot;).hide(5000,&quot;swing&quot;);
+    // 滑动方式
+    // $(&quot;#showDiv&quot;).slideUp(&quot;slow&quot;);
+    // 淡入淡出方式
     $(&quot;#showDiv&quot;).fadeOut(&quot;slow&quot;);
 }
-&#x2F;&#x2F; 显示div
+// 显示div
 function showFn() {
-    &#x2F;&#x2F; 默认方式
-    &#x2F;&#x2F; $(&quot;#showDiv&quot;).show(&quot;slow&quot;,&quot;swing&quot;);
-    &#x2F;&#x2F; 滑动方式
-    &#x2F;&#x2F; $(&quot;#showDiv&quot;).slideDown(&quot;slow&quot;);
-    &#x2F;&#x2F; 淡入淡出方式
+    // 默认方式
+    // $(&quot;#showDiv&quot;).show(&quot;slow&quot;,&quot;swing&quot;);
+    // 滑动方式
+    // $(&quot;#showDiv&quot;).slideDown(&quot;slow&quot;);
+    // 淡入淡出方式
     $(&quot;#showDiv&quot;).fadeIn(&quot;slow&quot;);
 }
-&#x2F;&#x2F; 切换显示和隐藏div
+// 切换显示和隐藏div
 function toggleFn() {
-    &#x2F;&#x2F; 默认方式
-    &#x2F;&#x2F; $(&quot;#showDiv&quot;).toggle(&quot;slow&quot;);
-    &#x2F;&#x2F; 滑动方式
-    &#x2F;&#x2F; $(&quot;#showDiv&quot;).slideToggle(&quot;slow&quot;);
-    &#x2F;&#x2F; 淡入淡出方式
+    // 默认方式
+    // $(&quot;#showDiv&quot;).toggle(&quot;slow&quot;);
+    // 滑动方式
+    // $(&quot;#showDiv&quot;).slideToggle(&quot;slow&quot;);
+    // 淡入淡出方式
     $(&quot;#showDiv&quot;).fadeToggle(&quot;slow&quot;);
 }
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <h2 id="2-遍历"><a href="#2-遍历" class="headerlink" title="2. 遍历"></a>2. 遍历</h2><h3 id="2-1-JS的遍历方式"><a href="#2-1-JS的遍历方式" class="headerlink" title="2.1 JS的遍历方式"></a>2.1 JS的遍历方式</h3><ul>
 <li><code>for(初始值;循环结束条件;步长)</code></li>
@@ -511,14 +509,12 @@ function toggleFn() {
 </li>
 </ul>
 <h4 id="2-each-object-callback"><a href="#2-each-object-callback" class="headerlink" title="2. $.each(object,[callback])"></a>2. <code>$.each(object,[callback])</code></h4><h4 id="3-for-of"><a href="#3-for-of" class="headerlink" title="3. for..of"></a>3. <code>for..of</code></h4><p>3.0版本之后提供的方式，使用方法：<code>for(元素对象 of 容器对象)</code></p>
-<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-    &#x2F;&#x2F; 1. js方法遍历
-    &#x2F;&#x2F; 获取所有ul下的li
+    // 1. js方法遍历
+    // 获取所有ul下的li
     var citys = $(&quot;#city li&quot;);
-    &#x2F;&#x2F; 遍历li
+    // 遍历li
     for (var i = 0; i &lt; citys.length; i++){
         if (&quot;上海&quot; == citys[i].innerHTML ){
             break;
@@ -526,32 +522,32 @@ function toggleFn() {
         }
         alert(i+&quot;:&quot;+citys[i].innerHTML);
     }
-    
-    &#x2F;&#x2F; 2. jq方法遍历，JQ对象.each(callback)
+
+    // 2. jq方法遍历，JQ对象.each(callback)
     citys.each(function (index,element) {
-        &#x2F;&#x2F; 获取li对象,使用this
-        &#x2F;&#x2F; alert(this.innerHTML);
-        &#x2F;&#x2F; 获取li对象，在回调函数中定义参数，index,element
-        &#x2F;&#x2F; 判断如果是上海，则结束循环
+        // 获取li对象,使用this
+        // alert(this.innerHTML);
+        // 获取li对象，在回调函数中定义参数，index,element
+        // 判断如果是上海，则结束循环
         if (&quot;上海&quot; == $(element).html()){
-            &#x2F;&#x2F; 如果当前function返回为false，则结束循环(break);
-            &#x2F;&#x2F; 如果返回为true，则结束本次循环，继续下次循环(continue);
+            // 如果当前function返回为false，则结束循环(break);
+            // 如果返回为true，则结束本次循环，继续下次循环(continue);
             return true;
         }
         alert(index+&quot;:&quot;+$(element).html());
     })
 
-    &#x2F;&#x2F; 3. $.each(object,[callback]);
+    // 3. $.each(object,[callback]);
     $.each(citys,function () {
         alert($(this).html());
     })
-    
-    &#x2F;&#x2F; 4. for..of(jquery3.0之后提供的方式)
+
+    // 4. for..of(jquery3.0之后提供的方式)
     for (li of citys){
         alert(li.innerHTML);
     }
 })
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <h2 id="3-事件绑定"><a href="#3-事件绑定" class="headerlink" title="3. 事件绑定"></a>3. 事件绑定</h2><h3 id="3-1-JQuery标准的绑定方式"><a href="#3-1-JQuery标准的绑定方式" class="headerlink" title="3.1 JQuery标准的绑定方式"></a>3.1 <code>JQuery标准的绑定方式</code></h3><ul>
 <li><code>JQuery对象.事件方法(回调函数)</code></li>
@@ -562,30 +558,28 @@ function toggleFn() {
 <ul>
 <li><code>表单对象.submit();</code>  ： 让表单提交</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-    &#x2F;&#x2F; 1. 获取name对象，表单click事件
+    // 1. 获取name对象，表单click事件
     $(&quot;#name&quot;).click(function () {
         alert(&quot;我被点击了&quot;)
     });
-    &#x2F;&#x2F; 给name绑定聚焦离焦事件
+    // 给name绑定聚焦离焦事件
     $(&quot;#name&quot;).mouseover(function () {
         alert(&quot;鼠标来了...&quot;)
     })
     $(&quot;#name&quot;).mouseout(function () {
         alert(&quot;鼠标走了...&quot;)
     })
-    &#x2F;&#x2F; 简化操作，链式编程
+    // 简化操作，链式编程
     $(&quot;#name&quot;).mouseover(function () {
         alert(&quot;鼠标来了...&quot;);
     }).mouseout(function () {
         alert(&quot;鼠标走了&quot;)
     });
-    $(&quot;#name&quot;).focus(); &#x2F;&#x2F; 浏览器默认行为：让文本输入框获得焦点
+    $(&quot;#name&quot;).focus(); // 浏览器默认行为：让文本输入框获得焦点
 })
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <h3 id="3-2-on绑定事件-off解除绑定"><a href="#3-2-on绑定事件-off解除绑定" class="headerlink" title="3.2 on绑定事件/off解除绑定"></a>3.2 <code>on绑定事件/off解除绑定</code></h3><ul>
 <li><code>JQuery对象.on(&quot;事件名称&quot;,回调函数)</code></li>
@@ -594,22 +588,20 @@ function toggleFn() {
 </ul>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
      $(function () {
-     &#x2F;&#x2F; 1. 使用on绑定点击事件
+     // 1. 使用on绑定点击事件
      $(&quot;#btn&quot;).on(&quot;click&quot;,function () {
          alert(&quot;我被点击了...&quot;)
      })
      $(&quot;#btn2&quot;).click(function () {
          alert(&quot;解除了单击事件...&quot;)
-         &#x2F;&#x2F; 解绑btn单击事件
-         &#x2F;&#x2F; $(&quot;#btn&quot;).off(&quot;click&quot;);
-         $(&quot;#btn&quot;).off();&#x2F;&#x2F; 将组件上的所有事件全部解绑
+         // 解绑btn单击事件
+         // $(&quot;#btn&quot;).off(&quot;click&quot;);
+         $(&quot;#btn&quot;).off();// 将组件上的所有事件全部解绑
      })
  })
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <h3 id="3-3-事件切换：toggle"><a href="#3-3-事件切换：toggle" class="headerlink" title="3.3 事件切换：toggle"></a>3.3 事件切换：<code>toggle</code></h3><ul>
 <li><code>JQuery对象.toggle(fn1,fu2...)</code>：当单击JQ对象对应的组件后，会执行<code>fn1</code>，第二次点击会执行<code>fn2...</code></li>
@@ -617,83 +609,77 @@ function toggleFn() {
 <blockquote>
 <p>Notice：1.9版本之后<code>.toggle()</code>方法删除，使用<code>JQuery Migrate</code>(迁移)插件可恢复此功能。</p>
 </blockquote>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&lt;script src=&quot;..&#x2F;js&#x2F;jquery-migrate-1.0.0.js&quot; type=&quot;text&#x2F;javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;&#x2F;script&gt;
-&lt;script type=&quot;text&#x2F;javascript&quot;&gt;
+<pre><code class="java">&lt;script src=&quot;../js/jquery-migrate-1.0.0.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
     $(function () {
-    &#x2F;&#x2F; 获取按钮，调用toggle方法
+    // 获取按钮，调用toggle方法
     $(&quot;#btn&quot;).toggle(function () {
         $(&quot;#myDiv&quot;).css(&quot;backgroundColor&quot;,&quot;green&quot;);
     },function () {
         $(&quot;#myDiv&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);
     })
 })
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
-<h2 id="4-综合案例"><a href="#4-综合案例" class="headerlink" title="4. 综合案例"></a>4. 综合案例</h2><h4 id="4-1-广告图片自动显示与隐藏"><a href="#4-1-广告图片自动显示与隐藏" class="headerlink" title="4.1 广告图片自动显示与隐藏"></a>4.1 广告图片自动显示与隐藏</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<h2 id="4-综合案例"><a href="#4-综合案例" class="headerlink" title="4. 综合案例"></a>4. 综合案例</h2><h4 id="4-1-广告图片自动显示与隐藏"><a href="#4-1-广告图片自动显示与隐藏" class="headerlink" title="4.1 广告图片自动显示与隐藏"></a>4.1 广告图片自动显示与隐藏</h4><pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;广告的自动显示与隐藏&lt;&#x2F;title&gt;
+    &lt;title&gt;广告的自动显示与隐藏&lt;/title&gt;
     &lt;style&gt;
         #content{width:100%;height:500px;background:#999}
-    &lt;&#x2F;style&gt;
+    &lt;/style&gt;
     &lt;!--引入jquery--&gt;
-    &lt;script type=&quot;text&#x2F;javascript&quot; src=&quot;..&#x2F;js&#x2F;jquery-3.3.1.min.js&quot;&gt;&lt;&#x2F;script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;../js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
     &lt;script&gt;
-        &#x2F;*
+        /*
             需求：
                 1. 当页面加载完，3秒后，自动显示广告。
                 2. 广告显示5秒后，自动消失。
-         *&#x2F;
-        &#x2F;&#x2F; 1. 使用定时器来完成。setTimeout(执行一次定时器)
-        &#x2F;&#x2F; 2. 通过控制display属性来实现显示和隐藏
+         */
+        // 1. 使用定时器来完成。setTimeout(执行一次定时器)
+        // 2. 通过控制display属性来实现显示和隐藏
         $(function () {
-            &#x2F;&#x2F; 定义定时器，调用adShow方法 3秒后执行一次
+            // 定义定时器，调用adShow方法 3秒后执行一次
             setTimeout(adShow,3000);
-            &#x2F;&#x2F; 定义定时器，调用adHide方法，8秒后执行一次
+            // 定义定时器，调用adHide方法，8秒后执行一次
             setTimeout(adHide,8000);
         })
-        &#x2F;&#x2F; 显示广告
+        // 显示广告
         function adShow() {
-            &#x2F;&#x2F; 获取div，调用显示方法
+            // 获取div，调用显示方法
             $(&quot;#ad&quot;).show(&quot;slow&quot;);
         }
-        &#x2F;&#x2F; 隐藏广告
+        // 隐藏广告
         function adHide() {
             $(&quot;#ad&quot;).hide(&quot;slow&quot;);
         }
-    &lt;&#x2F;script&gt;
-&lt;&#x2F;head&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
 &lt;body&gt;
 &lt;!-- 整体的DIV --&gt;
 &lt;div&gt;
     &lt;!-- 广告DIV --&gt;
     &lt;div id=&quot;ad&quot; style=&quot;display: none;&quot;&gt;
-        &lt;img style=&quot;width:100%&quot; src=&quot;..&#x2F;img&#x2F;adv.jpg&quot; &#x2F;&gt;
-    &lt;&#x2F;div&gt;
+        &lt;img style=&quot;width:100%&quot; src=&quot;../img/adv.jpg&quot; /&gt;
+    &lt;/div&gt;
 
     &lt;!-- 下方正文部分 --&gt;
     &lt;div id=&quot;content&quot;&gt;
         正文部分
-    &lt;&#x2F;div&gt;
-&lt;&#x2F;div&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
-<h4 id="4-2-抽奖"><a href="#4-2-抽奖" class="headerlink" title="4.2 抽奖"></a>4.2 抽奖</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<h4 id="4-2-抽奖"><a href="#4-2-抽奖" class="headerlink" title="4.2 抽奖"></a>4.2 抽奖</h4><pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;jquery案例之抽奖&lt;&#x2F;title&gt;
-    &lt;script type=&quot;text&#x2F;javascript&quot; src=&quot;..&#x2F;js&#x2F;jquery-3.3.1.min.js&quot;&gt;&lt;&#x2F;script&gt;
+    &lt;title&gt;jquery案例之抽奖&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;../js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
     &lt;script&gt;
-        &#x2F;*
+        /*
             分析：
                 1. 给开始按钮绑定单击事件
                     1.1 定义循环定时器
@@ -704,63 +690,63 @@ function toggleFn() {
                     1.1 停止定时器
                     1.2 给大相框设置src属性
                         - 等于小相框当前src属性
-         *&#x2F;
-        &#x2F;&#x2F; 定义图片路径数组
-        var imgs = [&quot;..&#x2F;img&#x2F;man00.jpg&quot;,
-                    &quot;..&#x2F;img&#x2F;man01.jpg&quot;,
-                    &quot;..&#x2F;img&#x2F;man02.jpg&quot;,
-                    &quot;..&#x2F;img&#x2F;man03.jpg&quot;,
-                    &quot;..&#x2F;img&#x2F;man04.jpg&quot;,
-                    &quot;..&#x2F;img&#x2F;man05.jpg&quot;,
-                    &quot;..&#x2F;img&#x2F;man06.jpg&quot;]
+         */
+        // 定义图片路径数组
+        var imgs = [&quot;../img/man00.jpg&quot;,
+                    &quot;../img/man01.jpg&quot;,
+                    &quot;../img/man02.jpg&quot;,
+                    &quot;../img/man03.jpg&quot;,
+                    &quot;../img/man04.jpg&quot;,
+                    &quot;../img/man05.jpg&quot;,
+                    &quot;../img/man06.jpg&quot;]
         var startId;
-        var index; &#x2F;&#x2F; 随机角标
+        var index; // 随机角标
         $(function () {
-            &#x2F;&#x2F; 处理按钮是否可以使用效果
+            // 处理按钮是否可以使用效果
             $(&quot;#startID&quot;).prop(&quot;disabled&quot;,false);
             $(&quot;#stopID&quot;).prop(&quot;disabled&quot;,true);
 
-            &#x2F;&#x2F; 1. 给开始按钮绑定单击事件
+            // 1. 给开始按钮绑定单击事件
             $(&quot;#startID&quot;).click(function () {
-                &#x2F;&#x2F; 1.1 定义循环定时器， 20毫秒执行一次
+                // 1.1 定义循环定时器， 20毫秒执行一次
                 startId = setInterval(function () {
-                    &#x2F;&#x2F; 处理按钮是否可以使用效果
+                    // 处理按钮是否可以使用效果
                     $(&quot;#startID&quot;).prop(&quot;disabled&quot;,true);
                     $(&quot;#stopID&quot;).prop(&quot;disabled&quot;,false);
 
-                    &#x2F;&#x2F; 1.2 生成随机角标 0-6
-                    index = Math.floor(Math.random() * 7);  &#x2F;&#x2F; 0.000~0.999 --&gt; *7 =&gt; 0.0~6.9999
-                    &#x2F;&#x2F; 1.3 小相框src属性
+                    // 1.2 生成随机角标 0-6
+                    index = Math.floor(Math.random() * 7);  // 0.000~0.999 --&gt; *7 =&gt; 0.0~6.9999
+                    // 1.3 小相框src属性
                     $(&quot;#img1ID&quot;).prop(&quot;src&quot;,imgs[index]);
                 },20);
             })
-            &#x2F;&#x2F; 2. 给结束按钮绑定单击事件
+            // 2. 给结束按钮绑定单击事件
             $(&quot;#stopID&quot;).click(function () {
-                &#x2F;&#x2F; 处理按钮是否可以使用效果
+                // 处理按钮是否可以使用效果
                 $(&quot;#startID&quot;).prop(&quot;disabled&quot;,false);
                 $(&quot;#stopID&quot;).prop(&quot;disabled&quot;,true);
-                &#x2F;&#x2F; 2.1 停止定时器
+                // 2.1 停止定时器
                 clearInterval(startId);
-                &#x2F;&#x2F; 2.2 给大相框设置src属性
+                // 2.2 给大相框设置src属性
                 $(&quot;#img2ID&quot;).prop(&quot;src&quot;,imgs[index]).hide();
-                &#x2F;&#x2F; 1秒之后显示
+                // 1秒之后显示
                 $(&quot;#img2ID&quot;).show(1000);
             })
         })
-    &lt;&#x2F;script&gt;
-&lt;&#x2F;head&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
 &lt;body&gt;
 
 &lt;!-- 小像框 --&gt;
 &lt;div style=&quot;border-style:dotted;width:160px;height:100px&quot;&gt;
-    &lt;img id=&quot;img1ID&quot; src=&quot;..&#x2F;img&#x2F;man00.jpg&quot; style=&quot;width:160px;height:100px&quot;&#x2F;&gt;
-&lt;&#x2F;div&gt;
+    &lt;img id=&quot;img1ID&quot; src=&quot;../img/man00.jpg&quot; style=&quot;width:160px;height:100px&quot;/&gt;
+&lt;/div&gt;
 
 &lt;!-- 大像框 --&gt;
 &lt;div
         style=&quot;border-style:double;width:800px;height:500px;position:absolute;left:500px;top:10px&quot;&gt;
-    &lt;img id=&quot;img2ID&quot; src=&quot;..&#x2F;img&#x2F;man00.jpg&quot; width=&quot;800px&quot; height=&quot;500px&quot;&#x2F;&gt;
-&lt;&#x2F;div&gt;
+    &lt;img id=&quot;img2ID&quot; src=&quot;../img/man00.jpg&quot; width=&quot;800px&quot; height=&quot;500px&quot;/&gt;
+&lt;/div&gt;
 &lt;!-- 开始按钮 --&gt;
 &lt;input
         id=&quot;startID&quot;
@@ -775,32 +761,30 @@ function toggleFn() {
         value=&quot;点击停止&quot;
         style=&quot;width:150px;height:150px;font-size:22px&quot;
 &gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <h2 id="5-插件"><a href="#5-插件" class="headerlink" title="5. 插件"></a>5. 插件</h2><p>主要用于增强JQuery的功能，实现方式：</p>
 <ul>
 <li><code>$.fn.extend(object)</code>：增强通过JQuery获取的对象的功能，<code>$(&quot;#id&quot;)</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;01-jQuery对象进行方法扩展&lt;&#x2F;title&gt;
-    &lt;script src=&quot;..&#x2F;js&#x2F;jquery-3.3.1.min.js&quot; type=&quot;text&#x2F;javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;&#x2F;script&gt;
-    &lt;script type=&quot;text&#x2F;javascript&quot;&gt;
-        &#x2F;&#x2F; 1. 定义JQuery的对象插件
+    &lt;title&gt;01-jQuery对象进行方法扩展&lt;/title&gt;
+    &lt;script src=&quot;../js/jquery-3.3.1.min.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        // 1. 定义JQuery的对象插件
         $.fn.extend({
-            &#x2F;&#x2F; 定义了一个check()方法。所有的jq对象都可以调用该方法
+            // 定义了一个check()方法。所有的jq对象都可以调用该方法
             check:function () {
-                &#x2F;&#x2F; 让复选框选中
-                &#x2F;&#x2F; this:调用该方法的jq对象
+                // 让复选框选中
+                // this:调用该方法的jq对象
                 this.prop(&quot;checked&quot;,true);
             },
             uncheck:function () {
-              &#x2F;&#x2F; 不选中
+              // 不选中
                 this.prop(&quot;checked&quot;,false);
             }
         });
@@ -813,51 +797,49 @@ function toggleFn() {
                 $(&quot;input[type=&#39;checkbox&#39;]&quot;).uncheck();
             });
         })
-    &lt;&#x2F;script&gt;
-&lt;&#x2F;head&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
 &lt;body&gt;
 &lt;input id=&quot;btn-check&quot; type=&quot;button&quot; value=&quot;点击选中复选框&quot; &gt;
 &lt;input id=&quot;btn-uncheck&quot; type=&quot;button&quot; value=&quot;点击取消复选框选中&quot; &gt;
-&lt;br&#x2F;&gt;
+&lt;br/&gt;
 &lt;input type=&quot;checkbox&quot; value=&quot;football&quot;&gt;足球
 &lt;input type=&quot;checkbox&quot; value=&quot;basketball&quot;&gt;篮球
 &lt;input type=&quot;checkbox&quot; value=&quot;volleyball&quot;&gt;排球
 
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <ul>
 <li><code>$.extend(object)</code>：增强JQuery对象自身的功能，<code>$/jQuery</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;01-jQuery对象进行方法扩展&lt;&#x2F;title&gt;
-    &lt;script src=&quot;..&#x2F;js&#x2F;jquery-3.3.1.min.js&quot; type=&quot;text&#x2F;javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;&#x2F;script&gt;
-    &lt;script type=&quot;text&#x2F;javascript&quot;&gt;
-        &#x2F;&#x2F;对全局方法扩展2个方法，扩展min方法：求2个值的最小值；扩展max方法：求2个值最大值
+    &lt;title&gt;01-jQuery对象进行方法扩展&lt;/title&gt;
+    &lt;script src=&quot;../js/jquery-3.3.1.min.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        //对全局方法扩展2个方法，扩展min方法：求2个值的最小值；扩展max方法：求2个值最大值
         $.extend({
             max:function (a,b) {
-                &#x2F;&#x2F; 返回大值
+                // 返回大值
                 return a &gt;= b ? a:b;
             },
             min:function (a,b) {
-                &#x2F;&#x2F; 返回小值
+                // 返回小值
                 return a &lt;= b ? a:b;
             }
         });
-        &#x2F;&#x2F; 调用全局方法
+        // 调用全局方法
         alert($.max(4,3));
         alert($.min(4,3));
 
-    &lt;&#x2F;script&gt;
-&lt;&#x2F;head&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
 &lt;body&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
             </div>
@@ -1124,7 +1106,7 @@ function toggleFn() {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

@@ -410,14 +410,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        6.4k
+                        6.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        30 分
+                        28 分
                     </div>
                     
                 
@@ -467,14 +467,12 @@
 <ul>
 <li>项目src下创建log4j.properties文件，内容如下：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-properties">  # Global logging configuration
-  log4j.rootLogger=DEBUG, stdout
-  # Console output...
-  log4j.appender.stdout=org.apache.log4j.ConsoleAppender
-  log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-  log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+<pre><code class="properties"># Global logging configuration
+log4j.rootLogger=DEBUG, stdout
+# Console output...
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
 </code></pre>
 </li>
 </ul>
@@ -492,50 +490,45 @@
 </ul>
 </li>
 </ol>
-<h4 id="2-2-1-创建PO类"><a href="#2-2-1-创建PO类" class="headerlink" title="2.2.1 创建PO类"></a>2.2.1 创建PO类</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class User implements Serializable {
+<h4 id="2-2-1-创建PO类"><a href="#2-2-1-创建PO类" class="headerlink" title="2.2.1 创建PO类"></a>2.2.1 创建PO类</h4><pre><code class="java">public class User implements Serializable {
     private int id;
     private String username;
     private String sex;
     private Date birthday;
     private String address;
-	&#x2F;&#x2F; 省略get&#x2F;set
-    &#x2F;&#x2F; 省略toString
+    // 省略get/set
+    // 省略toString
 }
 </code></pre>
-<h4 id="2-2-2-创建全局配置文件"><a href="#2-2-2-创建全局配置文件" class="headerlink" title="2.2.2 创建全局配置文件"></a>2.2.2 创建全局配置文件</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+<h4 id="2-2-2-创建全局配置文件"><a href="#2-2-2-创建全局配置文件" class="headerlink" title="2.2.2 创建全局配置文件"></a>2.2.2 创建全局配置文件</h4><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;!DOCTYPE configuration
-        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;
-        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;
+        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
 &lt;configuration&gt;
     &lt;!-- 配置mybatis的环境信息 --&gt;
     &lt;environments default=&quot;development&quot;&gt;
         &lt;environment id=&quot;development&quot;&gt;
             &lt;!-- 配置JDBC事务控制，由mybatis进行管理 --&gt;
-            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;&#x2F;transactionManager&gt;
+            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
             &lt;!-- 配置数据源，采用dbcp连接池 --&gt;
             &lt;dataSource type=&quot;POOLED&quot;&gt;
-                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;
-                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:&#x2F;&#x2F;&#x2F;mybatis01?useUnicode=true&amp;amp;characterEncoding=utf8&quot;&#x2F;&gt;
-                &lt;property name=&quot;username&quot; value=&quot;root&quot;&#x2F;&gt;
-                &lt;property name=&quot;password&quot; value=&quot;123456&quot;&#x2F;&gt;
-            &lt;&#x2F;dataSource&gt;
-        &lt;&#x2F;environment&gt;
-    &lt;&#x2F;environments&gt;
-&lt;&#x2F;configuration&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:///mybatis01?useUnicode=true&amp;amp;characterEncoding=utf8&quot;/&gt;
+                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+                &lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+&lt;/configuration&gt;
+
 </code></pre>
-<h4 id="2-2-3-编写映射文件"><a href="#2-2-3-编写映射文件" class="headerlink" title="2.2.3 编写映射文件"></a>2.2.3 编写映射文件</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+<h4 id="2-2-3-编写映射文件"><a href="#2-2-3-编写映射文件" class="headerlink" title="2.2.3 编写映射文件"></a>2.2.3 编写映射文件</h4><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;!DOCTYPE mapper
-        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;
-        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
 &lt;!--
-	namespace：命名空间，它的作用就是对SQL进行分类化管理，可以理解为SQL隔离
-	注意：使用mapper代理开发时，namespace有特殊且重要的作用
+    namespace：命名空间，它的作用就是对SQL进行分类化管理，可以理解为SQL隔离
+    注意：使用mapper代理开发时，namespace有特殊且重要的作用
  --&gt;
 &lt;mapper namespace=&quot;test&quot;&gt;
     &lt;!--
@@ -547,34 +540,30 @@
             注意：如果参数为简单类型时，#{}里面的参数名称可以是任意定义
      --&gt;
     &lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;com.zero.model.User&quot;&gt;
-		SELECT * FROM USER WHERE id = #{id1}
-	&lt;&#x2F;select&gt;
+        SELECT * FROM USER WHERE id = #{id1}
+    &lt;/select&gt;
 
-&lt;&#x2F;mapper&gt;
+&lt;/mapper&gt;
 </code></pre>
-<h4 id="2-2-4-加载映射文件"><a href="#2-2-4-加载映射文件" class="headerlink" title="2.2.4 加载映射文件"></a>2.2.4 加载映射文件</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--加载映射文件--&gt;
+<h4 id="2-2-4-加载映射文件"><a href="#2-2-4-加载映射文件" class="headerlink" title="2.2.4 加载映射文件"></a>2.2.4 加载映射文件</h4><pre><code class="xml">&lt;!--加载映射文件--&gt;
 &lt;mappers&gt;
-    &lt;mapper resource=&quot;com&#x2F;zero&#x2F;sqlmap&#x2F;User.xml&quot;&#x2F;&gt;
-&lt;&#x2F;mappers&gt;
+    &lt;mapper resource=&quot;com/zero/sqlmap/User.xml&quot;/&gt;
+&lt;/mappers&gt;
 </code></pre>
-<h4 id="2-2-5-编写测试"><a href="#2-2-5-编写测试" class="headerlink" title="2.2.5 编写测试"></a>2.2.5 编写测试</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserTest {
+<h4 id="2-2-5-编写测试"><a href="#2-2-5-编写测试" class="headerlink" title="2.2.5 编写测试"></a>2.2.5 编写测试</h4><pre><code class="java">public class UserTest {
 
     @Test
     public void test1() throws IOException {
-        &#x2F;&#x2F;1. 读取配置文件
+        //1. 读取配置文件
         InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
-        &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+        //2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
-        &#x2F;&#x2F;3. 通过SqlSessionFactory创建SqlSession。
+        //3. 通过SqlSessionFactory创建SqlSession。
         SqlSession session = sessionFactory.openSession();
-        &#x2F;&#x2F;4. 调用SqlSession的操作数据库方法。
+        //4. 调用SqlSession的操作数据库方法。
         User user = session.selectOne(&quot;findUserById&quot;,10);
         System.out.println(user);
-        &#x2F;&#x2F;5. 关闭会话。
+        //5. 关闭会话。
         session.commit();
     }
 }
@@ -585,9 +574,7 @@
 <h4 id="2-2-6-查询案例"><a href="#2-2-6-查询案例" class="headerlink" title="2.2.6 查询案例"></a>2.2.6 查询案例</h4><h5 id="1-模糊查询"><a href="#1-模糊查询" class="headerlink" title="1. 模糊查询"></a>1. 模糊查询</h5><ul>
 <li>模糊查询，修改映射文件，添加如下内容：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--
+<pre><code class="xml">&lt;!--
         模糊查询用户信息：
             [${}]：表示拼接SQL字符串
              [${value}]：表示要拼接的是简单类型参数。
@@ -597,79 +584,69 @@
         --&gt;
 &lt;select id=&quot;findUserByName&quot; parameterType=&quot;String&quot; resultType=&quot;com.zero.model.User&quot;&gt;
     SELECT * FROM USER WHERE username like &#39;%${value}%&#39;
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
+
+
+
 </code></pre>
 <ul>
 <li>测试文件添加查询语句</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 通过姓名模糊查询用户集合
+<pre><code class="java">// 通过姓名模糊查询用户集合
 List&lt;User&gt; users = session.selectList(&quot;findUserByName&quot;, &quot;张&quot;);
 System.out.println(users);
 </code></pre>
 <h5 id="2-添加用户"><a href="#2-添加用户" class="headerlink" title="2. 添加用户"></a>2. 添加用户</h5><ul>
 <li>修改映射文件，添加内容</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--插入用户信息--&gt;
+<pre><code class="xml">&lt;!--插入用户信息--&gt;
 &lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.zero.model.User&quot;&gt;
     &lt;!--如果主键的值是通过MySQL自增机制生成的，那么我们此处无需再‘显式’的给ID赋值--&gt;
     INSERT into user (username,sex,birthday,address) values (#{username},#{sex},#{birthday},#{address})
-&lt;&#x2F;insert&gt;
+&lt;/insert&gt;
 </code></pre>
 <ul>
 <li>测试代码，注意：需在PO类User中添加一个没有id属性的全参构造方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 插入用户
+<pre><code class="java">// 插入用户
 session.insert(&quot;insertUser&quot;,new User(&quot;zero&quot;,&quot;男&quot;,new Date(),&quot;杭州&quot;));
+
 </code></pre>
 <h5 id="3-删除用户"><a href="#3-删除用户" class="headerlink" title="3. 删除用户"></a>3. 删除用户</h5><ul>
 <li>修改映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--通过id删除用户--&gt;
+<pre><code class="xml">&lt;!--通过id删除用户--&gt;
 &lt;delete id=&quot;deleteUserById&quot; parameterType=&quot;int&quot;&gt;
     delete from user where id = #{id}
-&lt;&#x2F;delete&gt;
+&lt;/delete&gt;
 &lt;!--通过姓名删除用户--&gt;
 &lt;delete id=&quot;deleteUserByName&quot; parameterType=&quot;String&quot;&gt;
     delete from user where username = #{name}
-&lt;&#x2F;delete&gt;
+&lt;/delete&gt;
 </code></pre>
 <ul>
 <li>测试代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 通过id删除用户
+<pre><code class="java">// 通过id删除用户
 session.delete(&quot;deleteUserById&quot;,28);
-&#x2F;&#x2F; 通过姓名删除用户，test是映射文件的命名空间
+// 通过姓名删除用户，test是映射文件的命名空间
 session.delete(&quot;test.deleteUserByName&quot;,&quot;张小明&quot;);
 </code></pre>
 <h5 id="4-更新用户"><a href="#4-更新用户" class="headerlink" title="4. 更新用户"></a>4. 更新用户</h5><ul>
 <li>映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--通过id更新用户--&gt;
+<pre><code class="xml">&lt;!--通过id更新用户--&gt;
 &lt;update id=&quot;updateUserById&quot; parameterType=&quot;com.zero.model.User&quot;&gt;
     update user set username=#{username},sex=#{sex} where id=#{id}
-&lt;&#x2F;update&gt;
+&lt;/update&gt;
 </code></pre>
 <ul>
 <li>测试代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 通过id更新用户
+<pre><code class="java">// 通过id更新用户
 User upUser = new User();
-upUser.setId(1); &#x2F;&#x2F; 输入要修改的用户id
-upUser.setUsername(&quot;赵六儿&quot;);&#x2F;&#x2F; 需修改的用户姓名
+upUser.setId(1); // 输入要修改的用户id
+upUser.setUsername(&quot;赵六儿&quot;);// 需修改的用户姓名
 upUser.setSex(&quot;女&quot;);
 session.update(&quot;updateUserById&quot;,upUser);
 </code></pre>
@@ -680,9 +657,7 @@ session.update(&quot;updateUserById&quot;,upUser);
 <li><p>修改映射文件添加用户内容</p>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--插入用户信息--&gt;
+<pre><code class="xml">&lt;!--插入用户信息--&gt;
 &lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.zero.model.User&quot;&gt;
     &lt;!--
    [selectKey标签]：通过select查询来生成主键
@@ -692,41 +667,37 @@ session.update(&quot;updateUserById&quot;,upUser);
    [last_insert_id]：MySQL的函数，要配合insert语句一起使用 --&gt;
     &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;int&quot; order=&quot;AFTER&quot;&gt;
         SELECT LAST_INSERT_ID()
-    &lt;&#x2F;selectKey&gt;
+    &lt;/selectKey&gt;
     &lt;!--如果主键的值是通过MySQL自增机制生成的，那么我们此处无需再‘显式’的给ID赋值--&gt;
     INSERT into user (username,sex,birthday,address) values (#{username},#{sex},#{birthday},#{address})
-&lt;&#x2F;insert&gt;
+&lt;/insert&gt;
 </code></pre>
 <ul>
 <li>使用Junit4的注解功能，抽取重复代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">private SqlSession session = null;
+<pre><code class="java">private SqlSession session = null;
 @Before
 public void before() throws IOException {
     System.out.println(&quot;before:获取session&quot;);
-    &#x2F;&#x2F;1. 读取配置文件
+    //1. 读取配置文件
     InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
-    &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+    //2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
     SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
-    &#x2F;&#x2F;3. 通过SqlSessionFactory创建SqlSession。
+    //3. 通过SqlSessionFactory创建SqlSession。
     session = sessionFactory.openSession();
 }
 
 @After
 public void after(){
     System.out.println(&quot;after:关闭会话&quot;);
-    &#x2F;&#x2F;5. 关闭会话。
+    //5. 关闭会话。
     session.close();
 }
 </code></pre>
 <ul>
 <li>测试代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java"> &#x2F;&#x2F; 插入用户后，将主键返回，设置到模型id中
+<pre><code class="java"> // 插入用户后，将主键返回，设置到模型id中
 @Test
 public void test2(){
     User user = new User(&quot;zero001&quot;, &quot;男&quot;, new Date(), &quot;杭州&quot;);
@@ -739,15 +710,13 @@ public void test2(){
 <h4 id="2-2-8-返回MySQL自增UUID"><a href="#2-2-8-返回MySQL自增UUID" class="headerlink" title="2.2.8 返回MySQL自增UUID"></a>2.2.8 返回MySQL自增UUID</h4><ul>
 <li>映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.gyf.domain.User&quot;&gt;
+<pre><code class="xml">&lt;insert id=&quot;insertUser&quot; parameterType=&quot;com.gyf.domain.User&quot;&gt;
     &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;String&quot; order=&quot;BEFORE&quot;&gt;
         SELECT UUID()
-    &lt;&#x2F;selectKey&gt;
+    &lt;/selectKey&gt;
     INSERT INTO USER (username,sex,birthday,address) 
     VALUES(#{username},#{sex},#{birthday},#{address})
-&lt;&#x2F;insert&gt;
+&lt;/insert&gt;
 </code></pre>
 <h3 id="2-3-小结"><a href="#2-3-小结" class="headerlink" title="2.3 小结"></a>2.3 小结</h3><ul>
 <li><code>parameterType</code>和<code>resultType</code><ul>
@@ -778,9 +747,7 @@ public void test2(){
 <h3 id="2-4-MyBatis的Dao编写-了解即可"><a href="#2-4-MyBatis的Dao编写-了解即可" class="headerlink" title="2.4 MyBatis的Dao编写(了解即可)"></a>2.4 MyBatis的Dao编写(了解即可)</h3><ul>
 <li>Dao层</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserDaoImpl  implements UserDao {
+<pre><code class="java">public class UserDaoImpl  implements UserDao {
     private SqlSessionFactory ssf;
 
     public UserDaoImpl() {
@@ -792,10 +759,10 @@ public void test2(){
 
     @Override
     public void save(User user) {
-        &#x2F;&#x2F; 获取session
+        // 获取session
         SqlSession session = ssf.openSession();
 
-        &#x2F;&#x2F; 插入用户
+        // 插入用户
         session.insert(&quot;insertUset&quot;,user);
 
         session.commit();
@@ -804,10 +771,10 @@ public void test2(){
 
     @Override
     public User findUserById(int id) {
-        &#x2F;&#x2F; 获取session
+        // 获取session
         SqlSession session = ssf.openSession();
 
-        &#x2F;&#x2F; 查询用户
+        // 查询用户
         User user = session.selectOne(&quot;findUserById&quot;, id);
 
         session.commit();
@@ -820,28 +787,26 @@ public void test2(){
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserDaoTest {
-&#x2F;&#x2F;    private SqlSession session = null;
+<pre><code class="java">public class UserDaoTest {
+//    private SqlSession session = null;
     private SqlSessionFactory sessionFactory;
 
     @Before
     public void before() throws IOException {
         System.out.println(&quot;before:获取session&quot;);
-        &#x2F;&#x2F;1. 读取配置文件
+        //1. 读取配置文件
         InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
-        &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+        //2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
         sessionFactory = new SqlSessionFactoryBuilder().build(is);
     }
 
 
     @Test
     public void test1(){
-        &#x2F;&#x2F; 调用dao
-        &#x2F;&#x2F; 1. 创建dao
+        // 调用dao
+        // 1. 创建dao
         UserDaoImpl userDao = new UserDaoImpl(sessionFactory);
-        &#x2F;&#x2F; 2. 查询
+        // 2. 查询
         User user = userDao.findUserById(1);
         System.out.println(user);
     }
@@ -860,65 +825,57 @@ public void test2(){
 <ul>
 <li>编写示例文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; mapper类
+<pre><code class="java">// mapper类
 public interface UserMapper {
     public void save(User user);
     public User findUserById(int id);
 }
 </code></pre>
 <p>映射文件:</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;!DOCTYPE mapper
-        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;
-        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
 &lt;!--
-	注意：使用mapper代理开发时，namespace值必须是接口全限定名
+    注意：使用mapper代理开发时，namespace值必须是接口全限定名
  --&gt;
 &lt;mapper namespace=&quot;com.zero.mapper.UserMapper&quot;&gt;
 
     &lt;insert id=&quot;save&quot; parameterType=&quot;com.zero.model.User&quot;&gt;
         INSERT into user (username,sex,birthday,address)
         values (#{username},#{sex},#{birthday},#{address})
-    &lt;&#x2F;insert&gt;
+    &lt;/insert&gt;
 
 
     &lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;com.zero.model.User&quot;&gt;
-		SELECT * FROM USER WHERE id = #{id}
-	&lt;&#x2F;select&gt;
+        SELECT * FROM USER WHERE id = #{id}
+    &lt;/select&gt;
 
-&lt;&#x2F;mapper&gt;
+&lt;/mapper&gt;
 </code></pre>
 <p>开发规范：</p>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/08/21/mapper-1566398292193.jpg" alt="mapper"></p>
 <ul>
 <li>添加映射配置文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--加载映射文件--&gt;
+<pre><code class="xml">&lt;!--加载映射文件--&gt;
 &lt;mappers&gt;
-    &lt;mapper resource=&quot;com&#x2F;zero&#x2F;mapper&#x2F;UserMapper.xml&quot;&#x2F;&gt;
-&lt;&#x2F;mappers&gt;
+    &lt;mapper resource=&quot;com/zero/mapper/UserMapper.xml&quot;/&gt;
+&lt;/mappers&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserMapperTest {
+<pre><code class="java">public class UserMapperTest {
 
     private SqlSession session = null;
 
     @Before
     public void before() throws IOException {
         System.out.println(&quot;before:获取session&quot;);
-        &#x2F;&#x2F;1. 读取配置文件
+        //1. 读取配置文件
         InputStream is = Resources.getResourceAsStream(&quot;SqlMapconfig.xml&quot;);
-        &#x2F;&#x2F;2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
+        //2. 通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂。
         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
         session = sessionFactory.openSession();
     }
@@ -926,15 +883,15 @@ public interface UserMapper {
     @After
     public void after(){
         System.out.println(&quot;after:关闭会话&quot;);
-        &#x2F;&#x2F;5. 关闭会话。
+        //5. 关闭会话。
         session.close();
     }
 
     @Test
     public void test1(){
-        &#x2F;&#x2F; 通过session获取接口代理类[默认代理：JDK实现的代理]
+        // 通过session获取接口代理类[默认代理：JDK实现的代理]
         UserMapper mapper = session.getMapper(UserMapper.class);
-        &#x2F;&#x2F; 查询
+        // 查询
         User user = mapper.findUserById(1);
         System.out.println(user);
         mapper.save(new User(&quot;xxx&quot;, &quot;x&quot;, new Date(), &quot;xx&quot;));
@@ -945,38 +902,34 @@ public interface UserMapper {
 <h2 id="3-全局配置文件其他配置"><a href="#3-全局配置文件其他配置" class="headerlink" title="3. 全局配置文件其他配置"></a>3. 全局配置文件其他配置</h2><h3 id="3-1-properties数据库文件配置"><a href="#3-1-properties数据库文件配置" class="headerlink" title="3.1 properties数据库文件配置"></a>3.1 properties数据库文件配置</h3><ul>
 <li>在src下配置<code>db.properties</code>文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-properties">driver=com.mysql.jdbc.Driver
-url=jdbc:mysql:&#x2F;&#x2F;&#x2F;mybatis01?useUnicode=true&amp;amp;characterEncoding=utf8
+<pre><code class="properties">driver=com.mysql.jdbc.Driver
+url=jdbc:mysql:///mybatis01?useUnicode=true&amp;amp;characterEncoding=utf8
 username=root
 password=123456
 </code></pre>
 <ul>
 <li>在全局配置文件中加载并使用</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;configuration&gt;
+<pre><code class="xml">&lt;configuration&gt;
     &lt;!--1. 加载配置文件--&gt;
-    &lt;properties resource=&quot;db.properties&quot;&#x2F;&gt;
+    &lt;properties resource=&quot;db.properties&quot;/&gt;
 
     &lt;!-- 配置mybatis的环境信息 --&gt;
     &lt;environments default=&quot;development&quot;&gt;
         &lt;environment id=&quot;development&quot;&gt;
             &lt;!-- 配置JDBC事务控制，由mybatis进行管理 --&gt;
-            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;&#x2F;transactionManager&gt;
+            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
             &lt;!-- 配置数据源，采用dbcp连接池 --&gt;
             &lt;dataSource type=&quot;POOLED&quot;&gt;
                 &lt;!--2. 使用${}，可以引用一句加载的java配置文件中的信息--&gt;
-                &lt;property name=&quot;driver&quot; value=&quot;${driver}&quot;&#x2F;&gt;
-                &lt;property name=&quot;url&quot; value=&quot;${url}&quot;&#x2F;&gt;
-                &lt;property name=&quot;username&quot; value=&quot;${username}&quot;&#x2F;&gt;
-                &lt;property name=&quot;password&quot; value=&quot;${password}&quot;&#x2F;&gt;
-            &lt;&#x2F;dataSource&gt;
-        &lt;&#x2F;environment&gt;
-    &lt;&#x2F;environments&gt;
-&lt;&#x2F;configuration&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;${driver}&quot;/&gt;
+                &lt;property name=&quot;url&quot; value=&quot;${url}&quot;/&gt;
+                &lt;property name=&quot;username&quot; value=&quot;${username}&quot;/&gt;
+                &lt;property name=&quot;password&quot; value=&quot;${password}&quot;/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+&lt;/configuration&gt;
 </code></pre>
 <h3 id="3-2-typeAliases"><a href="#3-2-typeAliases" class="headerlink" title="3.2 typeAliases"></a>3.2 <code>typeAliases</code></h3><p>别名的使用是为了在映射文件中，更方便的去指定参数和结果集的类型，不再用写很长一段全限定名。</p>
 <ul>
@@ -986,41 +939,33 @@ password=123456
 </li>
 <li>自定义别名</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--
+<pre><code class="xml">&lt;!--
 在全局配置文件中
 进行别名配置--&gt;
 &lt;typeAliases&gt;
     &lt;!--单个定义别名--&gt;
-    &lt;typeAlias type=&quot;com.zero.model.User&quot; alias=&quot;user&quot;&#x2F;&gt;
+    &lt;typeAlias type=&quot;com.zero.model.User&quot; alias=&quot;user&quot;/&gt;
     &lt;!-- 批量配置别名--&gt;
     &lt;!-- [name]：指定批量定义别名的类包，别名为类名，第一个字母小写(User=user)--&gt;
-    &lt;package name=&quot;com.zero.model&quot;&#x2F;&gt;
-&lt;&#x2F;typeAliases&gt;
+    &lt;package name=&quot;com.zero.model&quot;/&gt;
+&lt;/typeAliases&gt;
 </code></pre>
 <h3 id="3-3-加载映射文件的几种方式"><a href="#3-3-加载映射文件的几种方式" class="headerlink" title="3.3 加载映射文件的几种方式"></a>3.3 加载映射文件的几种方式</h3><ul>
 <li>使用相对于类路径的资源。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;mappers&gt;
-    &lt;mapper resource=&quot;com&#x2F;zero&#x2F;mapper&#x2F;UserMapper.xml&quot;&#x2F;&gt;
-&lt;&#x2F;mappers&gt;
+<pre><code class="xml">&lt;mappers&gt;
+    &lt;mapper resource=&quot;com/zero/mapper/UserMapper.xml&quot;/&gt;
+&lt;/mappers&gt;
 </code></pre>
 <ul>
 <li>使用mapper接口的全限定名。注意：此方法要求mapper接口和mapper映射文件名称相同，且在同一目录下。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;mappers&gt;
-    &lt;mapper class=&quot;com.zero.mapper.UserMapper&quot;&#x2F;&gt;
-&lt;&#x2F;mappers&gt;
+<pre><code class="xml">&lt;mappers&gt;
+    &lt;mapper class=&quot;com.zero.mapper.UserMapper&quot;/&gt;
+&lt;/mappers&gt;
 </code></pre>
 <p>​        如果没有映射文件，那么在接口中要声明注解。不推荐使用</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface UserMapper {
+<pre><code class="java">public interface UserMapper {
 
     @Insert(&quot;INSERT into user (username,sex,birthday,address) values (#{username},#{sex},#{birthday},#{address})&quot;)
     public void save(User user);
@@ -1031,29 +976,23 @@ password=123456
 <ul>
 <li>注册指定包下的所有映射文件。推荐</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;mappers&gt;
+<pre><code class="xml">&lt;mappers&gt;
 &lt;!--3. 注册指定包下的所有映射文件--&gt;
-    &lt;package name=&quot;com.zero.mapper&quot;&#x2F;&gt;
-&lt;&#x2F;mappers&gt;
+    &lt;package name=&quot;com.zero.mapper&quot;/&gt;
+&lt;/mappers&gt;
 </code></pre>
 <h2 id="4-MyBatis的映射文件"><a href="#4-MyBatis的映射文件" class="headerlink" title="4. MyBatis的映射文件"></a>4. MyBatis的映射文件</h2><h3 id="4-1-输入映射ParameterType"><a href="#4-1-输入映射ParameterType" class="headerlink" title="4.1 输入映射ParameterType"></a>4.1 输入映射<code>ParameterType</code></h3><p>指定输入参数的java类型，可以使用别名或类的全限定名。它可以接收简单类型、POJO对象、HashMap</p>
-<h4 id="4-1-1-传递简单类型"><a href="#4-1-1-传递简单类型" class="headerlink" title="4.1.1 传递简单类型"></a>4.1.1 传递简单类型</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;com.zero.model.User&quot;&gt;
+<h4 id="4-1-1-传递简单类型"><a href="#4-1-1-传递简单类型" class="headerlink" title="4.1.1 传递简单类型"></a>4.1.1 传递简单类型</h4><pre><code class="xml">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;com.zero.model.User&quot;&gt;
     SELECT * FROM USER WHERE id = #{id}
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
-<h4 id="4-1-2-传递POJO对象"><a href="#4-1-2-传递POJO对象" class="headerlink" title="4.1.2 传递POJO对象"></a>4.1.2 传递POJO对象</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--插入用户信息--&gt;
+<h4 id="4-1-2-传递POJO对象"><a href="#4-1-2-传递POJO对象" class="headerlink" title="4.1.2 传递POJO对象"></a>4.1.2 传递POJO对象</h4><pre><code class="xml">&lt;!--插入用户信息--&gt;
 &lt;insert id=&quot;insertUser&quot; parameterType=&quot;user&quot;&gt;
     &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;int&quot; order=&quot;AFTER&quot;&gt;
         SELECT LAST_INSERT_ID()
-    &lt;&#x2F;selectKey&gt;
+    &lt;/selectKey&gt;
     INSERT into user (username,sex,birthday,address) values (#{username},#{sex},#{birthday},#{address})
-&lt;&#x2F;insert&gt;
+&lt;/insert&gt;
 </code></pre>
 <h4 id="4-1-3-传递POJO包装对象"><a href="#4-1-3-传递POJO包装对象" class="headerlink" title="4.1.3 传递POJO包装对象"></a>4.1.3 传递POJO包装对象</h4><p>开发中通过pojo传递查询条件 ，查询条件是综合的查询条件。不仅包括用户查询条件还包括其它的查询条件（比如将用户购买商品信息也作为查询条件），这时可以使用包装对象传递输入参数。</p>
 <ul>
@@ -1062,9 +1001,7 @@ password=123456
 <li><p>定义POJO包装类</p>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserQueryVO {
+<pre><code class="java">public class UserQueryVO {
 
     private User user;
 
@@ -1080,9 +1017,7 @@ password=123456
 <ul>
 <li>修改映射接口</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface UserMapper {
+<pre><code class="java">public interface UserMapper {
     public void save(User user);
 
     public User findUserById(int id);
@@ -1092,28 +1027,24 @@ password=123456
 <ul>
 <li>修改映射文件，添加查询方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--查找用户id为n的用户--&gt;
+<pre><code class="xml">&lt;!--查找用户id为n的用户--&gt;
 &lt;select id=&quot;findUserByUserQueryVo&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
     select u.* from user u where u.id = #{user.id}
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test1(){
     UserMapper mapper = session.getMapper(UserMapper.class);
-    &#x2F;&#x2F; 构造查询对象
+    // 构造查询对象
     UserQueryVO query = new UserQueryVO();
-    &#x2F;&#x2F; 设置set
+    // 设置set
     User user = new User();
     user.setId(1);
     query.setUser(user);
-    &#x2F;&#x2F; 查询用户列表
+    // 查询用户列表
     List&lt;User&gt; queryVo = mapper.findUserByUserQueryVo(query);
     System.out.println(queryVo);
 }
@@ -1121,9 +1052,7 @@ public void test1(){
 <h4 id="4-1-4-传递Map对象"><a href="#4-1-4-传递Map对象" class="headerlink" title="4.1.4 传递Map对象"></a>4.1.4 传递Map对象</h4><ul>
 <li>修改映射接口文件,添加方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public interface UserMapper {
+<pre><code class="java">public interface UserMapper {
 
     public void save(User user);
 
@@ -1137,26 +1066,22 @@ public void test1(){
 <ul>
 <li>修改映射文件，添加查询语句</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserByMap&quot; parameterType=&quot;hashMap&quot; resultType=&quot;user&quot;&gt;
+<pre><code class="xml">&lt;select id=&quot;findUserByMap&quot; parameterType=&quot;hashMap&quot; resultType=&quot;user&quot;&gt;
     select u.* from user u
     where username like &#39;%${username}%&#39; and sex=#{sex}
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java"> @Test
+<pre><code class="java"> @Test
 public void  test2(){
     UserMapper mapper = session.getMapper(UserMapper.class);
-    &#x2F;&#x2F; 构建map
+    // 构建map
     Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
     map.put(&quot;username&quot;,&quot;张&quot;);
     map.put(&quot;sex&quot;,&quot;1&quot;);
-    &#x2F;&#x2F; 查询数据
+    // 查询数据
     List&lt;User&gt; users = mapper.findUserByMap(map);
     System.out.println(users);
 }
@@ -1176,25 +1101,19 @@ public void  test2(){
 <li><p>映射接口文件中添加方法</p>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public int findUserCount(UserQueryVO vo);
+<pre><code class="java">public int findUserCount(UserQueryVO vo);
 </code></pre>
 <ul>
 <li>映射文件中添加查询方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserCount&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;int&quot;&gt;
+<pre><code class="xml">&lt;select id=&quot;findUserCount&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;int&quot;&gt;
     select count(*) from user where sex=#{user.sex}
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void  test3(){
     UserMapper mapper = session.getMapper(UserMapper.class);
     UserQueryVO query = new UserQueryVO();
@@ -1208,34 +1127,26 @@ public void  test3(){
 <h5 id="4-2-1-2-输出单个POJO对象"><a href="#4-2-1-2-输出单个POJO对象" class="headerlink" title="4.2.1.2 输出单个POJO对象"></a>4.2.1.2 输出单个POJO对象</h5><ul>
 <li>接口文件添加方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public User findUserById(int id);
+<pre><code class="java">public User findUserById(int id);
 </code></pre>
 <ul>
 <li>映射文件添加查询方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot;&gt;
+<pre><code class="xml">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;user&quot;&gt;
     SELECT * FROM USER WHERE id = #{id}
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <h5 id="4-2-1-3-输出多个POJO对象"><a href="#4-2-1-3-输出多个POJO对象" class="headerlink" title="4.2.1.3 输出多个POJO对象"></a>4.2.1.3 输出多个POJO对象</h5><ul>
 <li>接口</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public List&lt;User&gt; findUserByUserQueryVo(UserQueryVO vo);
+<pre><code class="java">public List&lt;User&gt; findUserByUserQueryVo(UserQueryVO vo);
 </code></pre>
 <ul>
 <li>映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;select id=&quot;findUserByUserQueryVo&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
+<pre><code class="xml">&lt;select id=&quot;findUserByUserQueryVo&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
     select u.* from user u where u.id = #{user.id}
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <h5 id="4-2-1-小结"><a href="#4-2-1-小结" class="headerlink" title="4.2.1 小结"></a>4.2.1 小结</h5><p>输出单个POJO对象和POJO列表时，mapper映射文件中的resultType的类型是一样的，mapper接口的方法返回值不同。</p>
 <p>同样的mapper映射文件，返回单个对象和对象列表时，mapper接口在生成动态代理时，会根据返回值的类型，决定调用selectOne方法还是selectList方法。</p>
@@ -1249,28 +1160,24 @@ public void  test3(){
 <ul>
 <li>mapper接口</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public User findUserByIdResultMap(int id);
+<pre><code class="java">public User findUserByIdResultMap(int id);
 </code></pre>
 <ul>
 <li>映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--设置返回类型为resultMap--&gt;
+<pre><code class="xml">&lt;!--设置返回类型为resultMap--&gt;
 &lt;resultMap id=&quot;userResultMap&quot; type=&quot;user&quot;&gt;
     &lt;!--自定义resultMap列名与属性之间的映射关系--&gt;
-    &lt;id property=&quot;id&quot; column=&quot;id_&quot; &#x2F;&gt;
-    &lt;result property=&quot;username&quot; column=&quot;username_&quot; &#x2F;&gt;
-    &lt;result property=&quot;sex&quot; column=&quot;sex_&quot; &#x2F;&gt;
-    &lt;result property=&quot;birthday&quot; column=&quot;birthday_&quot; &#x2F;&gt;
-    &lt;result property=&quot;address&quot; column=&quot;address_&quot; &#x2F;&gt;
-&lt;&#x2F;resultMap&gt;
+    &lt;id property=&quot;id&quot; column=&quot;id_&quot; /&gt;
+    &lt;result property=&quot;username&quot; column=&quot;username_&quot; /&gt;
+    &lt;result property=&quot;sex&quot; column=&quot;sex_&quot; /&gt;
+    &lt;result property=&quot;birthday&quot; column=&quot;birthday_&quot; /&gt;
+    &lt;result property=&quot;address&quot; column=&quot;address_&quot; /&gt;
+&lt;/resultMap&gt;
 &lt;select id=&quot;findUserByIdResultMap&quot; parameterType=&quot;int&quot; resultMap=&quot;userResultMap&quot;&gt;
     select id id_, username username_, sex sex_,birthday birthday_, address address_
     from user where id=#{id};
-&lt;&#x2F;select&gt;
+&lt;/select&gt;
 </code></pre>
 <h2 id="5-动态SQL"><a href="#5-动态SQL" class="headerlink" title="5. 动态SQL"></a>5. 动态SQL</h2><h3 id="5-1-if和where"><a href="#5-1-if和where" class="headerlink" title="5.1 if和where"></a>5.1 if和where</h3><ul>
 <li><p>if标签：作为判断入参来使用的，如果条件符合，则把if标签体内的SQL拼接上。</p>
@@ -1281,70 +1188,60 @@ public void  test3(){
 <ul>
 <li>修改mapper接口</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  public List&lt;User&gt; findUserList(UserQueryVO vo);
+<pre><code class="java">public List&lt;User&gt; findUserList(UserQueryVO vo);
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>修改映射文件</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;!--    动态拼接SQL--&gt;
-  &lt;select id=&quot;findUserList&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
-      select * from user
-      -- 条件判断
-      &lt;where&gt;
-          &lt;if test=&quot;user != null&quot;&gt;
-              &lt;if test=&quot;user.sex != null and user.sex != &#39;&#39;&quot;&gt;
-                  sex=#{user.sex}
-              &lt;&#x2F;if&gt;
-              &lt;if test=&quot;user.username != null and user.username != &#39;&#39;&quot;&gt;
-                  and username like &#39;%${user.username}%&#39;
-              &lt;&#x2F;if&gt;
-          &lt;&#x2F;if&gt;
-      &lt;&#x2F;where&gt;
-  &lt;&#x2F;select&gt;
+<li>修改映射文件</li>
+</ul>
+<pre><code class="xml">&lt;!--    动态拼接SQL--&gt;
+&lt;select id=&quot;findUserList&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
+    select * from user
+    -- 条件判断
+    &lt;where&gt;
+        &lt;if test=&quot;user != null&quot;&gt;
+            &lt;if test=&quot;user.sex != null and user.sex != &#39;&#39;&quot;&gt;
+                sex=#{user.sex}
+            &lt;/if&gt;
+            &lt;if test=&quot;user.username != null and user.username != &#39;&#39;&quot;&gt;
+                and username like &#39;%${user.username}%&#39;
+            &lt;/if&gt;
+        &lt;/if&gt;
+    &lt;/where&gt;
+&lt;/select&gt;
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>测试</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  &#x2F;&#x2F; 动态拼接SQL
-  @Test
-  public void  test5(){
-      UserMapper mapper = session.getMapper(UserMapper.class);
-      UserQueryVO query = new UserQueryVO();
-      User user = new User();
-      user.setSex(&quot;1&quot;);
-      user.setUsername(&quot;张&quot;);
-      query.setUser(user);
-      List&lt;User&gt; list = mapper.findUserList(query);
-      System.out.println(list);
-  }
+<li>测试</li>
+</ul>
+<pre><code class="java">// 动态拼接SQL
+@Test
+public void  test5(){
+    UserMapper mapper = session.getMapper(UserMapper.class);
+    UserQueryVO query = new UserQueryVO();
+    User user = new User();
+    user.setSex(&quot;1&quot;);
+    user.setUsername(&quot;张&quot;);
+    query.setUser(user);
+    List&lt;User&gt; list = mapper.findUserList(query);
+    System.out.println(list);
+}
 </code></pre>
 </li>
 </ul>
 <h3 id="5-2-SQL片段"><a href="#5-2-SQL片段" class="headerlink" title="5.2 SQL片段"></a>5.2 SQL片段</h3><p>MyBatis提供了SQL片段功能，可提高SQL的可重用性</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--声明一个SQL片段--&gt;
+<pre><code class="xml">&lt;!--声明一个SQL片段--&gt;
 &lt;sql id=&quot;select_user_where&quot;&gt;
     &lt;if test=&quot;user != null&quot;&gt;
         &lt;if test=&quot;user.sex != null and user.sex != &#39;&#39;&quot;&gt;
             sex=#{user.sex}
-        &lt;&#x2F;if&gt;
+        &lt;/if&gt;
         &lt;if test=&quot;user.username != null and user.username != &#39;&#39;&quot;&gt;
             and username like &#39;%${user.username}%&#39;
-        &lt;&#x2F;if&gt;
+        &lt;/if&gt;
         &lt;if test=&quot;user.address != null and user.address != &#39;&#39;&quot;&gt;
             and address like &#39;%${user.address}%&#39;
-        &lt;&#x2F;if&gt;
-    &lt;&#x2F;if&gt;
-&lt;&#x2F;sql&gt;
+        &lt;/if&gt;
+    &lt;/if&gt;
+&lt;/sql&gt;
 
 &lt;!--动态拼接SQL--&gt;
 &lt;select id=&quot;findUserList&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
@@ -1352,16 +1249,14 @@ public void  test3(){
     -- 条件判断
     &lt;where&gt;
         -- 引用SQL片段
-        &lt;include refid=&quot;select_user_where&quot;&#x2F;&gt;
-    &lt;&#x2F;where&gt;
-&lt;&#x2F;select&gt;
+        &lt;include refid=&quot;select_user_where&quot;/&gt;
+    &lt;/where&gt;
+&lt;/select&gt;
 </code></pre>
 <h3 id="5-3-forEach遍历"><a href="#5-3-forEach遍历" class="headerlink" title="5.3 forEach遍历"></a>5.3 forEach遍历</h3><ul>
 <li>查询对象类中新增ids属性，存放id列表</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserQueryVO {
+<pre><code class="java">public class UserQueryVO {
 
     private User user;
 
@@ -1387,19 +1282,15 @@ public void  test3(){
 <ul>
 <li>mapper接口</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * 查询多个id的用户数据
-     *&#x2F;
+     */
 public List&lt;User&gt; findUserByIds(UserQueryVO vo);
 </code></pre>
 <ul>
 <li>映射文件</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--foreach示例--&gt;
+<pre><code class="xml">&lt;!--foreach示例--&gt;
 &lt;select id=&quot;findUserByIds&quot; parameterType=&quot;userQueryVO&quot; resultType=&quot;user&quot;&gt;
     select * from user
     -- select * from user where id in (10,24,37);
@@ -1415,22 +1306,20 @@ public List&lt;User&gt; findUserByIds(UserQueryVO vo);
                 --&gt;
             &lt;foreach collection=&quot;ids&quot; item=&quot;id&quot; open=&quot;id in(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
                 ${id}
-            &lt;&#x2F;foreach&gt;
-        &lt;&#x2F;if&gt;
-    &lt;&#x2F;where&gt;
-&lt;&#x2F;select&gt;
+            &lt;/foreach&gt;
+        &lt;/if&gt;
+    &lt;/where&gt;
+&lt;/select&gt;
 </code></pre>
 <ul>
 <li>测试</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void  test6() {
     UserMapper mapper = session.getMapper(UserMapper.class);
     UserQueryVO query = new UserQueryVO();
     List&lt;Integer&gt; ids = new ArrayList&lt;&gt;();
-    &#x2F;&#x2F;select * from user where id in (10,24,37);
+    //select * from user where id in (10,24,37);
     ids.add(10);
     ids.add(24);
     ids.add(37);
@@ -1444,33 +1333,28 @@ public void  test6() {
 <ul>
 <li>mapper接口</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  public List&lt;User&gt; findUserByLists(List&lt;Integer&gt; list);
+<pre><code class="java">public List&lt;User&gt; findUserByLists(List&lt;Integer&gt; list);
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>映射文件</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">  &lt;!--如果参数是数组的话，parameterType可以写全限定名，也可以写别名--&gt;
-  &lt;select id=&quot;findUserByLists&quot; parameterType=&quot;java.util.List&quot; resultType=&quot;user&quot;&gt;
-      select * from user
-      &lt;where&gt;
-          &lt;if test=&quot;list != null and list.size &gt; 0&quot;&gt;
-              -- 如果是直接传入集合参数，则该处参数名称只能填写[list]
-              &lt;foreach collection=&quot;list&quot; item=&quot;id&quot; open=&quot;id in(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
-                  ${id}
-              &lt;&#x2F;foreach&gt;
-          &lt;&#x2F;if&gt;
-      &lt;&#x2F;where&gt;
-  &lt;&#x2F;select&gt;
-</code></pre>
-</li>
+<li>映射文件</li>
 </ul>
+<pre><code class="xml">&lt;!--如果参数是数组的话，parameterType可以写全限定名，也可以写别名--&gt;
+&lt;select id=&quot;findUserByLists&quot; parameterType=&quot;java.util.List&quot; resultType=&quot;user&quot;&gt;
+    select * from user
+    &lt;where&gt;
+        &lt;if test=&quot;list != null and list.size &gt; 0&quot;&gt;
+            -- 如果是直接传入集合参数，则该处参数名称只能填写[list]
+            &lt;foreach collection=&quot;list&quot; item=&quot;id&quot; open=&quot;id in(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
+                ${id}
+            &lt;/foreach&gt;
+        &lt;/if&gt;
+    &lt;/where&gt;
+&lt;/select&gt;
+</code></pre>
 <ul>
 <li>测试同上，查询方法改一下即可。</li>
+</ul>
+</li>
 </ul>
 <h2 id="6-MyBatis与Hibernate的区别"><a href="#6-MyBatis与Hibernate的区别" class="headerlink" title="6. MyBatis与Hibernate的区别"></a>6. MyBatis与Hibernate的区别</h2><h3 id="6-1-MyBatis技术特点"><a href="#6-1-MyBatis技术特点" class="headerlink" title="6.1 MyBatis技术特点"></a>6.1 MyBatis技术特点</h3><ul>
 <li>好处：<ul>
@@ -1779,7 +1663,7 @@ orders和or</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

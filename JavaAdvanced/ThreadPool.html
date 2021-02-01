@@ -412,14 +412,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.8k
+                        2.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        12 分
+                        11 分
                     </div>
                     
                 
@@ -452,12 +452,10 @@
 <ul>
 <li>代码示例：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 一池子5个工作线程，类似一个银行有5个受理窗口
+<pre><code class="java">// 一池子5个工作线程，类似一个银行有5个受理窗口
 ExecutorService threadPool = Executors.newFixedThreadPool(5);
 try{
-    &#x2F;&#x2F; 模拟有10个顾客来银行办理业务，目前池子里有5个工作人员提供服务
+    // 模拟有10个顾客来银行办理业务，目前池子里有5个工作人员提供服务
     for (int i = 1; i &lt;= 10; i++) {
         int finalI = i;
         threadPool.execute(()-&gt; System.out.println(Thread.currentThread().getName()+&quot;\t 办理业务&quot;+ finalI));
@@ -471,9 +469,7 @@ try{
 <ul>
 <li>底层代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public static ExecutorService newFixedThreadPool(int nThreads) {
+<pre><code class="java">public static ExecutorService newFixedThreadPool(int nThreads) {
     return new ThreadPoolExecutor(nThreads, nThreads,
                                   0L, TimeUnit.MILLISECONDS,
                                   new LinkedBlockingQueue&lt;Runnable&gt;());
@@ -484,12 +480,10 @@ try{
 <ul>
 <li>代码示例：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 一池1个工作线程，类似一个银行有1个受理窗口
+<pre><code class="java">// 一池1个工作线程，类似一个银行有1个受理窗口
 ExecutorService threadPool = Executors.newSingleThreadExecutor();
 try{
-    &#x2F;&#x2F; 10个顾客来银行，只有一个窗口开放
+    // 10个顾客来银行，只有一个窗口开放
     for (int i = 1; i &lt;= 10; i++) {
         int finalI = i;
         threadPool.execute(()-&gt; System.out.println(Thread.currentThread().getName()+&quot;\t 办理业务&quot;+ finalI));
@@ -503,9 +497,7 @@ try{
 <ul>
 <li>底层代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public static ExecutorService newSingleThreadExecutor() {
+<pre><code class="java">public static ExecutorService newSingleThreadExecutor() {
     return new FinalizableDelegatedExecutorService
         (new ThreadPoolExecutor(1, 1,
                                 0L, TimeUnit.MILLISECONDS,
@@ -517,12 +509,10 @@ try{
 <ul>
 <li>代码示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 该线程池会根据线程执行时间，自动扩容
+<pre><code class="java">// 该线程池会根据线程执行时间，自动扩容
 ExecutorService threadPool = Executors.newCachedThreadPool();
 try{
-    &#x2F;&#x2F; 模拟有10个顾客来银行办理业务
+    // 模拟有10个顾客来银行办理业务
     for (int i = 1; i &lt;= 10; i++) {
         TimeUnit.SECONDS.sleep(1);
         int finalI = i;
@@ -537,9 +527,7 @@ try{
 <ul>
 <li>底层代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public static ExecutorService newCachedThreadPool() {
+<pre><code class="java">public static ExecutorService newCachedThreadPool() {
     return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
                                   60L, TimeUnit.SECONDS,
                                   new SynchronousQueue&lt;Runnable&gt;());
@@ -550,9 +538,7 @@ try{
 <ul>
 <li>源码如下：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public ThreadPoolExecutor(int corePoolSize,
+<pre><code class="java">public ThreadPoolExecutor(int corePoolSize,
                           int maximumPoolSize,
                           long keepAliveTime,
                           TimeUnit unit,
@@ -593,9 +579,7 @@ try{
 <li>CPU密集型线程任务，最大线程数<code>maximumPoolSize</code>一般定义为<strong>CPU核心数+1</strong>，Java中代码获取CPU核心数：<code>Runtime.getRuntime().availableProcessors()</code></li>
 <li>自定义线程池代码示例</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">ExecutorService threadPool = new ThreadPoolExecutor(
+<pre><code class="java">ExecutorService threadPool = new ThreadPoolExecutor(
     2,
     Runtime.getRuntime().availableProcessors(),
     2,TimeUnit.SECONDS,
@@ -662,25 +646,21 @@ try{
 <ol>
 <li>函数型接口，操作T，返回R，方法apply</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 匿名内部类写法
+<pre><code class="java">// 匿名内部类写法
 Function&lt;String,Integer&gt; function = new Function&lt;String, Integer&gt;() {
     @Override
     public Integer apply(String s) {
         return s.length();
     }
 };
-&#x2F;&#x2F; lambda写法
+// lambda写法
 Function&lt;String,Integer&gt; function = s -&gt; {return s.length();};
 System.out.println(function.apply(&quot;hello&quot;));
 </code></pre>
 <ol start="2">
 <li>断定型接口，操作T，返回布尔，方法test</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">Predicate&lt;String&gt; predicate = new Predicate&lt;String&gt;() {
+<pre><code class="java">Predicate&lt;String&gt; predicate = new Predicate&lt;String&gt;() {
     @Override
     public boolean test(String s) {
         return s.isEmpty();
@@ -692,9 +672,7 @@ System.out.println(predicate.test(&quot;hello&quot;));
 <ol start="3">
 <li>消费型接口，操作S，无返回，方法accept</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">Consumer&lt;String&gt; consumer = new Consumer&lt;String&gt;() {
+<pre><code class="java">Consumer&lt;String&gt; consumer = new Consumer&lt;String&gt;() {
     @Override
     public void accept(String s) {
         System.out.println(s);
@@ -706,9 +684,7 @@ consumer.accept(&quot;hello&quot;);
 <ol start="4">
 <li>供给型接口，无输入，返回T，方法get</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">Supplier&lt;String&gt; supplier = new Supplier&lt;String&gt;() {
+<pre><code class="java">Supplier&lt;String&gt; supplier = new Supplier&lt;String&gt;() {
     @Override
     public String get() {
         return &quot;hello&quot;;
@@ -724,9 +700,7 @@ System.out.println(supplier.get());
 <li>终止操作：一个终止操作，<strong>执行</strong>中间操作链，产生结果。</li>
 </ol>
 <p>练习题：请按照给出数据，找出同时满足以下全部条件的用户：偶数ID且年龄大于24且用户名转为大写且用户名字母倒序，最后只输出一个用户名。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class StreamDemo {
+<pre><code class="java">public class StreamDemo {
     public static void main(String[] args) {
         User u1 = new User(11,&quot;a&quot;,23);
         User u2 = new User(12,&quot;b&quot;,24);
@@ -748,9 +722,7 @@ System.out.println(supplier.get());
 <h2 id="3-分支合并框架"><a href="#3-分支合并框架" class="headerlink" title="3. 分支合并框架"></a>3. 分支合并框架</h2><p><img src="http://yanxuan.nosdn.127.net/436984e29e8b6ae442516ccbcd9dd025.png" alt="分支合并框架"></p>
 <p>分支合并的原理在于Fork将一个复杂任务进行拆分，拆分成多个小任务，Join将拆分任务的结果进行合并。</p>
 <p>代码示例如下：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 这是一个递归任务,继承后可以实现递归(自己调自己)调用的任务
+<pre><code class="java">// 这是一个递归任务,继承后可以实现递归(自己调自己)调用的任务
 class MyTask extends RecursiveTask&lt;Integer&gt;{
     private static final Integer ADJUST_VALUE = 10;
     private int begin;
@@ -764,21 +736,21 @@ class MyTask extends RecursiveTask&lt;Integer&gt;{
 
     @Override
     protected Integer compute() {
-        &#x2F;&#x2F; 拆分为10个一组
+        // 拆分为10个一组
         if ((end-begin) &lt;= ADJUST_VALUE){
             for (int i = begin; i &lt;= end; i++) {
                 result = result + i;
             }
         }else {
-            &#x2F;&#x2F; 获取中间值
-            int middle = (end + begin) &#x2F; 2;
-            &#x2F;&#x2F; 新建两个任务，分配任务需求，一人处理一半
+            // 获取中间值
+            int middle = (end + begin) / 2;
+            // 新建两个任务，分配任务需求，一人处理一半
             MyTask task01 = new MyTask(begin,middle);
             MyTask task02 = new MyTask(middle + 1,end);
-            &#x2F;&#x2F; 继续分支
+            // 继续分支
             task01.fork();
             task02.fork();
-            &#x2F;&#x2F; 合并拆分任务的结果值返回
+            // 合并拆分任务的结果值返回
             result = task01.join() + task02.join();
         }
 
@@ -786,50 +758,48 @@ class MyTask extends RecursiveTask&lt;Integer&gt;{
     }
 }
 
-&#x2F;**
+/**
  * @Author: zero &lt;[email] 1490829140@qq.com&gt;
- * @Date: Create in 2020&#x2F;5&#x2F;15 9:42
+ * @Date: Create in 2020/5/15 9:42
  * @Description: 分支合并框架
  *
  *  ForkJoinPool
  *  ForkJoinTask
  *  RecursiveTask
- *&#x2F;
+ */
 
 public class ForkJoinDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        &#x2F;&#x2F; 创建任务
+        // 创建任务
         MyTask myTask = new MyTask(0,100);
-        &#x2F;&#x2F; 创建连接池
+        // 创建连接池
         ForkJoinPool threadPool = new ForkJoinPool();
-        &#x2F;&#x2F; 提交任务
+        // 提交任务
         ForkJoinTask&lt;Integer&gt; forkJoinTask = threadPool.submit(myTask);
-        &#x2F;&#x2F; 汇总结果并输出
+        // 汇总结果并输出
         System.out.println(forkJoinTask.get());
-        &#x2F;&#x2F; 关闭连接池
+        // 关闭连接池
         threadPool.shutdown();
     }
 }
 </code></pre>
 <h2 id="4-异步回调"><a href="#4-异步回调" class="headerlink" title="4. 异步回调"></a>4. 异步回调</h2><p>代码示例：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class CompletableFutureDemo {
+<pre><code class="java">public class CompletableFutureDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        &#x2F;&#x2F; 异步调用，无返回值
+        // 异步调用，无返回值
         CompletableFuture&lt;Void&gt; completableFuture = CompletableFuture.runAsync(() -&gt; System.out.println(Thread.currentThread().getName() + &quot;\t无返回&quot;));
         completableFuture.get();
-        &#x2F;&#x2F;异步回调
+        //异步回调
         CompletableFuture&lt;Integer&gt; completableFuture2 = CompletableFuture.supplyAsync(()-&gt;{
             System.out.println(Thread.currentThread().getName()+&quot;\t completableFuture2&quot;);
-            int i = 10&#x2F;0;
+            int i = 10/0;
             return 1024;
         });
 
         Integer result = completableFuture2.whenComplete((t, u) -&gt; {
-            System.out.println(&quot;&gt;&gt;&gt;&gt;t: &quot; + t); &#x2F;&#x2F; 正常执行
-            System.out.println(&quot;&gt;&gt;&gt;&gt;u: &quot; + u); &#x2F;&#x2F; 异常执行
-        }).exceptionally(f -&gt; { &#x2F;&#x2F; 如果出现异常会执行的函数
+            System.out.println(&quot;&gt;&gt;&gt;&gt;t: &quot; + t); // 正常执行
+            System.out.println(&quot;&gt;&gt;&gt;&gt;u: &quot; + u); // 异常执行
+        }).exceptionally(f -&gt; { // 如果出现异常会执行的函数
             System.out.println(&quot;&gt;&gt;&gt;&gt;exception:&quot; + f.getMessage());
             return 444;
         }).get();
@@ -1105,7 +1075,7 @@ java.util.concurrent：并发包
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

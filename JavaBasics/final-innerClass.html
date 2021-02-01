@@ -413,14 +413,14 @@ final：">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.2k
+                        3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        13 分
+                        12 分
                     </div>
                     
                 
@@ -456,44 +456,43 @@ final：">
 </ul>
 </li>
 </ul>
-<p>代码示例如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class FinalDemo01 {
+<p>代码示例如下：</p>
+<pre><code class="java">public class FinalDemo01 {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 1. 以下示意局部变量基本类型使用final关键字修饰。
-        final int a; &#x2F;&#x2F; 使用final修饰，声明变量。
-        a = 10; &#x2F;&#x2F; 第一次赋值，编译通过
-&#x2F;&#x2F;        a = 20; &#x2F;&#x2F; 第二次赋值，报错。
-        final int b = 10; &#x2F;&#x2F; 申明变量同时直接赋值，使用final修饰
-&#x2F;&#x2F;        b = 20; &#x2F;&#x2F; 报错,不可重新赋值
+        // 1. 以下示意局部变量基本类型使用final关键字修饰。
+        final int a; // 使用final修饰，声明变量。
+        a = 10; // 第一次赋值，编译通过
+//        a = 20; // 第二次赋值，报错。
+        final int b = 10; // 申明变量同时直接赋值，使用final修饰
+//        b = 20; // 报错,不可重新赋值
 
         for(int i = 0; i &lt; 10;i++){
             final int c = i;
             System.out.print(c);
         }
 
-        &#x2F;&#x2F; 2. 以下示例局部变量引用类型使用final关键字修饰。
-        final TestFinal tf = new TestFinal(&quot;张三&quot;,11); &#x2F;&#x2F; 创建一个测试对象。
-&#x2F;&#x2F;        tf = new TestFinal(); &#x2F;&#x2F; 新创建一个对象，把tf指向该对象。报错，使用final修饰后无法改变地址值。
+        // 2. 以下示例局部变量引用类型使用final关键字修饰。
+        final TestFinal tf = new TestFinal(&quot;张三&quot;,11); // 创建一个测试对象。
+//        tf = new TestFinal(); // 新创建一个对象，把tf指向该对象。报错，使用final修饰后无法改变地址值。
 
     }
 }
-&#x2F;&#x2F; 成员变量initialize
+// 成员变量initialize
 public class TestFinal {
-    &#x2F;&#x2F; 创建类时直接初始化，并用final修饰。
-&#x2F;*    final String USERNAME = &quot;张山&quot;;
+    // 创建类时直接初始化，并用final修饰。
+/*    final String USERNAME = &quot;张山&quot;;
     private int age;
-*&#x2F;
+*/
     final String USERNAME;
     private int age;
 
-    &#x2F;&#x2F; 使用构造方法initialize
+    // 使用构造方法initialize
     public TestFinal(String USERNAME, int age) {
         this.USERNAME = USERNAME;
         this.age = age;
     }
 }
-</code></pre></p>
+</code></pre>
 <h2 id="2-权限修饰符"><a href="#2-权限修饰符" class="headerlink" title="2. 权限修饰符"></a>2. 权限修饰符</h2><p>在Java中提供了四种访问权限，使用不同的访问权限修饰符修饰时，被修饰的内容会有不同的访问权限。</p>
 <ul>
 <li>public：公共的</li>
@@ -509,15 +508,14 @@ public class TestFinal {
 <li>不加权限修饰符的，其访问能力与default修饰符相同。</li>
 </ul>
 <h2 id="3-内部类"><a href="#3-内部类" class="headerlink" title="3. 内部类"></a>3. 内部类</h2><p>如果一个类A定义在另一个类B里面，里面的那个类A就称为内部类，B则称为外部类。</p>
-<h3 id="成员内部类：定义在类中方法外的类。"><a href="#成员内部类：定义在类中方法外的类。" class="headerlink" title="成员内部类：定义在类中方法外的类。"></a>成员内部类：定义在类中<strong>方法外</strong>的类。</h3><p>在描述事物时，若一个事物内部还包含其他事物，就可以使用内部类这种结构。比如，汽车类Car中包含发动机类Engine，这个Engine类就可以使用内部类来描述，定义在成员位置。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">class Car{ &#x2F;&#x2F;外部类 
-	...
-    class Engine{ &#x2F;&#x2F;成员内部类
-	...
+<h3 id="成员内部类：定义在类中方法外的类。"><a href="#成员内部类：定义在类中方法外的类。" class="headerlink" title="成员内部类：定义在类中方法外的类。"></a>成员内部类：定义在类中<strong>方法外</strong>的类。</h3><p>在描述事物时，若一个事物内部还包含其他事物，就可以使用内部类这种结构。比如，汽车类Car中包含发动机类Engine，这个Engine类就可以使用内部类来描述，定义在成员位置。</p>
+<pre><code class="java">class Car{ //外部类 
+    ...
+    class Engine{ //成员内部类
+    ...
     }
 }
-</code></pre></p>
+</code></pre>
 <ul>
 <li>内部类可以直接访问外部类的成员，包括私有成员。</li>
 <li>访问重名的成员变量，使用格式：外部类名称.this.外部类成员变量名<br>如何使用成员内部类？两种方式：</li>
@@ -526,26 +524,24 @@ public class TestFinal {
 <li>间接方式：在外部类的方法中，使用内部类；然后通过调用外部类方法来间接调用内部类。</li>
 <li>直接方式：[外部类名称.内部类名称 对象名 = new 外部类名称().new 内部类名称();]</li>
 </ol>
+<pre><code class="java">// 成员内部类示例
+public class Body { // 内部类
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 成员内部类示例
-public class Body { &#x2F;&#x2F; 内部类
+    public class Heart{ // 成员内部类
 
-    public class Heart{ &#x2F;&#x2F; 成员内部类
-
-        &#x2F;&#x2F; 内部类方法
+        // 内部类方法
         public void beat(){
             System.out.println(&quot;心脏跳动：砰砰砰！&quot;);
-            System.out.println(&quot;我叫：&quot; + name); &#x2F;&#x2F; 内部类可以直接访问外部类成员变量
+            System.out.println(&quot;我叫：&quot; + name); // 内部类可以直接访问外部类成员变量
         }
     }
 
-    private String name; &#x2F;&#x2F; 外部类成员变量
+    private String name; // 外部类成员变量
 
-    &#x2F;&#x2F; 外部类方法
+    // 外部类方法
     public void methodBody(){
         System.out.println(&quot;外部类的方法&quot;);
-        new Heart().beat(); &#x2F;&#x2F; 匿名对象
+        new Heart().beat(); // 匿名对象
     }
 
     public String getName() {
@@ -556,33 +552,33 @@ public class Body { &#x2F;&#x2F; 内部类
         this.name = name;
     }
 }
-&#x2F;&#x2F; 成员内部类示例测试类
+// 成员内部类示例测试类
 public class InnerClassDemo02 {
     public static void main(String[] args) {
         Body body = new Body();
-        body.methodBody(); &#x2F;&#x2F; 间接通过外部类方法访问内部类
+        body.methodBody(); // 间接通过外部类方法访问内部类
         System.out.println(&quot;下面使用直接访问方式访问内部类&quot;);
         Body.Heart heart = new Body().new Heart();
         heart.beat();
     }
 }
 
-&#x2F;&#x2F; 访问重名的成员变量示例
+// 访问重名的成员变量示例
 public class Other {
 
-    int num = 10; &#x2F;&#x2F; 外部类的成员变量
+    int num = 10; // 外部类的成员变量
 
     public class Inner{
-        int num = 20; &#x2F;&#x2F; 内部类的成员变量
+        int num = 20; // 内部类的成员变量
         public void methodInner(){
-            int num = 30; &#x2F;&#x2F; 内部类方法的局部变量
-            System.out.println(num); &#x2F;&#x2F; 局部变量，就近原则
-            System.out.println(this.num); &#x2F;&#x2F; 内部类成员变量
-            System.out.println(Other.this.num); &#x2F;&#x2F; 外部类成员变量
+            int num = 30; // 内部类方法的局部变量
+            System.out.println(num); // 局部变量，就近原则
+            System.out.println(this.num); // 内部类成员变量
+            System.out.println(Other.this.num); // 外部类成员变量
         }
     }
 }
-&#x2F;&#x2F; 访问重名的成员变量示例测试类
+// 访问重名的成员变量示例测试类
 public class InnerClassDemo03 {
     public static void main(String[] args) {
         Other.Inner obj = new Other().new Inner();
@@ -590,30 +586,29 @@ public class InnerClassDemo03 {
     }
 }
 </code></pre>
-<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><p>如果一个类是定义在一个<strong>方法内部</strong>的，那么这就是一个局部内部类<br>“局部”：只有当前所属的方法才能使用它，出了这个方法外面就不能用了。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 局部内部类
+<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><p>如果一个类是定义在一个<strong>方法内部</strong>的，那么这就是一个局部内部类<br>“局部”：只有当前所属的方法才能使用它，出了这个方法外面就不能用了。</p>
+<pre><code class="java">// 局部内部类
 public class Outer {
 
     public void methodOuter(){
-        class Inner{ &#x2F;&#x2F; 局部内部类
+        class Inner{ // 局部内部类
             int num = 10;
             public void methodInner(){
                 System.out.println(num);
             }
         }
-        Inner inner = new Inner(); &#x2F;&#x2F; 创建局部内部类对象
-        inner.methodInner(); &#x2F;&#x2F; 调用内部类方法,将打印10
+        Inner inner = new Inner(); // 创建局部内部类对象
+        inner.methodInner(); // 调用内部类方法,将打印10
     }
 }
-&#x2F;&#x2F; 测试类
+// 测试类
 public class DemoMain {
     public static void main(String[] args) {
         Outer outer = new Outer();
         outer.methodOuter();
     }
 }
-</code></pre></p>
+</code></pre>
 <p>小结类的权限修饰符：<br>public &gt; protected &gt; (default) &gt; private<br>定义一个类时，权限修饰符规则：</p>
 <ol>
 <li>外部类：public / (default)</li>
@@ -636,17 +631,15 @@ public class DemoMain {
 <li>创建子类对象</li>
 <li>调用重写后的方法<br>我们最终的目的只是为了调用方法，那么该如何简化。匿名内部类就可以处理这种情况。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 接口类
+<pre><code class="java">// 接口类
 public interface MyInterface {
     void method();
     void method2();
 }
-&#x2F;*
+/*
 匿名内部类的定义格式：
 接口名称 对象名 = new 接口名称(){
-    &#x2F;&#x2F; 覆盖重写所有抽象方法
+    // 覆盖重写所有抽象方法
 }
 
 对格式 “new 接口名称() {...}” 进行解析：
@@ -658,12 +651,12 @@ public interface MyInterface {
 1. 匿名内部类，在创建对象时，只能使用唯一一次。
 如果希望多次创建对象，而且类的内容一样的话，那么就必须使用单独定义的实现类了。
 2. 匿名对象，在[调用方法]时，只能调用唯一一次，如果希望同一对象调用多次方法，那么必须给对象起名。
-3. 匿名内部类是省略了[实现类&#x2F;子类名称]，但匿名对象是省略了[对象名称]。匿名内部类和匿名对象不是一回事！
- *&#x2F;
-&#x2F;&#x2F; 主方法测试类
+3. 匿名内部类是省略了[实现类/子类名称]，但匿名对象是省略了[对象名称]。匿名内部类和匿名对象不是一回事！
+ */
+// 主方法测试类
 public class DemoMain {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 使用匿名内部类
+        // 使用匿名内部类
         MyInterface obj = new MyInterface() {
             @Override
             public void method() {
@@ -678,7 +671,7 @@ public class DemoMain {
         obj.method();
         obj.method2();
 
-        &#x2F;&#x2F; 使用了匿名内部类，而且省略了对象名称，也是匿名对象
+        // 使用了匿名内部类，而且省略了对象名称，也是匿名对象
         new MyInterface(){
 
             @Override
@@ -690,18 +683,17 @@ public class DemoMain {
             public void method2() {
 
             }
-        }.method(); &#x2F;&#x2F; 因为匿名对象无法调用第二次方法，所以需要再创建一个匿名内部类的匿名对象才能二次调用。
+        }.method(); // 因为匿名对象无法调用第二次方法，所以需要再创建一个匿名内部类的匿名对象才能二次调用。
     }
 }
 </code></pre>
 <h2 id="4-引用类型用法总结"><a href="#4-引用类型用法总结" class="headerlink" title="4. 引用类型用法总结"></a>4. 引用类型用法总结</h2><p>实际开发中，引用类型的使用非常重要且普遍。基本类型可以作为成员变量、作为方法的参数、作为方法的返回值，那么引用类型也是可以的。</p>
-<h3 id="4-1-class作为成员变量"><a href="#4-1-class作为成员变量" class="headerlink" title="4.1 class作为成员变量"></a>4.1 class作为成员变量</h3><p>具体代码示例如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 定义一个英雄类
+<h3 id="4-1-class作为成员变量"><a href="#4-1-class作为成员变量" class="headerlink" title="4.1 class作为成员变量"></a>4.1 class作为成员变量</h3><p>具体代码示例如下：</p>
+<pre><code class="java">// 定义一个英雄类
 public class Hero {
-    private String name; &#x2F;&#x2F; 名称
-    private int blood;  &#x2F;&#x2F; 生命值
-    private Weapon weapon; &#x2F;&#x2F; 添加武器属性
+    private String name; // 名称
+    private int blood;  // 生命值
+    private Weapon weapon; // 添加武器属性
 
     public Hero() {
     }
@@ -716,11 +708,11 @@ public class Hero {
         System.out.println(name+&quot;使用了&quot;+weapon.getName()+&quot;攻击敌方&quot;);
     }
 
-	... 省略get&#x2F;set方法
+    ... 省略get/set方法
 }
-&#x2F;&#x2F; 定义一个武器类
+// 定义一个武器类
 public class Weapon {
-    private String name; &#x2F;&#x2F; 武器名称
+    private String name; // 武器名称
 
     public Weapon(String name) {
         this.name = name;
@@ -734,36 +726,35 @@ public class Weapon {
         this.name = name;
     }
 }
-&#x2F;&#x2F; 测试类
+// 测试类
 public class DemoMain {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 创建英雄对象
+        // 创建英雄对象
         Hero hero = new Hero();
-        &#x2F;&#x2F; 创建武器对象
+        // 创建武器对象
         Weapon wp = new Weapon(&quot;霜之哀伤&quot;);
-        hero.setName(&quot;伊利丹&quot;); &#x2F;&#x2F; 设置英雄名字
-        hero.setWeapon(wp); &#x2F;&#x2F; 将武器交给英雄
-        hero.attack(); &#x2F;&#x2F; 攻击
+        hero.setName(&quot;伊利丹&quot;); // 设置英雄名字
+        hero.setWeapon(wp); // 将武器交给英雄
+        hero.attack(); // 攻击
     }
 }
-</code></pre></p>
-<h3 id="4-2-interface作为方法参数和返回值类型"><a href="#4-2-interface作为方法参数和返回值类型" class="headerlink" title="4.2 interface作为方法参数和返回值类型"></a>4.2 interface作为方法参数和返回值类型</h3><p>以下示意接口作为方法参数：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 接口类
+</code></pre>
+<h3 id="4-2-interface作为方法参数和返回值类型"><a href="#4-2-interface作为方法参数和返回值类型" class="headerlink" title="4.2 interface作为方法参数和返回值类型"></a>4.2 interface作为方法参数和返回值类型</h3><p>以下示意接口作为方法参数：</p>
+<pre><code class="java">// 接口类
 public interface Skill {
-    void use(); &#x2F;&#x2F; 释放技能
+    void use(); // 释放技能
 }
-&#x2F;&#x2F; 实现类 
+// 实现类 
 public class SkillImpl implements Skill {
     @Override
     public void use() {
         System.out.println(&quot;biubiubiu&quot;);
     }
 }
-&#x2F;&#x2F; 英雄类
+// 英雄类
 public class Hero {
-    private String name; &#x2F;&#x2F; 英雄名称
-    private Skill skill; &#x2F;&#x2F; 英雄技能
+    private String name; // 英雄名称
+    private Skill skill; // 英雄技能
 
     public Hero() {
     }
@@ -775,29 +766,29 @@ public class Hero {
 
     public void attack(){
         System.out.println(&quot;我叫&quot;+name+&quot;，开始释放技能：&quot;);
-        skill.use(); &#x2F;&#x2F;调用接口中的抽象方法
+        skill.use(); //调用接口中的抽象方法
         System.out.println(&quot;释放技能完成。&quot;);
     }
-	....省略get&#x2F;set方法
+    ....省略get/set方法
 }
-&#x2F;&#x2F; 测试类
+// 测试类
 public class DemoGame {
     public static void main(String[] args) {
         Hero hero = new Hero();
-        hero.setName(&quot;艾希&quot;); &#x2F;&#x2F; 设置英雄名称
+        hero.setName(&quot;艾希&quot;); // 设置英雄名称
 
-        &#x2F;&#x2F; 设置英雄技能
-        &#x2F;&#x2F; 使用实现类作为参数传递
-&#x2F;&#x2F;        hero.setSkill(new SkillImpl());
-&#x2F;&#x2F;        hero.attack();
-        &#x2F;&#x2F; 使用匿名内部类作为参数
-&#x2F;&#x2F;        Skill skill = new Skill() {
-&#x2F;&#x2F;            @Override
-&#x2F;&#x2F;            public void use() {
-&#x2F;&#x2F;                System.out.println(&quot;pia~~pia~~pia~~&quot;);
-&#x2F;&#x2F;            }
-&#x2F;&#x2F;        };
-        &#x2F;&#x2F; 使用匿名内部类和匿名对象
+        // 设置英雄技能
+        // 使用实现类作为参数传递
+//        hero.setSkill(new SkillImpl());
+//        hero.attack();
+        // 使用匿名内部类作为参数
+//        Skill skill = new Skill() {
+//            @Override
+//            public void use() {
+//                System.out.println(&quot;pia~~pia~~pia~~&quot;);
+//            }
+//        };
+        // 使用匿名内部类和匿名对象
         hero.setSkill(new Skill() {
             @Override
             public void use() {
@@ -808,13 +799,12 @@ public class DemoGame {
 
     }
 }
-</code></pre></p>
-<p>以下示例接口作为方法的返回值类型<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoInterface {
+</code></pre>
+<p>以下示例接口作为方法的返回值类型</p>
+<pre><code class="java">public class DemoInterface {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 左边是接口名称，右边是实现类名称，这就是多态写法
-        List&lt;String&gt; list = new ArrayList&lt;&gt;(); &#x2F;&#x2F; 
+        // 左边是接口名称，右边是实现类名称，这就是多态写法
+        List&lt;String&gt; list = new ArrayList&lt;&gt;(); // 
 
         List&lt;String&gt; result = addNames(list);
         for (int i = 0; i &lt; result.size(); i++) {
@@ -830,8 +820,8 @@ public class DemoGame {
         return list;
     }
 }
-&#x2F;&#x2F; 用一个接口或是自定义类作为方法的参数或者返回值都是可以的
-</code></pre></p>
+// 用一个接口或是自定义类作为方法的参数或者返回值都是可以的
+</code></pre>
 <h3 id="5-综合案例–发红包-界面版"><a href="#5-综合案例–发红包-界面版" class="headerlink" title="5. 综合案例–发红包[界面版]"></a>5. 综合案例–发红包[界面版]</h3><p>完整代码见：<a href="https://github.com/zero6996/JavaDemo/tree/master/Demo4_22/DemoRedPacket" target="_blank" rel="noopener">SendRedPacket</a></p>
 <p>手气红包算法思路解析：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/22/%E6%89%8B%E6%B0%94%E7%BA%A2%E5%8C%85%E7%AE%97%E6%B3%95%E6%80%9D%E8%B7%AF%E8%A7%A3%E6%9E%90-1555941568465.png" alt="title"></p>
 <h3 id="案例总结"><a href="#案例总结" class="headerlink" title="案例总结"></a>案例总结</h3><p>通过发红包案例，你都学到了什么？请思考如下问题：</p>
@@ -1109,7 +1099,7 @@ public class DemoGame {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

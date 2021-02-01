@@ -414,7 +414,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.9k
+                        1.8k
                     </div>
                     
 
@@ -467,15 +467,13 @@
 <li>数据库连接池对象：<code>ComboPooledDataSource</code></li>
 <li>基本使用如下：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class C3P0Demo1 {
+<pre><code class="java">public class C3P0Demo1 {
     public static void main(String[] args) throws SQLException {
-        &#x2F;&#x2F; 1. 创建数据库连接池对象
+        // 1. 创建数据库连接池对象
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        &#x2F;&#x2F; 2. 获取一个连接对象
+        // 2. 获取一个连接对象
         Connection conn = dataSource.getConnection();
-        &#x2F;&#x2F; 3. 进行具体操作
+        // 3. 进行具体操作
         System.out.println(conn);
     }
 }
@@ -487,20 +485,18 @@
 <li>获取数据库连接池对象：通过工厂类<code>DruidDataSourceFactory</code>来获取</li>
 <li>获取连接：<code>getConnection</code></li>
 </ol>
-<h3 id="3-2-基本使用示例"><a href="#3-2-基本使用示例" class="headerlink" title="3.2 基本使用示例"></a>3.2 基本使用示例</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; Druid演示
+<h3 id="3-2-基本使用示例"><a href="#3-2-基本使用示例" class="headerlink" title="3.2 基本使用示例"></a>3.2 基本使用示例</h3><pre><code class="java">// Druid演示
 public class DruidDemo1 {
     public static void main(String[] args) throws Exception {
-        &#x2F;&#x2F; 1. 定义配置文件
-        &#x2F;&#x2F; 2. 加载配置文件
+        // 1. 定义配置文件
+        // 2. 加载配置文件
         Properties pro = new Properties();
         InputStream is = DruidDemo1.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;);
-        &#x2F;&#x2F; 3. 获取连接池对象
+        // 3. 获取连接池对象
         DataSource ds = DruidDataSourceFactory.createDataSource(pro);
-        &#x2F;&#x2F; 4. 获取连接
+        // 4. 获取连接
         Connection conn = ds.getConnection();
-        &#x2F;&#x2F; 5. 进行具体操作
+        // 5. 进行具体操作
         System.out.println(conn);
     }
 }
@@ -515,29 +511,27 @@ public class DruidDemo1 {
 </ol>
 </li>
 </ol>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; Druid连接池的工具类
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="java">// Druid连接池的工具类
 public class DruidUtils {
-    &#x2F;&#x2F; 1. 定义成员变量
+    // 1. 定义成员变量
     private static DataSource ds;
-    &#x2F;&#x2F; 静态初始化代码块
+    // 静态初始化代码块
     static{
         try {
             Properties pro = new Properties();
             pro.load(DruidUtils.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;));
-            &#x2F;&#x2F; 获取DataSource对象
+            // 获取DataSource对象
             ds = DruidDataSourceFactory.createDataSource(pro);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    &#x2F;&#x2F; 获取连接
+    // 获取连接
     public static Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
-    &#x2F;&#x2F; 释放资源
+    // 释放资源
     public static void close(Statement stmt,Connection conn){
         close(null,stmt,conn);
     }
@@ -564,29 +558,29 @@ public class DruidUtils {
             }
         }
     }
-    &#x2F;&#x2F; 获取连接池方法
+    // 获取连接池方法
     public static DataSource getDataSource(){
         return ds;
     }
 }
-&#x2F;&#x2F; 测试工具类
-&#x2F;&#x2F; 使用工具类
+// 测试工具类
+// 使用工具类
 public class DruidDemo2 {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 完成添加操作，给account表添加一条记录
+        // 完成添加操作，给account表添加一条记录
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
-            &#x2F;&#x2F; 获取连接池对象
+            // 获取连接池对象
             conn = DruidUtils.getConnection();
-            &#x2F;&#x2F; 定义sql
+            // 定义sql
             String sql = &quot;insert into account values(null,?,?)&quot;;
-            &#x2F;&#x2F; 获取执行sql对象
+            // 获取执行sql对象
             pstmt = conn.prepareStatement(sql);
-            &#x2F;&#x2F; 给？赋值
+            // 给？赋值
             pstmt.setString(1,&quot;小六&quot;);
             pstmt.setDouble(2,2699);
-            &#x2F;&#x2F; 执行sql
+            // 执行sql
             int count = pstmt.executeUpdate();
             System.out.println(count);
         } catch (SQLException e) {
@@ -634,19 +628,18 @@ public class DruidDemo2 {
 </tr>
 </tbody>
 </table>
-<h3 id="4-2-使用示例"><a href="#4-2-使用示例" class="headerlink" title="4.2 使用示例"></a>4.2 使用示例</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; jdbcTemplate基础入门
+<h3 id="4-2-使用示例"><a href="#4-2-使用示例" class="headerlink" title="4.2 使用示例"></a>4.2 使用示例</h3><pre><code class="java">// jdbcTemplate基础入门
 public class JDBCTemplateDemo1 {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 创建jdbcTemplate对象
+        // 创建jdbcTemplate对象
         JdbcTemplate jt = new JdbcTemplate(DruidUtils.getDataSource());
-        &#x2F;&#x2F; 调用方法
+        // 调用方法
         String sql = &quot;update account set balance=3000 where id=?&quot;;
-        int count = jt.update(sql, 6); &#x2F;&#x2F; 返回值是影响的行数
-        System.out.println(count); &#x2F;&#x2F; 1
+        int count = jt.update(sql, 6); // 返回值是影响的行数
+        System.out.println(count); // 1
     }
 }
+
 </code></pre>
 <h3 id="4-3-练习"><a href="#4-3-练习" class="headerlink" title="4.3 练习"></a>4.3 练习</h3><ol>
 <li>修改6号数据的salary为10000</li>
@@ -657,39 +650,37 @@ public class JDBCTemplateDemo1 {
 <li>查询所有记录，将其封装为Emp对象的List集合</li>
 <li>查询总记录数</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Exercise {
-        &#x2F;&#x2F; 获取JdbcTemplate对象
-        &#x2F;&#x2F; 使用Junit单元测试，让方法单独执行
+<pre><code class="java">public class Exercise {
+        // 获取JdbcTemplate对象
+        // 使用Junit单元测试，让方法单独执行
         private JdbcTemplate jt = new JdbcTemplate(DruidUtils.getDataSource());
-        &#x2F;&#x2F; 编写sql语句并执行
+        // 编写sql语句并执行
         @Test
         public void test1(){
-            &#x2F;&#x2F; 1. 修改6号数据的salary为10000
+            // 1. 修改6号数据的salary为10000
             String update = &quot;update staff set salary=10000 where id=?&quot;;
             jt.update(update,6);
         }
         @Test
         public void test2(){
-            &#x2F;&#x2F; 2. 添加一条记录,字段分别为id，name，性别，工资，入职时间，部门id
+            // 2. 添加一条记录,字段分别为id，name，性别，工资，入职时间，部门id
             jt.update(&quot;insert into staff(id,name,salary) values(?,?,?)&quot;,13,&quot;冬兵&quot;,7889);
         }
         @Test
         public void test3(){
-            &#x2F;&#x2F; 3. 删除刚刚添加的记录
+            // 3. 删除刚刚添加的记录
             jt.update(&quot;delete from staff where name=?&quot;,&quot;冬兵&quot;);
         }
         @Test
         public void test4(){
-            &#x2F;&#x2F; 4. 查询id为8的记录，将其封装为Map集合
-            &#x2F;&#x2F; 注意：这个方法查询的结果集只能是1
+            // 4. 查询id为8的记录，将其封装为Map集合
+            // 注意：这个方法查询的结果集只能是1
             Map&lt;String, Object&gt; stringObjectMap = jt.queryForMap(&quot;select * from staff where id=?&quot;, 8);
-            System.out.println(stringObjectMap); &#x2F;&#x2F; {id=8, name=美队, gender=男, salary=8000.0, join_date=2008-08-08, dept_id=2}
+            System.out.println(stringObjectMap); // {id=8, name=美队, gender=男, salary=8000.0, join_date=2008-08-08, dept_id=2}
         }
         @Test
         public void test5(){
-            &#x2F;&#x2F; 5. 查询所有记录，将其封装为List
+            // 5. 查询所有记录，将其封装为List
             List&lt;Map&lt;String, Object&gt;&gt; maplist = jt.queryForList(&quot;select * from staff&quot;);
             for (Map&lt;String, Object&gt; stringObjectMap : maplist) {
                 System.out.println(stringObjectMap);
@@ -697,7 +688,7 @@ public class JDBCTemplateDemo1 {
         }
         @Test
         public void test6(){
-            &#x2F;&#x2F; 6. 查询所有记录，将其封装为Emp对象的List集合，自己完成实现类
+            // 6. 查询所有记录，将其封装为Emp对象的List集合，自己完成实现类
             String sql = &quot;select * from staff&quot;;
             List&lt;Emp&gt; list = jt.query(sql, new RowMapper&lt;Emp&gt;() {
                 @Override
@@ -724,20 +715,20 @@ public class JDBCTemplateDemo1 {
         }
         @Test
         public void test6_2() {
-            &#x2F;&#x2F; 6. 查询所有记录，将其封装为Emp对象的List集合,使用jdbc提供的实现类来完成
+            // 6. 查询所有记录，将其封装为Emp对象的List集合,使用jdbc提供的实现类来完成
             String sql = &quot;select * from staff&quot;;
             List&lt;Emp&gt; list = jt.query(sql, new BeanPropertyRowMapper&lt;Emp&gt;(Emp.class));
             for (Emp emp : list) {
                 System.out.println(emp);
             }
-            &#x2F;*
+            /*
             Failed to convert property value of type &#39;null&#39; to required type &#39;int&#39; for property &#39;dept_id&#39;
             需要将Emp类中变量改为为引用数据类型,然后重新生成方法
-             *&#x2F;
+             */
         }
         @Test
         public void test7(){
-            &#x2F;&#x2F; 7. 查询总记录数
+            // 7. 查询总记录数
             String sql = &quot;select count(id) from staff&quot;;
             Long count = jt.queryForObject(sql, Long.class);
             System.out.println(count);
@@ -1001,7 +992,7 @@ B/S：Browser/Server 浏览器/服务器端
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

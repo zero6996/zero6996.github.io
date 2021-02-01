@@ -414,7 +414,7 @@ MySQ">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        849
+                        846
                     </div>
                     
 
@@ -456,9 +456,7 @@ MySQ">
 <h2 id="3-复制的最大问题"><a href="#3-复制的最大问题" class="headerlink" title="3. 复制的最大问题"></a>3. 复制的最大问题</h2><p>复制的最大问题就是数据复制有<strong>延迟</strong>。</p>
 <h2 id="4-一主一从常见配置"><a href="#4-一主一从常见配置" class="headerlink" title="4. 一主一从常见配置"></a>4. 一主一从常见配置</h2><p>该配置需满足mysql版本一致且后台以服务运行，主从都配置在<code>mysqld</code>结点下，最好小写。</p>
 <h3 id="4-1-主机配置"><a href="#4-1-主机配置" class="headerlink" title="4.1 主机配置"></a>4.1 主机配置</h3><p>我的主机选择的是windows，配置文件是<code>my.ini</code>，参考配置文件如下</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-ini"># configuration a master-salve replication
+<pre><code class="ini"># configuration a master-salve replication
 # master server id
 server-id=1
 # enabled binary log
@@ -487,9 +485,7 @@ binlog-ignore-db=mysql
 <p>如WindowsMySQL无法启动，主机配置中仅保留[必须]项即可。</p>
 </blockquote>
 <h3 id="4-2-从机配置"><a href="#4-2-从机配置" class="headerlink" title="4.2 从机配置"></a>4.2 从机配置</h3><p>我的从机使用的是WSL，mysql配置文件位于<code>/etc/mysql</code></p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">vim &#x2F;etc&#x2F;mysql&#x2F;my.cnf
+<pre><code class="bash">vim /etc/mysql/my.cnf
 </code></pre>
 <ul>
 <li>找到里面的<code>server-id</code>选项，开启并设置为2</li>
@@ -499,16 +495,12 @@ binlog-ignore-db=mysql
 <h3 id="4-4-主机建立账户并授权"><a href="#4-4-主机建立账户并授权" class="headerlink" title="4.4 主机建立账户并授权"></a>4.4 主机建立账户并授权</h3><ul>
 <li>授权</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">GRANT REPLICATION SLAVE ON *.* TO &#39;zero&#39;@&#39;127.0.0.1&#39; IDENTIFIED BY &#39;123456&#39;;
+<pre><code class="sql">GRANT REPLICATION SLAVE ON *.* TO &#39;zero&#39;@&#39;127.0.0.1&#39; IDENTIFIED BY &#39;123456&#39;;
 </code></pre>
 <ul>
 <li>刷新权限</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">FLUSH PRIVILEGES;
+<pre><code class="sql">FLUSH PRIVILEGES;
 </code></pre>
 <ul>
 <li>查询master状态，记录下<code>File</code>和<code>Position</code>的值</li>
@@ -517,9 +509,7 @@ binlog-ignore-db=mysql
 <h3 id="4-5-从机配置复制的主机"><a href="#4-5-从机配置复制的主机" class="headerlink" title="4.5 从机配置复制的主机"></a>4.5 从机配置复制的主机</h3><ul>
 <li>配置连接到主机，注意：所有参数必须是主机最新参数！</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CHANGE MASTER TO MASTER_HOST=&#39;127.0.0.1&#39;,
+<pre><code class="sql">CHANGE MASTER TO MASTER_HOST=&#39;127.0.0.1&#39;,
 MASTER_USER=&#39;zero&#39;,
 MASTER_PASSWORD=&#39;123456&#39;,
 MASTER_LOG_FILE=&#39;mysqlbin.000001&#39;,MASTER_LOG_POS=1700
@@ -527,9 +517,7 @@ MASTER_LOG_FILE=&#39;mysqlbin.000001&#39;,MASTER_LOG_POS=1700
 <ul>
 <li>启动从服务器复制功能</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">start slave;
+<pre><code class="sql">start slave;
 </code></pre>
 <ul>
 <li>查看从机状态，看是否配置成功，主要查看<code>Slave_IO_Running:Yes</code>和<code>Slave_SQL_Running:Yes</code>这两个参数，都是Yes代表配置成功。</li>
@@ -538,9 +526,7 @@ MASTER_LOG_FILE=&#39;mysqlbin.000001&#39;,MASTER_LOG_POS=1700
 <h3 id="4-6-建立数据库，测试功能"><a href="#4-6-建立数据库，测试功能" class="headerlink" title="4.6 建立数据库，测试功能"></a>4.6 建立数据库，测试功能</h3><ul>
 <li>主机新建数据库，新建表，插入数据</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CREATE DATABASE test_tmp_db;
+<pre><code class="sql">CREATE DATABASE test_tmp_db;
 USE test_tmp_db;
 CREATE TABLE dog(
   id INT NOT NULL,
@@ -551,9 +537,7 @@ INSERT INTO dog VALUES(1,&quot;www&quot;);
 <ul>
 <li>从机查看数据库，使用数据库并查询</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">SHOW DATABASES;
+<pre><code class="sql">SHOW DATABASES;
 USE test_tmp_db;
 SELECT * FROM dog;
 </code></pre>
@@ -821,7 +805,7 @@ SELECT * FROM dog;
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

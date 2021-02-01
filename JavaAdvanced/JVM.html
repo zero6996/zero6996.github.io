@@ -535,9 +535,7 @@
 </ol>
 </blockquote>
 <h3 id="2-3-TransferValue"><a href="#2-3-TransferValue" class="headerlink" title="2.3 TransferValue"></a>2.3 TransferValue</h3><p>面试题：<code>str</code>打印什么？</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class TestTransferValue {
+<pre><code class="java">public class TestTransferValue {
     public void changeValue(String str){
         str = &quot;xxx&quot;;
     }
@@ -580,13 +578,11 @@
 <li><code>-XX:+PrintGCDetails</code>：输出详细的GC处理日志。</li>
 </ul>
 <p>Java将运行时数据区抽象成了一个类：<code>Runtime</code>，使用这个类的一些API可以查看一些堆参数</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class HeapDemo {
+<pre><code class="java">public class HeapDemo {
     public static void main(String[] args) {
         System.out.println(&quot;CPU核心数:&quot;+Runtime.getRuntime().availableProcessors());
-        System.out.println(&quot;-Xms:TOTAL_MEMORY = 虚拟机中的内存总量:&quot;+(Runtime.getRuntime().totalMemory())&#x2F;(double)1024&#x2F;1024+&quot;MB&quot;);
-        System.out.println(&quot;-Xmx:MAX_MEMORY = 虚拟机试图使用的最大内存量:&quot;+(Runtime.getRuntime().maxMemory()&#x2F;(double)1024&#x2F;1024)+&quot;MB&quot;);
+        System.out.println(&quot;-Xms:TOTAL_MEMORY = 虚拟机中的内存总量:&quot;+(Runtime.getRuntime().totalMemory())/(double)1024/1024+&quot;MB&quot;);
+        System.out.println(&quot;-Xmx:MAX_MEMORY = 虚拟机试图使用的最大内存量:&quot;+(Runtime.getRuntime().maxMemory()/(double)1024/1024)+&quot;MB&quot;);
     }
 }
 </code></pre>
@@ -594,16 +590,14 @@
 <ul>
 <li>编写测试类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class HeapDemo {
+<pre><code class="java">public class HeapDemo {
     public static void main(String[] args) {
         String str = &quot;hello&quot;;
         while (true){
-            &#x2F;&#x2F; Exception in thread &quot;main&quot; java.lang.OutOfMemoryError: Java heap space
+            // Exception in thread &quot;main&quot; java.lang.OutOfMemoryError: Java heap space
             str += str + new Random().nextInt(88888888) + new Random().nextInt(99999999);
         }
-        &#x2F;&#x2F;        byte[] bytes = new byte[40 * 1024 * 1024];
+        //        byte[] bytes = new byte[40 * 1024 * 1024];
     }
 }
 </code></pre>
@@ -875,11 +869,9 @@
 <p>由于JVM运行程序的实体是线程，而每个线程创建时JVM都会为其创建一个工作内存(或称之为栈空间)，工作内存是每个线程的<strong>私有数据区域</strong>。Java内存模型中规定所有变量都存储在主内存，<strong>主内存是共享内存区域</strong>，所有线程都可以访问。<strong>但线程对变量的操作(读取赋值等)必须在工作内存中进行，首先要将变量从主内存拷贝到自己的工作空间，然后对变量进行操作，操作完毕后将变量写回主内存。</strong>不能直接操作主内存中的变量，各个线程中的工作内存中储存着从主内存中变量的副本拷贝，因此不同的线程无法访问对方的工作内存，线程间的通讯(传值)必须通过主内存来完成，其简要访问过程如下图：</p>
 <p><img src="http://yanxuan.nosdn.127.net/84363e8d1797ba915c2b93f7637b360d.png" alt="JMM"></p>
 <h3 id="6-1-JMM的可见性问题"><a href="#6-1-JMM的可见性问题" class="headerlink" title="6.1 JMM的可见性问题"></a>6.1 JMM的可见性问题</h3><p>示例代码如下：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">class myNumber{
-    &#x2F;&#x2F; int number = 10;
-    &#x2F;&#x2F; 使用volatile关键字解决共享对象可见性问题
+<pre><code class="java">class myNumber{
+    // int number = 10;
+    // 使用volatile关键字解决共享对象可见性问题
     volatile int number = 10;
     public void addNumber(){
         this.number = 2020;
@@ -899,9 +891,9 @@ public class JMMDemo {
             System.out.println(Thread.currentThread().getName()+&quot;\t update number,number value:&quot;+myNumber.number);
         },&quot;AAA&quot;).start();
 
-        &#x2F;&#x2F; 由与JMM的可见性问题，AAA线程修改了number变量，对于其他线程不可见，故main线程while一直处于死循环
+        // 由与JMM的可见性问题，AAA线程修改了number变量，对于其他线程不可见，故main线程while一直处于死循环
         while (myNumber.number==10){
-            &#x2F;&#x2F; 需要一种通知机制告诉main线程，number的值已经修改过了
+            // 需要一种通知机制告诉main线程，number的值已经修改过了
 
         }
         System.out.println(Thread.currentThread().getName()+&quot;\t mission is over&quot;);
@@ -1182,7 +1174,7 @@ MySQ</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

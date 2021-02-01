@@ -412,14 +412,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.8k
+                        4.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        24 分
+                        22 分
                     </div>
                     
                 
@@ -439,9 +439,7 @@
 <a id="more"></a>
 <h2 id="2-优化Servlet"><a href="#2-优化Servlet" class="headerlink" title="2. 优化Servlet"></a>2. 优化<code>Servlet</code></h2><h3 id="2-1-目的"><a href="#2-1-目的" class="headerlink" title="2.1 目的"></a>2.1 目的</h3><p>为了减少Servlet的数量，现在是一个功能一个Servlet，将其优化为相同功能的Servlet为一个模块。相当于在数据库中一张表对应一个Servlet，在Servlet中提供不同的方法，完成用户的请求。</p>
 <h3 id="2-2-BaseServlet编写"><a href="#2-2-BaseServlet编写" class="headerlink" title="2.2 BaseServlet编写"></a>2.2 <code>BaseServlet</code>编写</h3><p>主要进行方法的分发，利用反射机制，获取请求路径和方法名称，再获取方法对象然后执行。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.web.servlet;
+<pre><code class="java">package cn.itcast.travel.web.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -452,27 +450,27 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-&#x2F;**
+/**
  * 使用反射机制，完成方法的分发
- *&#x2F;
+ */
 public class BaseServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println(&quot;baseServlet的service方法被执行&quot;);
 
-        &#x2F;&#x2F; 完成方法分发
-        &#x2F;&#x2F; 1. 获取请求路径
-        String uri = req.getRequestURI(); &#x2F;&#x2F; uri = &#x2F;travel&#x2F;user&#x2F;add
+        // 完成方法分发
+        // 1. 获取请求路径
+        String uri = req.getRequestURI(); // uri = /travel/user/add
         System.out.println(&quot;请求uri：&quot;+uri);
-        &#x2F;&#x2F; 2. 获取方法名称
-        String methodName = uri.substring(uri.lastIndexOf(&#39;&#x2F;&#39;) + 1);&#x2F;&#x2F; 为何+1？
+        // 2. 获取方法名称
+        String methodName = uri.substring(uri.lastIndexOf(&#39;/&#39;) + 1);// 为何+1？
         System.out.println(&quot;方法名称&quot;+methodName);
-        &#x2F;&#x2F; 3. 获取方法对象Method
-        System.out.println(this); &#x2F;&#x2F; this表示当前调用service的对象，谁调用我我表示谁
+        // 3. 获取方法对象Method
+        System.out.println(this); // this表示当前调用service的对象，谁调用我我表示谁
         try {
-            &#x2F;&#x2F; 获取方法
+            // 获取方法
             Method method = this.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
-            &#x2F;&#x2F; 4.执行方法
+            // 4.执行方法
             method.invoke(this,req,resp);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
@@ -485,9 +483,7 @@ public class BaseServlet extends HttpServlet {
 }
 </code></pre>
 <h3 id="2-3-UserServlet改写"><a href="#2-3-UserServlet改写" class="headerlink" title="2.3 UserServlet改写"></a>2.3 <code>UserServlet</code>改写</h3><p>继承自<code>BaseServlet</code>，所有用户相关的方法都抽取在内。只需访问<code>user/对应方法</code>即可完成相应功能。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.web.servlet;
+<pre><code class="java">package cn.itcast.travel.web.servlet;
 
 import cn.itcast.travel.domain.ResultInfo;
 import cn.itcast.travel.domain.User;
@@ -506,48 +502,48 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-@WebServlet(&quot;&#x2F;user&#x2F;*&quot;)
+@WebServlet(&quot;/user/*&quot;)
 public class UserServlet extends BaseServlet {
 
-    &#x2F;&#x2F; 声明UserService业务对象
+    // 声明UserService业务对象
     private UserService service = new UserServiceImpl();
 
 
-    &#x2F;**
+    /**
      * @Description: 用户注册功能
      * @Author: zero
      * @param request
      * @param response
      * @return void
-     * @Date 2019&#x2F;7&#x2F;23 21:35
-     *&#x2F;
+     * @Date 2019/7/23 21:35
+     */
     public void regist(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        &#x2F;&#x2F; 获取用户输入的验证码
+        // 获取用户输入的验证码
         String check = request.getParameter(&quot;check&quot;);
-        &#x2F;&#x2F; 从session中获取生成的验证码
+        // 从session中获取生成的验证码
         HttpSession session = request.getSession();
         String checkcode_server = (String)session.getAttribute(&quot;CHECKCODE_SERVER&quot;);
-        session.removeAttribute(&quot;CHECKCODE_SERVER&quot;); &#x2F;&#x2F; 确保验证码只能使用一次
-        &#x2F;&#x2F; 如果验证码错误，直接注册失败
+        session.removeAttribute(&quot;CHECKCODE_SERVER&quot;); // 确保验证码只能使用一次
+        // 如果验证码错误，直接注册失败
         if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(check)){
-            &#x2F;&#x2F; 验证码错误
+            // 验证码错误
             ResultInfo info = new ResultInfo();
-            &#x2F;&#x2F; 注册失败
+            // 注册失败
             info.setFlag(false);
             info.setErrorMsg(&quot;验证码错误&quot;);
-            &#x2F;&#x2F; 将info对象序列化为json
+            // 将info对象序列化为json
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(info);
-            response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+            response.setContentType(&quot;application/json;charset=utf-8&quot;);
             response.getWriter().write(json);
-            return; &#x2F;&#x2F; todo:为何return?
+            return; // todo:为何return?
         }
 
-        &#x2F;&#x2F; 验证通过
-        &#x2F;&#x2F; 1. 获取前台表单数据
+        // 验证通过
+        // 1. 获取前台表单数据
         Map&lt;String, String[]&gt; map = request.getParameterMap();
 
-        &#x2F;&#x2F; 2. 封装为user对象
+        // 2. 封装为user对象
         User user = new User();
         try {
             BeanUtils.populate(user,map);
@@ -557,71 +553,71 @@ public class UserServlet extends BaseServlet {
             e.printStackTrace();
         }
 
-        &#x2F;&#x2F; 3. 调用service完成注册
+        // 3. 调用service完成注册
         service = new UserServiceImpl();
         boolean flag = service.regist(user);
         ResultInfo info = new ResultInfo();
-        &#x2F;&#x2F; 4. 响应结果
+        // 4. 响应结果
         if (flag){
-            &#x2F;&#x2F; 注册成功
+            // 注册成功
             info.setFlag(true);
         }else{
-            &#x2F;&#x2F; 注册失败
+            // 注册失败
             info.setFlag(false);
             info.setErrorMsg(&quot;注册失败！&quot;);
         }
 
-        &#x2F;&#x2F; 将info对象序列化为json
+        // 将info对象序列化为json
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(info);
-        &#x2F;&#x2F; 将json数据回写客户端
-        &#x2F;&#x2F; 设置content-type
-        response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+        // 将json数据回写客户端
+        // 设置content-type
+        response.setContentType(&quot;application/json;charset=utf-8&quot;);
         response.getWriter().write(json);
     }
 
-    &#x2F;**
+    /**
      * @Description: 邮箱激活功能
      * @Author: zero
      * @param request
      * @param response
      * @return void
-     * @Date 2019&#x2F;7&#x2F;23 21:36
-     *&#x2F;
+     * @Date 2019/7/23 21:36
+     */
     public void active(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        &#x2F;&#x2F; 1. 获取激活码
+        // 1. 获取激活码
         String code = request.getParameter(&quot;code&quot;);
         if (code != null){
-            &#x2F;&#x2F; 2. 调用service完成激活
+            // 2. 调用service完成激活
             service = new UserServiceImpl();
             boolean flag = service.active(code);
-            &#x2F;&#x2F; 3. 判断标记
+            // 3. 判断标记
             String msg = null;
             if (flag){
-                &#x2F;&#x2F; 激活成功
-                msg = &quot;激活成功，请&lt;a href=&#39;login.html&#39;&gt;登录&lt;&#x2F;a&gt;&quot;;
+                // 激活成功
+                msg = &quot;激活成功，请&lt;a href=&#39;login.html&#39;&gt;登录&lt;/a&gt;&quot;;
             }else{
-                &#x2F;&#x2F; 激活失败
+                // 激活失败
                 msg = &quot;激活失败，请联系管理员！&quot;;
             }
-            &#x2F;&#x2F; 回写数据
-            response.setContentType(&quot;text&#x2F;html;charset=utf-8&quot;);
+            // 回写数据
+            response.setContentType(&quot;text/html;charset=utf-8&quot;);
             response.getWriter().write(msg);
         }
     }
 
-    &#x2F;**
+    /**
      * @Description: 用户登录功能
      * @Author: zero
      * @param request
      * @param response
      * @return void
-     * @Date 2019&#x2F;7&#x2F;23 21:37
-     *&#x2F;
+     * @Date 2019/7/23 21:37
+     */
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        &#x2F;&#x2F; 1. 获取用户名和密码
+        // 1. 获取用户名和密码
         Map&lt;String, String[]&gt; map = request.getParameterMap();
-        &#x2F;&#x2F; 2. 封装User对象
+        // 2. 封装User对象
         User user = new User();
         try {
             BeanUtils.populate(user,map);
@@ -630,75 +626,73 @@ public class UserServlet extends BaseServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        &#x2F;&#x2F; 3. 调用service查询
+        // 3. 调用service查询
         service = new UserServiceImpl();
         User u = service.login(user);
         ResultInfo info = new ResultInfo();
 
-        &#x2F;&#x2F; 4. 判断用户对象是否为null
+        // 4. 判断用户对象是否为null
         if (u == null){
-            &#x2F;&#x2F; 用户名或密码错误
+            // 用户名或密码错误
             info.setFlag(false);
             info.setErrorMsg(&quot;用户名或密码错误&quot;);
         }
-        &#x2F;&#x2F; 5. 判断用户账户是否激活
+        // 5. 判断用户账户是否激活
         if (u != null &amp;&amp; !&quot;Y&quot;.equals(u.getStatus())){
-            &#x2F;&#x2F; 用户未激活
+            // 用户未激活
             info.setFlag(false);
             info.setErrorMsg(&quot;您的账户尚未激活，请激活&quot;);
         }
-        &#x2F;&#x2F; 6. 判断登录成功
+        // 6. 判断登录成功
         if (u != null &amp;&amp; &quot;Y&quot;.equals(u.getStatus())){
-            &#x2F;&#x2F; 登录成功
+            // 登录成功
             info.setFlag(true);
-            &#x2F;&#x2F; 将登陆用户信息存入session中
+            // 将登陆用户信息存入session中
             request.getSession().setAttribute(&quot;user&quot;,u);
         }
-        &#x2F;&#x2F; 响应数据
+        // 响应数据
         ObjectMapper mapper = new ObjectMapper();
-        response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+        response.setContentType(&quot;application/json;charset=utf-8&quot;);
         mapper.writeValue(response.getOutputStream(),info);
     }
 
-    &#x2F;**
+    /**
      * @Description: 查询单个用户，前台显示登录用户功能
      * @Author: zero
      * @param request
      * @param response
      * @return void
-     * @Date 2019&#x2F;7&#x2F;23 21:38
-     *&#x2F;
+     * @Date 2019/7/23 21:38
+     */
     public void findOne(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        &#x2F;&#x2F; 从session中获取登录用户
+        // 从session中获取登录用户
         Object user = request.getSession().getAttribute(&quot;user&quot;);
-        &#x2F;&#x2F; 将user回写客户端
+        // 将user回写客户端
         ObjectMapper mapper = new ObjectMapper();
-        response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+        response.setContentType(&quot;application/json;charset=utf-8&quot;);
         mapper.writeValue(response.getOutputStream(),user);
     }
 
-    &#x2F;**
+    /**
      * @Description: 用户退出功能
      * @Author: zero
      * @param request
      * @param response
      * @return void
-     * @Date 2019&#x2F;7&#x2F;23 21:38
-     *&#x2F;
+     * @Date 2019/7/23 21:38
+     */
     public void exit(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        &#x2F;&#x2F; 1. 销毁session
+        // 1. 销毁session
         request.getSession().invalidate();
-        &#x2F;&#x2F; 2. 跳转到登录页面
-        response.sendRedirect(request.getContextPath()+&quot;&#x2F;login.html&quot;);
+        // 2. 跳转到登录页面
+        response.sendRedirect(request.getContextPath()+&quot;/login.html&quot;);
     }
 }
 </code></pre>
 <h3 id="2-4-页面路径改写"><a href="#2-4-页面路径改写" class="headerlink" title="2.4 页面路径改写"></a>2.4 页面路径改写</h3><p>将所有用户相关的请求路径改为<code>user/对应方法</code>。例登录路径：<code>user/login</code></p>
 <p>激活功能URL：<code>String content = &quot;&lt;a href=&#39;http://localhost/travel/user/active?code=&quot;+user.getCode()+&quot;&#39;&gt;点击激活账户&lt;/a&gt;&quot;;</code></p>
 <h2 id="3-分类数据展示"><a href="#3-分类数据展示" class="headerlink" title="3. 分类数据展示"></a>3. 分类数据展示</h2><h3 id="3-1-分析"><a href="#3-1-分析" class="headerlink" title="3.1 分析"></a>3.1 分析</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/25/1.%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2-1564023806439.bmp" alt="title"></p>
-<h3 id="3-2-后台代码实现"><a href="#3-2-后台代码实现" class="headerlink" title="3.2 后台代码实现"></a>3.2 后台代码实现</h3><h4 id="3-2-1-CategoryServlet代码"><a href="#3-2-1-CategoryServlet代码" class="headerlink" title="3.2.1 CategoryServlet代码"></a>3.2.1 <code>CategoryServlet</code>代码</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.web.servlet;
+<h3 id="3-2-后台代码实现"><a href="#3-2-后台代码实现" class="headerlink" title="3.2 后台代码实现"></a>3.2 后台代码实现</h3><h4 id="3-2-1-CategoryServlet代码"><a href="#3-2-1-CategoryServlet代码" class="headerlink" title="3.2.1 CategoryServlet代码"></a>3.2.1 <code>CategoryServlet</code>代码</h4><pre><code class="java">package cn.itcast.travel.web.servlet;
 
 import cn.itcast.travel.domain.Category;
 import cn.itcast.travel.service.CategoryService;
@@ -713,34 +707,32 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-&#x2F;**
+/**
  * @Author: zero
- * @Description: Date:Create: in 2019&#x2F;7&#x2F;23 22:51
+ * @Description: Date:Create: in 2019/7/23 22:51
  * Modified By:
- *&#x2F;
-@WebServlet(&quot;&#x2F;category&#x2F;*&quot;)
+ */
+@WebServlet(&quot;/category/*&quot;)
 public class CategoryServlet extends BaseServlet {
     private CategoryService service = new CategoryServiceImpl();
 
-    &#x2F;**
+    /**
      * @Description:查询所有
      * @Author: zero
      * @param request
      * @param response
      * @return void
-     * @Date 2019&#x2F;7&#x2F;23 22:52
-     *&#x2F;
+     * @Date 2019/7/23 22:52
+     */
     public void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 1. 调用servvice查询所有
+        // 1. 调用servvice查询所有
         List&lt;Category&gt; categories = service.findAll();
-        &#x2F;&#x2F; 2. 序列化为json返回
+        // 2. 序列化为json返回
         writeValue(categories,response);
     }
 }
 </code></pre>
-<h4 id="3-2-2-CategoryService代码"><a href="#3-2-2-CategoryService代码" class="headerlink" title="3.2.2 CategoryService代码"></a>3.2.2 <code>CategoryService</code>代码</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.service.impl;
+<h4 id="3-2-2-CategoryService代码"><a href="#3-2-2-CategoryService代码" class="headerlink" title="3.2.2 CategoryService代码"></a>3.2.2 <code>CategoryService</code>代码</h4><pre><code class="java">package cn.itcast.travel.service.impl;
 
 import cn.itcast.travel.dao.CategoryDao;
 import cn.itcast.travel.dao.impl.CategoryDaoImpl;
@@ -749,11 +741,11 @@ import cn.itcast.travel.service.CategoryService;
 
 import java.util.List;
 
-&#x2F;**
+/**
  * @Author: zero
- * @Description: Date:Create: in 2019&#x2F;7&#x2F;23 22:49
+ * @Description: Date:Create: in 2019/7/23 22:49
  * Modified By:
- *&#x2F;
+ */
 
 public class CategoryServiceImpl implements CategoryService {
 
@@ -764,108 +756,101 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDao.findAll();
     }
 }
+
 </code></pre>
-<h4 id="3-2-3-CategoryDao代码"><a href="#3-2-3-CategoryDao代码" class="headerlink" title="3.2.3 CategoryDao代码"></a>3.2.3 <code>CategoryDao</code>代码</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.dao;
+<h4 id="3-2-3-CategoryDao代码"><a href="#3-2-3-CategoryDao代码" class="headerlink" title="3.2.3 CategoryDao代码"></a>3.2.3 <code>CategoryDao</code>代码</h4><pre><code class="java">package cn.itcast.travel.dao;
 
 import cn.itcast.travel.domain.Category;
 
 import java.util.List;
 
-&#x2F;**
+/**
  * @Author: zero
- * @Description: Date:Create: in 2019&#x2F;7&#x2F;23 22:42
+ * @Description: Date:Create: in 2019/7/23 22:42
  * Modified By:
- *&#x2F;
+ */
 public interface CategoryDao {
-    &#x2F;**
+    /**
      * @Description: 查询所有
      * @Author: zero
      * @param
      * @return List集合
-     * @Date 2019&#x2F;7&#x2F;23 22:44
-     *&#x2F;
+     * @Date 2019/7/23 22:44
+     */
     List&lt;Category&gt; findAll();
 }
 </code></pre>
 <h4 id="3-2-4-优化部分代码"><a href="#3-2-4-优化部分代码" class="headerlink" title="3.2.4 优化部分代码"></a>3.2.4 优化部分代码</h4><p>将序列化<code>json</code>方法封装在<code>BaseServlet</code>，减少代码冗余</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * @Description: 直接将传入的对象序列化为json，并且写回客户端
      * @Author: zero
      * @param obj
      * @param response
      * @return void
-     * @Date 2019&#x2F;7&#x2F;23 23:16
-     *&#x2F;
+     * @Date 2019/7/23 23:16
+     */
 public void writeValue(Object obj,HttpServletResponse response) throws IOException{
     ObjectMapper mapper = new ObjectMapper();
-    response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+    response.setContentType(&quot;application/json;charset=utf-8&quot;);
     mapper.writeValue(response.getOutputStream(),obj);
 }
-&#x2F;**
+/**
      * @Description: 将传入的对象序列化为json后返回
      * @Author: zero
      * @param obj
      * @return String
-     * @Date 2019&#x2F;7&#x2F;23 23:18
-     *&#x2F;
+     * @Date 2019/7/23 23:18
+     */
 public String writeValueAsString(Object obj) throws JsonProcessingException {
     return new ObjectMapper().writeValueAsString(obj);
 }
 </code></pre>
-<h3 id="3-3-前台代码实现"><a href="#3-3-前台代码实现" class="headerlink" title="3.3 前台代码实现"></a>3.3 前台代码实现</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&#x2F;&#x2F; 查询分类数据
-$.get(&quot;category&#x2F;findAll&quot;,{},function (data) {
-    &#x2F;&#x2F; [{cid:1,cname:xxx},{cid:2,cname:xxx},]
-    var lis = &#39;&lt;li class=&quot;nav-active&quot;&gt;&lt;a href=&quot;index.html&quot;&gt;首页&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
-    &#x2F;&#x2F; 遍历数组，拼接字符串（&lt;li&gt;）
+<h3 id="3-3-前台代码实现"><a href="#3-3-前台代码实现" class="headerlink" title="3.3 前台代码实现"></a>3.3 前台代码实现</h3><pre><code class="javascript">// 查询分类数据
+$.get(&quot;category/findAll&quot;,{},function (data) {
+    // [{cid:1,cname:xxx},{cid:2,cname:xxx},]
+    var lis = &#39;&lt;li class=&quot;nav-active&quot;&gt;&lt;a href=&quot;index.html&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;&#39;;
+    // 遍历数组，拼接字符串（&lt;li&gt;）
     for (var i = 0; i &lt; data.length; i++) {
-        var li = &#39;&lt;li&gt;&lt;a href=&quot;route_list.html&quot;&gt;&#39;+data[i].cname+&#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+        var li = &#39;&lt;li&gt;&lt;a href=&quot;route_list.html&quot;&gt;&#39;+data[i].cname+&#39;&lt;/a&gt;&lt;/li&gt;&#39;;
         lis += li;
     }
-    &#x2F;&#x2F; 拼接收藏排行榜的li，&lt;li&gt;&lt;a href=&quot;favoriterank.html&quot;&gt; 收藏排行榜&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-    lis+=&#39;&lt;li&gt;&lt;a href=&quot;favoriterank.html&quot;&gt;收藏排行榜&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
-    &#x2F;&#x2F; 将lis字符串，设置到ul的html内容中
+    // 拼接收藏排行榜的li，&lt;li&gt;&lt;a href=&quot;favoriterank.html&quot;&gt; 收藏排行榜&lt;/a&gt;&lt;/li&gt;
+    lis+=&#39;&lt;li&gt;&lt;a href=&quot;favoriterank.html&quot;&gt;收藏排行榜&lt;/a&gt;&lt;/li&gt;&#39;;
+    // 将lis字符串，设置到ul的html内容中
     $(&quot;#category&quot;).html(lis);
 })
 </code></pre>
 <h3 id="3-4-对分类数据进行缓存优化"><a href="#3-4-对分类数据进行缓存优化" class="headerlink" title="3.4 对分类数据进行缓存优化"></a>3.4 对分类数据进行缓存优化</h3><p>分类的数据在每一次页面加载后都会重新请求数据库来加载，对数据库的压力比较大，且分类的数据不会经常产生变化，故在此可以使用redis来缓存这个数据。</p>
-<h3 id="3-5-优化代码实现"><a href="#3-5-优化代码实现" class="headerlink" title="3.5 优化代码实现"></a>3.5 优化代码实现</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<h3 id="3-5-优化代码实现"><a href="#3-5-优化代码实现" class="headerlink" title="3.5 优化代码实现"></a>3.5 优化代码实现</h3><pre><code class="java">/**
      * @Description: 使用redis缓存，优化代码，减少对数据库的访问
      * @Author: zero
      * @param
      * @return List
-     * @Date 2019&#x2F;7&#x2F;24 20:52
-     *&#x2F;
+     * @Date 2019/7/24 20:52
+     */
 @Override
 public List&lt;Category&gt; findAll() {
-    &#x2F;&#x2F; 初始化集合对象
+    // 初始化集合对象
     List&lt;Category&gt; cs = null;
-    &#x2F;&#x2F; 1. 从redis中查询数据
-    &#x2F;&#x2F; 1.1 获取redis客户端连接对象
+    // 1. 从redis中查询数据
+    // 1.1 获取redis客户端连接对象
     Jedis jedis = JedisUtil.getJedis();
-    &#x2F;&#x2F; 1.2 使用sortedset排序查询
+    // 1.2 使用sortedset排序查询
     Set&lt;String&gt; categorys = jedis.zrange(&quot;category&quot;, 0, -1);
-    &#x2F;&#x2F; 2. 判断集合是否为null
+    // 2. 判断集合是否为null
     if (categorys == null || categorys.size() == 0){
-        &#x2F;&#x2F; 2.1 为空，则表示第一次访问
+        // 2.1 为空，则表示第一次访问
         System.out.println(&quot;redis中无数据，查询数据库...&quot;);
-        &#x2F;&#x2F; 2.2 查询数据库，获取数据
+        // 2.2 查询数据库，获取数据
         cs = categoryDao.findAll();
-        &#x2F;&#x2F; 2.3 将集合数据存储到redis中的category的key
+        // 2.3 将集合数据存储到redis中的category的key
         for (int i = 0; i &lt; cs.size(); i++) {
             jedis.zadd(&quot;category&quot;,cs.get(i).getCid(),cs.get(i).getCname());
         }
 
     }else{
-        &#x2F;&#x2F; 3. 不为空，将查询到的set集合数据存入list再返回
-        &#x2F;&#x2F; 因返回的是list集合，故将查询到的set集合数据转换为list数据
+        // 3. 不为空，将查询到的set集合数据存入list再返回
+        // 因返回的是list集合，故将查询到的set集合数据转换为list数据
         System.out.println(&quot;redis中有数据，查询缓存...&quot;);
         cs = new ArrayList&lt;Category&gt;();
         for (String name : categorys) {
@@ -884,42 +869,34 @@ public List&lt;Category&gt; findAll() {
 <ul>
 <li>前台页面传递对应<code>cid</code>，修改<code>header.html</code>，加上<code>data[i].cid</code>即可。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">var li = &#39;&lt;li&gt;&lt;a href=&quot;route_list.html?cid=&#39;+data[i].cid+&#39;&quot;&gt;&#39;+data[i].cname+&#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+<pre><code class="javascript">var li = &#39;&lt;li&gt;&lt;a href=&quot;route_list.html?cid=&#39;+data[i].cid+&#39;&quot;&gt;&#39;+data[i].cname+&#39;&lt;/a&gt;&lt;/li&gt;&#39;;
 </code></pre>
 <ul>
 <li>获取<code>cid</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">$(function(){
+<pre><code class="javascript">$(function(){
     var search = location.search;
-    &#x2F;&#x2F; alert(search);
-    &#x2F;&#x2F; 切割字符串，拿到第二个值
+    // alert(search);
+    // 切割字符串，拿到第二个值
     var cid = search.split(&quot;=&quot;)[1];
 });
 </code></pre>
 <h3 id="4-2-根据id查询不同类别的旅游线路"><a href="#4-2-根据id查询不同类别的旅游线路" class="headerlink" title="4.2  根据id查询不同类别的旅游线路"></a>4.2  根据id查询不同类别的旅游线路</h3><h4 id="4-2-1-分析"><a href="#4-2-1-分析" class="headerlink" title="4.2.1  分析"></a>4.2.1  分析</h4><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/25/%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2-1564023971902.png" alt="title"></p>
 <h4 id="4-2-2-后台代码实现"><a href="#4-2-2-后台代码实现" class="headerlink" title="4.2.2  后台代码实现"></a>4.2.2  后台代码实现</h4><h5 id="4-2-2-1-PageBean对象"><a href="#4-2-2-1-PageBean对象" class="headerlink" title="4.2.2.1 PageBean对象"></a>4.2.2.1 <code>PageBean</code>对象</h5><p>后台返回给前台的对象</p>
+<pre><code class="java">public class PageBean&lt;T&gt; {
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class PageBean&lt;T&gt; {
+    private int totalCount; // 总记录数
+    private int totalPage; // 总页数
+    private int currentPage; // 当前页码
+    private int pageSize; // 每页显示的条数
 
-    private int totalCount; &#x2F;&#x2F; 总记录数
-    private int totalPage; &#x2F;&#x2F; 总页数
-    private int currentPage; &#x2F;&#x2F; 当前页码
-    private int pageSize; &#x2F;&#x2F; 每页显示的条数
+    private List&lt;T&gt; list; // 每页显示的数据集合
 
-    private List&lt;T&gt; list; &#x2F;&#x2F; 每页显示的数据集合
-	
-	&#x2F;&#x2F; 省略getset方法
+    // 省略getset方法
 }
 </code></pre>
 <h5 id="4-2-2-2-RouteServlet控制器代码"><a href="#4-2-2-2-RouteServlet控制器代码" class="headerlink" title="4.2.2.2 RouteServlet控制器代码"></a>4.2.2.2 <code>RouteServlet</code>控制器代码</h5><p>负责接收前台传递的参数并处理，调用<code>service</code>查询到<code>PageBean</code>对象后序列化为<code>json</code>再返回给前端。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.web.servlet;
+<pre><code class="java">package cn.itcast.travel.web.servlet;
 
 import cn.itcast.travel.domain.PageBean;
 import cn.itcast.travel.domain.Route;
@@ -933,51 +910,49 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-&#x2F;**
+/**
  * @Author: zero
- * @Description: Date:Create: in 2019&#x2F;7&#x2F;24 21:52
+ * @Description: Date:Create: in 2019/7/24 21:52
  * Modified By:
- *&#x2F;
-@WebServlet(&quot;&#x2F;route&#x2F;*&quot;)
+ */
+@WebServlet(&quot;/route/*&quot;)
 public class RouteServlet extends BaseServlet {
 
     private RouteService routeService = new RouteServiceImpl();
 
     public void pageQuery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 1. 接受参数
+        // 1. 接受参数
         String currentPageStr = request.getParameter(&quot;currentPage&quot;);
         String pageSizeStr = request.getParameter(&quot;pageSize&quot;);
         String cidStr = request.getParameter(&quot;cid&quot;);
 
-        &#x2F;&#x2F; 2. 处理参数
-        int cid = 0; &#x2F;&#x2F; 类别id
+        // 2. 处理参数
+        int cid = 0; // 类别id
         if (cidStr != null &amp;&amp; cidStr.length() &gt; 0){
             cid = Integer.parseInt(cidStr);
         }
-        int currentPage = 0; &#x2F;&#x2F; 当前页码，如果不传递，则默认为第一页
+        int currentPage = 0; // 当前页码，如果不传递，则默认为第一页
         if (currentPageStr != null &amp;&amp; currentPageStr.length() &gt; 0){
             currentPage = Integer.parseInt(currentPageStr);
         }else {
             currentPage = 1;
         }
-        int pageSize = 0; &#x2F;&#x2F; 每页显示条数，默认为5
+        int pageSize = 0; // 每页显示条数，默认为5
         if (pageSizeStr != null &amp;&amp; pageSizeStr.length() &gt; 0){
             pageSize = Integer.parseInt(pageSizeStr);
         }else {
             pageSize = 5;
         }
 
-        &#x2F;&#x2F; 3. 调用service查询PageBean对象
+        // 3. 调用service查询PageBean对象
         PageBean&lt;Route&gt; pb = routeService.pageQuery(cid, currentPage, pageSize);
-        &#x2F;&#x2F; 4. 将pageBean对象序列化为json，返回
+        // 4. 将pageBean对象序列化为json，返回
         writeValue(pb,response);
     }
 }
 </code></pre>
 <h5 id="4-2-2-3-RouteServiceImpl代码"><a href="#4-2-2-3-RouteServiceImpl代码" class="headerlink" title="4.2.2.3 RouteServiceImpl代码"></a>4.2.2.3 <code>RouteServiceImpl</code>代码</h5><p>根据当前页码，类别信息等，从数据库中查询出当前类别对应数据集合，封装<code>PageBean</code>对象后返回</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.service.impl;
+<pre><code class="java">package cn.itcast.travel.service.impl;
 
 import cn.itcast.travel.dao.RouteDao;
 import cn.itcast.travel.dao.impl.RouteDaoImpl;
@@ -987,42 +962,42 @@ import cn.itcast.travel.service.RouteService;
 
 import java.util.List;
 
-&#x2F;**
+/**
  * @Author: zero
- * @Description: Date:Create: in 2019&#x2F;7&#x2F;24 22:04
+ * @Description: Date:Create: in 2019/7/24 22:04
  * Modified By:
- *&#x2F;
+ */
 
 public class RouteServiceImpl implements RouteService {
 
     private RouteDao routeDao = new RouteDaoImpl();
 
-    &#x2F;**
+    /**
      * @Description: 查询当前页数据集合并封装为PageBean对象后返回
      * @Author: zero
      * @param cid
      * @param currentPage
      * @param pageSize
      * @return 封装好的PageBean对象
-     * @Date 2019&#x2F;7&#x2F;24 22:50
-     *&#x2F;
+     * @Date 2019/7/24 22:50
+     */
     @Override
     public PageBean&lt;Route&gt; pageQuery(int cid, int currentPage, int pageSize) {
-        &#x2F;&#x2F; 封装PageBean
+        // 封装PageBean
         PageBean&lt;Route&gt; pb = new PageBean&lt;&gt;();
-        &#x2F;&#x2F; 设置当前页码
+        // 设置当前页码
         pb.setCurrentPage(currentPage);
-        &#x2F;&#x2F; 设置每页显示的条数
+        // 设置每页显示的条数
         pb.setPageSize(pageSize);
-        &#x2F;&#x2F; 设置总记录数
+        // 设置总记录数
         int totalCount = routeDao.findTotalCount(cid);
         pb.setTotalCount(totalCount);
-        &#x2F;&#x2F; 设置当前页显示的数据集合
-        int start = (currentPage - 1) * pageSize; &#x2F;&#x2F; 开始的记录数
+        // 设置当前页显示的数据集合
+        int start = (currentPage - 1) * pageSize; // 开始的记录数
         List&lt;Route&gt; list = routeDao.findByPage(cid, start, pageSize);
         pb.setList(list);
-        &#x2F;&#x2F; 设置总页数 = 总记录数 &#x2F; 每页显示条数
-        int totalPage = totalCount % pageSize == 0 ? totalCount &#x2F; pageSize : (totalCount &#x2F; pageSize) + 1;
+        // 设置总页数 = 总记录数 / 每页显示条数
+        int totalPage = totalCount % pageSize == 0 ? totalCount / pageSize : (totalCount / pageSize) + 1;
         pb.setTotalPage(totalPage);
 
         return pb;
@@ -1030,9 +1005,7 @@ public class RouteServiceImpl implements RouteService {
 }
 </code></pre>
 <h5 id="4-2-2-4-RouteDaoImpl，DAO实现类"><a href="#4-2-2-4-RouteDaoImpl，DAO实现类" class="headerlink" title="4.2.2.4 RouteDaoImpl，DAO实现类"></a>4.2.2.4 <code>RouteDaoImpl</code>，DAO实现类</h5><p>查询当前类别总记录数和类别当前页的数据集合</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.dao.impl;
+<pre><code class="java">package cn.itcast.travel.dao.impl;
 
 import cn.itcast.travel.dao.RouteDao;
 import cn.itcast.travel.domain.Route;
@@ -1042,37 +1015,37 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
-&#x2F;**
+/**
  * @Author: zero
- * @Description: Date:Create: in 2019&#x2F;7&#x2F;24 22:09
+ * @Description: Date:Create: in 2019/7/24 22:09
  * Modified By:
- *&#x2F;
+ */
 
 public class RouteDaoImpl implements RouteDao {
 
     private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
-    &#x2F;**
+    /**
      * @Description: 根据cid查询总记录数
      * @Author: zero
      * @param cid
      * @return 总记录数
-     * @Date 2019&#x2F;7&#x2F;24 22:08
-     *&#x2F;
+     * @Date 2019/7/24 22:08
+     */
     @Override
     public int findTotalCount(int cid) {
         return template.queryForObject(&quot;select count(*) from tab_route where cid = ?&quot;,Integer.class,cid);
     }
-    
-    &#x2F;**
+
+    /**
      * @Description: 根据cid，start，pageSize查询当前页的数据集合
      * @Author: zero
      * @param cid
      * @param start
      * @param pageSize
      * @return 查询到的当前页数据集合
-     * @Date 2019&#x2F;7&#x2F;24 22:08
-     *&#x2F;
+     * @Date 2019/7/24 22:08
+     */
     @Override
     public List&lt;Route&gt; findByPage(int cid, int start, int pageSize) {
         String sql = &quot;select * from tab_route where cid = ? limit ? , ?&quot;;
@@ -1080,72 +1053,70 @@ public class RouteDaoImpl implements RouteDao {
     }
 }
 </code></pre>
-<h4 id="4-2-3-前台代码实现"><a href="#4-2-3-前台代码实现" class="headerlink" title="4.2.3 前台代码实现"></a>4.2.3 前台代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
+<h4 id="4-2-3-前台代码实现"><a href="#4-2-3-前台代码实现" class="headerlink" title="4.2.3 前台代码实现"></a>4.2.3 前台代码实现</h4><pre><code class="javascript">&lt;script&gt;
     $(function () {
     var search = location.search;
-    &#x2F;&#x2F; alert(search);
-    &#x2F;&#x2F; 切割字符串，拿到第二个值
+    // alert(search);
+    // 切割字符串，拿到第二个值
     var cid = search.split(&quot;=&quot;)[1];
 
-    &#x2F;&#x2F; 当页码加载完毕后，调用load方法，
+    // 当页码加载完毕后，调用load方法，
     load(cid);
 })
 
 
 function load(cid, currentPage) {
-    &#x2F;&#x2F; 发送ajax请求，请求route&#x2F;pageQuery，传递cid
-    $.get(&quot;route&#x2F;pageQuery&quot;,{cid:cid,currentPage:currentPage},function (pb) {
-        &#x2F;&#x2F; 解析PageBean数据，展示到页面上
-        &#x2F;&#x2F; 1. 分页工具条数据展示
-        &#x2F;&#x2F; 1.1 展示总页码和总记录数
+    // 发送ajax请求，请求route/pageQuery，传递cid
+    $.get(&quot;route/pageQuery&quot;,{cid:cid,currentPage:currentPage},function (pb) {
+        // 解析PageBean数据，展示到页面上
+        // 1. 分页工具条数据展示
+        // 1.1 展示总页码和总记录数
         $(&quot;#totalPage&quot;).html(pb.totalPage);
         $(&quot;#totalCount&quot;).html(pb.totalCount);
 
         var lis = &quot;&quot;;
-        var fristPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;首页&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+        var fristPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;&#39;;
 
-        &#x2F;&#x2F; 计算上一页的页码
+        // 计算上一页的页码
         var beforeNum = pb.currentPage - 1;
         if (beforeNum &lt;= 0){
             beforeNum = 1;
         }
 
-        var beforePage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+beforeNum+&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;上一页&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+        var beforePage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+beforeNum+&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;上一页&lt;/a&gt;&lt;/li&gt;&#39;;
 
         lis += fristPage;
         lis += beforePage;
-        &#x2F;&#x2F; 1.2 展示分页页码
-        &#x2F;*
+        // 1.2 展示分页页码
+        /*
                     仿百度分页样式：前五后四
                     1. 一共展示10个页码，能够达到前5后4的效果
                     2. 如果前边不足5个，后边补齐10个
                     3. 如果后边不足4个，前边补齐10个
-                 *&#x2F;
+                 */
 
-        &#x2F;&#x2F; 定义开始位置begin和结束位置end
-        var begin; &#x2F;&#x2F; 开始位置
-        var end; &#x2F;&#x2F; 结束位置
+        // 定义开始位置begin和结束位置end
+        var begin; // 开始位置
+        var end; // 结束位置
 
-        &#x2F;&#x2F; 1. 显示10个页码
+        // 1. 显示10个页码
         if(pb.totalPage &lt; 10){
-            &#x2F;&#x2F; 总页码不足10页
+            // 总页码不足10页
             begin = 1;
             end = pb.totalPage;
         }else{
-            &#x2F;&#x2F; 总页码超过10页
-            &#x2F;&#x2F; 实现前5后4效果
+            // 总页码超过10页
+            // 实现前5后4效果
             begin = pb.currentPage - 5;
             end = pb.currentPage + 4;
 
-            &#x2F;&#x2F; 进行数据修正
-            &#x2F;&#x2F; 2. 如果前边不够5个，后边补齐10个
+            // 进行数据修正
+            // 2. 如果前边不够5个，后边补齐10个
             if (begin &lt; 1){
                 begin = 1;
                 end = begin + 9;
             }
-            &#x2F;&#x2F; 3. 如果后边不足4个，前边补齐10个
+            // 3. 如果后边不足4个，前边补齐10个
             if (end &gt; pb.totalPage){
                 end = pb.totalPage;
                 begin = end - 9;
@@ -1154,14 +1125,14 @@ function load(cid, currentPage) {
 
         for (var i = begin; i &lt;= end; i++) {
             var li;
-            &#x2F;&#x2F; 判断当前页码是否等于i
+            // 判断当前页码是否等于i
             if (pb.currentPage == i){
-                li = &#39;&lt;li class=&quot;curPage&quot; onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+                li = &#39;&lt;li class=&quot;curPage&quot; onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;/a&gt;&lt;/li&gt;&#39;;
             }else{
-                &#x2F;&#x2F; 创建页码的li
-                li = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+                // 创建页码的li
+                li = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;/a&gt;&lt;/li&gt;&#39;;
             }
-            &#x2F;&#x2F; 拼接进字符串
+            // 拼接进字符串
             lis += li;
         }
 
@@ -1169,68 +1140,68 @@ function load(cid, currentPage) {
 
 
 
-        &#x2F;&#x2F; for (var i = 1; i &lt;= pb.totalPage ; i++) {
-        &#x2F;&#x2F;     var li;
-        &#x2F;&#x2F;     &#x2F;&#x2F; 判断当前页码是否等于i
-        &#x2F;&#x2F;     if (pb.currentPage == i){
-        &#x2F;&#x2F;         li = &#39;&lt;li class=&quot;curPage&quot; onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
-        &#x2F;&#x2F;     }else{
-        &#x2F;&#x2F;         &#x2F;&#x2F; 创建页码的li
-        &#x2F;&#x2F;         li = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
-        &#x2F;&#x2F;     }
-        &#x2F;&#x2F;     &#x2F;&#x2F; 拼接进字符串
-        &#x2F;&#x2F;     lis += li;
-        &#x2F;&#x2F; }
+        // for (var i = 1; i &lt;= pb.totalPage ; i++) {
+        //     var li;
+        //     // 判断当前页码是否等于i
+        //     if (pb.currentPage == i){
+        //         li = &#39;&lt;li class=&quot;curPage&quot; onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;/a&gt;&lt;/li&gt;&#39;;
+        //     }else{
+        //         // 创建页码的li
+        //         li = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;/a&gt;&lt;/li&gt;&#39;;
+        //     }
+        //     // 拼接进字符串
+        //     lis += li;
+        // }
 
-        &#x2F;&#x2F; 计算下一页页码
+        // 计算下一页页码
         var nextNum = pb.currentPage + 1;
         if(nextNum &gt;= pb.totalPage){
             nextNum = pb.totalPage;
         }
 
-        var nextPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+nextNum+&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;下一页&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
-        var lastPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+pb.totalPage+&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:;&quot;&gt;末页&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+        var nextPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+nextNum+&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;下一页&lt;/a&gt;&lt;/li&gt;&#39;;
+        var lastPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+pb.totalPage+&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:;&quot;&gt;末页&lt;/a&gt;&lt;/li&gt;&#39;;
 
         lis += nextPage;
         lis += lastPage;
 
-        &#x2F;&#x2F; 将lis内容设置到ul中
+        // 将lis内容设置到ul中
         $(&quot;#pageNum&quot;).html(lis);
 
 
-        &#x2F;&#x2F; 2. 列表数据展示
+        // 2. 列表数据展示
         var route_lis = &quot;&quot;;
 
         for (var i = 0; i &lt; pb.list.length; i++) {
-            &#x2F;&#x2F; 获取数据 {rid&quot;: 1,&quot;rname&quot;: &quot;xxx&quot;,&quot;price&quot;: 999.0,xxxx}
+            // 获取数据 {rid&quot;: 1,&quot;rname&quot;: &quot;xxx&quot;,&quot;price&quot;: 999.0,xxxx}
             var route = pb.list[i];
             var li = &#39;&lt;li&gt;\n&#39; +
-                &#39;                &lt;div class=&quot;img&quot;&gt;&lt;img src=&quot;&#39;+route.rimage+&#39;&quot; style=&quot;width: 299px&quot;&gt;&lt;&#x2F;div&gt;\n&#39; +
+                &#39;                &lt;div class=&quot;img&quot;&gt;&lt;img src=&quot;&#39;+route.rimage+&#39;&quot; style=&quot;width: 299px&quot;&gt;&lt;/div&gt;\n&#39; +
                 &#39;                    &lt;div class=&quot;text1&quot;&gt;\n&#39; +
-                &#39;                    &lt;p&gt;&#39;+route.rname+&#39;&lt;&#x2F;p&gt;\n&#39; +
-                &#39;                    &lt;br&#x2F;&gt;\n&#39; +
-                &#39;                    &lt;p&gt;&#39;+route.routeIntroduce+&#39;&lt;&#x2F;p&gt;\n&#39; +
-                &#39;                &lt;&#x2F;div&gt;\n&#39; +
+                &#39;                    &lt;p&gt;&#39;+route.rname+&#39;&lt;/p&gt;\n&#39; +
+                &#39;                    &lt;br/&gt;\n&#39; +
+                &#39;                    &lt;p&gt;&#39;+route.routeIntroduce+&#39;&lt;/p&gt;\n&#39; +
+                &#39;                &lt;/div&gt;\n&#39; +
                 &#39;                &lt;div class=&quot;price&quot;&gt;\n&#39; +
                 &#39;                    &lt;p class=&quot;price_num&quot;&gt;\n&#39; +
-                &#39;                    &lt;span&gt;&amp;yen;&lt;&#x2F;span&gt;\n&#39; +
-                &#39;                &lt;span&gt;&#39;+route.price+&#39;&lt;&#x2F;span&gt;\n&#39; +
-                &#39;                &lt;span&gt;起&lt;&#x2F;span&gt;\n&#39; +
-                &#39;                &lt;&#x2F;p&gt;\n&#39; +
-                &#39;                &lt;p&gt;&lt;a href=&quot;route_detail.html&quot;&gt;查看详情&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;\n&#39; +
-                &#39;                &lt;&#x2F;div&gt;\n&#39; +
-                &#39;             &lt;&#x2F;li&gt;&#39;;
+                &#39;                    &lt;span&gt;&amp;yen;&lt;/span&gt;\n&#39; +
+                &#39;                &lt;span&gt;&#39;+route.price+&#39;&lt;/span&gt;\n&#39; +
+                &#39;                &lt;span&gt;起&lt;/span&gt;\n&#39; +
+                &#39;                &lt;/p&gt;\n&#39; +
+                &#39;                &lt;p&gt;&lt;a href=&quot;route_detail.html&quot;&gt;查看详情&lt;/a&gt;&lt;/p&gt;\n&#39; +
+                &#39;                &lt;/div&gt;\n&#39; +
+                &#39;             &lt;/li&gt;&#39;;
 
             route_lis += li;
         }
 
         $(&quot;#route&quot;).html(route_lis);
 
-        &#x2F;&#x2F; 每次点击翻页后，定位到页面顶部
+        // 每次点击翻页后，定位到页面顶部
         window.scrollTo(0,0);
     });
 }
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 
             </div>
@@ -1315,10 +1286,8 @@ function load(cid, currentPage) {
                     <div class="summary">前言今日内容为旅游网项目的旅游线路名称查询，详情页展示，线路收藏功能。
 
 1. 旅游线路名称查询功能1.1 查询参数的传递在header.html中添加如下js
-
-
-&#x2F;&#x2F; 给搜索按钮绑定单击事件，获取搜索输入框的内容
-$</div>
+// 给搜索按钮绑定单击事件，获取搜索输入框的内容
+$(&quot;#sear</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-27
@@ -1503,7 +1472,7 @@ Jac</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

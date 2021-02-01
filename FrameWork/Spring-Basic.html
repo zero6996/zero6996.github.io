@@ -412,14 +412,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.4k
+                        1.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        6 分
+                        5 分
                     </div>
                     
                 
@@ -507,9 +507,7 @@
 <h3 id="2-3-编写Spring核心配置文件"><a href="#2-3-编写Spring核心配置文件" class="headerlink" title="2.3 编写Spring核心配置文件"></a>2.3 编写Spring核心配置文件</h3><h4 id="2-3-1-创建测试方法"><a href="#2-3-1-创建测试方法" class="headerlink" title="2.3.1 创建测试方法"></a>2.3.1 创建测试方法</h4><ul>
 <li>在src下创建一个service文件夹，里面创建UserService及其对应实现类，实现add方法，直接打印一句话。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserServiceImpl implements UserService{
+<pre><code class="java">public class UserServiceImpl implements UserService{
     @Override
     public void add() {
         System.out.println(&quot;创建用户...&quot;);
@@ -519,9 +517,7 @@
 <ul>
 <li>创建测试方法，调用add方法。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">
+<pre><code class="java">
 public class UserServiceTest {
 
     @Test
@@ -534,48 +530,43 @@ public class UserServiceTest {
 <h4 id="2-3-2-使用Spring-IOC控制反转创建实例"><a href="#2-3-2-使用Spring-IOC控制反转创建实例" class="headerlink" title="2.3.2 使用Spring IOC控制反转创建实例"></a>2.3.2 使用<code>Spring IOC</code>控制反转创建实例</h4><ul>
 <li>编写配置文件<code>beans.xml</code>，xsd约束文件可以在<code>/spring-framework-3.2.0.RC2-docs/reference/html/xsd-config.html</code>中查看</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-       xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
        xsi:schemaLocation=&quot;
-http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd&quot;&gt;
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
 
     &lt;!-- 配置一个bean --&gt;
-    &lt;bean id=&quot;userService&quot; class=&quot;com.zero.service.UserServiceImpl&quot;&gt;&lt;&#x2F;bean&gt;
-&lt;&#x2F;beans&gt;
+    &lt;bean id=&quot;userService&quot; class=&quot;com.zero.service.UserServiceImpl&quot;&gt;&lt;/bean&gt;
+&lt;/beans&gt;
 </code></pre>
-<h3 id="2-4-在程序中读取Spring配置文件，通过Spring框架获取Bean，完成相应操作。"><a href="#2-4-在程序中读取Spring配置文件，通过Spring框架获取Bean，完成相应操作。" class="headerlink" title="2.4 在程序中读取Spring配置文件，通过Spring框架获取Bean，完成相应操作。"></a>2.4 在程序中读取Spring配置文件，通过Spring框架获取Bean，完成相应操作。</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserServiceTest {
+<h3 id="2-4-在程序中读取Spring配置文件，通过Spring框架获取Bean，完成相应操作。"><a href="#2-4-在程序中读取Spring配置文件，通过Spring框架获取Bean，完成相应操作。" class="headerlink" title="2.4 在程序中读取Spring配置文件，通过Spring框架获取Bean，完成相应操作。"></a>2.4 在程序中读取Spring配置文件，通过Spring框架获取Bean，完成相应操作。</h3><pre><code class="java">public class UserServiceTest {
 
     @Test
     public void test1(){
-        &#x2F;&#x2F; 不使用spring的方式，自己创建对象
-        &#x2F;&#x2F;        UserService us = new UserServiceImpl();
-        &#x2F;&#x2F;        us.add();
+        // 不使用spring的方式，自己创建对象
+        //        UserService us = new UserServiceImpl();
+        //        us.add();
 
-        &#x2F;&#x2F; 使用spring容器方式获取UserService
-        &#x2F;&#x2F; 1. 加载beans.xml 这个spring的配置文件，内部就会创建对象
+        // 使用spring容器方式获取UserService
+        // 1. 加载beans.xml 这个spring的配置文件，内部就会创建对象
         ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
-		&#x2F;&#x2F; 2. 获取对象
+        // 2. 获取对象
         UserService userService1 = (UserService) context.getBean(&quot;userService&quot;);
         userService1.add();
-        System.out.println(userService1); &#x2F;&#x2F; com.zero.service.UserServiceImpl@5f058f00
+        System.out.println(userService1); // com.zero.service.UserServiceImpl@5f058f00
         UserService userService2 = (UserService) context.getBean(&quot;userService&quot;);
-        System.out.println(userService2); &#x2F;&#x2F; com.zero.service.UserServiceImpl@5f058f00
+        System.out.println(userService2); // com.zero.service.UserServiceImpl@5f058f00
     }
 }
+
 </code></pre>
 <h3 id="2-5-IOC"><a href="#2-5-IOC" class="headerlink" title="2.5 IOC"></a>2.5 IOC</h3><p>IOC(Inverse of Control) 反转控制的概念，就是将原本在程序中手动创建对象的控制权，交由Spring框架管理。简单的说，就是创建对象控制权被反转到了Spring框架。</p>
 <h3 id="2-6-DI解释"><a href="#2-6-DI解释" class="headerlink" title="2.6 DI解释"></a>2.6 DI解释</h3><ul>
 <li>Dependency Injection 依赖输入，在Spring框架负责创建Bean对象时，动态的将依赖对象注入到Bean组件。</li>
 </ul>
 <p>例：在UserServiceImpl中提供一个get/set的name方法，在beans.xml中提供property去注入。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class UserServiceImpl implements UserService{
+<pre><code class="java">public class UserServiceImpl implements UserService{
 
     private String name;
 
@@ -594,20 +585,18 @@ http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F
 }
 </code></pre>
 <p>配置文件中使用依赖注入：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;
-       xmlns:xsi=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
        xsi:schemaLocation=&quot;
-http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd&quot;&gt;
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
 
     &lt;!-- 配置一个bean --&gt;
     &lt;bean id=&quot;userService&quot; class=&quot;com.zero.service.UserServiceImpl&quot;&gt;
         &lt;!-- 使用DI依赖注入数据, 调用属性的set方法--&gt;
-        &lt;property name=&quot;name&quot; value=&quot;zhangsan&quot;&gt;&lt;&#x2F;property&gt;
-    &lt;&#x2F;bean&gt;
-&lt;&#x2F;beans&gt;
+        &lt;property name=&quot;name&quot; value=&quot;zhangsan&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
 </code></pre>
 
             </div>
@@ -871,7 +860,7 @@ ApplicationContext工厂在加载</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

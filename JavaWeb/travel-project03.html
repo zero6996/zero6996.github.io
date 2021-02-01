@@ -8,10 +8,8 @@
     <meta name="description" content="前言今日内容为旅游网项目的旅游线路名称查询，详情页展示，线路收藏功能。
 
 1. 旅游线路名称查询功能1.1 查询参数的传递在header.html中添加如下js
-
-
-&amp;#x2F;&amp;#x2F; 给搜索按钮绑定单击事件，获取搜索输入框的内容
-$">
+// 给搜索按钮绑定单击事件，获取搜索输入框的内容
+$(&amp;quot;#sear">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -416,14 +414,14 @@ $">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4k
+                        3.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        20 分
+                        18 分
                     </div>
                     
                 
@@ -442,32 +440,28 @@ $">
                 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今日内容为旅游网项目的旅游线路名称查询，详情页展示，线路收藏功能。</p>
 <a id="more"></a>
 <h2 id="1-旅游线路名称查询功能"><a href="#1-旅游线路名称查询功能" class="headerlink" title="1. 旅游线路名称查询功能"></a>1. 旅游线路名称查询功能</h2><h3 id="1-1-查询参数的传递"><a href="#1-1-查询参数的传递" class="headerlink" title="1.1 查询参数的传递"></a>1.1 查询参数的传递</h3><p>在<code>header.html</code>中添加如下js</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&#x2F;&#x2F; 给搜索按钮绑定单击事件，获取搜索输入框的内容
+<pre><code class="javascript">// 给搜索按钮绑定单击事件，获取搜索输入框的内容
 $(&quot;#search_btn&quot;).click(function () {
-    &#x2F;&#x2F; 用户输入的线路名称
+    // 用户输入的线路名称
     var rname = $(&quot;#search_input&quot;).val();
     var cid = getParameter(&quot;cid&quot;);
 
 
 
-    &#x2F;&#x2F; 跳转路径  http:&#x2F;&#x2F;localhost&#x2F;travel&#x2F;route_list.html?cid=5, 拼接上rname=xxx
-    location.href = &quot;http:&#x2F;&#x2F;localhost&#x2F;travel&#x2F;route_list.html?cid=&quot;+cid+&quot;&amp;rname=&quot;+rname;
+    // 跳转路径  http://localhost/travel/route_list.html?cid=5, 拼接上rname=xxx
+    location.href = &quot;http://localhost/travel/route_list.html?cid=&quot;+cid+&quot;&amp;rname=&quot;+rname;
 
 });
 </code></pre>
 <p>在<code>route_list.html</code>中添加代码</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">$(function () {
-    &#x2F;&#x2F; 获取cid的参数值
+<pre><code class="javascript">$(function () {
+    // 获取cid的参数值
     var cid = getParameter(&quot;cid&quot;);
-    &#x2F;&#x2F; 获取rname的参数值
+    // 获取rname的参数值
     var rname = getParameter(&quot;rname&quot;);
-    &#x2F;&#x2F; 判断rname不为null
+    // 判断rname不为null
     if (rname){
-        &#x2F;&#x2F; url 解码
+        // url 解码
         rname = window.decodeURIComponent(rname);
     }
 });
@@ -477,44 +471,38 @@ $(&quot;#search_btn&quot;).click(function () {
 <ol>
 <li><code>RouteServlet</code>部分代修改及添加</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 添加以下代码
-&#x2F;&#x2F; 接受rname 参数
+<pre><code class="java">// 添加以下代码
+// 接受rname 参数
 String rname = request.getParameter(&quot;rname&quot;); 
-rname = new String(rname.getBytes(&quot;iso-8859-1&quot;),&quot;utf-8&quot;); &#x2F;&#x2F; 重新编码rnmae，解决get请求乱码问题
-&#x2F;&#x2F; 修改查询方法，添加rname参数
-&#x2F;&#x2F; 3. 调用service查询PageBean对象
+rname = new String(rname.getBytes(&quot;iso-8859-1&quot;),&quot;utf-8&quot;); // 重新编码rnmae，解决get请求乱码问题
+// 修改查询方法，添加rname参数
+// 3. 调用service查询PageBean对象
 PageBean&lt;Route&gt; pb = routeService.pageQuery(cid, currentPage, pageSize,rname);
 </code></pre>
 <ol start="2">
 <li><code>RouteServiceImpl</code>代码修改</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 添加rname参数
+<pre><code class="java">// 添加rname参数
 public PageBean&lt;Route&gt; pageQuery(int cid, int currentPage, int pageSize, String rname) {}
-&#x2F;&#x2F; 以下方法均添加rname参数
+// 以下方法均添加rname参数
 int totalCount = routeDao.findTotalCount(cid,rname);
 List&lt;Route&gt; list = routeDao.findByPage(cid, start, pageSize,rname);
 </code></pre>
 <ol start="3">
 <li><code>RouteDaoImpl</code>代码修改</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Override
+<pre><code class="java">@Override
 public int findTotalCount(int cid, String rname) {
-    &#x2F;&#x2F; String sql = &quot;select count(*) from tab_route where cid = ?&quot;;
-    &#x2F;&#x2F; 1. 定义sql模板,拼接sql时注意空格
+    // String sql = &quot;select count(*) from tab_route where cid = ?&quot;;
+    // 1. 定义sql模板,拼接sql时注意空格
     String sql = &quot;select count(*) from tab_route where 1 = 1 &quot;;
     StringBuilder sb = new StringBuilder(sql);
 
-    List params = new ArrayList(); &#x2F;&#x2F; 条件参数
-    &#x2F;&#x2F; 2. 判断参数是否有值
+    List params = new ArrayList(); // 条件参数
+    // 2. 判断参数是否有值
     if (cid != 0){
         sb.append(&quot; and cid = ? &quot;);
-        params.add(cid); &#x2F;&#x2F; 添加？对应值
+        params.add(cid); // 添加？对应值
     }
 
     if (rname != null &amp;&amp; rname.length() &gt; 0){
@@ -522,23 +510,23 @@ public int findTotalCount(int cid, String rname) {
         params.add(&quot;%&quot;+rname+&quot;%&quot;);
     }
 
-    sql = sb.toString(); &#x2F;&#x2F; 转换为字符串
+    sql = sb.toString(); // 转换为字符串
 
-    return template.queryForObject(sql,Integer.class,params.toArray()); &#x2F;&#x2F; params.toArray() 集合转换为数组
+    return template.queryForObject(sql,Integer.class,params.toArray()); // params.toArray() 集合转换为数组
 }
 
 @Override
 public List&lt;Route&gt; findByPage(int cid, int start, int pageSize, String rname) {
-    &#x2F;&#x2F; String sql = &quot;select * from tab_route where cid = ? limit ? , ?&quot;;
-    &#x2F;&#x2F; 1. 定义sql模板
+    // String sql = &quot;select * from tab_route where cid = ? limit ? , ?&quot;;
+    // 1. 定义sql模板
     String sql = &quot;select * from tab_route where 1 = 1 &quot;;
     StringBuilder sb = new StringBuilder(sql);
 
-    List params = new ArrayList(); &#x2F;&#x2F; 条件参数集合
-    &#x2F;&#x2F; 2. 判断参数是否有值
+    List params = new ArrayList(); // 条件参数集合
+    // 2. 判断参数是否有值
     if (cid != 0){
         sb.append(&quot; and cid = ? &quot;);
-        params.add(cid); &#x2F;&#x2F; 添加？对应值
+        params.add(cid); // 添加？对应值
     }
 
     if (rname != null &amp;&amp; rname.length() &gt; 0){
@@ -546,10 +534,10 @@ public List&lt;Route&gt; findByPage(int cid, int start, int pageSize, String rna
         params.add(&quot;%&quot;+rname+&quot;%&quot;);
     }
 
-    sb.append(&quot; limit ? , ? &quot;); &#x2F;&#x2F; 分页条件限制
+    sb.append(&quot; limit ? , ? &quot;); // 分页条件限制
     sql = sb.toString();
 
-    &#x2F;&#x2F; 加入分页条件参数
+    // 加入分页条件参数
     params.add(start);
     params.add(pageSize);
 
@@ -560,82 +548,80 @@ public List&lt;Route&gt; findByPage(int cid, int start, int pageSize, String rna
 <blockquote>
 <p>注意在标签处添加<code>rname</code>参数时，该参数是一个字符串，故需使用“\”进行转义。</p>
 </blockquote>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
+<pre><code class="javascript">&lt;script&gt;
         $(function () {
-            &#x2F;&#x2F; var search = location.search;
-            &#x2F;&#x2F; &#x2F;&#x2F; alert(search);
-            &#x2F;&#x2F; &#x2F;&#x2F; 切割字符串，拿到第二个值
-            &#x2F;&#x2F; var cid = search.split(&quot;=&quot;)[1];
+            // var search = location.search;
+            // // alert(search);
+            // // 切割字符串，拿到第二个值
+            // var cid = search.split(&quot;=&quot;)[1];
 
-            &#x2F;&#x2F; 获取cid的参数值
+            // 获取cid的参数值
             var cid = getParameter(&quot;cid&quot;);
-            &#x2F;&#x2F; 获取rname的参数值
+            // 获取rname的参数值
             var rname = getParameter(&quot;rname&quot;);
-            &#x2F;&#x2F; 判断rname不为null
+            // 判断rname不为null
             if (rname){
-                &#x2F;&#x2F; url 解码
+                // url 解码
                 rname = window.decodeURIComponent(rname);
             }
 
-            &#x2F;&#x2F; 当页码加载完毕后，调用load方法，
+            // 当页码加载完毕后，调用load方法，
             load(cid,null,rname);
         })
 
 
     function load(cid, currentPage,rname) {
-    &#x2F;&#x2F; 发送ajax请求，请求route&#x2F;pageQuery，传递cid
-    $.get(&quot;route&#x2F;pageQuery&quot;,{cid:cid,currentPage:currentPage,rname:rname},function (pb) {
-        &#x2F;&#x2F; 解析PageBean数据，展示到页面上
-        &#x2F;&#x2F; 1. 分页工具条数据展示
-        &#x2F;&#x2F; 1.1 展示总页码和总记录数
+    // 发送ajax请求，请求route/pageQuery，传递cid
+    $.get(&quot;route/pageQuery&quot;,{cid:cid,currentPage:currentPage,rname:rname},function (pb) {
+        // 解析PageBean数据，展示到页面上
+        // 1. 分页工具条数据展示
+        // 1.1 展示总页码和总记录数
         $(&quot;#totalPage&quot;).html(pb.totalPage);
         $(&quot;#totalCount&quot;).html(pb.totalCount);
 
         var lis = &quot;&quot;;
-        var fristPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,1,\&#39;&#39;+rname+&#39;\&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;首页&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+        var fristPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,1,\&#39;&#39;+rname+&#39;\&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;&#39;;
 
-        &#x2F;&#x2F; 计算上一页的页码
+        // 计算上一页的页码
         var beforeNum = pb.currentPage - 1;
         if (beforeNum &lt;= 0){
             beforeNum = 1;
         }
 
-        var beforePage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+beforeNum+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;上一页&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+        var beforePage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+beforeNum+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;上一页&lt;/a&gt;&lt;/li&gt;&#39;;
 
         lis += fristPage;
         lis += beforePage;
-        &#x2F;&#x2F; 1.2 展示分页页码
-        &#x2F;*
+        // 1.2 展示分页页码
+        /*
                     仿百度分页样式：前五后四
                     1. 一共展示10个页码，能够达到前5后4的效果
                     2. 如果前边不足5个，后边补齐10个
                     3. 如果后边不足4个，前边补齐10个
-                 *&#x2F;
+                 */
 
-        &#x2F;&#x2F; 定义开始位置begin和结束位置end
-        var begin; &#x2F;&#x2F; 开始位置
-        var end; &#x2F;&#x2F; 结束位置
+        // 定义开始位置begin和结束位置end
+        var begin; // 开始位置
+        var end; // 结束位置
 
-        &#x2F;&#x2F; 1. 显示10个页码
+        // 1. 显示10个页码
         if(pb.totalPage &lt; 10){
-            &#x2F;&#x2F; 总页码不足10页
+            // 总页码不足10页
             begin = 1;
             end = pb.totalPage;
         }else{
-            &#x2F;&#x2F; 总页码超过10页
-            &#x2F;&#x2F; 实现前5后4效果
+            // 总页码超过10页
+            // 实现前5后4效果
             begin = pb.currentPage - 5;
             end = pb.currentPage + 4;
 
-            &#x2F;&#x2F; 进行数据修正
-            &#x2F;&#x2F; 2. 如果前边不够5个，后边补齐10个
+            // 进行数据修正
+            // 2. 如果前边不够5个，后边补齐10个
             if (begin &lt; 1){
                 begin = 1;
                 end = begin + 9;
             }
-            &#x2F;&#x2F; 3. 如果后边不足4个，前边补齐10个
+            // 3. 如果后边不足4个，前边补齐10个
             if (end &gt; pb.totalPage){
                 end = pb.totalPage;
                 begin = end - 9;
@@ -644,66 +630,66 @@ public List&lt;Route&gt; findByPage(int cid, int start, int pageSize, String rna
 
         for (var i = begin; i &lt;= end; i++) {
             var li;
-            &#x2F;&#x2F; 判断当前页码是否等于i
+            // 判断当前页码是否等于i
             if (pb.currentPage == i){
-                li = &#39;&lt;li class=&quot;curPage&quot; onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+                li = &#39;&lt;li class=&quot;curPage&quot; onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;/a&gt;&lt;/li&gt;&#39;;
             }else{
-                &#x2F;&#x2F; 创建页码的li
-                li = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+                // 创建页码的li
+                li = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+i+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#39;+i+&#39;&lt;/a&gt;&lt;/li&gt;&#39;;
             }
-            &#x2F;&#x2F; 拼接进字符串
+            // 拼接进字符串
             lis += li;
         }
-        
-        &#x2F;&#x2F; 计算下一页页码
+
+        // 计算下一页页码
         var nextNum = pb.currentPage + 1;
         if(nextNum &gt;= pb.totalPage){
             nextNum = pb.totalPage;
         }
 
-        var nextPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+nextNum+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;下一页&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
-        var lastPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+pb.totalPage+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:;&quot;&gt;末页&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;
+        var nextPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+nextNum+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;下一页&lt;/a&gt;&lt;/li&gt;&#39;;
+        var lastPage = &#39;&lt;li onclick=&quot;javascript:load(&#39;+cid+&#39;,&#39;+pb.totalPage+&#39;,\&#39;&#39;+rname+&#39;\&#39;)&quot; class=&quot;threeword&quot;&gt;&lt;a href=&quot;javascript:;&quot;&gt;末页&lt;/a&gt;&lt;/li&gt;&#39;;
 
         lis += nextPage;
         lis += lastPage;
 
-        &#x2F;&#x2F; 将lis内容设置到ul中
+        // 将lis内容设置到ul中
         $(&quot;#pageNum&quot;).html(lis);
 
 
-        &#x2F;&#x2F; 2. 列表数据展示
+        // 2. 列表数据展示
         var route_lis = &quot;&quot;;
 
         for (var i = 0; i &lt; pb.list.length; i++) {
-            &#x2F;&#x2F; 获取数据 {rid&quot;: 1,&quot;rname&quot;: &quot;xxx&quot;,&quot;price&quot;: 999.0,xxxx}
+            // 获取数据 {rid&quot;: 1,&quot;rname&quot;: &quot;xxx&quot;,&quot;price&quot;: 999.0,xxxx}
             var route = pb.list[i];
             var li = &#39;&lt;li&gt;\n&#39; +
-                &#39;                &lt;div class=&quot;img&quot;&gt;&lt;img src=&quot;&#39;+route.rimage+&#39;&quot; style=&quot;width: 299px&quot;&gt;&lt;&#x2F;div&gt;\n&#39; +
+                &#39;                &lt;div class=&quot;img&quot;&gt;&lt;img src=&quot;&#39;+route.rimage+&#39;&quot; style=&quot;width: 299px&quot;&gt;&lt;/div&gt;\n&#39; +
                 &#39;                    &lt;div class=&quot;text1&quot;&gt;\n&#39; +
-                &#39;                    &lt;p&gt;&#39;+route.rname+&#39;&lt;&#x2F;p&gt;\n&#39; +
-                &#39;                    &lt;br&#x2F;&gt;\n&#39; +
-                &#39;                    &lt;p&gt;&#39;+route.routeIntroduce+&#39;&lt;&#x2F;p&gt;\n&#39; +
-                &#39;                &lt;&#x2F;div&gt;\n&#39; +
+                &#39;                    &lt;p&gt;&#39;+route.rname+&#39;&lt;/p&gt;\n&#39; +
+                &#39;                    &lt;br/&gt;\n&#39; +
+                &#39;                    &lt;p&gt;&#39;+route.routeIntroduce+&#39;&lt;/p&gt;\n&#39; +
+                &#39;                &lt;/div&gt;\n&#39; +
                 &#39;                &lt;div class=&quot;price&quot;&gt;\n&#39; +
                 &#39;                    &lt;p class=&quot;price_num&quot;&gt;\n&#39; +
-                &#39;                    &lt;span&gt;&amp;yen;&lt;&#x2F;span&gt;\n&#39; +
-                &#39;                &lt;span&gt;&#39;+route.price+&#39;&lt;&#x2F;span&gt;\n&#39; +
-                &#39;                &lt;span&gt;起&lt;&#x2F;span&gt;\n&#39; +
-                &#39;                &lt;&#x2F;p&gt;\n&#39; +
-                &#39;                &lt;p&gt;&lt;a href=&quot;route_detail.html&quot;&gt;查看详情&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;\n&#39; +
-                &#39;                &lt;&#x2F;div&gt;\n&#39; +
-                &#39;             &lt;&#x2F;li&gt;&#39;;
+                &#39;                    &lt;span&gt;&amp;yen;&lt;/span&gt;\n&#39; +
+                &#39;                &lt;span&gt;&#39;+route.price+&#39;&lt;/span&gt;\n&#39; +
+                &#39;                &lt;span&gt;起&lt;/span&gt;\n&#39; +
+                &#39;                &lt;/p&gt;\n&#39; +
+                &#39;                &lt;p&gt;&lt;a href=&quot;route_detail.html&quot;&gt;查看详情&lt;/a&gt;&lt;/p&gt;\n&#39; +
+                &#39;                &lt;/div&gt;\n&#39; +
+                &#39;             &lt;/li&gt;&#39;;
 
             route_lis += li;
         }
 
         $(&quot;#route&quot;).html(route_lis);
 
-        &#x2F;&#x2F; 每次点击翻页后，定位到页面顶部
+        // 每次点击翻页后，定位到页面顶部
         window.scrollTo(0,0);
     });
 }
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <p>​    </p>
 <h2 id="2-旅游线路的详情展示"><a href="#2-旅游线路的详情展示" class="headerlink" title="2. 旅游线路的详情展示"></a>2. 旅游线路的详情展示</h2><h3 id="2-1-分析"><a href="#2-1-分析" class="headerlink" title="2.1 分析"></a>2.1 分析</h3><p><img src="D:\资料\Java\img\route_info.jpg" alt="route_info"></p>
@@ -711,48 +697,44 @@ public List&lt;Route&gt; findByPage(int cid, int start, int pageSize, String rna
 <h3 id="2-2-后台代码实现"><a href="#2-2-后台代码实现" class="headerlink" title="2.2 后台代码实现"></a>2.2 后台代码实现</h3><ul>
 <li>在<code>RouteServlet</code>中创建一个<code>findOne</code>方法，查询<code>route</code>对象并返回给客户端</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * @Description: 根据id查询一个旅游线路的详细信息
  * @Author: zero
  * @param request
  * @param response
  * @return void
- * @Date 2019&#x2F;7&#x2F;26 20:56
- *&#x2F;
+ * @Date 2019/7/26 20:56
+ */
 public void findOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    &#x2F;&#x2F; 1. 接收id
+    // 1. 接收id
     String rid = request.getParameter(&quot;rid&quot;);
-    &#x2F;&#x2F; 2. 调用service查询route对象
+    // 2. 调用service查询route对象
     Route route = routeService.findOne(Integer.parseInt(rid));
-    &#x2F;&#x2F; 3. 转为json返回客户端
+    // 3. 转为json返回客户端
     writeValue(route,response);
 }
 </code></pre>
 <ul>
 <li>在<code>RouteServiceImpl</code>中新建<code>findOne</code>方法，根据<code>rid</code>查询三表数据，封装进<code>route</code>对象</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * @Description: 根据rid查询三个表数据，封装进route对象
  * @Author: zero
  * @param rid
  * @return 封装好的route对象
- * @Date 2019&#x2F;7&#x2F;26 21:16
- *&#x2F;
+ * @Date 2019/7/26 21:16
+ */
 @Override
 public Route findOne(int rid) {
-    &#x2F;&#x2F; 1. 根据id查询route对象 routeDao
+    // 1. 根据id查询route对象 routeDao
     Route route = routeDao.findOne(rid);
-    &#x2F;&#x2F; 2. 根据rid线路id查询tab_route_img，将集合设置到route对象中
+    // 2. 根据rid线路id查询tab_route_img，将集合设置到route对象中
     List&lt;RouteImg&gt; img = routeImgDao.findImg(rid);
-    &#x2F;&#x2F; 2.1 将img集合设置到route对象中
+    // 2.1 将img集合设置到route对象中
     route.setRouteImgList(img);
-    &#x2F;&#x2F; 3. 根据sid卖家id查询tab_seller查询卖家信息，设置到route对象中
+    // 3. 根据sid卖家id查询tab_seller查询卖家信息，设置到route对象中
     Seller seller = sellerDao.findSeller(route.getSid());
-    &#x2F;&#x2F; 3.1 设置到route对象中
+    // 3.1 设置到route对象中
     route.setSeller(seller);
 
     return route;
@@ -761,37 +743,35 @@ public Route findOne(int rid) {
 <ul>
 <li>修改<code>RouteDao</code>层，添加<code>findOne</code>方法，新建两个Dao及其对应实现类，分别是<code>RouteImgDao</code>和<code>SellerDao</code>，查询图片信息和卖家信息。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; RouteDaoImpl
-&#x2F;**
+<pre><code class="java">// RouteDaoImpl
+/**
  * 根据id查询
  * @param rid
  * @return
- *&#x2F;
+ */
 @Override
 public Route findOne(int rid) {
     return template.queryForObject(&quot;select * from tab_route where rid = ?&quot;,
                                    new BeanPropertyRowMapper&lt;Route&gt;(Route.class),rid);
 }
 
-&#x2F;&#x2F; RouteImgDaoImpl
-&#x2F;**
+// RouteImgDaoImpl
+/**
  * 根据rid查询图片信息
  * @param rid
  * @return
- *&#x2F;
+ */
 @Override
 public List&lt;RouteImg&gt; findImg(int rid) {
     return template.query(&quot;select * from tab_route_img where rid = ?&quot;,
                           new BeanPropertyRowMapper&lt;RouteImg&gt;(RouteImg.class),rid);
 }
-&#x2F;&#x2F; SellerDaoImpl
-&#x2F;**
+// SellerDaoImpl
+/**
  * 根据sid查询卖家信息
  * @param sid
  * @return
- *&#x2F;
+ */
 @Override
 public Seller findSeller(int sid) {
     return template.queryForObject(&quot;select * from tab_seller where sid = ?&quot;,
@@ -799,23 +779,21 @@ public Seller findSeller(int sid) {
 }
 </code></pre>
 <h3 id="2-3-前台代码实现"><a href="#2-3-前台代码实现" class="headerlink" title="2.3 前台代码实现"></a>2.3 前台代码实现</h3><p>在<code>Route_detail.html</code>中加载后获取rid，然后发送ajax请求，获取route对象，解析对象数据，填充入html中</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
+<pre><code class="javascript">&lt;script&gt;
 $(document).ready(function() {
     goImg();
 });
 
 function goImg() {
-    &#x2F;&#x2F;焦点图效果
-    &#x2F;&#x2F;点击图片切换图片
+    //焦点图效果
+    //点击图片切换图片
     $(&#39;.little_img&#39;).on(&#39;mousemove&#39;, function() {
         $(&#39;.little_img&#39;).removeClass(&#39;cur_img&#39;);
         var big_pic = $(this).data(&#39;bigpic&#39;);
         $(&#39;.big_img&#39;).attr(&#39;src&#39;, big_pic);
         $(this).addClass(&#39;cur_img&#39;);
     });
-    &#x2F;&#x2F;上下切换
+    //上下切换
     var picindex = 0;
     var nextindex = 4;
     $(&#39;.down_img&#39;).on(&#39;click&#39;,function(){
@@ -836,10 +814,10 @@ function goImg() {
             nextindex = nextindex - 1;
         }
     });
-    &#x2F;&#x2F;自动播放
-    &#x2F;&#x2F; var timer = setInterval(&quot;auto_play()&quot;, 5000);
+    //自动播放
+    // var timer = setInterval(&quot;auto_play()&quot;, 5000);
 }
-&#x2F;&#x2F;自动轮播方法
+//自动轮播方法
 function auto_play() {
     var cur_index = $(&#39;.prosum_left dd&#39;).find(&#39;a.cur_img&#39;).index();
     cur_index = cur_index - 1;
@@ -865,12 +843,12 @@ function auto_play() {
 
 
 $(function () {
-    &#x2F;&#x2F; 1. 获取id
+    // 1. 获取id
     var rid = getParameter(&quot;rid&quot;);
 
-    &#x2F;&#x2F; 2. 发送请求， route&#x2F;findOne
-    $.get(&quot;route&#x2F;findOne&quot;,{rid:rid},function (route) {
-        &#x2F;&#x2F; 3. 解析数据填充html
+    // 2. 发送请求， route/findOne
+    $.get(&quot;route/findOne&quot;,{rid:rid},function (route) {
+        // 3. 解析数据填充html
         $(&quot;#rname&quot;).html(route.rname);
         $(&quot;#routeIntroduce&quot;).html(route.routeIntroduce);
         $(&quot;#price&quot;).html(route.price);
@@ -878,37 +856,37 @@ $(function () {
         $(&quot;#consphone&quot;).html(route.seller.consphone);
         $(&quot;#address&quot;).html(route.seller.address);
 
-        &#x2F;&#x2F; 图片展示
+        // 图片展示
 
-        var dd_str = &#39;&lt;a class=&quot;up_img up_img_disable&quot;&gt;&lt;&#x2F;a&gt;&#39;;
+        var dd_str = &#39;&lt;a class=&quot;up_img up_img_disable&quot;&gt;&lt;/a&gt;&#39;;
 
-        &#x2F;&#x2F; 遍历routeImgList
+        // 遍历routeImgList
         for (var i = 0; i &lt; route.routeImgList.length; i++) {
             var a_str;
-            &#x2F;&#x2F; 判断图片是否大于4，将大于4的图片设置为display:none
+            // 判断图片是否大于4，将大于4的图片设置为display:none
             if (i &gt;= 4) {
                 a_str = &#39;&lt;a title=&quot;&quot; class=&quot;little_img&quot; data-bigpic=&quot;&#39;+route.routeImgList[i].bigPic+&#39;&quot; style=&quot;display:none;&quot;&gt;\n&#39; +
                     &#39;                        &lt;img src=&quot;&#39;+route.routeImgList[i].smallPic+&#39;&quot;&gt;\n&#39; +
-                    &#39;                    &lt;&#x2F;a&gt;&#39;;
+                    &#39;                    &lt;/a&gt;&#39;;
             } else {
                 a_str = &#39;&lt;a title=&quot;&quot; class=&quot;little_img&quot; data-bigpic=&quot;&#39;+route.routeImgList[i].bigPic+&#39;&quot;&gt;\n&#39; +
                     &#39;                        &lt;img src=&quot;&#39;+route.routeImgList[i].smallPic+&#39;&quot;&gt;\n&#39; +
-                    &#39;                    &lt;&#x2F;a&gt;&#39;;
+                    &#39;                    &lt;/a&gt;&#39;;
             }
 
             dd_str += a_str;
         }
 
-        dd_str += &#39;&lt;a class=&quot;down_img down_img_disable&quot; style=&quot;margin-bottom: 0;&quot;&gt;&lt;&#x2F;a&gt;&#39;;
+        dd_str += &#39;&lt;a class=&quot;down_img down_img_disable&quot; style=&quot;margin-bottom: 0;&quot;&gt;&lt;/a&gt;&#39;;
 
         $(&quot;#dd&quot;).html(dd_str);
 
-        &#x2F;&#x2F; 图片展示和切换代码的调用
+        // 图片展示和切换代码的调用
         goImg();
     });
 
 });
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <blockquote>
 <p>需注意：在<code>route_list.html</code>中的查看详情URL处修改代码，传递rid值：<code>&lt;p&gt;&lt;a href=&quot;route_detail.html?rid=&#39;+route.rid+&#39;&quot;&gt;查看详情&lt;/a&gt;&lt;/p&gt;\n&#39;</code></p>
@@ -922,61 +900,55 @@ $(function () {
 <h3 id="3-2-后台代码编写"><a href="#3-2-后台代码编写" class="headerlink" title="3.2 后台代码编写"></a>3.2 后台代码编写</h3><ul>
 <li>修改<code>RouteServlet</code>，添加<code>isFavorite</code>方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * @Description: 根据线路id和用户id，判断用户是否收藏了该线路
      * @Author: zero
      * @param request
      * @param response
      * @return void
-     * @Date 2019&#x2F;7&#x2F;27 23:11
-     *&#x2F;
+     * @Date 2019/7/27 23:11
+     */
 public void isFavorite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    &#x2F;&#x2F; 1. 获取rid，线路id
+    // 1. 获取rid，线路id
     String rid = request.getParameter(&quot;rid&quot;);
-    &#x2F;&#x2F; 2. 获取udi，通过当前登录用户对象，session
+    // 2. 获取udi，通过当前登录用户对象，session
     User user = (User) request.getSession().getAttribute(&quot;user&quot;);
-    &#x2F;&#x2F; 2.1 如果user对象为null，则表示未登录，设置uid=0
-    int uid; &#x2F;&#x2F; 用户id
+    // 2.1 如果user对象为null，则表示未登录，设置uid=0
+    int uid; // 用户id
     if (user == null){
-        &#x2F;&#x2F; 用户未登录
+        // 用户未登录
         uid = 0;
     }else{
-        &#x2F;&#x2F; 用户已登录
+        // 用户已登录
         uid = user.getUid();
     }
-    &#x2F;&#x2F; 3. 调用FavoriteService查询，传递rid，uid
+    // 3. 调用FavoriteService查询，传递rid，uid
     boolean flag = favoriteService.isFavorite(Integer.parseInt(rid), uid);
 
-    &#x2F;&#x2F; 4. 写回客户端flag标记
+    // 4. 写回客户端flag标记
     writeValue(flag,response);
 }
 </code></pre>
 <ul>
 <li><code>FavoriteServiceImpl</code>添加<code>isFavorite</code>方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Override
+<pre><code class="java">@Override
 public boolean isFavorite(int rid, int uid) {
     Favorite favorite = favoriteDao.findFavorite(rid, uid);
-    return favorite != null ? true : false; &#x2F;&#x2F; 如果对象有值，则表示收藏过了，返回true，反之表示未收藏过返回false。
+    return favorite != null ? true : false; // 如果对象有值，则表示收藏过了，返回true，反之表示未收藏过返回false。
 }
 </code></pre>
 <ul>
 <li><code>FavoriteDaoImpl</code>添加<code>findFavorite</code>方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * @Description: 根据线路id和用户id查询数据
      * @Author: zero
      * @param rid
      * @param uid
      * @return 查询到的Favorite对象
-     * @Date 2019&#x2F;7&#x2F;27 22:34
-     *&#x2F;
+     * @Date 2019/7/27 22:34
+     */
 @Override
 public Favorite findFavorite(int rid, int uid) {
     Favorite favorite = null;
@@ -990,49 +962,44 @@ public Favorite findFavorite(int rid, int uid) {
 }
 </code></pre>
 <h3 id="3-3-前台代码编写"><a href="#3-3-前台代码编写" class="headerlink" title="3.3 前台代码编写"></a>3.3 前台代码编写</h3><p>在<code>route.detail.html</code>中添加<code>isFavorite</code>的js方法，在页面加载完毕后请求。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">function isFavorite() {
-    &#x2F;&#x2F; 发送请求，判断用户是否收藏过该线路
+<pre><code class="javascript">function isFavorite() {
+    // 发送请求，判断用户是否收藏过该线路
     var rid = getParameter(&quot;rid&quot;);
-    $.get(&quot;route&#x2F;isFavorite&quot;,{rid:rid},function (flag) {
+    $.get(&quot;route/isFavorite&quot;,{rid:rid},function (flag) {
         if (flag){
-            &#x2F;&#x2F; 用户已经收藏过了
-            &#x2F;&#x2F; &lt;a  class=&quot;btn already&quot; disabled=&quot;disabled&quot;&gt;
-            &#x2F;&#x2F; 设置收藏按钮的样式
+            // 用户已经收藏过了
+            // &lt;a  class=&quot;btn already&quot; disabled=&quot;disabled&quot;&gt;
+            // 设置收藏按钮的样式
             $(&quot;#favorite&quot;).addClass(&quot;already&quot;);
             $(&quot;#favorite&quot;).attr(&quot;disabled&quot;,&quot;disabled&quot;);
 
-            &#x2F;&#x2F; 删除按钮的点击事件
+            // 删除按钮的点击事件
             $(&quot;#favorite&quot;).removeAttr(&quot;onclick&quot;);
         } else {
-            &#x2F;&#x2F; 用户没有收藏过
+            // 用户没有收藏过
         }
     });
 };
+
 </code></pre>
 <h3 id="3-4-收藏次数的动态展示"><a href="#3-4-收藏次数的动态展示" class="headerlink" title="3.4 收藏次数的动态展示"></a>3.4 收藏次数的动态展示</h3><p>前台代码：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&#x2F;&#x2F; 设置收藏次数
+<pre><code class="javascript">// 设置收藏次数
 $(&quot;#favoriteNumber&quot;).html(&quot;已收藏&quot;+route.count+&quot;次&quot;);
 </code></pre>
 <p>后台添加一个查询次数方法即可</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; RouteService, 在加载页面时调用findOne方法，同时将收藏次数也封装进Route对象中
-&#x2F;&#x2F; 4. 查询收藏次数
+<pre><code class="java">// RouteService, 在加载页面时调用findOne方法，同时将收藏次数也封装进Route对象中
+// 4. 查询收藏次数
 int count = favoriteDao.findFavoriteCount(route.getRid());
 route.setCount(count);
 
-&#x2F;&#x2F; FavoriteDao
-&#x2F;**
+// FavoriteDao
+/**
  * @Description: 根据rid查询收藏次数
  * @Author: zero
  * @param rid
  * @return 收藏次数
- * @Date 2019&#x2F;7&#x2F;27 23:20
- *&#x2F;
+ * @Date 2019/7/27 23:20
+ */
 @Override
 public int findFavoriteCount(int rid) {
     return template.queryForObject(&quot;select count(*) from tab_favorite where rid = ?&quot;, Integer.class,rid);
@@ -1042,24 +1009,22 @@ public int findFavoriteCount(int rid) {
 <h4 id="3-5-2-代码实现"><a href="#3-5-2-代码实现" class="headerlink" title="3.5.2 代码实现"></a>3.5.2 代码实现</h4><ul>
 <li>前台代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&#x2F;&#x2F; 点击收藏按钮触发的方法
+<pre><code class="javascript">// 点击收藏按钮触发的方法
 function addFavorite() {
     var rid = getParameter(&quot;rid&quot;);
-    &#x2F;&#x2F; 1. 判断用户是否登录
-    $.get(&quot;user&#x2F;findOne&quot;,{},function (user) {
+    // 1. 判断用户是否登录
+    $.get(&quot;user/findOne&quot;,{},function (user) {
         if (user){
-            &#x2F;&#x2F; 用户登录了
-            &#x2F;&#x2F; 调用添加功能
-            $.get(&quot;route&#x2F;addFavorite&quot;,{rid:rid},function () {});
+            // 用户登录了
+            // 调用添加功能
+            $.get(&quot;route/addFavorite&quot;,{rid:rid},function () {});
 
-            &#x2F;&#x2F; 刷新页面
+            // 刷新页面
             location.reload();
         } else{
-            &#x2F;&#x2F; 用户未登录
+            // 用户未登录
             alert(&quot;您未登录，请登录&quot;);
-            location.href = &quot;http:&#x2F;&#x2F;localhost&#x2F;travel&#x2F;login.html&quot;;
+            location.href = &quot;http://localhost/travel/login.html&quot;;
         }
     });
 };
@@ -1067,62 +1032,54 @@ function addFavorite() {
 <ul>
 <li>后台代码，在<code>RouteServlet</code>中添加<code>addFavorite</code>方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * @Description: 添加收藏功能
      * @Author: zero
      * @param request
      * @param response
      * @return void
-     * @Date 2019&#x2F;7&#x2F;27 23:46
-     *&#x2F;
+     * @Date 2019/7/27 23:46
+     */
 public void addFavorite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    &#x2F;&#x2F; 1. 获取线路id rid
+    // 1. 获取线路id rid
     String rid = request.getParameter(&quot;rid&quot;);
-    &#x2F;&#x2F; 2. 获取用户对象 uid
+    // 2. 获取用户对象 uid
     User user = (User) request.getSession().getAttribute(&quot;user&quot;);
-    int uid; &#x2F;&#x2F; 用户id
+    int uid; // 用户id
     if (user == null){
-        &#x2F;&#x2F; 用户未登录
+        // 用户未登录
         return;
     }else{
-        &#x2F;&#x2F; 用户已登录
+        // 用户已登录
         uid = user.getUid();
     }
 
-    &#x2F;&#x2F; 3. 调用service添加
+    // 3. 调用service添加
     favoriteService.add(Integer.parseInt(rid), uid);
 
 }
 </code></pre>
 <ul>
 <li><p>在<code>FavoriteServiceImpl</code>中添加<code>add</code>方法</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  @Override
-  public void add(int rid, int uid) {
-      favoriteDao.add(rid,uid);
-  }
+<pre><code class="java">@Override
+public void add(int rid, int uid) {
+    favoriteDao.add(rid,uid);
+}
 </code></pre>
 </li>
-</ul>
-<ul>
 <li><p>在<code>FavoriteDaoImpl</code>中添加<code>add</code>方法</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  &#x2F;**
-       * @Description: 添加收藏功能
-       * @Author: zero
-       * @param rid
-       * @param uid
-       * @return void
-       * @Date 2019&#x2F;7&#x2F;27 23:54
-       *&#x2F;
-  @Override
-  public void add(int rid, int uid) {
-      template.update(&quot;insert into tab_favorite values(?,?,?)&quot;,rid,new Date(),uid);
-  }
+<pre><code class="java">/**
+     * @Description: 添加收藏功能
+     * @Author: zero
+     * @param rid
+     * @param uid
+     * @return void
+     * @Date 2019/7/27 23:54
+     */
+@Override
+public void add(int rid, int uid) {
+    template.update(&quot;insert into tab_favorite values(?,?,?)&quot;,rid,new Date(),uid);
+}
 </code></pre>
 </li>
 </ul>
@@ -1385,7 +1342,7 @@ public void addFavorite(HttpServletRequest request, HttpServletResponse response
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

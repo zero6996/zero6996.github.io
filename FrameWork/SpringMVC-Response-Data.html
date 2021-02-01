@@ -7,10 +7,8 @@
     <meta name="keywords" content="SpringMVC学习2, Zero的博客">
     <meta name="description" content="1. 响应数据和结果视图1.1 返回值分类
 1.1.1 字符串Controller方法返回字符串可以指定逻辑视图名，通过视图解析器解析为物理视图地址。
-
-
-&amp;#x2F;&amp;#x2F; 返回值是字符串
-@RequestMapping(&amp;quot">
+// 返回值是字符串
+@RequestMapping(&amp;quot;/testString">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -415,14 +413,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.3k
+                        5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        25 分
+                        23 分
                     </div>
                     
                 
@@ -440,23 +438,19 @@
             <div id="articleContent">
                 <h2 id="1-响应数据和结果视图"><a href="#1-响应数据和结果视图" class="headerlink" title="1. 响应数据和结果视图"></a>1. 响应数据和结果视图</h2><h3 id="1-1-返回值分类"><a href="#1-1-返回值分类" class="headerlink" title="1.1 返回值分类"></a>1.1 返回值分类</h3><a id="more"></a>
 <h4 id="1-1-1-字符串"><a href="#1-1-1-字符串" class="headerlink" title="1.1.1 字符串"></a>1.1.1 字符串</h4><p>Controller方法返回字符串可以指定逻辑视图名，通过视图解析器解析为物理视图地址。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 返回值是字符串
-@RequestMapping(&quot;&#x2F;testString&quot;)
+<pre><code class="java">// 返回值是字符串
+@RequestMapping(&quot;/testString&quot;)
 public String testString(Model model){
     System.out.println(&quot;testString方法执行了...&quot;);
-    &#x2F;&#x2F; 模拟从数据库中查询出User对象
+    // 模拟从数据库中查询出User对象
     User user = new User(&quot;小明&quot;, &quot;123&quot;, 22);
-    &#x2F;&#x2F; 使用model传递数据
+    // 使用model传递数据
     model.addAttribute(&quot;user&quot;,user);
-    return &quot;success&quot;; &#x2F;&#x2F; 指定逻辑视图名，经过视图解析器解析为jsp物理路径：&#x2F;WEB-INF&#x2F;pages&#x2F;success.jsp
+    return &quot;success&quot;; // 指定逻辑视图名，经过视图解析器解析为jsp物理路径：/WEB-INF/pages/success.jsp
 }
 </code></pre>
 <h4 id="1-1-2-void"><a href="#1-1-2-void" class="headerlink" title="1.1.2 void"></a>1.1.2 void</h4><p>上篇文章中学到Servlet原始API可以作为控制器中方法的参数：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@RequestMapping(&quot;&#x2F;testReturnVoid&quot;)
+<pre><code class="java">@RequestMapping(&quot;/testReturnVoid&quot;)
 public void testReturnVoid(HttpServletRequest request,HttpServletResponse response)
 throws Exception {
     xxx
@@ -466,57 +460,51 @@ throws Exception {
 <ul>
 <li>使用request跳转页面：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * 通过request跳转页面
      * @param request
      * @param response
      * @throws Exception
-     *&#x2F;
-@RequestMapping(&quot;&#x2F;testForward&quot;)
+     */
+@RequestMapping(&quot;/testForward&quot;)
 public void testForward(HttpServletRequest request,
                         HttpServletResponse response) throws Exception {
     System.out.println(&quot;testForward方法执行了...&quot;);
-    request.getRequestDispatcher(&quot;&#x2F;WEB-INF&#x2F;pages&#x2F;success.jsp&quot;).forward(request,response);
+    request.getRequestDispatcher(&quot;/WEB-INF/pages/success.jsp&quot;).forward(request,response);
 }
 </code></pre>
 <ul>
 <li>通过response重定向页面：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * 通过response重定向页面
      * @param request
      * @param response
      * @throws Exception
-     *&#x2F;
-@RequestMapping(&quot;&#x2F;testRedirect&quot;)
+     */
+@RequestMapping(&quot;/testRedirect&quot;)
 public void testRedirect(HttpServletRequest request,
                          HttpServletResponse response) throws Exception {
     System.out.println(&quot;testRedirect方法执行了...&quot;);
-    response.sendRedirect(&quot;testString&quot;); &#x2F;&#x2F; 重定向到返回字符串页面
+    response.sendRedirect(&quot;testString&quot;); // 重定向到返回字符串页面
 }
 </code></pre>
 <ul>
 <li>通过response指定响应结果：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java"> &#x2F;**
+<pre><code class="java"> /**
      * 通过 response 指定响应结果
      * @param request
      * @param response
      * @throws Exception
-     *&#x2F;
-@RequestMapping(&quot;&#x2F;testReturnJson&quot;)
+     */
+@RequestMapping(&quot;/testReturnJson&quot;)
 public void testReturnJson(HttpServletRequest request,
                            HttpServletResponse response) throws Exception {
     System.out.println(&quot;testReturnJson方法执行了...&quot;);
-    &#x2F;&#x2F; 解决中文乱码问题
+    // 解决中文乱码问题
     response.setCharacterEncoding(&quot;utf-8&quot;);
-    response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+    response.setContentType(&quot;application/json;charset=utf-8&quot;);
     response.getWriter().write(&quot;响应json串&quot;);
 }
 </code></pre>
@@ -532,41 +520,34 @@ public void testReturnJson(HttpServletRequest request,
 <ul>
 <li>控制器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">  &#x2F;**
-       * 返回ModelAndView
-       * @return
-       *&#x2F;
-  @RequestMapping(&quot;&#x2F;testReturnModelAndView&quot;)
-  public ModelAndView testReturnModelAndView(){
-      ModelAndView modelAndView = new ModelAndView();
-      &#x2F;&#x2F; 将user对象存入到modelAndView对象中，底层会把user对象存入request域中
-      modelAndView.addObject(&quot;user&quot;,new User(&quot;小张&quot;,&quot;222&quot;,21));
-      modelAndView.setViewName(&quot;success&quot;); &#x2F;&#x2F; 设置视图名称
-      return modelAndView;
-  }
+<pre><code class="java">/**
+     * 返回ModelAndView
+     * @return
+     */
+@RequestMapping(&quot;/testReturnModelAndView&quot;)
+public ModelAndView testReturnModelAndView(){
+    ModelAndView modelAndView = new ModelAndView();
+    // 将user对象存入到modelAndView对象中，底层会把user对象存入request域中
+    modelAndView.addObject(&quot;user&quot;,new User(&quot;小张&quot;,&quot;222&quot;,21));
+    modelAndView.setViewName(&quot;success&quot;); // 设置视图名称
+    return modelAndView;
+}
 </code></pre>
-</li>
-</ul>
 <ul>
-<li><p>jsp：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">  &lt;h3&gt;访问成功！&lt;&#x2F;h3&gt;
-  ${user.username}
-  ${user.password}
-  ${user.age}
+<li>jsp：</li>
+</ul>
+<pre><code class="jsp">&lt;h3&gt;访问成功！&lt;/h3&gt;
+${user.username}
+${user.password}
+${user.age}
 </code></pre>
 </li>
 </ul>
 <h3 id="1-2-转发和重定向"><a href="#1-2-转发和重定向" class="headerlink" title="1.2 转发和重定向"></a>1.2 转发和重定向</h3><h4 id="1-2-1-forward转发"><a href="#1-2-1-forward转发" class="headerlink" title="1.2.1 forward转发"></a>1.2.1 forward转发</h4><p>controller方法提供了String类型的返回值之后，默认就是请求转发。我们也可以写成如下形式：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@RequestMapping(&quot;&#x2F;testForward&quot;)
+<pre><code class="java">@RequestMapping(&quot;/testForward&quot;)
     public String testForward()  {
         System.out.println(&quot;testForward方法执行了...&quot;);
-        return &quot;forward:&#x2F;WEB-INF&#x2F;pages&#x2F;success.jsp&quot;; &#x2F;&#x2F; 使用了forward:,路径就必须写成物理视图url
+        return &quot;forward:/WEB-INF/pages/success.jsp&quot;; // 使用了forward:,路径就必须写成物理视图url
     }
 </code></pre>
 <ul>
@@ -574,12 +555,10 @@ public void testReturnJson(HttpServletRequest request,
 <li>它相当于：<code>request.getRequestDispatcher(&quot;/WEB-INF/pages/success.jsp&quot;).forward(request,response);</code></li>
 <li>使用请求转发，即可以转发到jsp，也可以转发到其他控制器方法。例：<code>return &quot;forward:testString&quot;;</code></li>
 </ul>
-<h4 id="1-2-2-Redirect重定向"><a href="#1-2-2-Redirect重定向" class="headerlink" title="1.2.2 Redirect重定向"></a>1.2.2 Redirect重定向</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@RequestMapping(&quot;&#x2F;testRedirect&quot;)
+<h4 id="1-2-2-Redirect重定向"><a href="#1-2-2-Redirect重定向" class="headerlink" title="1.2.2 Redirect重定向"></a>1.2.2 Redirect重定向</h4><pre><code class="java">@RequestMapping(&quot;/testRedirect&quot;)
 public String testRedirect() {
     System.out.println(&quot;testRedirect方法执行了...&quot;);
-    return &quot;redirect:testString&quot;; &#x2F;&#x2F; 重定向到返回字符串页面
+    return &quot;redirect:testString&quot;; // 重定向到返回字符串页面
 }
 </code></pre>
 <ul>
@@ -597,40 +576,34 @@ public String testRedirect() {
 </ul>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 设置静态资源不过滤 --&gt;
-&lt;mvc:resources location=&quot;&#x2F;css&#x2F;&quot; mapping=&quot;&#x2F;css&#x2F;**&quot;&#x2F;&gt; &lt;!-- 样式 --&gt;
-&lt;mvc:resources location=&quot;&#x2F;images&#x2F;&quot; mapping=&quot;&#x2F;images&#x2F;**&quot;&#x2F;&gt; &lt;!-- 图片 --&gt;
-&lt;mvc:resources location=&quot;&#x2F;js&#x2F;&quot; mapping=&quot;&#x2F;js&#x2F;**&quot;&#x2F;&gt; &lt;!-- javascript --&gt;
+<pre><code class="xml">&lt;!-- 设置静态资源不过滤 --&gt;
+&lt;mvc:resources location=&quot;/css/&quot; mapping=&quot;/css/**&quot;/&gt; &lt;!-- 样式 --&gt;
+&lt;mvc:resources location=&quot;/images/&quot; mapping=&quot;/images/**&quot;/&gt; &lt;!-- 图片 --&gt;
+&lt;mvc:resources location=&quot;/js/&quot; mapping=&quot;/js/**&quot;/&gt; &lt;!-- javascript --&gt;
 </code></pre>
 <ul>
 <li>方法2：在web.xml配置文件中配置如下</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--设置访问静态资源--&gt;
+<pre><code class="xml">&lt;!--设置访问静态资源--&gt;
 &lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;default&lt;&#x2F;servlet-name&gt;
-    &lt;url-pattern&gt;*.css&lt;&#x2F;url-pattern&gt;
-&lt;&#x2F;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.css&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
 &lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;default&lt;&#x2F;servlet-name&gt;
-    &lt;url-pattern&gt;*.js&lt;&#x2F;url-pattern&gt;
-&lt;&#x2F;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.js&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
 </code></pre>
 <h4 id="1-3-2-示例"><a href="#1-3-2-示例" class="headerlink" title="1.3.2 示例"></a>1.3.2 示例</h4><p>简单的获取json数据</p>
 <ul>
 <li>控制器代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * 测试响应json数据
      * @param
      * @return
-     *&#x2F;
-@RequestMapping(&quot;&#x2F;testResponseJson&quot;)
+     */
+@RequestMapping(&quot;/testResponseJson&quot;)
 public void testResponseJson(@RequestBody String body){
     System.out.println(&quot;异步请求:&quot;+body);
 }
@@ -638,17 +611,15 @@ public void testResponseJson(@RequestBody String body){
 <ul>
 <li>jsp</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;script&gt;
-    &#x2F;&#x2F; 页面加载,绑定单机事件
+<pre><code class="jsp">&lt;script&gt;
+    // 页面加载,绑定单机事件
     $(function () {
         $(&quot;#btn&quot;).click(function () {
-            &#x2F;&#x2F; 发送ajax请求
+            // 发送ajax请求
             $.ajax({
                 type:&quot;post&quot;,
-                url:&quot;user&#x2F;testResponseJson&quot;,
-                contentType:&quot;application&#x2F;json;charset=utf-8&quot;,
+                url:&quot;user/testResponseJson&quot;,
+                contentType:&quot;application/json;charset=utf-8&quot;,
                 data:&#39;{&quot;username&quot;:&quot;小明&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:33}&#39;,
                 dataType:&quot;json&quot;,
                 success:function (data) {
@@ -657,9 +628,9 @@ public void testResponseJson(@RequestBody String body){
             })
         })
     })
-&lt;&#x2F;script&gt;
-&lt;h3&gt;6. ResponseBody响应Json数据&lt;&#x2F;h3&gt;
-&lt;button id=&quot;btn&quot;&gt;发送Ajax请求&lt;&#x2F;button&gt;
+&lt;/script&gt;
+&lt;h3&gt;6. ResponseBody响应Json数据&lt;/h3&gt;
+&lt;button id=&quot;btn&quot;&gt;发送Ajax请求&lt;/button&gt;
 </code></pre>
 <ul>
 <li>测试结果：<code>异步请求:{&quot;username&quot;:&quot;小明&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:33}</code></li>
@@ -668,31 +639,27 @@ public void testResponseJson(@RequestBody String body){
 <ul>
 <li>在pom.xml中导入坐标</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--导入json和JavaBean对象相互转换所需jar包：jackson--&gt;
+<pre><code class="xml">&lt;!--导入json和JavaBean对象相互转换所需jar包：jackson--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.core&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;jackson-databind&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;2.9.0&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+    &lt;version&gt;2.9.0&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.core&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;jackson-core&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;2.9.0&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+    &lt;version&gt;2.9.0&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.core&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;jackson-annotations&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;2.9.0&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;
+    &lt;version&gt;2.9.0&lt;/version&gt;
+&lt;/dependency&gt;
 </code></pre>
 <ul>
 <li>控制器代码修改</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@RequestMapping(&quot;&#x2F;testResponseJson&quot;)
+<pre><code class="java">@RequestMapping(&quot;/testResponseJson&quot;)
 public @ResponseBody User testResponseJson(@RequestBody User user){
     System.out.println(&quot;异步请求:&quot;+user);
     user.setUsername(&quot;花花&quot;);
@@ -703,21 +670,19 @@ public @ResponseBody User testResponseJson(@RequestBody User user){
 <ul>
 <li>前端修改js</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
-    &#x2F;&#x2F; 页面加载,绑定单机事件
+<pre><code class="javascript">&lt;script&gt;
+    // 页面加载,绑定单机事件
     $(function () {
     $(&quot;#btn&quot;).click(function () {
-        &#x2F;&#x2F; 发送ajax请求
+        // 发送ajax请求
         $.ajax({
             type:&quot;post&quot;,
-            url:&quot;user&#x2F;testResponseJson&quot;,
-            contentType:&quot;application&#x2F;json;charset=utf-8&quot;,
+            url:&quot;user/testResponseJson&quot;,
+            contentType:&quot;application/json;charset=utf-8&quot;,
             data:&#39;{&quot;username&quot;:&quot;小明&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:33}&#39;,
             dataType:&quot;json&quot;,
             success:function (data) {
-                &#x2F;&#x2F; data是服务器端响应的json数据
+                // data是服务器端响应的json数据
                 alert(data.username);
                 alert(data.password);
                 alert(data.age);
@@ -725,7 +690,7 @@ public @ResponseBody User testResponseJson(@RequestBody User user){
         })
     })
 })
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <h2 id="2-SpringMVC实现文件上传"><a href="#2-SpringMVC实现文件上传" class="headerlink" title="2. SpringMVC实现文件上传"></a>2. SpringMVC实现文件上传</h2><h3 id="2-1-文件上传回顾"><a href="#2-1-文件上传回顾" class="headerlink" title="2.1 文件上传回顾"></a>2.1 文件上传回顾</h3><h4 id="2-1-1-必要前提"><a href="#2-1-1-必要前提" class="headerlink" title="2.1.1 必要前提"></a>2.1.1 必要前提</h4><ul>
 <li>form表单的enctype(表单请求正文的类型)取值必须是：<code>multipart/form-data</code>，默认值是<code>application/x-www-form-urlencoded</code>。</li>
@@ -737,96 +702,85 @@ public @ResponseBody User testResponseJson(@RequestBody User user){
 <li><code>enctype=”application/x-www-form-urlencoded”</code>时，form 表单的正文内容是键值对形式。</li>
 <li>当form表单的enctype取值为<code>multipart/form-data</code>时，请求正文内容就变成：每一部分都是MIME类型描述的正文。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-clike">-----------------------------7de1a433602ac 					--&gt;分界符
-Content-Disposition: form-data; name=&quot;userName&quot; 			--&gt;协议头
-文件上传测试											  		--&gt;协议的正文
+<pre><code>-----------------------------7de1a433602ac                     --&gt;分界符
+Content-Disposition: form-data; name=&quot;userName&quot;             --&gt;协议头
+文件上传测试                                                      --&gt;协议的正文
 -----------------------------7de1a433602ac
 Content-Disposition: form-data; name=&quot;file&quot;;
 filename=&quot;C:\Users\zhy\Desktop\fileupload_demofile\b.txt&quot;
-Content-Type: text&#x2F;plain 								    --&gt;协议的类型（MIME 类型）
+Content-Type: text/plain                                     --&gt;协议的类型（MIME 类型）
 文件实际内容xxxxxx
 -----------------------------7de1a433602ac--
-</code></pre>
-<h4 id="2-1-3-借助第三方组件实现文件上传"><a href="#2-1-3-借助第三方组件实现文件上传" class="headerlink" title="2.1.3 借助第三方组件实现文件上传"></a>2.1.3 借助第三方组件实现文件上传</h4><p>使用 Commons-fileupload 组件实现文件上传，需要导入该组件相应的支撑 jar 包：<code>Commons-fileupload 和commons-io</code>。commons-io 不属于文件上传组件的开发 jar 文件，但Commons-fileupload 组件从 1.1 版本开始，它工作时需要 commons-io 包的支持。</p>
+</code></pre><h4 id="2-1-3-借助第三方组件实现文件上传"><a href="#2-1-3-借助第三方组件实现文件上传" class="headerlink" title="2.1.3 借助第三方组件实现文件上传"></a>2.1.3 借助第三方组件实现文件上传</h4><p>使用 Commons-fileupload 组件实现文件上传，需要导入该组件相应的支撑 jar 包：<code>Commons-fileupload 和commons-io</code>。commons-io 不属于文件上传组件的开发 jar 文件，但Commons-fileupload 组件从 1.1 版本开始，它工作时需要 commons-io 包的支持。</p>
 <ul>
 <li>在pom.xml中导入所需jar包</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--导入文件上传相关jar包--&gt;
+<pre><code class="xml">&lt;!--导入文件上传相关jar包--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;commons-fileupload&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;commons-fileupload&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;1.3.1&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
+    &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
+    &lt;version&gt;1.3.1&lt;/version&gt;
+&lt;/dependency&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;commons-io&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;commons-io&lt;&#x2F;artifactId&gt;
-    &lt;version&gt;2.4&lt;&#x2F;version&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;commons-io&lt;/groupId&gt;
+    &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+    &lt;version&gt;2.4&lt;/version&gt;
+&lt;/dependency&gt;
 </code></pre>
 <h3 id="2-2-SpringMVC传统方式的文件上传"><a href="#2-2-SpringMVC传统方式的文件上传" class="headerlink" title="2.2 SpringMVC传统方式的文件上传"></a>2.2 SpringMVC传统方式的文件上传</h3><p>传统方式的文件上传，指的是我们上传的文件和访问的应用存在于同一台服务器上。且上传完毕后，浏览器可能跳转。</p>
-<h4 id="2-2-1-编写控制器"><a href="#2-2-1-编写控制器" class="headerlink" title="2.2.1 编写控制器"></a>2.2.1 编写控制器</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<h4 id="2-2-1-编写控制器"><a href="#2-2-1-编写控制器" class="headerlink" title="2.2.1 编写控制器"></a>2.2.1 编写控制器</h4><pre><code class="java">/**
 * SpringMVC框架方式文件上传
-*&#x2F;
-@RequestMapping(&quot;&#x2F;MVCfileUpLoad&quot;)
+*/
+@RequestMapping(&quot;/MVCfileUpLoad&quot;)
 public String MVCfileUpLoad(String picname, MultipartFile uploadFile,
                             HttpServletRequest request) throws Exception{
     System.out.println(&quot;SpringMVC框架方式文件上传&quot;);
-    &#x2F;&#x2F; 1.定义文件名称
+    // 1.定义文件名称
     String fileName = &quot;&quot;;
-    &#x2F;&#x2F; 1.1. 获取原始文件名
+    // 1.1. 获取原始文件名
     String originalFilename = uploadFile.getOriginalFilename();
-    &#x2F;&#x2F; 1.2. 截取文件扩展名
+    // 1.2. 截取文件扩展名
     String extentName = originalFilename.substring(originalFilename.lastIndexOf(&quot;.&quot;) + 1,
                                                    originalFilename.length());
-    &#x2F;&#x2F; 1.3. 将文件加上随机数，防止文件重复
+    // 1.3. 将文件加上随机数，防止文件重复
     String uuid = UUID.randomUUID().toString().replace(&quot;-&quot;, &quot;&quot;).toUpperCase();
-    &#x2F;&#x2F; 1.4. 判断是否输入了文件名
+    // 1.4. 判断是否输入了文件名
     if (!StringUtils.isEmpty(picname)){
         fileName = uuid+&quot;_&quot;+picname+&quot;.&quot;+extentName;
     }else {
         fileName = uuid+&quot;_&quot;+originalFilename;
     }
     System.out.println(&quot;文件名称：&quot;+fileName);
-    &#x2F;&#x2F; 2. 获取文件路径
-    String basePath = request.getSession().getServletContext().getRealPath(&quot;&#x2F;uploads&quot;);
+    // 2. 获取文件路径
+    String basePath = request.getSession().getServletContext().getRealPath(&quot;/uploads&quot;);
     System.out.println(&quot;文件路径：&quot;+basePath);
-    &#x2F;&#x2F; 3. 解决用一文件夹中文件过多问题
+    // 3. 解决用一文件夹中文件过多问题
     String datePath = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).format(new Date());
-    &#x2F;&#x2F; 4. 判断路径是否存在
-    File file = new File(basePath+&quot;&#x2F;&quot;+datePath);
-    if (!file.exists()){ &#x2F;&#x2F; 如果文件夹不存在
-        file.mkdirs(); &#x2F;&#x2F; 创建
+    // 4. 判断路径是否存在
+    File file = new File(basePath+&quot;/&quot;+datePath);
+    if (!file.exists()){ // 如果文件夹不存在
+        file.mkdirs(); // 创建
     }
-    &#x2F;&#x2F; 5. 使用MultipartFile接口中方法，将上传的文件写到指定位置
+    // 5. 使用MultipartFile接口中方法，将上传的文件写到指定位置
     uploadFile.transferTo(new File(file,fileName));
     return &quot;success&quot;;
 }
 </code></pre>
-<h4 id="2-2-2-编写jsp页面"><a href="#2-2-2-编写jsp页面" class="headerlink" title="2.2.2 编写jsp页面"></a>2.2.2 编写jsp页面</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;文件上传&lt;&#x2F;h3&gt;
-&lt;form action=&quot;&#x2F;file&#x2F;MVCfileUpLoad&quot; method=&quot;post&quot; enctype=&quot;multipart&#x2F;form-data&quot;&gt;
+<h4 id="2-2-2-编写jsp页面"><a href="#2-2-2-编写jsp页面" class="headerlink" title="2.2.2 编写jsp页面"></a>2.2.2 编写jsp页面</h4><pre><code class="jsp">&lt;h3&gt;文件上传&lt;/h3&gt;
+&lt;form action=&quot;/file/MVCfileUpLoad&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
     文件名称：&lt;input type=&quot;text&quot; name=&quot;picname&quot;&gt;
-    选择上传文件:&lt;input type=&quot;file&quot; name=&quot;uploadFile&quot;&#x2F;&gt; &lt;br&gt;
+    选择上传文件:&lt;input type=&quot;file&quot; name=&quot;uploadFile&quot;/&gt; &lt;br&gt;
     &lt;input type=&quot;submit&quot; value=&quot;上传&quot;&gt;
-&lt;&#x2F;form&gt;
+&lt;/form&gt;
 </code></pre>
 <h4 id="2-2-3-配置文件解析器"><a href="#2-2-3-配置文件解析器" class="headerlink" title="2.2.3 配置文件解析器"></a>2.2.3 配置文件解析器</h4><p>在SpringMVC.xml中添加如下配置</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--配置文件上传解析器,id:multipartResolver是固定值--&gt;
+<pre><code class="xml">&lt;!--配置文件上传解析器,id:multipartResolver是固定值--&gt;
 &lt;bean id=&quot;multipartResolver&quot; class=&quot;org.springframework.web.multipart.commons.CommonsMultipartResolver&quot;&gt;
     &lt;!--设置上传文件的最大尺寸为 5MB=5*1024*1024=5242880字节 --&gt;
     &lt;property name=&quot;maxUploadSize&quot;&gt;
-        &lt;value&gt;5242880&lt;&#x2F;value&gt;
-    &lt;&#x2F;property&gt;
-&lt;&#x2F;bean&gt;
+        &lt;value&gt;5242880&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
 </code></pre>
 <h3 id="2-3-跨服务器方式的文件上传"><a href="#2-3-跨服务器方式的文件上传" class="headerlink" title="2.3 跨服务器方式的文件上传"></a>2.3 跨服务器方式的文件上传</h3><h4 id="2-3-1-分服务器的目的"><a href="#2-3-1-分服务器的目的" class="headerlink" title="2.3.1 分服务器的目的"></a>2.3.1 分服务器的目的</h4><p>实际开发中，会有很多处理不同功能的服务器，例</p>
 <ul>
@@ -839,39 +793,37 @@ public String MVCfileUpLoad(String picname, MultipartFile uploadFile,
 <h4 id="2-3-3-具体代码"><a href="#2-3-3-具体代码" class="headerlink" title="2.3.3 具体代码"></a>2.3.3 具体代码</h4><ul>
 <li>控制器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
      * 跨服务器文件上传
      * @return
-     *&#x2F;
-@RequestMapping(&quot;&#x2F;MVCfileUpLoad2&quot;)
+     */
+@RequestMapping(&quot;/MVCfileUpLoad2&quot;)
 public String MVCfileUpLoad2(String picname, MultipartFile uploadFile) throws Exception{
     System.out.println(&quot;跨服务器文件上传&quot;);
-    &#x2F;&#x2F; 1.定义文件名称
+    // 1.定义文件名称
     String fileName = &quot;&quot;;
-    &#x2F;&#x2F; 1.1. 获取原始文件名
+    // 1.1. 获取原始文件名
     String originalFilename = uploadFile.getOriginalFilename();
     System.out.println(originalFilename);
-    &#x2F;&#x2F; 1.2. 截取文件扩展名
+    // 1.2. 截取文件扩展名
     String extentName = originalFilename.substring(originalFilename.lastIndexOf(&quot;.&quot;) + 1,
                                                    originalFilename.length());
-    &#x2F;&#x2F; 1.3. 将文件加上随机数，防止文件重复
+    // 1.3. 将文件加上随机数，防止文件重复
     String uuid = UUID.randomUUID().toString().replace(&quot;-&quot;, &quot;&quot;).toUpperCase();
     if (!StringUtils.isEmpty(picname)){
         fileName = uuid+&quot;_&quot;+picname+&quot;.&quot;+extentName;
     }else {
         fileName = uuid+&quot;_&quot;+originalFilename;
     }
-    &#x2F;&#x2F; 定义上传文件服务器路径
-    String path = &quot;http:&#x2F;&#x2F;localhost:8080&#x2F;uploads&#x2F;&quot;;
+    // 定义上传文件服务器路径
+    String path = &quot;http://localhost:8080/uploads/&quot;;
 
-    &#x2F;&#x2F; 完成文件上传，跨服务器版
-    &#x2F;&#x2F; 创建客户端的对象
+    // 完成文件上传，跨服务器版
+    // 创建客户端的对象
     Client client = Client.create();
-    &#x2F;&#x2F; 和文件服务器进行连接
+    // 和文件服务器进行连接
     WebResource resource = client.resource(path+ fileName);
-    &#x2F;&#x2F; 上传文件     todo:中文乱码问题?
+    // 上传文件     todo:中文乱码问题?
     resource.put(uploadFile.getBytes());
     return &quot;success&quot;;
 }
@@ -879,25 +831,21 @@ public String MVCfileUpLoad2(String picname, MultipartFile uploadFile) throws Ex
 <ul>
 <li>jsp</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;跨服务器文件上传&lt;&#x2F;h3&gt;
-&lt;form action=&quot;&#x2F;file&#x2F;MVCfileUpLoad2&quot; method=&quot;post&quot; enctype=&quot;multipart&#x2F;form-data&quot;&gt;
+<pre><code class="jsp">&lt;h3&gt;跨服务器文件上传&lt;/h3&gt;
+&lt;form action=&quot;/file/MVCfileUpLoad2&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
     文件名称：&lt;input type=&quot;text&quot; name=&quot;picname&quot;&gt;
-    选择上传文件:&lt;input type=&quot;file&quot; name=&quot;uploadFile&quot;&#x2F;&gt; &lt;br&gt;
+    选择上传文件:&lt;input type=&quot;file&quot; name=&quot;uploadFile&quot;/&gt; &lt;br&gt;
     &lt;input type=&quot;submit&quot; value=&quot;上传&quot;&gt;
-&lt;&#x2F;form&gt;
+&lt;/form&gt;
 </code></pre>
 <ul>
 <li>403Forbidden问题</li>
 </ul>
 <p>上传文件涉及到读写权限，这个报错的意思就是服务器（Tomcat）没有写入的权限，需要在服务器的web.xml文件中找到servlet标签，在servlet里添加如下字段，开启文件读写</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;init-param&gt;
-    &lt;param-name&gt;readonly&lt;&#x2F;param-name&gt;
-    &lt;param-value&gt;false&lt;&#x2F;param-value&gt;
-&lt;&#x2F;init-param&gt;
+<pre><code class="xml">&lt;init-param&gt;
+    &lt;param-name&gt;readonly&lt;/param-name&gt;
+    &lt;param-value&gt;false&lt;/param-value&gt;
+&lt;/init-param&gt;
 </code></pre>
 <ul>
 <li>409 Conflict 问题</li>
@@ -914,20 +862,18 @@ public String MVCfileUpLoad2(String picname, MultipartFile uploadFile) throws Ex
 <h3 id="3-2-实现步骤"><a href="#3-2-实现步骤" class="headerlink" title="3.2 实现步骤"></a>3.2 实现步骤</h3><ul>
 <li>控制器代码，模拟一个异常</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Controller
+<pre><code class="java">@Controller
 @RequestMapping(&quot;user&quot;)
 public class UserController {
-    @RequestMapping(&quot;&#x2F;testException&quot;)
+    @RequestMapping(&quot;/testException&quot;)
     public String testException() throws SysException{
         System.out.println(&quot;testException.....&quot;);
         try {
-            &#x2F;&#x2F; 模拟异常
-            int i = 1&#x2F;0;
+            // 模拟异常
+            int i = 1/0;
         } catch (Exception e) {
             e.printStackTrace();
-            &#x2F;&#x2F; 抛出自定义异常信息
+            // 抛出自定义异常信息
             throw new SysException(&quot;查询错误....&quot;);
         }
         return &quot;success&quot;;
@@ -938,35 +884,29 @@ public class UserController {
 <li>jsp访问页面和错误页面</li>
 </ul>
 <p>访问页面：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;异常处理&lt;&#x2F;h3&gt;
-&lt;a href=&quot;&#x2F;user&#x2F;testException&quot;&gt;测试异常处理&lt;&#x2F;a&gt;
+<pre><code class="jsp">&lt;h3&gt;异常处理&lt;/h3&gt;
+&lt;a href=&quot;/user/testException&quot;&gt;测试异常处理&lt;/a&gt;
 </code></pre>
 <p>错误页面：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; isELIgnored=&quot;false&quot; %&gt;
+<pre><code class="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; isELIgnored=&quot;false&quot; %&gt;
 &lt;html&gt;
 &lt;head&gt;
-    &lt;title&gt;出错啦！&lt;&#x2F;title&gt;
-&lt;&#x2F;head&gt;
+    &lt;title&gt;出错啦！&lt;/title&gt;
+&lt;/head&gt;
 &lt;body&gt;
-&lt;h4&gt;${errorMsg}&lt;&#x2F;h4&gt;
+&lt;h4&gt;${errorMsg}&lt;/h4&gt;
 
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <ul>
 <li>编写自定义异常类</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * 自定义异常类
- *&#x2F;
+ */
 public class SysException extends Exception {
-    &#x2F;&#x2F; 存储提示信息的
+    // 存储提示信息的
     private String message;
 
     public SysException(String message) {
@@ -986,35 +926,33 @@ public class SysException extends Exception {
 <ul>
 <li>编写自定义异常解析器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * 异常处理类
- *&#x2F;
+ */
 public class SysExceptionResolver implements HandlerExceptionResolver {
-    &#x2F;**
+    /**
      * 处理异常业务逻辑
      * @param request
      * @param response
      * @param handler
      * @param ex 当前抛出的异常对象
      * @return
-     *&#x2F;
+     */
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        &#x2F;&#x2F; 获取异常对象
+        // 获取异常对象
         SysException e = null;
-        &#x2F;&#x2F; 如果抛出的是系统自定义异常则直接转换
-        if (ex instanceof SysException){ &#x2F;&#x2F; instanceof：判断ex是否是SysException的对象、直接或间接子类、其接口实现类
+        // 如果抛出的是系统自定义异常则直接转换
+        if (ex instanceof SysException){ // instanceof：判断ex是否是SysException的对象、直接或间接子类、其接口实现类
             e = (SysException) ex;
         }else {
-            &#x2F;&#x2F; 如果抛出的不是系统自定义异常则重新构造一个系统错误异常
+            // 如果抛出的不是系统自定义异常则重新构造一个系统错误异常
             e = new SysException(&quot;系统维护中....&quot;);
         }
-        &#x2F;&#x2F; 创建ModelAndView对象，跳转页面
+        // 创建ModelAndView对象，跳转页面
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(&quot;errorMsg&quot;,e.getMessage()); &#x2F;&#x2F; 获取异常消息，存入对象
-        modelAndView.setViewName(&quot;error&quot;); &#x2F;&#x2F; 跳转错误页面
+        modelAndView.addObject(&quot;errorMsg&quot;,e.getMessage()); // 获取异常消息，存入对象
+        modelAndView.setViewName(&quot;error&quot;); // 跳转错误页面
         return modelAndView;
     }
 }
@@ -1022,10 +960,8 @@ public class SysExceptionResolver implements HandlerExceptionResolver {
 <ul>
 <li>在SpringMVC.xml中，配置异常处理器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--配置自定义异常处理器对象--&gt;
-&lt;bean id=&quot;SysExceptionResolver&quot; class=&quot;cn.zero.exception.SysExceptionResolver&quot;&#x2F;&gt;
+<pre><code class="xml">&lt;!--配置自定义异常处理器对象--&gt;
+&lt;bean id=&quot;SysExceptionResolver&quot; class=&quot;cn.zero.exception.SysExceptionResolver&quot;/&gt;
 </code></pre>
 <h2 id="4-SpringMVC中的拦截器"><a href="#4-SpringMVC中的拦截器" class="headerlink" title="4. SpringMVC中的拦截器"></a>4. SpringMVC中的拦截器</h2><h3 id="4-1-拦截器的作用"><a href="#4-1-拦截器的作用" class="headerlink" title="4.1 拦截器的作用"></a>4.1 拦截器的作用</h3><ul>
 <li><p>SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter，用于对处理器进行<strong>预处理和后处理。</strong></p>
@@ -1045,14 +981,12 @@ public class SysExceptionResolver implements HandlerExceptionResolver {
 <h3 id="4-2-自定义拦截器的步骤"><a href="#4-2-自定义拦截器的步骤" class="headerlink" title="4.2 自定义拦截器的步骤"></a>4.2 自定义拦截器的步骤</h3><ul>
 <li>编写拦截器类，实现<code>HandlerInterceptor</code>接口，重写方法</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * 定义拦截器
- *&#x2F;
+ */
 public class CustomInterceptor implements HandlerInterceptor {
 
-    &#x2F;**
+    /**
      * 预处理，controller方法执行前处理
      * return true放行，执行下一个拦截器，如果没有下一拦截器，执行控制器方法
      * return false不放行
@@ -1061,36 +995,36 @@ public class CustomInterceptor implements HandlerInterceptor {
      * @param handler
      * @return
      * @throws Exception
-     *&#x2F;
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println(&quot;CustomInterceptor执行了....预处理&quot;);
-&#x2F;&#x2F;        request.getRequestDispatcher(&quot;&#x2F;WEB-INF&#x2F;pages&#x2F;error.jsp&quot;).forward(request,response);
+//        request.getRequestDispatcher(&quot;/WEB-INF/pages/error.jsp&quot;).forward(request,response);
         return true;
     }
 
-    &#x2F;**
+    /**
      * 后处理，controller方法执行后处理
      * @param request
      * @param response
      * @param handler
      * @param modelAndView
      * @throws Exception
-     *&#x2F;
+     */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         System.out.println(&quot;postHandle....后处理&quot;);
-&#x2F;&#x2F;        request.getRequestDispatcher(&quot;&#x2F;WEB-INF&#x2F;pages&#x2F;error.jsp&quot;).forward(request,response);
+//        request.getRequestDispatcher(&quot;/WEB-INF/pages/error.jsp&quot;).forward(request,response);
     }
 
-    &#x2F;**
+    /**
      * 结尾处理，最后执行的，success.jsp页面执行完毕后，该方法执行。
      * @param request
      * @param response
      * @param handler
      * @param ex
      * @throws Exception
-     *&#x2F;
+     */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         System.out.println(&quot;afterCompletion....尾处理&quot;);
@@ -1100,30 +1034,26 @@ public class CustomInterceptor implements HandlerInterceptor {
 <ul>
 <li>配置拦截器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--配置拦截器--&gt;
+<pre><code class="xml">&lt;!--配置拦截器--&gt;
 &lt;mvc:interceptors&gt;
     &lt;mvc:interceptor&gt;
         &lt;!--要拦截的具体方法--&gt;
-        &lt;mvc:mapping path=&quot;&#x2F;user&#x2F;*&quot;&#x2F;&gt;
+        &lt;mvc:mapping path=&quot;/user/*&quot;/&gt;
         &lt;!--不要拦截的方法--&gt;
-        &lt;!--&lt;mvc:exclude-mapping path=&quot;&quot;&#x2F;&gt;--&gt;
+        &lt;!--&lt;mvc:exclude-mapping path=&quot;&quot;/&gt;--&gt;
         &lt;!-- 配置拦截器对象--&gt;
-        &lt;bean class=&quot;com.zero.interceptor.CustomInterceptor&quot;&#x2F;&gt;
-    &lt;&#x2F;mvc:interceptor&gt;
-&lt;&#x2F;mvc:interceptors&gt;
+        &lt;bean class=&quot;com.zero.interceptor.CustomInterceptor&quot;/&gt;
+    &lt;/mvc:interceptor&gt;
+&lt;/mvc:interceptors&gt;
 </code></pre>
 <ul>
 <li>控制器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Controller
+<pre><code class="java">@Controller
 @RequestMapping(&quot;user&quot;)
 public class UserController {
 
-    @RequestMapping(&quot;&#x2F;testInterceptor&quot;)
+    @RequestMapping(&quot;/testInterceptor&quot;)
     public String testInterceptor(){
         System.out.println(&quot;testInterceptor....控制器执行&quot;);
         return &quot;success&quot;;
@@ -1133,23 +1063,18 @@ public class UserController {
 <ul>
 <li>success.jsp</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;访问成功！&lt;&#x2F;h3&gt;
+<pre><code class="jsp">&lt;h3&gt;访问成功！&lt;/h3&gt;
 &lt;% System.out.println(&quot;success.jsp执行了.....&quot;);%&gt;
 </code></pre>
 <ul>
 <li>测试结果</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-clike">CustomInterceptor执行了....预处理
+<pre><code>CustomInterceptor执行了....预处理
 testInterceptor....控制器执行
 postHandle....后处理
 success.jsp执行了.....
 afterCompletion....尾处理
-</code></pre>
-<h3 id="4-3-拦截器简单案例-验证用户是否登录"><a href="#4-3-拦截器简单案例-验证用户是否登录" class="headerlink" title="4.3 拦截器简单案例(验证用户是否登录)"></a>4.3 拦截器简单案例(验证用户是否登录)</h3><h4 id="4-3-1-实现思路"><a href="#4-3-1-实现思路" class="headerlink" title="4.3.1 实现思路"></a>4.3.1 实现思路</h4><ul>
+</code></pre><h3 id="4-3-拦截器简单案例-验证用户是否登录"><a href="#4-3-拦截器简单案例-验证用户是否登录" class="headerlink" title="4.3 拦截器简单案例(验证用户是否登录)"></a>4.3 拦截器简单案例(验证用户是否登录)</h3><h4 id="4-3-1-实现思路"><a href="#4-3-1-实现思路" class="headerlink" title="4.3.1 实现思路"></a>4.3.1 实现思路</h4><ul>
 <li>编写登录页面，需要一个控制器访问页面。</li>
 <li>登录页面有提交表单的动作，需在控制器中处理。<ul>
 <li>判断用户名密码是否正确</li>
@@ -1172,90 +1097,86 @@ afterCompletion....尾处理
 <h4 id="4-3-2-核心代码"><a href="#4-3-2-核心代码" class="headerlink" title="4.3.2 核心代码"></a>4.3.2 核心代码</h4><ul>
 <li>控制器代码</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Controller
+<pre><code class="java">@Controller
 @RequestMapping(&quot;user&quot;)
 public class UserController {
-    
-    &#x2F;**
+
+    /**
      * 跳转登录页面
      * @param model
      * @return
      * @throws Exception
-     *&#x2F;
-    @RequestMapping(&quot;&#x2F;login&quot;)
+     */
+    @RequestMapping(&quot;/login&quot;)
     public String login(Model model) throws Exception{
         return &quot;login&quot;;
     }
 
-    &#x2F;**
+    /**
      * 登录提交
      * @param session
      * @param userId 用户账户
      * @param pwd 密码
      * @return
      * @throws Exception
-     *&#x2F;
-    @RequestMapping(&quot;&#x2F;loginSubmit&quot;)
+     */
+    @RequestMapping(&quot;/loginSubmit&quot;)
     public String loginSubmit(HttpSession session,String userId,String pwd) throws Exception{
-        &#x2F;&#x2F; 在session中记录用户身份信息
+        // 在session中记录用户身份信息
         session.setAttribute(&quot;activeUser&quot;,userId);
         System.out.println(&quot;用户已登录&quot;);
         return &quot;success&quot;;
     }
 
-    &#x2F;**
+    /**
      * 退出
      * @param session
      * @param request
      * @param response
      * @return
      * @throws Exception
-     *&#x2F;
-    @RequestMapping(&quot;&#x2F;logOut&quot;)
+     */
+    @RequestMapping(&quot;/logOut&quot;)
     public RedirectView logOut(HttpSession session,
                          HttpServletRequest request,
                          HttpServletResponse response) throws Exception{
-        &#x2F;&#x2F; 设置session过期
+        // 设置session过期
         session.invalidate();
-       	&#x2F;&#x2F; return new RedirectView(&quot;index.jsp&quot;); 相当于：localhost&#x2F;user&#x2F;index.jsp
-        return new RedirectView(&quot;&#x2F;index.jsp&quot;); &#x2F;&#x2F; 相当于：localhost&#x2F;index.jsp
+           // return new RedirectView(&quot;index.jsp&quot;); 相当于：localhost/user/index.jsp
+        return new RedirectView(&quot;/index.jsp&quot;); // 相当于：localhost/index.jsp
     }
 }
 </code></pre>
 <ul>
 <li>定义登录拦截器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<pre><code class="java">/**
  * 登录拦截器
- *&#x2F;
+ */
 public class LoginInterceptor implements HandlerInterceptor {
-    &#x2F;**
+    /**
      * 预处理验证用户是否登录
      * @param request
      * @param response
      * @param handler
      * @return
      * @throws Exception
-     *&#x2F;
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println(&quot;登录拦截器执行&quot;);
-        &#x2F;&#x2F; 如果是登录页面则放行
+        // 如果是登录页面则放行
         if (request.getRequestURI().indexOf(&quot;login&quot;)&gt;=0){
             return true;
         }
         HttpSession session = request.getSession();
-        &#x2F;&#x2F; 如果用户已登录也放行
+        // 如果用户已登录也放行
         if (session.getAttribute(&quot;activeUser&quot;)!=null){
             return true;
         }
 
-        &#x2F;&#x2F; 用户没有登录则跳转到登录页面
-        request.getRequestDispatcher(&quot;&#x2F;WEB-INF&#x2F;pages&#x2F;login.jsp&quot;).forward(request,response);
+        // 用户没有登录则跳转到登录页面
+        request.getRequestDispatcher(&quot;/WEB-INF/pages/login.jsp&quot;).forward(request,response);
         System.out.println(&quot;用户尚未登录&quot;);
         return false;
     }
@@ -1264,31 +1185,27 @@ public class LoginInterceptor implements HandlerInterceptor {
 <ul>
 <li>配置拦截器</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!--配置登录拦截器--&gt;
+<pre><code class="xml">&lt;!--配置登录拦截器--&gt;
 &lt;mvc:interceptors&gt;
     &lt;mvc:interceptor&gt;
         &lt;!--要拦截的具体方法--&gt;
-        &lt;mvc:mapping path=&quot;&#x2F;user&#x2F;**&quot;&#x2F;&gt;
+        &lt;mvc:mapping path=&quot;/user/**&quot;/&gt;
         &lt;!--不要拦截的方法--&gt;
-        &lt;!--&lt;mvc:exclude-mapping path=&quot;&quot;&#x2F;&gt;--&gt;
+        &lt;!--&lt;mvc:exclude-mapping path=&quot;&quot;/&gt;--&gt;
         &lt;!-- 配置拦截器对象--&gt;
-        &lt;bean class=&quot;com.zero.interceptor.LoginInterceptor&quot;&#x2F;&gt;
-    &lt;&#x2F;mvc:interceptor&gt;
-&lt;&#x2F;mvc:interceptors&gt;
+        &lt;bean class=&quot;com.zero.interceptor.LoginInterceptor&quot;/&gt;
+    &lt;/mvc:interceptor&gt;
+&lt;/mvc:interceptors&gt;
 </code></pre>
 <ul>
 <li>jsp登录页面，其他页面就不贴代码了</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;h3&gt;用户登录&lt;&#x2F;h3&gt;
-&lt;form action=&quot;&#x2F;user&#x2F;loginSubmit&quot; method=&quot;post&quot;&gt;
+<pre><code class="jsp">&lt;h3&gt;用户登录&lt;/h3&gt;
+&lt;form action=&quot;/user/loginSubmit&quot; method=&quot;post&quot;&gt;
     用户名称：&lt;input type=&quot;text&quot; name=&quot;userId&quot;&gt;&lt;br&gt;
     密码：&lt;input type=&quot;password&quot; name=&quot;pwd&quot;&gt;&lt;br&gt;
     &lt;input type=&quot;submit&quot; value=&quot;登录&quot;&gt;
-&lt;&#x2F;form&gt;
+&lt;/form&gt;
 </code></pre>
 
             </div>
@@ -1559,7 +1476,7 @@ SSM整合可以使用多种方式，这里选择XML+注解的方式
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

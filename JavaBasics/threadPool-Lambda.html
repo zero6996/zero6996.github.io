@@ -415,14 +415,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.8k
+                        5.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        22 分
+                        21 分
                     </div>
                     
                 
@@ -471,49 +471,48 @@
 <h3 id="1-2-生成者与消费者问题"><a href="#1-2-生成者与消费者问题" class="headerlink" title="1.2 生成者与消费者问题"></a>1.2 生成者与消费者问题</h3><p>等待唤醒机制其实就是经典的”生产者与消费者”的问题。</p>
 <p>拿生产包子消费包子来说等待唤醒机制如何有效利用资源：</p>
 <p>包子铺线程生产包子，吃货线程消费包子。当包子没有时（包子状态为false），吃货线程等待，包子铺线程生产包子（即包子状态为true），并通知吃货线程（解除吃货的等待状态）,因为已经有包子了，那么包子铺线程进入等待状态。接下来，吃货线程能否进一步执行则取决于锁的获取情况。如果吃货获取到锁，那么就执行吃包子动作，包子吃完（包子状态为false），并通知包子铺线程（解除包子铺的等待状态）,吃货线程进入等待。包子铺线程能否进一步执行则取决于锁的获取情况。</p>
-<p>代码实例如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 资源类
+<p>代码实例如下：</p>
+<pre><code class="java">// 资源类
 public class Baozi {
-    &#x2F;&#x2F; 设置包子的属性
-    String pier; &#x2F;&#x2F; 皮
-    String xianer; &#x2F;&#x2F; 陷
-    boolean flag = false; &#x2F;&#x2F; 包子的状态：有就true，没有就false
+    // 设置包子的属性
+    String pier; // 皮
+    String xianer; // 陷
+    boolean flag = false; // 包子的状态：有就true，没有就false
 }
-&#x2F;&#x2F; 生产者类
-public class BaoZiPu extends Thread{ &#x2F;&#x2F; 生成者(包子铺)类：是一个线程类，可以继承Thread
-    &#x2F;&#x2F; 1.需要在成员位置创建一个包子变量
+// 生产者类
+public class BaoZiPu extends Thread{ // 生成者(包子铺)类：是一个线程类，可以继承Thread
+    // 1.需要在成员位置创建一个包子变量
     private Baozi bz;
-    &#x2F;&#x2F; 2.使用带参构造方法，为包子变量赋值
+    // 2.使用带参构造方法，为包子变量赋值
     public BaoZiPu(String name, Baozi bz){
         super(name);
         this.bz = bz;
     }
 
-    &#x2F;&#x2F; 设置线程任务(run)：生成包子
-    &#x2F;*
+    // 设置线程任务(run)：生成包子
+    /*
     包子铺线程和包子线程关系---&gt;通信(互斥)
         必须使用同步技术保证两个线程只能有一个在执行
         锁对象必须保持唯一，可以使用包子对象作为锁对象
         包子铺类和吃货的类就需要把包子对象作为参数传递进来
             1.需要在成员位置创建一个包子变量
             2.使用带参构造方法，为包子变量赋值
-     *&#x2F;
+     */
     @Override
     public void run(){
         int count = 0;
-        &#x2F;&#x2F; 造包子
+        // 造包子
         while (true){
-             &#x2F;&#x2F; 必须使用同步技术保证两个线程只能有一个在执行
+             // 必须使用同步技术保证两个线程只能有一个在执行
             synchronized (bz) {
-                if (bz.flag == true) { &#x2F;&#x2F; 对包子状态进行判断
+                if (bz.flag == true) { // 对包子状态进行判断
                     try {
-                        bz.wait(); &#x2F;&#x2F; true：有包子,包子铺调用wait方法进入等待状态
+                        bz.wait(); // true：有包子,包子铺调用wait方法进入等待状态
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                &#x2F;&#x2F; 没有包子，包子铺生产包子
+                // 没有包子，包子铺生产包子
                 System.out.println(&quot;包子铺开始做包子&quot;);
                 if (count % 2 == 0) {
                     bz.pier = &quot;面皮&quot;;
@@ -528,48 +527,48 @@ public class BaoZiPu extends Thread{ &#x2F;&#x2F; 生成者(包子铺)类：是�
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                &#x2F;&#x2F; 包子铺生成好了包子
-                bz.flag = true; &#x2F;&#x2F; 修改包子的状态为true
+                // 包子铺生成好了包子
+                bz.flag = true; // 修改包子的状态为true
                 System.out.println(&quot;包子造好了：&quot; + bz.pier + bz.xianer+&quot;,吃货来吃吧!&quot;);
-                bz.notify(); &#x2F;&#x2F; 唤醒吃货线程，起来吃包子了
+                bz.notify(); // 唤醒吃货线程，起来吃包子了
             }
         }
     }
 }
-&#x2F;&#x2F; 消费者类
-public class BaoZiPu extends Thread{ &#x2F;&#x2F; 生成者(包子铺)类：是一个线程类，可以继承Thread
-    &#x2F;&#x2F; 1.需要在成员位置创建一个包子变量
+// 消费者类
+public class BaoZiPu extends Thread{ // 生成者(包子铺)类：是一个线程类，可以继承Thread
+    // 1.需要在成员位置创建一个包子变量
     private Baozi bz;
-    &#x2F;&#x2F; 2.使用带参构造方法，为包子变量赋值
+    // 2.使用带参构造方法，为包子变量赋值
     public BaoZiPu(String name, Baozi bz){
         super(name);
         this.bz = bz;
     }
 
-    &#x2F;&#x2F; 设置线程任务(run)：生成包子
-    &#x2F;*
+    // 设置线程任务(run)：生成包子
+    /*
     包子铺线程和包子线程关系---&gt;通信(互斥)
         必须使用同步技术保证两个线程只能有一个在执行
         锁对象必须保持唯一，可以使用包子对象作为锁对象
         包子铺类和吃货的类就需要把包子对象作为参数传递进来
             1.需要在成员位置创建一个包子变量
             2.使用带参构造方法，为包子变量赋值
-     *&#x2F;
+     */
     @Override
     public void run(){
         int count = 0;
-        &#x2F;&#x2F; 造包子
+        // 造包子
         while (true){
-             &#x2F;&#x2F; 必须使用同步技术保证两个线程只能有一个在执行
+             // 必须使用同步技术保证两个线程只能有一个在执行
             synchronized (bz) {
-                if (bz.flag == true) { &#x2F;&#x2F; 对包子状态进行判断
+                if (bz.flag == true) { // 对包子状态进行判断
                     try {
-                        bz.wait(); &#x2F;&#x2F; true：有包子,包子铺调用wait方法进入等待状态
+                        bz.wait(); // true：有包子,包子铺调用wait方法进入等待状态
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                &#x2F;&#x2F; 没有包子，包子铺生产包子
+                // 没有包子，包子铺生产包子
                 System.out.println(&quot;包子铺开始做包子&quot;);
                 if (count % 2 == 0) {
                     bz.pier = &quot;面皮&quot;;
@@ -584,23 +583,23 @@ public class BaoZiPu extends Thread{ &#x2F;&#x2F; 生成者(包子铺)类：是�
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                &#x2F;&#x2F; 包子铺生成好了包子
-                bz.flag = true; &#x2F;&#x2F; 修改包子的状态为true
+                // 包子铺生成好了包子
+                bz.flag = true; // 修改包子的状态为true
                 System.out.println(&quot;包子造好了：&quot; + bz.pier + bz.xianer+&quot;,吃货来吃吧!&quot;);
-                bz.notify(); &#x2F;&#x2F; 唤醒吃货线程，起来吃包子了
+                bz.notify(); // 唤醒吃货线程，起来吃包子了
             }
         }
     }
 }
-&#x2F;&#x2F; 测试类
+// 测试类
 public class TestDemo {
     public static void main(String[] args) {
-        Baozi bz = new Baozi(); &#x2F;&#x2F; 创建包子对象
-        new BaoZiPu(&quot;包子铺&quot;,bz).start(); &#x2F;&#x2F; 创建包子铺线程，开启，生产包子
-        new Chihuo(&quot;吃货&quot;,bz).start(); &#x2F;&#x2F; 创建吃货线程，开启，吃包子
+        Baozi bz = new Baozi(); // 创建包子对象
+        new BaoZiPu(&quot;包子铺&quot;,bz).start(); // 创建包子铺线程，开启，生产包子
+        new Chihuo(&quot;吃货&quot;,bz).start(); // 创建吃货线程，开启，吃包子
     }
 }
-</code></pre></p>
+</code></pre>
 <h2 id="2-线程池"><a href="#2-线程池" class="headerlink" title="2. 线程池"></a>2. 线程池</h2><h3 id="2-1-线程池思想概述"><a href="#2-1-线程池思想概述" class="headerlink" title="2.1 线程池思想概述"></a>2.1 线程池思想概述</h3><p>如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。</p>
 <p>那么有没有一种办法使得线程可以复用，就是执行完一个任务，并不被销毁，而是可以继续执行其他的任务？</p>
 <p>在Java中可以通过线程池来达到这样的效果。下面就详细讲解一下Java的线程池。</p>
@@ -633,9 +632,8 @@ public class TestDemo {
 <li>提交Runnable接口子类对象。(take task)</li>
 <li>关闭线程池(一般不做)。</li>
 </ol>
-<p>Runnable实现类实例如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 实现类
+<p>Runnable实现类实例如下：</p>
+<pre><code class="java">// 实现类
 public class MyRunnable implements Runnable{
     @Override
     public void run() {
@@ -649,43 +647,42 @@ public class MyRunnable implements Runnable{
         System.out.println(&quot;教我游泳,教完后，教练回到了游泳池&quot;);
     }
 }
-&#x2F;&#x2F; 线程池测试类
+// 线程池测试类
 public class ThreadPoolDemo {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 创建线程池对象
-        ExecutorService service = Executors.newFixedThreadPool(2); &#x2F;&#x2F; 创建了包含2个线程对象的线程池
-        &#x2F;&#x2F; 创建Runnable实例对象
+        // 创建线程池对象
+        ExecutorService service = Executors.newFixedThreadPool(2); // 创建了包含2个线程对象的线程池
+        // 创建Runnable实例对象
         MyRunnable r = new MyRunnable();
-&#x2F;&#x2F;        new Thread(r).start(); &#x2F;&#x2F; 使用传统方式，自己创建线程对象
-        service.submit(r); &#x2F;&#x2F; 从线程池中获取线程对象，然后会自动调用MyRunnable中的run()
-        service.submit(r); &#x2F;&#x2F; 再次获取一个线程对象
-        service.submit(r); &#x2F;&#x2F; again
-        &#x2F;*
+//        new Thread(r).start(); // 使用传统方式，自己创建线程对象
+        service.submit(r); // 从线程池中获取线程对象，然后会自动调用MyRunnable中的run()
+        service.submit(r); // 再次获取一个线程对象
+        service.submit(r); // again
+        /*
             注意：submit方法调用结束后，程序并没终止，是因为线程池控制了线程的关闭
             将使用完的线程又归还到了线程池中
-         *&#x2F;
+         */
         service.shutdown();
     }
 }
-</code></pre></p>
+</code></pre>
 <h2 id="3-Lambda表达式"><a href="#3-Lambda表达式" class="headerlink" title="3. Lambda表达式"></a>3. Lambda表达式</h2><h3 id="3-1-函数式编程思想概述"><a href="#3-1-函数式编程思想概述" class="headerlink" title="3.1 函数式编程思想概述"></a>3.1 函数式编程思想概述</h3><p>在数学中，<strong>函数</strong>就是有输入量、输出量的一套计算方案，也就是“拿什么东西做什么事情”。相对而言，面向对象过分强调“必须通过对象的形式来做事情”，而函数式思想则尽量忽略面向对象的复杂语法——<strong>强调做什么，而不是以什么形式做</strong></p>
 <p>面向对象的思想:做一件事情,找一个能解决这个事情的对象,调用对象的方法,完成事情。</p>
 <p>函数式编程思想:只要能获取到结果,谁去做的,怎么做的都不重要,重视的是结果,不重视过程</p>
-<h3 id="3-2-冗余的Runnable代码"><a href="#3-2-冗余的Runnable代码" class="headerlink" title="3.2 冗余的Runnable代码"></a>3.2 冗余的Runnable代码</h3><h4 id="传统写法"><a href="#传统写法" class="headerlink" title="传统写法"></a>传统写法</h4><p>当需要启动一个线程去完成任务是，通常会通过<code>java.lang.Runnable</code>接口来定义任务内容，并使<code>java.lang.Thread</code>类来启动该线程。如下所示：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo01Runnable {
-	public static void main(String[] args) {
-    	&#x2F;&#x2F; 匿名内部类
-		Runnable task = new Runnable() {
-			@Override
-			public void run() { &#x2F;&#x2F; 覆盖重写抽象方法
-				System.out.println(&quot;多线程任务具体执行内容！&quot;);
-			}
-		};
-		new Thread(task).start(); &#x2F;&#x2F; 启动线程
-	}
+<h3 id="3-2-冗余的Runnable代码"><a href="#3-2-冗余的Runnable代码" class="headerlink" title="3.2 冗余的Runnable代码"></a>3.2 冗余的Runnable代码</h3><h4 id="传统写法"><a href="#传统写法" class="headerlink" title="传统写法"></a>传统写法</h4><p>当需要启动一个线程去完成任务是，通常会通过<code>java.lang.Runnable</code>接口来定义任务内容，并使<code>java.lang.Thread</code>类来启动该线程。如下所示：</p>
+<pre><code class="java">public class Demo01Runnable {
+    public static void main(String[] args) {
+        // 匿名内部类
+        Runnable task = new Runnable() {
+            @Override
+            public void run() { // 覆盖重写抽象方法
+                System.out.println(&quot;多线程任务具体执行内容！&quot;);
+            }
+        };
+        new Thread(task).start(); // 启动线程
+    }
 }
-</code></pre></p>
+</code></pre>
 <p>本着“一切皆对象”的思想，这种做法是无可厚非的：首先创建一个<code>Runnable</code>接口的匿名内部类对象来指定任务内容，再将其交给一个线程来启动。</p>
 <h4 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h4><p>对于<code>Runnable</code>的匿名内部类用法，可以分析出几点内容：</p>
 <ul>
@@ -698,40 +695,34 @@ public class ThreadPoolDemo {
 <h3 id="3-3-编程思想转换"><a href="#3-3-编程思想转换" class="headerlink" title="3.3 编程思想转换"></a>3.3 编程思想转换</h3><h4 id="专注于具体做什么，而不是这么做"><a href="#专注于具体做什么，而不是这么做" class="headerlink" title="专注于具体做什么，而不是这么做"></a>专注于具体做什么，而不是这么做</h4><p>很多时候我们为了做具体的事情而不得不创建了一个匿名内部类对象来完成，这是非必要的。我们真正希望做的事情是：将run方法体内的代码传递给Thread类知晓。</p>
 <p><strong>传递一段代码</strong> –这才是我们真正的目的。而创建对象只是受限于面向对象语法而不得不采取的一种手段方式。如果我们将关注点从“怎么做”回归到“做什么”的本质上，就会发现只要能够更好地达到目的，过程与形式其实并不重要。</p>
 <p>2014年3月Oracle所发布的Java 8（JDK 1.8）中，加入了<strong>Lambda表达式</strong>的重量级新特性，为我们打开了新世界的大门。</p>
-<h3 id="3-4-体验Lambda的更优写法"><a href="#3-4-体验Lambda的更优写法" class="headerlink" title="3.4 体验Lambda的更优写法"></a>3.4 体验Lambda的更优写法</h3><p>借助Java 8的全新语法，上述<code>Runnable</code>接口的匿名内部类写法可以通过更简单的Lambda表达式达到等效：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoLambdaRunnable {
+<h3 id="3-4-体验Lambda的更优写法"><a href="#3-4-体验Lambda的更优写法" class="headerlink" title="3.4 体验Lambda的更优写法"></a>3.4 体验Lambda的更优写法</h3><p>借助Java 8的全新语法，上述<code>Runnable</code>接口的匿名内部类写法可以通过更简单的Lambda表达式达到等效：</p>
+<pre><code class="java">public class DemoLambdaRunnable {
     public static void main(String[] args) {
-        new Thread(() -&gt; System.out.println(&quot;多线程任务执行！&quot;)).start(); &#x2F;&#x2F; 启动线程
+        new Thread(() -&gt; System.out.println(&quot;多线程任务执行！&quot;)).start(); // 启动线程
     }
 }
-</code></pre></p>
+</code></pre>
 <p>这段代码同上一段执行效果完全一样。从代码的语义中可以看出：我们启动了一个线程，而线程任务的内容以一种更加简洁的形式被指定。</p>
 <h3 id="3-5-回顾匿名内部类"><a href="#3-5-回顾匿名内部类" class="headerlink" title="3.5 回顾匿名内部类"></a>3.5 回顾匿名内部类</h3><h4 id="使用实现类"><a href="#使用实现类" class="headerlink" title="使用实现类"></a>使用实现类</h4><p>要启动一个线程，需要创建一<code>Thread</code>类的对象调用<code>start</code>方法。而为了指定线程执行的内容，需要调用<code>Thread</code>类的构造方法：</p>
 <ul>
-<li><code>public Thread(Runnable target)</code><br>为了获取<code>Runnable</code>接口的实现对象，还要为该接口定义一个实现类<code>RunnableImpl</code>：
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class RunnableImpl implements Runnable{
-    @Override
-    public void run(){
-	System.out.println(&quot;多线程任务执行！&quot;)
-    }
+<li><code>public Thread(Runnable target)</code><br>为了获取<code>Runnable</code>接口的实现对象，还要为该接口定义一个实现类<code>RunnableImpl</code>：<pre><code class="java">public class RunnableImpl implements Runnable{
+  @Override
+  public void run(){
+  System.out.println(&quot;多线程任务执行！&quot;)
+  }
+}
+</code></pre>
+然后创建该实现类的对象作为<code>Thread</code>类的构造参数：<pre><code class="java">public class ThreadInitParam{
+  public static void main(String[] args){
+  Runnable task = new RunnableImpl();
+  new Thread(task).start();
+  }
 }
 </code></pre>
 </li>
 </ul>
-<p>然后创建该实现类的对象作为<code>Thread</code>类的构造参数：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ThreadInitParam{
-    public static void main(String[] args){
-	Runnable task = new RunnableImpl();
-	new Thread(task).start();
-    }
-}
-</code></pre></p>
-<h4 id="使用匿名内部类"><a href="#使用匿名内部类" class="headerlink" title="使用匿名内部类"></a>使用匿名内部类</h4><p>这个<code>RunnableImpl</code>类只是为了实现<code>Runnable</code>接口而存在的，而且仅被使用了唯一一次，所以使用匿名内部类的语法即可省去该类的单独定义，即匿名内部类：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ThreadNameless {
+<h4 id="使用匿名内部类"><a href="#使用匿名内部类" class="headerlink" title="使用匿名内部类"></a>使用匿名内部类</h4><p>这个<code>RunnableImpl</code>类只是为了实现<code>Runnable</code>接口而存在的，而且仅被使用了唯一一次，所以使用匿名内部类的语法即可省去该类的单独定义，即匿名内部类：</p>
+<pre><code class="java">public class ThreadNameless {
     public static void main(String[] args) {
         new Thread(new Runnable() {
             @Override
@@ -741,7 +732,7 @@ public class ThreadPoolDemo {
         }).start();
     }
 }
-</code></pre></p>
+</code></pre>
 <h4 id="匿名内部类的好处与弊端"><a href="#匿名内部类的好处与弊端" class="headerlink" title="匿名内部类的好处与弊端"></a>匿名内部类的好处与弊端</h4><p>一方面，匿名内部类可以帮我们<strong>省去实现类的定义</strong>；另一方面，匿名内部类的语法——<strong>确实太复杂了！</strong></p>
 <h4 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h4><p>仔细分析该代码中的语义，<code>Runnable</code>接口只有一个<code>run</code>方法的定义：</p>
 <ul>
@@ -752,10 +743,9 @@ public class ThreadPoolDemo {
 <li><strong>无返回值</strong>：该方案不产生任何结果。</li>
 <li><strong>代码块</strong>（方法体）：该方案的具体执行步骤。</li>
 </ul>
-<p>同样的语义体现在<code>Lambda</code>语法中，要更加简单：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">() -&gt; System.out.println(&quot;多线程任务执行！&quot;)
-</code></pre></p>
+<p>同样的语义体现在<code>Lambda</code>语法中，要更加简单：</p>
+<pre><code class="java">() -&gt; System.out.println(&quot;多线程任务执行！&quot;)
+</code></pre>
 <ul>
 <li>前面的一对小括号即<code>run</code>方法的参数（无），代表不需要任何条件；</li>
 <li>中间的一个箭头代表将前面的参数传递给后面的代码；</li>
@@ -776,38 +766,36 @@ public class ThreadPoolDemo {
 <ul>
 <li><code>public abstract int compare(T o1, T o2);</code></li>
 </ul>
-<p>当需要对一个对象数组进行排序时，<code>Arrays.sort</code>方法需要一个<code>Comparator</code>接口实例来指定排序的规则。假设有一个<code>Person</code>类，含有<code>String name</code>和<code>int age</code>两个成员变量：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Person{
+<p>当需要对一个对象数组进行排序时，<code>Arrays.sort</code>方法需要一个<code>Comparator</code>接口实例来指定排序的规则。假设有一个<code>Person</code>类，含有<code>String name</code>和<code>int age</code>两个成员变量：</p>
+<pre><code class="java">public class Person{
     private String name;
     private int age;
 
-    &#x2F;&#x2F; 省略构造器、toString方法与Getter Setter 
+    // 省略构造器、toString方法与Getter Setter 
 }
-</code></pre></p>
-<h4 id="传统写法-1"><a href="#传统写法-1" class="headerlink" title="传统写法"></a>传统写法</h4><p>使用传统代码对<code>Person[]</code>数组进行排序<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoComparator {
+</code></pre>
+<h4 id="传统写法-1"><a href="#传统写法-1" class="headerlink" title="传统写法"></a>传统写法</h4><p>使用传统代码对<code>Person[]</code>数组进行排序</p>
+<pre><code class="java">public class DemoComparator {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 创建一个Person数组
+        // 创建一个Person数组
         Person[] array = {
                 new Person(&quot;xiaom&quot;,13),
                 new Person(&quot;xiaoz&quot;,17),
                 new Person(&quot;xiaol&quot;,15)};
-        &#x2F;&#x2F; Comparator接口的实例（使用了匿名内部类）重写了compare方法，制定了&quot;按照年龄从小到大升序(前-后)&quot;的排序规则。
+        // Comparator接口的实例（使用了匿名内部类）重写了compare方法，制定了&quot;按照年龄从小到大升序(前-后)&quot;的排序规则。
         Comparator&lt;Person&gt; comp = new Comparator&lt;Person&gt;() {
             @Override
             public int compare(Person o1, Person o2) {
                 return o1.getAge() - o2.getAge();
             }
         };
-        Arrays.sort(array,comp); &#x2F;&#x2F; 第二个参数为排序规则，即Comparator接口实例
+        Arrays.sort(array,comp); // 第二个参数为排序规则，即Comparator接口实例
         for(Person person:array){
             System.out.println(person);
         }
     }
 }
-</code></pre></p>
+</code></pre>
 <h4 id="代码分析-1"><a href="#代码分析-1" class="headerlink" title="代码分析"></a>代码分析</h4><ul>
 <li>为了排序，<code>Arrays.sort</code>方法需要排序规则，即<code>Comparator</code>接口的实例，抽象方法<code>compare</code>是关键；</li>
 <li>为了指定<code>compare</code>的方法体，<strong>不得不</strong>需要<code>Comparator</code>接口的实现类；</li>
@@ -815,11 +803,9 @@ public class ThreadPoolDemo {
 <li>必须覆盖重写抽象<code>compare</code>方法，所以方法名称、方法参数、方法返回值<strong>不得不</strong>再写一遍，且不能写错；</li>
 <li>实际上，<strong>只有参数和方法体才是关键</strong>。</li>
 </ul>
-<h4 id="Lambda写法"><a href="#Lambda写法" class="headerlink" title="Lambda写法"></a>Lambda写法</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoComparatorLambda {
+<h4 id="Lambda写法"><a href="#Lambda写法" class="headerlink" title="Lambda写法"></a>Lambda写法</h4><pre><code class="java">public class DemoComparatorLambda {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 创建一个Person数组
+        // 创建一个Person数组
         Person[] array = {
                 new Person(&quot;xiaom&quot;,13),
                 new Person(&quot;xiaoz&quot;,17),
@@ -831,38 +817,36 @@ public class ThreadPoolDemo {
     }
 }
 </code></pre>
-<h3 id="3-8-练习"><a href="#3-8-练习" class="headerlink" title="3.8 练习"></a>3.8 练习</h3><p>给定一个计算器<code>Calculator</code>接口，内含抽象方法<code>calc</code>可以将两个int数字相加得到和值：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 定义接口类
+<h3 id="3-8-练习"><a href="#3-8-练习" class="headerlink" title="3.8 练习"></a>3.8 练习</h3><p>给定一个计算器<code>Calculator</code>接口，内含抽象方法<code>calc</code>可以将两个int数字相加得到和值：</p>
+<pre><code class="java">// 定义接口类
 public interface Calculator {
     public abstract int calc(int a,int b);
 }
-&#x2F;&#x2F; 定义测试类
+// 定义测试类
 public class DemoInvokeCalc {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 使用匿名内部类实现
+        // 使用匿名内部类实现
         invokeCalc(10, 20, new Calculator() {
             @Override
             public int calc(int a, int b) {
                 return a + b;
             }
         });
-        &#x2F;&#x2F; TODO 请在此使用Lambda[标准格式]调用invokeCalc方法来计算120+130的结果
-        invokeCalc(120,130,(int a,int b)-&gt; {return a+b;}); &#x2F;&#x2F; 使用Lambda表达式实现
-	invokeCalc(20,30,(a, b) -&gt; a + b); &#x2F;&#x2F; Lambda表达式省略格式写法
+        // TODO 请在此使用Lambda[标准格式]调用invokeCalc方法来计算120+130的结果
+        invokeCalc(120,130,(int a,int b)-&gt; {return a+b;}); // 使用Lambda表达式实现
+    invokeCalc(20,30,(a, b) -&gt; a + b); // Lambda表达式省略格式写法
     }
-    private static void invokeCalc(int a,int b,Calculator calculator){&#x2F;&#x2F; 三个参数，2个int类型整数，1个接口
+    private static void invokeCalc(int a,int b,Calculator calculator){// 三个参数，2个int类型整数，1个接口
         int result = calculator.calc(a, b);
         System.out.println(&quot;结果是：&quot;+result);
     }
 }
-</code></pre></p>
-<h3 id="3-9-Lambda省略格式"><a href="#3-9-Lambda省略格式" class="headerlink" title="3.9 Lambda省略格式"></a>3.9 Lambda省略格式</h3><h4 id="可推导即可省略"><a href="#可推导即可省略" class="headerlink" title="可推导即可省略"></a>可推导即可省略</h4><p>Lambda强调的是“做什么”而不是“怎么做”，所以凡是可以根据上下文推导得知的信息，都可以省略。例如上例还可以使用Lambda的省略写法：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public static void main(String[] args){
-	invokeCalc(120,130,(a,b)-&gt;a+b);
+</code></pre>
+<h3 id="3-9-Lambda省略格式"><a href="#3-9-Lambda省略格式" class="headerlink" title="3.9 Lambda省略格式"></a>3.9 Lambda省略格式</h3><h4 id="可推导即可省略"><a href="#可推导即可省略" class="headerlink" title="可推导即可省略"></a>可推导即可省略</h4><p>Lambda强调的是“做什么”而不是“怎么做”，所以凡是可以根据上下文推导得知的信息，都可以省略。例如上例还可以使用Lambda的省略写法：</p>
+<pre><code class="java">public static void main(String[] args){
+    invokeCalc(120,130,(a,b)-&gt;a+b);
 }
-</code></pre></p>
+</code></pre>
 <h4 id="省略规则"><a href="#省略规则" class="headerlink" title="省略规则"></a>省略规则</h4><p>在Lambda标准格式的基础上，使用省略写法的规则为：</p>
 <ol>
 <li>小括号内参数的类型可以省略；</li>
@@ -1008,9 +992,8 @@ public File(String pathname) ：通过将给定的路径名字符串转换为抽
                     <div class="summary">1. 线程线程是进程中的一个执行单元，负责当前进程中程序的执行，一个进程中至少有一个线程。一个进程中是可以有多个线程的，这个应用程序也可以称之为多线程程序。 
 
 1.1 多线程原理代码示例：
-
-&#x2F;&#x2F; 定义线程类
-publ</div>
+// 定义线程类
+public class My</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-28
@@ -1146,7 +1129,7 @@ publ</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

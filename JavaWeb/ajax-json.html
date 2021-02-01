@@ -418,7 +418,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.3k
+                        2.2k
                     </div>
                     
 
@@ -451,79 +451,73 @@
 <p>Ajax 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。</p>
 <p>通过在后台与服务器进行少量数据交换，Ajax 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。而传统的网页（不使用 Ajax）如果需要更新内容，必须重载整个网页页面。</p>
 <p>Ajax可以<strong>提升用户的体验</strong>。</p>
-<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><h4 id="1-原生的JS实现方式"><a href="#1-原生的JS实现方式" class="headerlink" title="1. 原生的JS实现方式"></a>1. 原生的JS实现方式</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
-    &#x2F;&#x2F; 定义方法
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><h4 id="1-原生的JS实现方式"><a href="#1-原生的JS实现方式" class="headerlink" title="1. 原生的JS实现方式"></a>1. 原生的JS实现方式</h4><pre><code class="javascript">&lt;script&gt;
+    // 定义方法
     function fun() {
-        &#x2F;&#x2F; 发送异步请求
-        &#x2F;&#x2F; 1. 创建核心对象(固定写法)
+        // 发送异步请求
+        // 1. 创建核心对象(固定写法)
         var xmlhttp;
         if (window.XMLHttpRequest)
-        {&#x2F;&#x2F; code for IE7+, Firefox, Chrome, Opera, Safari
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp=new XMLHttpRequest();
         }
         else
-        {&#x2F;&#x2F; code for IE6, IE5
+        {// code for IE6, IE5
             xmlhttp=new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);
         }
 
-        &#x2F;&#x2F; 2. 建立连接
-        &#x2F;*
+        // 2. 建立连接
+        /*
                 参数：
                 1. 请求方式：GET,POST
                    - get方式：请求参数在URL后边拼接。send方法为空参
                    - post方式：请求参数在send方法中定义
                 2. 请求的URL：
                 3. 同步还是异步请求：true异步，false同步
-        *&#x2F;
-        xmlhttp.open(&quot;GET&quot;,&quot;&#x2F;Demo7_10&#x2F;ajaxServlet?username=xiaoming&quot;,true);
+        */
+        xmlhttp.open(&quot;GET&quot;,&quot;/Demo7_10/ajaxServlet?username=xiaoming&quot;,true);
 
-        &#x2F;&#x2F; 3. 发送请求
+        // 3. 发送请求
         xmlhttp.send();
-        &#x2F;&#x2F; 4. 接受和处理来自服务器的响应结果
-        &#x2F;&#x2F; 获取方式：xmlhttp.responseText; 什么时候获取? 当服务器响应成功后再获取
-        &#x2F;&#x2F; 当xmlhttp对象的就绪状态改变时，触发事件：onreadystatechange。
+        // 4. 接受和处理来自服务器的响应结果
+        // 获取方式：xmlhttp.responseText; 什么时候获取? 当服务器响应成功后再获取
+        // 当xmlhttp对象的就绪状态改变时，触发事件：onreadystatechange。
         xmlhttp.onreadystatechange=function()
         {
-            &#x2F;&#x2F; 判断readyState就绪状态是否为4，并且status状态码为200
+            // 判断readyState就绪状态是否为4，并且status状态码为200
             if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)
             {
-                &#x2F;&#x2F; 获取服务器的响应结果
+                // 获取服务器的响应结果
                 var responseText = xmlhttp.responseText;
                 alert(responseText);
             }
         }
-	}
-&lt;&#x2F;script&gt;
+    }
+&lt;/script&gt;
 </code></pre>
 <h4 id="2-JQuery实现方式"><a href="#2-JQuery实现方式" class="headerlink" title="2. JQuery实现方式"></a>2. JQuery实现方式</h4><ol>
 <li><p><code>$.ajax()</code>，语法：<code>$.ajax({键值对})</code>；</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">   &lt;script&gt;
-       &#x2F;&#x2F; 定义方法
-       function fun() {
-           &#x2F;&#x2F; 使用 $.ajax()发送异步请求
-           $.ajax({
-               url:&quot;ajaxServlet&quot;,&#x2F;&#x2F; 请求路径
-               type:&quot;POST&quot;, &#x2F;&#x2F; 请求方式
-               &#x2F;&#x2F; data:&quot;username=jack$age=23&quot;, &#x2F;&#x2F; 请求参数
-               data:{&quot;username&quot;:&quot;jack&quot;,&quot;age&quot;:23},
-               success:function (data) {
-                   alert(data);
-               }, &#x2F;&#x2F; 响应成功后执行的函数
-               error:function () {
-                   alert(&quot;出错啦...&quot;)
-               }, &#x2F;&#x2F; 表示如果请求响应出现错误，会执行的回调函数
-               dataType:&quot;text&quot; &#x2F;&#x2F; 设置接受到的响应数据的格式
-           });
-   	}
-   &lt;&#x2F;script&gt;
+<pre><code class="javascript">&lt;script&gt;
+    // 定义方法
+    function fun() {
+        // 使用 $.ajax()发送异步请求
+        $.ajax({
+            url:&quot;ajaxServlet&quot;,// 请求路径
+            type:&quot;POST&quot;, // 请求方式
+            // data:&quot;username=jack$age=23&quot;, // 请求参数
+            data:{&quot;username&quot;:&quot;jack&quot;,&quot;age&quot;:23},
+            success:function (data) {
+                alert(data);
+            }, // 响应成功后执行的函数
+            error:function () {
+                alert(&quot;出错啦...&quot;)
+            }, // 表示如果请求响应出现错误，会执行的回调函数
+            dataType:&quot;text&quot; // 设置接受到的响应数据的格式
+        });
+    }
+&lt;/script&gt;
 </code></pre>
 </li>
-</ol>
-<ol start="2">
 <li><p><code>$.get()</code>，发送get请求，语法：<code>$.get(url,[data],[callback],[type])</code>，参数如下。</p>
 <ul>
 <li><code>url</code>：请求路径</li>
@@ -531,22 +525,19 @@
 <li><code>callback</code>：回调函数</li>
 <li><code>type</code>：响应结果的类型</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">   &lt;script&gt;
-       &#x2F;&#x2F; 定义方法
-       function fun() {
-           &#x2F;&#x2F; 使用 $.get()发送异步请求
-           $.get(&quot;ajaxServlet&quot;,{username:&quot;rose&quot;},function (data) {
-               alert(data);
-           },&quot;text&quot;);
-   	}
-   &lt;&#x2F;script&gt;
+<pre><code class="javascript">&lt;script&gt;
+    // 定义方法
+    function fun() {
+        // 使用 $.get()发送异步请求
+        $.get(&quot;ajaxServlet&quot;,{username:&quot;rose&quot;},function (data) {
+            alert(data);
+        },&quot;text&quot;);
+    }
+&lt;/script&gt;
 </code></pre>
 </li>
-</ol>
-<ol start="3">
-<li><code>$.post()</code>，发送post请求，语法：<code>$.post(url,[data],[callback],[type])</code>，参数同上。</li>
+<li><p><code>$.post()</code>，发送post请求，语法：<code>$.post(url,[data],[callback],[type])</code>，参数同上。</p>
+</li>
 </ol>
 <h2 id="Json"><a href="#Json" class="headerlink" title="Json"></a>Json</h2><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h3><ul>
 <li><p>JSON 指的是 JavaScript 对象表示法（<em>J</em>ava<em>S</em>cript <em>O</em>bject <em>N</em>otation），是一种轻量级的数据交换格式。</p>
@@ -581,10 +572,8 @@
 <li>数组对象[索引]</li>
 <li>遍历</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript"> &lt;script&gt;
-    &#x2F;&#x2F; 1. 定义基本格式
+<pre><code class="javascript"> &lt;script&gt;
+    // 1. 定义基本格式
     var person = {name:&quot;xiaozhang&quot;,age:23,&#39;gender&#39;:true};
 
     var ps = [
@@ -592,19 +581,19 @@
         {name:&quot;xiaoli&quot;,age:25,&#39;gender&#39;:true},
         {name:&quot;xiaohua&quot;,age:19,&#39;gender&#39;:false}];
 
-    &#x2F;&#x2F; 获取person对象中的所有键和值
-    &#x2F;&#x2F; for in 循环
+    // 获取person对象中的所有键和值
+    // for in 循环
     for(var key in person){
         alert(key+&quot;：&quot;+person[key]);
     }
-    &#x2F;&#x2F; 获取ps数组中所有对象的键值
+    // 获取ps数组中所有对象的键值
     for (var i = 0; i &lt; ps.length; i++){
         var p = ps[i];
         for (var key in p){
             alert(key+&quot;：&quot;+p[key]);
         }
     }
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <h4 id="2-3-JSON数据和Java对象的相互转换"><a href="#2-3-JSON数据和Java对象的相互转换" class="headerlink" title="2.3 JSON数据和Java对象的相互转换"></a>2.3 JSON数据和Java对象的相互转换</h4><ul>
 <li>JSON解析器，常见的解析器有：<code>Jsonlib,Gson,fastjson,jackson</code></li>
@@ -614,18 +603,16 @@
 <li>创建<code>jackson</code>核心对象：<code>ObjectMapper</code></li>
 <li>调用<code>ObjectMapper</code>的相关方法进行转换：<code>readValue(json字符串数据，Class)</code></li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 演示JSON字符串转换为Java对象
+<pre><code class="java">// 演示JSON字符串转换为Java对象
 @Test
 public void test5() throws Exception {
-    &#x2F;&#x2F; 1. 初始化JSON字符串
+    // 1. 初始化JSON字符串
     String json = &quot;{\&quot;gender\&quot;:\&quot;男\&quot;,\&quot;name\&quot;:\&quot;张三\&quot;,\&quot;age\&quot;:23}&quot;;
-    &#x2F;&#x2F; 2. 创建ObjectMapper对象
+    // 2. 创建ObjectMapper对象
     ObjectMapper mapper = new ObjectMapper();
-    &#x2F;&#x2F; 3. 转为Java对象 Person
+    // 3. 转为Java对象 Person
     Person person = mapper.readValue(json, Person.class);
-    System.out.println(person); &#x2F;&#x2F; Person{name=&#39;张三&#39;, age=23, gender=&#39;男&#39;, birthday=null}
+    System.out.println(person); // Person{name=&#39;张三&#39;, age=23, gender=&#39;男&#39;, birthday=null}
 }
 </code></pre>
 <h5 id="2-3-2-Java对象转为JSON"><a href="#2-3-2-Java对象转为JSON" class="headerlink" title="2.3.2 Java对象转为JSON"></a>2.3.2 Java对象转为JSON</h5><ol>
@@ -644,24 +631,22 @@ public void test5() throws Exception {
 </li>
 <li><code>writeValueAsString(obj)</code>：将对象转换为json字符串</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public void test1() throws Exception {
-        &#x2F;&#x2F; 1. 创建Person对象
+<pre><code class="java">public void test1() throws Exception {
+        // 1. 创建Person对象
     Person person = new Person();
     person.setName(&quot;张三&quot;);
     person.setAge(23);
     person.setGender(&quot;男&quot;);
 
-    &#x2F;&#x2F; 2. 创建Jackson核心对象 ObjectMapper
+    // 2. 创建Jackson核心对象 ObjectMapper
     ObjectMapper mapper = new ObjectMapper();
-    &#x2F;&#x2F; 3. 调用方法转换
+    // 3. 调用方法转换
     String json = mapper.writeValueAsString(person);
-    System.out.println(json); &#x2F;&#x2F; {&quot;name&quot;:&quot;张三&quot;,&quot;age&quot;:23,&quot;gender&quot;:&quot;男&quot;}
-    &#x2F;&#x2F; writeValue,将数据写到d:&#x2F;&#x2F;json.txt中
-    mapper.writeValue(new File(&quot;d:&#x2F;&#x2F;json.txt&quot;),person);
-    &#x2F;&#x2F; writeValue,将数据关联到Writer中
-    mapper.writeValue(new FileWriter(&quot;d:&#x2F;&#x2F;json2.txt&quot;),person);
+    System.out.println(json); // {&quot;name&quot;:&quot;张三&quot;,&quot;age&quot;:23,&quot;gender&quot;:&quot;男&quot;}
+    // writeValue,将数据写到d://json.txt中
+    mapper.writeValue(new File(&quot;d://json.txt&quot;),person);
+    // writeValue,将数据关联到Writer中
+    mapper.writeValue(new FileWriter(&quot;d://json2.txt&quot;),person);
 }
 </code></pre>
 <p><strong>注解</strong>：</p>
@@ -690,57 +675,53 @@ public void test5() throws Exception {
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><ul>
 <li>前端部分：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-html">&lt;!DOCTYPE html&gt;
+<pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;用户注册&lt;&#x2F;title&gt;
-    &lt;script src=&quot;js&#x2F;jquery-3.3.1.min.js&quot;&gt;&lt;&#x2F;script&gt;
+    &lt;title&gt;用户注册&lt;/title&gt;
+    &lt;script src=&quot;js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;
     &lt;script&gt;
-        &#x2F;&#x2F; 在页面加载完成后
+        // 在页面加载完成后
         $(function () {
-            &#x2F;&#x2F; 给username绑定blur(离焦)事件
+            // 给username绑定blur(离焦)事件
             $(&quot;#username&quot;).blur(function () {
-                &#x2F;&#x2F; 获取username文本框输入的值
+                // 获取username文本框输入的值
                 var username = $(this).val();
-                &#x2F;&#x2F; 发送ajax请求
-                &#x2F;&#x2F; 期望服务器响应会的数据格式：{&quot;userExsit&quot;:true,&quot;msg&quot;:&quot;用户名已存在！&quot;}
-                &#x2F;&#x2F;                        {&quot;userExsit&quot;:false,&quot;msg&quot;:&quot;用户名可用！&quot;}
+                // 发送ajax请求
+                // 期望服务器响应会的数据格式：{&quot;userExsit&quot;:true,&quot;msg&quot;:&quot;用户名已存在！&quot;}
+                //                        {&quot;userExsit&quot;:false,&quot;msg&quot;:&quot;用户名可用！&quot;}
                 $.get(&quot;regUserServlet&quot;,{username:username},function (data) {
                     var span = $(&quot;#s_username&quot;);
                     if (data[&quot;userExsit&quot;] == true){
-                        &#x2F;&#x2F; 用户名已存在
+                        // 用户名已存在
                         span.css(&quot;color&quot;,&quot;red&quot;);
                         span.html(data.msg);
                     }else{
-                        &#x2F;&#x2F; 用户名不存在
+                        // 用户名不存在
                         span.css(&quot;color&quot;,&quot;green&quot;);
                         span.html(data.msg);
                     }
                 })
             });
         })
-    &lt;&#x2F;script&gt;
-&lt;&#x2F;head&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
 &lt;body&gt;
     &lt;form action=&quot;&quot;&gt;
         &lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot; placeholder=&quot;请输入用户名&quot;&gt;
-        &lt;span id=&quot;s_username&quot;&gt;&lt;&#x2F;span&gt;
+        &lt;span id=&quot;s_username&quot;&gt;&lt;/span&gt;
         &lt;br&gt;
         &lt;input type=&quot;password&quot; name=&quot;password&quot; placeholder=&quot;请输入密码&quot;&gt;&lt;br&gt;
         &lt;input type=&quot;submit&quot; value=&quot;注册&quot;&gt;
-    &lt;&#x2F;form&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <ul>
 <li>后端部分：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.zero.web.servlet;
+<pre><code class="java">package cn.zero.web.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -753,17 +734,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(&quot;&#x2F;regUserServlet&quot;)
+@WebServlet(&quot;/regUserServlet&quot;)
 public class RegUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 1. 获取用户名
+        // 1. 获取用户名
         String username = request.getParameter(&quot;username&quot;);
         String json = &quot;{\&quot;userExsit\&quot;:true,\&quot;msg\&quot;:\&quot;用户名已存在！\&quot;}&quot;;
-        &#x2F;&#x2F; 2. 调用service层判断用户名是否存在
-        &#x2F;&#x2F; 期望服务器响应会的数据格式：{&quot;userExsit&quot;:true,&quot;msg&quot;:&quot;用户名已存在！&quot;}
-        &#x2F;&#x2F;                        {&quot;userExsit&quot;:false,&quot;msg&quot;:&quot;用户名可用！&quot;}
-        &#x2F;&#x2F; 设置响应的数据格式为json
-        response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;); &#x2F;&#x2F; 解决乱码问题
+        // 2. 调用service层判断用户名是否存在
+        // 期望服务器响应会的数据格式：{&quot;userExsit&quot;:true,&quot;msg&quot;:&quot;用户名已存在！&quot;}
+        //                        {&quot;userExsit&quot;:false,&quot;msg&quot;:&quot;用户名可用！&quot;}
+        // 设置响应的数据格式为json
+        response.setContentType(&quot;application/json;charset=utf-8&quot;); // 解决乱码问题
         Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
         if (&quot;张三&quot;.equals(username)) {
             map.put(&quot;userExsit&quot;,true);
@@ -772,7 +753,7 @@ public class RegUserServlet extends HttpServlet {
             map.put(&quot;userExsit&quot;,false);
             map.put(&quot;msg&quot;,&quot;用户名可用&quot;);
         }
-        &#x2F;&#x2F; 将map转为json，并传递给客户端
+        // 将map转为json，并传递给客户端
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getWriter(),map);
     }
@@ -1045,7 +1026,7 @@ hide([</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

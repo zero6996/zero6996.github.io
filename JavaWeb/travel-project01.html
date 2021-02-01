@@ -418,14 +418,14 @@ Jac">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.7k
+                        3.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        19 分
+                        17 分
                     </div>
                     
                 
@@ -461,9 +461,7 @@ Jac">
 <li><code>Druid</code>：数据库连接池</li>
 <li><code>JdbcTemplate</code>：jdbc的工具</li>
 </ol>
-<h2 id="3-创建数据库"><a href="#3-创建数据库" class="headerlink" title="3. 创建数据库"></a>3. 创建数据库</h2>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">
+<h2 id="3-创建数据库"><a href="#3-创建数据库" class="headerlink" title="3. 创建数据库"></a>3. 创建数据库</h2><pre><code class="sql">
 -- 创建数据库
 create database travel;
 
@@ -471,10 +469,10 @@ create database travel;
 use travel;
 
 -- 创建表
-&#x2F;*==============================================================*&#x2F;
-&#x2F;* DBMS name:      MySQL 5.0                                    *&#x2F;
-&#x2F;* Created on:     2019&#x2F;7&#x2F;21 20:13:29                           *&#x2F;
-&#x2F;*==============================================================*&#x2F;
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     2019/7/21 20:13:29                           */
+/*==============================================================*/
 set names utf8;
 
 drop table if exists tab_favorite;
@@ -484,9 +482,9 @@ drop table if exists tab_category;
 drop table if exists tab_seller;
 drop table if exists tab_user;
 
-&#x2F;*==============================================================*&#x2F;
-&#x2F;* Table: tab_category                                          *&#x2F;
-&#x2F;*==============================================================*&#x2F;
+/*==============================================================*/
+/* Table: tab_category                                          */
+/*==============================================================*/
 create table tab_category
 (
    cid                  int not null auto_increment,
@@ -495,9 +493,9 @@ create table tab_category
    unique key AK_nq_categoryname (cname)
 );
 
-&#x2F;*==============================================================*&#x2F;
-&#x2F;* Table: tab_favorite                                          *&#x2F;
-&#x2F;*==============================================================*&#x2F;
+/*==============================================================*/
+/* Table: tab_favorite                                          */
+/*==============================================================*/
 create table tab_favorite
 (
    rid                  int not null,
@@ -506,9 +504,9 @@ create table tab_favorite
    primary key (rid, uid)
 );
 
-&#x2F;*==============================================================*&#x2F;
-&#x2F;* Table: tab_route                                             *&#x2F;
-&#x2F;*==============================================================*&#x2F;
+/*==============================================================*/
+/* Table: tab_route                                             */
+/*==============================================================*/
 create table tab_route
 (
    rid                  int not null auto_increment,
@@ -527,9 +525,9 @@ create table tab_route
    unique key AK_nq_sourceId (sourceId)
 );
 
-&#x2F;*==============================================================*&#x2F;
-&#x2F;* Table: tab_route_img                                         *&#x2F;
-&#x2F;*==============================================================*&#x2F;
+/*==============================================================*/
+/* Table: tab_route_img                                         */
+/*==============================================================*/
 create table tab_route_img
 (
    rgid                 int not null auto_increment,
@@ -539,9 +537,9 @@ create table tab_route_img
    primary key (rgid)
 );
 
-&#x2F;*==============================================================*&#x2F;
-&#x2F;* Table: tab_seller                                            *&#x2F;
-&#x2F;*==============================================================*&#x2F;
+/*==============================================================*/
+/* Table: tab_seller                                            */
+/*==============================================================*/
 create table tab_seller
 (
    sid                  int not null auto_increment,
@@ -552,9 +550,9 @@ create table tab_seller
    unique key AK_Key_2 (sname)
 );
 
-&#x2F;*==============================================================*&#x2F;
-&#x2F;* Table: tab_user                                              *&#x2F;
-&#x2F;*==============================================================*&#x2F;
+/*==============================================================*/
+/* Table: tab_user                                              */
+/*==============================================================*/
 create table tab_user
 (
    uid                  int not null auto_increment,
@@ -566,8 +564,8 @@ create table tab_user
    telephone            varchar(11),
    email                varchar(100),
    status               char(1) ,
-   code					varchar(50),
-   
+   code                    varchar(50),
+
    primary key (uid),
    unique key AK_nq_username (username),
    unique key AK_nq_code (code)
@@ -597,51 +595,50 @@ alter table tab_route convert to character set utf8 collate utf8_general_ci;
 alter table tab_route_img convert to character set utf8 collate utf8_general_ci;
 alter table tab_seller convert to character set utf8 collate utf8_general_ci;
 alter table tab_user convert to character set utf8 collate utf8_general_ci;
+
 </code></pre>
 <p>关于报错1366问题：<a href="https://blog.csdn.net/weixin_40539892/article/details/80227981" target="_blank" rel="noopener">详见文章</a></p>
 <h2 id="4-注册功能"><a href="#4-注册功能" class="headerlink" title="4. 注册功能"></a>4. 注册功能</h2><h3 id="4-1-功能分析"><a href="#4-1-功能分析" class="headerlink" title="4.1 功能分析"></a>4.1 功能分析</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/22/register-1563759463469.bmp" alt="title"></p>
-<h3 id="4-2-代码实现"><a href="#4-2-代码实现" class="headerlink" title="4.2 代码实现"></a>4.2 代码实现</h3><h4 id="4-2-1-表单校验"><a href="#4-2-1-表单校验" class="headerlink" title="4.2.1 表单校验"></a>4.2.1 表单校验</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&#x2F;&#x2F; 使用Jquery完成表单校验
-&#x2F;&#x2F; 定义校验方法
-&#x2F;&#x2F; 用户名校验
+<h3 id="4-2-代码实现"><a href="#4-2-代码实现" class="headerlink" title="4.2 代码实现"></a>4.2 代码实现</h3><h4 id="4-2-1-表单校验"><a href="#4-2-1-表单校验" class="headerlink" title="4.2.1 表单校验"></a>4.2.1 表单校验</h4><pre><code class="javascript">// 使用Jquery完成表单校验
+// 定义校验方法
+// 用户名校验
 function checkUsername() {
-    &#x2F;&#x2F; 1. 获取用户名值
+    // 1. 获取用户名值
     var username = $(&quot;#username&quot;).val();
-    &#x2F;&#x2F; 2. 定义正则
-    var reg_username = &#x2F;^[\u4e00-\u9fa5]|[0-9a-zA-Z]{2,20}$&#x2F;;
-    &#x2F;&#x2F; 3. 判断，给出提示信息
+    // 2. 定义正则
+    var reg_username = /^[\u4e00-\u9fa5]|[0-9a-zA-Z]{2,20}$/;
+    // 3. 判断，给出提示信息
     var flag = reg_username.test(username);
     if (flag){
-        &#x2F;&#x2F; 用户名合法
+        // 用户名合法
         $(&quot;#username&quot;).css(&quot;border&quot;,&quot;&quot;);
     }else {
-        &#x2F;&#x2F; 用户名非法，加红色边框
+        // 用户名非法，加红色边框
         $(&quot;#username&quot;).css(&quot;border&quot;,&quot;1px solid red&quot;);
     }
     return flag;
 }
-&#x2F;&#x2F; 密码校验
+// 密码校验
 function checkPwd() {
-    &#x2F;&#x2F; 1. 获取值
+    // 1. 获取值
     var password = $(&quot;#password&quot;).val();
-    &#x2F;&#x2F; 2. 定义正则
-    var reg_password = &#x2F;^[\w_-]{6,20}$&#x2F;;
-    &#x2F;&#x2F; 3. 判断，返回信息
+    // 2. 定义正则
+    var reg_password = /^[\w_-]{6,20}$/;
+    // 3. 判断，返回信息
     var flag = reg_password.test(password);
     if (flag){
-        &#x2F;&#x2F; 密码合法
+        // 密码合法
         $(&quot;#password&quot;).css(&quot;border&quot;,&quot;&quot;);
     } else {
-        &#x2F;&#x2F; 非法，加红色边框
+        // 非法，加红色边框
         $(&quot;#password&quot;).css(&quot;border&quot;,&quot;1px solid red&quot;);
     }
     return flag;
 }
-&#x2F;&#x2F; 邮箱校验
+// 邮箱校验
 function checkEmail() {
     var email = $(&quot;#email&quot;).val();
-    var reg_email = &#x2F;^\w+@\w+\.\w+$&#x2F;;
+    var reg_email = /^\w+@\w+\.\w+$/;
     var flag = reg_email.test(email);
     if(flag){
         $(&quot;#email&quot;).css(&quot;border&quot;,&quot;&quot;);
@@ -652,51 +649,47 @@ function checkEmail() {
 }
 
 $(function () {
-    &#x2F;&#x2F; 当表单提交时，调用所有校验方法
+    // 当表单提交时，调用所有校验方法
     $(&quot;#registerForm&quot;).submit(function () {
         return checkUsername() &amp;&amp; checkPwd() &amp;&amp; checkEmail();
     });
 
-    &#x2F;&#x2F; 当某一组件失去焦点时，调用对应的校验方法
+    // 当某一组件失去焦点时，调用对应的校验方法
     $(&quot;#username&quot;).blur(checkUsername);
     $(&quot;#password&quot;).blur(checkPwd);
     $(&quot;#email&quot;).blur(checkEmail);
 });
 </code></pre>
 <h4 id="4-2-2-异步提交表单"><a href="#4-2-2-异步提交表单" class="headerlink" title="4.2.2 异步提交表单"></a>4.2.2 异步提交表单</h4><p>使用异步提交表单是为了获取服务器响应的数据。因为前台使用的是html作为视图层，不能够直接从servlet相关的域对象获取值，只能通过ajax获取响应数据。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">$(function () {
-    &#x2F;&#x2F; 当表单提交时，调用所有校验方法
+<pre><code class="javascript">$(function () {
+    // 当表单提交时，调用所有校验方法
     $(&quot;#registerForm&quot;).submit(function () {
-        &#x2F;&#x2F; 1. 发送数据到服务器
+        // 1. 发送数据到服务器
         if ( checkUsername() &amp;&amp; checkPwd() &amp;&amp; checkEmail()){
-            &#x2F;&#x2F; 校验通过，发送ajax请求，提交表单数据
+            // 校验通过，发送ajax请求，提交表单数据
             $.post(&quot;registUserServlet&quot;,$(this).serialize(),function (data) {
-                &#x2F;&#x2F; 处理服务器响应的数据 data  {flag:true,errorMsg:&quot;注册失败&quot;}
+                // 处理服务器响应的数据 data  {flag:true,errorMsg:&quot;注册失败&quot;}
 
                 if (data.flag){
-                    &#x2F;&#x2F; 注册成功，跳转到成功页面
+                    // 注册成功，跳转到成功页面
                     location.href = &quot;register_ok.html&quot;;
                 }else{
-                    &#x2F;&#x2F; 注册失败，给errorMsg添加提示信息
+                    // 注册失败，给errorMsg添加提示信息
                     $(&quot;#errorMsg&quot;).html(data.errorMsg);
                 }
             })
         }
-        &#x2F;&#x2F; 2. 不让页面跳转，不提交
+        // 2. 不让页面跳转，不提交
         return false;
     });
 
-    &#x2F;&#x2F; 当某一组件失去焦点时，调用对应的校验方法
+    // 当某一组件失去焦点时，调用对应的校验方法
     $(&quot;#username&quot;).blur(checkUsername);
     $(&quot;#password&quot;).blur(checkPwd);
     $(&quot;#email&quot;).blur(checkEmail);
 });
 </code></pre>
-<h3 id="4-3-后台代码实现"><a href="#4-3-后台代码实现" class="headerlink" title="4.3 后台代码实现"></a>4.3 后台代码实现</h3><h4 id="4-3-1-注册用户控制器：RegistUserServlet"><a href="#4-3-1-注册用户控制器：RegistUserServlet" class="headerlink" title="4.3.1 注册用户控制器：RegistUserServlet"></a>4.3.1 注册用户控制器：<code>RegistUserServlet</code></h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.web.servlet;
+<h3 id="4-3-后台代码实现"><a href="#4-3-后台代码实现" class="headerlink" title="4.3 后台代码实现"></a>4.3 后台代码实现</h3><h4 id="4-3-1-注册用户控制器：RegistUserServlet"><a href="#4-3-1-注册用户控制器：RegistUserServlet" class="headerlink" title="4.3.1 注册用户控制器：RegistUserServlet"></a>4.3.1 注册用户控制器：<code>RegistUserServlet</code></h4><pre><code class="java">package cn.itcast.travel.web.servlet;
 
 import cn.itcast.travel.domain.ResultInfo;
 import cn.itcast.travel.domain.User;
@@ -715,35 +708,35 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-@WebServlet(&quot;&#x2F;registUserServlet&quot;)
+@WebServlet(&quot;/registUserServlet&quot;)
 public class RegistUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 获取用户输入的验证码
+        // 获取用户输入的验证码
         String check = request.getParameter(&quot;check&quot;);
-        &#x2F;&#x2F; 从session中获取生成的验证码
+        // 从session中获取生成的验证码
         HttpSession session = request.getSession();
         String checkcode_server = (String)session.getAttribute(&quot;CHECKCODE_SERVER&quot;);
-        session.removeAttribute(&quot;CHECKCODE_SERVER&quot;); &#x2F;&#x2F; 确保验证码只能使用一次
-        &#x2F;&#x2F; 如果验证码错误，直接注册失败
+        session.removeAttribute(&quot;CHECKCODE_SERVER&quot;); // 确保验证码只能使用一次
+        // 如果验证码错误，直接注册失败
         if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(check)){
-            &#x2F;&#x2F; 验证码错误
+            // 验证码错误
             ResultInfo info = new ResultInfo();
-            &#x2F;&#x2F; 注册失败
+            // 注册失败
             info.setFlag(false);
             info.setErrorMsg(&quot;验证码错误&quot;);
-            &#x2F;&#x2F; 将info对象序列化为json
+            // 将info对象序列化为json
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(info);
-            response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+            response.setContentType(&quot;application/json;charset=utf-8&quot;);
             response.getWriter().write(json);
-            return; &#x2F;&#x2F; todo:为何return?
+            return; // todo:为何return?
         }
 
-        &#x2F;&#x2F; 验证通过
-        &#x2F;&#x2F; 1. 获取前台表单数据
+        // 验证通过
+        // 1. 获取前台表单数据
         Map&lt;String, String[]&gt; map = request.getParameterMap();
 
-        &#x2F;&#x2F; 2. 封装为user对象
+        // 2. 封装为user对象
         User user = new User();
         try {
             BeanUtils.populate(user,map);
@@ -753,27 +746,27 @@ public class RegistUserServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        &#x2F;&#x2F; 3. 调用service完成注册
+        // 3. 调用service完成注册
         UserService service = new UserServiceImpl();
         boolean flag = service.regist(user);
         ResultInfo info = new ResultInfo();
-        &#x2F;&#x2F; 4. 响应结果
+        // 4. 响应结果
         if (flag){
-            &#x2F;&#x2F; 注册成功
+            // 注册成功
             info.setFlag(true);
         }else{
-            &#x2F;&#x2F; 注册失败
+            // 注册失败
             info.setFlag(false);
             info.setErrorMsg(&quot;注册失败！&quot;);
         }
 
-        &#x2F;&#x2F; 将info对象序列化为json
+        // 将info对象序列化为json
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(info);
         String json = mapper.writeValueAsString(info);
-        &#x2F;&#x2F; 将json数据回写客户端
-        &#x2F;&#x2F; 设置content-type
-        response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+        // 将json数据回写客户端
+        // 设置content-type
+        response.setContentType(&quot;application/json;charset=utf-8&quot;);
         response.getWriter().write(json);
 
     }
@@ -784,9 +777,7 @@ public class RegistUserServlet extends HttpServlet {
 }
 </code></pre>
 <h4 id="4-3-2-用户服务业务层以及对应实现类"><a href="#4-3-2-用户服务业务层以及对应实现类" class="headerlink" title="4.3.2 用户服务业务层以及对应实现类"></a>4.3.2 用户服务业务层以及对应实现类</h4><p>服务层接口</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.service;
+<pre><code class="java">package cn.itcast.travel.service;
 
 import cn.itcast.travel.domain.User;
 
@@ -795,9 +786,7 @@ public interface UserService {
 }
 </code></pre>
 <p>实现类</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.service.impl;
+<pre><code class="java">package cn.itcast.travel.service.impl;
 
 import cn.itcast.travel.dao.UserDao;
 import cn.itcast.travel.dao.impl.UserDaoImpl;
@@ -808,30 +797,28 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao = new UserDaoImpl();
 
-    &#x2F;**
+    /**
      * 注册用户服务
      * @param user
      * @return 是否注册成功
-     *&#x2F;
+     */
     @Override
     public boolean regist(User user) {
-        &#x2F;&#x2F; 1. 根据用户名查询用户对象
+        // 1. 根据用户名查询用户对象
         User u = userDao.findByUsername(user.getUsername());
-        &#x2F;&#x2F; 判断是否为null
+        // 判断是否为null
         if (u != null){
-            &#x2F;&#x2F; 不为空，说明用户名存在，注册失败
+            // 不为空，说明用户名存在，注册失败
             return false;
         }
-        &#x2F;&#x2F; 2. 保存用户信息
+        // 2. 保存用户信息
         userDao.save(user);
         return true;
     }
 }
 </code></pre>
 <h4 id="4-3-3-数据操作层及对应实现类"><a href="#4-3-3-数据操作层及对应实现类" class="headerlink" title="4.3.3 数据操作层及对应实现类"></a>4.3.3 数据操作层及对应实现类</h4><p>Dao</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.dao;
+<pre><code class="java">package cn.itcast.travel.dao;
 
 import cn.itcast.travel.domain.User;
 
@@ -839,11 +826,10 @@ public interface UserDao {
     User findByUsername(String username);
     void save(User user);
 }
+
 </code></pre>
 <p>实现类</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.dao.impl;
+<pre><code class="java">package cn.itcast.travel.dao.impl;
 
 import cn.itcast.travel.dao.UserDao;
 import cn.itcast.travel.domain.User;
@@ -856,17 +842,17 @@ public class UserDaoImpl implements UserDao {
     private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
 
-    &#x2F;**
+    /**
      * 查询用户是否存在
      * @param username
      * @return 返回查询到的用户
-     *&#x2F;
+     */
     @Override
     public User findByUsername(String username) {
-        &#x2F;*
+        /*
             queryForObject()方法
             如果查询结果条数为0或者大于1)都会返回异常，我们希望没查到直接返回null
-         *&#x2F;
+         */
         User user = null;
         try{
             user = template.queryForObject(&quot;select * from tab_user where username = ? &quot;,
@@ -879,9 +865,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        &#x2F;&#x2F; 1. 定义sql
+        // 1. 定义sql
         String sql = &quot;insert into tab_user(username,password,name,birthday,sex,telephone,email) values(?,?,?,?,?,?,?)&quot;;
-        &#x2F;&#x2F; 2. 执行sql
+        // 2. 执行sql
         template.update(sql,user.getUsername(),user.getPassword(),user.getName(),
                             user.getBirthday(),user.getSex(),user.getTelephone(),user.getEmail());
     }
@@ -897,39 +883,35 @@ public class UserDaoImpl implements UserDao {
 <p><code>MailUtils</code>是邮箱工具类，调用其中的<code>sendMail</code>方法可以完成邮件发送</p>
 </blockquote>
 <h4 id="4-3-6-用户点击邮件激活"><a href="#4-3-6-用户点击邮件激活" class="headerlink" title="4.3.6 用户点击邮件激活"></a>4.3.6 用户点击邮件激活</h4><h5 id="4-3-6-1-功能分析"><a href="#4-3-6-1-功能分析" class="headerlink" title="4.3.6.1 功能分析"></a>4.3.6.1 功能分析</h5><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/22/sendEmail-1563759504470.png" alt="title"></p>
-<h5 id="4-3-6-2-发送邮件代码实现"><a href="#4-3-6-2-发送邮件代码实现" class="headerlink" title="4.3.6.2 发送邮件代码实现"></a>4.3.6.2 发送邮件代码实现</h5>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Override
+<h5 id="4-3-6-2-发送邮件代码实现"><a href="#4-3-6-2-发送邮件代码实现" class="headerlink" title="4.3.6.2 发送邮件代码实现"></a>4.3.6.2 发送邮件代码实现</h5><pre><code class="java">@Override
 public boolean regist(User user) {
-    &#x2F;&#x2F; 1. 根据用户名查询用户对象
+    // 1. 根据用户名查询用户对象
     User u = userDao.findByUsername(user.getUsername());
-    &#x2F;&#x2F; 判断是否为null
+    // 判断是否为null
     if (u != null){
-        &#x2F;&#x2F; 不为空，说明用户名存在，注册失败
+        // 不为空，说明用户名存在，注册失败
         return false;
     }
-    &#x2F;&#x2F; 2. 保存用户信息
-    &#x2F;&#x2F; 2.1 设置激活码，唯一字符串
+    // 2. 保存用户信息
+    // 2.1 设置激活码，唯一字符串
     String uuid = UuidUtil.getUuid();
     System.out.println(uuid);
     user.setCode(uuid);
-    &#x2F;&#x2F; 2.2 设置激活状态
-    user.setStatus(&quot;N&quot;); &#x2F;&#x2F; 默认未激活
+    // 2.2 设置激活状态
+    user.setStatus(&quot;N&quot;); // 默认未激活
     userDao.save(user);
 
-    &#x2F;&#x2F; 3. 激活邮件发送，邮件正文
-    &#x2F;&#x2F; 邮件正文 todo:后期项目部署需要将href改为服务器域名
-    String content = &quot;&lt;a href=&#39;http:&#x2F;&#x2F;localhost&#x2F;travel&#x2F;activeUserServlet?code=&quot;+user.getCode()+&quot;&#39;&gt;点击激活账户&lt;&#x2F;a&gt;&quot;;
-    &#x2F;&#x2F; 发送邮件
+    // 3. 激活邮件发送，邮件正文
+    // 邮件正文 todo:后期项目部署需要将href改为服务器域名
+    String content = &quot;&lt;a href=&#39;http://localhost/travel/activeUserServlet?code=&quot;+user.getCode()+&quot;&#39;&gt;点击激活账户&lt;/a&gt;&quot;;
+    // 发送邮件
     MailUtils.sendMail(user.getEmail(),content,&quot;激活邮件&quot;);
 
     return true;
 }
 </code></pre>
 <h5 id="4-3-6-3-修改保存Dao代码，以及存储status和code代码逻辑"><a href="#4-3-6-3-修改保存Dao代码，以及存储status和code代码逻辑" class="headerlink" title="4.3.6.3 修改保存Dao代码，以及存储status和code代码逻辑"></a>4.3.6.3 修改保存Dao代码，以及存储<code>status</code>和<code>code</code>代码逻辑</h5><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/22/update-1563759516887.png" alt="title"></p>
-<h5 id="4-3-6-4-激活Servlet实现"><a href="#4-3-6-4-激活Servlet实现" class="headerlink" title="4.3.6.4 激活Servlet实现"></a>4.3.6.4 激活<code>Servlet</code>实现</h5>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.web.servlet;
+<h5 id="4-3-6-4-激活Servlet实现"><a href="#4-3-6-4-激活Servlet实现" class="headerlink" title="4.3.6.4 激活Servlet实现"></a>4.3.6.4 激活<code>Servlet</code>实现</h5><pre><code class="java">package cn.itcast.travel.web.servlet;
 
 import cn.itcast.travel.service.impl.UserServiceImpl;
 
@@ -940,26 +922,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(&quot;&#x2F;activeUserServlet&quot;)
+@WebServlet(&quot;/activeUserServlet&quot;)
 public class ActiveUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 1. 获取激活码
+        // 1. 获取激活码
         String code = request.getParameter(&quot;code&quot;);
         if (code != null){
-            &#x2F;&#x2F; 2. 调用service完成激活
+            // 2. 调用service完成激活
             UserServiceImpl service = new UserServiceImpl();
             boolean flag = service.active(code);
-            &#x2F;&#x2F; 3. 判断标记
+            // 3. 判断标记
             String msg = null;
             if (flag){
-                &#x2F;&#x2F; 激活成功
-                msg = &quot;激活成功，请&lt;a href=&#39;login.html&#39;&gt;登录&lt;&#x2F;a&gt;&quot;;
+                // 激活成功
+                msg = &quot;激活成功，请&lt;a href=&#39;login.html&#39;&gt;登录&lt;/a&gt;&quot;;
             }else{
-                &#x2F;&#x2F; 激活失败
+                // 激活失败
                 msg = &quot;激活失败，请联系管理员！&quot;;
             }
-            &#x2F;&#x2F; 回写数据
-            response.setContentType(&quot;text&#x2F;html;charset=utf-8&quot;);
+            // 回写数据
+            response.setContentType(&quot;text/html;charset=utf-8&quot;);
             response.getWriter().write(msg);
         }
     }
@@ -969,14 +951,12 @@ public class ActiveUserServlet extends HttpServlet {
     }
 }
 </code></pre>
-<h5 id="4-3-6-5-激活Service代码"><a href="#4-3-6-5-激活Service代码" class="headerlink" title="4.3.6.5 激活Service代码"></a>4.3.6.5 激活<code>Service</code>代码</h5>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Override
+<h5 id="4-3-6-5-激活Service代码"><a href="#4-3-6-5-激活Service代码" class="headerlink" title="4.3.6.5 激活Service代码"></a>4.3.6.5 激活<code>Service</code>代码</h5><pre><code class="java">@Override
 public boolean active(String code) {
-    &#x2F;&#x2F; 1. 根据激活码查询用户对象
+    // 1. 根据激活码查询用户对象
     User user = userDao.findByCode(code);
     if (user != null){
-        &#x2F;&#x2F; 2. 调用dao的修改激活状态的方法
+        // 2. 调用dao的修改激活状态的方法
         userDao.updateStatus(user);
         return true;
     }else{
@@ -984,13 +964,11 @@ public boolean active(String code) {
     }
 }
 </code></pre>
-<h5 id="4-3-6-6-激活Dao代码：findByCode-amp-updateStatus"><a href="#4-3-6-6-激活Dao代码：findByCode-amp-updateStatus" class="headerlink" title="4.3.6.6 激活Dao代码：findByCode&amp;updateStatus"></a>4.3.6.6 激活Dao代码：<code>findByCode&amp;updateStatus</code></h5>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<h5 id="4-3-6-6-激活Dao代码：findByCode-amp-updateStatus"><a href="#4-3-6-6-激活Dao代码：findByCode-amp-updateStatus" class="headerlink" title="4.3.6.6 激活Dao代码：findByCode&amp;updateStatus"></a>4.3.6.6 激活Dao代码：<code>findByCode&amp;updateStatus</code></h5><pre><code class="java">/**
  * 根据激活码查询用户对象
 * @param code
 * @return 查询到的对象
-*&#x2F;
+*/
 @Override
 public User findByCode(String code) {
     User user = null;
@@ -1003,40 +981,36 @@ public User findByCode(String code) {
     return user;
 }
 
-&#x2F;**
+/**
 * 修改指定用户激活状态
 * @param user
-*&#x2F;
+*/
 @Override
 public void updateStatus(User user) {
     template.update(&quot;update tab_user set status = &#39;Y&#39; where uid = ?&quot;,user.getUid());
 }
 </code></pre>
 <h2 id="5-登录"><a href="#5-登录" class="headerlink" title="5. 登录"></a>5. 登录</h2><h3 id="5-1-分析"><a href="#5-1-分析" class="headerlink" title="5.1 分析"></a>5.1 分析</h3><p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/07/22/login-1563759530918.bmp" alt="title"></p>
-<h3 id="5-2-前台代码实现"><a href="#5-2-前台代码实现" class="headerlink" title="5.2 前台代码实现"></a>5.2 前台代码实现</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
+<h3 id="5-2-前台代码实现"><a href="#5-2-前台代码实现" class="headerlink" title="5.2 前台代码实现"></a>5.2 前台代码实现</h3><pre><code class="javascript">&lt;script&gt;
     $(function () {
-    &#x2F;&#x2F; 1. 给登录按钮绑定单击事件
+    // 1. 给登录按钮绑定单击事件
     $(&quot;#btn_sub&quot;).click(function () {
-        &#x2F;&#x2F; 2. 发送ajax请求，提交表单数据
+        // 2. 发送ajax请求，提交表单数据
         $.post(&quot;loginServlet&quot;,$(&quot;#loginForm&quot;).serialize(),function (data) {
-            &#x2F;&#x2F; data: {flag:false,errorMsg:&quot;&quot;}
+            // data: {flag:false,errorMsg:&quot;&quot;}
             if (data.flag){
-                &#x2F;&#x2F; 登录成功
+                // 登录成功
                 location.href = &quot;index.html&quot;;
             } else{
-                &#x2F;&#x2F; 登录失败
+                // 登录失败
                 $(&quot;#errorMsg&quot;).html(data.errorMsg);
             }
         });
     });
 });
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
-<h3 id="5-3-后台代码实现"><a href="#5-3-后台代码实现" class="headerlink" title="5.3 后台代码实现"></a>5.3 后台代码实现</h3><h4 id="5-3-1-登录控制器：LoginServlet"><a href="#5-3-1-登录控制器：LoginServlet" class="headerlink" title="5.3.1 登录控制器：LoginServlet"></a>5.3.1 登录控制器：<code>LoginServlet</code></h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.web.servlet;
+<h3 id="5-3-后台代码实现"><a href="#5-3-后台代码实现" class="headerlink" title="5.3 后台代码实现"></a>5.3 后台代码实现</h3><h4 id="5-3-1-登录控制器：LoginServlet"><a href="#5-3-1-登录控制器：LoginServlet" class="headerlink" title="5.3.1 登录控制器：LoginServlet"></a>5.3.1 登录控制器：<code>LoginServlet</code></h4><pre><code class="java">package cn.itcast.travel.web.servlet;
 
 import cn.itcast.travel.domain.ResultInfo;
 import cn.itcast.travel.domain.User;
@@ -1053,12 +1027,12 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-@WebServlet(&quot;&#x2F;loginServlet&quot;)
+@WebServlet(&quot;/loginServlet&quot;)
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 1. 获取用户名和密码
+        // 1. 获取用户名和密码
         Map&lt;String, String[]&gt; map = request.getParameterMap();
-        &#x2F;&#x2F; 2. 封装User对象
+        // 2. 封装User对象
         User user = new User();
         try {
             BeanUtils.populate(user,map);
@@ -1067,33 +1041,33 @@ public class LoginServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        &#x2F;&#x2F; 3. 调用service查询
+        // 3. 调用service查询
         UserServiceImpl service = new UserServiceImpl();
         User u = service.login(user);
         ResultInfo info = new ResultInfo();
 
-        &#x2F;&#x2F; 4. 判断用户对象是否为null
+        // 4. 判断用户对象是否为null
         if (u == null){
-            &#x2F;&#x2F; 用户名或密码错误
+            // 用户名或密码错误
             info.setFlag(false);
             info.setErrorMsg(&quot;用户名或密码错误&quot;);
         }
-        &#x2F;&#x2F; 5. 判断用户账户是否激活
+        // 5. 判断用户账户是否激活
         if (u != null &amp;&amp; !&quot;Y&quot;.equals(u.getStatus())){
-            &#x2F;&#x2F; 用户未激活
+            // 用户未激活
             info.setFlag(false);
             info.setErrorMsg(&quot;您的账户尚未激活，请激活&quot;);
         }
-        &#x2F;&#x2F; 6. 判断登录成功
+        // 6. 判断登录成功
         if (u != null &amp;&amp; &quot;Y&quot;.equals(u.getStatus())){
-            &#x2F;&#x2F; 登录成功
+            // 登录成功
             info.setFlag(true);
-            &#x2F;&#x2F; 将登陆用户信息存入session中
+            // 将登陆用户信息存入session中
             request.getSession().setAttribute(&quot;user&quot;,u);
         }
-        &#x2F;&#x2F; 响应数据
+        // 响应数据
         ObjectMapper mapper = new ObjectMapper();
-        response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+        response.setContentType(&quot;application/json;charset=utf-8&quot;);
         mapper.writeValue(response.getOutputStream(),info);
     }
 
@@ -1102,26 +1076,22 @@ public class LoginServlet extends HttpServlet {
     }
 }
 </code></pre>
-<h4 id="5-3-2-服务层代码"><a href="#5-3-2-服务层代码" class="headerlink" title="5.3.2 服务层代码"></a>5.3.2 服务层代码</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<h4 id="5-3-2-服务层代码"><a href="#5-3-2-服务层代码" class="headerlink" title="5.3.2 服务层代码"></a>5.3.2 服务层代码</h4><pre><code class="java">/**
 * 进行登录操作
 * @param user
 * @return User对象
-*&#x2F;
+*/
 @Override
 public User login(User user) {
     return userDao.findByUsernameAndPassword(user.getUsername(),user.getPassword());
 }
 </code></pre>
-<h4 id="5-3-3-Dao层代码"><a href="#5-3-3-Dao层代码" class="headerlink" title="5.3.3 Dao层代码"></a>5.3.3 Dao层代码</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;**
+<h4 id="5-3-3-Dao层代码"><a href="#5-3-3-Dao层代码" class="headerlink" title="5.3.3 Dao层代码"></a>5.3.3 Dao层代码</h4><pre><code class="java">/**
 * 根据用户名和密码，查询是否有此用户
 * @param username
 * @param password
 * @return user对象
-*&#x2F;
+*/
 @Override
 public User findByUsernameAndPassword(String username, String password) {
     User user = null;
@@ -1135,21 +1105,17 @@ public User findByUsernameAndPassword(String username, String password) {
 }
 </code></pre>
 <h4 id="5-3-4-用户登录后，主页显示登录用户名功能"><a href="#5-3-4-用户登录后，主页显示登录用户名功能" class="headerlink" title="5.3.4 用户登录后，主页显示登录用户名功能"></a>5.3.4 用户登录后，主页显示登录用户名功能</h4><p><code>header.html</code>代码</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;script&gt;
+<pre><code class="javascript">&lt;script&gt;
     $(function () {
        $.get(&quot;findUserServlet&quot;,{},function (data) {
            var msg = &quot;欢迎回来，&quot;+data.name;
            $(&quot;#span_username&quot;).html(msg);
        })
     });
-&lt;&#x2F;script&gt;
+&lt;/script&gt;
 </code></pre>
 <p>控制器代码</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.web.servlet;
+<pre><code class="java">package cn.itcast.travel.web.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -1160,14 +1126,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(&quot;&#x2F;findUserServlet&quot;)
+@WebServlet(&quot;/findUserServlet&quot;)
 public class FindUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 从session中获取登录用户
+        // 从session中获取登录用户
         Object user = request.getSession().getAttribute(&quot;user&quot;);
-        &#x2F;&#x2F; 将user回写客户端
+        // 将user回写客户端
         ObjectMapper mapper = new ObjectMapper();
-        response.setContentType(&quot;application&#x2F;json;charset=utf-8&quot;);
+        response.setContentType(&quot;application/json;charset=utf-8&quot;);
         mapper.writeValue(response.getOutputStream(),user);
     }
 
@@ -1185,16 +1151,12 @@ public class FindUserServlet extends HttpServlet {
 </li>
 <li>前台代码实现：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-javascript">&lt;a href=&quot;javascript:location.href=&#39;exitServlet&#39;;&quot;&gt;退出&lt;&#x2F;a&gt;
+<pre><code class="javascript">&lt;a href=&quot;javascript:location.href=&#39;exitServlet&#39;;&quot;&gt;退出&lt;/a&gt;
 </code></pre>
 <ul>
 <li>后台代码实现：</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">package cn.itcast.travel.web.servlet;
+<pre><code class="java">package cn.itcast.travel.web.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -1203,13 +1165,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(&quot;&#x2F;exitServlet&quot;)
+@WebServlet(&quot;/exitServlet&quot;)
 public class ExitServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        &#x2F;&#x2F; 1. 销毁session
+        // 1. 销毁session
         request.getSession().invalidate();
-        &#x2F;&#x2F; 2. 跳转到登录页面
-        response.sendRedirect(request.getContextPath()+&quot;&#x2F;login.html&quot;);
+        // 2. 跳转到登录页面
+        response.sendRedirect(request.getContextPath()+&quot;/login.html&quot;);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1468,7 +1430,7 @@ public class ExitServlet extends HttpServlet {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

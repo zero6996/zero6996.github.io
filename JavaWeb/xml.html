@@ -409,14 +409,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.5k
+                        2.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        11 分
+                        10 分
                     </div>
                     
                 
@@ -454,22 +454,20 @@
 <li>标签必须正确关闭</li>
 <li>xml标签名称区分大小写</li>
 </ol>
-<h4 id="2-1-1-快速入门"><a href="#2-1-1-快速入门" class="headerlink" title="2.1.1 快速入门"></a>2.1.1 快速入门</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;?xml version=&#39;1.0&#39; ?&gt;
+<h4 id="2-1-1-快速入门"><a href="#2-1-1-快速入门" class="headerlink" title="2.1.1 快速入门"></a>2.1.1 快速入门</h4><pre><code class="xml">&lt;?xml version=&#39;1.0&#39; ?&gt;
 
 &lt;users&gt;
     &lt;user id=&quot;1&quot;&gt;
-        &lt;name&gt;张三&lt;&#x2F;name&gt;
-        &lt;age&gt;20&lt;&#x2F;age&gt;
-        &lt;gender&gt;男&lt;&#x2F;gender&gt;
-    &lt;&#x2F;user&gt;
+        &lt;name&gt;张三&lt;/name&gt;
+        &lt;age&gt;20&lt;/age&gt;
+        &lt;gender&gt;男&lt;/gender&gt;
+    &lt;/user&gt;
     &lt;user id=&quot;2&quot;&gt;
-        &lt;name&gt;李四&lt;&#x2F;name&gt;
-        &lt;age&gt;21&lt;&#x2F;age&gt;
-        &lt;gender&gt;男&lt;&#x2F;gender&gt;
-    &lt;&#x2F;user&gt;
-&lt;&#x2F;users&gt;
+        &lt;name&gt;李四&lt;/name&gt;
+        &lt;age&gt;21&lt;/age&gt;
+        &lt;gender&gt;男&lt;/gender&gt;
+    &lt;/user&gt;
+&lt;/users&gt;
 </code></pre>
 <h3 id="2-2-组成部分"><a href="#2-2-组成部分" class="headerlink" title="2.2 组成部分"></a>2.2 组成部分</h3><h4 id="2-2-1-文档声明"><a href="#2-2-1-文档声明" class="headerlink" title="2.2.1 文档声明"></a>2.2.1 文档声明</h4><ol>
 <li>格式：<code>&lt;?xml 属性列表 ?&gt;</code></li>
@@ -543,19 +541,17 @@
 <li>获取对应的标签Element对象</li>
 <li>获取数据</li>
 </ol>
-<h4 id="3-4-1-代码示例"><a href="#3-4-1-代码示例" class="headerlink" title="3.4.1 代码示例"></a>3.4.1 代码示例</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoJsoup01 {
+<h4 id="3-4-1-代码示例"><a href="#3-4-1-代码示例" class="headerlink" title="3.4.1 代码示例"></a>3.4.1 代码示例</h4><pre><code class="java">public class DemoJsoup01 {
     public static void main(String[] args) throws IOException {
-        &#x2F;&#x2F; 1.获取Document对象，根据xml文档获取
-        &#x2F;&#x2F; 1.1 获取users.xml的path
-        String path = DemoJsoup01.class.getClassLoader().getResource(&quot;Demo6_7&#x2F;users.xml&quot;).getPath();
-        &#x2F;&#x2F; 1.2 解析xml文档，加载文档进内存，获取dom树---&gt; Document
+        // 1.获取Document对象，根据xml文档获取
+        // 1.1 获取users.xml的path
+        String path = DemoJsoup01.class.getClassLoader().getResource(&quot;Demo6_7/users.xml&quot;).getPath();
+        // 1.2 解析xml文档，加载文档进内存，获取dom树---&gt; Document
         Document document = Jsoup.parse(new File(path), &quot;utf-8&quot;);
-        &#x2F;&#x2F; 2. 获取所有name元素对象
+        // 2. 获取所有name元素对象
         Elements elements = document.getElementsByTag(&quot;name&quot;);
-        System.out.println(elements.size()); &#x2F;&#x2F; 2
-        &#x2F;&#x2F; 2.1 获取第一个name的element对象
+        System.out.println(elements.size()); // 2
+        // 2.1 获取第一个name的element对象
         Element element = elements.get(0);
         String name = element.text();
         System.out.println(name);
@@ -583,37 +579,33 @@
 <li><code>getElementsByAttributeValue(String key, String value)</code>：根据对应的属性名和属性值获取元素对象集合</li>
 </ul>
 <p><strong>代码示例</strong>：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">     public class DemoJsoup02 {
-         public static void main(String[] args) throws IOException {
-             &#x2F;&#x2F; 1. 获取users.xml的path
-             String path = DemoJsoup02.class.getClassLoader().getResource(&quot;Demo6_7&#x2F;users.xml&quot;).getPath();
-             &#x2F;&#x2F; 1.1 解析xml文档，加载文档进内存，获取dom树
-             Document document = Jsoup.parse(new File(path), &quot;utf-8&quot;);
-             &#x2F;&#x2F; 2. 获取所有的user元素对象
-             Elements users = document.getElementsByTag(&quot;user&quot;);
-             System.out.println(users);
-             System.out.println(&quot;----------------------------&quot;);
-             &#x2F;&#x2F; 3.获取属性名为id的元素对象们
-             Elements ids = document.getElementsByAttribute(&quot;id&quot;);
-             System.out.println(ids);
-             System.out.println(&quot;----------------------------&quot;);
-             &#x2F;&#x2F; 4. 获取uid属性值为1的元素对象们
-             Elements uid = document.getElementsByAttributeValue(&quot;uid&quot;, &quot;1&quot;);
-             System.out.println(uid);
-             System.out.println(&quot;----------------------------&quot;);
-             &#x2F;&#x2F; 5. 获取id属性值为“z1”的元素对象
-             Element z1 = document.getElementById(&quot;z1&quot;);
-             System.out.println(z1);
-         }
-     }
+<pre><code class="java">public class DemoJsoup02 {
+    public static void main(String[] args) throws IOException {
+        // 1. 获取users.xml的path
+        String path = DemoJsoup02.class.getClassLoader().getResource(&quot;Demo6_7/users.xml&quot;).getPath();
+        // 1.1 解析xml文档，加载文档进内存，获取dom树
+        Document document = Jsoup.parse(new File(path), &quot;utf-8&quot;);
+        // 2. 获取所有的user元素对象
+        Elements users = document.getElementsByTag(&quot;user&quot;);
+        System.out.println(users);
+        System.out.println(&quot;----------------------------&quot;);
+        // 3.获取属性名为id的元素对象们
+        Elements ids = document.getElementsByAttribute(&quot;id&quot;);
+        System.out.println(ids);
+        System.out.println(&quot;----------------------------&quot;);
+        // 4. 获取uid属性值为1的元素对象们
+        Elements uid = document.getElementsByAttributeValue(&quot;uid&quot;, &quot;1&quot;);
+        System.out.println(uid);
+        System.out.println(&quot;----------------------------&quot;);
+        // 5. 获取id属性值为“z1”的元素对象
+        Element z1 = document.getElementById(&quot;z1&quot;);
+        System.out.println(z1);
+    }
+}
 </code></pre>
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>Elements：元素Element对象的集合。可以当做<code>ArrayList&lt;Element&gt;</code>来使用</p>
 </li>
 <li><p>Element：元素对象</p>
@@ -635,33 +627,29 @@
 <li><code>String html()</code>：获取标签体的所有内容(包括子标签的字符串内容)</li>
 </ul>
 <p><strong>代码示例</strong>:</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   public class DemoJsoup03 {
-       public static void main(String[] args) throws IOException {
-           &#x2F;&#x2F; 1. 获取student.xml的path
-           String path = DemoJsoup03.class.getClassLoader().getResource(&quot;Demo6_7&#x2F;users.xml&quot;).getPath();
-           &#x2F;&#x2F; 1.1 解析xml文档，加载文档进内存，获取dom树---&gt; Document
-           Document document = Jsoup.parse(new File(path), &quot;utf-8&quot;);
-           &#x2F;&#x2F; 2. 获取第一个user元素对象
-           Element user = document.getElementsByTag(&quot;user&quot;).get(0);
-           &#x2F;&#x2F; 2.1 根据元素对象获取下面的子元素name
-           Elements name = user.getElementsByTag(&quot;name&quot;);
-           &#x2F;&#x2F; 2.2 根据属性名称获取属性值
-           String id = name.attr(&quot;id&quot;);
-           System.out.println(id); &#x2F;&#x2F; z1
-           &#x2F;&#x2F; 2.3 获取name元素的文本内容
-           System.out.println(name.text()); &#x2F;&#x2F; 张三
-           &#x2F;&#x2F; 2.4 获取第一个user元素对象下面的所有标签体内容
-           System.out.println(user.html());
-       }
-   }
+<pre><code class="java">public class DemoJsoup03 {
+ public static void main(String[] args) throws IOException {
+     // 1. 获取student.xml的path
+     String path = DemoJsoup03.class.getClassLoader().getResource(&quot;Demo6_7/users.xml&quot;).getPath();
+     // 1.1 解析xml文档，加载文档进内存，获取dom树---&gt; Document
+     Document document = Jsoup.parse(new File(path), &quot;utf-8&quot;);
+     // 2. 获取第一个user元素对象
+     Element user = document.getElementsByTag(&quot;user&quot;).get(0);
+     // 2.1 根据元素对象获取下面的子元素name
+     Elements name = user.getElementsByTag(&quot;name&quot;);
+     // 2.2 根据属性名称获取属性值
+     String id = name.attr(&quot;id&quot;);
+     System.out.println(id); // z1
+     // 2.3 获取name元素的文本内容
+     System.out.println(name.text()); // 张三
+     // 2.4 获取第一个user元素对象下面的所有标签体内容
+     System.out.println(user.html());
+ }
+}
 </code></pre>
 </li>
 </ol>
 </li>
-</ul>
-<ul>
 <li><p>Node：节点对象</p>
 <ul>
 <li>是Document和Element的父类</li>
@@ -672,32 +660,29 @@
 <li><p>selector：选择器</p>
 <ul>
 <li><p><code>Elements select(String cssQuery)</code>：语法类似CSS的元素选择器，具体使用参考<a href="https://jsoup.org/apidocs/org/jsoup/select/Selector.html" target="_blank" rel="noopener">Selector类</a>中定义的语法</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   public class DemoJsoup04 {
-       public static void main(String[] args) throws IOException {
-           &#x2F;&#x2F; 1. 获取student.xml的path
-           String path = DemoJsoup04.class.getClassLoader().getResource(&quot;Demo6_7&#x2F;users.xml&quot;).getPath();
-           &#x2F;&#x2F; 2. 解析xml文档，加载文档进内存，获取dom树
-           Document document = Jsoup.parse(new File(path), &quot;utf-8&quot;);
-           &#x2F;&#x2F; 3. 查询name标签
-           Elements names = document.select(&quot;name&quot;);
-           System.out.println(names);
-           &#x2F;&#x2F; 4. 查询id值为“z1”的元素
-           Elements ids = document.select(&quot;#z1&quot;);
-           System.out.println(ids);
-           &#x2F;&#x2F; 5. 获取user标签且uid属性值为1的age子标签
-           Elements age = document.select(&quot;user[uid=&#39;1&#39;] &gt; age&quot;);
-           System.out.println(age);
-       }
-   }
+<pre><code class="java">public class DemoJsoup04 {
+  public static void main(String[] args) throws IOException {
+      // 1. 获取student.xml的path
+      String path = DemoJsoup04.class.getClassLoader().getResource(&quot;Demo6_7/users.xml&quot;).getPath();
+      // 2. 解析xml文档，加载文档进内存，获取dom树
+      Document document = Jsoup.parse(new File(path), &quot;utf-8&quot;);
+      // 3. 查询name标签
+      Elements names = document.select(&quot;name&quot;);
+      System.out.println(names);
+      // 4. 查询id值为“z1”的元素
+      Elements ids = document.select(&quot;#z1&quot;);
+      System.out.println(ids);
+      // 5. 获取user标签且uid属性值为1的age子标签
+      Elements age = document.select(&quot;user[uid=&#39;1&#39;] &gt; age&quot;);
+      System.out.println(age);
+  }
+}
 </code></pre>
 </li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>XPath：</li>
+<li><p>XPath：</p>
+</li>
 </ul>
 <p>XPath即为XML路径语言，它是一种用来确定XML(标准通用标记语言的子集)文档中某部分位置的语言</p>
 <ul>
@@ -705,34 +690,32 @@
 <li>Xpath使用语法查询w3cshool的<a href="http://www.w3school.com.cn/xpath/xpath_syntax.asp" target="_blank" rel="noopener">参考手册</a></li>
 </ul>
 <p><strong>代码示例</strong>：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class DemoJsoup05 {
+<pre><code class="java">public class DemoJsoup05 {
     public static void main(String[] args) throws IOException, XpathSyntaxErrorException {
-        &#x2F;&#x2F; 1. 获取student.xml的path
-        String path = DemoJsoup05.class.getClassLoader().getResource(&quot;Demo6_7&#x2F;users.xml&quot;).getPath();
-        &#x2F;&#x2F; 2. 解析xml文档，加载文档进内存，获取dom树
+        // 1. 获取student.xml的path
+        String path = DemoJsoup05.class.getClassLoader().getResource(&quot;Demo6_7/users.xml&quot;).getPath();
+        // 2. 解析xml文档，加载文档进内存，获取dom树
         Document document = Jsoup.parse(new File(path), &quot;utf-8&quot;);
-        &#x2F;&#x2F; 3. 根据document，创建JXDocument对象
+        // 3. 根据document，创建JXDocument对象
         JXDocument jxDocument = new JXDocument(document);
-        &#x2F;&#x2F; 4. 结合xpath语法查询
-        &#x2F;&#x2F; 4.1 查询所有的user标签
-        List&lt;JXNode&gt; jxNodes = jxDocument.selN(&quot;&#x2F;&#x2F;user&quot;);
+        // 4. 结合xpath语法查询
+        // 4.1 查询所有的user标签
+        List&lt;JXNode&gt; jxNodes = jxDocument.selN(&quot;//user&quot;);
         for (JXNode jxNode : jxNodes) {
             System.out.println(jxNode);
         }
-        &#x2F;&#x2F; 4.2 所有user标签下的name标签
-        List&lt;JXNode&gt; jxNames = jxDocument.selN(&quot;&#x2F;&#x2F;user&#x2F;name&quot;);
+        // 4.2 所有user标签下的name标签
+        List&lt;JXNode&gt; jxNames = jxDocument.selN(&quot;//user/name&quot;);
         for (JXNode jxName : jxNames) {
             System.out.println(jxName);
         }
-        &#x2F;&#x2F; 4.3 查询user标签下带有id属性的name标签
-        List&lt;JXNode&gt; jxId = jxDocument.selN(&quot;&#x2F;&#x2F;user&#x2F;name[@id]&quot;);
+        // 4.3 查询user标签下带有id属性的name标签
+        List&lt;JXNode&gt; jxId = jxDocument.selN(&quot;//user/name[@id]&quot;);
         for (JXNode jxNode : jxId) {
             System.out.println(jxNode);
         }
-        &#x2F;&#x2F; 4.4 查询user标签下id属性值为“z1”的name标签
-        List&lt;JXNode&gt; jxIdisz1 = jxDocument.selN(&quot;&#x2F;&#x2F;user&#x2F;name[@id=&#39;z1&#39;]&quot;);
+        // 4.4 查询user标签下id属性值为“z1”的name标签
+        List&lt;JXNode&gt; jxIdisz1 = jxDocument.selN(&quot;//user/name[@id=&#39;z1&#39;]&quot;);
         for (JXNode jxNode : jxIdisz1) {
             System.out.println(jxNode);
         }
@@ -989,7 +972,7 @@ Web服务器软件：接收用户的请求，处理请求，做出响应。在we
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

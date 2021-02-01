@@ -619,16 +619,14 @@
 </ul>
 <h4 id="4-2-2-choose"><a href="#4-2-2-choose" class="headerlink" title="4.2.2 choose"></a>4.2.2 choose</h4><p>相当于java代码的switch语句</p>
 <h4 id="4-2-3-foreach"><a href="#4-2-3-foreach" class="headerlink" title="4.2.3 foreach"></a>4.2.3 foreach</h4><p>相当于java代码的for语句，代码举例如下</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page import=&quot;java.util.ArrayList&quot; %&gt;
+<pre><code class="jsp">&lt;%@ page import=&quot;java.util.ArrayList&quot; %&gt;
 &lt;%@ page import=&quot;java.util.List&quot; %&gt;
-&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
-&lt;%@taglib prefix=&quot;c&quot; uri=&quot;http:&#x2F;&#x2F;java.sun.com&#x2F;jsp&#x2F;jstl&#x2F;core&quot;%&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;%@taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
 &lt;html&gt;
 &lt;head&gt;
-    &lt;title&gt;foreach标签&lt;&#x2F;title&gt;
-&lt;&#x2F;head&gt;
+    &lt;title&gt;foreach标签&lt;/title&gt;
+&lt;/head&gt;
 &lt;body&gt;
 &lt;%--
     foreach:相当于java的for语句
@@ -650,8 +648,8 @@
                     count：循环次数，从1开始
 --%&gt;
 &lt;c:forEach begin=&quot;0&quot; end=&quot;10&quot; var=&quot;i&quot; step=&quot;2&quot; varStatus=&quot;s&quot;&gt;
-    ${i} &lt;h3&gt;${s.index}&lt;&#x2F;h3&gt;
-&lt;&#x2F;c:forEach&gt;
+    ${i} &lt;h3&gt;${s.index}&lt;/h3&gt;
+&lt;/c:forEach&gt;
 
 &lt;hr&gt;
 &lt;%
@@ -665,23 +663,21 @@
 %&gt;
 &lt;c:forEach items=&quot;${list}&quot; var=&quot;str&quot; varStatus=&quot;s&quot;&gt;
     ${s.index} ${s.count} ${str}&lt;br&gt;
-&lt;&#x2F;c:forEach&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+&lt;/c:forEach&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <h3 id="4-3-综合练习"><a href="#4-3-综合练习" class="headerlink" title="4.3 综合练习"></a>4.3 综合练习</h3><p>在request域中有一个存有User对象的List集合。需要使用jstl+el将List集合数据展示到jsp页面的表格table中。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-jsp">&lt;%@ page import=&quot;java.util.ArrayList&quot; %&gt;
+<pre><code class="jsp">&lt;%@ page import=&quot;java.util.ArrayList&quot; %&gt;
 &lt;%@ page import=&quot;java.util.List&quot; %&gt;
 &lt;%@ page import=&quot;cn.zero.domain.User&quot; %&gt;
 &lt;%@ page import=&quot;java.util.Date&quot; %&gt;
-&lt;%@ page contentType=&quot;text&#x2F;html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
-&lt;%@taglib prefix=&quot;c&quot; uri=&quot;http:&#x2F;&#x2F;java.sun.com&#x2F;jsp&#x2F;jstl&#x2F;core&quot; %&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;%@taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
 &lt;html&gt;
 &lt;head&gt;
-    &lt;title&gt;综合练习&lt;&#x2F;title&gt;
-&lt;&#x2F;head&gt;
+    &lt;title&gt;综合练习&lt;/title&gt;
+&lt;/head&gt;
 &lt;body&gt;
 &lt;%--
     在request域中有一个存有User对象的List集合。
@@ -696,32 +692,33 @@
 %&gt;
 &lt;table border=&quot;1&quot; width=&quot;500&quot; align=&quot;center&quot;&gt;
     &lt;tr&gt;
-        &lt;th&gt;编号&lt;&#x2F;th&gt;
-        &lt;th&gt;姓名&lt;&#x2F;th&gt;
-        &lt;th&gt;年龄&lt;&#x2F;th&gt;
-        &lt;th&gt;生日&lt;&#x2F;th&gt;
-    &lt;&#x2F;tr&gt;
+        &lt;th&gt;编号&lt;/th&gt;
+        &lt;th&gt;姓名&lt;/th&gt;
+        &lt;th&gt;年龄&lt;/th&gt;
+        &lt;th&gt;生日&lt;/th&gt;
+    &lt;/tr&gt;
     &lt;c:forEach items=&quot;${list}&quot; var=&quot;user&quot; varStatus=&quot;s&quot;&gt;
         &lt;c:if test=&quot;${s.count % 2 == 0}&quot;&gt;
             &lt;tr bgcolor=&quot;#f08080&quot;&gt;
-                &lt;td&gt;${s.count}&lt;&#x2F;td&gt;
-                &lt;td&gt;${user.name}&lt;&#x2F;td&gt;
-                &lt;td&gt;${user.age}&lt;&#x2F;td&gt;
-                &lt;td&gt;${user.birStr}&lt;&#x2F;td&gt;
-            &lt;&#x2F;tr&gt;
-        &lt;&#x2F;c:if&gt;
+                &lt;td&gt;${s.count}&lt;/td&gt;
+                &lt;td&gt;${user.name}&lt;/td&gt;
+                &lt;td&gt;${user.age}&lt;/td&gt;
+                &lt;td&gt;${user.birStr}&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/c:if&gt;
         &lt;c:if test=&quot;${s.count % 2 != 0}&quot;&gt;
             &lt;tr bgcolor=&quot;#00bfff&quot;&gt;
-                &lt;td&gt;${s.count}&lt;&#x2F;td&gt;
-                &lt;td&gt;${user.name}&lt;&#x2F;td&gt;
-                &lt;td&gt;${user.age}&lt;&#x2F;td&gt;
-                &lt;td&gt;${user.birStr}&lt;&#x2F;td&gt;
-            &lt;&#x2F;tr&gt;
-        &lt;&#x2F;c:if&gt;
-    &lt;&#x2F;c:forEach&gt;
-&lt;&#x2F;table&gt;
-&lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;
+                &lt;td&gt;${s.count}&lt;/td&gt;
+                &lt;td&gt;${user.name}&lt;/td&gt;
+                &lt;td&gt;${user.age}&lt;/td&gt;
+                &lt;td&gt;${user.birStr}&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/c:if&gt;
+    &lt;/c:forEach&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
 </code></pre>
 <h2 id="5-三层架构"><a href="#5-三层架构" class="headerlink" title="5. 三层架构"></a>5. 三层架构</h2><p>三层架构(3-tier architecture) 通常意义上的三层架构就是将整个业务应用划分为：界面层（User Interface layer）、业务逻辑层（Business Logic Layer）、数据访问层（Data access layer）。</p>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/06/19/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84-1560957316811.png" alt="title"></p>
@@ -732,12 +729,10 @@
 </ul>
 <h2 id="6-综合案例：用户信息列表展示"><a href="#6-综合案例：用户信息列表展示" class="headerlink" title="6. 综合案例：用户信息列表展示"></a>6. 综合案例：用户信息列表展示</h2><h3 id="6-1-需求"><a href="#6-1-需求" class="headerlink" title="6.1 需求"></a>6.1 需求</h3><p>用户点击查询，显示所有用户，可以对数据进行增删改查操作</p>
 <h3 id="6-2-设计"><a href="#6-2-设计" class="headerlink" title="6.2 设计"></a>6.2 设计</h3><h4 id="6-2-1-技术选型"><a href="#6-2-1-技术选型" class="headerlink" title="6.2.1 技术选型"></a>6.2.1 技术选型</h4><p><code>Servlet+JSP+MySQL+JDBCTemplate+Duird+BeanUtils+tomcat</code></p>
-<h4 id="6-2-2-数据库设计"><a href="#6-2-2-数据库设计" class="headerlink" title="6.2.2 数据库设计"></a>6.2.2 数据库设计</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">create database Users; -- 创建数据库
+<h4 id="6-2-2-数据库设计"><a href="#6-2-2-数据库设计" class="headerlink" title="6.2.2 数据库设计"></a>6.2.2 数据库设计</h4><pre><code class="sql">create database Users; -- 创建数据库
 use Users;
 create table user( -- 创建表
-	id int primary key auto_increment,
+    id int primary key auto_increment,
     name varchar(20) not null,
     gender varchar(5),
     age int,
@@ -1022,7 +1017,7 @@ create table user( -- 创建表
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

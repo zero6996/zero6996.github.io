@@ -412,14 +412,14 @@ B/S结构：全称为Brower/Server结构，是指浏览器和服务器结构。�
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.5k
+                        5.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        21 分
+                        20 分
                     </div>
                     
                 
@@ -520,9 +520,7 @@ B/S结构：全称为Brower/Server结构，是指浏览器和服务器结构。�
 <p>Tips: 回送地址(127.x.x.x) 是本机回送地址（Loopback Address），主要用于网络软件测试以及本地机进程间通信，无论什么程序，一旦使用回送地址发送数据，立即返回，不进行任何网络传输。</p>
 </blockquote>
 <p>代码示例:</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">Socket client = new Socket(&quot;127.0.0.1&quot;,8888);
+<pre><code class="java">Socket client = new Socket(&quot;127.0.0.1&quot;,8888);
 </code></pre>
 <h4 id="成员方法"><a href="#成员方法" class="headerlink" title="成员方法"></a>成员方法</h4><ul>
 <li><code>public InputStream getInputStream()</code> ： 返回此套接字的输入流。<ul>
@@ -550,9 +548,7 @@ B/S结构：全称为Brower/Server结构，是指浏览器和服务器结构。�
 <li><code>public ServerSocket(int port)</code> ：使用该构造方法在创建ServerSocket对象时，就可以将其绑定到一个指定的端口号上，参数port就是端口号。</li>
 </ul>
 <p>代码举例：</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">ServerSocket = server = new ServerSocket(8888);
+<pre><code class="java">ServerSocket = server = new ServerSocket(8888);
 </code></pre>
 <h4 id="成员方法-1"><a href="#成员方法-1" class="headerlink" title="成员方法"></a>成员方法</h4><ul>
 <li><code>public Socket accept()</code> ：监听并接受连接，返回一个新的Socket对象，用于和客户端实现通信。该方法会一直阻塞直到建立连接。 </li>
@@ -576,48 +572,46 @@ B/S结构：全称为Brower/Server结构，是指浏览器和服务器结构。�
 <li>【客户端】Socket对象，获取InputStream，解析回写数据。</li>
 <li>【客户端】释放资源，断开连接。</li>
 </ol>
-<h4 id="客户端与服务器数据收发代码示例"><a href="#客户端与服务器数据收发代码示例" class="headerlink" title="客户端与服务器数据收发代码示例"></a>客户端与服务器数据收发代码示例</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 客户端实现
+<h4 id="客户端与服务器数据收发代码示例"><a href="#客户端与服务器数据收发代码示例" class="headerlink" title="客户端与服务器数据收发代码示例"></a>客户端与服务器数据收发代码示例</h4><pre><code class="java">// 客户端实现
 public class ClientTCP {
     public static void main(String[] args) throws IOException {
         System.out.println(&quot;客户端，发送数据&quot;);
-        &#x2F;&#x2F; 1.1. 创建一个客户端对象Socket，构造方法绑定服务器的IP和端口号
+        // 1.1. 创建一个客户端对象Socket，构造方法绑定服务器的IP和端口号
         Socket client = new Socket(&quot;localhost&quot;,8888);
-        &#x2F;&#x2F; 2.使用Socket对象中的方法getOutputStream()获取网络字节输出流OutputStream对象
+        // 2.使用Socket对象中的方法getOutputStream()获取网络字节输出流OutputStream对象
         OutputStream os= client.getOutputStream();
-        &#x2F;&#x2F; 3.使用网络字节输出流对象中的方法write，给服务器发送数据
+        // 3.使用网络字节输出流对象中的方法write，给服务器发送数据
         os.write(&quot;测试传输数据....&quot;.getBytes());
-        &#x2F;&#x2F; 4. 使用Socket对象中的方法getInputStream()获取网络字节输入流InputStream对象
+        // 4. 使用Socket对象中的方法getInputStream()获取网络字节输入流InputStream对象
         InputStream is = client.getInputStream();
-        &#x2F;&#x2F; 5. 使用网络字节输入流对象中的方法read，读取服务器回写的数据
+        // 5. 使用网络字节输入流对象中的方法read，读取服务器回写的数据
         byte[] b = new byte[1024];
         int len = is.read(b);
         System.out.println(new String(b,0,len));
-        &#x2F;&#x2F; 6. 释放资源
+        // 6. 释放资源
         client.close();
     }
 }
-&#x2F;&#x2F; 服务器端实现
+// 服务器端实现
 public class ServerTCP {
     public static void main(String[] args) throws IOException {
         System.out.println(&quot;服务端启动，等待客户端连接.....&quot;);
-        &#x2F;&#x2F; 1. 创建服务器ServerSocket对象和系统要指定的端口号
+        // 1. 创建服务器ServerSocket对象和系统要指定的端口号
         ServerSocket server = new ServerSocket(8888);
-        &#x2F;&#x2F; 2. 使用ServerSocket对象中的accept方法，获取请求的客户端对象Socket
+        // 2. 使用ServerSocket对象中的accept方法，获取请求的客户端对象Socket
         Socket socket = server.accept();
-        &#x2F;&#x2F; 3. 使用Socket对象中的方法getInputStream()获取网络字节输入流InputStream对象
+        // 3. 使用Socket对象中的方法getInputStream()获取网络字节输入流InputStream对象
         InputStream is = socket.getInputStream();
-        &#x2F;&#x2F; 4. 使用网络字节输入流对象中的方法read，读取客户端发送的数据
+        // 4. 使用网络字节输入流对象中的方法read，读取客户端发送的数据
         byte[] bytes = new byte[1024];
         int len = is.read(bytes);
         String msg = new String(bytes,0,len);
         System.out.println(msg);
-        &#x2F;&#x2F; 5. 使用Socket对象中的方法getOutputStream()获取网络字节输出流OutputStream对象
+        // 5. 使用Socket对象中的方法getOutputStream()获取网络字节输出流OutputStream对象
         OutputStream os = socket.getOutputStream();
-        &#x2F;&#x2F; 6. 使用网络字节输出流对象中的方法write，给客户端回写数据
+        // 6. 使用网络字节输出流对象中的方法write，给客户端回写数据
         os.write(&quot;服务端已接收到数据....&quot;.getBytes());
-        &#x2F;&#x2F; 7. 释放资源
+        // 7. 释放资源
         server.close();
         socket.close();
     }
@@ -629,65 +623,63 @@ public class ServerTCP {
 <li>【服务端】输入流，读取文件数据到服务端程序。</li>
 <li>【服务端】输出流，写出文件数据到服务器硬盘中。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/05/13/6_upload-1557733549763.jpg" alt="title"></li>
 </ol>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 客户端
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="java">// 客户端
 public class FileUpload_Client {
     public static void main(String[] args) throws IOException {
         System.out.println(&quot;客户端开始发送文件...&quot;);
-        &#x2F;&#x2F; 1. 创建一个本地字节输入流FileInputStream对象，构造方法中绑定要读取的数据源
+        // 1. 创建一个本地字节输入流FileInputStream对象，构造方法中绑定要读取的数据源
         FileInputStream fis = new FileInputStream(&quot;C:\\Users\\14908\\Desktop\\upload.jpg&quot;);
-        &#x2F;&#x2F; 2. 创建一个客户端Socket对象，构造方法中绑定服务器IP和端口号
+        // 2. 创建一个客户端Socket对象，构造方法中绑定服务器IP和端口号
         Socket client = new Socket(&quot;localhost&quot;,8888);
-        &#x2F;&#x2F; 3. 使用Socket中的方法getOutputStream，获取网络字节输出流OutputStream对象
+        // 3. 使用Socket中的方法getOutputStream，获取网络字节输出流OutputStream对象
         OutputStream os = client.getOutputStream();
-        &#x2F;&#x2F; 4. 使用本地字节输入流FileInputStream对象中的方法read，读取本地文件
+        // 4. 使用本地字节输入流FileInputStream对象中的方法read，读取本地文件
         byte[] b = new byte[1024];
         int len;
         while ((len = fis.read(b)) != -1){
-            &#x2F;&#x2F; 5. 使用网络字节输出流OutputStream对象中的write方法，把读取的文件上传到服务器
+            // 5. 使用网络字节输出流OutputStream对象中的write方法，把读取的文件上传到服务器
             os.write(b,0,len);
         }
-        &#x2F;*
+        /*
             解决阻塞问题：上传完文件，给服务器写一个结束标记
             void shutdownOutPut() 禁用此套接字的输出流
             对于TCP套接字，任何此前写入的数据都将被发送，并且后跟TCP的正常连接终止序列
-         *&#x2F;
+         */
         client.shutdownOutput();
-        &#x2F;&#x2F; 6. 使用Socket中的方法getInputStream，获取网络字节输入流InputStream对象
+        // 6. 使用Socket中的方法getInputStream，获取网络字节输入流InputStream对象
         InputStream is = client.getInputStream();
-        &#x2F;&#x2F; 7. 使用网络字节输入流流InputStream对象中的方法read，读取服务器回写的数据
+        // 7. 使用网络字节输入流流InputStream对象中的方法read，读取服务器回写的数据
         while (((len = is.read(b))!=-1)){
             System.out.println(new String(b,0,len));
         }
-        &#x2F;&#x2F; 8. 释放资源(FileInputStream,Socket)
+        // 8. 释放资源(FileInputStream,Socket)
         fis.close();
         client.close();
     }
 }
-&#x2F;&#x2F; 服务器端
+// 服务器端
 public class FileUpload_Server {
     public static void main(String[] args) throws IOException {
         System.out.println(&quot;服务器启动，等待连接...&quot;);
-        &#x2F;&#x2F; 1. 创建一个本地字节输出流FileOutputStream对象，构造方法中绑定目的地
+        // 1. 创建一个本地字节输出流FileOutputStream对象，构造方法中绑定目的地
         FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_13\\download.jpg&quot;);
-        &#x2F;&#x2F; 2. 创建一个服务端ServerSocket对象，构造方法中绑定侦听的端口号
+        // 2. 创建一个服务端ServerSocket对象，构造方法中绑定侦听的端口号
         ServerSocket server = new ServerSocket(8888);
-        &#x2F;&#x2F; 3. 使用ServerSocket对象的accept方法，接收客户端的socket对象
+        // 3. 使用ServerSocket对象的accept方法，接收客户端的socket对象
         Socket socket = server.accept();
-        &#x2F;&#x2F; 4. 使用socket中的方法getInputStream，获取网络字节输入流InputStream对象
+        // 4. 使用socket中的方法getInputStream，获取网络字节输入流InputStream对象
         InputStream is = socket.getInputStream();
         byte[] bytes = new byte[1024];
-        &#x2F;&#x2F; 5. 使用网络字节输入流InputStream对象中的read方法，读取客户端传输过来的数据
+        // 5. 使用网络字节输入流InputStream对象中的read方法，读取客户端传输过来的数据
         int len;
         while ((len = is.read(bytes)) != -1){
-            &#x2F;&#x2F; 6. 使用本地字节输出流FileOutputStream对象中的方法write，将文件写出到硬盘
+            // 6. 使用本地字节输出流FileOutputStream对象中的方法write，将文件写出到硬盘
             fos.write(bytes,0,len);
             fos.flush();
         }
-        &#x2F;&#x2F; 7. 使用socket中的方法getOutputStream，获取网络字节输出流对象，使用write方法回写数据
+        // 7. 使用socket中的方法getOutputStream，获取网络字节输出流对象，使用write方法回写数据
         socket.getOutputStream().write(&quot;上传成功!&quot;.getBytes());
-        &#x2F;&#x2F; 8. 释放资源
+        // 8. 释放资源
         fos.close();
         socket.close();
         server.close();
@@ -697,102 +689,90 @@ public class FileUpload_Server {
 <h4 id="文件上传优化"><a href="#文件上传优化" class="headerlink" title="文件上传优化"></a>文件上传优化</h4><ol>
 <li><p><strong>文件名写死问题</strong></p>
 <p>服务端，保存文件的名称如果写死，那么最终导致服务器硬盘，只会保留一个文件，可以使用系统时间优化文件名称，保证文件名称唯一。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_13\\&quot;+System.currentTimeMillis()+&quot;.jpg&quot;);
+<pre><code class="java">FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_13\\&quot;+System.currentTimeMillis()+&quot;.jpg&quot;);
 </code></pre>
 </li>
-</ol>
-<ol start="2">
 <li><p><strong>服务器端循环接收的问题</strong></p>
 <p>服务器端应该保持运行，持续接收来自不同用户的文件，使用循环改进即可。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   &#x2F;&#x2F; 每次接收新的连接，创建一个Socket
-   while(true){
-       Socket socket = server.accept();
-       .....
-   }
+<pre><code class="java">// 每次接收新的连接，创建一个Socket
+while(true){
+    Socket socket = server.accept();
+    .....
+}
 </code></pre>
 </li>
-</ol>
-<ol start="3">
 <li><p><strong>效率问题</strong></p>
 <p>服务端在接收大文件时，可能要耗费更多的时间，此时不能接收其他用户上传的文件，所以使用多线程技术优化。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">   while(true){
-       Socket socket = server.accept();
-       &#x2F;&#x2F; 新的socket交给子线程处理
-       new Thread(() -&gt; {
-           &#x2F;&#x2F; 处理文件保存代码
-       }).start();
-   }
+<pre><code class="java">while(true){
+    Socket socket = server.accept();
+    // 新的socket交给子线程处理
+    new Thread(() -&gt; {
+        // 处理文件保存代码
+    }).start();
+}
 </code></pre>
 </li>
 </ol>
-<h4 id="优化代码实现"><a href="#优化代码实现" class="headerlink" title="优化代码实现"></a>优化代码实现</h4>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 客户端
+<h4 id="优化代码实现"><a href="#优化代码实现" class="headerlink" title="优化代码实现"></a>优化代码实现</h4><pre><code class="java">// 客户端
 public class FileUpload_Client {
     public static void main(String[] args) throws IOException {
         System.out.println(&quot;客户端开始发送文件...&quot;);
-        &#x2F;&#x2F; 1. 创建一个本地字节输入流FileInputStream对象，构造方法中绑定要读取的数据源
+        // 1. 创建一个本地字节输入流FileInputStream对象，构造方法中绑定要读取的数据源
         FileInputStream fis = new FileInputStream(&quot;C:\\Users\\14908\\Desktop\\upload.jpg&quot;);
-        &#x2F;&#x2F; 2. 创建一个客户端Socket对象，构造方法中绑定服务器IP和端口号
+        // 2. 创建一个客户端Socket对象，构造方法中绑定服务器IP和端口号
         Socket client = new Socket(&quot;localhost&quot;,8888);
-        &#x2F;&#x2F; 3. 使用Socket中的方法getOutputStream，获取网络字节输出流OutputStream对象
+        // 3. 使用Socket中的方法getOutputStream，获取网络字节输出流OutputStream对象
         OutputStream os = client.getOutputStream();
-        &#x2F;&#x2F; 4. 使用本地字节输入流FileInputStream对象中的方法read，读取本地文件
+        // 4. 使用本地字节输入流FileInputStream对象中的方法read，读取本地文件
         byte[] b = new byte[1024];
         int len;
         while ((len = fis.read(b)) != -1){
-            &#x2F;&#x2F; 5. 使用网络字节输出流OutputStream对象中的write方法，把读取的文件上传到服务器
+            // 5. 使用网络字节输出流OutputStream对象中的write方法，把读取的文件上传到服务器
             os.write(b,0,len);
         }
-        &#x2F;*
+        /*
             解决阻塞问题：上传完文件，给服务器写一个结束标记
             void shutdownOutPut() 禁用此套接字的输出流
             对于TCP套接字，任何此前写入的数据都将被发送，并且后跟TCP的正常连接终止序列
-         *&#x2F;
+         */
         client.shutdownOutput();
-        &#x2F;&#x2F; 6. 使用Socket中的方法getInputStream，获取网络字节输入流InputStream对象
+        // 6. 使用Socket中的方法getInputStream，获取网络字节输入流InputStream对象
         InputStream is = client.getInputStream();
-        &#x2F;&#x2F; 7. 使用网络字节输入流流InputStream对象中的方法read，读取服务器回写的数据
+        // 7. 使用网络字节输入流流InputStream对象中的方法read，读取服务器回写的数据
         while (((len = is.read(b))!=-1)){
             System.out.println(new String(b,0,len));
         }
-        &#x2F;&#x2F; 8. 释放资源(FileInputStream,Socket)
+        // 8. 释放资源(FileInputStream,Socket)
         fis.close();
         client.close();
     }
 }
-&#x2F;&#x2F; 服务器端
+// 服务器端
 public class FileUpload_Server {
     public static void main(String[] args) throws IOException {
         System.out.println(&quot;服务器启动，等待连接...&quot;);
-        &#x2F;&#x2F; 2. 创建一个服务端ServerSocket对象，构造方法中绑定侦听的端口号
+        // 2. 创建一个服务端ServerSocket对象，构造方法中绑定侦听的端口号
         ServerSocket server = new ServerSocket(8888);
-        &#x2F;&#x2F; 3. 使用ServerSocket对象的accept方法，接收客户端的socket对象
-        while (true) { &#x2F;&#x2F; 循环接收socket对象
+        // 3. 使用ServerSocket对象的accept方法，接收客户端的socket对象
+        while (true) { // 循环接收socket对象
             Socket socket = server.accept();
-            new Thread(() -&gt; { &#x2F;&#x2F; 线程优化多用户访问
+            new Thread(() -&gt; { // 线程优化多用户访问
                 try{
-                    &#x2F;&#x2F; 4. 使用socket中的方法getInputStream，获取网络字节输入流InputStream对象
+                    // 4. 使用socket中的方法getInputStream，获取网络字节输入流InputStream对象
                     InputStream is = socket.getInputStream();
-                    &#x2F;&#x2F; 1. 创建一个本地字节输出流FileOutputStream对象，构造方法中绑定目的地
+                    // 1. 创建一个本地字节输出流FileOutputStream对象，构造方法中绑定目的地
                     FileOutputStream fos = new FileOutputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\Demo5_13\\&quot;+System.currentTimeMillis()+&quot;.jpg&quot;);
                     byte[] bytes = new byte[1024];
-                    &#x2F;&#x2F; 5. 使用网络字节输入流InputStream对象中的read方法，读取客户端传输过来的数据
+                    // 5. 使用网络字节输入流InputStream对象中的read方法，读取客户端传输过来的数据
                     int len;
                     while ((len = is.read(bytes)) != -1) {
-                        &#x2F;&#x2F; 6. 使用本地字节输出流FileOutputStream对象中的方法write，将文件写出到硬盘
+                        // 6. 使用本地字节输出流FileOutputStream对象中的方法write，将文件写出到硬盘
                         fos.write(bytes, 0, len);
                         fos.flush();
                     }
-                    &#x2F;&#x2F; 7. 使用socket中的方法getOutputStream，获取网络字节输出流对象，使用write方法回写数据
+                    // 7. 使用socket中的方法getOutputStream，获取网络字节输出流对象，使用write方法回写数据
                     socket.getOutputStream().write(&quot;上传成功!&quot;.getBytes());
-                    &#x2F;&#x2F; 8. 释放资源
+                    // 8. 释放资源
                     fos.close();
                     socket.close();
                 }catch (IOException e) {
@@ -800,54 +780,52 @@ public class FileUpload_Server {
                 }
             }).start();
         }
-        &#x2F;&#x2F; 服务器就不用关闭了
-&#x2F;&#x2F;        server.close();
+        // 服务器就不用关闭了
+//        server.close();
     }
 }
 </code></pre>
 <h3 id="3-2-模拟B-S服务器"><a href="#3-2-模拟B-S服务器" class="headerlink" title="3.2 模拟B\S服务器"></a>3.2 模拟B\S服务器</h3><p>模拟网站服务器，使用浏览器访问自己编写的服务端程序，查看网页效果。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;*
+<pre><code class="java">/*
     BS版本TCP服务器
- *&#x2F;
+ */
 public class BServer {
     public static void main(String[] args) throws IOException {
         ServerSocket server = new ServerSocket(8088);
-        &#x2F;*
+        /*
             浏览器解析服务器回写的html页面，页面中如果有图片，那么浏览器就会单独开启一个线程，读取服务器的图片
             我们需要让服务器一直处于监听状态，客户端请求一次，服务器端回写一次。
-         *&#x2F;
+         */
         while (true){
             Socket socket = server.accept();
             new Thread(()-&gt;{
                 try{
-                    InputStream is = socket.getInputStream(); &#x2F;&#x2F; 网络字节输入流
-                    &#x2F;&#x2F; 把is网络字节输入流对象，转换为字符缓冲输入流
+                    InputStream is = socket.getInputStream(); // 网络字节输入流
+                    // 把is网络字节输入流对象，转换为字符缓冲输入流
                     BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                    &#x2F;&#x2F; 把客户端请求信息的第一行读取出来
+                    // 把客户端请求信息的第一行读取出来
                     String line = br.readLine();
-                    System.out.println(line); &#x2F;&#x2F; 输出请求的路径
-                    &#x2F;&#x2F; 把读取的信息以空格进行分离，只要中间部分
+                    System.out.println(line); // 输出请求的路径
+                    // 把读取的信息以空格进行分离，只要中间部分
                     String[] arr = line.split(&quot; &quot;);
-                    &#x2F;&#x2F; 把路径前面的&#x2F;去除,获取Demo5_13\web\index.html
+                    // 把路径前面的/去除,获取Demo5_13\web\index.html
                     String htmlpath = arr[1].substring(1);
-                    &#x2F;&#x2F; 创建一个本地字节输入流，构造方法中绑定要读取的html路径
+                    // 创建一个本地字节输入流，构造方法中绑定要读取的html路径
                     FileInputStream fis = new FileInputStream(&quot;D:\\IDEA_WorkSpace\\Demo\\&quot;+htmlpath);
-                    &#x2F;&#x2F; 使用Socket中的getOutputStream方法，获取网络字节输出流对象
+                    // 使用Socket中的getOutputStream方法，获取网络字节输出流对象
                     OutputStream os = socket.getOutputStream();
-                    &#x2F;&#x2F; 写入html协议响应头，固定写法
-                    os.write(&quot;HTTP&#x2F;1.1 200 OK\r\n&quot;.getBytes());
-                    os.write(&quot;Content-Type:text&#x2F;html\r\n&quot;.getBytes());
-                    &#x2F;&#x2F;必须写入空行，否则浏览器不解析
+                    // 写入html协议响应头，固定写法
+                    os.write(&quot;HTTP/1.1 200 OK\r\n&quot;.getBytes());
+                    os.write(&quot;Content-Type:text/html\r\n&quot;.getBytes());
+                    //必须写入空行，否则浏览器不解析
                     os.write(&quot;\r\n&quot;.getBytes());
-                    &#x2F;&#x2F; 一读一写复制文件，把服务器读取的html文件回写到客户端
+                    // 一读一写复制文件，把服务器读取的html文件回写到客户端
                     int len;
                     byte[] bytes = new byte[1024];
                     while ((len = fis.read(bytes)) != -1) {
                         os.write(bytes,0,len);
                     }
-                    &#x2F;&#x2F; 释放资源
+                    // 释放资源
                     fis.close();
                     socket.close();
                 }catch (IOException E){
@@ -855,7 +833,7 @@ public class BServer {
                 }
             }).start();
         }
-        &#x2F;&#x2F;server.close();
+        //server.close();
     }
 }
 </code></pre>
@@ -1130,7 +1108,7 @@ public class BServer {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

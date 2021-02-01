@@ -413,7 +413,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        913
+                        903
                     </div>
                     
 
@@ -470,34 +470,30 @@
 <h4 id="2-2-打包成war包"><a href="#2-2-打包成war包" class="headerlink" title="2.2 打包成war包"></a>2.2 打包成war包</h4><ol>
 <li>修改<code>pom.xml</code>，添加打包类型和依赖</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 打包成war包需加这一行--&gt;
-&lt;packaging&gt;war&lt;&#x2F;packaging&gt;
+<pre><code class="xml">&lt;!-- 打包成war包需加这一行--&gt;
+&lt;packaging&gt;war&lt;/packaging&gt;
 
 &lt;!-- 打包从war包时需添加此依赖,防止打包冲突--&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-tomcat&lt;&#x2F;artifactId&gt;
-    &lt;scope&gt;provided&lt;&#x2F;scope&gt; &lt;!-- 表示只在编译和测试过程有效，生成war包不会加入--&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;
+    &lt;scope&gt;provided&lt;/scope&gt; &lt;!-- 表示只在编译和测试过程有效，生成war包不会加入--&gt;
+&lt;/dependency&gt;
 </code></pre>
 <ol start="2">
 <li>修改启动类文件，继承<code>SpringBootServletInitializer</code></li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@SpringBootApplication
+<pre><code class="java">@SpringBootApplication
 public class HelloDemoApplication extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(HelloDemoApplication.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(HelloDemoApplication.class);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(HelloDemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(HelloDemoApplication.class, args);
+    }
 
 }
 </code></pre>
@@ -536,23 +532,19 @@ public class HelloDemoApplication extends SpringBootServletInitializer {
 <ol start="4">
 <li>项目添加热部署插件，在xml中配置如下。</li>
 </ol>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-xml">&lt;!-- 热部署依赖 --&gt;
+<pre><code class="xml">&lt;!-- 热部署依赖 --&gt;
 &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;
-    &lt;artifactId&gt;spring-boot-devtools&lt;&#x2F;artifactId&gt;
-    &lt;optional&gt;true&lt;&#x2F;optional&gt; &lt;!-- true才生效 --&gt;
-    &lt;scope&gt;runtime&lt;&#x2F;scope&gt; &lt;!--仅在运行期有效，不参与打包--&gt;
-&lt;&#x2F;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
+    &lt;optional&gt;true&lt;/optional&gt; &lt;!-- true才生效 --&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt; &lt;!--仅在运行期有效，不参与打包--&gt;
+&lt;/dependency&gt;
 </code></pre>
 <ol start="5">
 <li>保险起见，浏览器f12 ✅Disable cache。</li>
 </ol>
 <h3 id="5-关于错误处理"><a href="#5-关于错误处理" class="headerlink" title="5. 关于错误处理"></a>5. 关于错误处理</h3><p>定义一个全局的异常处理器，然后跳转到错误页面</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@ControllerAdvice
+<pre><code class="java">@ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
@@ -841,7 +833,7 @@ public class GlobalExceptionHandler {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

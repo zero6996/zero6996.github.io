@@ -460,51 +460,33 @@
 <li><p>进入<code>/opt</code>目录，该目录是用户软件的安装目录。</p>
 </li>
 <li><p>获取Redis资源</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">   wget http:&#x2F;&#x2F;download.redis.io&#x2F;redis-stable.tar.gz
+<pre><code class="bash">wget http://download.redis.io/redis-stable.tar.gz
 </code></pre>
 </li>
-</ol>
-<ol start="3">
 <li><p>解压</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">   tar -xzvf redis-stable.tar.gz
+<pre><code class="bash">tar -xzvf redis-stable.tar.gz
 </code></pre>
 </li>
-</ol>
-<ol start="4">
 <li><p>进入解压后的文件夹</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">   cd redis-stable
+<pre><code class="bash">cd redis-stable
 </code></pre>
 </li>
-</ol>
-<ol start="5">
 <li><p>安装，正常步骤</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">   make
-   cd src
-   make install 
+<pre><code class="bash">make
+cd src
+make install 
 </code></pre>
 </li>
-</ol>
-<ol start="6">
 <li><p>异常步骤：如果没有安装gcc环境，是无法使用<code>make</code>命令编译的，需安装gcc环境</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">   Ubuntu安装gcc
-   sudo apt install build-essential
-   CentOS安装gcc
-   yum install gcc-c++
-   验证gcc安装
-   gcc -v
-   make #再次make时如果提示没有那个文件或目录，运行make distclean清理一下文件夹
-   cd src
-   make install
+<pre><code class="bash">Ubuntu安装gcc
+sudo apt install build-essential
+CentOS安装gcc
+yum install gcc-c++
+验证gcc安装
+gcc -v
+make #再次make时如果提示没有那个文件或目录，运行make distclean清理一下文件夹
+cd src
+make install
 </code></pre>
 </li>
 </ol>
@@ -513,42 +495,32 @@
 </blockquote>
 <ol start="7">
 <li><p>将配置文件备份</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">   cd &#x2F;opt&#x2F;redis-stable
-   mkdir &#x2F;usr&#x2F;local&#x2F;redis&#x2F;etc # 配置文件存放位置
-   cp redis.conf &#x2F;usr&#x2F;local&#x2F;redis&#x2F;etc # 复制到该文件夹中
+<pre><code class="bash">cd /opt/redis-stable
+mkdir /usr/local/redis/etc # 配置文件存放位置
+cp redis.conf /usr/local/redis/etc # 复制到该文件夹中
 </code></pre>
 </li>
-</ol>
-<ol start="8">
 <li><p>配置redis后台启动</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">   vi &#x2F;usr&#x2F;local&#x2F;redis&#x2F;etc&#x2F;redis.conf
-   输入i进入编辑模式
-   找到daemonize no
-   将其改为daemonize yes
-   输入ESC
-   组合键Shift和:
-   然后输入wq 回车
+<pre><code class="bash">vi /usr/local/redis/etc/redis.conf
+输入i进入编辑模式
+找到daemonize no
+将其改为daemonize yes
+输入ESC
+组合键Shift和:
+然后输入wq 回车
 </code></pre>
 </li>
-</ol>
-<ol start="9">
 <li><p>开启远程访问：打开配置文件，注释70行的bind，将90行的<code>protected-mode</code>改为<code>no</code></p>
 </li>
 <li><p>重启redis</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-bash">    # 查询redis的运行状态，找到pid
-    ps -ef|grep redis
-    root      5557     1  0 17:42 ?        00:00:00 redis-server 127.0.0.1:6380
-    # 将其kill掉，然后重启
-    kill 5557
-    redis-server &#x2F;usr&#x2F;local&#x2F;redis&#x2F;etc&#x2F;redis.conf
-    # 连接,我自定义了端口6380，默认6379
-    redis-cli -p 6380
+<pre><code class="bash"># 查询redis的运行状态，找到pid
+ps -ef|grep redis
+root      5557     1  0 17:42 ?        00:00:00 redis-server 127.0.0.1:6380
+# 将其kill掉，然后重启
+kill 5557
+redis-server /usr/local/redis/etc/redis.conf
+# 连接,我自定义了端口6380，默认6379
+redis-cli -p 6380
 </code></pre>
 </li>
 </ol>
@@ -1316,7 +1288,7 @@ Redis配置文件中，开头定义了一些基本的度量单位，只支持byt
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

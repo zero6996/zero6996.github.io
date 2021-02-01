@@ -415,7 +415,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.7k
+                        4.6k
                     </div>
                     
 
@@ -471,17 +471,16 @@
 <li><strong>运行时期异常</strong>：runtime异常。在运行时期，检查异常，在编译时期，运行异常不会编译器检测(不会报错)。</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/27/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%88%86%E7%B1%BB-1556346151127.png" alt="title"></p>
-<h3 id="1-4-异常的产生过程解析"><a href="#1-4-异常的产生过程解析" class="headerlink" title="1.4 异常的产生过程解析"></a>1.4 异常的产生过程解析</h3><p>运行下面程序，程序会产生义工数组索引越界异常<code>ArrayIndexOutOfBoundsException</code>。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 工具类
+<h3 id="1-4-异常的产生过程解析"><a href="#1-4-异常的产生过程解析" class="headerlink" title="1.4 异常的产生过程解析"></a>1.4 异常的产生过程解析</h3><p>运行下面程序，程序会产生义工数组索引越界异常<code>ArrayIndexOutOfBoundsException</code>。</p>
+<pre><code class="java">// 工具类
 public class ArrayTools {
-    &#x2F;&#x2F; 对给定的数组通过给定的索引获取元素
+    // 对给定的数组通过给定的索引获取元素
     public static int getElement(int[] arr, int index){
         int element = arr[index];
         return element;
     }
 }
-&#x2F;&#x2F; 测试类
+// 测试类
 public class ExceptionDemo {
     public static void main(String[] args) {
         int[] arr = {34,12,67};
@@ -490,7 +489,7 @@ public class ExceptionDemo {
         System.out.println(&quot;over&quot;);
     }
 }
-</code></pre></p>
+</code></pre>
 <p>上述程序执行过程图解：<br><br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/27/%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B-1556347566816.png" alt="title"></p>
 <h2 id="2-异常的处理"><a href="#2-异常的处理" class="headerlink" title="2. 异常的处理"></a>2. 异常的处理</h2><p>Java异常处理的五个关键字：<strong>try、catch、finally、throw、throws</strong></p>
 <h3 id="2-1-抛出异常throw"><a href="#2-1-抛出异常throw" class="headerlink" title="2.1 抛出异常throw"></a>2.1 抛出异常throw</h3><p>在编写程序时，我们必须要考虑程序出现问题的情况。比如，在定义方法时，方法需要接受参数。那么，当调用方法使用接受到的参数时，首先需要先对参数数据进行合法的判断，数据若不合法，就应该告诉调用者，传递合法的数据进来。这时需要使用抛出异常的方式来告诉调用者。</p>
@@ -502,31 +501,29 @@ public class ExceptionDemo {
 </li>
 </ol>
 <p><strong>使用格式：</strong> <code>throw new 异常类名(参数)</code></p>
-<p>  例如：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">throw new NullPointerException(&quot;要访问的arr数组不存在&quot;);
+<p>  例如：</p>
+<pre><code class="java">throw new NullPointerException(&quot;要访问的arr数组不存在&quot;);
 throw new ArrayIndexOutOfBoundsException(&quot;该索引在数组中不存在，已超出范围&quot;)
-</code></pre></p>
-<p>以下为程序实例：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ThrowDemo {
+</code></pre>
+<p>以下为程序实例：</p>
+<pre><code class="java">public class ThrowDemo {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 创建一个数组
+        // 创建一个数组
         int[] arr = {2,4,35,2};
-        &#x2F;&#x2F; 根据索引找对应的元素
+        // 根据索引找对应的元素
         int index = 4;
         int element = getElement(arr,index);
         System.out.println(element);
         System.out.println(&quot;over&quot;);
     }
-    &#x2F;&#x2F; 根据 索引找到数组中对应的元素
+    // 根据 索引找到数组中对应的元素
     public static int getElement(int[] arr,int index){
-        &#x2F;&#x2F; 判断 索引是否越界
+        // 判断 索引是否越界
         if(index&lt;0 || index &gt; arr.length-1){
-            &#x2F;*
+            /*
                 判断条件如果满足，当执行完throw抛出异常对象后，方法已无法继续运算。
                 这时就会结束当前方法的执行，并将异常告知给调用者。这时就需通过异常来解决。
-             *&#x2F;
+             */
             throw new ArrayIndexOutOfBoundsException(&quot;小老弟，索引越界了！！！&quot;);
         }
         int element = arr[index];
@@ -534,7 +531,7 @@ throw new ArrayIndexOutOfBoundsException(&quot;该索引在数组中不存在，
     }
 
 }
-</code></pre></p>
+</code></pre>
 <blockquote>
 <p>注意：如果产生了问题，throw就会将问题描述类即异常进行抛出，也就是将问题返回给该方法的调用者。</p>
 <p>那么对于调用者来说，有两种方式处理，一种是进行捕获处理，另一种就是继续将问题声明出去，使用throws声明处理。</p>
@@ -543,32 +540,30 @@ throw new ArrayIndexOutOfBoundsException(&quot;该索引在数组中不存在，
 <ul>
 <li><code>public static &lt;T&gt; requireNonNull(T obj)</code>:查看指定引用对象不是null。</li>
 </ul>
-<p>查看源码可以发现这里对null对象进行了抛出异常操作。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public static &lt;T&gt; T requireNonNull(T obj) {
+<p>查看源码可以发现这里对null对象进行了抛出异常操作。</p>
+<pre><code class="java">public static &lt;T&gt; T requireNonNull(T obj) {
         if (obj == null)
             throw new NullPointerException();
         return obj;
     }
-</code></pre></p>
+</code></pre>
 <h3 id="2-3-声明异常throws"><a href="#2-3-声明异常throws" class="headerlink" title="2.3 声明异常throws"></a>2.3 声明异常throws</h3><p><strong>声明异常</strong>：将问题标识出来，报告给调用者。如果方法内通过throw抛出了编译时异常，而没有捕获处理，那么必须通过throws进行声明，让调用者去处理。<br>关键字<strong>throws</strong>运用于方法声明之上,用于表示当前方法不处理异常,而是提醒该方法的调用者来处理异常(抛出异常)。</p>
 <p><strong>声明异常格式：</strong><code>修饰符 返回值类型 方法名(参数) throws 异常类名1，异常类名2...{  }</code></p>
-<p>代码实例：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class ThrowDemo02 {
+<p>代码实例：</p>
+<pre><code class="java">public class ThrowDemo02 {
     public static void main(String[] args) throws IOException{
         read(&quot;a.txt&quot;);
     }
-    &#x2F;&#x2F; 如果定义功能时有问题发生需要报告给调用者。可以通过在方法上使用throws关键字进行声明
-    &#x2F;&#x2F; 假如该方法可能有多种异常情况产生，那么throws后面可以写多个异常类，用逗号隔开。
+    // 如果定义功能时有问题发生需要报告给调用者。可以通过在方法上使用throws关键字进行声明
+    // 假如该方法可能有多种异常情况产生，那么throws后面可以写多个异常类，用逗号隔开。
     public static void read(String path) throws FileNotFoundException, IOException {
-        if(!path.equals(&quot;a.txt&quot;)) &#x2F;&#x2F; 如果不是a.txt这个字符串
-            throw new FileNotFoundException(&quot;文件不存在&quot;); &#x2F;&#x2F; 则生成一个异常类返回给调用者
+        if(!path.equals(&quot;a.txt&quot;)) // 如果不是a.txt这个字符串
+            throw new FileNotFoundException(&quot;文件不存在&quot;); // 则生成一个异常类返回给调用者
         if(!path.equals(&quot;b.txt&quot;))
             throw new IOException();
     }
 }
-</code></pre></p>
+</code></pre>
 <h3 id="2-4-捕获异常try…catch"><a href="#2-4-捕获异常try…catch" class="headerlink" title="2.4 捕获异常try…catch"></a>2.4 捕获异常try…catch</h3><p>如果异常出现的话，会立即终止程序，所以我们得处理异常：</p>
 <ol>
 <li>该方法不处理,而是声明抛出,由该方法的调用者来处理(throws)。</li>
@@ -578,26 +573,24 @@ throw new ArrayIndexOutOfBoundsException(&quot;该索引在数组中不存在，
 <ul>
 <li><strong>捕获异常</strong>：Java中对异常有针对性的语句进行捕获，可以对出现的异常进行指定方式的处理。</li>
 </ul>
-<p>捕获异常语法如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">try{
+<p>捕获异常语法如下：</p>
+<pre><code class="java">try{
     编写可能会出现异常的代码
 }catch(异常类型 e){
     处理异常的代码
-    &#x2F;&#x2F; 记录日志&#x2F;打印异常信息&#x2F;继续抛出异常
+    // 记录日志/打印异常信息/继续抛出异常
 }
-</code></pre></p>
+</code></pre>
 <p><strong>try：</strong> 该代码块中编写可能产生异常的代码。<br><strong>catch：</strong> 用来进行某种异常的捕获，实现对捕获到的异常进行处理。</p>
 <blockquote>
 <p>注意：try和catch都不能单独使用，必须一起用。</p>
 </blockquote>
-<p>代码实例:<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class TryCatchDemo {
+<p>代码实例:</p>
+<pre><code class="java">public class TryCatchDemo {
     public static void main(String[] args) {
-        try{ &#x2F;&#x2F; 当产生异常时，必须有处理方式，要么捕获，要么声明。
+        try{ // 当产生异常时，必须有处理方式，要么捕获，要么声明。
             read(&quot;b.txt&quot;);
-        }catch (FileNotFoundException e){ &#x2F;&#x2F; try中抛出的是什么异常，在括号中就定义什么异常
+        }catch (FileNotFoundException e){ // try中抛出的是什么异常，在括号中就定义什么异常
             System.out.println(e);
         }
         System.out.println(&quot;over&quot;);
@@ -607,7 +600,7 @@ throw new ArrayIndexOutOfBoundsException(&quot;该索引在数组中不存在，
             throw new FileNotFoundException(&quot;文件不存在&quot;);
     }
 }
-</code></pre></p>
+</code></pre>
 <p>如何获取异常信息：</p>
 <p>Throwable类中定义了一些查看方法:</p>
 <ul>
@@ -625,27 +618,26 @@ throw new ArrayIndexOutOfBoundsException(&quot;该索引在数组中不存在，
 <blockquote>
 <p>注意：finally不能单独使用。</p>
 </blockquote>
-<p>代码示例：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class FinallyDemo {
+<p>代码示例：</p>
+<pre><code class="java">public class FinallyDemo {
     public static void main(String[] args) {
         try{
             read(&quot;a.txt&quot;);
         }catch (FileNotFoundException e){
-            &#x2F;&#x2F;捕获编译期报错信息，在运行期抛出去。
+            //捕获编译期报错信息，在运行期抛出去。
             throw  new RuntimeException(e);
         }finally {
             System.out.println(&quot;这里的代码必定执行&quot;);
         }
         System.out.println(&quot;over&quot;);
     }
-    &#x2F;&#x2F; 因为我们当前的read方法中有异常，所以编译期会报错。
+    // 因为我们当前的read方法中有异常，所以编译期会报错。
     public static void read(String path) throws FileNotFoundException{
         if(!path.equals(&quot;a.txt&quot;))
             throw new FileNotFoundException(&quot;文件不存在&quot;);
     }
 }
-</code></pre></p>
+</code></pre>
 <blockquote>
 <p>当只有在try或者catch中调用退出JVM的相关方法时，finally才不会执行，否则必定执行。</p>
 </blockquote>
@@ -658,16 +650,15 @@ throw new ArrayIndexOutOfBoundsException(&quot;该索引在数组中不存在，
 </ol>
 </li>
 </ul>
-<p>一般使用一次捕获多次处理方式，格式如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">try{
+<p>一般使用一次捕获多次处理方式，格式如下：</p>
+<pre><code class="java">try{
     编写可能会出现异常的代码
 }catch(异常类型A e){ 当try中出现A类型异常时，就用该catch来捕获。
-	处理异常代码
+    处理异常代码
 }catch(异常类型B e){当try中出现B类型异常时，就用该catch来捕获。
-	处理异常代码
+    处理异常代码
 }
-</code></pre></p>
+</code></pre>
 <blockquote>
 <p>注意：这种异常处理方式，要求多个catch中的异常不能相同，并且若catch中的多个异常之间有子父类异常的关系，那么子类异常要求在上面的catch处理，父类异常在下面的catch处理。</p>
 </blockquote>
@@ -692,25 +683,24 @@ throw new ArrayIndexOutOfBoundsException(&quot;该索引在数组中不存在，
 <li>自定义一个运行时期的异常类:自定义类 并继承于<code>java.lang.RuntimeException</code>。</li>
 </ol>
 <h3 id="3-2-自定义异常的练习"><a href="#3-2-自定义异常的练习" class="headerlink" title="3.2 自定义异常的练习"></a>3.2 自定义异常的练习</h3><p>模拟注册操作，如果用户名已存在，则抛出异常并提示：亲，该用户名已经被注册。</p>
-<p>代码实例如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 首先定义一个登录异常类RegisterException:
+<p>代码实例如下：</p>
+<pre><code class="java">// 首先定义一个登录异常类RegisterException:
 public class RegisterException extends Exception{
-    public RegisterException() { &#x2F;&#x2F; 空参构造
+    public RegisterException() { // 空参构造
     }
     public RegisterException(String message){
-        super(message); &#x2F;&#x2F; @param message 表示异常提示
+        super(message); // @param message 表示异常提示
     }
 }
 
-&#x2F;&#x2F; 模拟登陆操作，使用数组模拟数据库中存储的数据，并提供当前注册账号是否存在方法用于判断。
+// 模拟登陆操作，使用数组模拟数据库中存储的数据，并提供当前注册账号是否存在方法用于判断。
 public class TestDemo {
-    &#x2F;&#x2F; 模拟数据库中已存在的账号
+    // 模拟数据库中已存在的账号
     private static String[] names = {&quot;xiaowang&quot;,&quot;xiaozhang&quot;,&quot;xiaoming&quot;};
     public static void main(String[] args) {
-        &#x2F;&#x2F; 调用方法
+        // 调用方法
         try{
-            &#x2F;&#x2F; 可能出现异常的代码块
+            // 可能出现异常的代码块
             checkUsername(&quot;xiaowang&quot;);
             System.out.println(&quot;注册成功&quot;);
         }catch(RegisterException e){
@@ -727,7 +717,7 @@ public class TestDemo {
         return true;
     }
 }
-</code></pre></p>
+</code></pre>
 <h2 id="4-多线程"><a href="#4-多线程" class="headerlink" title="4. 多线程"></a>4. 多线程</h2><h3 id="4-1-并发与并行"><a href="#4-1-并发与并行" class="headerlink" title="4.1 并发与并行"></a>4.1 并发与并行</h3><ul>
 <li><strong>并发</strong>：指两个或多个事件在<strong>同一个时间段内</strong>发生。</li>
 <li><strong>并行</strong>：指两个或多个事件在<strong>同一时刻</strong>发生（同时发生）。<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/27/%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91-1556377430817.bmp" alt="title"></li>
@@ -769,16 +759,15 @@ public class TestDemo {
 <li>创建Thread子类的实例，即创建了线程对象</li>
 <li>调用线程对象的start()方法来启动该线程</li>
 </ol>
-<p>代码实例如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">&#x2F;&#x2F; 自定义线程类
+<p>代码实例如下：</p>
+<pre><code class="java">// 自定义线程类
 public class MyThread extends Thread{
-    &#x2F;&#x2F; 定义指定线程名称的构造方法
+    // 定义指定线程名称的构造方法
     public MyThread(String name) {
-        &#x2F;&#x2F; 调用父类的String参数的构造方法，指定线程的名称
+        // 调用父类的String参数的构造方法，指定线程的名称
         super(name);
     }
-    &#x2F;&#x2F; 重写run方法，完成该线程的执行逻辑
+    // 重写run方法，完成该线程的执行逻辑
     @Override
     public void run(){
         for(int i = 0;i &lt; 10;i++){
@@ -786,20 +775,20 @@ public class MyThread extends Thread{
         }
     }
 }
-&#x2F;&#x2F; 测试类
+// 测试类
 public class TestThread {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 创建线程对象
+        // 创建线程对象
         MyThread mt = new MyThread(&quot;新的线程！&quot;);
-        &#x2F;&#x2F; 启动线程
+        // 启动线程
         mt.start();
-        &#x2F;&#x2F; 在主方法中执行for循环
+        // 在主方法中执行for循环
         for(int i = 0;i &lt; 10;i++){
             System.out.println(&quot;main线程&quot;+i);
         }
     }
 }
-</code></pre></p>
+</code></pre>
 <h3 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h3><ol>
 <li>Java中的异常体系</li>
 <li>异常处理5个关键字：try、catch、finally、throw、throws</li>
@@ -893,9 +882,8 @@ public class TestThread {
                     <div class="summary">1. 线程线程是进程中的一个执行单元，负责当前进程中程序的执行，一个进程中至少有一个线程。一个进程中是可以有多个线程的，这个应用程序也可以称之为多线程程序。 
 
 1.1 多线程原理代码示例：
-
-&#x2F;&#x2F; 定义线程类
-publ</div>
+// 定义线程类
+public class My</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-28
@@ -1082,7 +1070,7 @@ publ</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

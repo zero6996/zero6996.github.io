@@ -410,7 +410,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.4k
+                        4.3k
                     </div>
                     
 
@@ -439,60 +439,57 @@
 <li><code>public boolean equals(Object obj)</code>:指示其他某个对象是否与此对象”相等”。</li>
 </ul>
 <a id="more"></a>
-<h2 id="1-2-toString方法"><a href="#1-2-toString方法" class="headerlink" title="1.2 toString方法"></a>1.2 toString方法</h2><p>toString方法返回该对象的字符串表示，其实返回的字符串内容就是对象的类型+@+内存地址值。<code>Person@3feba861</code><br>由于该方法返回的是内存地址，所以一般要重写它以获取对象属性。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Person {
+<h2 id="1-2-toString方法"><a href="#1-2-toString方法" class="headerlink" title="1.2 toString方法"></a>1.2 toString方法</h2><p>toString方法返回该对象的字符串表示，其实返回的字符串内容就是对象的类型+@+内存地址值。<code>Person@3feba861</code><br>由于该方法返回的是内存地址，所以一般要重写它以获取对象属性。</p>
+<pre><code class="java">public class Person {
     private String name;
     private int age;
 
     @Override
-    public String toString() { &#x2F;&#x2F; 重写toString方法
+    public String toString() { // 重写toString方法
         return &quot;Person{&quot; +
                 &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
                 &quot;, age=&quot; + age +
                 &#39;}&#39;;
     }
 
-	省略get&#x2F;set
+    省略get/set
 
 }
-</code></pre></p>
+</code></pre>
 <p>在IntelliJ IDEA中，可以使用快捷键<code>ALT+Insert</code>,点击<code>toString()</code>选项，自动生成该方法。</p>
 <h2 id="1-3-equals方法"><a href="#1-3-equals方法" class="headerlink" title="1.3 equals方法"></a>1.3 equals方法</h2><ul>
 <li><code>public boolean equals(Object obj)</code>:比较两个对象是否“相等”，返回布尔值。<h3 id="默认地址比较"><a href="#默认地址比较" class="headerlink" title="默认地址比较"></a>默认地址比较</h3>如果没有覆盖重写equals方法，那么object类默认进行<code>==</code>运算符的对象地址比较，只要不同就返回false。</li>
 </ul>
-<h3 id="对象内容比较"><a href="#对象内容比较" class="headerlink" title="对象内容比较"></a>对象内容比较</h3><p>如果希望进行对象的内容比较，可以重写equals方法。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Override
+<h3 id="对象内容比较"><a href="#对象内容比较" class="headerlink" title="对象内容比较"></a>对象内容比较</h3><p>如果希望进行对象的内容比较，可以重写equals方法。</p>
+<pre><code class="java">@Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        &#x2F;&#x2F; 如果o不等于空并且o不等于Person类型，返回false。 getClass() != o.getClass()  使用反射技术，判断o是否是Person类型， 等效于 obj instanceof Person
+        // 如果o不等于空并且o不等于Person类型，返回false。 getClass() != o.getClass()  使用反射技术，判断o是否是Person类型， 等效于 obj instanceof Person
         if (o == null || getClass() != o.getClass()) return false;
-        &#x2F;&#x2F; 向下转型
+        // 向下转型
         Person person = (Person) o;
-        &#x2F;* Object.equals(Object a, Object b); equals方法重载解析：
-        Objects.equals(name, person.name); &#x2F;&#x2F; 传入两个对象参数
+        /* Object.equals(Object a, Object b); equals方法重载解析：
+        Objects.equals(name, person.name); // 传入两个对象参数
         public static boolean equals(Object a, Object b) {
-               &#x2F;&#x2F; 判断a==b 或者 a不等于空，并且a与b的内存地址相同才返回true，反之false
+               // 判断a==b 或者 a不等于空，并且a与b的内存地址相同才返回true，反之false
             return (a == b) || (a != null &amp;&amp; a.equals(b));
         }
-         *&#x2F;
+         */
         return age == person.age &amp;&amp; Objects.equals(name, person.name);
     }
-</code></pre></p>
+</code></pre>
 <p>使用快捷键<code>ALT+Insert</code>可以自动生成该代码。</p>
 <h2 id="1-4-Oebjects类"><a href="#1-4-Oebjects类" class="headerlink" title="1.4 Oebjects类"></a>1.4 Oebjects类</h2><p>在<strong>JDK7</strong>添加了一个Objects工具类，它提供了一些方来操作对象，它由一些静态的实用方法组成，这些方法是null-save(空指针安全的)或null-tolerant(容忍空指针的),用于计算对象的hashcode、返回对象的字符串表示形式、比较两个对象。</p>
 <p>在比较两个对象时，Object的equals方法容易抛出空指针异常，而Objects类中的equals方法就优化了这个问题。方法如下：</p>
 <ul>
-<li><code>public static boolean equals(Objects a,Objects b)</code>:判断两个对象是否相等。<br>源码解析：
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">
-    Object.equals(Object a, Object b); &#x2F;&#x2F; 对传入的两个对象进行比较，可防止空指针异常。
-    Objects.equals(name, person.name); &#x2F;&#x2F; 传入两个对象参数
-    public static boolean equals(Object a, Object b) {
-           &#x2F;&#x2F; 判断a==b 或者 a不等于空，并且a与b的内存地址相同,才能返回true，反之false。
-        return (a == b) || (a != null &amp;&amp; a.equals(b));
- }
+<li><p><code>public static boolean equals(Objects a,Objects b)</code>:判断两个对象是否相等。<br>源码解析：</p>
+<pre><code class="java">
+  Object.equals(Object a, Object b); // 对传入的两个对象进行比较，可防止空指针异常。
+  Objects.equals(name, person.name); // 传入两个对象参数
+  public static boolean equals(Object a, Object b) {
+         // 判断a==b 或者 a不等于空，并且a与b的内存地址相同,才能返回true，反之false。
+      return (a == b) || (a != null &amp;&amp; a.equals(b));
+}
 </code></pre>
 </li>
 </ul>
@@ -507,15 +504,13 @@
 </blockquote>
 </li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">import java.util.Date;
+<pre><code class="java">import java.util.Date;
 
 public class Demo01Date {
     public static void main(String[] args) {
         System.out.println(&quot;当前系统时间&quot;+new Date());
-        System.out.println(&quot;将传入的毫秒值转换为日期时间格式&quot;+new Date(0L)); &#x2F;&#x2F; Tue Apr 23 20:39:00 CST 2019
-        System.out.print(&quot;把日期转换为毫秒值&quot;+new Date().getTime()); &#x2F;&#x2F; 相当于System.currenTimeMillis()方法
+        System.out.println(&quot;将传入的毫秒值转换为日期时间格式&quot;+new Date(0L)); // Tue Apr 23 20:39:00 CST 2019
+        System.out.print(&quot;把日期转换为毫秒值&quot;+new Date().getTime()); // 相当于System.currenTimeMillis()方法
     }
 }
 </code></pre>
@@ -533,55 +528,43 @@ public class Demo01Date {
 </ul>
 <h3 id="格式规则"><a href="#格式规则" class="headerlink" title="格式规则"></a>格式规则</h3><p>常用格式规则为：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/pattern%E6%A0%BC%E5%BC%8F-1556026542510.png" alt="title"></p>
 <blockquote>
-<p>更详细的格式规则，可参考SimpleDateFormat类的API文档。<br>创建一个SimpleDateFormat对象代码如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-public class Demo03DateFormat {
-    public static void main(String[] args) {
-        DateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
-    }
-}
-</code></pre></p>
+<p>更详细的格式规则，可参考SimpleDateFormat类的API文档。<br>创建一个SimpleDateFormat对象代码如下：<br>~~~java<br>import java.text.DateFormat;<br>import java.text.SimpleDateFormat;</p>
 </blockquote>
-<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><ul>
-<li><code>public String format(Date date)</code>:将Date对象格式化为字符串。</li>
-<li><code>public Date parse(String source)</code>:将字符串解析为Date对象。</li>
-</ul>
-<h4 id="format方法"><a href="#format方法" class="headerlink" title="format方法"></a>format方法</h4><p>使用DateFormat类中的方法format，将日期格式化为文本，使用步骤如下。</p>
-<ol>
-<li>创建SimpleDateFormat对象，构造方法中传入指定模式</li>
-<li>调用SimpleDateFormat对象中的方法format，按照构造方法中的模式，把Date日期格式转换为符合格式的字符串
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">    &#x2F;&#x2F; 1. 创建SimpleDateFormat对象，构造方法中传入指定模式
-    DateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
-    &#x2F;&#x2F; 2. 调用SimpleDateFormat对象中的方法format
-    String a = format.format(new Date());
-    System.out.println(a);  &#x2F;&#x2F; 2019-04-23 22:04:11
-</code></pre>
-</li>
-</ol>
-<h4 id="parse方法"><a href="#parse方法" class="headerlink" title="parse方法"></a>parse方法</h4><p>使用DateFormat类中的方法parse，把文本解析为日期，使用步骤如下：</p>
-<ol>
-<li>创建SimpleDateFormat对象，构造方法中传入指定模式</li>
-<li>调用SimpleDateFormat对象中的方法parse，把符合构造方法中模式的字符串，解析为Date日期</li>
-</ol>
+<p>public class Demo03DateFormat {<br>    public static void main(String[] args) {<br>        DateFormat format = new SimpleDateFormat(“yyyy-MM-dd HH:mm:ss”);<br>    }<br>}</p>
+<pre><code>
+### 常用方法
+- `public String format(Date date)`:将Date对象格式化为字符串。
+- `public Date parse(String source)`:将字符串解析为Date对象。
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">DateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+#### format方法
+使用DateFormat类中的方法format，将日期格式化为文本，使用步骤如下。
+1. 创建SimpleDateFormat对象，构造方法中传入指定模式
+2. 调用SimpleDateFormat对象中的方法format，按照构造方法中的模式，把Date日期格式转换为符合格式的字符串
+```java
+    // 1. 创建SimpleDateFormat对象，构造方法中传入指定模式
+    DateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+    // 2. 调用SimpleDateFormat对象中的方法format
+    String a = format.format(new Date());
+    System.out.println(a);  // 2019-04-23 22:04:11
+```
+
+#### parse方法
+使用DateFormat类中的方法parse，把文本解析为日期，使用步骤如下：
+1. 创建SimpleDateFormat对象，构造方法中传入指定模式
+2. 调用SimpleDateFormat对象中的方法parse，把符合构造方法中模式的字符串，解析为Date日期
+
+~~~java
+DateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
 Date date = sdf.parse(&quot;1996-06-03 11:45:03&quot;);
 System.out.println(date);
-&#x2F;*
+/*
 注意：
 public Date parse(String source) throws ParseException
 parse方法声明了一个异常叫ParseException,如果字符串和构造方法的模式不一致，那么程序就会抛出异常。
 调用了一个抛出异常的方法，就必须处理这个异常，要么throws继续抛出这个异常，要么try catch自己处理。
-*&#x2F;
-</code></pre>
-<h2 id="2-3-练习"><a href="#2-3-练习" class="headerlink" title="2.3 练习"></a>2.3 练习</h2><p>使用日期时间相关API，计算一个人出生了多少天<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">
+*/
+</code></pre><h2 id="2-3-练习"><a href="#2-3-练习" class="headerlink" title="2.3 练习"></a>2.3 练习</h2><p>使用日期时间相关API，计算一个人出生了多少天</p>
+<pre><code class="java">
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -593,51 +576,47 @@ public class Demo02Test {
         Scanner sc = new Scanner(System.in);
         System.out.println(&quot;请输入你的出生日期，格式：年-月-日&quot;);
         String Birthday = sc.next();
-        long CurrentTime = new Date().getTime(); &#x2F;&#x2F; 现在时间
-        DateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;); &#x2F;&#x2F; 设置时间格式
-        long liveTime = CurrentTime - format.parse(Birthday).getTime(); &#x2F;&#x2F; 使用parse把文本解析为日期格式在转换为毫秒值
-&#x2F;&#x2F;        System.out.println(liveTime);
-        System.out.println(&quot;出生了&quot;+liveTime&#x2F;1000&#x2F;60&#x2F;60&#x2F;24+&quot;天&quot;); &#x2F;&#x2F; liveTime&#x2F;1000&#x2F;60&#x2F;60&#x2F;24 把毫秒值转换为天
-    }
-}
-</code></pre></p>
-<h2 id="2-4-Calendar类"><a href="#2-4-Calendar类" class="headerlink" title="2.4 Calendar类"></a>2.4 Calendar类</h2><p><code>java.util.Calendar</code>是日历类，在Date后出现，替换掉了许多Date方法。该类将所有可能用到的时间信息封装为静态成员变量，方便获取。日历类就是方便获取各个时间属性的。</p>
-<h3 id="获取方式"><a href="#获取方式" class="headerlink" title="获取方式"></a>获取方式</h3><p>Calenday为抽象类，由于语言敏感性，Calendar类在创建对象时并非直接创建，而是通过静态方法创建，返回子类对象，如下：<br>Calendar静态方法</p>
-<ul>
-<li><code>public static Calendar getInstance()</code>:使用默认时区和语言环境获取一个日历。<br>示例代码：
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">import java.util.Calendar;
-
-public class Demo04Calendar {
-    public static void main(String[] args) {
-        Calendar cal = Calendar.getInstance(); &#x2F;&#x2F; 多态
-
+        long CurrentTime = new Date().getTime(); // 现在时间
+        DateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;); // 设置时间格式
+        long liveTime = CurrentTime - format.parse(Birthday).getTime(); // 使用parse把文本解析为日期格式在转换为毫秒值
+//        System.out.println(liveTime);
+        System.out.println(&quot;出生了&quot;+liveTime/1000/60/60/24+&quot;天&quot;); // liveTime/1000/60/60/24 把毫秒值转换为天
     }
 }
 </code></pre>
-</li>
-</ul>
-<h3 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h3><p>根据Calendar类的API文档，常用方法有：</p>
+<h2 id="2-4-Calendar类"><a href="#2-4-Calendar类" class="headerlink" title="2.4 Calendar类"></a>2.4 Calendar类</h2><p><code>java.util.Calendar</code>是日历类，在Date后出现，替换掉了许多Date方法。该类将所有可能用到的时间信息封装为静态成员变量，方便获取。日历类就是方便获取各个时间属性的。</p>
+<h3 id="获取方式"><a href="#获取方式" class="headerlink" title="获取方式"></a>获取方式</h3><p>Calenday为抽象类，由于语言敏感性，Calendar类在创建对象时并非直接创建，而是通过静态方法创建，返回子类对象，如下：<br>Calendar静态方法</p>
 <ul>
-<li><code>public int get(int field)</code>:返回给定日历字段的值。</li>
-<li><code>public void set(int field, int value)</code>:将给定的日历字段设置为给定值。</li>
-<li><code>public abstract void add(int field,int amount)</code>:根据日历规则，为给定的日历字段添加或减去指定的时间量。</li>
-<li><code>public Date getTime()</code>:返回一个表示此Calendar时间值的Date对象,返回从历元到现在的毫秒偏移量。</li>
+<li><code>public static Calendar getInstance()</code>:使用默认时区和语言环境获取一个日历。<br>示例代码：<br>~~~java<br>import java.util.Calendar;</li>
 </ul>
-<p>Calendar类中提供很多成员常量，代表给定的日历字段：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/Calendar%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98%E5%B8%B8%E9%87%8F-1556029579519.png" alt="title"></p>
-<h4 id="get-set方法"><a href="#get-set方法" class="headerlink" title="get/set方法"></a>get/set方法</h4><p>get方法用来获取指定字段的值，set方法用来设置指定字段的值，演示代码如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">import java.util.Calendar;
+<p>public class Demo04Calendar {<br>    public static void main(String[] args) {<br>        Calendar cal = Calendar.getInstance(); // 多态</p>
+<pre><code>}
+</code></pre><p>}</p>
+<pre><code>
+### 常用方法
+根据Calendar类的API文档，常用方法有：
+- `public int get(int field)`:返回给定日历字段的值。
+- `public void set(int field, int value)`:将给定的日历字段设置为给定值。
+- `public abstract void add(int field,int amount)`:根据日历规则，为给定的日历字段添加或减去指定的时间量。
+- `public Date getTime()`:返回一个表示此Calendar时间值的Date对象,返回从历元到现在的毫秒偏移量。
+
+Calendar类中提供很多成员常量，代表给定的日历字段：
+![title](https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/Calendar%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98%E5%B8%B8%E9%87%8F-1556029579519.png)
+
+#### get/set方法
+get方法用来获取指定字段的值，set方法用来设置指定字段的值，演示代码如下：
+```java
+import java.util.Calendar;
 
 public class Demo04Calendar {
     public static void main(String[] args) {
-        Calendar cal = Calendar.getInstance(); &#x2F;&#x2F; 多态
-        int year = cal.get(Calendar.YEAR); &#x2F;&#x2F; 获取当前年份
-        int month = cal.get(Calendar.MONTH)+1; &#x2F;&#x2F;因为国外月份是0~11，我们是1~12.
-        int day = cal.get(Calendar.DAY_OF_MONTH); &#x2F;&#x2F; 当前天数
-&#x2F;&#x2F;        System.out.println(day);
-&#x2F;&#x2F;        System.out.println(year+&quot;年&quot;+month+&quot;月&quot;+day+&quot;号&quot;);
-        cal.set(Calendar.YEAR,2020); &#x2F;&#x2F;自定义日期
+        Calendar cal = Calendar.getInstance(); // 多态
+        int year = cal.get(Calendar.YEAR); // 获取当前年份
+        int month = cal.get(Calendar.MONTH)+1; //因为国外月份是0~11，我们是1~12.
+        int day = cal.get(Calendar.DAY_OF_MONTH); // 当前天数
+//        System.out.println(day);
+//        System.out.println(year+&quot;年&quot;+month+&quot;月&quot;+day+&quot;号&quot;);
+        cal.set(Calendar.YEAR,2020); //自定义日期
         cal.set(Calendar.MONTH,06);
         cal.set(Calendar.DAY_OF_MONTH,03);
         int year1 = cal.get(Calendar.YEAR);
@@ -646,10 +625,12 @@ public class Demo04Calendar {
         System.out.println(year1+&quot;年&quot;+month1+&quot;月&quot;+day1+&quot;号&quot;);
     }
 }
-</code></pre></p>
-<h4 id="add方法"><a href="#add方法" class="headerlink" title="add方法"></a>add方法</h4><p>add方法可以对指定日历字段的值进行加减操作，如果第二个参数为整数则加上偏移量，负数则减去偏移量，演示代码如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">import java.util.Calendar;
+```
+
+#### add方法
+add方法可以对指定日历字段的值进行加减操作，如果第二个参数为整数则加上偏移量，负数则减去偏移量，演示代码如下：
+~~~java
+import java.util.Calendar;
 
 public class Demo05CalendarAddMethod {
     public static void main(String[] args) {
@@ -658,10 +639,10 @@ public class Demo05CalendarAddMethod {
         int month = cal.get(Calendar.MONTH)+1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
         System.out.println(year+&quot;年&quot;+month+&quot;月&quot;+day+&quot;号&quot;);
-        &#x2F;&#x2F; 使用add方法
-        cal.add(Calendar.YEAR,1); &#x2F;&#x2F; 当前年份+1
+        // 使用add方法
+        cal.add(Calendar.YEAR,1); // 当前年份+1
         cal.add(Calendar.MONTH,2);
-        cal.add(Calendar.DAY_OF_MONTH,-20); &#x2F;&#x2F; 天数-20天
+        cal.add(Calendar.DAY_OF_MONTH,-20); // 天数-20天
         int year1 = cal.get(Calendar.YEAR);
         int month1 = cal.get(Calendar.MONTH)+1;
         int day1 = cal.get(Calendar.DAY_OF_MONTH);
@@ -669,36 +650,32 @@ public class Demo05CalendarAddMethod {
 
     }
 }
-</code></pre></p>
-<h4 id="getTime方法"><a href="#getTime方法" class="headerlink" title="getTime方法"></a>getTime方法</h4><p>Calendar中的getTime方法并不是获取毫秒时刻，而是拿到对应的Date对象。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">import java.util.Calendar;
+</code></pre><h4 id="getTime方法"><a href="#getTime方法" class="headerlink" title="getTime方法"></a>getTime方法</h4><p>Calendar中的getTime方法并不是获取毫秒时刻，而是拿到对应的Date对象。</p>
+<pre><code class="java">import java.util.Calendar;
 import java.util.Date;
 
 public class Demo06CalendarGetTime {
     public static void main(String[] args) {
         Calendar cal = Calendar.getInstance();
-        Date date = cal.getTime(); &#x2F;&#x2F; 获取的是Date对象
-        System.out.println(date); &#x2F;&#x2F; Tue Apr 23 22:52:25 CST 2019
+        Date date = cal.getTime(); // 获取的是Date对象
+        System.out.println(date); // Tue Apr 23 22:52:25 CST 2019
     }
 }
-</code></pre></p>
+</code></pre>
 <h2 id="3-System类"><a href="#3-System类" class="headerlink" title="3. System类"></a>3. System类</h2><p><code>java.lang.System</code>类中提供了大量的静态方法，可以获取与系统相关的信息或者系统级操作，常用方法有：</p>
 <ul>
 <li><code>public static long currentTimeMillis()</code>:返回以毫秒为单位的当前时间。</li>
 <li><code>public static void arraycopy(Object src,int srcPos,Object dest, int destPos, int length)</code>:将数组中指定的数据拷贝到另一个数组中。</li>
 </ul>
-<h3 id="3-1-currentTimeMillis方法"><a href="#3-1-currentTimeMillis方法" class="headerlink" title="3.1 currentTimeMillis方法"></a>3.1 currentTimeMillis方法</h3><p>currentTimeMillis方法获取的是当前系统时间与1970年01月01日00:00(计算机元年)之间的毫秒差值。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo07CurrentTime {
+<h3 id="3-1-currentTimeMillis方法"><a href="#3-1-currentTimeMillis方法" class="headerlink" title="3.1 currentTimeMillis方法"></a>3.1 currentTimeMillis方法</h3><p>currentTimeMillis方法获取的是当前系统时间与1970年01月01日00:00(计算机元年)之间的毫秒差值。</p>
+<pre><code class="java">public class Demo07CurrentTime {
     public static void main(String[] args) {
         System.out.println(System.currentTimeMillis());
     }
 }
-</code></pre></p>
-<h3 id="小练习1"><a href="#小练习1" class="headerlink" title="小练习1"></a>小练习1</h3><p>计算for循环打印数字1~9999所需的时间(毫秒)。<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo08SystemTest {
+</code></pre>
+<h3 id="小练习1"><a href="#小练习1" class="headerlink" title="小练习1"></a>小练习1</h3><p>计算for循环打印数字1~9999所需的时间(毫秒)。</p>
+<pre><code class="java">public class Demo08SystemTest {
     public static void main(String[] args) {
         long CurrentTime = System.currentTimeMillis();
         for(int i = 1;i &lt; 10000;i++){
@@ -707,36 +684,33 @@ public class Demo06CalendarGetTime {
         System.out.println(&quot;打印1~9999花费&quot;+(System.currentTimeMillis() - CurrentTime)+&quot;毫秒&quot;);
     }
 }
-</code></pre></p>
+</code></pre>
 <h3 id="3-2-arraycopy方法"><a href="#3-2-arraycopy方法" class="headerlink" title="3.2 arraycopy方法"></a>3.2 arraycopy方法</h3><p>该方法将数组指定数据拷贝到另一个数组中，数组的拷贝动作是系统级的，性能很高。System.arraycopy方法具有5个参数，含义分别为：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/arratcopy%E5%8F%82%E6%95%B0%E5%90%AB%E4%B9%89-1556031999370.png" alt="title"></p>
-<h3 id="小练习2"><a href="#小练习2" class="headerlink" title="小练习2"></a>小练习2</h3><p>将src数组中前3个元素，复制到dest数组的前3个位置上。<br>复制元素前：src[1,2,3,4,5]，dest[6,7,8,9,10]<br>复制元素后：src[1,2,3,4,5], dest[1,2,3,9,10]<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">arraycopy(源数组，源数组索引起始位置，目标数组，目标数组索引起始位置，复制元素个数)
- *&#x2F;
+<h3 id="小练习2"><a href="#小练习2" class="headerlink" title="小练习2"></a>小练习2</h3><p>将src数组中前3个元素，复制到dest数组的前3个位置上。<br>复制元素前：src[1,2,3,4,5]，dest[6,7,8,9,10]<br>复制元素后：src[1,2,3,4,5], dest[1,2,3,9,10]</p>
+<pre><code class="java">arraycopy(源数组，源数组索引起始位置，目标数组，目标数组索引起始位置，复制元素个数)
+ */
 public class Demo09SystemArrayCopy {
     public static void main(String[] args) {
         int[] src = {1,2,3,4,5};
         int[] dest = {6,7,8,9,10};
         System.arraycopy(src,0,dest,0,3);
         for (int i = 0; i &lt; dest.length; i++) {
-            System.out.print(dest[i]+&quot;,&quot;); &#x2F;&#x2F; 123910
+            System.out.print(dest[i]+&quot;,&quot;); // 123910
         }
     }
 
 }
-</code></pre></p>
+</code></pre>
 <h2 id="4-StringBuilder类"><a href="#4-StringBuilder类" class="headerlink" title="4. StringBuilder类"></a>4. StringBuilder类</h2><h3 id="4-1-字符串拼接问题"><a href="#4-1-字符串拼接问题" class="headerlink" title="4.1 字符串拼接问题"></a>4.1 字符串拼接问题</h3><p>由于String类的对象内容不可变，所以每当进行字符串拼接时，都会在内存中创建一新的对象。<br>字符串是常量，它们的值在创建后不能被更改。如果字符串进行拼接操作，每次拼接时都会创建一个新的String对象，耗时又浪费空间。可以使用<code>java.lang.StringBuilder</code>类。</p>
 <h3 id="4-2-StringBuilder类概述"><a href="#4-2-StringBuilder类概述" class="headerlink" title="4.2 StringBuilder类概述"></a>4.2 StringBuilder类概述</h3><p>StringBuilder又称为可变字符序列,它是一个类似于 String 的字符串缓冲区，通过某些方法调用可以改变该序列的长度和内容。即它是一个容器，容器中可以装很多字符串。并且能够对其中的字符串进行各种操作。<br>它的内部拥有一个数组用来存放字符串内容，进行字符串拼接时，直接在数组中加入新内容。StringBuilder会自动维护数组的扩容。原理如下图所示：(默认16字符空间，超过自动扩充)<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/01_StringBuilder%E7%9A%84%E5%8E%9F%E7%90%86-1556033213070.bmp" alt="title"></p>
 <h3 id="4-3-构造方法"><a href="#4-3-构造方法" class="headerlink" title="4.3 构造方法"></a>4.3 构造方法</h3><p>常用的构造方法有2个：</p>
 <ul>
 <li><code>public StringBuilder()</code>:构造一个空的StringBuilder容器。</li>
-<li><code>public StringBuilder(String str)</code>:构造一个容器同时将一个字符串添加进去。
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo10StringBuilder {
-    public static void main(String[] args) {
-        StringBuilder strb = new StringBuilder(); &#x2F;&#x2F; 创建一个空容器对象
-        StringBuilder strb2 = new StringBuilder(&quot;Hello&quot;); &#x2F;&#x2F; 带参构造方法
-    }
+<li><code>public StringBuilder(String str)</code>:构造一个容器同时将一个字符串添加进去。<pre><code class="java">public class Demo10StringBuilder {
+  public static void main(String[] args) {
+      StringBuilder strb = new StringBuilder(); // 创建一个空容器对象
+      StringBuilder strb2 = new StringBuilder(&quot;Hello&quot;); // 带参构造方法
+  }
 }
 </code></pre>
 </li>
@@ -746,64 +720,60 @@ public class Demo09SystemArrayCopy {
 <li><code>public StringBuilder append(...)</code>：添加任意类型数据的字符串形式，并返回当前对象自身。</li>
 <li><code>public String toString()</code>：将当前StringBuilder对象转换为String对象。</li>
 </ul>
-<h4 id="append方法"><a href="#append方法" class="headerlink" title="append方法"></a>append方法</h4><p>append方法具有多种重载形式，可以接收任意类型的参数。任何数据作为参数都会将对应的字符串内容添加到StringBuilder中。示例如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo10StringBuilder {
+<h4 id="append方法"><a href="#append方法" class="headerlink" title="append方法"></a>append方法</h4><p>append方法具有多种重载形式，可以接收任意类型的参数。任何数据作为参数都会将对应的字符串内容添加到StringBuilder中。示例如下：</p>
+<pre><code class="java">public class Demo10StringBuilder {
     public static void main(String[] args) {
-        StringBuilder builder = new StringBuilder(); &#x2F;&#x2F; 创建一个空容器对象
-        StringBuilder result = builder.append(&quot;hello&quot;); &#x2F;&#x2F;向容器中添加一个字符串类型
-        System.out.println(builder); &#x2F;&#x2F; hello
-        System.out.println(result); &#x2F;&#x2F; hello
+        StringBuilder builder = new StringBuilder(); // 创建一个空容器对象
+        StringBuilder result = builder.append(&quot;hello&quot;); //向容器中添加一个字符串类型
+        System.out.println(builder); // hello
+        System.out.println(result); // hello
         if(builder == result){
             System.out.println(&quot;它们是同一个容器对象&quot;);
         }
-        &#x2F;&#x2F; 可以添加任意类型,且可以往容器中连续放入
+        // 可以添加任意类型,且可以往容器中连续放入
         builder.append(100).append(true).append(10.0).append(&#39;A&#39;);
-        System.out.println(builder); &#x2F;&#x2F; hello100true10.0A
-	&#x2F;*
-	如果在开发中，遇到调用一个对象后，返回一个对象的情况，可以使用返回的对象继续调用方法。
-	如上情况，可以把它们连在一起，这叫做链式编程。
-	*&#x2F;
+        System.out.println(builder); // hello100true10.0A
+    /*
+    如果在开发中，遇到调用一个对象后，返回一个对象的情况，可以使用返回的对象继续调用方法。
+    如上情况，可以把它们连在一起，这叫做链式编程。
+    */
     }
 }
-</code></pre></p>
-<h4 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a>toString方法</h4><p>通过toString方法，StringBuilder对象将会转换为不可变的String对象。如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo11StringToString {
+</code></pre>
+<h4 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a>toString方法</h4><p>通过toString方法，StringBuilder对象将会转换为不可变的String对象。如下：</p>
+<pre><code class="java">public class Demo11StringToString {
     public static void main(String[] args) {
         StringBuilder builder = new StringBuilder(&quot;hello&quot;).append(&quot;world&quot;);
-        String str = builder.toString(); &#x2F;&#x2F; 将builder容器转换为字符串类型。
+        String str = builder.toString(); // 将builder容器转换为字符串类型。
         System.out.println(str);
-        
+
 
     }
 }
-</code></pre></p>
+</code></pre>
 <h2 id="5-包装类"><a href="#5-包装类" class="headerlink" title="5. 包装类"></a>5. 包装类</h2><p>Java提供了两个类型系统，基本类型与引用类型。使用基本类型在于效率，然而很多情况，会创建对象使用，因为对象可以做更多的功能，如果想要我们的基本类型像对象一样操作，就可以使用基本类型对应的包装类，如下：<br><img src="https://raw.githubusercontent.com/zero6996/GitNote-images/master/GitNote/2019/04/23/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%AF%B9%E5%BA%94%E5%8C%85%E8%A3%85%E7%B1%BB-1556034717119.png" alt="title"></p>
 <h3 id="5-1-装箱与拆箱"><a href="#5-1-装箱与拆箱" class="headerlink" title="5.1 装箱与拆箱"></a>5.1 装箱与拆箱</h3><p>基本类型与对应的包装类对象之间，来回转换的过程称为”装箱” 与 “拆箱”：</p>
 <ul>
 <li><strong>装箱</strong>:从基本类型转换为对应的包装类对象。</li>
 <li><strong>拆箱</strong>:从包装类对象转换为对应的基本类型。</li>
 </ul>
-<p>用Integer与int为例：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class Demo12PackClass {
+<p>用Integer与int为例：</p>
+<pre><code class="java">public class Demo12PackClass {
     public static void main(String[] args) {
-        &#x2F;&#x2F; 基本数值 --&gt; 包装对象
-        Integer i = new Integer(4); &#x2F;&#x2F; 使用构造方法
-        Integer iii = Integer.valueOf(4); &#x2F;&#x2F; &#x2F;使用包装类中的valueOf方法
+        // 基本数值 --&gt; 包装对象
+        Integer i = new Integer(4); // 使用构造方法
+        Integer iii = Integer.valueOf(4); // /使用包装类中的valueOf方法
 
-        &#x2F;&#x2F; 包装对象 --&gt; 基本数值
+        // 包装对象 --&gt; 基本数值
         int num = i.intValue();
     }
 }
-</code></pre></p>
-<h3 id="5-2-自动装箱与自动拆箱"><a href="#5-2-自动装箱与自动拆箱" class="headerlink" title="5.2 自动装箱与自动拆箱"></a>5.2 自动装箱与自动拆箱</h3><p>由于我们经常要做基本类型与包装类之间的转换，从Java 5开始，基本类型与包装类的装箱、拆箱动作可以自动完成。示例如下：<br>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">Integer i = 4;&#x2F;&#x2F;自动装箱。相当于Integer i = Integer.valueOf(4);
-i = i + 5;&#x2F;&#x2F;等号右边：将i对象转成基本数值(自动拆箱) i.intValue() + 5;
-&#x2F;&#x2F;加法运算完成后，再次装箱，把基本数值转成对象。
-</code></pre></p>
+</code></pre>
+<h3 id="5-2-自动装箱与自动拆箱"><a href="#5-2-自动装箱与自动拆箱" class="headerlink" title="5.2 自动装箱与自动拆箱"></a>5.2 自动装箱与自动拆箱</h3><p>由于我们经常要做基本类型与包装类之间的转换，从Java 5开始，基本类型与包装类的装箱、拆箱动作可以自动完成。示例如下：</p>
+<pre><code class="java">Integer i = 4;//自动装箱。相当于Integer i = Integer.valueOf(4);
+i = i + 5;//等号右边：将i对象转成基本数值(自动拆箱) i.intValue() + 5;
+//加法运算完成后，再次装箱，把基本数值转成对象。
+</code></pre>
 <h3 id="5-3-基本类型与字符串之间的转换"><a href="#5-3-基本类型与字符串之间的转换" class="headerlink" title="5.3 基本类型与字符串之间的转换"></a>5.3 基本类型与字符串之间的转换</h3><h4 id="基本类型转换为String"><a href="#基本类型转换为String" class="headerlink" title="基本类型转换为String"></a>基本类型转换为String</h4><p>基本类型转换String总共有三种方法，这里只讲解最简单一种方式：基本类型直接与””连接即可，如34+””。</p>
 <h4 id="String转换成对应的基本类型"><a href="#String转换成对应的基本类型" class="headerlink" title="String转换成对应的基本类型"></a>String转换成对应的基本类型</h4><p>除了Character类之外，其他所有包装类都具有parseXxx静态方法可以将字符串参数转换为对应的基本类型：</p>
 <ul>
@@ -1085,7 +1055,7 @@ final：</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

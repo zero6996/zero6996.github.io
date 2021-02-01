@@ -457,9 +457,7 @@
 <ul>
 <li>会话1建表</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CREATE TABLE mylock(
+<pre><code class="sql">CREATE TABLE mylock(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   NAME VARCHAR(20)
 )ENGINE MYISAM;
@@ -474,55 +472,41 @@ INSERT INTO mylock(NAME) VALUES
 <h3 id="2-1-2-加读锁"><a href="#2-1-2-加读锁" class="headerlink" title="2.1.2 加读锁"></a>2.1.2 加读锁</h3><ul>
 <li>会话1(当前)加读锁，开启会话2(其他)</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">LOCK TABLE mylock READ;
+<pre><code class="sql">LOCK TABLE mylock READ;
 </code></pre>
 <ul>
 <li>当前会话可以查询该表，其他会话也可查询该表</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">SELECT * FROM mylock;
+<pre><code class="sql">SELECT * FROM mylock;
 </code></pre>
 <ul>
 <li>当前会话无法查询其他未锁表，其他会话正常查询或更新其他未锁表</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">SELECT * FROM book; &#x2F;*会话1查询未锁表会报错：ERROR 1100 (HY000): Table &#39;book&#39; was not locked with LOCK TABLES*&#x2F;
-select * from book;&#x2F;*会话2查询未锁表正常*&#x2F;
+<pre><code class="sql">SELECT * FROM book; /*会话1查询未锁表会报错：ERROR 1100 (HY000): Table &#39;book&#39; was not locked with LOCK TABLES*/
+select * from book;/*会话2查询未锁表正常*/
 </code></pre>
 <ul>
 <li>当前会话无法更新该表，其他会话更新或插入操作会阻塞等待，直到会话1释放锁(<code>unlock tables;</code>)</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">UPDATE mylock SET NAME=&#39;a2&#39; WHERE id=1; &#x2F;*当前会话更新会报错：ERROR 1099 (HY000): Table &#39;mylock&#39; was locked with a READ lock and can&#39;t be updated*&#x2F;
-UPDATE mylock SET NAME=&#39;a2&#39; WHERE id=1; &#x2F;*其他会话操作会一直阻塞等待会话1释放锁*&#x2F;
+<pre><code class="sql">UPDATE mylock SET NAME=&#39;a2&#39; WHERE id=1; /*当前会话更新会报错：ERROR 1099 (HY000): Table &#39;mylock&#39; was locked with a READ lock and can&#39;t be updated*/
+UPDATE mylock SET NAME=&#39;a2&#39; WHERE id=1; /*其他会话操作会一直阻塞等待会话1释放锁*/
 </code></pre>
 <h3 id="2-1-3-加写锁"><a href="#2-1-3-加写锁" class="headerlink" title="2.1.3 加写锁"></a>2.1.3 加写锁</h3><ul>
 <li>会话1加写锁，开启会话2</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">lock table mylock write;
+<pre><code class="sql">lock table mylock write;
 </code></pre>
 <ul>
 <li>当前会话正常查询、修改该表，不可查询其他未锁表</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">select * from mylock;
+<pre><code class="sql">select * from mylock;
 update mylock set name=&#39;a2&#39; where id=1;
-select * from book; &#x2F;*报错*&#x2F;
+select * from book; /*报错*/
 </code></pre>
 <ul>
 <li>会话2查询或者修改操作都会阻塞等待释放锁。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">select * from mylock; # 其他查询会阻塞等待释放锁。
+<pre><code class="sql">select * from mylock; # 其他查询会阻塞等待释放锁。
 update mylock set name=&#39;b2&#39; where id=2; # 其他操作会阻塞
 </code></pre>
 <h3 id="2-1-4-表锁小结"><a href="#2-1-4-表锁小结" class="headerlink" title="2.1.4 表锁小结"></a>2.1.4 表锁小结</h3><p><code>MyISAM</code>在执行查询语句(SELECT)之前，会自动给涉及的所有表加读锁；在执行增删改操作前，会自动给涉及的表加写锁。</p>
@@ -553,9 +537,7 @@ update mylock set name=&#39;b2&#39; where id=2; # 其他操作会阻塞
 <li>InnoDB是支持事务的。</li>
 <li>InnoDB采用了行级锁。</li>
 </ol>
-<h3 id="2-2-1-建表"><a href="#2-2-1-建表" class="headerlink" title="2.2.1 建表"></a>2.2.1 建表</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">CREATE TABLE test_innodb_lock(
+<h3 id="2-2-1-建表"><a href="#2-2-1-建表" class="headerlink" title="2.2.1 建表"></a>2.2.1 建表</h3><pre><code class="sql">CREATE TABLE test_innodb_lock(
     a INT(11),
     b VARCHAR(16)
 )ENGINE=INNODB;
@@ -577,40 +559,30 @@ CREATE INDEX test_innodb_b_idx ON test_innodb_lock(b);
 <h3 id="2-2-2-行锁演示"><a href="#2-2-2-行锁演示" class="headerlink" title="2.2.2 行锁演示"></a>2.2.2 行锁演示</h3><ul>
 <li>开启两个会话，会话1和会话2，分别设置关闭自动提交</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">SHOW VARIABLES LIKE &quot;autocommit&quot;
+<pre><code class="sql">SHOW VARIABLES LIKE &quot;autocommit&quot;
 SET autocommit = 0;
 </code></pre>
 <ul>
 <li>会话1更新但不提交</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">UPDATE test_innodb_lock SET b=&#39;4001&#39; WHERE a=4;
+<pre><code class="sql">UPDATE test_innodb_lock SET b=&#39;4001&#39; WHERE a=4;
 </code></pre>
 <ul>
 <li>会话2更新同字段将被阻塞等待</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">UPDATE test_innodb_lock SET b=&#39;4001&#39; WHERE a=4;
+<pre><code class="sql">UPDATE test_innodb_lock SET b=&#39;4001&#39; WHERE a=4;
 </code></pre>
 <ul>
 <li>会话1提交，会话2更新操作才会执行。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">commit;
+<pre><code class="sql">commit;
 </code></pre>
 <ul>
 <li>如果会话1更新字段和会话2不同，那么不会阻塞操作请求</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">&#x2F;*会话1操作*&#x2F;
+<pre><code class="sql">/*会话1操作*/
 UPDATE test_innodb_lock SET b=&#39;5001&#39; WHERE a=5;
-&#x2F;*会话2操作*&#x2F;
+/*会话2操作*/
 UPDATE test_innodb_lock SET b=&#39;9001&#39; WHERE a=9;
 </code></pre>
 <blockquote>
@@ -619,23 +591,17 @@ UPDATE test_innodb_lock SET b=&#39;9001&#39; WHERE a=9;
 <h3 id="2-2-3-行锁索引失效升级为表锁"><a href="#2-2-3-行锁索引失效升级为表锁" class="headerlink" title="2.2.3 行锁索引失效升级为表锁"></a>2.2.3 行锁索引失效升级为表锁</h3><ul>
 <li>会话1执行以下语句</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql"> update test_innodb_lock set a=40 where b=4001; &#x2F;*注意此处b字段应该加单引号，故意为加，MySQL将会做自动类型转换，导致索引失效*&#x2F;
+<pre><code class="sql"> update test_innodb_lock set a=40 where b=4001; /*注意此处b字段应该加单引号，故意为加，MySQL将会做自动类型转换，导致索引失效*/
 </code></pre>
 <ul>
 <li>会话2执行非同字段更新操作，会发现被阻塞了</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">update test_innodb_lock set b=&#39;9002&#39; where a=9；
+<pre><code class="sql">update test_innodb_lock set b=&#39;9002&#39; where a=9；
 </code></pre>
 <ul>
 <li>会话1执行commit操作后，会话2才结束阻塞，正常执行。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">commit;
+<pre><code class="sql">commit;
 </code></pre>
 <ul>
 <li>可以发现，在索引失效或者没有索引的情况下，行锁是会升级为表锁的，导致其他进程阻塞无法操作。</li>
@@ -644,16 +610,12 @@ UPDATE test_innodb_lock SET b=&#39;9001&#39; WHERE a=9;
 <ul>
 <li>查表可知表中没有a=2的记录，会话1做范围更新操作</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">update test_innodb_lock set b=&#39;0329&#39; where a&gt;1 and a&lt;6;
+<pre><code class="sql">update test_innodb_lock set b=&#39;0329&#39; where a&gt;1 and a&lt;6;
 </code></pre>
 <ul>
 <li>会话2做插入操作，插入a=2的数据。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">insert into test_innodb_lock values(2,&#39;2000&#39;);
+<pre><code class="sql">insert into test_innodb_lock values(2,&#39;2000&#39;);
 </code></pre>
 <p>可以看到会话2的插入操作被阻塞了，只有会话1提交后才能继续执行，这就是间隙锁。</p>
 <p>因为Query在执行过程中通过范围查找的话，会锁定整个范围内的所有索引键值，即使这个键值并不存在；间隙锁的致命弱点就是，当锁定一个范围键值后，即使某些不存在的键值也会被无辜的锁定，从而造成在锁定的时候无法插入锁定键值范围内的任何数据；在某些场景下可能会对性能造成很大的危害。</p>
@@ -661,24 +623,18 @@ UPDATE test_innodb_lock SET b=&#39;9001&#39; WHERE a=9;
 <ul>
 <li>会话1操作</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">begin;
+<pre><code class="sql">begin;
 select * from test_innodb_lock where a = 8 for update;
 </code></pre>
 <ul>
 <li>会话2操作更新将会阻塞</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">update test_innodb_lock set b=&#39;8888&#39; where a=8;
+<pre><code class="sql">update test_innodb_lock set b=&#39;8888&#39; where a=8;
 </code></pre>
 <ul>
 <li>直到会话1做提交操作在能执行成功</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-sql">commit;
+<pre><code class="sql">commit;
 </code></pre>
 <p>如上使用<code>select xxx... for update</code>锁定某一行后，其他的操作会被阻塞，直到锁定行的会话提交commit。</p>
 <h3 id="2-2-6-行锁小结"><a href="#2-2-6-行锁小结" class="headerlink" title="2.2.6 行锁小结"></a>2.2.6 行锁小结</h3><p>InnoDB存储引擎由于实现了行级锁定，虽然在锁定机制的实现方面所带来的性能损耗可能比表级锁定会更高一些，但是在整体并发处理能力方面要远远优于MyISAM的表级锁定的。</p>
@@ -969,7 +925,7 @@ long_query_time的</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             

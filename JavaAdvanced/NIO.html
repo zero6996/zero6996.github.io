@@ -411,14 +411,14 @@ NIO与原来的IO有同样的作用和目的，但是使用方式完全不同，
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.9k
+                        5.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        25 分
+                        24 分
                     </div>
                     
                 
@@ -558,34 +558,32 @@ NIO与原来的IO有同样的作用和目的，但是使用方式完全不同，
 </tr>
 </tbody>
 </table>
-<h3 id="2-4-代码案例"><a href="#2-4-代码案例" class="headerlink" title="2.4 代码案例"></a>2.4 代码案例</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class TestBuffer {
+<h3 id="2-4-代码案例"><a href="#2-4-代码案例" class="headerlink" title="2.4 代码案例"></a>2.4 代码案例</h3><pre><code class="java">public class TestBuffer {
     @Test
     public void test1(){
         String str = &quot;abcde&quot;;
-        &#x2F;&#x2F; 1. 分配一个指定大小的缓冲区
+        // 1. 分配一个指定大小的缓冲区
         ByteBuffer buf = ByteBuffer.allocate(1024);
         showBufferInfo(buf);
-        &#x2F;&#x2F; 2. 使用put()存入数据到缓冲区中
+        // 2. 使用put()存入数据到缓冲区中
         System.out.println(&quot;==========put()===========&quot;);
         buf.put(str.getBytes());
         showBufferInfo(buf);
-        &#x2F;&#x2F; 3. 切换到读取数据模式,不切换get时会报：BufferUnderflowException，缓冲区溢出异常
+        // 3. 切换到读取数据模式,不切换get时会报：BufferUnderflowException，缓冲区溢出异常
         System.out.println(&quot;==========flip()==========&quot;);
         buf.flip();
         showBufferInfo(buf);
-        &#x2F;&#x2F; 4. 利用get()读取缓冲区中的数据
+        // 4. 利用get()读取缓冲区中的数据
         System.out.println(&quot;===========get()===========&quot;);
         byte[] dst = new byte[buf.limit()];
         buf.get(dst);
         System.out.println(new String(dst,0,dst.length));
         showBufferInfo(buf);
-        &#x2F;&#x2F; 5. rewind:可重复读
+        // 5. rewind:可重复读
         System.out.println(&quot;===========rewind()===========&quot;);
         buf.rewind();
         showBufferInfo(buf);
-        &#x2F;&#x2F; 6. 清空缓冲区,缓冲区中的数据依然存在，但是无指针指向，处于“被遗忘”状态
+        // 6. 清空缓冲区,缓冲区中的数据依然存在，但是无指针指向，处于“被遗忘”状态
         System.out.println(&quot;===========clear()===========&quot;);
         buf.clear();
         showBufferInfo(buf);
@@ -594,7 +592,7 @@ NIO与原来的IO有同样的作用和目的，但是使用方式完全不同，
     @Test
     public void testMark(){
         String str = &quot;abcde&quot;;
-        &#x2F;&#x2F; 1. 分配一个指定大小的缓冲区
+        // 1. 分配一个指定大小的缓冲区
         ByteBuffer buf = ByteBuffer.allocate(1024);
         buf.put(str.getBytes());
         buf.flip();
@@ -603,19 +601,19 @@ NIO与原来的IO有同样的作用和目的，但是使用方式完全不同，
         System.out.println(new String(dst,0,2));
         System.out.println(&quot;当前指针位置:&quot;+buf.position());
 
-        &#x2F;&#x2F; mark:标记位置
+        // mark:标记位置
         System.out.println(&quot;==========use mark()===========&quot;);
         buf.mark();
         buf.get(dst,2,2);
         System.out.println(new String(dst,2,2));
         System.out.println(&quot;当前指针位置:&quot;+buf.position());
-        &#x2F;&#x2F; reset():恢复到mark位置
+        // reset():恢复到mark位置
         System.out.println(&quot;===========use reset()===========&quot;);
         buf.reset();
         System.out.println(&quot;当前指针位置:&quot;+buf.position());
-        &#x2F;&#x2F; 判断缓冲区中是否还有剩余可操作数据
+        // 判断缓冲区中是否还有剩余可操作数据
         if (buf.hasRemaining()){
-            &#x2F;&#x2F; 输出可操作数据的数量
+            // 输出可操作数据的数量
             System.out.println(&quot;余剩还可操作:&quot;+buf.remaining());
         }
     }
@@ -659,71 +657,65 @@ NIO与原来的IO有同样的作用和目的，但是使用方式完全不同，
 </li>
 </ul>
 <p>还可使用Files工具类的<code>newByteChannel()</code>方法获取字节通道，或使用通道的静态方法<code>open()</code>打开并返回指定通道。</p>
-<h2 id="5-通道的数据传输与内存映射文件"><a href="#5-通道的数据传输与内存映射文件" class="headerlink" title="5. 通道的数据传输与内存映射文件"></a>5. 通道的数据传输与内存映射文件</h2><h3 id="5-1-使用非直接缓冲区完成文件复制"><a href="#5-1-使用非直接缓冲区完成文件复制" class="headerlink" title="5.1 使用非直接缓冲区完成文件复制"></a>5.1 使用非直接缓冲区完成文件复制</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<h2 id="5-通道的数据传输与内存映射文件"><a href="#5-通道的数据传输与内存映射文件" class="headerlink" title="5. 通道的数据传输与内存映射文件"></a>5. 通道的数据传输与内存映射文件</h2><h3 id="5-1-使用非直接缓冲区完成文件复制"><a href="#5-1-使用非直接缓冲区完成文件复制" class="headerlink" title="5.1 使用非直接缓冲区完成文件复制"></a>5.1 使用非直接缓冲区完成文件复制</h3><pre><code class="java">@Test
 public void test1() throws Exception {
     long start = System.currentTimeMillis();
-    &#x2F;&#x2F; 获取文件IO流对象
+    // 获取文件IO流对象
     FileInputStream fis = new FileInputStream(&quot;D:\\bigFile.mp4&quot;);
     FileOutputStream fos = new FileOutputStream(&quot;D:\\test1.mp4&quot;);
-    &#x2F;&#x2F; ① 获取通道
+    // ① 获取通道
     FileChannel inChannel = fis.getChannel();
     FileChannel outChannel = fos.getChannel();
-    &#x2F;&#x2F; ② 分配缓冲区
+    // ② 分配缓冲区
     ByteBuffer buffer = ByteBuffer.allocate(1024);
-    &#x2F;&#x2F; ③ 将通道中的数据存入缓冲区中
+    // ③ 将通道中的数据存入缓冲区中
     while (inChannel.read(buffer) != -1){
-        &#x2F;&#x2F; 切换到读数据模式
+        // 切换到读数据模式
         buffer.flip();
-        &#x2F;&#x2F; ④ 将缓冲区中的数据写入通道中
+        // ④ 将缓冲区中的数据写入通道中
         outChannel.write(buffer);
-        &#x2F;&#x2F; 清空缓冲区
+        // 清空缓冲区
         buffer.clear();
     }
-    &#x2F;&#x2F; 释放资源
+    // 释放资源
     outChannel.close();
     inChannel.close();
     fos.close();
     fis.close();
     long end = System.currentTimeMillis();
-    System.out.println(&quot;耗费时间:&quot; + (end - start)); &#x2F;&#x2F; 17490
+    System.out.println(&quot;耗费时间:&quot; + (end - start)); // 17490
 }
 </code></pre>
 <h3 id="5-2-使用直接缓冲区完成文件的复制-内存映射文件"><a href="#5-2-使用直接缓冲区完成文件的复制-内存映射文件" class="headerlink" title="5.2 使用直接缓冲区完成文件的复制(内存映射文件)"></a>5.2 使用直接缓冲区完成文件的复制(内存映射文件)</h3><p>直接字节缓冲区还可以通过 FileChannel 的<code>map()</code>方法将文件区域直接映射到内存中来创建。该方法返回<br>MappedByteBuffer 。Java 平台的实现有助于通过JNI(Java本地接口)从本机代码创建直接字节缓冲区。如果以上这些缓冲区 中的某个缓冲区实例指的是不可访问的内存区域，则试图访问该区域不会更改该缓冲区的内容，并且将会在访问期间或稍后的某个时间导致抛出不确定的异常。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test2() throws Exception {
     long start = System.currentTimeMillis();
 
     FileChannel inChannel = FileChannel.open(Paths.get(&quot;D:\\bigFile.mp4&quot;), StandardOpenOption.READ);
-    &#x2F;&#x2F; 创建一个通道，CREATE_NEW:文件不存在则创建，存在则报错
+    // 创建一个通道，CREATE_NEW:文件不存在则创建，存在则报错
     FileChannel outChannel = FileChannel.open(Paths.get(&quot;D:\\test2.mp4&quot;), StandardOpenOption.WRITE,StandardOpenOption.READ,StandardOpenOption.CREATE_NEW);
-    &#x2F;&#x2F; 创建内存映射文件
+    // 创建内存映射文件
     MappedByteBuffer inMapBuffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
     MappedByteBuffer outMapBuffer = outChannel.map(FileChannel.MapMode.READ_WRITE, 0, inChannel.size());
-    &#x2F;&#x2F; 直接对缓冲区进行数据的读写操作
+    // 直接对缓冲区进行数据的读写操作
     byte[] dst = new byte[inMapBuffer.limit()];
     inMapBuffer.get(dst);
     outMapBuffer.put(dst);
-    &#x2F;&#x2F; 释放资源
+    // 释放资源
     inChannel.close();
     outChannel.close();
     long end = System.currentTimeMillis();
-    System.out.println(&quot;耗费时间:&quot; + (end - start)); &#x2F;&#x2F; 2854
+    System.out.println(&quot;耗费时间:&quot; + (end - start)); // 2854
 }
 </code></pre>
-<h3 id="5-3-通道之间的数据传输-直接缓冲区"><a href="#5-3-通道之间的数据传输-直接缓冲区" class="headerlink" title="5.3 通道之间的数据传输(直接缓冲区)"></a>5.3 通道之间的数据传输(直接缓冲区)</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<h3 id="5-3-通道之间的数据传输-直接缓冲区"><a href="#5-3-通道之间的数据传输-直接缓冲区" class="headerlink" title="5.3 通道之间的数据传输(直接缓冲区)"></a>5.3 通道之间的数据传输(直接缓冲区)</h3><pre><code class="java">@Test
 public void test3 ()throws Exception{
     long start = System.currentTimeMillis();
     FileChannel inChannel = FileChannel.open(Paths.get(&quot;D:\\bigFile.mp4&quot;), StandardOpenOption.READ);
     FileChannel outChannel = FileChannel.open(Paths.get(&quot;D:\\test3.mp4&quot;),StandardOpenOption.WRITE,StandardOpenOption.READ,StandardOpenOption.CREATE);
 
-    &#x2F;&#x2F; 将数据源从源通道传输到另一通道
-    &#x2F;&#x2F;        inChannel.transferTo(0,inChannel.size(),outChannel);
+    // 将数据源从源通道传输到另一通道
+    //        inChannel.transferTo(0,inChannel.size(),outChannel);
     outChannel.transferFrom(inChannel,0,inChannel.size());
 
     inChannel.close();
@@ -736,30 +728,28 @@ public void test3 ()throws Exception{
 <li>分散读取(Scattering Reads)：指将通道中的读取的数据分散到多个缓冲区中；</li>
 <li>聚集写入(Gathering Writes)：将多个缓冲区中的数据聚集到通道中。</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void test4() throws Exception{
-    &#x2F;&#x2F; 一、分散读取
+    // 一、分散读取
     RandomAccessFile file = new RandomAccessFile(&quot;D:\\1.md&quot;, &quot;rw&quot;);
-    &#x2F;&#x2F; 1. 获取通道
+    // 1. 获取通道
     FileChannel channel1 = file.getChannel();
-    &#x2F;&#x2F; 2. 分配指定大小的缓冲区
+    // 2. 分配指定大小的缓冲区
     ByteBuffer buf1 = ByteBuffer.allocate(250);
     ByteBuffer buf2 = ByteBuffer.allocate(1024);
-    &#x2F;&#x2F; 3. 分散读取
+    // 3. 分散读取
     ByteBuffer[] bufs = {buf1,buf2};
     channel1.read(bufs);
-    &#x2F;&#x2F; 4. 将所有缓冲区切换至读模式
+    // 4. 将所有缓冲区切换至读模式
     for (ByteBuffer byteBuffer:bufs){
         byteBuffer.flip();
     }
-    &#x2F;&#x2F; 5. 打印两个缓冲区中的数据内容
+    // 5. 打印两个缓冲区中的数据内容
     System.out.println(new String(bufs[0].array(),0,bufs[0].limit()));
     System.out.println(&quot;===============================&quot;);
     System.out.println(new String(bufs[1].array(),0,bufs[1].limit()));
 
-    &#x2F;&#x2F; 二、聚集写入
+    // 二、聚集写入
     RandomAccessFile rw = new RandomAccessFile(&quot;D:\\2.md&quot;, &quot;rw&quot;);
     FileChannel channel2 = rw.getChannel();
     channel2.write(bufs);
@@ -767,31 +757,29 @@ public void test4() throws Exception{
 }
 </code></pre>
 <h2 id="7-字符集Charset"><a href="#7-字符集Charset" class="headerlink" title="7. 字符集Charset"></a>7. 字符集Charset</h2><p>Charset字符集对象可以编解码数据，同类型编码的数据只能由同类型解码器解码。</p>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">@Test
+<pre><code class="java">@Test
 public void TestCharset() throws Exception{
-    &#x2F;&#x2F; 打印所有字符集
-    &#x2F;&#x2F;        SortedMap&lt;String, Charset&gt; map = Charset.availableCharsets();
-    &#x2F;&#x2F;        Set&lt;Map.Entry&lt;String, Charset&gt;&gt; set = map.entrySet();
-    &#x2F;&#x2F;        for ( Map.Entry&lt;String, Charset&gt; entry : set) {
-    &#x2F;&#x2F;            System.out.println(entry.getKey()+&quot;=&quot;+entry.getValue());
-    &#x2F;&#x2F;        }
+    // 打印所有字符集
+    //        SortedMap&lt;String, Charset&gt; map = Charset.availableCharsets();
+    //        Set&lt;Map.Entry&lt;String, Charset&gt;&gt; set = map.entrySet();
+    //        for ( Map.Entry&lt;String, Charset&gt; entry : set) {
+    //            System.out.println(entry.getKey()+&quot;=&quot;+entry.getValue());
+    //        }
     Charset cs1 = Charset.forName(&quot;GBK&quot;);
-    &#x2F;&#x2F; 获取编解码器
+    // 获取编解码器
     CharsetEncoder ce = cs1.newEncoder();
     CharsetDecoder cd = cs1.newDecoder();
-    &#x2F;&#x2F; 获取字符缓冲区
+    // 获取字符缓冲区
     CharBuffer cBuf = CharBuffer.allocate(1024);
     cBuf.put(&quot;字符串编解码&quot;);
     cBuf.flip();
-    &#x2F;&#x2F; 编码
+    // 编码
     ByteBuffer bBuf = ce.encode(cBuf);
     for (int i = 0; i &lt; 12; i++) {
         System.out.println(bBuf.get());
     }
     bBuf.flip();
-    &#x2F;&#x2F; 解码
+    // 解码
     CharBuffer cb = cd.decode(bBuf);
     System.out.println(cb.toString());
     System.out.println(&quot;========GBK编码，UTF-8解码========&quot;);
@@ -930,29 +918,27 @@ public void TestCharset() throws Exception{
 <li>缓冲区：负责数据的存取</li>
 <li>选择器(Selector)：是SelectableChannel的多路复用器，用于监控SelectableChannel的IO状况</li>
 </ul>
-<h3 id="9-1-阻塞式简单案例"><a href="#9-1-阻塞式简单案例" class="headerlink" title="9.1 阻塞式简单案例"></a>9.1 阻塞式简单案例</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class TestBlockingNIO {
-    &#x2F;&#x2F; 客户端
+<h3 id="9-1-阻塞式简单案例"><a href="#9-1-阻塞式简单案例" class="headerlink" title="9.1 阻塞式简单案例"></a>9.1 阻塞式简单案例</h3><pre><code class="java">public class TestBlockingNIO {
+    // 客户端
     @Test
     public void client() throws Exception{
-        &#x2F;&#x2F; 1. 获取网络通道
+        // 1. 获取网络通道
         SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress(&quot;127.0.0.1&quot;,8899));
-        &#x2F;&#x2F; 2. 打开本地文件通道
+        // 2. 打开本地文件通道
         FileChannel fileChannel = FileChannel.open(Paths.get(&quot;D:\\IDEADemos\\Interview\\src\\Java基础\\Nio\\1.jpg&quot;), StandardOpenOption.READ);
-        &#x2F;&#x2F; 3. 分配缓冲区
+        // 3. 分配缓冲区
         ByteBuffer buffer = ByteBuffer.allocate(1024);
-        &#x2F;&#x2F; 4. 读取本地文件，通过网络通道发送到服务端
+        // 4. 读取本地文件，通过网络通道发送到服务端
         while (fileChannel.read(buffer) != -1){
             buffer.flip();
             socketChannel.write(buffer);
             buffer.clear();
         }
 
-        &#x2F;&#x2F; 传统IO模式下，传输完毕,需手动关闭连接
+        // 传统IO模式下，传输完毕,需手动关闭连接
         socketChannel.shutdownOutput();
 
-        &#x2F;&#x2F; 5. 接收来自服务器端的反馈
+        // 5. 接收来自服务器端的反馈
         int len = 0;
         while ((len = socketChannel.read(buffer)) != -1){
             buffer.flip();
@@ -960,38 +946,38 @@ public void TestCharset() throws Exception{
             buffer.clear();
         }
 
-        &#x2F;&#x2F; 6. 释放资源
+        // 6. 释放资源
         fileChannel.close();
         socketChannel.close();
     }
 
-    &#x2F;&#x2F; 服务端
+    // 服务端
     @Test
     public void server() throws Exception{
         System.out.println(&quot;服务器端已启动...监听中&quot;);
-        &#x2F;&#x2F; 1. 打开服务器网络通道
+        // 1. 打开服务器网络通道
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-        &#x2F;&#x2F; 2. 绑定端口号
+        // 2. 绑定端口号
         serverSocketChannel.bind(new InetSocketAddress(8899));
-        &#x2F;&#x2F; 3. 获取客户端连接的通道
+        // 3. 获取客户端连接的通道
         SocketChannel socketChannel = serverSocketChannel.accept();
-        &#x2F;&#x2F; 4. 打开本地文件通道
+        // 4. 打开本地文件通道
         FileChannel fileChannel = FileChannel.open(Paths.get(&quot;D:\\IDEADemos\\Interview\\src\\Java基础\\Nio\\4.jpg&quot;), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
-        &#x2F;&#x2F; 5. 分配缓冲区
+        // 5. 分配缓冲区
         ByteBuffer buffer = ByteBuffer.allocate(1024);
-        &#x2F;&#x2F; 6. 接收客户端的数据，并保存到本地
+        // 6. 接收客户端的数据，并保存到本地
         while (socketChannel.read(buffer) != -1){
             buffer.flip();
             fileChannel.write(buffer);
             buffer.clear();
         }
 
-        &#x2F;&#x2F; 7. 发送反馈给客户端
+        // 7. 发送反馈给客户端
         buffer.put(&quot;服务器接收数据成功！&quot;.getBytes());
         buffer.flip();
         socketChannel.write(buffer);
 
-        &#x2F;&#x2F; 8. 释放资源
+        // 8. 释放资源
         fileChannel.close();
         socketChannel.close();
         serverSocketChannel.close();
@@ -1002,20 +988,18 @@ public void TestCharset() throws Exception{
 <h2 id="10-非阻塞式"><a href="#10-非阻塞式" class="headerlink" title="10. 非阻塞式"></a>10. 非阻塞式</h2><ul>
 <li>Java NIO Demo如下：</li>
 </ul>
+<pre><code class="java">public class TestNonBlockingNIO {
 
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class TestNonBlockingNIO {
-
-    &#x2F;&#x2F; 客户端
+    // 客户端
     @Test
     public void client() throws Exception{
-        &#x2F;&#x2F; 1. 获取网络通道
+        // 1. 获取网络通道
         SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress(&quot;127.0.0.1&quot;,8888));
-        &#x2F;&#x2F; 2. 切换到非阻塞模式
+        // 2. 切换到非阻塞模式
         socketChannel.configureBlocking(false);
-        &#x2F;&#x2F; 3. 分配缓冲区
+        // 3. 分配缓冲区
         ByteBuffer buffer = ByteBuffer.allocate(1024);
-        &#x2F;&#x2F; 4. 发送数据
+        // 4. 发送数据
         Scanner scan = new Scanner(System.in);
         while (scan.hasNext()){
             String str = scan.next();
@@ -1027,39 +1011,39 @@ public void TestCharset() throws Exception{
         socketChannel.close();
     }
 
-    &#x2F;&#x2F; 服务端
+    // 服务端
     @Test
     public void server() throws Exception{
         System.out.println(&quot;服务器端已启动...监听中&quot;);
-        &#x2F;&#x2F; 1. 打开服务器网络通道
+        // 1. 打开服务器网络通道
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-        &#x2F;&#x2F; 2. 切换到非阻塞模式
+        // 2. 切换到非阻塞模式
         serverSocketChannel.configureBlocking(false);
-        &#x2F;&#x2F; 3. 绑定端口号
+        // 3. 绑定端口号
         serverSocketChannel.bind(new InetSocketAddress(8888));
-        &#x2F;&#x2F; 4. 获取选择器
+        // 4. 获取选择器
         Selector selector = Selector.open();
-        &#x2F;&#x2F; 5. 将通道注册到选择器里，并指定“监听接收事件”
+        // 5. 将通道注册到选择器里，并指定“监听接收事件”
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-        &#x2F;&#x2F; 6. 轮询的获取选择器中已经“准备就绪”的事件
+        // 6. 轮询的获取选择器中已经“准备就绪”的事件
         while (selector.select() &gt; 0){
-            &#x2F;&#x2F; 7. 获取选择器中所有的“准备就绪”事件迭代器
+            // 7. 获取选择器中所有的“准备就绪”事件迭代器
             Iterator&lt;SelectionKey&gt; iterator = selector.selectedKeys().iterator();
             while (iterator.hasNext()){
-                &#x2F;&#x2F; 8. 获取准备就绪的事件
+                // 8. 获取准备就绪的事件
                 SelectionKey key = iterator.next();
-                &#x2F;&#x2F; 9. 判断具体是什么事件准备就绪
+                // 9. 判断具体是什么事件准备就绪
                 if (key.isAcceptable()){
-                    &#x2F;&#x2F; 10. 若是“接收就绪”，则获取客户端连接
+                    // 10. 若是“接收就绪”，则获取客户端连接
                     SocketChannel socketChannel = serverSocketChannel.accept();
-                    &#x2F;&#x2F; 11. 将客户端连接通道也切换为非阻塞模式
+                    // 11. 将客户端连接通道也切换为非阻塞模式
                     socketChannel.configureBlocking(false);
-                    &#x2F;&#x2F; 12. 将该通道注册到选择器中
+                    // 12. 将该通道注册到选择器中
                     socketChannel.register(selector,SelectionKey.OP_READ);
                 }else if (key.isReadable()){
-                    &#x2F;&#x2F; 13. 获取当前选择器上“读就绪”状态的通道
+                    // 13. 获取当前选择器上“读就绪”状态的通道
                     SocketChannel sChannel = (SocketChannel) key.channel();
-                    &#x2F;&#x2F; 14. 分配缓冲区
+                    // 14. 分配缓冲区
                     ByteBuffer buffer = ByteBuffer.allocate(1024);
                     int len = 0;
                     while ((len = sChannel.read(buffer)) &gt; 0){
@@ -1068,7 +1052,7 @@ public void TestCharset() throws Exception{
                         buffer.clear();
                     }
                 }
-                &#x2F;&#x2F; 15. 取消已使用的选择键
+                // 15. 取消已使用的选择键
                 iterator.remove();
             }
         }
@@ -1078,9 +1062,7 @@ public void TestCharset() throws Exception{
 </code></pre>
 <h3 id="10-1-关于IDEA的Junit环境下无法使用Scanner"><a href="#10-1-关于IDEA的Junit环境下无法使用Scanner" class="headerlink" title="10.1 关于IDEA的Junit环境下无法使用Scanner"></a>10.1 关于IDEA的Junit环境下无法使用Scanner</h3><p>打开<code>Help</code>-&gt;<code>Edit Custom VM Options...</code>，在最后加上一句：<code>-Deditable.java.test.console=true</code>，然后重启IDEA即可。</p>
 <h2 id="11-DatagramChannel"><a href="#11-DatagramChannel" class="headerlink" title="11. DatagramChannel"></a>11. DatagramChannel</h2><p>lJava NIO中的DatagramChannel是一个能收发UDP包的通道。</p>
-<h3 id="11-1-简单案例"><a href="#11-1-简单案例" class="headerlink" title="11.1 简单案例"></a>11.1 简单案例</h3>
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class TestNonBlockingNIO2 {
+<h3 id="11-1-简单案例"><a href="#11-1-简单案例" class="headerlink" title="11.1 简单案例"></a>11.1 简单案例</h3><pre><code class="java">public class TestNonBlockingNIO2 {
 
     @Test
     public void send() throws Exception{
@@ -1121,6 +1103,7 @@ public void TestCharset() throws Exception{
         }
     }
 }
+
 </code></pre>
 <h2 id="12-Pipe管道"><a href="#12-Pipe管道" class="headerlink" title="12. Pipe管道"></a>12. Pipe管道</h2><p>lJava NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通道和一个sink通道。数据会被写到sink通道，从source通道读取。</p>
 <p><img src="http://yanxuan.nosdn.127.net/9f9acc38a52ad45ebe1b9abb4b4078d2.png" alt="Pipe"></p>
@@ -1128,27 +1111,25 @@ public void TestCharset() throws Exception{
 <li>通过<code>pipe.sink()</code>返回一个入口通道，写数据；</li>
 <li>从管道读取数据，需要访问source通道，使用<code>pipe.source()</code>；</li>
 </ul>
-
-<!-- Has Prism -->
-<pre class="line-numbers" style=""><code class="language-java">public class TestPipe {
+<pre><code class="java">public class TestPipe {
     public static void main(String[] args) throws Exception{
-        &#x2F;&#x2F; 1. 获取管道
+        // 1. 获取管道
         Pipe pipe = Pipe.open();
-        &#x2F;&#x2F; 2. 分配缓冲区
+        // 2. 分配缓冲区
         ByteBuffer buf = ByteBuffer.allocate(1024);
-        &#x2F;&#x2F; 3. 将缓冲区中的数据写入管道
+        // 3. 将缓冲区中的数据写入管道
         Pipe.SinkChannel sink = pipe.sink();
         buf.put(&quot;通过单向管道发送数据&quot;.getBytes());
         buf.flip();
         sink.write(buf);
 
-        &#x2F;&#x2F; 4. 读取缓冲区中的数据
+        // 4. 读取缓冲区中的数据
         Pipe.SourceChannel source = pipe.source();
         buf.flip();
         int len = source.read(buf);
         System.out.println(new String(buf.array(),0,len));
 
-        &#x2F;&#x2F; 5. 释放资源
+        // 5. 释放资源
         source.close();
         sink.close();
     }
@@ -1433,7 +1414,7 @@ public void TestCharset() throws Exception{
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">362.4k</span>
+                <span class="white-color">352.3k</span>
             
 
             
